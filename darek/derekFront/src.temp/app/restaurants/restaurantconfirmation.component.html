@@ -1,0 +1,36 @@
+<app-headerowner></app-headerowner>
+<div class="rightMenu1 col-lg-9 col-md-9 col-sm-9">
+	<alert></alert>
+	<div class="profile" style="z-index: 1;position: absolute;width: 60%;">
+		<form>
+			<div class="settings-heading">
+				<span class="settings-title ng-binding">Please validate your email address </span>
+				<a class="btn btn-default pull-right" [routerLink]="['/owner/basic-detail']">Next</a>
+			</div>
+			<div class="secondDiv">
+				<div class="settings-content">
+					<div class="settings-content-left settings-content-left-email">
+						<div>A moment ago we have sent you an email to <strong class="user-email">{{user.email}}</strong>.<br><br>Please click on the link in order to validate your email address.
+						</div>
+						<div class="resend-email">
+							<a class="btn btn-primary btn-resend-email ng-binding" (click)="accountConfirm()">Resend activation email</a>
+							<span class="icon-checkmark js-checkmark"></span>
+						</div>
+					</div>
+					<div class="settings-content-right">
+						<div class="email-status status-box status-happy">
+							<div class="status-heading ng-binding">Status</div>
+							<div class="status-smile"></div>
+							<div *ngIf="user.emailstatus">
+								<div class="status-info ng-binding">Valid</div>
+							</div>
+							<div *ngIf="!user.emailstatus">
+								<div class="status-info ng-binding">Invalid</div>
+							</div>
+						</div>
+					</div>
+					<div class="clearfix"></div>
+				</div>
+			</div>
+	</form>
+</div>

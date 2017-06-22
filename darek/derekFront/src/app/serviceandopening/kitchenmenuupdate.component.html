@@ -1,0 +1,19 @@
+<app-headerowner></app-headerowner>
+<div class="rightMenu col-lg-9 col-md-9 col-sm-9">
+	<alert></alert>
+	<div class="profile" id="Menu18">
+		<form [formGroup]="menuUpdateModel" (ngSubmit)="userUpdate()">
+			<div class="firstDiv">
+				<span class="">Menu Add</span>
+				<input type="submit" class="btn" value="Next" style="float: right;" [disabled]="!menuUpdateModel.valid">
+			</div>
+
+			<div class="secondDiv">
+				<div>
+					<label for="fname">Name: </label>
+					<input type="text" formControlName="name" style="float: right;">
+				</div>
+			</div>
+		</form>
+	</div>
+</div>

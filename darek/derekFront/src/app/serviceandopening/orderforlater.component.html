@@ -1,0 +1,98 @@
+<app-headerowner></app-headerowner>
+<div class="rightMenu1 col-lg-9 col-md-9 col-sm-9">
+    <alert></alert>
+    <div class="screen screen-form js-screen-address-form ng-scope" id="Menu18">
+        <div class="settings-panel">
+            <form [formGroup]="orderAddModel" (ngSubmit)="orderDetailUpdate()" >
+                <div class="settings-heading">
+                    <span class="settings-title ng-binding">Accept Orders for Later</span>
+                    <input type="submit" class="btn btn-next ng-binding" value="Next">
+                </div>
+
+                <div class="settings-content">
+                    <div class="row">
+                        <div class="col-xs-7">
+                            <span class="ng-binding">Allow clients to request a specific fulfillment time:</span>
+                        </div>
+                        <div class="col-xs-5">
+                            <div class="btn-group" data-toggle="buttons">
+                                <label class="btn btn-info2" [ngStyle]="styleforpass1" (click)="orderForChange(true)">
+                                    <input type="radio" id="optionsRadios2" value="true" checked="" >Yes</label>
+                                <label class="btn btn-info2 btn_red" [ngStyle]="styleforpass2" (click)="orderForChange(false)">
+                                    <input type="radio" id="optionsRadios2" value="false" >No</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="collapse" id="collapseNo" aria-expanded="true" [ngStyle]="stylefordisplay2">
+                        <div class="order-later-teaser glf-slide">
+                            <div class="teaser-text">
+                                <h4>Get more sales outside opening hours</h4>
+                            </div>
+                            <div class="teaser-image">
+                                <div class="teaser-image-gradient">
+                                	<img src="../../assets/images/order_later_client.png" width="auto" height="auto">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="collapse in" id="collapseYes" aria-expanded="true" [ngStyle]="stylefordisplay1">
+                        <div class="row marginleftzero"><a class="btn btn-primary collapsed" role="button" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample">How this works outside opening hours</a>
+                            <div class="collapse" id="collapseExample" aria-expanded="false" style="height: 0px;">
+                                <div class="well bgwhite">
+                                    <div class="ng-binding">To maximise your sales, clients can "order for later" at any time, also when your restaurant is closed.</div>
+                                    <br>
+                                    <div class="ng-binding">So, orders placed outside opening hours will queue up for acceptance.</div>
+                                    <br>
+                                    <div class="ng-binding">This way you have the chance to accept these pending orders as soon as your restaurant opens.</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row marginleftzero"><a class="btn btn-primary" role="button" data-toggle="collapse" href="#collapseExample1" aria-expanded="true" aria-controls="collapseExample1">Settings for pickup</a>
+                            <div class="collapse in" id="collapseExample1" aria-expanded="true">
+                                <div class="well bgwhite">
+                                    <div class="row">
+                                        <div class="col-xs-12"><strong class="ng-binding">I allow clients to order for a later time, but ...</strong></div>
+                                    </div>
+                                    <div class="row tab-row">
+                                        <div class="col-xs-6"><span class="ng-binding">The order placement has<br>to be at least:</span></div>
+                                        <div class="col-xs-6">
+                                            <div class="input-group">
+                                                <input type="text" placeholder="0" class="form-control ng-pristine ng-valid ng-scope ng-not-empty ng-touched" formControlName="mintime" value="50"><span class="input-group-addon ng-binding">min</span></div><span class="ng-binding">in advance</span></div>
+                                    </div>
+                                    <div class="row tab-row">
+                                        <div class="col-xs-6"><span class="ng-binding">And the order placement cannot come more than:</span></div>
+                                        <div class="col-xs-6">
+                                            <div class="input-group">
+                                                <input type="text" placeholder="0" class="form-control ng-pristine ng-valid ng-scope ng-not-empty ng-touched" formControlName="mindate"  value="5"><span class="input-group-addon ng-binding">days</span></div><span class="ng-binding">in advance</span></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row marginleftzero"><a class="btn btn-primary" role="button" data-toggle="collapse" href="#collapseExample2" aria-expanded="true" aria-controls="collapseExample2">Settings for delivery</a>
+                            <div class="collapse in" id="collapseExample2" aria-expanded="true">
+                                <div class="well bgwhite">
+                                    <div class="row">
+                                        <div class="col-xs-12"><strong class="ng-binding">I allow clients to order for a later time, but ...</strong></div>
+                                    </div>
+                                    <div class="row tab-row">
+                                        <div class="col-xs-6"><span class="ng-binding">The order placement has<br>to be at least:</span></div>
+                                        <div class="col-xs-6">
+                                            <div class="input-group">
+                                                <input type="text" placeholder="0" class="form-control ng-pristine ng-untouched ng-valid ng-scope ng-not-empty" formControlName="dmintime" value="50"><span class="input-group-addon ng-binding">min</span></div><span class="ng-binding">in advance</span></div>
+                                    </div>
+                                    <div class="row tab-row">
+                                        <div class="col-xs-6"><span class="ng-binding">And the order placement cannot come more than:</span></div>
+                                        <div class="col-xs-6">
+                                            <div class="input-group">
+                                                <input type="text" placeholder="0" class="form-control ng-pristine ng-untouched ng-valid ng-scope ng-not-empty" formControlName="dmindate"value="2"><span class="input-group-addon ng-binding">days</span></div><span class="ng-binding">in advance</span></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+            </form>
+        </div>
+    </div>   
+</div>

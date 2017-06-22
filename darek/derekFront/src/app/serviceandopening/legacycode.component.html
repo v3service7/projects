@@ -1,0 +1,601 @@
+<div class="container-fluid topHeading">
+    Add the ordering button to your <br> {{restaurants.name}} website
+</div>
+
+<div class="container section1">
+    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 leftOfSection1">
+        <h2>1. Copy this personalized HTML code</h2>
+        <div>
+	        <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+	            <img src="/assets/images/icon-lightbulb.png">
+	        </div>
+	        <div class="col-lg-11 col-md-11 col-sm-11 col-xs-11">
+	            You can customize the look and feel the way you like by adding, removing or changing the "class" or "style" attributes inside the &lt;span&gt; tag.
+	        	<a href="#">Read here how.</a>
+	        </div>
+	    </div>
+    </div>
+
+    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 rightOfSection1">
+    	<div class="instruction">
+    		<div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">1</div>
+			<div class="col-lg-11 col-md-11 col-sm-11 col-xs-11">
+				&lt; !-- If you would like to customize the button, remove or change the "class" attribute inside the &lt; span &gt; tag -- &gt;
+			</div>
+		</div>
+		<div class="instruction">
+			<div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">2</div>
+			<div class="col-lg-11 col-md-11 col-sm-11 col-xs-11">
+			    <div>
+                    <span class="blue">&lt; a</span>
+                    <span class="green">class=</span>
+                    <span class="red">"button"</span>
+                    <span class="green">id=</span>
+                    <span class="red">"{{resId}}"</span>
+                    <span  class="green">data-height=</span>
+                    <span class="red">"90%"</span>
+                    <span class="blue"> &gt;</span>
+                    Online Orders {{restaurants.name}}
+                    <span class="blue"> &lt;/a&gt;</span>
+                </div>
+			</div>
+		</div>
+		<div class="instruction">
+			<div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">3</div>
+			<div class="col-lg-11 col-md-11 col-sm-11 col-xs-11">
+                <span class="blue">&lt; div</span>
+                <span class="green">id=</span>
+                <span class="red">"myModal"</span>
+                <span class="blue">&lt; iframe</span>
+                <span class="green">frameborder=</span>
+                <span class="red">"0" </span>
+                <span class="blue"> &gt;</span>                    
+                <span class="blue"> &lt;/iframe &gt;</span>
+                <span class="blue"> &lt;/div&gt;</span>
+			</div>
+		</div>
+		<div class="instruction">
+			<div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">4</div>
+			<div class="col-lg-11 col-md-11 col-sm-11 col-xs-11">
+				<span class="blue">&lt; script</span>
+				<span class="green">src=</span>
+				<span class="red">{{url.frontUrl}}"/javascripts/gff.js"</span>
+				<span class="blue"> &gt;</span>
+				<span class="blue"> &lt;/script&gt;</span>
+			</div>
+		</div>
+    </div>
+</div>
+
+<div class="container-fluid section2">
+    <div class="container innerSection2" [hidden]="!showDom.default" >
+        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+            <img src="/assets/images/mockup-restaurant-website-instructions_8e09257d_.png"  alt="Step 2 - Paste the code at the top of your main page "/>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+            <h2>2. Paste it at the todfghjklp of your main page</h2>
+            <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+                <img src="/assets/images/icon-lightbulb.png">
+            </div>
+            <div class="col-lg-11 col-md-11 col-sm-11 col-xs-11">
+                If your site has multiple pages make sure that:
+                <ul style="line-height: 2;">
+                    <li>You add the button to the menu & contact page</li>
+                    <li>You add the button in the navigation bar</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+	<div class="container innerSection2" [hidden]="!showDom.wordpress">
+        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+            <img src="/assets/images/ordering-button-code-to-wordpress-page_6a69f923_.jpg"  alt="Step 2 - Paste the code to your page "/>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+            <h2>2. Paste the code to your page</h2>
+            <div class="">
+                <ul style="line-height: 2;">
+                    <li>In your wordpress Admin, go to the page where you want to place the order button</li>
+                    <li>Switch to text editing mode</li>
+                    <li>Paste the code</li>
+                    <li>Update the page to publish.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+	<div class="container innerSection2" [hidden]="!showDom.weebly">
+        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+            <img src="/assets/images/add-embed-code--to-weebly_b795ec89_.png"  alt="Step 2 - Paste the code to your page "/>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+            <h2>2. Drag & drop an Embed Code element</h2>
+            <div class="">
+                <ul style="line-height: 2;">
+                    <li>Log in to your Weebly account</li>
+                    <li>Decide on where to place the order button</li>
+                    <li>Drag an Embed Code element and drop it where you want your button to appear</li>
+                </ul>
+                <div>
+                    <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+                        <img src="/assets/images/icon-lightbulb.png">
+                    </div>
+                    <div class="col-lg-11 col-md-11 col-sm-11 col-xs-11">
+                        The more visible the better - make sure your button is high up in the page, so your customers can easily see it.<br><br>
+                        You cannot embed code into the Weebly template headers, so try to place the button right after the fixed elements of your theme.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+	<div class="container innerSection2" [hidden]="!showDom.wix">
+        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+            <img src="/assets/images/wix-screenshot1_fbe20251_.png" height="100%" width="100%"  alt="Step 2 - Paste the code to your page "/>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+            <h2>2. Add an HTML Code container to your page</h2>
+            <div class="">
+                <ul style="line-height: 2;">
+                    <li>Log in to your WIX website</li>
+                    <li>Go to the editor's left menu and click Add --> More --> HTML Code. A new grey container will appear on the screen.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+	<div class="container innerSection2" [hidden]="!showDom.squarespace">
+        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+            <img src="/assets/images/screenshot-placement-of-ordering-button-squarespace_0a69d979_.png" height="100%" width="100%"  alt="Step 2 - Paste the code to your page "/>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+            <h2>2. Select the page where the button should appear</h2>
+            <div class="">
+                <ul style="line-height: 2;">
+                    <li>Log in to your Squarespace account</li>
+                    <li>Decide on where to place the order button</li>
+                    <li>Insert a "Code" content block</li>
+                </ul>
+                <div>
+                    Note: You can add content blocks only in the Page Content section. Make sure you place the button as high as possible, preferably above the fold.
+                </div>
+            </div>
+        </div>
+    </div>
+	<div class="container innerSection2" [hidden]="!showDom.drupal">
+        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+            <img src="/assets/images/screenshot-placement-of-ordering-button-drupal_933e92f2_.png" height="100%" width="100%"  alt="Step 2 - Paste the code to your page "/>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+            <h2>2. Choose the placement of the ordering button</h2>
+            <div class="">
+                <ul style="line-height: 2;">
+                    <li>Log in to your Drupal account</li>
+                    <li>Decide where you want to have the ordering button displayed. Create a new block or simply update an existing one.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+	<div class="container innerSection2" [hidden]="!showDom.joomla">
+        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+            <img src="/assets/images/screenshot-placement-of-ordering-button-joomla_9a3b74c0_.png" height="100%" width="100%"  alt="Step 2 - Paste the code to your page "/>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+            <h2 style="padding-bottom: 20px;">2. Check your Joomla settings</h2>
+            <div class="">
+                <ul style="line-height: 2;">
+                    <li>Log in to your Joomla account and go to your website</li>
+                    <li>In the top navigation, go to System ? Global Configuration</li>
+                    <li>Next to Default Editor, make sure you have Editor - CodeMirror selected</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+	<div class="container innerSection2" [hidden]="!showDom.jimdo">
+        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+            <img src="/assets/images/jimdo-screenshot1_4915a991_.png" height="100%" width="100%"  alt="Step 2 - Paste the code to your page "/>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+            <h2 style="padding-bottom: 20px;">2. Decide where the button should appear</h2>
+            <div class="">
+                <ul style="line-height: 2;">
+                    <li>Log in to your Jimdo account</li>
+                    <li>Decide on where to place the order button</li>
+                    <li>Click on Add element and then Additional elements to see the extended list</li>
+                    <li>Select Widget / HTML</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container section3">
+	<div class="innerSection3" [hidden]="!showDom.wordpress">
+	    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+	        <h2 style="padding-bottom: 20px;">3. Check the end result</h2>
+	        <div class="">
+	            <ul style="line-height: 2;">
+	                <li>If all done right, the button should look like in this example</li>
+	            </ul>
+	            <div>
+	                <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+	                    <img src="/assets/images/icon-lightbulb.png">
+	                </div>
+	                <div class="col-lg-11 col-md-11 col-sm-11 col-xs-11" style="color: #666;">
+	                    If your website has multiple pages, we recommend you to add the See MENU &amp; Order button to other pages as well, like the Contact page.<br><br>
+	                </div>
+	            </div>
+	            <div>
+	                You can customize the look and feel of the button the way you like -
+	                <a href="#">read here how.</a>
+	            </div>
+	        </div>
+	    </div>
+	    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+	        <div style="">
+	            <img class="eg2" src="/assets/images/screenshot-demo-restaurant-with-button.jpg" alt="Step 2 - Paste the code to your page ">
+	        </div>
+	    </div>
+	</div>
+	<div class="innerSection3" [hidden]="!showDom.weebly">
+	    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+	        <h2 style="padding-bottom: 20px;">3. Check the end result</h2>
+	        <div class="">
+	            <ul style="line-height: 2;">
+	                <li>If all done right, the button should look like in this example</li>
+	            </ul>
+	            <div>
+	                <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+	                    <img src="/assets/images/icon-lightbulb.png">
+	                </div>
+	                <div class="col-lg-11 col-md-11 col-sm-11 col-xs-11" style="color: #666;">
+	                    If your website has multiple pages, we recommend you to add the See MENU &amp; Order button to other pages as well, like the Contact page.<br><br>
+	                </div>
+	            </div>
+	            <div>
+	                You can customize the look and feel of the button the way you like -
+	                <a href="#">read here how.</a>
+	            </div>
+	        </div>
+	    </div>
+	    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+	        <div style="">
+	            <img class="eg2" src="/assets/images/screenshot-demo-restaurant-with-button.jpg" alt="Step 2 - Paste the code to your page ">
+	        </div>
+	    </div>
+	</div>
+	<div class="innerSection3" [hidden]="!showDom.wix">
+	    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+	        <h2 style="padding-bottom: 20px;">3. Check the end result</h2>
+	        <div class="">
+	            <ul style="line-height: 2;">
+	                <li>If all done right, the button should look like in this example</li>
+	            </ul>
+	            <div>
+	                <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+	                    <img src="/assets/images/icon-lightbulb.png">
+	                </div>
+	                <div class="col-lg-11 col-md-11 col-sm-11 col-xs-11" style="color: #666;">
+	                    If your website has multiple pages, we recommend you to add the See MENU &amp; Order button to other pages as well, like the Contact page.<br><br>
+	                </div>
+	            </div>
+	            <div>
+	                You can customize the look and feel of the button the way you like -
+	                <a href="#">read here how.</a>
+	            </div>
+	        </div>
+	    </div>
+	    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+	        <div style="">
+	            <img class="eg2" src="/assets/images/screenshot-demo-restaurant-with-button.jpg" alt="Step 2 - Paste the code to your page ">
+	        </div>
+	    </div>
+	</div>
+	<div class="innerSection3" [hidden]="!showDom.squarespace">
+	    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+	        <h2 style="padding-bottom: 20px;">3. Check the end result</h2>
+	        <div class="">
+	            <ul style="line-height: 2;">
+	                <li>If all done right, the button should look like in this example</li>
+	            </ul>
+	            <div>
+	                <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+	                    <img src="/assets/images/icon-lightbulb.png">
+	                </div>
+	                <div class="col-lg-11 col-md-11 col-sm-11 col-xs-11" style="color: #666;">
+	                    If your website has multiple pages, we recommend you to add the See MENU &amp; Order button to other pages as well, like the Contact page.<br><br>
+	                </div>
+	            </div>
+	            <div>
+	                You can customize the look and feel of the button the way you like -
+	                <a href="#">read here how.</a>
+	            </div>
+	        </div>
+	    </div>
+	    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+	        <div style="">
+	            <img class="eg2" src="/assets/images/screenshot-demo-restaurant-with-button.jpg" alt="Step 2 - Paste the code to your page ">
+	        </div>
+	    </div>
+	</div>
+	<div class="innerSection3" [hidden]="!showDom.drupal">
+	    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+	        <h2 style="padding-bottom: 20px;">3. Check the end result</h2>
+	        <div class="">
+	            <ul style="line-height: 2;">
+	                <li>If all done right, the button should look like in this example</li>
+	            </ul>
+	            <div>
+	                <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+	                    <img src="/assets/images/icon-lightbulb.png">
+	                </div>
+	                <div class="col-lg-11 col-md-11 col-sm-11 col-xs-11" style="color: #666;">
+	                    If your website has multiple pages, we recommend you to add the See MENU &amp; Order button to other pages as well, like the Contact page.<br><br>
+	                </div>
+	            </div>
+	            <div>
+	                You can customize the look and feel of the button the way you like -
+	                <a href="#">read here how.</a>
+	            </div>
+	        </div>
+	    </div>
+	    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+	        <div style="">
+	            <img class="eg2" src="/assets/images/screenshot-demo-restaurant-with-button.jpg" alt="Step 2 - Paste the code to your page ">
+	        </div>
+	    </div>
+	</div>
+	<div class="innerSection3" [hidden]="!showDom.joomla">
+	    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+	        <h2 style="padding-bottom: 20px;">3. Check the end result</h2>
+	        <div class="">
+	            <ul style="line-height: 2;">
+	                <li>If all done right, the button should look like in this example</li>
+	            </ul>
+	            <div>
+	                <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+	                    <img src="/assets/images/icon-lightbulb.png">
+	                </div>
+	                <div class="col-lg-11 col-md-11 col-sm-11 col-xs-11" style="color: #666;">
+	                    If your website has multiple pages, we recommend you to add the See MENU &amp; Order button to other pages as well, like the Contact page.<br><br>
+	                </div>
+	            </div>
+	            <div>
+	                You can customize the look and feel of the button the way you like -
+	                <a href="#">read here how.</a>
+	            </div>
+	        </div>
+	    </div>
+	    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+	        <div style="">
+	            <img class="eg2" src="/assets/images/screenshot-demo-restaurant-with-button.jpg" alt="Step 2 - Paste the code to your page ">
+	        </div>
+	    </div>
+	</div>
+	<div class="innerSection3" [hidden]="!showDom.jimdo">
+	    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+	        <h2 style="padding-bottom: 20px;">3. Check the end result</h2>
+	        <div class="">
+	            <ul style="line-height: 2;">
+	                <li>If all done right, the button should look like in this example</li>
+	            </ul>
+	            <div>
+	                <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+	                    <img src="/assets/images/icon-lightbulb.png">
+	                </div>
+	                <div class="col-lg-11 col-md-11 col-sm-11 col-xs-11" style="color: #666;">
+	                    If your website has multiple pages, we recommend you to add the See MENU &amp; Order button to other pages as well, like the Contact page.<br><br>
+	                </div>
+	            </div>
+	            <div>
+	                You can customize the look and feel of the button the way you like -
+	                <a href="#">read here how.</a>
+	            </div>
+	        </div>
+	    </div>
+	    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+	        <div style="">
+	            <img class="eg2" src="/assets/images/screenshot-demo-restaurant-with-button.jpg" alt="Step 2 - Paste the code to your page ">
+	        </div>
+	    </div>
+	</div>
+</div>
+
+<div class="container-fluid section4">
+	<div class="container innerSection4" [hidden]="!showDom.weebly">
+		<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+            <img src="/assets/images/check-embed-code--weebly_a2fe9ab3_.png"  alt="Step 2 - Paste the code to your page "/>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+            <h2 style="padding-bottom: 20px;">4. Check the end result</h2>
+            <div class="">
+                <ul style="line-height: 2;">
+                    <li>If all done right, the button should look like in this example</li>
+                </ul>
+                <div>
+                    <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+                        <img src="/assets/images/icon-lightbulb.png">
+                    </div>
+                    <div class="col-lg-11 col-md-11 col-sm-11 col-xs-11">
+                        If your website has multiple pages, we recommend you to add the See MENU & Order button to other pages as well, like the Contact page.
+                    </div>
+                </div>
+            </div>
+        </div>
+	</div>
+
+	<div class="container innerSection4" [hidden]="!showDom.wix">
+		<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+            <img src="/assets/images/wix-screenshot3_b00adf26_.png" height="100%" width="100%" alt="Step 2 - Paste the code to your page "/>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+            <h2 style="padding-bottom: 20px;">4. Check the end result</h2>
+            <div class="">
+                <ul style="line-height: 2;">
+                    <li>If all done right, the button should look like in this example.</li>
+                </ul>
+                <div>
+                    <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+                        <img src="/assets/images/icon-lightbulb.png">
+                    </div>
+                    <div class="col-lg-11 col-md-11 col-sm-11 col-xs-11">
+                        If your website has multiple pages, we recommend you to add the See MENU & Order button to other pages as well, like the Contact page.
+                    </div>
+                </div>
+            </div>
+        </div>
+	</div>
+
+	<div class="container innerSection4" [hidden]="!showDom.squarespace">
+		<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+            <img src="/assets/images/screenshot-check-final-result-squarespace_05c0d912_.png" height="100%" width="100%" alt="Step 2 - Paste the code to your page "/>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+            <h2 style="padding-bottom: 20px;">4. Check the final result</h2>
+            <div class="">
+                <ul style="line-height: 2;">
+                    <li>Your button will look ugly in the editor due to the warning message. No worries though, it will look just fine in the live page.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+	<div class="container innerSection4" [hidden]="!showDom.drupal">
+		<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+            <img src="/assets/images/screenshot-check-final-result-drupal_19ed816b_.png" height="100%" width="100%" alt="Step 2 - Paste the code to your page "/>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+            <h2 style="padding-bottom: 20px;">4. Check the end result</h2>
+            <div class="">
+                <ul style="line-height: 2;">
+                    <li>If all done right, the button should look like in this example.</li>
+                </ul>
+                <div>
+                    <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+                        <img src="/assets/images/icon-lightbulb.png">
+                    </div>
+                    <div class="col-lg-11 col-md-11 col-sm-11 col-xs-11">
+                        If your website has multiple pages, we recommend you to add the See MENU & Order button to other pages as well, like the Contact page.
+                    </div>
+                </div>
+            </div>
+        </div>
+	</div>
+
+	<div class="container innerSection4" [hidden]="!showDom.joomla">
+		<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+            <img src="/assets/images/screenshot-check-final-result-joomla_7af9ed13_.png" height="100%" width="100%" alt="Step 2 - Paste the code to your page "/>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+            <h2 style="padding-bottom: 20px;">4. Check the end result</h2>
+            <div class="">
+                <ul style="line-height: 2;">
+                    <li>If all done right, the button should look like in this example.</li>
+                </ul>
+                <div>
+                    <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+                        <img src="/assets/images/icon-lightbulb.png">
+                    </div>
+                    <div class="col-lg-11 col-md-11 col-sm-11 col-xs-11">
+                        If your website has multiple pages, we recommend you to add the See MENU & Order button to other pages as well, like the Contact page.
+                    </div>
+                </div>
+            </div>
+        </div>
+	</div>
+
+	<div class="container innerSection4" [hidden]="!showDom.jimdo">
+		<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+            <img src="/assets/images/jimdo-screenshot3_5096e941_.png" height="100%" width="100%" alt="Step 2 - Paste the code to your page "/>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+            <h2 style="padding-bottom: 20px;">4. Check the end result</h2>
+            <div class="">
+                <ul style="line-height: 2;">
+                    <li>If all done right, the button should look like in this example.</li>
+                </ul>
+                <div>
+                    <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+                        <img src="/assets/images/icon-lightbulb.png">
+                    </div>
+                    <div class="col-lg-11 col-md-11 col-sm-11 col-xs-11">
+                        If your website has multiple pages, we recommend you to add the See MENU & Order button to other pages as well, like the Contact page.
+                    </div>
+                </div>
+            </div>
+        </div>
+	</div>
+</div>
+
+<div class="container section5">
+	<div class="innerSection5" [hidden]="!showDom.squarespace">
+		<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+        	<h2 style="padding-bottom: 20px;">5. Add the button to other pages</h2>
+        	<div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+            	<img src="/assets/images/icon-lightbulb.png">
+        	</div>
+	        <div class="col-lg-11 col-md-11 col-sm-11 col-xs-11" style="color: #666;">
+	            If your website has multiple pages, we recommend you to add the See MENU & Order button to other pages as well, like the Contact page.
+	            <a href="#">Read here how.</a>
+	        </div>
+	    </div>
+	    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+	        <div style="">
+	            <img src="/assets/images/screenshot-add-ordering-button-squarespace_591d542d_.png" height="100%" width="100%"  alt="Step 2 - Paste the code to your page "/>
+	        </div>
+	    </div>
+	</div>
+</div>
+
+
+<div class="container bottomBox">
+    <h2>Step by step instructions for<br>the main website builders:</h2>
+    <div class="bottomImage">
+        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+            <a href="javascript:void(0)" (click)="showChildDom('wordpress')">
+            	<div>
+            		<img src="/assets/images/logo-wordpress_80b34c35_.png" class="instructions-img"/>
+            	</div>
+            </a>
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+            <a href="javascript:void(0)" (click)="showChildDom('weebly')">
+            	<div>
+            		<img src="/assets/images/logo-weebly_53fb1dfb_.png" class="instructions-img"/>
+            	</div>
+            </a>
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+            <a href="javascript:void(0)" (click)="showChildDom('wix')">
+                <div>
+                	<img src="/assets/images/logo-wix_9f28ce99_.png" class="instructions-img"/>
+                </div>
+            </a>
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+            <a href="javascript:void(0)" (click)="showChildDom('squarespace')">
+                <div>
+                	<img src="/assets/images/logo-squarespace_87bb6084_.png" class="instructions-img"/>
+                </div>
+            </a>
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+            <a href="javascript:void(0)" (click)="showChildDom('drupal')">
+                <div>
+                	<img src="/assets/images/logo-drupal_34242bb2_.png" class="instructions-img"/>
+                </div>
+            </a>
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+            <a href="javascript:void(0)" (click)="showChildDom('joomla')">
+                <div>
+                	<img src="/assets/images/logo-joomla_4b70b7d9_.png" class="instructions-img"/>
+                </div>
+            </a>
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+            <a href="javascript:void(0)" (click)="showChildDom('jimdo')">
+                <div>
+                	<img src="/assets/images/logo-jimdo_4702b360_.png" class="instructions-img"/>
+                </div>
+            </a>
+        </div>
+    </div>
+</div>
+

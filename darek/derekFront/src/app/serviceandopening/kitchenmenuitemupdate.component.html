@@ -1,0 +1,48 @@
+<app-headerowner></app-headerowner>
+<div class="rightMenu col-lg-9 col-md-9 col-sm-9">
+	<alert></alert>
+	<div class="profile" id="Menu18">
+		<form [formGroup]="menuUpdateModel" (ngSubmit)="userUpdate()">
+			<div class="firstDiv">
+				<span class="">Item Update</span>
+				<input type="submit" class="btn btn-next" value="Next" style="float: right;" [disabled]="!menuUpdateModel.valid">
+			</div>
+
+			<div class="secondDiv">
+				<div class="input-group gfe-input">
+					<span class="input-group-addon">
+	    				<i class="fa fa-cutlery" aria-hidden="true"></i>
+	  				</span>
+	  				<input type="text" class="form-control" formControlName="name">
+	  				<span class="gfe-input-placeholder">Item Name *</span>
+				</div>
+				<div class="input-group gfe-input">
+					<span class="input-group-addon">
+	    				<i class="fa fa-info-circle" aria-hidden="true"></i>
+	  				</span>
+	  				<input type="text" class="form-control" formControlName="description">
+	  				<span class="gfe-input-placeholder">Description *</span>
+				</div>
+
+				<div class="input-group gfe-input">
+					<span class="input-group-addon">
+	    				<i class="fa fa-usd" aria-hidden="true"></i>
+	  				</span>
+	  				<input type="text" class="form-control" formControlName="price">
+	  				<span class="gfe-input-placeholder">Item Price *</span>
+				</div>            
+
+				<div class="input-group gfe-input">
+					<span class="input-group-addon">
+	    				<i class="fa fa-level-down" aria-hidden="true"></i>
+	  				</span>	  				
+	  			     <select multiple formControlName="options" style="width: 100%; padding:5px;">
+						<option *ngFor="let group of groups" [ngValue]="group._id">{{group.name}}</option>
+				     </select>
+                <span class="gfe-input-placeholder">AddOns *</span>
+				</div>
+
+			</div>
+		</form>
+	</div>
+</div>

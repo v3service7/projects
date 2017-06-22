@@ -1,0 +1,197 @@
+<app-frontendheader [ids]="restaurants._id"></app-frontendheader>
+
+<div class="container-fluid detailDiv">
+	<div class=" col-lg-12">
+		<div class="info-hours-opening pull-left col-lg-4">
+			<div class="info-title">
+				<h4>
+					<strong>
+						<i class="fa fa-clock-o" aria-hidden="true"></i>
+						<span>Opening Hour</span>
+					</strong>
+				</h4>
+			</div>
+			<div class="info-hours-container" *ngIf="restaurants.openinghours">
+				<div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
+					<div *ngIf="restaurants.openinghours.monday">Monday </div>
+					<div *ngIf="restaurants.openinghours.tuesday">Tuesday </div>
+					<div *ngIf="restaurants.openinghours.wednesday">Wednesday </div>
+					<div *ngIf="restaurants.openinghours.thursday">Thursday </div>
+					<div *ngIf="restaurants.openinghours.friday">Friday </div>
+					<div *ngIf="restaurants.openinghours.saturday">Saturday </div>
+					<div *ngIf="restaurants.openinghours.sunday">Sunday </div>
+				</div>
+				<div class="col-lg-3 col-md-3 col-sm-3 col-xs-12" style="padding: 0;">
+					<strong>
+						<span class="" >
+							<div class="" *ngIf="restaurants.openinghours.monday">
+								{{restaurants.openinghours.mondaytime.opentime}}&nbsp; - &nbsp;
+								{{restaurants.openinghours.mondaytime.closetime}}
+							</div>
+							<div class="" *ngIf="restaurants.openinghours.tuesday">
+								{{restaurants.openinghours.tuesdaytime.opentime}}&nbsp; - &nbsp;
+								{{restaurants.openinghours.tuesdaytime.closetime}}
+							</div>
+							<div class="" *ngIf="restaurants.openinghours.wednesday">
+								{{restaurants.openinghours.wednesdaytime.opentime}}&nbsp; - &nbsp;
+								{{restaurants.openinghours.wednesdaytime.closetime}}
+							</div>
+							<div class="" *ngIf="restaurants.openinghours.thursday">
+								{{restaurants.openinghours.thursdaytime.opentime}}&nbsp; - &nbsp;
+								{{restaurants.openinghours.thursdaytime.closetime}}
+							</div>
+							<div class="" *ngIf="restaurants.openinghours.friday">
+								{{restaurants.openinghours.fridaytime.opentime}}&nbsp; - &nbsp;
+								{{restaurants.openinghours.fridaytime.closetime}}
+							</div>
+							<div class="" *ngIf="restaurants.openinghours.saturday">
+								{{restaurants.openinghours.saturdaytime.opentime}}&nbsp; - &nbsp;
+								{{restaurants.openinghours.saturdaytime.closetime}}
+							</div>
+							<div class="" *ngIf="restaurants.openinghours.sunday">
+								{{restaurants.openinghours.sundaytime.opentime}}&nbsp; - &nbsp;
+								{{restaurants.openinghours.sundaytime.closetime}}
+							</div>
+						</span>
+					</strong>
+				</div>
+			</div>
+		</div>
+		<div class="info-hours-pickup pull-right col-lg-4">
+			<div class="info-title">
+				<h4>
+					<strong>
+						<i class="fa fa-clock-o " aria-hidden="true"></i>
+						<span class="">Pickup</span>
+					</strong>
+				</h4>
+			</div>
+			<div class="info-hours-container">
+				<div>
+ 					<span class="" *ngIf = "restaurants.pickup">Pickup Available</span>
+ 					<span class="" *ngIf = "!restaurants.pickup">No Pickup Services at our Location</span>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class=" col-lg-12">
+		<div class="info-hours-delivery pull-left col-lg-4">
+			<div class="info-title">
+				<h4>
+					<strong>
+						<i class="fa fa-truck" aria-hidden="true"></i>
+						<span>Delivery</span>
+					</strong>
+				</h4>
+			</div>
+			<div class="info-hours-container">
+				<div>
+					<span class="" *ngIf = "delivery.length > 0">Delivery Available</span>
+				</div>
+			</div>
+		</div>
+		<div class="info-hours-delivery pull-right col-lg-4">
+			<div class="info-title">
+				<h4>
+					<strong>
+						<i class="fa fa-truck" aria-hidden="true"></i>
+						<span class="">Delivery Fee</span>
+					</strong>
+				</h4>
+			</div>
+			<div class="info-hours-container">
+				<div class="" *ngIf = "delivery.length > 0">
+					<div class="col-lg-12" *ngFor = "let deliver of delivery">
+						<span class="col-lg-1">
+							<i class="fa fa-circle" aria-hidden="true" [ngStyle]="{'color':deliver.color}"></i>
+						</span>
+						<span class="col-lg-5">Min : {{deliver.amount}} {{deliver.currency}}</span>
+						<span class="col-lg-5">Fee : {{deliver.deliveryfee}} {{deliver.currency}}</span>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class=" col-lg-12 detailSection3">
+		<div class="info-hours-payment col-lg-2">
+			<div class="info-title">
+				<h4>
+					<strong>
+						<i class="fa fa-usd" aria-hidden="true"></i>
+						<span>Payment Method</span>
+					</strong>
+				</h4>
+			</div>
+			<div class="info-hours-container">
+				<div class="paymentOptions" *ngIf = "restaurants.paymentpickup && restaurants.paymentdelivery">
+					<div *ngIf = "restaurants.paymentpickup.cash && restaurants.paymentdelivery.cash" >
+						Cash (Both Payment and Delivery)
+					</div>
+					<div *ngIf = "restaurants.paymentpickup.cash && !restaurants.paymentdelivery.cash" >
+						Cash (Pickup Only)
+					</div>
+					<div *ngIf = "!restaurants.paymentpickup.cash && restaurants.paymentdelivery.cash" >
+						Cash (Delivery Only)
+					</div>
+					<div *ngIf = "restaurants.paymentpickup.cardinternet && restaurants.paymentdelivery.cardinternet">
+						Card onlive via internet (Both Payment and Delivery)
+					</div>
+					<div *ngIf = "restaurants.paymentpickup.cardinternet && !restaurants.paymentdelivery.cardinternet">
+						Card onlive via internet (Pickup Only)
+					</div>
+					<div *ngIf = "!restaurants.paymentpickup.cardinternet && restaurants.paymentdelivery.cardinternet">
+						Card onlive via internet (Delivery Only)
+					</div>
+					<div *ngIf = "restaurants.paymentpickup.cardpickup && restaurants.paymentdelivery.cardinternet">
+						Card at pickup counter (Both Pickup and Delivery)
+					</div>
+					<div *ngIf = "restaurants.paymentpickup.cardpickup && !restaurants.paymentdelivery.cardinternet">
+						Card at pickup counter (Pickup Only)
+					</div>
+					<div *ngIf = "!restaurants.paymentpickup.cardpickup && restaurants.paymentdelivery.cardinternet">
+						Card at pickup counter (Delivery Only)
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="info-hours-address col-lg-2">
+			<div class="info-title">
+				<h4>
+					<strong>
+						<i class="fa fa-road" aria-hidden="true"></i>
+						<span class="">Address</span>
+					</strong>
+				</h4>
+			</div>
+			<div class="info-hours-container">
+				<div class="">
+					<div>{{restaurants.name}}</div>
+					<div>
+						<span>{{restaurants.city}}</span>, <span>{{restaurants.zipcode}}
+						</span>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="info-hours-phone col-lg-2">
+			<div class="info-title">
+				<h4>
+					<strong>
+						<i class="fa fa-phone" aria-hidden="true"></i>
+						<span class="">Phone</span>
+					</strong>
+				</h4>
+			</div>
+			<div class="info-hours-container">
+				<div class="">
+					<div>{{restaurants.phoneNo}}</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-lg-6" id="gmap">   </div>
+	</div>
+
+</div>

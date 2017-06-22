@@ -1,0 +1,91 @@
+.topHeading{
+	text-align: center;
+	font-size:40px;
+	color: #4C4C4C;
+	background-color: #F5F4F2;
+	padding-top: 3%;
+	padding-bottom: 3%;
+}
+
+.blue{
+	color: #5779C3;
+}
+
+.green{
+	color: #72A473;
+}
+
+.red{
+	color: #F39E59;
+}
+
+
+.section1 , .section2 , .innerSection3, .innerSection4, .innerSection5{
+	padding: 6%;
+}
+
+.leftOfSection1 h2{
+	padding-bottom: 20px;
+}
+
+.rightOfSection1{
+	margin-top: 30px;
+	padding: 0;
+	color: #737373; 
+}
+
+.rightOfSection1 div.instruction{
+	display: inline-block;
+	width: 100%;
+}
+
+.rightOfSection1 div div.col-lg-11{
+/*	border-left: 1px solid red;
+	border-right: 1px solid red;*/
+}
+
+.container-fluid{
+	color: #4C4C4C;
+	background-color: #F5F4F2;
+/*	padding-top: 3%;
+	padding-bottom: 3%;*/
+}
+
+/*.section2 .innerSection2 {
+	padding: 0 6% 0 6%;
+}*/
+
+.section2 .innerSection2 h2{
+	padding-bottom: 20px;
+}
+
+/*
+.section3{
+	padding:6%; 
+}*/
+
+.bottomBox{
+	text-align: center;
+	margin-top: 2%;
+	margin-bottom: 10%;
+}
+
+.bottomBox div div a div{
+	height: 135px;
+	display: -webkit-box;
+	display: -ms-flexbox;
+	display: flex;
+	-webkit-box-pack: center;
+	-ms-flex-pack: center;
+	justify-content: center;
+	-webkit-box-align: center;
+	-ms-flex-align: center;
+	align-items: center;
+	border: 1px solid #e6e6e6;
+	border-radius: 2px;
+	margin: 10px 0;
+	width: 100%;
+	cursor: pointer;
+}
+
+
