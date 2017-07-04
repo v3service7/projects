@@ -26,7 +26,7 @@ import { LanguageComponent,LanguagelistComponent, LanguageaddComponent, Language
 
 import { AuthGuard,OwnerAuthGuard} from './guards/index';
 
-import { FrontendHeaderComponent, FrontendComponent, FrontendDetailComponent, FrontendCartComponent } from './frontend/frontend.component';
+import { FrontendHeaderComponent, FrontendComponent, FrontendDetailComponent, FrontendCartComponent, FrontendLoginComponent } from './frontend/frontend.component';
 
 const appRoutes: Routes = [
   { path: 'admin/login', component: LoginComponent },
@@ -97,6 +97,7 @@ const appRoutes: Routes = [
   { path: 'frontend/:id', component: FrontendComponent },
   { path: 'frontend-detail/:id', component: FrontendDetailComponent },
   { path: 'frontend-cart/:id', component: FrontendCartComponent },
+  { path: 'login/:id', component: FrontendLoginComponent },
 
 
   { path: '', component: LoginComponent },

@@ -1,5 +1,8 @@
 <app-frontendheader [ids]="restaurants._id"></app-frontendheader>
 
+<div class="cartLength" *ngIf="totalOrder">{{totalOrder.length}}
+</div>
+
 <div class="container-fluid topNavImage">
 </div>
 
@@ -11,7 +14,6 @@
 				<div class="deal-details">
 					<div class="deal-title"> Buy one, get one free
 						<div class="deal-description">
-							
 						</div>
 					</div>
 				</div>
@@ -28,7 +30,8 @@
 		<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6" >
 			<div class="col-lg-12" *ngFor="let item of items">
 				<div *ngIf="item.menuId == menu._id" class="subMenuItem col-lg-12">
-					<a class="col-lg-12" href="javascript:void(0)" (click)="showDetail(item._id)">
+
+					<a class="col-lg-12" href="javascript:void(0)" (click)="showDetail(item,item.multisize[0] )">
 						<div class="col-lg-9">
 							<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12"><h5><strong>{{item.name}}</strong></h5></div>
 							<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">{{item.description}}</div>
@@ -36,71 +39,87 @@
 						<div class="col-lg-3"><h5><strong>{{item.price}}</strong></h5></div>
 					</a>
 
+
 					<div class="col-lg-8 itemDetailDiv" [style.display]="showDiv(item._id)">
-						<div class="col-lg-12">
+						<button class="hideDetailDiv" type="button"  (click) = "hideDiv()" >
+							<span aria-hidden="true">&times;</span>
+						</button>
+						<div class="col-lg-12 pos-header">
 							<div class="col-lg-12">{{item.description}}</div>
-							
+				<!-- item size -->
 							<div class="sizeDetail col-lg-12" *ngIf = "item.multisize.length">
 								<div class="col-lg-12"><h5><span>Size (Required)</span></h5></div>
-								<div class="col-lg-12 sizeOption" *ngFor = "let multisizes of item.multisize" >
-									<input type="radio">
-										{{multisizes.size}}<span class="pull-right">{{multisizes.price}}</span>
+								<form>
+								<div class="col-lg-12 sizeOption" *ngFor = "let multisizes of item.multisize; let i = index;" >
+									<div *ngIf="i == 0">
+										<input type="radio" (click)="multiSizePriceInfo(multisizes)" [name]="'optnButton'+item._id" checked="checked" [attr.id]="'Location_' + item._id + '_' + multisizes._id">
+									</div>
+									<div *ngIf="i != 0">
+										<input type="radio" (click)="multiSizePriceInfo(multisizes)" [name]="'optnButton'+item._id" [attr.id]="'Location_' + item._id + '_' + multisizes._id">
+									</div>
+									<div class="col-lg-8">{{multisizes.size}}</div>
+									<div class="col-lg-4 sizePrice pull-right">{{multisizes.price}}</div>
 								</div>
+								</form>
 							</div>
+				<!-- item size end-->
 
+				<!-- items addOns -->
 							<div class="addOnsDetail col-lg-12" *ngIf = "item.options">
 								<div class="" *ngFor = "let group of addOns">
 									<div *ngIf = "item.options.indexOf(group._id) > -1">
 										<div class="col-lg-12">{{group.name}}</div>
 										<div class="subAddOn" *ngIf = "group.subaddon">
 											<div class="subAddOnDetail col-lg-12" *ngFor = "let detail of group.subaddon">
-												<div class="col-lg-12">{{detail.name}}<span class="pull-right">{{detail.price}}</span>
+												<div class="col-lg-12 subAddOnDetailList" #addonDetail [attr.data-addon]="'check'" [attr.id]="'Location_' + item._id + '_' + detail._id" (click)="addonPriceInfo(detail,addonDetail)" >
+													{{detail.name}}<span class="pull-right">{{detail.price}}</span>
 												</div>
 											</div>
 										</div>
 									</div>
 								</div>
 							</div>
+				<!-- items addOns end-->
 
+				<!-- item special Instruction -->
 							<div class="col-lg-12 specialInstruction">
 								<div class="col-lg-12">Special Instructions</div>
 								<div class="col-lg-12" style="padding:0;">
-									<textarea placeholder="Example: No pepper / sugar/ salt please..." style=" width: 100%;border-color: #ccc;"></textarea>
+									<textarea placeholder="Example: No pepper / sugar/ salt please..." style=" width: 100%;border-color: #ccc;"  [attr.id]="'Location_' + item._id + '_specialInstruction'"></textarea>
 								</div>
 							</div>
+				<!-- items special Instruction end-->
 
+				<!-- items quantity -->
 							<div class="col-lg-12 quantityDetail">
 								<div class="col-lg-12">Quantity</div>
 								<div class="col-lg-12 fillQuantity">
 									<div class=" form-group">
-										<input type="text" name="quantity" class="form-control">
-								
+										<input type="text" name="quantity" class="form-control" [value]="quantity" min="1" max="10"  [attr.id]="'Location_' + item._id + '_count'">
 										<div class="cnt-input-buttons">
-											<button class="cnt-input-decrease">
+											<button class="cnt-input-decrease" id="minus" (click)="quantityDecrement()">
 												<i class=" fa fa-minus" ></i>
 											</button>
-											<button class="cnt-input-increase">
+											<button class="cnt-input-increase"  id="plus" (click)="quantityIncrement()">
 												<i class=" fa fa-plus"></i>
 											</button>
 										</div>
 									</div>
 								</div>
 							</div>
+				<!-- items quantity end-->
 						</div>
 
 						<div class="pos-footer">
 							<div class="pos-footer-shadow"></div>
-							<div class="pos-footer-inner">
-								<button type="submit" style="border:0px none;padding:0px;width:100%;">
-									<div class="btn btn-action-primary checkout-button">
-										<div>
-											<div class="checkout-button-total586b2d6ad68bc42e5ae8b469">12</div>
+							<div class="pos-footer-inner" (click)="addToCart()">
+								<button class="orderButton" >
+									<div class="col-lg-12 btn btn-action-primary checkout-button">
+										<div class="col-lg-3">
+											<div class="checkout-button">{{finalPrice}}</div>
 										</div>
-										<input type="hidden" value="0" id="addonchecked586b2d6ad68bc42e5ae8b469">
-										<div class="checkout-button-separator"></div>
-										<div class="checkout-button-label" data-translate="ADDONS_ADD_TO_CART">Add to cart</div>
-										<div class="glf-loader"><div class="glf-loader-circle"></div>
-										</div>
+										<div class="col-lg-1 checkout-button-separator"></div>
+										<div class="col-lg-8 checkout-button-label">Add to cart</div>
 									</div>
 								</button>
 							</div>

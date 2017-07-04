@@ -1,0 +1,20 @@
+{
+	"language":"La langue",
+	"delivery":"Livraison",
+	"OpeningHour":"Heures d'ouverture",
+	"DeliveryFee":"Frais de livraison",
+	"pickup": "Ramasser",
+	"PaymentMethod":"Mode de paiement",
+	"Address":"Adresse",
+	"Phone":"Téléphone",
+	"Monday":"Lundi",
+	"Tuesday":"Mardi",
+	"Wednesday":"Mercredi",
+	"Thursday":"Jeudi",
+	"Friday":"Vendredi",
+	"Saturday":"Samedi",
+	"Sunday":"Dimanche",
+	"Available":"Disponible",
+	"Min":"Le minimum",
+	"Fee":"frais"
+}

@@ -1,9 +1,21 @@
 <app-frontendheader [ids]="restaurants._id"></app-frontendheader>
 
+<div class="cartLength" *ngIf="cart.length > 0">{{cart.length}}
+</div>
+
 <div class="container-fluid cartDiv">
 	<div class="col-lg-12 container-fluid">
-		<div class="col-lg-6">
-			<div class="pull-left col-lg-8 fillDetail">
+		<div class="col-lg-6 leftCartDetail">
+			<div class="col-lg-8 pull-left" *ngIf="!currentCustomer">
+				<div class="col-lg-12 col-md-12" style="padding:0;"> 
+		            <div class="btn saveButton" [routerLink]="['/login', restaurants._id]" >Login/Signup</div>
+		        </div>
+		        <div class="col-lg-12 col-md-12 " style="padding:0; " >
+		            <div class="btn saveButton" [routerLink]="['/login',restaurants._id]" [queryParams]="{ show: '' }">Continue as Guest</div>
+		        </div>
+			</div>
+
+			<div class="pull-left col-lg-8 fillDetail" *ngIf="currentCustomer">
 				<div class="contactDetail col-lg-12">
 					<div class="col-lg-12">
 						<div class="col-lg-10">
@@ -11,31 +23,38 @@
 								<strong><h5><i class="fa fa-user" aria-hidden="true"></i> &nbsp; CONTACT</h5></strong>
 							</span>
 						</div>
-						<div class="">
+						<div class="" *ngIf="showHideContactDetail" (click)="changeShowDetailStatus()">
 							<span class="label label-default pointer">Cancel</span>
 						</div>
 					</div>
-					<div class="col-lg-12">
-						<div class="btn btn-default pointer" style="width: 100%;padding: 4%">
-							<span><strong><i class="fa fa-pencil" aria-hidden="true"></i>&nbsp;&nbsp;Add Detail</strong></span>
-						</div>
+					<div class="addContactDetail col-lg-12"  *ngIf="showHideContactDetail">
+						<form role="form" [formGroup]="detailForm" (ngSubmit)="saveDetailInfo()">
+							<div class="col-lg-6 form-group">
+									<input type="text " formControlName="firstname" class="form-control" name="" placeholder="First Name *" value="">
+							</div>
+							<div class="col-lg-6 form-group">
+									<input type="text " formControlName="lastname" class="form-control" name="" placeholder="Last Name *" value="">
+							</div>
+							<div class="col-lg-12 form-group">
+								<input type="email" formControlName="email"  class="form-control" name="" placeholder="Email *">
+							</div>
+							<div class="col-lg-12 form-group">
+									<input type="text " formControlName="phonenumber" class="form-control" name="" placeholder="Telephone *" value="" >
+							</div>
+							<div class="col-lg-12" style="padding: 0; margin-top: 10px;">
+						    	<button type="submit" class="btn saveButton" [disabled]="!detailForm.valid">Save</button>
+						    </div>
+						</form>
 					</div>
-					<div class="addContactDetail col-lg-12">
-						<div class="col-lg-6 form-group">
-							<input type="text " class="form-control" name="" placeholder="First Name *">
+					<div class="editCustomer" *ngIf = "!showHideContactDetail">
+						<div class="col-lg-8 customerDetail">
+							{{currentCustomer.firstname}} {{currentCustomer.lastname}}<br>
+							{{currentCustomer.email}}<br>
+							{{currentCustomer.phonenumber}}
 						</div>
-						<div class="col-lg-6 form-group">
-							<input type="text " class="form-control" name="" placeholder="Last Name *">
+						<div class="col-lg-4 editButton" (click)="changeShowDetailStatus()" *ngIf="!showHideContactDetail">
+							<i class="fa fa-pencil" aria-hidden="true"></i>
 						</div>
-						<div class="col-lg-12 form-group">
-							<input type="text " class="form-control" name="" placeholder="Email *">
-						</div>
-						<div class="col-lg-12 form-group">
-							<input type="text " class="form-control" name="" placeholder="Telephone *">
-						</div>
-						<div class="col-lg-12" style="padding: 0; margin-top: 10px;">
-					    	<button type="submit" class="btn saveButton">Save</button>
-					    </div>
 					</div>
 				</div>
 
@@ -46,25 +65,64 @@
 								<strong><h5><i class="fa fa-truck" aria-hidden="true"></i> &nbsp; ORDERING METHOD</h5></strong>
 							</span>
 						</div>
-						<div class="">
+						<div class="" *ngIf="showHideOrderingMethod" (click)="changeShowOrderingStatus()">
 							<span class="label label-default pointer">Cancel</span>
 						</div>
 					</div>
-					<div class="col-lg-12">
+					<div *ngIf="!editOrderMethod">
+					<div class="col-lg-12" *ngIf="!showHideOrderingMethod" (click)="changeShowOrderingStatus()">
 						<div class="btn btn-default pointer" style="width: 100%;padding: 4%">
 							<span><strong><i class="fa fa-pencil" aria-hidden="true"></i>&nbsp;&nbsp;Select Order Type</strong></span>
 						</div>
 					</div>
-					<div class="col-lg-12">
-					    <div class="checkbox1 col-lg-6 pointer">
-					    	<input type="checkbox" value="">Pickup
+					<div class="col-lg-12" *ngIf="showHideOrderingMethod">
+						<div *ngIf="addressClicked">
+						    <div class="checkbox1 col-lg-12 pointer" *ngIf="restaurants.pickup">
+						    	<input type="radio" name="order" id="pickup" value="" (click)="addressButton('pickup')" [checked]="this.orderMethod.mType == 'Pickup'">  Pickup
+						    </div>
+						    <div class="checkbox1 col-lg-12 pointer" *ngIf = "delivery.length > 0">
+						    	<div class="col-lg-12 col-md-12" style="padding:0 0 10px 0;">
+						    		<input type="radio"  name="order" id="delivery"  value="" (click)="addressButton('delivery')" [checked]="this.orderMethod.mType == 'Delivery'">Delivery
+						    	</div>
+						    	<div class="col-lg-12 col-md-12" *ngIf="this.orderMethod.mType == 'Delivery'" (click)="addressInfo()">
+						    		<div class="btn btn-default pointer" style="width: 100%;padding: 4%"><span><strong><i class="fa fa-pencil" aria-hidden="true"></i>&nbsp;&nbsp;Add your address</strong></span>
+									</div>
+						    	</div>
+						    </div>
+						    <div class="col-lg-12" style="padding: 0; margin-top: 10px;" >
+						    	<button type="submit" class="btn saveButton" [disabled]="!this.deliveryAddress " (click)="pickupOnly()">Save</button>
+							</div>
 					    </div>
-					    <div class="checkbox1 col-lg-6 pointer">
-					    	<input type="checkbox" value="">Delivery
-					    </div>
-					    <div class="col-lg-12" style="padding: 0; margin-top: 10px;">
-					    	<button type="submit" class="btn saveButton">Save</button>
-					    </div>
+					    <form role="form" [formGroup]="addressForm" (ngSubmit)="saveAddressInfo()" *ngIf="!addressClicked">
+						    <div class="col-lg-12" >
+					    		<div class="col-lg-12 col-md-12 form-group">
+					    			<input type="text" name="" formControlName="streetName" class="form-control" placeholder="Street Name & Number *">
+					    		</div>
+								<div class="col-lg-12 col-md-12 form-group">
+					    			<input type="text" name="" formControlName="city" class="form-control" placeholder="Town or City Area *">
+					    		</div>
+								<div class="col-lg-12 col-md-12 form-group">
+					    			<input type="text" name="" formControlName="postcode" class="form-control" placeholder="Postcode *">
+					    		</div>
+					    	</div>
+						    <div class="col-lg-12" style="padding: 0; margin-top: 10px;">
+						    	<button type="submit" class="btn saveButton" [disabled]="!addressForm.valid">Save</button>
+						    </div>
+						</form>
+					</div>
+					</div>
+					<div class="editOrderMethod" *ngIf="editOrderMethod">
+						<div class="col-lg-8 orderMethodDetail">
+							<div *ngIf="oMethod.mType == 'Pickup'">{{oMethod.mType}}</div>
+							<div *ngIf="oMethod.mType == 'Delivery'">
+								{{oMethod.mType}}<br>
+								{{oMethod.streetName}} ,{{oMethod.city}}<br>
+								{{oMethod.postcode}}
+							</div>
+						</div>
+						<div class="col-lg-4 editButton" (click)="editOrder()">
+							<i class="fa fa-pencil" aria-hidden="true"></i>
+						</div>
 					</div>
 				</div>
 
@@ -75,58 +133,54 @@
 								<strong><h5><i class="fa fa-truck" aria-hidden="true"></i> &nbsp; CHOOSE A TIME</h5></strong>
 							</span>
 						</div>
-						<div class="">
+						<div class="" *ngIf="showHideTime" (click)="changeShowTimingStatus()">
 							<span class="label label-default pointer">Cancel</span>
 						</div>
 					</div>
-
-					<div class="col-lg-12">
-						<div class="btn btn-default" style="width: 100%;padding: 4%">
-							<span><strong><i class="fa fa-pencil" aria-hidden="true"></i>&nbsp;&nbsp;Add a time</strong></span>
+					<div *ngIf="!editTimeMethod">
+						<div class="col-lg-12" *ngIf="!showHideTime" (click)="changeShowTimingStatus()" >
+							<div class="btn btn-default" style="width: 100%;padding: 4%">
+								<span><strong><i class="fa fa-pencil" aria-hidden="true"></i>&nbsp;&nbsp;Add a time</strong></span>
+							</div>
+						</div>
+						<div class="col-lg-12" *ngIf="showHideTime">
+							<div class="checkbox1 col-lg-12 pointer">
+						    	<input type="radio" name="time" value="" id="now" (click)="setTime('now')" [checked]="this.orderTime.tType == 'Now'">Now
+						    </div>
+							<div class="checkbox1 col-lg-12 laterSelect pointer">
+						    	<input type="radio" name="time" value="" id="later"  (click)="setTime('later')" [checked]="this.orderTime.tType == 'Later'">Later
+						    	<div class="col-lg-12 col-md-12" *ngIf="delLater">
+						    		<div class="col-lg-12 col-md-12 select-container">
+										<select [(ngModel)]="day" class="order-later-day form-control"  style="width: 100%;"> 
+										    <!-- <option [ngValue]="-1">Select</option> -->
+											<option *ngFor="let n of days" [ngValue]="n.day">{{n.day}}</option>
+										</select>
+						    		</div>
+						    		<div class="col-lg-12 col-md-12 select-container">
+						    			<select [(ngModel)]="time" class="order-later-time form-control" name="latertime" style="width: 100%;">
+						    				<!-- <option [ngValue]="-1">Select</option> -->
+											<option *ngFor="let n of times" [ngValue]="n.time">{{n.time}}</option>
+										</select>
+						    		</div>
+						    	</div>
+						    </div>
+						    <div class="col-lg-12" style="padding: 0; margin-top: 10px;">
+						    	<button type="submit" class="btn saveButton" (click)="saveTimeInfo()" [disabled]="!this.flagForTime">Save</button>
+						    </div>
 						</div>
 					</div>
-
-					<div class="col-lg-12">
-						<div class="checkbox1 col-lg-12 pointer">
-					    	<input type="checkbox" value="">Now
-					    </div>
-						<div class="checkbox1 col-lg-12 laterSelect pointer">
-					    	<input type="checkbox" value=""  data-toggle="collapse" data-target="#laterOptions">Later
-					    </div>
-					    <div id="laterOptions" class="collapse pointer">
-					    	<div class="input-group">
-					    		<span class="input-group-addon"></span>
-					    		<div class="select-container">
-					    			<select class="order-later-day" name="laterday">
-					    				<option value="today" class="">today</option>
-					    				<option value="tomorrow" class="">tomorrow</option>
-					    			</select>
-					    		</div>
-					    	</div>
-							<div class="input-group">
-					    		<span class="input-group-addon"></span>
-					    		<div class="select-container">
-					    			<select class="order-later-time" name="latertime">
-					    				<option value="8:00" class="">8:00</option>
-					    				<option value="9:00" class="">9:00</option>
-					    				<option value="10:00" class="">10:00</option>
-					    				<option value="11:00" class="">11:00</option>
-					    				<option value="12:00" class="">12:00</option>
-					    				<option value="13:00" class="">13:00</option>
-					    				<option value="14:00" class="">14:00</option>
-					    				<option value="15:00" class="">15:00</option>
-					    				<option value="16:00" class="">16:00</option>
-					    				<option value="17:00" class="">17:00</option>
-					    				<option value="18:00" class="">18:00</option>
-					    				<option value="19:00" class="">19:00</option>
-					    				<option value="20:00" class="">20:00</option>
-					    			</select>
-					    		</div>
-					    	</div>
-					    </div>
-					    <div class="col-lg-12" style="padding: 0; margin-top: 10px;">
-					    	<button type="submit" class="btn saveButton">Save</button>
-					    </div>
+					<div class="editTimeMethod" *ngIf = "editTimeMethod">
+						<div class="col-lg-8 orderTimeDetail">
+							<div *ngIf="oTime.tType == 'Now'">
+								{{oTime.tType}}
+							</div>
+							<div *ngIf="oTime.tType == 'Later'">
+								{{oTime.day}} {{oTime.time}}
+							</div>
+						</div>
+						<div class="col-lg-4 editButton" (click)="editTime()">
+							<i class="fa fa-pencil" aria-hidden="true"></i>
+						</div>
 					</div>
 				</div>
 
@@ -134,36 +188,68 @@
 					<div class="col-lg-12">
 						<div class="col-lg-10">
 							<span>
-								<strong><h5><i class="fa fa-truck" aria-hidden="true"></i> &nbsp; PAYMENT METHOD</h5></strong>
+								<strong><h5><i class="fa fa-truck" aria-hidden="true"></i> &nbsp; PAYMENT METHOD </h5></strong>
 							</span>
 						</div>
-						<div class="">
+						<div class="" *ngIf="showHidePaymentMethod" (click)="changeShowPaymentStatus()">
 							<span class="label label-default pointer">Cancel</span>
 						</div>
 					</div>
-
-					<div class="col-lg-12">
-						<div class="btn btn-default" style="width: 100%;padding: 4%">
-							<span><strong><i class="fa fa-pencil" aria-hidden="true"></i>&nbsp;&nbsp;Select Payment Method</strong></span>
+					<div *ngIf="!editPaymentMethod">
+						<div class="col-lg-12" *ngIf="!showHidePaymentMethod" (click)="changeShowPaymentStatus()">
+							<div class="btn btn-default" style="width: 100%;padding: 4%">
+								<span><strong><i class="fa fa-pencil" aria-hidden="true"></i>&nbsp;&nbsp;Select Payment Method</strong></span>
+							</div>
+						</div>
+						<div class="col-lg-12" *ngIf="showHidePaymentMethod">
+							<div *ngIf="this.orderMethod.mType == 'Pickup'">
+								<div class="checkbox1 col-lg-12 pointer" *ngIf="restaurants.paymentpickup.cash">
+							    	<input type="radio" value="" name="paymentpickup" id="cash" (click)="paymentOption('cash')" [checked]="this.orderPayment.cash == true">Cash
+							    </div>
+								<div class="checkbox1 col-lg-12 pointer" *ngIf="restaurants.paymentpickup.cardpickup">
+							    	<input type="radio" value="" name="paymentpickup" id="cardInHand"  (click)="paymentOption('cardInHand')" [checked]="this.orderPayment.cardpickup == true">Card at Pickup
+							    </div>
+								<div class="checkbox1 col-lg-12 pointer" *ngIf="restaurants.paymentpickup.cardinternet">
+							    	<input type="radio" value="" name="paymentpickup" id="cardInternet" (click)="paymentOption('cardInternet')" [checked]="this.orderPayment.cardinternet == true">Card via Internet
+							    </div>
+						    </div>
+							<div *ngIf="this.orderMethod.mType == 'Delivery'">
+								<div class="checkbox1 col-lg-12 pointer" *ngIf="restaurants.paymentdelivery.cash">
+							    	<input type="radio" value="" name="paymentdelivery" id="cash" (click)="paymentOption('cash')" [checked]="this.orderPayment.cash == true">Cash
+							    </div>
+								<div class="checkbox1 col-lg-12 pointer" *ngIf="restaurants.paymentdelivery.cardpickup">
+							    	<input type="radio" value="" name="paymentdelivery" id="cardInHand"  (click)="paymentOption('cardInHand')" [checked]="this.orderPayment.cardpickup == true">Card at Delivery
+							    </div>
+								<div class="checkbox1 col-lg-12 pointer" *ngIf="restaurants.paymentdelivery.cardinternet">
+							    	<input type="radio" value="" name="paymentdelivery" id="cardInternet" (click)="paymentOption('cardInternet')" [checked]="this.orderPayment.cardinternet == true">Card via Internet
+							    </div>
+						    </div>
+						    <div class="col-lg-12" style="padding: 0; margin-top: 10px;">
+						    	<button type="submit" class="btn saveButton" (click)="savePaymentInfo()" [disabled]="this.flagForPayment!=true">Save</button>
+						    </div>
 						</div>
 					</div>
-					
-					<div class="col-lg-12">
-						<div class="checkbox1 col-lg-12 pointer">
-					    	<input type="checkbox" value="">Cash
-					    </div>
-						<div class="checkbox1 col-lg-12 pointer">
-					    	<input type="checkbox" value="">Card to delivery person
-					    </div>
-					    <div class="col-lg-12" style="padding: 0; margin-top: 10px;">
-					    	<button type="submit" class="btn saveButton">Save</button>
-					    </div>
+					<div class="editPaymentMethod" *ngIf="editPaymentMethod">
+						<div class="col-lg-8 orderPaymentDetail">
+							<div *ngIf="oPayment.cash == true">
+								Cash
+							</div>
+							<div *ngIf="oPayment.cardpickup == true">
+								Card Pickup
+							</div>
+							<div *ngIf="oPayment.cardinternet == true">
+								Card Pickup
+							</div>
+						</div>
+						<div class="col-lg-4 editButton" (click)="editPayment()">
+							<i class="fa fa-pencil" aria-hidden="true"></i>
+						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 
-		<div class="col-lg-6">
+		<div class="col-lg-6 rightCartDetail">
 			<div class="pull-right col-lg-8">
 				<div class="col-lg-12 cart-header well well-sm">
 					<div class="col-lg-2 cart-header-quantity">Qty</div>
@@ -171,23 +257,51 @@
 					<div class="col-lg-2 cart-header-price">Price</div>
 				</div>
 				<div class="col-lg-12" style="padding: 0;">
-					<div class="col-lg-12 cart-items">
-						<div class="cart-empty">Cart is empty</div>
+					<div class="col-lg-12 cart-items" *ngIf="cart">
+						<div *ngIf="cart.length == 0" class="col-lg-12 cart-empty">Cart is empty</div>
+						<div class="col-lg-12" *ngIf="cart.length > 0" >
+							<div class="col-lg-12" *ngFor="let crt of cart; let i = index" style="padding:0;">
+						        <div class="col-lg-2 cart-price"><span>{{crt.quantity}}x</span></div>
+						        <div class="col-lg-8">
+						            <div class="col-lg-12 cart-item-name">{{crt.item.name}}</div>
+						            <div class="col-lg-12 cart-item-option">
+						                <div class="col-lg-8">{{crt.multisize.size}}</div>
+						                <div class="col-lg-4">(+{{crt.multisize.price}})</div>
+						                <div *ngFor="let adn of crt.addon">
+						                	<div class="col-lg-8">{{adn.name}}</div>
+						                	<div class="col-lg-4">(+{{adn.price}})</div>
+						                </div>
+						            </div>
+						            <div class="cart-item-instructions"></div>
+						        </div>
+						        <div class="col-lg-2 cart-price ng-binding">{{crt.totalPrice}}</div>
+						        <div class="label cart-item-remove" style="position: absolute;padding:0;">
+						            <a href="javascript:void(0)" (click)="deleteCart(i)"><i class="fa fa-trash"></i></a>
+						            <span class="glf-loader"><div class="glf-loader-circle"></div></span>
+						        </div>
+						        <br>
+						    </div>
+						</div>
 					</div>
 					<div class="col-lg-12 cart-footer">
 						<div class="col-lg-12 sub-total">
 							<div class="col-lg-6 pull-left">Sub Total</div>
-							<div class="col-lg-6 pull-right"></div>
+							<div class="col-lg-6 pull-right">
+								<div>
+									{{grandTotal}}
+								</div>
+							</div>
 						</div>
-						<div class="col-lg-12 tax">
-							<div class="col-lg-6 pull-left">tax</div>
-							<div class="col-lg-6 pull-right"></div>
+						<div *ngIf="cart.length > 0" >
+							<div class="col-lg-12 tax" *ngIf="restaurants.taxation">
+								<div class="col-lg-6 pull-left">{{restaurants.taxation.name}}</div>
+								<div class="col-lg-6 pull-right">{{restaurants.taxation.taxpercent}} %</div>
+							</div>
 						</div>
 						<div class="col-lg-12 grand-total">
 							<div class="col-lg-6 pull-left"><h4>TOTAL</h4></div>
-							<div class="col-lg-6 pull-right"><h4></h4></div>
+							<div class="col-lg-6 pull-right"><h4>{{grandTotalWithTax |number : '1.2-2'}}</h4></div>
 						</div>
-
 					</div>
 				</div>
 			</div>
@@ -196,17 +310,18 @@
 
 	<footer class="col-lg-12 footer container-fluid">
 		<div class="pull-right footerButton">
-			<div class="btn saveButton" style="padding: 15px 20px;">
-				<div class="total">
-					<span>Total</span><br>
-					<span></span>
+			<button class="btn saveButton" style="padding: 15px 20px;text-align: justify;" [disabled]="this.all==false" (click)="placeOrder()">
+				<div style="display: -webkit-inline-box;">
+					<div class="total">
+						<span>Total</span><br>
+						<span>{{grandTotalWithTax | number : '1.2-2'}}</span>
+					</div>
+					<div class="button-separator"></div>
+					<div>
+						<div class="">Place Delivery Order Now</div>
+					</div>
 				</div>
-				<div class="button-separator"></div>
-				<div>
-					<div class="">Place Delivery Order Now</div>
-				</div>
-			</div>
+			</button>
 		</div>
 	</footer>
-
 </div>

@@ -7,4 +7,6 @@ export * from './promotions.service';
 export * from './kitchenmenu.service';
 export * from './kitchenitem.service';
 export * from './master.service';
+export * from './customer.service';
+export * from './order.service';
 

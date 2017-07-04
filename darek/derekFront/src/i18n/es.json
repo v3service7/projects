@@ -1,0 +1,20 @@
+{
+	"language":"Idioma",
+	"delivery":"Entrega",
+	"OpeningHour": "Horario de apertura",
+	"DeliveryFee": "Gastos de envío",
+	"pickup": "Recoger",
+	"PaymentMethod":"Método de pago",
+	"Address":"Dirección",
+	"Phone":"Teléfono",
+	"Monday":"Lunes",
+	"Tuesday":"Martes",
+	"Wednesday":"Miércoles",
+	"Thursday":"Jueves",
+	"Friday":"Viernes",
+	"Saturday":"Sábado",
+	"Sunday":"Domingo",
+	"Available":"Disponible",
+	"Min":"Mínimo",
+	"Fee":"cuota"
+}

@@ -162,7 +162,7 @@ router.get('/restaurant/:id',function(req,res){
     //}
     var response={};
     console.log(req.params.id);
-    restaurantModel.findById(req.params.id,function(err,data){
+    restaurantModel.findById(req.params.id).populate('languages').exec(function(err,data){
         if (err) {
             response = {"error" : true,"message" : "Error fetching data"};
         } else{

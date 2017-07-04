@@ -1,5 +1,8 @@
 <app-frontendheader [ids]="restaurants._id"></app-frontendheader>
 
+<div class="cartLength" *ngIf="cart">{{cart.length}}
+</div>
+
 <div class="container-fluid detailDiv">
 	<div class=" col-lg-12">
 		<div class="info-hours-opening pull-left col-lg-4">
@@ -7,19 +10,19 @@
 				<h4>
 					<strong>
 						<i class="fa fa-clock-o" aria-hidden="true"></i>
-						<span>Opening Hour</span>
+						<span>{{'OpeningHour'|translate}}</span>
 					</strong>
 				</h4>
 			</div>
 			<div class="info-hours-container" *ngIf="restaurants.openinghours">
 				<div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-					<div *ngIf="restaurants.openinghours.monday">Monday </div>
-					<div *ngIf="restaurants.openinghours.tuesday">Tuesday </div>
-					<div *ngIf="restaurants.openinghours.wednesday">Wednesday </div>
-					<div *ngIf="restaurants.openinghours.thursday">Thursday </div>
-					<div *ngIf="restaurants.openinghours.friday">Friday </div>
-					<div *ngIf="restaurants.openinghours.saturday">Saturday </div>
-					<div *ngIf="restaurants.openinghours.sunday">Sunday </div>
+					<div *ngIf="restaurants.openinghours.monday">{{'Monday'|translate}} </div>
+					<div *ngIf="restaurants.openinghours.tuesday">{{'Tuesday'|translate}} </div>
+					<div *ngIf="restaurants.openinghours.wednesday">{{'Wednesday'|translate}} </div>
+					<div *ngIf="restaurants.openinghours.thursday">{{'Thursday'|translate}} </div>
+					<div *ngIf="restaurants.openinghours.friday">{{'Friday'|translate}} </div>
+					<div *ngIf="restaurants.openinghours.saturday">{{'Saturday'|translate}} </div>
+					<div *ngIf="restaurants.openinghours.sunday">{{'Sunday'|translate}} </div>
 				</div>
 				<div class="col-lg-3 col-md-3 col-sm-3 col-xs-12" style="padding: 0;">
 					<strong>
@@ -62,13 +65,13 @@
 				<h4>
 					<strong>
 						<i class="fa fa-clock-o " aria-hidden="true"></i>
-						<span class="">Pickup</span>
+						<span class="">{{'pickup'|translate}}</span>
 					</strong>
 				</h4>
 			</div>
 			<div class="info-hours-container">
 				<div>
- 					<span class="" *ngIf = "restaurants.pickup">Pickup Available</span>
+ 					<span class="" *ngIf = "restaurants.pickup">{{'pickup'|translate}} {{'Available'|translate}}</span>
  					<span class="" *ngIf = "!restaurants.pickup">No Pickup Services at our Location</span>
 				</div>
 			</div>
@@ -81,13 +84,13 @@
 				<h4>
 					<strong>
 						<i class="fa fa-truck" aria-hidden="true"></i>
-						<span>Delivery</span>
+						<span>{{'delivery'|translate}}</span>
 					</strong>
 				</h4>
 			</div>
 			<div class="info-hours-container">
 				<div>
-					<span class="" *ngIf = "delivery.length > 0">Delivery Available</span>
+					<span class="" *ngIf = "delivery.length > 0">{{'delivery'|translate}} {{'Available'|translate}}</span>
 				</div>
 			</div>
 		</div>
@@ -96,7 +99,7 @@
 				<h4>
 					<strong>
 						<i class="fa fa-truck" aria-hidden="true"></i>
-						<span class="">Delivery Fee</span>
+						<span class="">{{'DeliveryFee'|translate}}</span>
 					</strong>
 				</h4>
 			</div>
@@ -106,8 +109,8 @@
 						<span class="col-lg-1">
 							<i class="fa fa-circle" aria-hidden="true" [ngStyle]="{'color':deliver.color}"></i>
 						</span>
-						<span class="col-lg-5">Min : {{deliver.amount}} {{deliver.currency}}</span>
-						<span class="col-lg-5">Fee : {{deliver.deliveryfee}} {{deliver.currency}}</span>
+						<span class="col-lg-5">{{'Min'|translate}} : {{deliver.amount}} {{deliver.currency}}</span>
+						<span class="col-lg-5">{{'Fee'|translate}} : {{deliver.deliveryfee}} {{deliver.currency}}</span>
 					</div>
 				</div>
 			</div>
@@ -115,12 +118,33 @@
 	</div>
 
 	<div class=" col-lg-12 detailSection3">
+
+		<div class="info-hours-language col-lg-2" *ngIf="restaurants.languages">
+			<div class="info-title">
+				<h4>
+					<strong>
+						<i class="fa fa-globe" aria-hidden="true"></i>
+						<span>{{'language'|translate}}</span>
+					</strong>
+				</h4>
+			</div>
+			<div class="info-hours-container">
+				<div class="dropdown">
+					<select class="form-control" id="sel1" #langSelect  (change)="translate.use(langSelect.value)" >
+				        <option	*ngFor="let language of restaurants.languages" [value]="language.abbr" [selected]="language.abbr == lang">{{language.name}}</option>
+				    </select>
+				</div>
+
+			</div>
+
+
+		</div>
 		<div class="info-hours-payment col-lg-2">
 			<div class="info-title">
 				<h4>
 					<strong>
 						<i class="fa fa-usd" aria-hidden="true"></i>
-						<span>Payment Method</span>
+						<span>{{'PaymentMethod'|translate}}</span>
 					</strong>
 				</h4>
 			</div>
@@ -162,7 +186,7 @@
 				<h4>
 					<strong>
 						<i class="fa fa-road" aria-hidden="true"></i>
-						<span class="">Address</span>
+						<span class="">{{'Address'|translate}}</span>
 					</strong>
 				</h4>
 			</div>
@@ -176,12 +200,13 @@
 				</div>
 			</div>
 		</div>
+
 		<div class="info-hours-phone col-lg-2">
 			<div class="info-title">
 				<h4>
 					<strong>
 						<i class="fa fa-phone" aria-hidden="true"></i>
-						<span class="">Phone</span>
+						<span class="">{{'Phone'|translate}}</span>
 					</strong>
 				</h4>
 			</div>
@@ -191,7 +216,8 @@
 				</div>
 			</div>
 		</div>
-		<div class="col-lg-6" id="gmap">   </div>
+		<div class="col-lg-4" id="gmap">
+		</div>
 	</div>
 
 </div>

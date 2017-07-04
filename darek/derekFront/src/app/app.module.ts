@@ -5,6 +5,7 @@ import { HttpModule } from '@angular/http';
 import { RouterModule, Routes } from '@angular/router';
 import { FlashMessagesModule } from 'angular2-flash-messages';
 import { FileSelectDirective, FileDropDirective } from 'ng2-file-upload';
+import {TranslateModule} from 'ng2-translate';
 
 import { AppComponent } from './app.component';
 import { routing } from './app.routing';
@@ -13,7 +14,7 @@ import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
 import { AlertComponent } from './directives/index';
 
-import { AlertService, AuthService, UsersService,DriversService,RestaurantsService, PromotionsService, KitchenMenuService,KitchenItemService,MasterService} from './service/index';
+import { AlertService, AuthService, UsersService,DriversService,RestaurantsService, PromotionsService, KitchenMenuService,KitchenItemService,MasterService,CustomersService, OrderService} from './service/index';
 import { AuthGuard , OwnerAuthGuard} from './guards/index';
 import { DashboardComponent,DashboardprofileComponent } from './dashboard/dashboard.component';
 import { UsersComponent, UsersupdateComponent, UsersaddComponent, AdminComponent, AdminaddComponent, AdminupdateComponent} from './users/index';
@@ -29,7 +30,7 @@ import { PromotionsComponent, PromotionaddComponent, PromotionupdateComponent } 
 import { ForgetComponent,ResetPasswordAdminComponent } from './login/forgetPassword.component';
 import { OwnerComponent,OwnerloginComponent,OwnerAutologinComponent,OwnerregisterComponent,OwnerprofileComponent,OwnerchangepasswordComponent,ForgetOwnerComponent,ResetPasswordOwnerComponent } from './owner/owner.component';
 import { LanguageComponent,LanguagelistComponent, LanguageaddComponent, LanguageupdateComponent } from './language/language.component';
-import { FrontendHeaderComponent, FrontendComponent, FrontendDetailComponent, FrontendCartComponent } from './frontend/frontend.component';
+import { FrontendHeaderComponent, FrontendComponent, FrontendDetailComponent, FrontendCartComponent, FrontendLoginComponent } from './frontend/frontend.component';
 
 @NgModule({
   declarations: [
@@ -57,7 +58,7 @@ import { FrontendHeaderComponent, FrontendComponent, FrontendDetailComponent, Fr
     ForgetComponent,ResetPasswordAdminComponent,
     OwnerComponent,OwnerloginComponent,OwnerprofileComponent,OwnerregisterComponent,OwnerchangepasswordComponent,OwnermailactivateComponent,ForgetOwnerComponent,ResetPasswordOwnerComponent,
     LanguageComponent,LanguagelistComponent, LanguageaddComponent, LanguageupdateComponent, 
-    FrontendHeaderComponent, FrontendComponent, FrontendDetailComponent, FrontendCartComponent
+    FrontendHeaderComponent, FrontendComponent, FrontendDetailComponent, FrontendCartComponent, FrontendLoginComponent
   ],
   imports: [
     BrowserModule,
@@ -66,8 +67,9 @@ import { FrontendHeaderComponent, FrontendComponent, FrontendDetailComponent, Fr
     routing,
     ReactiveFormsModule,
     FlashMessagesModule,
+    TranslateModule.forRoot(),
   ],
-  providers: [AuthGuard,OwnerAuthGuard,AlertService,UsersService,AuthService,DriversService,RestaurantsService,PromotionsService, KitchenMenuService,KitchenItemService,MasterService],
+  providers: [AuthGuard,OwnerAuthGuard,AlertService,UsersService,AuthService,DriversService,RestaurantsService,PromotionsService, KitchenMenuService,KitchenItemService,MasterService, CustomersService, OrderService],
   bootstrap: [AppComponent]
 })
 

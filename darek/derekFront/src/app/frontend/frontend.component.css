@@ -23,6 +23,7 @@ body{
 .sideMenu{
 	display: -webkit-inline-box;
 	padding: 0;
+    text-align: center;
 }
 
 .sideMenu div{
@@ -206,7 +207,7 @@ div.cnt-input-buttons button .fa{
 
 
 .detailDiv{
-	padding-top: 2%;
+	padding-top: 5%;
 	display: grid;
 }
 
@@ -318,6 +319,7 @@ div.checkbox1{
 }
 
 .saveButton{
+    text-align: -webkit-center;
     position: relative;
     padding: 10px;
     background-color: #f08b18;
@@ -326,6 +328,10 @@ div.checkbox1{
     width: 100%;
     color: white;
     display: -webkit-inline-box;
+}
+
+.saveButton:hover{
+    color: white;
 }
 
 .cart-header{
@@ -411,7 +417,90 @@ footer.footer .footerButton .saveButton .button-separator{
     width: 100%;
 }
 
+.pos-header{
+    margin-bottom: 100px;
+    max-height: 200px;
+    overflow-x: auto;
+}
 
+button.orderButton{
+    background: #f08b18;
+    border: 0px none;
+    padding: 10px;
+    width: 100%;
+    color: white;
+}
 
+.sizeOption{
+    display: flex;
+}
 
+.sizeOption .pull-right{
+    text-align: end;
+}
 
+.itemDetailDiv button.hideDetailDiv{
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: -9px;
+/*    padding: 2px 6px;*/
+    z-index: 1054;
+    border-radius: 26px / 27px;
+    background-clip: padding-box;
+    background-color: #f7f7f7;
+    border: 1px solid #ccc;
+    color: #ccc;
+    font-size: 9px;
+    cursor: pointer;
+    box-shadow: 1px -1px 5px rgba(0,0,0,.1);
+    font-weight: bolder;
+}
+
+.itemDetailDiv button.hideDetailDiv span{
+    color: black;
+    font-weight: bolder;
+    font-size: 23px;
+    margin: 0;
+    padding: 0;
+
+}
+
+.addOnsDetail div div div.subAddOn div.subAddOnDetail{
+    padding: 0;
+    cursor: pointer;
+}
+
+.addOnsDetail div div div.subAddOn div.subAddOnDetail div.subAddOnDetailList{
+    padding: 2%;
+}
+
+div.cartLength{
+    z-index: 100000;
+    position: fixed;
+    text-align: center;
+    width: 18px;
+    border-radius: 17px / 17px;
+    background-clip: padding-box;
+    background-color: red;
+    border: 1px solid red;
+    color: #fff;font-size: 13px;
+    cursor: pointer;
+    font-weight: bolder;
+    right: 12%;
+    float: right;
+}
+
+.editButton{
+    /*position: absolute;*/
+    width: 40px;
+    height: 40px;
+    border: 1px solid #c7cdd6;
+    border-radius: 3px;
+    padding: 12px;
+    fill: #7a8799;
+    right: 0;
+/*    top: -30px;*/
+    cursor: pointer;
+    float: right;
+}
