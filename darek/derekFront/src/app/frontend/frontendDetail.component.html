@@ -1,11 +1,12 @@
 <app-frontendheader [ids]="restaurants._id"></app-frontendheader>
 
-<div class="cartLength" *ngIf="cart">{{cart.length}}
+<div class="cartLength" *ngIf="cart.length > 0">{{cart.length}}
 </div>
 
-<div class="container-fluid detailDiv">
-	<div class=" col-lg-12">
-		<div class="info-hours-opening pull-left col-lg-4">
+<div class="container-fluid detailDiv" style="background-color: rgba(128, 128, 128, 0.16) !important;color: #4c4c4c;line-height: 2em;font-family: Arial,Helvetica,sans-serif;
+    font-size: 14px;-webkit-tap-highlight-color: rgba(0,0,0,0);">
+	<div class=" col-lg-12 col-md-12 col-sm-12 col-xs-12" style="height: 100%;">
+		<div class="info-hours-opening pull-left col-lg-6 col-md-6 col-sm-6 col-xs-6">
 			<div class="info-title">
 				<h4>
 					<strong>
@@ -60,7 +61,8 @@
 				</div>
 			</div>
 		</div>
-		<div class="info-hours-pickup pull-right col-lg-4">
+
+		<div class="info-hours-pickup pull-right col-lg-6 col-md-6 col-sm-6 col-xs-6">
 			<div class="info-title">
 				<h4>
 					<strong>
@@ -78,8 +80,8 @@
 		</div>
 	</div>
 
-	<div class=" col-lg-12">
-		<div class="info-hours-delivery pull-left col-lg-4">
+	<div class=" col-lg-12 col-md-12 col-sm-12 col-xs-12" style="height: 100%;padding:10px 0 0 0;">
+		<div class="info-hours-delivery pull-left col-lg-6 col-md-6 col-sm-6 col-xs-6">
 			<div class="info-title">
 				<h4>
 					<strong>
@@ -94,7 +96,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="info-hours-delivery pull-right col-lg-4">
+		<div class="info-hours-delivery pull-right col-lg-6 col-md-6 col-sm-6 col-xs-6">
 			<div class="info-title">
 				<h4>
 					<strong>
@@ -105,8 +107,8 @@
 			</div>
 			<div class="info-hours-container">
 				<div class="" *ngIf = "delivery.length > 0">
-					<div class="col-lg-12" *ngFor = "let deliver of delivery">
-						<span class="col-lg-1">
+					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" *ngFor = "let deliver of delivery">
+						<span class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
 							<i class="fa fa-circle" aria-hidden="true" [ngStyle]="{'color':deliver.color}"></i>
 						</span>
 						<span class="col-lg-5">{{'Min'|translate}} : {{deliver.amount}} {{deliver.currency}}</span>
@@ -117,106 +119,104 @@
 		</div>
 	</div>
 
-	<div class=" col-lg-12 detailSection3">
-
-		<div class="info-hours-language col-lg-2" *ngIf="restaurants.languages">
-			<div class="info-title">
-				<h4>
-					<strong>
-						<i class="fa fa-globe" aria-hidden="true"></i>
-						<span>{{'language'|translate}}</span>
-					</strong>
-				</h4>
-			</div>
-			<div class="info-hours-container">
-				<div class="dropdown">
-					<select class="form-control" id="sel1" #langSelect  (change)="translate.use(langSelect.value)" >
-				        <option	*ngFor="let language of restaurants.languages" [value]="language.abbr" [selected]="language.abbr == lang">{{language.name}}</option>
-				    </select>
+	<div class=" col-lg-12 col-md-12 col-sm-12 col-xs-12 detailSection3" style="height: 100%;padding:10px 0 0 0;">
+		<div class="col-lg-5 col-md-5 col-sm-5 col-xs-5" style="padding: 0;">
+			<div class="info-hours-language col-lg-12 col-md-12 col-sm-12 col-xs-12" *ngIf="restaurants.languages" style="padding: 10px 0 0px 0;">
+				<div class="info-title col-lg-12 col-md-12 col-sm-12 col-xs-12">
+					<h4>
+						<strong>
+							<i class="fa fa-globe" aria-hidden="true"></i>
+							<span>{{'language'|translate}}</span>
+						</strong>
+					</h4>
 				</div>
-
-			</div>
-
-
-		</div>
-		<div class="info-hours-payment col-lg-2">
-			<div class="info-title">
-				<h4>
-					<strong>
-						<i class="fa fa-usd" aria-hidden="true"></i>
-						<span>{{'PaymentMethod'|translate}}</span>
-					</strong>
-				</h4>
-			</div>
-			<div class="info-hours-container">
-				<div class="paymentOptions" *ngIf = "restaurants.paymentpickup && restaurants.paymentdelivery">
-					<div *ngIf = "restaurants.paymentpickup.cash && restaurants.paymentdelivery.cash" >
-						Cash (Both Payment and Delivery)
-					</div>
-					<div *ngIf = "restaurants.paymentpickup.cash && !restaurants.paymentdelivery.cash" >
-						Cash (Pickup Only)
-					</div>
-					<div *ngIf = "!restaurants.paymentpickup.cash && restaurants.paymentdelivery.cash" >
-						Cash (Delivery Only)
-					</div>
-					<div *ngIf = "restaurants.paymentpickup.cardinternet && restaurants.paymentdelivery.cardinternet">
-						Card onlive via internet (Both Payment and Delivery)
-					</div>
-					<div *ngIf = "restaurants.paymentpickup.cardinternet && !restaurants.paymentdelivery.cardinternet">
-						Card onlive via internet (Pickup Only)
-					</div>
-					<div *ngIf = "!restaurants.paymentpickup.cardinternet && restaurants.paymentdelivery.cardinternet">
-						Card onlive via internet (Delivery Only)
-					</div>
-					<div *ngIf = "restaurants.paymentpickup.cardpickup && restaurants.paymentdelivery.cardinternet">
-						Card at pickup counter (Both Pickup and Delivery)
-					</div>
-					<div *ngIf = "restaurants.paymentpickup.cardpickup && !restaurants.paymentdelivery.cardinternet">
-						Card at pickup counter (Pickup Only)
-					</div>
-					<div *ngIf = "!restaurants.paymentpickup.cardpickup && restaurants.paymentdelivery.cardinternet">
-						Card at pickup counter (Delivery Only)
+				<div class="info-hours-container col-lg-12 col-md-12 col-sm-12 col-xs-12">
+					<div class="dropdown col-lg-12 col-md-12 col-sm-12 col-xs-12">
+						<select class="form-control" id="sel1" #langSelect  (change)="translate.use(langSelect.value)" >
+					        <option	*ngFor="let language of restaurants.languages" [value]="language.abbr" [selected]="language.abbr == lang">{{language.name}}</option>
+					    </select>
 					</div>
 				</div>
 			</div>
-		</div>
-
-		<div class="info-hours-address col-lg-2">
-			<div class="info-title">
-				<h4>
-					<strong>
-						<i class="fa fa-road" aria-hidden="true"></i>
-						<span class="">{{'Address'|translate}}</span>
-					</strong>
-				</h4>
+			<div class="info-hours-payment col-lg-12 col-md-12 col-sm-12 col-xs-12" style="padding: 10px 0 0px 0;">
+				<div class="info-title col-lg-12 col-md-12 col-sm-12 col-xs-12">
+					<h4>
+						<strong>
+							<i class="fa fa-usd" aria-hidden="true"></i>
+							<span>{{'PaymentMethod'|translate}}</span>
+						</strong>
+					</h4>
+				</div>
+				<div class="info-hours-container col-lg-12 col-md-12 col-sm-12 col-xs-12">
+					<div class="paymentOptions" *ngIf = "restaurants.paymentpickup && restaurants.paymentdelivery">
+						<div *ngIf = "restaurants.paymentpickup.cash && restaurants.paymentdelivery.cash" >
+							<i class="fa fa-long-arrow-right" aria-hidden="true"></i> &nbsp; Cash (Both Payment and Delivery)
+						</div>
+						<div *ngIf = "restaurants.paymentpickup.cash && !restaurants.paymentdelivery.cash" >
+							<i class="fa fa-long-arrow-right" aria-hidden="true"></i> &nbsp; Cash (Pickup Only)
+						</div>
+						<div *ngIf = "!restaurants.paymentpickup.cash && restaurants.paymentdelivery.cash" >
+							<i class="fa fa-long-arrow-right" aria-hidden="true"></i> &nbsp; Cash (Delivery Only)
+						</div>
+						<div *ngIf = "restaurants.paymentpickup.cardinternet && restaurants.paymentdelivery.cardinternet">
+							<i class="fa fa-long-arrow-right" aria-hidden="true"></i> &nbsp; Card onlive via internet (Both Payment and Delivery)
+						</div>
+						<div *ngIf = "restaurants.paymentpickup.cardinternet && !restaurants.paymentdelivery.cardinternet">
+							<i class="fa fa-long-arrow-right" aria-hidden="true"></i> &nbsp; Card onlive via internet (Pickup Only)
+						</div>
+						<div *ngIf = "!restaurants.paymentpickup.cardinternet && restaurants.paymentdelivery.cardinternet">
+							<i class="fa fa-long-arrow-right" aria-hidden="true"></i> &nbsp; Card onlive via internet (Delivery Only)
+						</div>
+						<div *ngIf = "restaurants.paymentpickup.cardpickup && restaurants.paymentdelivery.cardinternet">
+							<i class="fa fa-long-arrow-right" aria-hidden="true"></i> &nbsp; Card at pickup counter (Both Pickup and Delivery)
+						</div>
+						<div *ngIf = "restaurants.paymentpickup.cardpickup && !restaurants.paymentdelivery.cardinternet">
+							<i class="fa fa-long-arrow-right" aria-hidden="true"></i> &nbsp; Card at pickup counter (Pickup Only)
+						</div>
+						<div *ngIf = "!restaurants.paymentpickup.cardpickup && restaurants.paymentdelivery.cardinternet">
+							<i class="fa fa-long-arrow-right" aria-hidden="true"></i> &nbsp; Card at pickup counter (Delivery Only)
+						</div>
+					</div>
+				</div>
 			</div>
-			<div class="info-hours-container">
-				<div class="">
-					<div>{{restaurants.name}}</div>
-					<div>
-						<span>{{restaurants.city}}</span>, <span>{{restaurants.zipcode}}
-						</span>
+			<div class="info-hours-address col-lg-12 col-md-12 col-sm-12 col-xs-12" style="padding: 10px 0 0px 0;">
+				<div class="info-title col-lg-12 col-md-12 col-sm-12 col-xs-12">
+					<h4>
+						<strong>
+							<i class="fa fa-road" aria-hidden="true"></i>
+							<span class="">{{'Address'|translate}}</span>
+						</strong>
+					</h4>
+				</div>
+				<div class="info-hours-container col-lg-12 col-md-12 col-sm-12 col-xs-12">
+					<div class="">
+						<div>{{restaurants.name}}</div>
+						<div>
+							<span>{{restaurants.city}}</span>, <span>{{restaurants.zipcode}}
+							</span>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="info-hours-phone col-lg-12 col-md-12 col-sm-12 col-xs-12" style="padding: 10px 0 0px 0;">
+				<div class="info-title col-lg-12 col-md-12 col-sm-12 col-xs-12">
+					<h4>
+						<strong>
+							<i class="fa fa-phone" aria-hidden="true"></i>
+							<span class="">{{'Phone'|translate}}</span>
+						</strong>
+					</h4>
+				</div>
+				<div class="info-hours-container col-lg-12 col-md-12 col-sm-12 col-xs-12">
+					<div class="">
+						<div>{{restaurants.phoneNo}}</div>
 					</div>
 				</div>
 			</div>
 		</div>
-
-		<div class="info-hours-phone col-lg-2">
-			<div class="info-title">
-				<h4>
-					<strong>
-						<i class="fa fa-phone" aria-hidden="true"></i>
-						<span class="">{{'Phone'|translate}}</span>
-					</strong>
-				</h4>
+		<div class="col-lg-7 col-md-7 col-sm-7 col-xs-7" style="padding-top: 6%;">
+			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" id="gmap">
 			</div>
-			<div class="info-hours-container">
-				<div class="">
-					<div>{{restaurants.phoneNo}}</div>
-				</div>
-			</div>
-		</div>
-		<div class="col-lg-4" id="gmap">
 		</div>
 	</div>
 

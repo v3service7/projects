@@ -113,7 +113,7 @@ router.delete('/language/:id',function(req,res){
 
 /*-------------------------------START DELIVERY ZONE--------------------------------------------------------*/
 
-router.get('/deliveryzone/:id', function(req, res, next) {
+router.get('/deliveryzones/:id', function(req, res, next) {
 	/*if (!req.isAuthenticated()) {
         return res.status(200).json({
             status: false,

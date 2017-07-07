@@ -14,6 +14,21 @@ var geocoder = NodeGeocoder(options);
 
 var Customer = require('../model/Customer.js');
 
+
+router.get('/', function(req, res, next) {
+    var response={};
+    Customer.find({}, null, {sort: {created_at: 1}},function(err,data){
+        if (err) {
+            response = {"error" : true,"message" : "Error fetching data"};
+        } else{
+
+            response = {"error" : false,"message" : data};
+        };
+        res.json(response);
+    }); 
+});
+
+
 router.post('/add-lat-lng', function(req, res) {
     var fullAddress = req.body.streetName+" "+req.body.postcode+" "+req.body.city;
     console.log(fullAddress);

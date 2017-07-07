@@ -16,11 +16,9 @@ declare var google: any;
 })
 export class FrontendHeaderComponent implements OnInit {
     @Input() ids: string;
-
     restaurants: any = {};
     cart:any =[];
     currentCustomer:any;
-
     constructor(
         private masterService: MasterService,
         private restaurantsService: RestaurantsService,
@@ -28,7 +26,6 @@ export class FrontendHeaderComponent implements OnInit {
         private router: Router,
         private activatedRoute:ActivatedRoute,
         ) { }
-
     ngOnInit() {
         this.activatedRoute.params.subscribe((params: Params) => {
             let id = params['id'];
@@ -37,16 +34,13 @@ export class FrontendHeaderComponent implements OnInit {
             this.currentCustomer = JSON.parse(localStorage.getItem('currentCustomer'));
         });
     }
-
     logout(){
         this.customerService.customerLogout();
-        alert("Logged Out Successfully");
     }
-
     private getRestaurants(id) {
         this.restaurantsService.getOne(id).subscribe(users => {
             this.restaurants = users.message;
-            console.log(this.restaurants);
+            
         });
     }
 }
@@ -73,7 +67,6 @@ export class FrontendComponent implements OnInit {
     imageURL: string = globalVariable.imageUrl;
     count: any= 1;
     currentCustomer:any;
-
     constructor(
         private masterService: MasterService,
         private restaurantsService: RestaurantsService,
@@ -82,30 +75,24 @@ export class FrontendComponent implements OnInit {
         private router: Router,
         private activatedRoute:ActivatedRoute,
         ) {}
-
     ngOnInit() {
         this.activatedRoute.params.subscribe((params: Params) => {
             let id = params['id'];
             this.getRestaurants(id);
             var cartalready = JSON.parse(localStorage.getItem('cart'));
-            // if(cartalready.length > 0){
-                if(cartalready){
-                    this.totalOrder = JSON.parse(localStorage.getItem('cart'));
-                }else{
-                    localStorage.setItem('cart','[]');
-                }
-                console.log("this.totalOrder");
-                console.log(this.totalOrder);
-            });
+            if(cartalready){
+                this.totalOrder = JSON.parse(localStorage.getItem('cart'));
+            }else{
+                localStorage.setItem('cart','[]');
+            }
+        });
     }
-
     private loadAllUsers(id) {
         this.kitchenMenuService.getAll(id).subscribe(users => {       
             this.menus = users.message;
             this.menus.image=this.imageURL+this.menus.image;
         });
     }
-
     private loadAllItem() {
         this.kitchenMenuItemService.getAll().subscribe(users => { 
             this.items = users.message;
@@ -115,32 +102,20 @@ export class FrontendComponent implements OnInit {
             this.addOns = data.message;
         });
     }
-
     private showDiv(id) {
         if (this.detailShow == id) {
             return 'block';
         }
     }
-
     private hideDiv() {
         this.detailShow=''; 
     }
-
-    private addToCart() {
-        console.log("this.totalOrder");
-        console.log(this.totalOrder);
+    private addToCart() {   
         this.totalOrder = JSON.parse(localStorage.getItem('cart'));
-        console.log(this.totalOrder);
-        console.log("this.orderItem");
-        console.log(this.orderItem);
         this.totalOrder.push(this.orderItem);
-        console.log("this.totalOrder2");
-        console.log(this.totalOrder);
-
         localStorage.setItem('cart', JSON.stringify(this.totalOrder));
         this.detailShow='';
     }
-
     private addonPriceInfo(addonObj,addonDetail) {
         var isCheck = addonDetail.getAttribute('data-addon');
         var id = addonDetail.getAttribute('id');
@@ -161,7 +136,6 @@ export class FrontendComponent implements OnInit {
         this.orderItem.totalPrice = this.finalPrice;
         this.orderItem.quantity = this.quantity;
     }
-
     private multiSizePriceInfo(itemMultiSizeObj) {
         this.orderItem.multisize = itemMultiSizeObj;
         this.multiSizePrice = parseInt(itemMultiSizeObj.price);
@@ -169,14 +143,12 @@ export class FrontendComponent implements OnInit {
         this.orderItem.totalPrice = this.finalPrice;
         this.orderItem.quantity = this.quantity;
     }
-
     private quantityIncrement() {
         this.quantity = this.quantity +1;
         this.finalPrice = (this.multiSizePrice + this.price+ this.addonPrice)* this.quantity;
         this.orderItem.totalPrice = this.finalPrice;
         this.orderItem.quantity = this.quantity;
     }
-
     private quantityDecrement() {
         if(this.quantity > 1){
             this.quantity = this.quantity -1; 
@@ -185,7 +157,6 @@ export class FrontendComponent implements OnInit {
             this.orderItem.quantity = this.quantity;
         }
     }
-
     private showDetail(itemObj,itemMultiSizeObj) {
         this.detailShow = itemObj._id;
 
@@ -194,25 +165,18 @@ export class FrontendComponent implements OnInit {
         this.finalPrice = 0;
         this.addonPrice = 0;
         this.quantity = 1;
-
         this.multiSizePrice = parseInt(itemMultiSizeObj.price);  
         this.price = parseInt(itemObj.price);
         this.finalPrice = (this.multiSizePrice + this.price+ this.addonPrice)* this.quantity;
-
         this.orderItem.item = itemObj; 
         this.orderItem.multisize = itemMultiSizeObj; 
         this.orderItem.addon = [];
         this.orderItem.totalPrice = this.finalPrice;
         this.orderItem.quantity = this.quantity;
-        console.log("this.orderItem");
-        console.log(this.orderItem);
     }
-
     private getRestaurants(id) {
-        //console.log(id)
         this.restaurantsService.getOne(id).subscribe(users => {
-            this.restaurants = users.message;
-            console.log(this.restaurants);
+            this.restaurants = users.message;    
             this.loadAllUsers(this.restaurants._id);
             this.loadAllItem(); 
         });
@@ -236,7 +200,6 @@ export class FrontendDetailComponent implements OnInit {
     lng: any;
     lang:string='en';
     translatedText: string;
-
     constructor(
         private masterService: MasterService,
         private restaurantsService: RestaurantsService,
@@ -244,7 +207,6 @@ export class FrontendDetailComponent implements OnInit {
         private activatedRoute:ActivatedRoute,
         private translate: TranslateService,
         ) { }
-
     ngOnInit() {
         this.activatedRoute.params.subscribe((params: Params) => {
             let id = params['id'];
@@ -254,23 +216,17 @@ export class FrontendDetailComponent implements OnInit {
         });
         this.translate.setDefaultLang(this.lang);
     }
-
     selectLang(lang: string) {
         this.lang = lang;
         this.translate.setDefaultLang(this.lang);
     }
-    
     private getRestaurants(id) {
         this.restaurantsService.getOne(id).subscribe(users => {
             this.restaurants = users.message;
             this.lat = this.restaurants.lat;
-            this.lng = this.restaurants.lng;
-
-            console.log(this.lat);
-            console.log(this.lng);
+            this.lng = this.restaurants.lng;        
         });
     }
-
     private deliveryZone(id){
         this.restaurantsService.getAllDeliveryZone(id).subscribe(users => {
             this.delivery = users.message;
@@ -278,15 +234,12 @@ export class FrontendDetailComponent implements OnInit {
             this.selectCircle();
         });
     }
-
-    private selectCircle() {
-        console.log(this.delivery);
+    private selectCircle() {        
         let mapProp = {
             center: new google.maps.LatLng(this.lat, this.lng),
             zoom: 15,
             mapTypeId: google.maps.MapTypeId.ROADMAP
         };
-
         let map = new google.maps.Map(document.getElementById("gmap"), mapProp);
         let latLng = new google.maps.LatLng(this.lat, this.lng);
         let marker = new google.maps.Marker({
@@ -298,7 +251,6 @@ export class FrontendDetailComponent implements OnInit {
         for (var key in this.deliverys) {
             // Add the circle for this city to the map.
             if (this.deliverys[key].type == 'Circle') {
-
                 var newCobj = new google.maps.Circle({
                     strokeColor: this.deliverys[key].color,
                     strokeOpacity: 0.8,
@@ -321,7 +273,6 @@ export class FrontendDetailComponent implements OnInit {
                     var my_lat = splitString[k].split(',');
                     polygonCord.push({ lat: parseFloat(my_lat[0]), lng: parseFloat(my_lat[1]) });
                 }
-
                 this.mypolygone = new google.maps.Polygon({
                     paths: polygonCord,
                     strokeColor: this.deliverys[key].color,
@@ -350,6 +301,9 @@ export class FrontendCartComponent implements OnInit {
     objForUpdate: any = {};
     cart:any=[];
     user = [];
+    zoneObject = [];
+    deliveryFee : number;
+    amount : number;
     showHideContactDetail:boolean;
     showHideOrderingMethod:boolean;
     showHideTime:boolean;
@@ -375,10 +329,8 @@ export class FrontendCartComponent implements OnInit {
     orderMethod:any={};
     orderTime:any={};
     orderPayment:any={};
-    oMethod:any;
-    oTime:any;
-    oPayment:any;
-    //orderMethod:String;
+    //orderTime:any;
+    //orderPayment:any;
     detailForm:FormGroup;
     addressForm:FormGroup;
     day :any = 'today';
@@ -426,32 +378,28 @@ export class FrontendCartComponent implements OnInit {
             this.getRestaurants(id);
             this.deliveryZone(id);
         });
-
         this.currentCustomer = JSON.parse(localStorage.getItem('currentCustomer'));
-        this.oMethod = JSON.parse(localStorage.getItem('orderMethod'));
-        this.oTime = JSON.parse(localStorage.getItem('orderTime'));
-        this.oPayment = JSON.parse(localStorage.getItem('orderPayment'));
-
-        if (this.oMethod) {
-            console.log("this.oMethod");
-            console.log(this.oMethod);
+        if (JSON.parse(localStorage.getItem('orderMethod')) != null) {
+            this.orderMethod = JSON.parse(localStorage.getItem('orderMethod'));
+            this.zoneCalculate(this.orderMethod);
             this.editOrderMethod = true;
             this.orderType = true;
             this.saveInfo();
+            this.deliveryAddress=true;
         }
-        if (this.oTime) {
-            console.log("this.oTime");
-            console.log(this.oTime);
+        if (JSON.parse(localStorage.getItem('orderTime')) != null) {
+            this.orderTime = JSON.parse(localStorage.getItem('orderTime'));
             this.editTimeMethod = true;
             this.addTime = true;
             this.saveInfo();
+            this.flagForTime=true;
         }
-        if (this.oPayment) {
-            console.log("this.oPayment");
-            console.log(this.oPayment);
+        if (JSON.parse(localStorage.getItem('orderPayment')) != null) {
+            this.orderPayment = JSON.parse(localStorage.getItem('orderPayment'));
             this.editPaymentMethod = true;
             this.paymentMethod = true;
             this.saveInfo();
+            this.flagForPayment=true;
         }
 
         if(this.currentCustomer){
@@ -459,21 +407,20 @@ export class FrontendCartComponent implements OnInit {
             this.addDetail=true;
             this.detailForm.patchValue(this.currentCustomer);
             this.cartDetail.customerId=custId;
+            this.saveInfo();
         }
-
         this.cart = JSON.parse(localStorage.getItem('cart'));
-
         if (this.cart.length > 0) {
             this.cartDetail.orders = this.cart;
             this.cartZero = true;
+            this.saveInfo();
         }
-        if(this.cartDetail){
-            console.log(this.oMethod)
-            this.addressForm.patchValue(this.oMethod);
+        if(typeof this.orderMethod != 'undefined'){
+            this.addressForm.patchValue(this.orderMethod);
         }
+        this.deliveryFee = 0;
     }
-
-    private saveDetailInfo(){
+    private saveDetailInfo(){     
         this.customerService.updateCustomer(this.detailForm.value).subscribe(
             (data) => {
                 localStorage.setItem('currentCustomer', JSON.stringify(this.detailForm.value));
@@ -481,19 +428,15 @@ export class FrontendCartComponent implements OnInit {
             }
         );
         this.addDetail=true;
-        console.log("this.addDetail");
-        console.log(this.addDetail);
         this.saveInfo();
         this.changeShowDetailStatus();
     }
-
     private addressButton(id){
         if (id=="pickup") {
             this.orderMethod = {};
             this.orderMethod.mType ='Pickup';
             this.deliveryAddress = true; 
             this.del=false;
-            // console.log(this.cartDetail);
         }
         else if (id=="delivery") {
             this.del=true;
@@ -502,42 +445,114 @@ export class FrontendCartComponent implements OnInit {
             this.deliveryAddress = false;
         }
     }
-
     private pickupOnly(){
         localStorage.setItem('orderMethod', JSON.stringify(this.orderMethod));
-        this.oMethod = JSON.parse(localStorage.getItem('orderMethod'));
-        this.cartDetail.orderMethod=this.orderMethod;
-        console.log(this.cartDetail);
+        this.orderMethod = JSON.parse(localStorage.getItem('orderMethod'));
+        this.cartDetail.orderMethod=this.orderMethod;        
         this.orderType=true;
         this.saveInfo();
         this.showHideOrderingMethod =false;
         this.editOrderMethod = true;
     }
-
+    private calculateDeliveryZone(zoneObj,deliveryAddress,map,marker){        
+        if (zoneObj.type=='Circle') {
+            let circle = new google.maps.Circle({
+                    map: map,
+                    clickable: false,
+                    radius: parseFloat(zoneObj.radius),
+                    //radius: 400,
+                    fillColor: '#fff',
+                    fillOpacity: .6,
+                    strokeColor: '#313131',
+                    strokeOpacity: .4,
+                    strokeWeight: .8
+                });
+            circle.bindTo('center', marker, 'position');
+            var isIn = circle.getBounds().contains(deliveryAddress);
+            if (isIn) {
+                return zoneObj;
+            }
+        }
+        if(zoneObj.type=='Shape'){
+            var polygonCord = [];
+            var newArr = zoneObj.radius;
+            var splitString = newArr.split('@');
+            var splitStrlen = splitString.length;
+            for (var k = 0; k < splitStrlen; k++) {
+                var my_lat = splitString[k].split(',');
+                polygonCord.push({ lat: parseFloat(my_lat[0]), lng: parseFloat(my_lat[1]) });
+            }
+            var mypolygone = new google.maps.Polygon({
+                paths: polygonCord,
+                strokeColor: zoneObj.color,
+                fillColor: zoneObj.color,
+            });
+            mypolygone.setMap(map);
+            var isWithinPolygon = google.maps.geometry.poly.containsLocation(deliveryAddress, mypolygone);
+            if (isWithinPolygon) {
+                return zoneObj;
+            }
+        }
+    }
+    private zoneCalculate(method){
+        this.customerService.getLatLng(method).subscribe(data => {
+            let latLng = new google.maps.LatLng(this.restaurants.lat, this.restaurants.lng);
+            let latLngDeliveryAddress = new google.maps.LatLng(data.message.lat, data.message.lng);
+            let map = new google.maps.Map(document.getElementById('gmap'), {
+                zoom: 15,
+                center: latLng,
+                mapTypeId: google.maps.MapTypeId.ROADMAP,
+                mapTypeControl: false
+            });
+            let marker =  new google.maps.Marker({
+                position: latLng,
+                title: 'Location',
+                map: map,
+                draggable: true
+            });
+            let markerB =  new google.maps.Marker({
+                position: latLngDeliveryAddress,
+                title: 'Location',
+                map: map,
+                draggable: true
+            });
+            for (var i = 0; i < this.delivery.length; i++) {
+                var zones = this.calculateDeliveryZone(this.delivery[i],latLngDeliveryAddress,map,marker);
+                if (typeof zones != 'undefined') {
+                    this.zoneObject.push(zones);
+                }
+            }
+            if (this.zoneObject.length > 0) {
+                this.deliveryFee = parseInt(this.zoneObject[0].deliveryfee);
+                for (var i = 0; i < this.zoneObject.length; i++) {
+                    if (this.zoneObject[i].deliveryfee <= this.deliveryFee) {
+                        this.deliveryFee = parseInt(this.zoneObject[i].deliveryfee);
+                        this.amount = parseInt(this.zoneObject[i].amount);
+                    }
+                }
+                this.cartDetail.deliveryfee = this.deliveryFee;
+                this.update();
+            }
+        });
+    }
 
     private saveAddressInfo(){
+        this.zoneObject=[];
         this.orderMethod = {"streetName": this.addressForm.value.streetName, "city": this.addressForm.value.city, "postcode": this.addressForm.value.postcode,"mType":'Delivery'};
-        this.customerService.getLatLng(this.orderMethod).subscribe(data => {
-            console.log('data');
-            console.log(data);
-            console.log('data');
-            //this.alertService.success('Restaurant Deleted successful', true);
-        });
+        this.zoneCalculate(this.orderMethod);
         localStorage.setItem('orderMethod', JSON.stringify(this.orderMethod));
-        this.oMethod = JSON.parse(localStorage.getItem('orderMethod'));
+        this.orderMethod = JSON.parse(localStorage.getItem('orderMethod'));
         this.cartDetail.orderMethod = this.orderMethod;
         this.orderType=true;
         this.editOrderMethod = true;
-        console.log(this.cartDetail);
         this.saveInfo();
         this.changeShowOrderingStatus();
     }
-
     private editOrder(){
         this.editOrderMethod = !this.editOrderMethod;
         this.showHideOrderingMethod = true;
+        this.deliveryAddress = true;
     }
-
     private setTime(id){
         if (id=="now") {
             this.delLater=false;
@@ -552,7 +567,6 @@ export class FrontendCartComponent implements OnInit {
             this.flagForTime=true;
         }
     }
-
     private saveTimeInfo(){
         if (this.orderTime.tType == 'Later') {
             this.orderTime = {"day":this.day, "time":this.time, "tType": 'Later'}
@@ -561,23 +575,18 @@ export class FrontendCartComponent implements OnInit {
             var date = Date();
             this.orderTime = {"time":date,  "tType": 'Now'}
         }
-
         localStorage.setItem('orderTime', JSON.stringify(this.orderTime));
-        this.oTime = JSON.parse(localStorage.getItem('orderTime'));
+        this.orderTime = JSON.parse(localStorage.getItem('orderTime'));
         this.cartDetail.orderTime = this.orderTime;
         this.editTimeMethod = true;
-
-        console.log(this.cartDetail);
         this.addTime=true;
         this.saveInfo();
         this.changeShowTimingStatus();
     }
-
     private editTime(){
         this.editTimeMethod =!this.editTimeMethod;
         this.showHideTime = true;
     }
-
     private paymentOption(id){
         if (id=="cash") {
             this.flagForPayment=true;
@@ -592,96 +601,76 @@ export class FrontendCartComponent implements OnInit {
             this.orderPayment = {"ptype":this.orderMethod.mType,"cash":false, "cardpickup":false,"cardinternet":true}
         }
     }
-
     private savePaymentInfo(){
         localStorage.setItem('orderPayment', JSON.stringify(this.orderPayment));
-        this.cartDetail.orderPayment=this.orderPayment;
-        console.log(this.cartDetail);
+        this.cartDetail.orderPayment=this.orderPayment;        
         this.paymentMethod=true;
-        this.oPayment=JSON.parse(localStorage.getItem('orderPayment'));
+        this.orderPayment=JSON.parse(localStorage.getItem('orderPayment'));
         this.editPaymentMethod = true;
         this.saveInfo();
         this.changeShowPaymentStatus();
     }
-
     private editPayment(){
         this.editPaymentMethod =!this.editTimeMethod;
         this.showHidePaymentMethod = true;
     }
-
     private saveInfo(){
-        if (this.orderType == true && this.addTime == true && this.paymentMethod == true && this.cartZero == true) {
+        if (this.addDetail == true && this.orderType == true && this.addTime == true && this.paymentMethod == true && this.cartZero == true && this.amount < this.grandTotal) {
             this.all=true;
         }
         else{
             this.all=false;
         }
     }
-
     private changeShowDetailStatus(){
         this.showHideContactDetail = !this.showHideContactDetail;
     }
-
     private changeShowOrderingStatus(){
         this.showHideOrderingMethod = !this.showHideOrderingMethod;
         this.addressClicked =true;
         this.del =false;
     }
-
     private changeShowTimingStatus(){
         this.showHideTime = !this.showHideTime;
     }
-
     private changeShowPaymentStatus(){
         this.showHidePaymentMethod = !this.showHidePaymentMethod;
     }
-
     private addressInfo(){
         this.addressClicked = !this.addressClicked;
     }
-
     private update(){
         this.grandTotal=0;
         for (var i = 0; i < this.cart.length; ++i) {
             this.grandTotal = this.grandTotal+this.cart[i].totalPrice;
         }
-        this.grandTotalWithTax = ((parseInt(this.restaurants.taxation.taxpercent) + 100)/100) * this.grandTotal;
+        this.grandTotalWithTax =this.deliveryFee + ((parseInt(this.restaurants.taxation.taxpercent) + 100)/100) * this.grandTotal;
         this.cartDetail.subTotal=this.grandTotal;
-        this.cartDetail.gTotal=this.grandTotalWithTax;
-        console.log('this.cartDetail123456789');
-        console.log(this.cartDetail);
+        this.cartDetail.gTotal=this.grandTotalWithTax ;
+        this.saveInfo();
     }
-
     private deleteCart(index) {
         this.cart.splice(index,1);
         localStorage.setItem('cart', JSON.stringify(this.cart));
         this.update();
     }
-
     private getRestaurants(id) {
         this.restaurantsService.getOne(id).subscribe(users => {
             this.restaurants = users.message;
             this.update();
             this.cartDetail.tax=this.restaurants.taxation.taxpercent;
-            
-
+         
         });
     }
-
     private deliveryZone(id){
         this.restaurantsService.getAllDeliveryZone(id).subscribe(users => {
             this.delivery = users.message;
-            console.log("this.delivery");
-            console.log(this.delivery);
         });
     }
-
     private placeOrder(){
-        console.log(this.cartDetail);
         this.customerService.addOrder(this.cartDetail).subscribe(
           (data) => {
             this.user = data.message;
-            alert("Order Placed");
             localStorage.setItem('cart','[]');
             this.router.navigate(['/frontend',this.restaurants._id]);
             }
@@ -696,7 +685,6 @@ export class FrontendCartComponent implements OnInit {
     encapsulation: ViewEncapsulation.None
 })
 export class FrontendLoginComponent implements OnInit {
-
     restaurants: any = {};
     loginForm: FormGroup;
     regForm: FormGroup;
@@ -716,15 +704,11 @@ export class FrontendLoginComponent implements OnInit {
         private _flashMessagesService: FlashMessagesService,
         private restaurantsService: RestaurantsService,
         ) { }
-
-
     ngOnInit() {
         if (typeof this.route.snapshot.queryParams["show"] != 'undefined') {
             this.showRegister = true;
             this.showLogin = false;
         }
-        console.log();
-
         this.customerService.customerLogout();
         this.loginForm = this.lf.group({
             username: ['', Validators.required],
@@ -745,17 +729,14 @@ export class FrontendLoginComponent implements OnInit {
 
         });
     }
-
     showLoginForm(){
         this.showLogin = true;
         this.showRegister = false;
     }
-
     showRegisterForm(){
         this.showLogin = false;
         this.showRegister = true;
     }
-
     login(){
         this.customerService.getCustomer(this.loginForm.value).subscribe(
             (data) => {
@@ -764,34 +745,29 @@ export class FrontendLoginComponent implements OnInit {
                     this.alertService.success('Login successful', true);
                     //this._flashMessagesService.show('Login Successful', { cssClass: 'alert-success', timeout: 10000 });
                     // var x = JSON.parse(localStorage.getItem('currentCustomer'));
-                    // console.log("x");
-                    // console.log(x);
+                    // 
+                    // 
                     this.router.navigate(['/frontend-cart',this.id]);
                 }
                 else{
                     this._flashMessagesService.show('Bad Credential', { cssClass: 'alert-danger', timeout: 10000 });
                     //this.alertService.error('Bad Credential', true);
-                    alert('Bad Credential');
                     this.router.navigate(['/login',this.id]);
                 }
             }
-            );
+        );
     }
-
     register(){
         this.customerService.addCustomer(this.regForm.value).subscribe(
             (data) => {
-                alert('Registration Successful');
                 this.router.navigate(['/login',this.id]);
             }
             );
     }
-
     private getRestaurants(id) {
         this.restaurantsService.getOne(id).subscribe(users => {
             this.restaurants = users.message;
-            console.log(this.restaurants);
+            
         });
     }
 }
-

@@ -108,8 +108,8 @@ export class RestaurantsService {
      }
 
   getAllDeliveryZone(id){
-    console.log(id);
-   return this.http.get(globalVariable.url+'deliveryzone/'+id)
+   console.log(id);
+   return this.http.get(globalVariable.url+'deliveryzones/'+id)
          .map(
            (response: Response) => response.json()
          );

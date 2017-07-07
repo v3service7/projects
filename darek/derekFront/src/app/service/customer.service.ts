@@ -46,4 +46,8 @@ export class CustomersService {
         return this.http.post(globalVariable.url+'order/add',data)
         .map((response: Response) => response.json());
     }
+    orderPlaced(data){
+        return this.http.post(globalVariable.url+'order/order-placed',data)
+        .map((response: Response) => response.json());
+    }
 }

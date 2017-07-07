@@ -1,6 +1,7 @@
 body{
 	margin: 0;
-	background-color: white !important; 
+    min-width: 810px;
+	background-color: white !important;
 }
 
 .topNav1{
@@ -207,20 +208,23 @@ div.cnt-input-buttons button .fa{
 
 
 .detailDiv{
-	padding-top: 5%;
+	padding-top: 10%;
 	display: grid;
+    padding-bottom: 4%;
 }
 
 .cartDiv{
-    padding-top: 5%;
+    padding: 10% 0 0 0;
 }
 
-.detailDiv div {
-    margin-top: 1.5%;
+/*.detailDiv div {
+    padding-top: 10px;
+    padding-bottom: 10px;
 }
-
+*/
 .info-title{
 	border-bottom: 1px solid #DBDBDB;
+    margin-bottom: 5%;
 }
 
 .info-hours-container div{
@@ -248,15 +252,15 @@ div.cnt-input-buttons button .fa{
 }
 
 .menuImage{
-    border-radius: 20px;
+    border-radius: 15px;
     background-size: cover;
     background-position: center;
-    height: 145px;
+    height: 100px;
 }
 
 .itemDetailDiv{
     background-color: #f7f7f7;
-    left: 100%;
+    left: 85%;
     position: absolute;
     z-index: 1;
     box-shadow: 0 2px 10px rgba(0,0,0,.2);
@@ -264,7 +268,7 @@ div.cnt-input-buttons button .fa{
 }
 
 #gmap{
-    height: 200px;
+    height: 485px;
 }
 
 .fillDetail .contactDetail ,.fillDetail .orderingMethod ,.fillDetail .chooseTime ,.fillDetail .paymentMethod {
@@ -347,9 +351,8 @@ div.checkbox1{
 }
 
 .cart-footer{
-    padding: 0;
+    padding-right: 0;
     width: 100%;
-/*    padding: 20px 15px;*/
     position: relative;
     border: 1px solid #ccc;
 }

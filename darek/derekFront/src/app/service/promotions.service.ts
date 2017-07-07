@@ -10,35 +10,35 @@ export class PromotionsService {
   constructor(private http: Http) { }
 
   addPromotion(data) {
-    return this.http.post(globalVariable.url,data)
+    return this.http.post(globalVariable.url+'promotion/',data)
       .map(
       (response: Response) => response.json()
     );
   }
 
   updatePromotion(data) {
-    return this.http.put(globalVariable.url+data._id,data)
+    return this.http.put(globalVariable.url+'promotion/'+data._id,data)
       .map(
       (response: Response) => response.json()
     );
   }
 
   getAll() {
-    return this.http.get(globalVariable.url)
+    return this.http.get(globalVariable.url+'promotion/')
       .map(
       (response: Response) => response.json()
     );
   }
 
   getOne(id) {
-    return this.http.get(globalVariable.url+id)
+    return this.http.get(globalVariable.url+'promotion/'+id)
       .map(
       (response: Response) => response.json()
     );
   }
 
   deleteOne(id) {
-    return this.http.delete(globalVariable.url+id)
+    return this.http.delete(globalVariable.url+'promotion/'+id)
       .map(
       (response: Response) => response.json()
     );
