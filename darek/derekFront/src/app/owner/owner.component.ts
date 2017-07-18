@@ -5,6 +5,8 @@ import { FlashMessagesService } from 'angular2-flash-messages';
 
 import { AlertService, AuthService, UsersService } from '../service/index';
 
+declare var toastr: any;
+
 @Component({
   selector: 'app-owner',
   templateUrl: './owner.component.html',
@@ -25,7 +27,6 @@ export class OwnerComponent implements OnInit {
   selector: 'app-ownerregister',
   templateUrl: './ownerregister.component.html'
 })
-
 export class OwnerregisterComponent implements OnInit {
 
     loginForm: FormGroup;
@@ -52,7 +53,7 @@ export class OwnerregisterComponent implements OnInit {
     register(){
         this.ownerService.addUser(this.loginForm.value).subscribe(
             (data) => {
-                //this._flashMessagesService.show('Register successful', { cssClass: 'alert-success', timeout: 10000 });
+                toastr.success('Register successful','Success!');
                 this.router.navigate([this.returnUrl]);
             }
         );
@@ -81,7 +82,7 @@ export class OwnerloginComponent implements OnInit {
 
   	ngOnInit() {
         this.authService.ownerLogout();
-        this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || 'owner/profile';
+        this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || 'owner/basic-detail';
         console.log(this.returnUrl);
   		this.loginForm = this.lf.group({
             username: ['', Validators.required],
@@ -94,25 +95,23 @@ export class OwnerloginComponent implements OnInit {
             (data) => {
                 if (data.status) {
                     localStorage.setItem('currentOwner', JSON.stringify(data.data));
-                    this.alertService.success('Login successful', true);
-                    //this._flashMessagesService.show('Login Successful', { cssClass: 'alert-success', timeout: 10000 });
+                    toastr.success('Login successful','Success!');
                     this.router.navigate([this.returnUrl]);
-                      }else{
-                    this._flashMessagesService.show('Bad Credential', { cssClass: 'alert-danger', timeout: 10000 });
-                    //this.alertService.error('Bad Credential', true);
+                }
+                else{
+                    toastr.error('Bad Credential','Error!');
                     this.router.navigate(['owner/login']);
-                    }
+                }
             }
         );
     }
 }
 
 @Component({
-  selector: 'app-ownerautologin',
-  template: ''
+    selector: 'app-ownerautologin',
+    template: ''
 })
 export class OwnerAutologinComponent implements OnInit {
-
     constructor( 
         private router: Router,
         private route: ActivatedRoute,        
@@ -120,31 +119,29 @@ export class OwnerAutologinComponent implements OnInit {
         private alertService: AlertService        
         ) { }
 
-
     ngOnInit() {   
         this.route.params.subscribe((params: Params) => {
             let id = params['id'];
             this.autologin(id);
         });
-        }
+    }
 
     autologin(id){
         this.authService.getOwnerById(id).subscribe(
             (data) => {
                 console.log(data);
                 if (!data.error) {
-                     localStorage.removeItem('currentOwner');              
-                     localStorage.setItem('currentOwner', JSON.stringify(data.message));
-                     console.log(JSON.parse(localStorage.getItem('currentOwner')));
-                     this.alertService.success('Login successful', true);                   
-                     this.router.navigate(['owner/profile']);
-                      }
-                   });
-                  }
-
+                    localStorage.removeItem('currentOwner');              
+                    localStorage.setItem('currentOwner', JSON.stringify(data.message));
+                    console.log(JSON.parse(localStorage.getItem('currentOwner')));
+                    toastr.success('Login successful','Success!');
+                    //this.alertService.success('Login successful', true);                   
+                    this.router.navigate(['owner/profile']);
+                }
+            }
+        );
+    }
 }
-
-
 
 @Component({
     selector: 'app-ownerprofile',
@@ -181,16 +178,20 @@ export class OwnerprofileComponent implements OnInit {
     ownerUpdate(){
         this.userService.updateUser(this.ownerProfile.value).subscribe(
             (data) => {
-                localStorage.removeItem('currentOwner');
-                localStorage.setItem('currentOwner', JSON.stringify(this.ownerProfile.value));
-                this._flashMessagesService.show('Profile updated successfully', { cssClass: 'alert-success', timeout: 10000 });
-                this.router.navigate(['owner/profile']);
+                if (data.error) {
+                    toastr.error(data.message.errmsg,'Error!');
+                    //this._flashMessagesService.show(data.message.errmsg, { cssClass: 'alert-danger', timeout: 10000 });
+                }else{
+                    localStorage.removeItem('currentOwner');
+                    localStorage.setItem('currentOwner', JSON.stringify(this.ownerProfile.value));
+                    toastr.success('Profile updated successfully','Success!');
+                    //this._flashMessagesService.show('Profile updated successfully', { cssClass: 'alert-success', timeout: 10000 });
+                    this.router.navigate(['owner/profile']);
+                }
             }
         );
     }
-	
 }
-
 
 @Component({
     selector: 'app-ownerprofile',
@@ -225,16 +226,15 @@ export class OwnerchangepasswordComponent implements OnInit {
         this.userService.updateOwnerPassword(this.ownerProfile.value).subscribe(
             (data) => {
                 if (data.error) {
-                    this._flashMessagesService.show(data.message, { cssClass: 'alert-danger', timeout: 10000 });
+                    toastr.error(data.message,'Error!');
                 }else{
-                    this._flashMessagesService.show(data.message, { cssClass: 'alert-success', timeout: 10000 });
+                    toastr.success(data.message,'Success!');
                     this.router.navigate(['owner/profile']);
                 }
             }
         );
     }
 }
-
 
 @Component({
   selector: 'app-forget',
@@ -261,7 +261,7 @@ export class ForgetOwnerComponent implements OnInit {
         console.log(this.forgetForm.value);
         this.authService.forgetPassword(this.forgetForm.value).subscribe(
             (data) => {
-                this.alertService.success('check ur email', true);
+                toastr.info('check ur email', 'Email Sent!');
                 this.router.navigate(['/owner/login']);
             }
         );
@@ -273,7 +273,6 @@ export class ForgetOwnerComponent implements OnInit {
   templateUrl: './resetPasswordOwner.component.html',
   styles: []
 })
-
 export class ResetPasswordOwnerComponent implements OnInit {
     
     forgetForm: FormGroup;
@@ -301,7 +300,8 @@ export class ResetPasswordOwnerComponent implements OnInit {
         console.log(this.forgetForm.value);
         this.authService.resetPassword(this.id,this.forgetForm.value).subscribe(
             (data) => {
-                this.alertService.success('check ur email', true);
+                toastr.info('check ur email', 'Email Sent!');
+                //this.alertService.success('check ur email', true);
                 this.router.navigate(['/owner/login']);
             }
         );

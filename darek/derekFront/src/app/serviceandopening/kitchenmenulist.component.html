@@ -1,5 +1,5 @@
 <app-headerowner></app-headerowner>
-<div class="rightMenu col-lg-9 col-md-9 col-sm-9 custom_chng_menu">
+<div class="rightMenu col-lg-9 col-md-9 col-sm-9 custom_chng_menu" style="background-color: #E9E9E8;">
    <alert></alert>
 
 <!-- Group Detail -->
@@ -7,8 +7,8 @@
       <h4  *ngIf="currentOpen ==  'editgroup'">Edit Group</h4>
       <div class="settings-content custom_settings_content" *ngIf="currentOpen ==  'editgroup'">
          <div class="comp-edit-area js-edit-area">
-            <form [formGroup]="editableDetail" (ngSubmit)="groupDetailEditUpdate()">  
-               <div class="comp-edit-zone comp-edit-composed js-edit-zone">            
+            <form [formGroup]="editableDetail" (ngSubmit)="groupDetailEditUpdate()">
+               <div class="comp-edit-zone comp-edit-composed js-edit-zone">        
                   <div class="comp-edit-field comp-medium-field ng-binding">Name</div> 
                   <input type="hidden" formControlName="_id" />           
                   <input type="text" class="comp-medium-field form-control js-edit-name has-success" name="name" data-completed="1" placeholder="Group Name" data-rule="notEmpty" formControlName="name">
@@ -137,7 +137,7 @@
 <!-- Group Detail End -->
 
 
-   <div class="menuSetup" id="Menu11" style="box-shadow: 0px 0px 0px;">
+   <div class="menuSetup" id="Menu11" style="box-shadow: 0px 0px 0px;background-color: #E9E9E8;">
 
    <!-- add menu button -->
       <div class="row">
@@ -256,76 +256,174 @@
       </div>
    <!-- upload SubMenu Image -->
 
-   <!--HIdden Menu Option-->
-      <div class="" style="width: 20%;">
-         <div class="">
-            Options
-            <span class="label label-default pointer" style="float: right;">Cancel</span>
-         </div>
-      </div>
-   <!--HIdden Menu Option-->
-
       <div *ngFor="let user of users" class="col-lg-9 col-md-9 col-sm-9 col-xs-9">
          <div class="mainMenuItem" >
-            <div class="itemImage col-lg-2 col-md-2 col-sm-2 col-xs-2">
-               <img  (click)="passId(user._id)" data-toggle="modal" data-target="#mymenuModal" src="{{imageUrl}}{{user.image}}" class="img-responsive custom_img_size">
+            <div class="itemImage col-lg-2 col-md-2 col-sm-2 col-xs-2" >
+               <div *ngIf="user.image"><img  (click)="passId(user._id)" data-toggle="modal" data-target="#mymenuModal" src="{{imageUrl}}{{user.image}}" class="img-responsive custom_img_size"></div>
+               <div *ngIf="!user.image"><img  (click)="passId(user._id)" data-toggle="modal" data-target="#mymenuModal" src="./assets/images/menu.jpg" class="img-responsive custom_img_size"></div>
             </div>
-            <div class="itemDesc col-lg-7 col-md-7 col-sm-7 col-xs-7 custom_menu_color"> {{user.name}}</div>
+            <div class="itemDesc col-lg-7 col-md-7 col-sm-7 col-xs-7 custom_menu_color"> {{user.name}}<span class="label label-warning" *ngIf="user.isHidden == true" style="font-size: 42%;position: absolute;border-radius: 1.25em;padding: 1%;">Hidden from Menu</span><span class="label label-warning" *ngIf="user.isHidden== false" style="font-size: 42%;position: absolute;border-radius: 1.25em;padding: 1%;">Show on specific time</span>
+            </div>
+            
             <div class="icons col-lg-3 col-md-3 col-sm-3 col-xs-3 pull-right">
-               <a [routerLink]="[]"><i class="fa fa-chevron-circle-down" aria-hidden="true"></i></a>
+               <a href="javascript:void(0);" (click)="showDayOption(user._id,'menu')"><i class="fa fa-chevron-circle-down" aria-hidden="true"></i></a>
                <a [routerLink]="['/owner/menu-edit/',user._id]"><i class="fa fa-pencil" aria-hidden="true"></i></a>
                <a (click)="deleteUser(user._id)" href="javascript:void(0);"><i class="fa fa-trash" aria-hidden="true"></i></a>
                <a [routerLink]="['/owner/item-add/',user._id]" title="Add Item"><i class="fa fa-plus" aria-hidden="true"></i></a>
             </div>
          </div>
-         <div  *ngFor="let item of items">
-            <div *ngIf="item.menuId == user._id" class="subMenuItem ">
-            <!--Item Description-->   
-               <div class="margin-for-addon">
-                  <div class="itemImage col-lg-2 col-md-2 col-sm-2 col-xs-2">
-                     <img (click)="passub(item._id)" data-toggle="modal" data-target="#mySubMenuModal"  src="{{imageUrl}}{{item.image}}" class="img-responsive">
+      
+         <!--HIdden Menu Option-->
+            <div class="hideMenu" id="hideMenu" [style.display]="showDiv(user._id, 'menu')">
+               <div class="cancleOption">
+                  <div style="width: inherit;padding: 6px;">Options</div>
+                  <div style="float:right;border: 1px solid gray;" class="btn"  (click) = "hideDiv('menu')">&times;</div>
+               </div>
+               <div class="daysOption">
+                  <div style="border-bottom: 1px solid #ccc; padding: 2%;">
+                     <label>
+                        <input type="radio" name="radio" (click)="hideMenu(user._id)" [checked]="user.isHidden === true"> Hidden from menu
+                     </label>
                   </div>
-                  <div class="itemDesc col-lg-8 col-md-8 col-sm-8 col-xs-8"> {{item.name}}
-                     <span class="custom_sub_price" *ngIf="item.multisize.length < 1"><code> {{item.price}} CZK</code></span>
-                     <div class="row" style="margin-top: 10px;">
-                        <small *ngFor="let grop of groups">
-                           <span *ngFor="let itemx of item.options; let i = index;">
-                              <i *ngIf = "grop._id == item.options[i]"> 
-                                 <button style="padding: 4px;" class="btn btn-default"> {{grop.name}} </button>
-                              </i>
-                           </span>
-                        </small>
+                  <div style="padding: 2%;">
+                     <label>
+                        <input type="radio" name="radio" (click)="showMenu(user._id)" [checked]="user.isHidden === false"> Show on specific time
+                     </label>
+                  </div>
+                  <div id="days{{user._id}}" class="menuDays" style=" padding: 2%;">
+                     <div class="daysSchedule" *ngIf="user.openinghours" style="font-size: smaller;padding: 6%;">
+                        <span *ngIf="user.openinghours.monday">Monday, </span>
+                        <span *ngIf="user.openinghours.tuesday">Tuesday, </span>
+                        <span *ngIf="user.openinghours.wednesday">Wednesday, </span>
+                        <span *ngIf="user.openinghours.thursday">Thursday, </span>
+                        <span *ngIf="user.openinghours.friday">Friday, </span>
+                        <span *ngIf="user.openinghours.saturday">Saturday ,</span>
+                        <span *ngIf="user.openinghours.sunday">Sunday, </span>
+                        
+                        <span *ngIf="user.openinghours.opentime">&nbsp;{{user.openinghours.opentime}}-</span>
+                        <span *ngIf="user.openinghours.closetime">{{user.openinghours.closetime}}</span>
+                     </div>
+                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin: 2% 0 2% 0">
+                        <input type="time" name="opentime" [attr.id]="'opentime_' + user._id">
+                        <input type="time" name="closetime" [attr.id]="'closetime_' + user._id">
+                     </div>
+                     <!-- {{user.openinghours.monday}} -->
+                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 daysList">
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6" (click)="checkMon()"><input type="checkbox" id="optionsRadios2" value="Monday" [checked]="mondayCheck"> Monday</div>
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6" (click)="checkTue()"><input type="checkbox" name="tue" id="optionsRadios2" value="Tuesday" [checked]="tuesdayCheck"> Tuesday</div>
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6" (click)="checkWed()"><input type="checkbox" name="wed" id="optionsRadios2" value="Wednesday" [checked]="wednesdayCheck"> Wednesday</div>
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6" (click)="checkThu()"><input type="checkbox" name="thu" id="optionsRadios2" value="Thursday" [checked]="thursdayCheck"> Thursday</div>
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6" (click)="checkFri()"><input type="checkbox" name="fri" id="optionsRadios2" value="Friday" [checked]="fridayCheck"> Friday</div>
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6" (click)="checkSat()"><input type="checkbox" name="sat" id="optionsRadios2" value="Saturday" [checked]="saturdayCheck"> Saturday</div>
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6" (click)="checkSun()"><input type="checkbox" name="sun" id="optionsRadios2" value="Sunday" [checked]="sundayCheck"> Sunday</div>
                      </div>
                   </div>
-                  <div class="icons col-lg-2 col-md-2 col-sm-2 col-xs-2" style="">
-                     <a [routerLink]="[]"><i class="fa fa-chevron-circle-down" aria-hidden="true"></i></a>
-                     <a [routerLink]="['/owner/item-edit/',item._id]"><i class="fa fa-pencil" aria-hidden="true"></i></a>
-                     <a (click)="deleteItem(item._id)" href="javascript:void(0);"><i class="fa fa-trash" aria-hidden="true"></i></a>                        
+                  <button type="submit" class="btn saveButton" (click)="saveOpeningTimings('menu')">Save</button>
+               </div>
+            </div>
+         <!--HIdden Menu Option-->
+
+         <div  *ngFor="let item of items">
+            <div *ngIf="item.menuId == user._id" class="subMenuItem " style="position: relative;">
+            
+               <!--Item Description-->   
+                  <div class="margin-for-addon">
+                     <div class="itemImage col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                        <div *ngIf="item.image"><img (click)="passub(item._id)" data-toggle="modal" data-target="#mySubMenuModal"  src="{{imageUrl}}{{item.image}}" class="img-responsive"></div>
+                        <div *ngIf="!item.image"><img (click)="passub(item._id)" data-toggle="modal" data-target="#mySubMenuModal" src="./assets/images/itemimage.gif" class="img-responsive"></div>
+                     </div>
+                     <div class="itemDesc col-lg-8 col-md-8 col-sm-8 col-xs-8">{{item.name}}<span class="label label-warning" *ngIf="item.isHidden==true" style="font-size: 60%;position: absolute;border-radius: 1.25em;padding: 1%;">Hidden from Menu</span><span class="label label-warning" *ngIf="item.isHidden==false" style="font-size: 60%;position: absolute;border-radius: 1.25em;padding: 1%;">Show on specific time</span>
+                        <span class="custom_sub_price" *ngIf="item.multisize.length < 1"><code> {{item.price}} CZK</code></span>
+                        <div class="row" style="margin-top: 10px;">
+                           <small *ngFor="let grop of groups">
+                              <span *ngFor="let itemx of item.options; let i = index;">
+                                 <i *ngIf = "grop._id == item.options[i]"> 
+                                    <button style="padding: 4px;" class="btn btn-default"> {{grop.name}} </button>
+                                 </i>
+                              </span>
+                           </small>
+                        </div>
+                     </div>
+                     <div class="icons col-lg-2 col-md-2 col-sm-2 col-xs-2" style="">
+                        <a href="javascript:void(0);" (click)="showDayOption(item._id, 'item')"><i class="fa fa-chevron-circle-down" aria-hidden="true"></i></a>
+                        <a [routerLink]="['/owner/item-edit/',item._id]"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                        <a (click)="deleteItem(item._id)" href="javascript:void(0);"><i class="fa fa-trash" aria-hidden="true"></i></a>
+                     </div>
                   </div>
-               </div>
-            <!--Item Description End-->
-               <br/>
-            <!--Add Multisize Button-->
-               <div class="custom_for_ms">
-                  <button type="button" (click)="addMultisizeAddOn(item._id)" class="btn btn-success btn-multisize" data-toggle="modal" data-target="#myModal">Add Multisize</button>
-               </div>
-            <!--Add Multisize Button End-->
+               <!--Item Description End-->
 
-            <!-- Item MultiSize Div -->
-               <div *ngFor="let itemsp of item.multisize; let i = index" class="js-size-prototype comp-size clearfix is-new js-container js-size ui-droppable">
-                  <div class="pull-left comp-info-size-name js-info-size-name ">{{itemsp.size}}</div>
-                  <div class="pull-right comp-info-size-price">
-                     <div class="pull-left js-info-size-price">{{itemsp.price}}</div>
-                     <div class="pull-left comp-info-size-currency js-info-currency">CZK &nbsp;</div>
-
-                     <a href="javascript:void(0);" title="Delete" (click)="removeSubmenuAddOn(i,item._id)"><span class="icon-menu-remove js-remove" data-original-title="" title=""></span></a>
-
-                     <a href="javascript:void(0);" title="Edit" (click)="editSubmenuAddOn(itemsp._id,item._id)" data-toggle="modal" data-target="#myeditModal"><span class="icon-menu-edit js-edit" data-original-title="" title=""></span></a>
+               <!--HIdden Item Option-->
+                  <div class="hideItem" id="hideItem" [style.display]="showDiv(item._id, 'item')">
+                     <div class="cancleOption">
+                        <div style="width: inherit;padding: 6px;">Options</div>
+                        <div style="float:right;border: 1px solid gray;" class="btn"  (click) = "hideDiv('item')">&times;</div>
+                     </div>
+                     <div class="daysOption">
+                        <div style="border-bottom: 1px solid #ccc; padding: 2%;">
+                           <label>
+                              <input type="radio" name="radio" (click)="hideMenu(item._id)" [checked]="item.isHidden==true"> Hidden from menu
+                           </label>
+                        </div>
+                        <div style="padding: 2%;">
+                           <label>
+                              <input type="radio" name="radio" (click)="showMenu(item._id)" [checked]="item.isHidden==false"> Show on specific time
+                           </label>
+                        </div>
+                        <div id="days{{item._id}}" class="itemDays" style="padding: 2%;" style="display: none;">
+                           <div class="daysSchedule" *ngIf="item.openinghours" style="font-size: smaller;padding: 6%;">
+                              <span *ngIf="item.openinghours.monday">Monday, </span>
+                              <span *ngIf="item.openinghours.tuesday">Tuesday, </span>
+                              <span *ngIf="item.openinghours.wednesday">Wednesday, </span>
+                              <span *ngIf="item.openinghours.thursday">Thursday, </span>
+                              <span *ngIf="item.openinghours.friday">Friday, </span>
+                              <span *ngIf="item.openinghours.saturday">Saturday ,</span>
+                              <span *ngIf="item.openinghours.sunday">Sunday, </span>
+                              
+                              <span *ngIf="item.openinghours.opentime">&nbsp;{{item.openinghours.opentime}}-</span>
+                              <span *ngIf="item.openinghours.closetime">{{item.openinghours.closetime}}</span>
+                           </div>
+                           <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin: 2% 0 2% 0">
+                              <input type="time" name="opentime" [attr.id]="'opentime_' + item._id">
+                              <input type="time" name="closetime" [attr.id]="'closetime_' + item._id">
+                           </div>
+                           <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 daysList">
+                              <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6" (click)="checkMon()"><input type="checkbox" id="optionsRadios2" value="Monday" [checked]="mondayCheck"> Monday</div>
+                              <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6" (click)="checkTue()"><input type="checkbox" name="tue" id="optionsRadios2" value="Tuesday" [checked]="tuesdayCheck"> Tuesday</div>
+                              <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6" (click)="checkWed()"><input type="checkbox" name="wed" id="optionsRadios2" value="Wednesday" [checked]="wednesdayCheck"> Wednesday</div>
+                              <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6" (click)="checkThu()"><input type="checkbox" name="thu" id="optionsRadios2" value="Thursday" [checked]="thursdayCheck"> Thursday</div>
+                              <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6" (click)="checkFri()"><input type="checkbox" name="fri" id="optionsRadios2" value="Friday" [checked]="fridayCheck"> Friday</div>
+                              <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6" (click)="checkSat()"><input type="checkbox" name="sat" id="optionsRadios2" value="Saturday" [checked]="saturdayCheck"> Saturday</div>
+                              <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6" (click)="checkSun()"><input type="checkbox" name="sun" id="optionsRadios2" value="Sunday" [checked]="sundayCheck"> Sunday</div>
+                           </div>
+                        </div>
+                        <button type="submit" class="btn saveButton" (click)="saveOpeningTimings('item')">Save</button>
+                     </div>
                   </div>
-                  <div class="icon-default js-default-size-info is-hidden" data-original-title="" title="">                                    
-                  </div>                        
-               </div>
-            <!-- Item MultiSize Div -->
+               <!--HIdden Item Option-->
+
+                  <br/>
+
+               <!--Add Multisize Button-->
+                  <div class="custom_for_ms">
+                     <button type="button" (click)="addMultisizeAddOn(item._id)" class="btn btn-success btn-multisize" data-toggle="modal" data-target="#myModal">Add Multisize</button>
+                  </div>
+               <!--Add Multisize Button End-->
+
+               <!-- Item MultiSize Div -->
+                  <div *ngFor="let itemsp of item.multisize; let i = index" class="js-size-prototype comp-size clearfix is-new js-container js-size ui-droppable">
+                     <div class="pull-left comp-info-size-name js-info-size-name ">{{itemsp.size}}</div>
+                     <div class="pull-right comp-info-size-price">
+                        <div class="pull-left js-info-size-price">{{itemsp.price}}</div>
+                        <div class="pull-left comp-info-size-currency js-info-currency">CZK &nbsp;</div>
+
+                        <a href="javascript:void(0);" title="Delete" (click)="removeSubmenuAddOn(i,item._id)"><span class="icon-menu-remove js-remove" data-original-title="" title=""></span></a>
+
+                        <a href="javascript:void(0);" title="Edit" (click)="editSubmenuAddOn(itemsp._id,item._id)" data-toggle="modal" data-target="#myeditModal"><span class="icon-menu-edit js-edit" data-original-title="" title=""></span></a>
+                     </div>
+                     <div class="icon-default js-default-size-info is-hidden" data-original-title="" title="">                                    
+                     </div>                        
+                  </div>
+               <!-- Item MultiSize Div -->
             </div>
          </div>
       </div>

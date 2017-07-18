@@ -6,6 +6,8 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/Rx';
 import {OrderPipe} from "../order.pipe"
 
+declare var toastr: any;
+
 @Component({
   selector: 'app-users',
   templateUrl: './users.component.html',
@@ -31,7 +33,8 @@ export class UsersComponent implements OnInit {
             this.usersService.deleteOne(id).subscribe(data => {
                     console.log(data);
                     this.loadAllUsers();
-                    this.alertService.success('User Deleted successful', true);
+                    toastr.success('User Deleted successful');
+                    //this.alertService.success('User Deleted successful', true);
                     this.router.navigate(['/admin/users']);
              });
         }
@@ -71,7 +74,8 @@ export class AdminComponent implements OnInit {
             this.usersService.deleteAdminOne(id).subscribe(data => {
                     console.log(data);
                     this.loadAllAdmin();
-                    this.alertService.success('Admin Deleted successful', true);
+                    toastr.success('Admin Deleted successful');
+                    //this.alertService.success('Admin Deleted successful', true);
                     this.router.navigate(['/admin/list']);
             });
         }
@@ -119,7 +123,8 @@ export class AdminaddComponent implements OnInit {
     private userAdd() {
         this.usersService.addAdmin(this.userAddModel.value).subscribe(
             (data) => {
-                this.alertService.success('Admin Add successful', true);
+                toastr.success('Admin Add successful');
+                //this.alertService.success('Admin Add successful', true);
                 this.router.navigate(['/admin/list']);
             }
         );
@@ -172,7 +177,8 @@ export class AdminupdateComponent implements OnInit {
         console.log(this.userAddModel.value);
         this.usersService.updateAdmin(this.userAddModel.value).subscribe(
             (data) => {
-                this.alertService.success('Admin Updated successful', true);
+                toastr.success('Admin Updated successful');
+                //this.alertService.success('Admin Updated successful', true);
                 this.router.navigate(['/admin/list']);
             }
         );

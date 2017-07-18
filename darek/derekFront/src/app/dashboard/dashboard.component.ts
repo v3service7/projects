@@ -3,6 +3,8 @@ import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angula
 import { FlashMessagesService } from 'angular2-flash-messages';
 import { AuthService, AlertService, UsersService, PromotionsService, DriversService, RestaurantsService } from '../service/index';
 
+declare var toastr: any;
+
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -78,7 +80,8 @@ export class DashboardprofileComponent implements OnInit {
             (data) => {
                 localStorage.removeItem('currentUser');
                 localStorage.setItem('currentUser', JSON.stringify(this.adminProfile.value));
-                this.alertService.success('Profile updated successfully', true);
+                toastr.success('Profile updated successfully');
+                //this.alertService.success('Profile updated successfully', true);
                 this.router.navigate(['admin/dashboard']);
             }
         );

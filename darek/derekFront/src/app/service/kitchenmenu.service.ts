@@ -14,10 +14,10 @@ export class KitchenMenuService {
     }
 
     updateMenu(data) {
-        return this.http.put(globalVariable.url+'menu/'+data._id,data)
-        .map(
-            (response: Response) => response.json()
-        );
+      return this.http.put(globalVariable.url+'menu/'+data._id,data)
+      .map(
+          (response: Response) => response.json()
+      );
     }
     
   	getAll(id) {

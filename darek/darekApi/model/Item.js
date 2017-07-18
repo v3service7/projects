@@ -10,8 +10,13 @@ var MenuSchema = new Schema({
     menuId: { type: Schema.Types.ObjectId, ref:'Menu', required: true},
     price: Number,
     image: String,
+    isHidden:  {type:Boolean,default:false},
+    isSpecific:  {type:Boolean,default:false},
     options: [{ type: Schema.Types.ObjectId, ref:'Addon', required: true}],
-    multisize: [{size: String, price: String}]
+    multisize: [{size: String, price: String}],
+    openinghours : { monday: {type: Boolean},tuesday: {type:Boolean},wednesday: {type:Boolean},
+                    thursday: {type:Boolean},friday: {type:Boolean},saturday: {type:Boolean},
+                    sunday: {type:Boolean}, opentime : String, closetime : String}
 });
 var Menu = mongoose.model('Menu', MenuSchema);
 module.exports = Menu;

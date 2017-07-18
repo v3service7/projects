@@ -4,6 +4,8 @@ import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angula
 import { FlashMessagesService } from 'angular2-flash-messages';
 import { AlertService, AuthService, UsersService } from '../service/index';
 
+declare var toastr: any;
+
 @Component({
   moduleId:module.id,
   selector: 'app-login',
@@ -39,19 +41,22 @@ export class LoginComponent implements OnInit {
             (data) => {
               if (data.status) {
                     localStorage.setItem('currentUser', JSON.stringify(data.data));
-                    this.alertService.success('Login successful', true);
+                    toastr.success('Login successful');
+                    //this.alertService.success('Login successful', true);
                     //this._flashMessagesService.show('Login successful', { cssClass: 'alert-success', timeout: 10000 });
                     this.router.navigate([this.returnUrl]);
                 }else{
-                    this._flashMessagesService.show('Bad Credential', { cssClass: 'alert-danger', timeout: 10000 });
+                    toastr.warning('Bad Credential');
+                    //this._flashMessagesService.show('Bad Credential', { cssClass: 'alert-danger', timeout: 10000 });
                     //this.alertService.error('Bad Credential', true);
                     this.router.navigate(['admin/login']);
                 }
             },
             (err)=>{
-                this._flashMessagesService.show('Bad Credential', { cssClass: 'alert-danger', timeout: 10000 });
-                //this.alertService.error('Bad Credential', true);
-                //this.router.navigateByUrl('/admin/login', { queryParams: { err: 1 } });              
+              toastr.error('Bad Credential');
+              //this._flashMessagesService.show('Bad Credential', { cssClass: 'alert-danger', timeout: 10000 });
+              //this.alertService.error('Bad Credential', true);
+              //this.router.navigateByUrl('/admin/login', { queryParams: { err: 1 } });              
             }
         );
     }

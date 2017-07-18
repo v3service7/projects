@@ -1,0 +1,20 @@
+{
+	"language":"語言",
+	"delivery":"交貨",
+	"OpeningHour":"開放時間",
+	"DeliveryFee": "快遞費",
+	"pickup": "撿起",
+	"PaymentMethod":"付款方法",
+	"Address":"地址",
+	"Phone":"電話",
+	"Monday":"星期一",
+	"Tuesday":"星期二",
+	"Wednesday":"星期三",
+	"Thursday":"星期四",
+	"Friday":"星期五",
+	"Saturday":"星期六",
+	"Sunday":"星期日",
+	"Available":"可得到",
+	"Min":"最低限度",
+	"Fee":"費用"
+}

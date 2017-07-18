@@ -3,6 +3,8 @@ import {Router, ActivatedRoute, Params} from '@angular/router';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import {AlertService, DriversService } from '../service/index';
 
+declare var toastr: any;
+
 @Component({
   selector: 'app-drivers',
   templateUrl: './drivers.component.html',
@@ -31,7 +33,8 @@ export class DriversComponent implements OnInit {
       this.driversService.deleteOne(id).subscribe(data => {
         console.log(data);
         this.loadAllDrivers();
-        this.alertService.success('Driver Deleted successful', true);
+        toastr.success('Driver Deleted successful');
+        //this.alertService.success('Driver Deleted successful', true);
       });
     }
   }
@@ -79,7 +82,8 @@ export class DriveraddComponent implements OnInit {
   private driverAdd() {
     this.driversService.addDriver(this.driverAddModel.value).subscribe(
       (data) => {
-        this.alertService.success('Driver Add successful', true);
+        toastr.success('Driver Add successful');
+        //this.alertService.success('Driver Add successful', true);
         this.router.navigate(['/admin/drivers']);
       }
     );
@@ -141,7 +145,8 @@ export class DriverupdateComponent implements OnInit {
     console.log(this.driverAddModel.value);
     this.driversService.updateDriver(this.driverAddModel.value).subscribe(
       (data) => {
-        this.alertService.success('Driver Updated successful', true);
+        toastr.success('Driver Updated successful');
+        //this.alertService.success('Driver Updated successful', true);
         this.router.navigate(['/admin/drivers']);
       }
     );

@@ -3,6 +3,8 @@ import {Router, ActivatedRoute, Params} from '@angular/router';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import {AlertService, PromotionsService } from '../service/index';
 
+declare var toastr: any;
+
 @Component({
   selector: 'app-promotions',
   templateUrl: './promotions.component.html',
@@ -31,7 +33,8 @@ export class PromotionsComponent implements OnInit {
       this.promotionsService.deleteOne(id).subscribe(data => {
         console.log(data);
         this.loadAllPromotions();
-        this.alertService.success('Promotion Deleted successful', true);
+        toastr.success('Promotion Deleted successful');
+        //this.alertService.success('Promotion Deleted successful', true);
       });
     }
   }
@@ -70,7 +73,8 @@ export class PromotionaddComponent implements OnInit {
   private promotionAdd() {
     this.promotionsService.addPromotion(this.promotionAddModel.value).subscribe(
       (data) => {
-        this.alertService.success('Promotion Add successful', true);
+        toastr.success('Promotion Add successful');
+        //this.alertService.success('Promotion Add successful', true);
         this.router.navigate(['/admin/promotions']);
       }
     );
@@ -121,7 +125,8 @@ export class PromotionupdateComponent implements OnInit {
     console.log(this.promotionAddModel.value);
     this.promotionsService.updatePromotion(this.promotionAddModel.value).subscribe(
       (data) => {
-        this.alertService.success('Promotion Updated successful', true);
+        toastr.success('Promotion Updated successful');
+        //this.alertService.success('Promotion Updated successful', true);
         this.router.navigate(['/admin/promotions']);
       }
     );

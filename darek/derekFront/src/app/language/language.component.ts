@@ -4,6 +4,8 @@ import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angula
 import {AlertService, MasterService } from '../service/index';
 import {OrderPipe} from "../order.pipe"
 
+declare var toastr: any;
+
 @Component({
   selector: 'app-language',
   templateUrl: './language.component.html',
@@ -37,7 +39,8 @@ export class LanguagelistComponent implements OnInit {
     private deleteCountry(id) {
       if(confirm("Are you sure to delete ?")) {
         this.masterService.deleteOneLanguage(id).subscribe(data => { 
-                this.alertService.error('Language Deleted Successfully', true);
+                toastr.warning('Language Deleted Successfully');
+                //this.alertService.error('Language Deleted Successfully', true);
                 this.loadAllLanguage();
          });
       }
@@ -81,7 +84,8 @@ export class LanguageaddComponent implements OnInit {
     private userAdd() {
         this.masterService.addLanguage(this.userAddModel.value).subscribe(
             (data) => {
-                this.alertService.success('Language Added Successfully', true);
+                toastr.success('Language Added Successfully');
+                //this.alertService.success('Language Added Successfully', true);
                 this.router.navigate(['/admin/language']);
             }
         );
@@ -129,7 +133,8 @@ export class LanguageupdateComponent implements OnInit {
         console.log(this.userAddModel.value);
         this.masterService.updateLanguage(this.userAddModel.value).subscribe(
             (data) => {
-                this.alertService.success('Language Updated Successfully', true);
+                toastr.success('Language Updated Successfully');
+                //this.alertService.success('Language Updated Successfully', true);
                 this.router.navigate(['/admin/language']);
             }
         );

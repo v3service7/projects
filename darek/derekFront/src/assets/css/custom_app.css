@@ -3340,7 +3340,7 @@ input.comp-size-default:checked+.comp-size-default-text>.svg-icon-info2 {
     color: #666;
     font-size: 14px;
     background-color: #f4f2ef;
-    box-shadow: 0 -1px 0 #d5d5d3, inset 0 1px 0 rgba(0, 0, 0, .04);
+    /*box-shadow: 0 -1px 0 #d5d5d3, inset 0 1px 0 rgba(0, 0, 0, .04);*/
     border-bottom-left-radius: 3px;
     border-bottom-right-radius: 3px
 }

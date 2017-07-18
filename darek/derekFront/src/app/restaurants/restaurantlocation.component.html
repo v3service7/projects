@@ -4,10 +4,13 @@
 	<div class="profile" id="Menu18" style="z-index: 1;position: absolute;width: 60%;">
 		<form [formGroup]="restaurantAddModel" (ngSubmit)="restaurantUpdate()">
 			<div class="firstDiv">
-				<span class="">Restaurant Location</span>
+				<span class="">Let your customers know your exact location</span>
 				<input type="submit" class="btn btn-next" value="Next" style="float: right;" [disabled]="!restaurantAddModel.valid">
 			</div>
-		<div class="secondDiv"></div>
+		<div class="secondDiv" style="min-height: 0;">
+		<div id="addressId"></div>
+			<a [routerLink]="['/owner/basic-detail']" style="float: right; color: rgb(0, 173, 0);text-decoration: underline !important;">Do you want to change your restaurant address?</a>
+		</div>
 		</form>
 	</div>
 	<div id="gmap"></div>

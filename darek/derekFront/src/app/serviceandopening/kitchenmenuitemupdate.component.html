@@ -30,7 +30,14 @@
 	  				</span>
 	  				<input type="text" class="form-control" formControlName="price">
 	  				<span class="gfe-input-placeholder">Item Price *</span>
-				</div>            
+				</div>
+
+				<div class="input-group gfe-input">
+					<span class="input-group-addon">
+						<i class="fa fa-picture-o" aria-hidden="true"></i>
+					</span>
+					<input type="file" class="form-control" name="single" ng2FileSelect [uploader]="uploader" (change)="onChange($event)"/>
+				</div>
 
 				<div class="input-group gfe-input">
 					<span class="input-group-addon">

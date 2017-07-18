@@ -8,12 +8,19 @@ export class CustomersService {
 
   	constructor(private http: Http) { }
 
-      getCustomer(data){
-      return this.http.post(globalVariable.url+'customer/login', data)
+    getCustomer(data){
+        return this.http.post(globalVariable.url+'customer/login', data)
         .map((response: Response) => {
             let user = response.json();            
                 return user;
             });
+        }
+
+    getOneCustomer(id){
+        return this.http.get(globalVariable.url+'customer/'+id)
+            .map(
+                (response: Response) => response.json()
+            );
         }
 
   	getLatLng(data){
@@ -24,8 +31,8 @@ export class CustomersService {
             });
         }
 
-    customerLogout() {
-        localStorage.removeItem('currentCustomer');
+    customerLogout(id) {
+        localStorage.removeItem(id);
     }
 
     addCustomer(data){
@@ -42,12 +49,26 @@ export class CustomersService {
         );
     }
 
+    forgetPassword(data){
+        return this.http.post(globalVariable.url+'customer/forget-pass', data)
+            .map((response: Response) => {
+                let user = response.json();
+                return user;
+            }
+        );
+    }
+
     addOrder(data){
         return this.http.post(globalVariable.url+'order/add',data)
         .map((response: Response) => response.json());
     }
     orderPlaced(data){
         return this.http.post(globalVariable.url+'order/order-placed',data)
+        .map((response: Response) => response.json());
+    }
+
+    changePassword(data){
+    return this.http.put(globalVariable.url+'customer/change-password/'+data._id,data)
         .map((response: Response) => response.json());
     }
 }

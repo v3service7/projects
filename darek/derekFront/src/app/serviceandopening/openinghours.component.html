@@ -1,7 +1,7 @@
 <app-headerowner></app-headerowner>
-<div class="rightMenu1 col-lg-9 col-md-9 col-sm-9">
+<div class="rightMenu1" style="margin-left: 25%;background-color: #E9E9E8;height: 585px;">
    <alert></alert>
-   <div class="screen screen-form js-screen-address-form ng-scope" id="Menu18">
+   <div class="screen screen-form js-screen-address-form ng-scope" id="Menu18" style="padding: 0;min-height: 0;">
    <div class="settings-panel">
     <form [formGroup]="openingAddModel" (ngSubmit)="openingHourDetailUpdate()">   
     <div class="settings-heading"><span class="settings-title ng-binding">When you are open?</span>
@@ -61,12 +61,12 @@
             </div>
             <div class="form-group marginzero">
                 <div class="col-sm-4 lpaddingzero">
-                    <input type="text" class="form-control timepicker hasWickedpicker"  formControlName="opentime" name="open" placeholder="Open">
+                    <input type="time" class="form-control timepicker hasWickedpicker"  formControlName="opentime" name="open">
                 </div>
             </div>
             <div class="form-group marginzero">
                 <div class="col-sm-4 lpaddingzero">
-                    <input type="text"  formControlName="closetime" class="form-control timepicker1 hasWickedpicker" name="close" placeholder="Close">
+                    <input type="time"  formControlName="closetime" class="form-control timepicker1 hasWickedpicker" name="close">
                 </div>
             </div>
         </div>

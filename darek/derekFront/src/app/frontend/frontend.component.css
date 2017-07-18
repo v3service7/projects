@@ -15,7 +15,7 @@ body{
     display: flex;
     position: fixed;
     overflow: hidden;
-    z-index: 1054;
+    z-index: 1060;
     border-radius: 3px 3px 0 0;
     transition: box-shadow .4s ease-out;
     box-shadow: 0 2px 5px rgba(0,0,0,.2);
@@ -54,11 +54,11 @@ a.selected {
  }
 
 .topNavImage{
-	background-image: url('assets/images/1.jpg');
 	height: 240px;
     border-radius: 3px 3px 0 0;
     background-size: cover;
     background-position: center;
+    background-size: 100% 100%;
 }
 
 .deal-list {
@@ -217,6 +217,7 @@ div.cnt-input-buttons button .fa{
     padding: 10% 0 0 0;
 }
 
+
 /*.detailDiv div {
     padding-top: 10px;
     padding-bottom: 10px;
@@ -243,8 +244,8 @@ div.cnt-input-buttons button .fa{
     display: -webkit-box;
 }
 
-.menuDetail div div img{
-    width: ;
+.menuDetail{
+    margin-bottom: 10%;
 }
 
 .subMenuItem.selected{
@@ -506,4 +507,18 @@ div.cartLength{
 /*    top: -30px;*/
     cursor: pointer;
     float: right;
+}
+
+.profileDiv , .changePassDiv{
+    padding: 10% 0 0 0;
+}
+
+.profilePic{
+    height: 150px;
+    width: 150px;
+}
+
+.profilePic div img{
+    height: auto;
+    width: 100%;
 }

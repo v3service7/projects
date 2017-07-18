@@ -16,6 +16,7 @@ var promotions = require('./routes/promotion');
 var owners = require('./routes/owners');
 var customer = require('./routes/customer');
 var order = require('./routes/order');
+var reporting = require('./routes/reporting');
 
 
 var User = require('./model/User.js');
@@ -118,6 +119,7 @@ app.use('/', promotions);
 app.use('/owners', owners);
 app.use('/customer', customer);
 app.use('/order', order);
+app.use('/reporting', reporting);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

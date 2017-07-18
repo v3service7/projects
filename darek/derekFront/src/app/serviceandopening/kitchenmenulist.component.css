@@ -1,0 +1,63 @@
+.saveButton{
+    text-align: -webkit-center;
+    position: relative;
+    padding: 10px;
+    background-color: #f08b18;
+    box-shadow: 0 1px 0 rgba(0,0,0,.15), inset 0 -1px 0 rgba(0,0,0,.15);
+    border-radius: 3px;
+    color: white;
+    display: -webkit-inline-box;
+}
+
+.saveButton:hover{
+    color: white;
+}
+
+.cancleOption{
+    width: 100%;
+    background: rgba(84, 84, 84, 0.06);
+    margin: 0;
+    padding: 1px;
+    display: inline-flex;
+}
+
+.cancleOption h5{
+    margin: 5px 0 5px 0;
+}
+
+.hideMenu{
+    display:none; 
+    width: 300px;
+    position: absolute;
+    top: 12%;
+    left: 50%;
+    z-index: 20000;
+    background: white;
+    box-shadow: 0 1px 6px rgba(0, 1, 1, .35);
+}
+
+.hideItem{
+    display:none; 
+    width: 300px;
+    position: absolute;
+    top: 22%;
+    left: 50%;
+    z-index: 20000;
+    background: white;
+    box-shadow: 0 1px 6px rgba(0, 1, 1, .35);
+}
+.menuDays{
+    display: none;
+}
+
+/*.daysList{
+    padding: 0;
+}
+*/
+.menuDays .daysList div, .itemDays .daysList div{
+    border: 1px solid #ccc;
+    margin: -1px -1px 0 0px;
+    padding: 2%;
+    margin-bottom: 0; 
+}
+

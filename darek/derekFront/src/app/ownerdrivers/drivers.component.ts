@@ -3,6 +3,8 @@ import {Router, ActivatedRoute, Params} from '@angular/router';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import {AlertService, DriversService, RestaurantsService } from '../service/index';
 
+declare var toastr: any;
+
 @Component({
   selector: 'app-drivers',
   templateUrl: './drivers.component.html',
@@ -35,7 +37,8 @@ export class OwnerDriversComponent implements OnInit {
     if(confirm("Are you sure to delete ?")) {
       this.driversService.deleteOne(id).subscribe(data => {       
         this.loadAllDrivers();
-        this.alertService.success('Driver Deleted successful', true);
+        toastr.success('Driver Deleted successful');
+        //this.alertService.success('Driver Deleted successful', true);
       });
     }
   }
@@ -99,7 +102,8 @@ export class OwnerDriversaddComponent implements OnInit {
     this.driverAddModel.controls['restaurantId'].setValue(this.restaurants._id);
     this.driversService.addDriver(this.driverAddModel.value).subscribe(
       (data) => {
-        this.alertService.success('Driver Add successful', true);
+        toastr.success('Driver Add successful');
+        //this.alertService.success('Driver Add successful', true);
         this.router.navigate(['/owner/drivers']);
       }
     );
@@ -159,7 +163,8 @@ export class OwnerDriversupdateComponent implements OnInit {
     console.log(this.driverAddModel.value);
     this.driversService.updateDriver(this.driverAddModel.value).subscribe(
       (data) => {
-        this.alertService.success('Driver Updated successful', true);
+        toastr.success('Driver Updated successful');
+        //this.alertService.success('Driver Updated successful', true);
         this.router.navigate(['/owner/drivers']);
       }
     );

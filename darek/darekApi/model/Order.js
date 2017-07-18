@@ -15,7 +15,10 @@ var OrderSchema = new Schema({
 	tax:Number,
 	gTotal:Number,
 	deliveryfee: Number,
-	orders:{}
+	orders:{},
+	status : String,
+	created_at: { type: Date, default: Date.now },
+	updated_at: { type: Date, default: Date.now }
 });
 
 var Order = mongoose.model('Order', OrderSchema);

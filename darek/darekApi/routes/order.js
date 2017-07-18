@@ -37,8 +37,6 @@ router.get('/', function(req, res, next) {
     }); 
 });
 
-
-
 router.post('/add', function(req, res) {
     //console.log(req.body);
     var response={};
@@ -64,17 +62,10 @@ router.post('/add', function(req, res) {
     });
 });
 
-
 router.get('/:id',function(req,res){
-    //if (!req.isAuthenticated()) {
-    //    return res.status(200).json({
-    //        status: false,
-    //        message:'Access Denied'
-    //    });
-    //}
     var response={};
     console.log(req.params.id);
-    Order.findById(req.params.id,function(err,data){
+    Order.findById(req.params.id).populate('customerId').populate('restaurantId').exec(function(err,data){
         if (err) {
             response = {"error" : true,"message" : "Error fetching data"};
         } else{
@@ -108,7 +99,6 @@ router.delete('/:id',function(req,res){
         res.json(response);
     }); 
 });
-
 
 router.get('/status', function(req, res) {
     console.log(req.user);

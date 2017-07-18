@@ -26,7 +26,9 @@ import { LanguageComponent,LanguagelistComponent, LanguageaddComponent, Language
 
 import { AuthGuard,OwnerAuthGuard} from './guards/index';
 
-import { FrontendHeaderComponent, FrontendComponent, FrontendDetailComponent, FrontendCartComponent, FrontendLoginComponent } from './frontend/frontend.component';
+import { FrontendHeaderComponent, FrontendComponent, FrontendDetailComponent, FrontendCartComponent, FrontendLoginComponent, FrontendForgetPasswordComponent,FrontendResetPasswordComponent,FrontendUserProfileComponent,FrontendChangePasswordComponent} from './frontend/frontend.component';
+
+import { ReportingComponent,ReportingnavComponent,ReportingoverviewComponent,ReportingMethodComponent,ReportingResultComponent,ReportingTypeComponent,ReportingPaymentMethodComponent,ReportingItemsComponent,ReportingItemCategoriesComponent,ReportingClientComponent,ReportingOrderComponent,ReportingDetailComponent,ReportingSaleDetailComponent} from './reporting/reporting.component';
 
 const appRoutes: Routes = [
   { path: 'admin/login', component: LoginComponent },
@@ -91,6 +93,19 @@ const appRoutes: Routes = [
         { path: 'legacy-code/:id', component: LegacycodeComponent, canActivate: [OwnerAuthGuard]  },
         { path: 'notification', component: NotificationComponent, canActivate: [OwnerAuthGuard]  },
         { path: 'supported-languages', component: SupportedLanguagesComponent, canActivate: [OwnerAuthGuard]  },
+        { path: 'reports', component: ReportingComponent, canActivate: [OwnerAuthGuard],children:[
+          { path: 'overview', component: ReportingoverviewComponent, canActivate: [OwnerAuthGuard]  },
+          { path: 'method', component: ReportingMethodComponent, canActivate: [OwnerAuthGuard]  },
+          { path: 'result', component: ReportingResultComponent, canActivate: [OwnerAuthGuard]  },
+          { path: 'sales-detail', component: ReportingSaleDetailComponent, canActivate: [OwnerAuthGuard]  },
+          { path: 'type', component: ReportingTypeComponent, canActivate: [OwnerAuthGuard]  },
+          { path: 'payment-method', component: ReportingPaymentMethodComponent, canActivate: [OwnerAuthGuard]  },
+          { path: 'items', component: ReportingItemsComponent, canActivate: [OwnerAuthGuard]  },
+          { path: 'item-categories', component: ReportingItemCategoriesComponent, canActivate: [OwnerAuthGuard]  },
+          { path: 'clients', component: ReportingClientComponent, canActivate: [OwnerAuthGuard]  },
+          { path: 'orders', component: ReportingOrderComponent, canActivate: [OwnerAuthGuard]  },
+          { path: 'detail/:id', component: ReportingDetailComponent, canActivate: [OwnerAuthGuard]  },
+        ]},
 
     ]},
 
@@ -98,6 +113,10 @@ const appRoutes: Routes = [
   { path: 'frontend-detail/:id', component: FrontendDetailComponent },
   { path: 'frontend-cart/:id', component: FrontendCartComponent },
   { path: 'login/:id', component: FrontendLoginComponent },
+  { path: 'forget-pass/:id', component: FrontendForgetPasswordComponent },
+  { path: 'resetpassword/:id', component: FrontendResetPasswordComponent },
+  { path: 'profile/:id', component: FrontendUserProfileComponent },
+  { path: 'change-password/:id', component: FrontendChangePasswordComponent },
 
 
   { path: '', component: LoginComponent },

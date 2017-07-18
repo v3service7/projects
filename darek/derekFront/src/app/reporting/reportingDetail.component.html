@@ -1,0 +1,122 @@
+<app-reporting-nav></app-reporting-nav>
+
+<div style="margin-left: 25%;background-color: #E9E9E8;height: 585px;">
+	<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="padding: 3%">
+		<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="color: white; background-color:#737373;min-height: 20px;padding: 19px; ">
+			<b>Order ID : {{orderID.substr(18,6)}} -</b> <span style="color: #5AB26E; font-size: 14px;">Accepted on {{detail.created_at }}</span><!-- | date :'medium' -->
+		</div>
+		<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="background: white;padding: 2%;">
+			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin-bottom: 10px;padding: 0;">
+				<div class="col-lg-5 col-md-5 col-sm-5 col-xs-5" *ngIf="detail.customerId" style="background: #F5F3F0;padding: 2%;height: 120px;border-radius: 10px;">
+					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">{{detail.customerId.firstname}} {{detail.customerId.lastname}}</div>
+					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">{{detail.customerId.phonenumber}}</div>
+					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">{{detail.customerId.email}}</div>
+				</div>
+				<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6" style="background: #F5F3F0;padding: 2%;height: 120px;float: right;border-radius: 10px;">
+					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" *ngIf="detail.orderMethod">Type : {{detail.orderMethod.mType}}</div>
+					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" *ngIf="detail.orderPayment">Payment method : 
+						<span *ngIf="detail.orderPayment.cash">Cash</span>
+						<span *ngIf="detail.orderPayment.cardpickup">Card Pickup</span>
+						<span *ngIf="detail.orderPayment.cardinternet">Card via Internet</span>
+					</div>
+					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" *ngIf="detail.orderTime">Fulfillment date & time : {{detail.orderTime.time}}
+					</div>
+				</div>
+			</div>
+			
+			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="background: #F5F3F0;padding: 2%;margin-bottom: 2px;">
+				<div *ngIf="restaurants">
+					{{restaurants.name}} {{restaurants.zipcode}} {{restaurants.city}}
+				</div>
+			</div>
+
+			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" id="gmap" style="height: 250px;margin-bottom: 10px;">
+			</div>
+
+			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="background: #F5F3F0;padding: 2%;font-size: larger;margin-bottom: 2px;">Order details:</div>
+
+			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" *ngIf="detail.orders" style="padding: 0;">
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12"  style="background: #F5F3F0;padding: 1%; margin-bottom: 2px;" *ngFor="let order of detail.orders" >
+					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" *ngIf="order.item">
+						<div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
+							<span style="font-size: 14px"> <b>{{order.quantity}} x </b></span>{{order.item.name}}
+						</div>
+						<div class="col-lg-4 col-md-4 col-sm-4 col-xs-4" style="    text-align: -webkit-right;">
+							<span style="font-size: 14px"><b>{{order.totalPrice}}</b></span>
+						</div>
+						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" *ngIf="order.multisize" style="padding: 0 5% 0 5%;">
+							<div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
+								{{order.multisize.size}}
+							</div>
+							<div class="col-lg-4 col-md-4 col-sm-4 col-xs-4" style="text-align: -webkit-center;">
+								<span style="font-size: 14px"> <b>(+{{order.multisize.price}})</b></span>
+							</div>
+						</div>
+						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" *ngIf="order.addon.length" style="padding: 0 5% 0 5%;">
+							<div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
+								{{order.addon.name}}
+							</div>
+							<div class="col-lg-4 col-md-4 col-sm-4 col-xs-4" style="text-align: -webkit-center;">
+								<span style="font-size: 14px"> <b>(+{{order.addon.price}})</b></span>
+							</div>
+						</div>
+					</div>
+					
+				</div>
+			</div>
+
+			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="background: #F5F3F0;padding: 2%;margin-bottom: 2px;">
+				<!-- subtotal -->
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="padding: 0;">
+					<div class="col-lg-8 col-md-8 col-sm-8 col-xs-8" style="font-size: 14px;">
+						<b>Sub-Total </b>
+					</div>
+					<div class="col-lg-4 col-md-4 col-sm-4 col-xs-4" style="text-align: -webkit-right; font-size: 14px;">
+						<b>{{detail.subTotal}}</b>
+					</div>
+				</div>
+				<!-- subtotal end -->
+
+				<!-- deliveryFee -->
+				<div *ngIf="detail.orderMethod">
+					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="padding: 0;" *ngIf="detail.orderMethod.mType == 'Delivery'">
+						<div class="col-lg-8 col-md-8 col-sm-8 col-xs-8" style="font-size: 14px;">
+							<b>Delivery Fee</b>
+						</div>
+						<div class="col-lg-4 col-md-4 col-sm-4 col-xs-4" style="text-align: -webkit-right;font-size: 14px;">
+							<b>{{detail.deliveryfee}}</b>
+						</div>
+					</div>
+				</div>
+				<!-- deliveryFee end -->
+
+				<!-- tax -->
+				<div *ngIf="detail.orders">
+					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="padding: 0;" *ngIf="detail.orders.length">
+						<div class="col-lg-8 col-md-8 col-sm-8 col-xs-8" style="font-size: 14px;">
+							<b>Tax</b>
+						</div>
+						<div class="col-lg-4 col-md-4 col-sm-4 col-xs-4" style="text-align: -webkit-right;font-size: 14px;">
+							<b>{{detail.tax}}%</b>
+						</div>
+					</div>
+				</div>
+				<!-- tax end -->
+
+				<!-- gTotal -->
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="padding: 0;">
+					<div class="col-lg-8 col-md-8 col-sm-8 col-xs-8" style="font-size: 14px;">
+						<b>Total </b>
+					</div>
+					<div class="col-lg-4 col-md-4 col-sm-4 col-xs-4" style="text-align: -webkit-right;font-size: 14px;">
+						<b>{{detail.gTotal | number : '1.2-2'}}</b>
+					</div>
+				</div>
+				<!-- gTotal end -->
+			</div>
+
+
+		</div>
+	</div>
+	
+</div>
