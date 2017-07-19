@@ -5,12 +5,12 @@
     <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8" style="left: 19%;">
 	    <div *ngIf="currentCustomer">
 		    <h3 style="background: rgba(128, 128, 128, 0.17);padding: 2%;">
-		    	My Profile 
+		    	{{'My' | translate}} {{'Profile' | translate}} 
 		    	<span style="float: right;font-size: 60%;">
-		    		<a  [routerLink]="['/change-password', restaurants._id]" >Change Password</a>
+		    		<a  [routerLink]="['/change-password', restaurants._id]" >{{'Change' | translate}} {{'Password' | translate}}</a>
 		    	</span>
 		    </h3>
-		</div>
+		  </div>
         <form role="form" [formGroup]="profileForm" (ngSubmit)="saveProfile()">
         	<div class="form-group" style="display: inline-grid;padding-left: 30%;">
   				<div class="profilePic" *ngIf="currentCustomer">
@@ -39,7 +39,7 @@
             <div class="form-group">
                 <input formControlName="email" class="form-control" placeholder="E-mail"  type="email" autofocus>
             </div>
-            <button class="btn saveButton" [disabled]="!profileForm.valid">Save</button>
+            <button class="btn saveButton" [disabled]="!profileForm.valid">{{'Save' | translate}}</button>
         </form>
     </div>
 </div>

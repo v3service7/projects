@@ -2,18 +2,18 @@
 
 <div *ngIf="resTime.status != 'open'" style="background: rgba(0, 0, 0, 0.68);top: 0px;position: fixed; color: white; width: 100%; text-align: center; height: 100%;padding: 25%;font-weight: 600;"  [style.z-index]="getStyle()">
     <div><img src="./assets/images/sad-face.png" width="40%"></div>
-    <div><h1 style="font-weight: 700;">CLOSED!!</h1></div>
-    <div><h4 style="font-weight: 700;">Come Back between</h4></div>
+    <div><h1 style="font-weight: 700;">{{'CLOSED' | translate}}!!</h1></div>
+    <div><h4 style="font-weight: 700;">{{'Opens'|translate}} {{'between'|translate}}</h4></div>
     <div><h5 style="font-weight: 700;">{{resTime.open}} and {{resTime.close}}</h5></div>
 </div>
 
 <div class="container" style="padding-top: 10%;">
     <div class="row col-lg-12 col-md-12 col-sm-12 col-xs-12" style="padding-left: 30%;">
         <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4" style="padding:0;" (click)="showLoginForm()"> 
-            <div class="btn saveButton">Login</div>
+            <div class="btn saveButton">{{'Login' | translate}}</div>
         </div>
         <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4" style="padding:0; " (click)="showRegisterForm()">
-            <div class="btn saveButton">Signup</div>
+            <div class="btn saveButton">{{'Signup' | translate}}</div>
         </div>
     </div>
 
@@ -23,7 +23,7 @@
             <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8" style="left: 19%;">
                 <div class="login-panel panel panel-default">
                     <div class="panel-heading">
-                        <h3 class="panel-title">Please Sign In</h3>
+                        <h3 class="panel-title">{{'Please' | translate}} {{'Login' | translate}}</h3>
                     </div>
                     <!-- <alert></alert> -->
                     <!-- <flash-messages></flash-messages> -->
@@ -36,10 +36,10 @@
                                 <input formControlName="password" class="form-control" placeholder="Password" name="password" type="password" value="">
                             </div>
                             <div class="form-group">
-                                <a [routerLink]="['/forget-pass',restaurants._id]">Forgot Password?
+                                <a [routerLink]="['/forget-pass',restaurants._id]">{{'Forgot' | translate}} {{'Password' | translate}}?
                                 </a>
                             </div>
-                            <button class="btn saveButton" [disabled]="!loginForm.valid">Login</button>
+                            <button class="btn saveButton" [disabled]="!loginForm.valid">{{'Login' | translate}}</button>
                         </form>
                     </div>
                 </div>
@@ -53,7 +53,7 @@
             <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8" style="left: 19%;">
                 <div class="login-panel panel panel-default">
                     <div class="panel-heading">
-                        <h3 class="panel-title">Sign Up Here</h3>
+                        <h3 class="panel-title">{{'Signup' | translate}} {{'Here' | translate}}</h3>
                     </div>
                     <div class="panel-body">
                         <form role="form" [formGroup]="regForm" (ngSubmit)="register()">
@@ -77,7 +77,7 @@
                                 <input formControlName="password" class="form-control" placeholder="Password" type="password" value="">
                             </div>
                             <!-- Change this to a button or input when using this as a form -->
-                            <button class="btn saveButton" [disabled]="!regForm.valid">Register</button>
+                            <button class="btn saveButton" [disabled]="!regForm.valid">{{'Register' | translate}}</button>
                         </form>
                     </div>
                 </div>

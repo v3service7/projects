@@ -28,8 +28,8 @@
 
 <div *ngIf="resTime.status != 'open'" style="background: rgba(0, 0, 0, 0.68);top: 0px;position: fixed; color: white; width: 100%; text-align: center; height: 100%;padding: 25%;font-weight: 600;">
 	<div><img src="./assets/images/sad-face.png" width="40%"></div>
-	<div><h1 style="font-weight: 700;">CLOSED!!</h1></div>
-	<div><h4 style="font-weight: 700;">Come Back between</h4></div>
+	<div><h1 style="font-weight: 700;">{{'CLOSED'|translate}} !!</h1></div>
+	<div><h4 style="font-weight: 700;">{{'Opens'|translate}} {{'between'|translate}}</h4></div>
 	<div><h5 style="font-weight: 700;">{{resTime.open}} and {{resTime.close}}</h5></div>
 </div>
 
@@ -63,7 +63,7 @@
 									<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">{{item.description}}</div>
 									<!-- item size -->
 									<div class="sizeDetail col-lg-12 col-md-12 col-sm-12 col-xs-12" *ngIf = "item.multisize.length > 0">
-										<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12"><h5><span>Size (Required)</span></h5></div>
+										<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12"><h5><span>{{'Size' | translate}} ({{'Required' | translate}})</span></h5></div>
 										<form>
 											<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 sizeOption" *ngFor = "let multisizes of item.multisize; let i = index;" >
 												<div *ngIf="i == 0">
@@ -98,7 +98,7 @@
 
 									<!-- item special Instruction -->
 									<div class="col-lg-12  col-md-12 col-sm-12 col-xs-12 specialInstruction">
-										<div class="col-lg-12  col-md-12 col-sm-12 col-xs-12">Special Instructions</div>
+										<div class="col-lg-12  col-md-12 col-sm-12 col-xs-12">{{'Special' | translate}} {{'Instructions' | translate}}</div>
 										<div class="col-lg-12  col-md-12 col-sm-12 col-xs-12" style="padding:0;">
 											<textarea placeholder="Example: No pepper / sugar/ salt please..." style=" width: 100%;border-color: #ccc;"  [attr.id]="'Location_' + item._id + '_specialInstruction'"></textarea>
 										</div>
@@ -107,7 +107,7 @@
 
 									<!-- items quantity -->
 									<div class="col-lg-12  col-md-12 col-sm-12 col-xs-12 quantityDetail">
-										<div class="col-lg-12  col-md-12 col-sm-12 col-xs-12">Quantity</div>
+										<div class="col-lg-12  col-md-12 col-sm-12 col-xs-12">{{'Quantity' | translate}}</div>
 										<div class="col-lg-12  col-md-12 col-sm-12 col-xs-12 fillQuantity">
 											<div class=" form-group">
 												<input type="text" name="quantity" class="form-control" [value]="quantity" min="1" max="10"  [attr.id]="'Location_' + item._id + '_count'">
@@ -134,7 +134,7 @@
 													<div class="checkout-button">{{finalPrice}}</div>
 												</div>
 												<div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 checkout-button-separator"></div>
-												<div class="col-lg-8 col-md-8 col-sm-8 col-xs-8 checkout-button-label">Add to cart</div>
+												<div class="col-lg-8 col-md-8 col-sm-8 col-xs-8 checkout-button-label">{{'Add_to_cart' | translate}}</div>
 											</div>
 										</button>
 									</div>

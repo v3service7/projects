@@ -135,9 +135,10 @@ export class FrontendComponent implements OnInit {
         let langObj = 'lang'+id;
         if (localStorage.getItem(langObj)) {
             this.translate.setDefaultLang(localStorage.getItem(langObj));
-            console.log(localStorage.getItem(langObj));
+            this.translate.use(localStorage.getItem(langObj));
         }else{
             this.translate.setDefaultLang('en');
+            this.translate.use('en');
         }
     }
 
@@ -205,21 +206,53 @@ export class FrontendComponent implements OnInit {
         toastr.remove();
         toastr.info(null, this.totalOrder.length+' Items Added');
     }
+
     private showDiv(id) {
         if (this.detailShow == id) {
             return 'block';
         }
     }
+    
     private hideDiv() {
         this.detailShow=''; 
     }
+    
     private addToCart() {   
         this.totalOrder = JSON.parse(localStorage.getItem(this.cartStorage));
-        this.totalOrder.push(this.orderItem);
-        localStorage.setItem(this.cartStorage, JSON.stringify(this.totalOrder));
-        this.addToCartSuccess();
-        this.detailShow='';
+        /*if (this.totalOrder.length>0) {
+            for (var i = 0; i < this.totalOrder.length; i++) {
+                let cartObj = this.cartItemCompare(this.totalOrder[i],this.orderItem,i);
+                console.log(cartObj)
+                if (typeof cartObj == 'undefined') {
+                    this.totalOrder.push(this.orderItem);
+                    localStorage.setItem(this.cartStorage, JSON.stringify(this.totalOrder));
+                    this.addToCartSuccess();
+                    this.detailShow='';
+                }
+            }
+        }else{*/
+            this.totalOrder.push(this.orderItem);
+            localStorage.setItem(this.cartStorage, JSON.stringify(this.totalOrder));
+            this.addToCartSuccess();
+            this.detailShow='';
+        // }
     }
+
+    private cartItemCompare(obj1,obj2,index){
+        console.log(obj1)
+        console.log(index)
+        console.log(obj2)
+        if (((obj1.item._id == obj2.item._id) && (obj1.addon.length == obj2.addon.length)) ) {
+            if ((typeof obj1.multisize != 'undefined') && (typeof obj2.multisize != 'undefined') && (obj1.item.multisize.size == obj2.item.multisize.size)) {
+                    this.totalOrder[index].quantity = this.totalOrder[index].quantity+obj2.quantity
+                    this.totalOrder[index].totalPrice = this.totalOrder[index].totalPrice+obj2.totalPrice
+                    localStorage.setItem(this.cartStorage, JSON.stringify(this.totalOrder));
+                    return true;
+                
+            }
+        }
+    }
+    
     private addonPriceInfo(addonObj,addonDetail) {
         var isCheck = addonDetail.getAttribute('data-addon');
         var id = addonDetail.getAttribute('id');
@@ -240,6 +273,7 @@ export class FrontendComponent implements OnInit {
         this.orderItem.totalPrice = this.finalPrice;
         this.orderItem.quantity = this.quantity;
     }
+
     private multiSizePriceInfo(itemMultiSizeObj) {
         this.orderItem.multisize = itemMultiSizeObj;
         this.multiSizePrice = parseInt(itemMultiSizeObj.price);
@@ -247,12 +281,14 @@ export class FrontendComponent implements OnInit {
         this.orderItem.totalPrice = this.finalPrice;
         this.orderItem.quantity = this.quantity;
     }
+
     private quantityIncrement() {
         this.quantity = this.quantity +1;
         this.finalPrice = (this.multiSizePrice + this.price+ this.addonPrice)* this.quantity;
         this.orderItem.totalPrice = this.finalPrice;
         this.orderItem.quantity = this.quantity;
     }
+
     private quantityDecrement() {
         if(this.quantity > 1){
             this.quantity = this.quantity -1; 
@@ -261,9 +297,9 @@ export class FrontendComponent implements OnInit {
             this.orderItem.quantity = this.quantity;
         }
     }
+
     private showDetail(itemObj,itemMultiSizeObj) {
         this.detailShow = itemObj._id;
-
         this.multiSizePrice = 0;  
         this.price = 0;
         this.finalPrice = 0;
@@ -280,6 +316,7 @@ export class FrontendComponent implements OnInit {
         this.orderItem.totalPrice = this.finalPrice;
         this.orderItem.quantity = this.quantity;
     }
+
     private getRestaurants(id) {
         this.restaurantsService.getOne(id).subscribe(users => {
             this.restaurants = users.message;    
@@ -306,7 +343,7 @@ export class FrontendDetailComponent implements OnInit {
     cart:any=[];
     lat: any;
     lng: any;
-    lang:string='en';
+    lang:string;
     translatedText: string;
     constructor(
         private masterService: MasterService,
@@ -320,10 +357,11 @@ export class FrontendDetailComponent implements OnInit {
             let id = params['id'];
             this.getRestaurants(id);
             this.deliveryZone(id);
+            this.locale(id);
             this.cartStorage = 'cart'+id;
             this.cart = JSON.parse(localStorage.getItem(this.cartStorage));
         });
-        this.translate.setDefaultLang(this.lang);
+       //this.translate.setDefaultLang(this.lang);
     }
     selectLang(lang: string) {
         this.lang = lang;
@@ -332,6 +370,21 @@ export class FrontendDetailComponent implements OnInit {
         let langObj = 'lang'+this.restaurants._id;
         localStorage.setItem(langObj,this.lang)
         console.log(localStorage.getItem(langObj));
+    }
+
+
+    private locale(id){
+        let langObj = 'lang'+id;
+        console.log(langObj)
+        if (localStorage.getItem(langObj)) {
+            this.lang = localStorage.getItem(langObj);
+            this.translate.setDefaultLang(localStorage.getItem(langObj));
+            console.log(localStorage.getItem(langObj));
+        }else{
+            this.translate.setDefaultLang('en');
+            this.translate.use('en');
+            this.lang = 'en';
+        }
     }
     private getRestaurants(id) {
         this.restaurantsService.getOne(id).subscribe(users => {
@@ -568,6 +621,7 @@ export class FrontendCartComponent implements OnInit {
             console.log(localStorage.getItem(langObj));
         }else{
             this.translate.setDefaultLang('en');
+            this.translate.use('en');
         }
     }
     private basicDetailSuccess(){
@@ -661,20 +715,22 @@ export class FrontendCartComponent implements OnInit {
         this.showHideOrderingMethod =false;
         this.editOrderMethod = true;
         this.orderMethodSuccess();
+        localStorage.removeItem(this.orderPaymentStorage);
+        this.orderPayment={};
     }
     private calculateDeliveryZone(zoneObj,deliveryAddress,map,marker){        
         if (zoneObj.type=='Circle') {
             let circle = new google.maps.Circle({
-                    map: map,
-                    clickable: false,
-                    radius: parseFloat(zoneObj.radius),
-                    //radius: 400,
-                    fillColor: '#fff',
-                    fillOpacity: .6,
-                    strokeColor: '#313131',
-                    strokeOpacity: .4,
-                    strokeWeight: .8
-                });
+                map: map,
+                clickable: false,
+                radius: parseFloat(zoneObj.radius),
+                //radius: 400,
+                fillColor: '#fff',
+                fillOpacity: .6,
+                strokeColor: '#313131',
+                strokeOpacity: .4,
+                strokeWeight: .8
+            });
             circle.bindTo('center', marker, 'position');
             var isIn = circle.getBounds().contains(deliveryAddress);
             if (isIn) {
@@ -707,7 +763,6 @@ export class FrontendCartComponent implements OnInit {
             this.orderMethod = {"streetName": this.addressForm.value.streetName, "city": this.addressForm.value.city, "postcode": this.addressForm.value.postcode,"lat": data.message.lat,"lng": data.message.lng,"mType":'Delivery'};
             localStorage.setItem(this.orderMethodStorage, JSON.stringify(this.orderMethod));
             this.orderMethod = JSON.parse(localStorage.getItem(this.orderMethodStorage));
-            console.log(this.orderMethod)
             let latLng = new google.maps.LatLng(this.restaurants.lat, this.restaurants.lng);
             let latLngDeliveryAddress = new google.maps.LatLng(data.message.lat, data.message.lng);
             let map = new google.maps.Map(document.getElementById('gmap'), {
@@ -732,8 +787,6 @@ export class FrontendCartComponent implements OnInit {
                 var zones = this.calculateDeliveryZone(this.delivery[i],latLngDeliveryAddress,map,marker);
                 if (typeof zones != 'undefined') {
                     this.zoneObject.push(zones);
-                    console.log('this.zoneObject')
-                    console.log(this.zoneObject)
                 }
             }
             if (this.zoneObject.length > 0) {
@@ -742,8 +795,6 @@ export class FrontendCartComponent implements OnInit {
                     if (this.zoneObject[i].deliveryfee <= this.deliveryFee) {
                         this.deliveryFee = parseInt(this.zoneObject[i].deliveryfee);
                         this.amount = parseInt(this.zoneObject[i].amount);
-                        console.log('this.amount')
-                        console.log(this.amount)
                         this.orderType=true;
 
                     }
@@ -765,12 +816,16 @@ export class FrontendCartComponent implements OnInit {
         this.saveInfo();
         this.changeShowOrderingStatus();
         this.orderMethodSuccess();
+        localStorage.removeItem(this.orderPaymentStorage);
+        this.orderPayment={};
     }
+
     private editOrder(){
         this.editOrderMethod = !this.editOrderMethod;
         this.showHideOrderingMethod = true;
         this.deliveryAddress = true;
     }
+
     private setTime(id){
         if (id=="now") {
             this.delLater=false;
@@ -979,6 +1034,7 @@ export class FrontendLoginComponent implements OnInit {
             console.log(localStorage.getItem(langObj));
         }else{
             this.translate.setDefaultLang('en');
+            this.translate.use('en');
         }
     }
 
@@ -1098,6 +1154,7 @@ export class FrontendForgetPasswordComponent implements OnInit {
             console.log(localStorage.getItem(langObj));
         }else{
             this.translate.setDefaultLang('en');
+            this.translate.use('en');
         }
     }
 
@@ -1173,6 +1230,7 @@ export class FrontendResetPasswordComponent implements OnInit {
             console.log(localStorage.getItem(langObj));
         }else{
             this.translate.setDefaultLang('en');
+            this.translate.use('en');
         }
     }
 
@@ -1258,6 +1316,7 @@ export class FrontendUserProfileComponent implements OnInit {
             console.log(localStorage.getItem(langObj));
         }else{
             this.translate.setDefaultLang('en');
+            this.translate.use('en');
         }
     }
 
@@ -1360,6 +1419,7 @@ export class FrontendChangePasswordComponent implements OnInit {
             console.log(localStorage.getItem(langObj));
         }else{
             this.translate.setDefaultLang('en');
+            this.translate.use('en');
         }
     }
 

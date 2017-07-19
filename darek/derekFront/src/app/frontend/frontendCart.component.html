@@ -6,15 +6,15 @@
 </div>
 <div *ngIf="resTime.status != 'open'" style="background: rgba(0, 0, 0, 0.68);top: 0px;position: fixed; color: white; width: 100%; text-align: center; height: 100%;padding: 25%;font-weight: 600;"  [style.z-index]="getStyle()">
 	<div><img src="./assets/images/sad-face.png" width="40%"></div>
-	<div><h1 style="font-weight: 700;">CLOSED!!</h1></div>
-	<div><h4 style="font-weight: 700;">Come Back between</h4></div>
+	<div><h1 style="font-weight: 700;">{{'CLOSED' | translate}}!!</h1></div>
+	<div><h4 style="font-weight: 700;">{{'Opens'|translate}} {{'between'|translate}}</h4></div>
 	<div><h5 style="font-weight: 700;">{{resTime.open}} and {{resTime.close}}</h5></div>
 </div>
 
 <div class="container-fluid cartDiv" style="background-color: rgba(128, 128, 128, 0.16) !important;" >
 	<div *ngIf="currentCustomer">
-		<div class="minOrder btn saveButton" style="width: inherit;left: 34%;cursor: context-menu;" *ngIf="amount>grandTotal">
-			<div>Minimum Order at Your Location : {{amount}}</div>
+		<div class="minOrder btn saveButton" style="width: inherit;left: 34%;cursor: context-menu;" *ngIf="amount > grandTotal">
+			<div>{{'Minimum' | translate}} {{'Order' | translate}} {{'at' | translate}} {{'Your' | translate}} {{'Location' | translate}} : {{amount}}</div>
 		</div>
 	</div>
 
@@ -22,10 +22,10 @@
 		<div class="col-lg-5 col-md-5 col-sm-5 col-xs-5 leftCartDetail" style="padding: 0;">
 			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 pull-left" *ngIf="!currentCustomer">
 				<div class="col-lg-12 col-md-12 col-sm-12" style="padding:0;"> 
-					<div class="btn saveButton" [routerLink]="['/login', restaurants._id]" >Login/Signup</div>
+					<div class="btn saveButton" [routerLink]="['/login', restaurants._id]" >{{'Login' | translate}}/{{'Signup' | translate}}</div>
 				</div>
 				<div class="col-lg-12 col-md-12 col-sm-12" style="padding:0; " >
-					<div class="btn saveButton" [routerLink]="['/login',restaurants._id]" [queryParams]="{ show: '' }">Continue as Guest</div>
+					<div class="btn saveButton" [routerLink]="['/login',restaurants._id]" [queryParams]="{ show: '' }">{{'Continue' | translate}} {{'as' | translate}} {{'Guest' | translate}}</div>
 				</div>
 			</div>
 
@@ -34,11 +34,11 @@
 					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 						<div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
 							<span>
-								<strong><h5><i class="fa fa-user" aria-hidden="true"></i> &nbsp; CONTACT</h5></strong>
+								<strong><h5><i class="fa fa-user" aria-hidden="true"></i> &nbsp; {{'CONTACT ' | translate}}</h5></strong>
 							</span>
 						</div>
 						<div class="" *ngIf="showHideContactDetail" (click)="changeShowDetailStatus()">
-							<span class="label label-default pointer">Cancel</span>
+							<span class="label label-default pointer">{{'Cancel' | translate}}</span>
 						</div>
 					</div>
 					<div class="addContactDetail col-lg-12 col-md-12 col-sm-12 col-xs-12"  *ngIf="showHideContactDetail">
@@ -56,7 +56,7 @@
 								<input type="text " formControlName="phonenumber" class="form-control" name="" placeholder="Telephone *" value="" >
 							</div>
 							<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="padding: 0; margin-top: 10px;">
-								<button type="submit" class="btn saveButton" [disabled]="!detailForm.valid">Save</button>
+								<button type="submit" class="btn saveButton" [disabled]="!detailForm.valid">{{'Save' | translate}}</button>
 							</div>
 						</form>
 					</div>
@@ -76,7 +76,7 @@
 					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 						<div class="col-lg-10 col-md-10 col-sm-10 col-xs-12">
 							<span>
-								<strong><h5><i class="fa fa-truck" aria-hidden="true"></i> &nbsp; ORDERING METHOD</h5></strong>
+								<strong><h5><i class="fa fa-truck" aria-hidden="true"></i> &nbsp; {{'ORDERING' | translate}} {{'METHOD' | translate}}</h5></strong>
 							</span>
 						</div>
 						<div class="" *ngIf="showHideOrderingMethod" (click)="changeShowOrderingStatus()">
@@ -86,25 +86,25 @@
 					<div *ngIf="!editOrderMethod">
 						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" *ngIf="!showHideOrderingMethod" (click)="changeShowOrderingStatus()">
 							<div class="btn btn-default pointer" style="width: 100%;padding: 4%">
-								<span><strong><i class="fa fa-pencil" aria-hidden="true"></i>&nbsp;&nbsp;Select Order Type</strong></span>
+								<span><strong><i class="fa fa-pencil" aria-hidden="true"></i>&nbsp;&nbsp;{{'Select' | translate}} {{'Order' | translate}} {{'Type' | translate}}</strong></span>
 							</div>
 						</div>
 						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" *ngIf="showHideOrderingMethod">
 							<div *ngIf="addressClicked">
 								<div class="checkbox1 col-lg-12 col-md-12 col-sm-12 col-xs-12 pointer" *ngIf="restaurants.pickup">
-									<input type="radio" name="order" id="pickup" value="" (click)="addressButton('pickup')" [checked]="this.orderMethod.mType == 'Pickup'">  Pickup
+									<input type="radio" name="order" id="pickup" value="" (click)="addressButton('pickup')" [checked]="this.orderMethod.mType == 'Pickup'">  {{'pickup' | translate}}
 								</div>
 								<div class="checkbox1 col-lg-12 col-md-12 col-sm-12 col-xs-12 pointer" *ngIf = "delivery.length > 0">
 									<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="padding:0 0 10px 0;">
-										<input type="radio"  name="order" id="delivery"  value="" (click)="addressButton('delivery')" [checked]="this.orderMethod.mType == 'Delivery'">Delivery
+										<input type="radio"  name="order" id="delivery"  value="" (click)="addressButton('delivery')" [checked]="this.orderMethod.mType == 'Delivery'">{{'delivery' | translate}}
 									</div>
 									<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" *ngIf="this.orderMethod.mType == 'Delivery'" (click)="addressInfo()">
-										<div class="btn btn-default pointer" style="width: 100%;padding: 4%"><span><strong><i class="fa fa-pencil" aria-hidden="true"></i>&nbsp;&nbsp;Add your address</strong></span>
+										<div class="btn btn-default pointer" style="width: 100%;padding: 4%"><span><strong><i class="fa fa-pencil" aria-hidden="true"></i>&nbsp;&nbsp;{{'Add' | translate}} {{'your' | translate}} {{'address' | translate}}</strong></span>
 										</div>
 									</div>
 								</div>
 								<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="padding: 0; margin-top: 10px;" >
-									<button type="submit" class="btn saveButton" [disabled]="!this.deliveryAddress" (click)="pickupOnly()">Save</button>
+									<button type="submit" class="btn saveButton" [disabled]="!this.deliveryAddress" (click)="pickupOnly()">{{'Save' | translate}}</button>
 								</div>
 							</div>
 							<form role="form" [formGroup]="addressForm" (ngSubmit)="saveAddressInfo()" *ngIf="!addressClicked">
@@ -144,22 +144,22 @@
 					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 						<div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
 							<span>
-								<strong><h5><i class="fa fa-truck" aria-hidden="true"></i> &nbsp; CHOOSE A TIME</h5></strong>
+								<strong><h5><i class="fa fa-truck" aria-hidden="true"></i> &nbsp; {{'CHOOSE' | translate}} A {{'TIME' | translate}}</h5></strong>
 							</span>
 						</div>
 						<div class="" *ngIf="showHideTime" (click)="changeShowTimingStatus()">
-							<span class="label label-default pointer">Cancel</span>
+							<span class="label label-default pointer">{{'Cancel' | translate}}</span>
 						</div>
 					</div>
 					<div *ngIf="!editTimeMethod">
 						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" *ngIf="!showHideTime" (click)="changeShowTimingStatus()" >
 							<div class="btn btn-default" style="width: 100%;padding: 4%">
-								<span><strong><i class="fa fa-pencil" aria-hidden="true"></i>&nbsp;&nbsp;Add a time</strong></span>
+								<span><strong><i class="fa fa-pencil" aria-hidden="true"></i>&nbsp;&nbsp;{{'Add' | translate}} a {{'time' | translate}}</strong></span>
 							</div>
 						</div>
 						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" *ngIf="showHideTime">
 							<div class="checkbox1 col-lg-12 col-md-12 col-sm-12 col-xs-12 pointer">
-								<input type="radio" name="time" value="" id="now" (click)="setTime('now')" [checked]="this.orderTime.tType == 'Now'">Now
+								<input type="radio" name="time" value="" id="now" (click)="setTime('now')" [checked]="this.orderTime.tType == 'Now'">{{'Now' | translate}}
 							</div>
 							<div class="checkbox1 col-lg-12 col-md-12 col-sm-12 col-xs-12 laterSelect pointer">
 								<input type="radio" name="time" value="" id="later"  (click)="setTime('later')" [checked]="this.orderTime.tType == 'Later'">Later
@@ -179,7 +179,7 @@
 								</div>
 							</div>
 							<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="padding: 0; margin-top: 10px;">
-								<button type="submit" class="btn saveButton" (click)="saveTimeInfo()" [disabled]="!this.flagForTime">Save</button>
+								<button type="submit" class="btn saveButton" (click)="saveTimeInfo()" [disabled]="!this.flagForTime">{{'Save' | translate}}</button>
 							</div>
 						</div>
 					</div>
@@ -202,57 +202,57 @@
 					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 						<div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
 							<span>
-								<strong><h5><i class="fa fa-truck" aria-hidden="true"></i> &nbsp; PAYMENT METHOD </h5></strong>
+								<strong><h5><i class="fa fa-truck" aria-hidden="true"></i> &nbsp; {{'PAYMENT' | translate}} {{'METHOD' | translate}} </h5></strong>
 							</span>
 						</div>
 						<div class="" *ngIf="showHidePaymentMethod" (click)="changeShowPaymentStatus()">
-							<span class="label label-default pointer">Cancel</span>
+							<span class="label label-default pointer">{{'Cancel' | translate}}</span>
 						</div>
 					</div>
 					<div *ngIf="!editPaymentMethod">
 						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" *ngIf="!showHidePaymentMethod" (click)="changeShowPaymentStatus()">
 							<div class="btn btn-default" style="width: 100%;padding: 4%">
-								<span><strong><i class="fa fa-pencil" aria-hidden="true"></i>&nbsp;&nbsp;Select Payment Method</strong></span>
+								<span><strong><i class="fa fa-pencil" aria-hidden="true"></i>&nbsp;&nbsp;{{'Select' | translate}} {{'Payment' | translate}} {{'Method' | translate}}</strong></span>
 							</div>
 						</div>
 						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" *ngIf="showHidePaymentMethod">
 							<div *ngIf="this.orderMethod.mType == 'Pickup'">
 								<div class="checkbox1 col-lg-12 col-md-12 col-sm-12 col-xs-12 col- pointer" *ngIf="restaurants.paymentpickup.cash">
-									<input type="radio" value="" name="paymentpickup" id="cash" (click)="paymentOption('cash')" [checked]="this.orderPayment.cash == true">Cash
+									<input type="radio" value="" name="paymentpickup" id="cash" (click)="paymentOption('cash')" [checked]="this.orderPayment.cash == true">{{'Cash' | translate}}
 								</div>
 								<div class="checkbox1 col-lg-12 col-md-12 col-sm-12 col-xs-12 pointer" *ngIf="restaurants.paymentpickup.cardpickup">
-									<input type="radio" value="" name="paymentpickup" id="cardInHand"  (click)="paymentOption('cardInHand')" [checked]="this.orderPayment.cardpickup == true">Card at Pickup
+									<input type="radio" value="" name="paymentpickup" id="cardInHand"  (click)="paymentOption('cardInHand')" [checked]="this.orderPayment.cardpickup == true">{{'Card' | translate}} {{'at' | translate}} {{'Pickup' | translate}}
 								</div>
 								<div class="checkbox1 col-lg-12 col-md-12 col-sm-12 col-xs-12 pointer" *ngIf="restaurants.paymentpickup.cardinternet">
-									<input type="radio" value="" name="paymentpickup" id="cardInternet" (click)="paymentOption('cardInternet')" [checked]="this.orderPayment.cardinternet == true">Card via Internet
+									<input type="radio" value="" name="paymentpickup" id="cardInternet" (click)="paymentOption('cardInternet')" [checked]="this.orderPayment.cardinternet == true">{{'Card' | translate}} {{'via' | translate}} {{'Internet' | translate}}
 								</div>
 							</div>
 							<div *ngIf="this.orderMethod.mType == 'Delivery'">
 								<div class="checkbox1 col-lg-12 col-md-12 col-sm-12 col-xs-12 pointer" *ngIf="restaurants.paymentdelivery.cash">
-									<input type="radio" value="" name="paymentdelivery" id="cash" (click)="paymentOption('cash')" [checked]="this.orderPayment.cash == true">Cash
+									<input type="radio" value="" name="paymentdelivery" id="cash" (click)="paymentOption('cash')" [checked]="this.orderPayment.cash == true">{{'Cash' | translate}}
 								</div>
 								<div class="checkbox1 col-lg-12 col-md-12 col-sm-12 col-xs-12 pointer" *ngIf="restaurants.paymentdelivery.cardpickup">
-									<input type="radio" value="" name="paymentdelivery" id="cardInHand"  (click)="paymentOption('cardInHand')" [checked]="this.orderPayment.cardpickup == true">Card at Delivery
+									<input type="radio" value="" name="paymentdelivery" id="cardInHand"  (click)="paymentOption('cardInHand')" [checked]="this.orderPayment.cardpickup == true">{{'Card' | translate}} {{'at' | translate}} {{'Delivery' | translate}}
 								</div>
 								<div class="checkbox1 col-lg-12 col-md-12 col-sm-12 col-xs-12 pointer" *ngIf="restaurants.paymentdelivery.cardinternet">
-									<input type="radio" value="" name="paymentdelivery" id="cardInternet" (click)="paymentOption('cardInternet')" [checked]="this.orderPayment.cardinternet == true">Card via Internet
+									<input type="radio" value="" name="paymentdelivery" id="cardInternet" (click)="paymentOption('cardInternet')" [checked]="this.orderPayment.cardinternet == true">{{'Card' | translate}} {{'via' | translate}} {{'Internet' | translate}}
 								</div>
 							</div>
 							<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="padding: 0; margin-top: 10px;">
-								<button type="submit" class="btn saveButton" (click)="savePaymentInfo()" [disabled]="this.flagForPayment!=true">Save</button>
+								<button type="submit" class="btn saveButton" (click)="savePaymentInfo()" [disabled]="this.flagForPayment!=true">{{'Save' | translate}}</button>
 							</div>
 						</div>
 					</div>
 					<div class="editPaymentMethod" *ngIf="editPaymentMethod">
 						<div class="col-lg-8 col-md-8 col-sm-8 orderPaymentDetail">
 							<div *ngIf="orderPayment.cash == true">
-								Cash
+								{{'Cash' | translate}}
 							</div>
 							<div *ngIf="orderPayment.cardpickup == true">
-								Card Pickup
+								{{'Card' | translate}} {{'Pickup' | translate}}
 							</div>
 							<div *ngIf="orderPayment.cardinternet == true">
-								Card Pickup
+								{{'Card' | translate}} {{'via' | translate}} {{'Internet' | translate}}
 							</div>
 						</div>
 						<div class="col-lg-4 col-md-4 col-sm-4 editButton" (click)="editPayment()">
@@ -266,14 +266,14 @@
 		<div class="col-lg-7 col-md-7 col-sm-7 col-xs-7 rightCartDetail" style="padding: 0;">
 			<div class="pull-right col-lg-12 col-md-12 col-sm-12 col-xs-12">
 				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 cart-header well well-sm">
-					<div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 cart-header-quantity">Qty</div>
-					<div class="col-lg-8 col-md-8 col-sm-8 col-xs-8 cart-header-name">Item</div>
-					<div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 cart-header-price">Price</div>
+					<div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 cart-header-quantity">{{'Quantity' | translate}}</div>
+					<div class="col-lg-8 col-md-8 col-sm-8 col-xs-8 cart-header-name">{{'Item' | translate}}</div>
+					<div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 cart-header-price">{{'Price' | translate}}</div>
 				</div>
 				
 				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="padding: 0; background: white;border: 1px solid rgba(128, 128, 128, 0.39);">
 					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 cart-items" *ngIf="cart">
-						<div *ngIf="cart.length == 0" class="col-lg-12 col-md-12 col-sm-12 col-xs-12 cart-empty" style="text-align: center; font-weight: 700;">Cart is empty
+						<div *ngIf="cart.length == 0" class="col-lg-12 col-md-12 col-sm-12 col-xs-12 cart-empty" style="text-align: center; font-weight: 700;">{{'Cart' | translate}} {{'is' | translate}} {{'empty' | translate}}
 						</div>
 						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" *ngIf="cart.length > 0" >
 							<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" *ngFor="let crt of cart; let i = index" style="padding:0;">
@@ -305,7 +305,7 @@
 					</div>
 					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 cart-footer">
 						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 sub-total">
-							<div class="col-lg-10 col-md-10 col-sm-10 col-xs-10 pull-left">Sub Total</div>
+							<div class="col-lg-10 col-md-10 col-sm-10 col-xs-10 pull-left">{{'Sub' | translate}} {{'Total' | translate}}</div>
 							<div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 pull-right">
 								<div>
 									{{grandTotal}}
@@ -313,7 +313,7 @@
 							</div>
 						</div>
 						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 deliveryFee">
-							<div class="col-lg-10 col-md-10 col-sm-10 col-xs-10 pull-left">Delivery Fee</div>
+							<div class="col-lg-10 col-md-10 col-sm-10 col-xs-10 pull-left">{{'DeliveryFee' | translate}}</div>
 							<div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 pull-right">
 								<div>
 									{{deliveryFee}}
@@ -327,7 +327,7 @@
 							</div>
 						</div>
 						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 grand-total">
-							<div class="col-lg-10 col-md-10 col-sm-10 col-xs-10 pull-left"><h4>TOTAL</h4></div>
+							<div class="col-lg-10 col-md-10 col-sm-10 col-xs-10 pull-left"><h4>{{'Total' | translate}}</h4></div>
 							<div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 pull-right"><h4>{{grandTotalWithTax |number : '1.2-2'}}</h4></div>
 						</div>
 					</div>
@@ -341,12 +341,12 @@
 			<button class="btn saveButton" style="padding: 15px 20px;text-align: justify;" [disabled]="this.all==false" (click)="placeOrder()">
 				<div style="display: -webkit-inline-box;">
 					<div class="total">
-						<span>Total</span><br>
+						<span>{{'Total' | translate}}</span><br>
 						<span>{{grandTotalWithTax | number : '1.2-2'}}</span>
 					</div>
 					<div class="button-separator" style="width: 1px; margin: -15px 15px;    background: linear-gradient(to bottom,rgba(0,0,0,0)0,rgba(0,0,0,.15)49.76%,rgba(0,0,0,.15)50.24%,rgba(0,0,0,0)100%);"></div>
 					<div>
-						<div class="">Place Delivery Order Now</div>
+						<div class="">{{'Place' | translate}} {{'Delivery' | translate}} {{'Order' | translate}} {{'Now' | translate}}</div>
 					</div>
 				</div>
 			</button>

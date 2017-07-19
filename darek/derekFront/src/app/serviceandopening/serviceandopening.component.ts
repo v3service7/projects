@@ -1189,15 +1189,68 @@ export class KitchenMenuListComponent implements OnInit {
             });
 	   }
    }
-   	private showDayOption(id,type){
+   	private showDayOption(id,type,specific,hidden){
+   		console.log(id,type,specific,hidden)
    		this.mondayCheck,this.tuesdayCheck,this.wednesdayCheck,this.thursdayCheck, this.fridayCheck, this.saturdayCheck, this.sundayCheck = false;
    		if (type == 'menu') {
    			this.showDivDetail = id;
+
    		}else{
    			this.showDivItemDetail = id;
    		}
+   		if (specific) {
+   			this.showMenu(id)
+   		}
+   		if (hidden) {
+   			this.hideMenu(id)
+   		}
    		this.menuObj._id = id;
    	}
+   	
+   	private checkChecked(allDay,day){
+   		if (allDay) {
+	   		if (allDay.monday && day == 'Monday') {
+	   			return true;
+	   		}
+	   		if (allDay.tuesday && day == 'Tuesday') {
+	   			return true;
+	   		}
+	   		if (allDay.wednesday && day == 'Wednesday') {
+	   			return true;
+	   		}
+	   		if (allDay.thursday && day == 'Thursday') {
+	   			return true;
+	   		}
+	   		if (allDay.friday && day == 'Friday') {
+	   			return true;
+	   		}
+	   		if (allDay.saturday && day == 'Saturday') {
+	   			return true;
+	   		}
+	   		if (allDay.sunday && day == 'Sunday') {
+	   			return true;
+	   		}
+   		}
+   	}
+
+   	private radioChecked(id,data){
+   		if (data == 'specific') {
+   			if(id) {
+   				return id;
+   			}else{
+   				return id;
+   			}
+   		}
+   		if (data == 'hidden') {
+   			if(id) {
+   				console.log(id,data)
+   				return id;
+   			}else{
+   				return id;
+   			}
+   		}
+   	}
+
    	private showDiv(id,type) {
    		if (type == 'menu') {
 	        if (this.showDivDetail == id) {
@@ -1232,12 +1285,24 @@ export class KitchenMenuListComponent implements OnInit {
    		document.getElementById(divId).style.display = 'none';
    		this.hideMenuOption = true;
    		this.showMenuOption = false;
+
+   		console.log(this.hideMenuOption);
+   		console.log("this.hideMenuOption");
+   		console.log(this.showMenuOption);
+   		console.log("this.showMenuOption");
    	}
    	private showMenu(id){
    		var divId = 'days'+id;
+   		console.log(divId)
    		document.getElementById(divId).style.display = 'block';
    		this.hideMenuOption = false;
    		this.showMenuOption = true;
+
+
+   		console.log(this.hideMenuOption);
+   		console.log("this.hideMenuOption");
+   		console.log(this.showMenuOption);
+   		console.log("this.showMenuOption");
    	}
    	private checkMon(){
    		this.mondayCheck = !this.mondayCheck;

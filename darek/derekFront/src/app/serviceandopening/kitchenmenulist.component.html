@@ -262,11 +262,11 @@
                <div *ngIf="user.image"><img  (click)="passId(user._id)" data-toggle="modal" data-target="#mymenuModal" src="{{imageUrl}}{{user.image}}" class="img-responsive custom_img_size"></div>
                <div *ngIf="!user.image"><img  (click)="passId(user._id)" data-toggle="modal" data-target="#mymenuModal" src="./assets/images/menu.jpg" class="img-responsive custom_img_size"></div>
             </div>
-            <div class="itemDesc col-lg-7 col-md-7 col-sm-7 col-xs-7 custom_menu_color"> {{user.name}}<span class="label label-warning" *ngIf="user.isHidden == true" style="font-size: 42%;position: absolute;border-radius: 1.25em;padding: 1%;">Hidden from Menu</span><span class="label label-warning" *ngIf="user.isHidden== false" style="font-size: 42%;position: absolute;border-radius: 1.25em;padding: 1%;">Show on specific time</span>
+            <div class="itemDesc col-lg-7 col-md-7 col-sm-7 col-xs-7 custom_menu_color"> {{user.name}}<span class="label label-warning" *ngIf="user.isHidden == true" style="font-size: 42%;position: absolute;border-radius: 1.25em;padding: 1%;">Hidden from Menu</span><span class="label label-warning" *ngIf="user.isSpecific== true" style="font-size: 42%;position: absolute;border-radius: 1.25em;padding: 1%;">Show on specific time</span>
             </div>
             
             <div class="icons col-lg-3 col-md-3 col-sm-3 col-xs-3 pull-right">
-               <a href="javascript:void(0);" (click)="showDayOption(user._id,'menu')"><i class="fa fa-chevron-circle-down" aria-hidden="true"></i></a>
+               <a href="javascript:void(0);" (click)="showDayOption(user._id,'menu',user.isSpecific, user.isHidden)"><i class="fa fa-chevron-circle-down" aria-hidden="true"></i></a>
                <a [routerLink]="['/owner/menu-edit/',user._id]"><i class="fa fa-pencil" aria-hidden="true"></i></a>
                <a (click)="deleteUser(user._id)" href="javascript:void(0);"><i class="fa fa-trash" aria-hidden="true"></i></a>
                <a [routerLink]="['/owner/item-add/',user._id]" title="Add Item"><i class="fa fa-plus" aria-hidden="true"></i></a>
@@ -281,13 +281,13 @@
                </div>
                <div class="daysOption">
                   <div style="border-bottom: 1px solid #ccc; padding: 2%;">
-                     <label>
-                        <input type="radio" name="radio" (click)="hideMenu(user._id)" [checked]="user.isHidden === true"> Hidden from menu
+                     <label style="width: 100%;">
+                        <input  [attr.id]="'hidden' + user._id" [attr.name]="'hidden' + user._id" type="radio" (click)="hideMenu(user._id)" [value]="user.isHidden" [checked]="radioChecked(user.isHidden,'hidden')"> Hidden from menu
                      </label>
                   </div>
                   <div style="padding: 2%;">
-                     <label>
-                        <input type="radio" name="radio" (click)="showMenu(user._id)" [checked]="user.isHidden === false"> Show on specific time
+                     <label style="width: 100%;">
+                        <input [attr.id]="'show' + user._id" type="radio" (click)="showMenu(user._id)" [attr.name]="'hidden' + user._id" [value]="user.isSpecific" [checked]="radioChecked(user.isSpecific,'specific')"> Show on specific time
                      </label>
                   </div>
                   <div id="days{{user._id}}" class="menuDays" style=" padding: 2%;">
@@ -303,19 +303,23 @@
                         <span *ngIf="user.openinghours.opentime">&nbsp;{{user.openinghours.opentime}}-</span>
                         <span *ngIf="user.openinghours.closetime">{{user.openinghours.closetime}}</span>
                      </div>
-                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin: 2% 0 2% 0">
+                     <div *ngIf="user.openinghours" class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin: 2% 0 2% 0">
+                        <input type="time" name="opentime" [attr.id]="'opentime_' + user._id" [attr.value]="user.openinghours.opentime">
+                        <input type="time" name="closetime" [attr.id]="'closetime_' + user._id" [attr.value]="user.openinghours.closetime">
+                     </div>
+                     <div *ngIf="!user.openinghours" class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin: 2% 0 2% 0">
                         <input type="time" name="opentime" [attr.id]="'opentime_' + user._id">
                         <input type="time" name="closetime" [attr.id]="'closetime_' + user._id">
                      </div>
                      <!-- {{user.openinghours.monday}} -->
                      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 daysList">
-                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6" (click)="checkMon()"><input type="checkbox" id="optionsRadios2" value="Monday" [checked]="mondayCheck"> Monday</div>
-                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6" (click)="checkTue()"><input type="checkbox" name="tue" id="optionsRadios2" value="Tuesday" [checked]="tuesdayCheck"> Tuesday</div>
-                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6" (click)="checkWed()"><input type="checkbox" name="wed" id="optionsRadios2" value="Wednesday" [checked]="wednesdayCheck"> Wednesday</div>
-                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6" (click)="checkThu()"><input type="checkbox" name="thu" id="optionsRadios2" value="Thursday" [checked]="thursdayCheck"> Thursday</div>
-                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6" (click)="checkFri()"><input type="checkbox" name="fri" id="optionsRadios2" value="Friday" [checked]="fridayCheck"> Friday</div>
-                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6" (click)="checkSat()"><input type="checkbox" name="sat" id="optionsRadios2" value="Saturday" [checked]="saturdayCheck"> Saturday</div>
-                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6" (click)="checkSun()"><input type="checkbox" name="sun" id="optionsRadios2" value="Sunday" [checked]="sundayCheck"> Sunday</div>
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6" (click)="checkMon()"><input type="checkbox" id="optionsRadios2" value="Monday" [checked]="checkChecked(user.openinghours,'Monday')"> Monday</div>
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6" (click)="checkTue()"><input type="checkbox" name="tue" id="optionsRadios2" value="Tuesday" [checked]="checkChecked(user.openinghours,'Tuesday')"> Tuesday</div>
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6" (click)="checkWed()"><input type="checkbox" name="wed" id="optionsRadios2" value="Wednesday" [checked]="checkChecked(user.openinghours,'Wednesday')"> Wednesday</div>
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6" (click)="checkThu()"><input type="checkbox" name="thu" id="optionsRadios2" value="Thursday" [checked]="checkChecked(user.openinghours,'Thursday')"> Thursday</div>
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6" (click)="checkFri()"><input type="checkbox" name="fri" id="optionsRadios2" value="Friday" [checked]="checkChecked(user.openinghours,'Friday')"> Friday</div>
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6" (click)="checkSat()"><input type="checkbox" name="sat" id="optionsRadios2" value="Saturday" [checked]="checkChecked(user.openinghours,'Saturday')"> Saturday</div>
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6" (click)="checkSun()"><input type="checkbox" name="sun" id="optionsRadios2" value="Sunday" [checked]="checkChecked(user.openinghours,'Sunday')"> Sunday</div>
                      </div>
                   </div>
                   <button type="submit" class="btn saveButton" (click)="saveOpeningTimings('menu')">Save</button>
@@ -332,7 +336,7 @@
                         <div *ngIf="item.image"><img (click)="passub(item._id)" data-toggle="modal" data-target="#mySubMenuModal"  src="{{imageUrl}}{{item.image}}" class="img-responsive"></div>
                         <div *ngIf="!item.image"><img (click)="passub(item._id)" data-toggle="modal" data-target="#mySubMenuModal" src="./assets/images/itemimage.gif" class="img-responsive"></div>
                      </div>
-                     <div class="itemDesc col-lg-8 col-md-8 col-sm-8 col-xs-8">{{item.name}}<span class="label label-warning" *ngIf="item.isHidden==true" style="font-size: 60%;position: absolute;border-radius: 1.25em;padding: 1%;">Hidden from Menu</span><span class="label label-warning" *ngIf="item.isHidden==false" style="font-size: 60%;position: absolute;border-radius: 1.25em;padding: 1%;">Show on specific time</span>
+                     <div class="itemDesc col-lg-8 col-md-8 col-sm-8 col-xs-8">{{item.name}}<span class="label label-warning" *ngIf="item.isHidden == true" style="font-size: 60%;position: absolute;border-radius: 1.25em;padding: 1%;">Hidden from Menu</span><span class="label label-warning" *ngIf="item.isSpecific == true" style="font-size: 60%;position: absolute;border-radius: 1.25em;padding: 1%;">Show on specific time</span>
                         <span class="custom_sub_price" *ngIf="item.multisize.length < 1"><code> {{item.price}} CZK</code></span>
                         <div class="row" style="margin-top: 10px;">
                            <small *ngFor="let grop of groups">
@@ -345,7 +349,7 @@
                         </div>
                      </div>
                      <div class="icons col-lg-2 col-md-2 col-sm-2 col-xs-2" style="">
-                        <a href="javascript:void(0);" (click)="showDayOption(item._id, 'item')"><i class="fa fa-chevron-circle-down" aria-hidden="true"></i></a>
+                        <a href="javascript:void(0);" (click)="showDayOption(item._id, 'item',item.isSpecific, item.isHidden)"><i class="fa fa-chevron-circle-down" aria-hidden="true"></i></a>
                         <a [routerLink]="['/owner/item-edit/',item._id]"><i class="fa fa-pencil" aria-hidden="true"></i></a>
                         <a (click)="deleteItem(item._id)" href="javascript:void(0);"><i class="fa fa-trash" aria-hidden="true"></i></a>
                      </div>
@@ -360,13 +364,13 @@
                      </div>
                      <div class="daysOption">
                         <div style="border-bottom: 1px solid #ccc; padding: 2%;">
-                           <label>
-                              <input type="radio" name="radio" (click)="hideMenu(item._id)" [checked]="item.isHidden==true"> Hidden from menu
+                           <label style="width: 100%;">
+                              <input  [attr.id]="'hidden' + item._id" [attr.name]="'hidden' + item._id" type="radio" (click)="hideMenu(item._id)" [value]="item.isHidden" [checked]="radioChecked(item.isHidden,'hidden')"> Hidden from menu
                            </label>
                         </div>
                         <div style="padding: 2%;">
-                           <label>
-                              <input type="radio" name="radio" (click)="showMenu(item._id)" [checked]="item.isHidden==false"> Show on specific time
+                           <label style="width: 100%;">
+                              <input  [attr.id]="'hidden' + item._id" [attr.name]="'hidden' + item._id" type="radio" (click)="hideMenu(item._id)" [value]="item.isSpecific" [checked]="radioChecked(item.isSpecific,'specific')"> Show on specific time
                            </label>
                         </div>
                         <div id="days{{item._id}}" class="itemDays" style="padding: 2%;" style="display: none;">
@@ -382,18 +386,23 @@
                               <span *ngIf="item.openinghours.opentime">&nbsp;{{item.openinghours.opentime}}-</span>
                               <span *ngIf="item.openinghours.closetime">{{item.openinghours.closetime}}</span>
                            </div>
-                           <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin: 2% 0 2% 0">
+
+                           <div *ngIf="item.openinghours" class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin: 2% 0 2% 0">
+                              <input type="time" name="opentime" [attr.id]="'opentime_' + item._id" [attr.value]="item.openinghours.opentime">
+                              <input type="time" name="closetime" [attr.id]="'closetime_' + item._id" [attr.value]="item.openinghours.closetime">
+                           </div>
+                           <div *ngIf="!item.openinghours" class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin: 2% 0 2% 0">
                               <input type="time" name="opentime" [attr.id]="'opentime_' + item._id">
                               <input type="time" name="closetime" [attr.id]="'closetime_' + item._id">
                            </div>
                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 daysList">
-                              <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6" (click)="checkMon()"><input type="checkbox" id="optionsRadios2" value="Monday" [checked]="mondayCheck"> Monday</div>
-                              <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6" (click)="checkTue()"><input type="checkbox" name="tue" id="optionsRadios2" value="Tuesday" [checked]="tuesdayCheck"> Tuesday</div>
-                              <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6" (click)="checkWed()"><input type="checkbox" name="wed" id="optionsRadios2" value="Wednesday" [checked]="wednesdayCheck"> Wednesday</div>
-                              <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6" (click)="checkThu()"><input type="checkbox" name="thu" id="optionsRadios2" value="Thursday" [checked]="thursdayCheck"> Thursday</div>
-                              <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6" (click)="checkFri()"><input type="checkbox" name="fri" id="optionsRadios2" value="Friday" [checked]="fridayCheck"> Friday</div>
-                              <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6" (click)="checkSat()"><input type="checkbox" name="sat" id="optionsRadios2" value="Saturday" [checked]="saturdayCheck"> Saturday</div>
-                              <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6" (click)="checkSun()"><input type="checkbox" name="sun" id="optionsRadios2" value="Sunday" [checked]="sundayCheck"> Sunday</div>
+                              <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6" (click)="checkMon()"><input type="checkbox" id="optionsRadios2" value="Monday" [checked]="checkChecked(item.openinghours,'Monday')"> Monday</div>
+                              <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6" (click)="checkTue()"><input type="checkbox" name="tue" id="optionsRadios2" value="Tuesday" [checked]="checkChecked(item.openinghours,'Tuesday')"> Tuesday</div>
+                              <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6" (click)="checkWed()"><input type="checkbox" name="wed" id="optionsRadios2" value="Wednesday" [checked]="checkChecked(item.openinghours,'Wednesday')"> Wednesday</div>
+                              <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6" (click)="checkThu()"><input type="checkbox" name="thu" id="optionsRadios2" value="Thursday" [checked]="checkChecked(item.openinghours,'Thursday')"> Thursday</div>
+                              <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6" (click)="checkFri()"><input type="checkbox" name="fri" id="optionsRadios2" value="Friday" [checked]="checkChecked(item.openinghours,'Friday')"> Friday</div>
+                              <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6" (click)="checkSat()"><input type="checkbox" name="sat" id="optionsRadios2" value="Saturday" [checked]="checkChecked(item.openinghours,'Saturday')"> Saturday</div>
+                              <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6" (click)="checkSun()"><input type="checkbox" name="sun" id="optionsRadios2" value="Sunday" [checked]="checkChecked(item.openinghours,'Sunday')"> Sunday</div>
                            </div>
                         </div>
                         <button type="submit" class="btn saveButton" (click)="saveOpeningTimings('item')">Save</button>
