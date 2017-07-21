@@ -83,7 +83,7 @@ router.put('/restaurant/:id',function(req, res){
             if(err) {
                 response = {"error" : true,"message" : err};
             } else {
-                response = {"error" : false,"message" : "Data Update"};
+                response = {"error" : false,"message" : country};
             }
             res.json(response);
         });
@@ -105,6 +105,20 @@ router.put('/restaurant-notification/:id',function(req, res){
             restaurant.notification.push(req.body.notification);
             restaurant.save();
             response = {"error" : false,"message" : "Data Update","data" : restaurant};
+        }
+        res.json(response);
+    });
+});
+
+router.put('/delivery-update/:id',function(req, res){
+    var response={};
+    restaurantModel.findByIdAndUpdate(req.params.id, req.body, function(err, restaurant) {
+
+        console.log(restaurant);
+        if(err) {
+            response = {"error" : true,"message" : err};
+        } else {
+            response = {"error" : false,"message" : restaurant};
         }
         res.json(response);
     });

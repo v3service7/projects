@@ -2,6 +2,8 @@ var express = require('express');
 var router = express.Router();
 var passport = require('passport');
 
+//var cryptoD = require('crypto');
+
 var Order = require('../model/Order.js');
 var customerModel = require('../model/Customer.js');
 var restaurantModel = require('../model/Restaurant.js');
@@ -36,7 +38,24 @@ router.get('/', function(req, res, next) {
         res.json(response);
     }); 
 });
+/*
+router.get('/create-hmac', function(req, res, next) {
+    var response={};
+    var apiKey = "orC0OGDhIz3NUg2HShAzczEeM18Zaciw";
+    var apiSecret = "e71e64ce4eddfa0920c42d030207933166b9c8166874d0b0d65bfce10ddb8c5f";
+    var nonce = Math.random();
+    var timestamp = Math.round(+new Date()/1000);;
+    var token = "9a7f7bef6a5f0ef2";
+    var payload = "https://api-cert.payeezy.com/v1/transactions";
+    var data = apiKey + nonce + timestamp + token + payload;
+    var hashAlgorithm = "sha256";
 
+    var hmac = cryptoD.createHmac(hashAlgorithm , data , apiSecret, false)
+    //var hmac = hash_hmac ( hashAlgorithm , data , apiSecret, false );
+
+    res.json(hmac);
+});
+*/
 router.post('/add', function(req, res) {
     //console.log(req.body);
     var response={};

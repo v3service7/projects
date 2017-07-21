@@ -28,6 +28,14 @@ export class RestaurantsService {
       .map(
       (response: Response) => response.json()
     );
+  }
+  updateDelivery(data){
+    console.log("data");
+    console.log(data);
+   return this.http.put(globalVariable.url+'delivery-update/'+data._id, data)
+      .map(
+      (response: Response) => response.json()
+    );
   } 
   updateNotification(data){
    return this.http.put(globalVariable.url+'restaurant-notification/'+ data._id, data)

@@ -157,14 +157,18 @@ a.selected {
     background: white;
 }
 
-.itemDetailDiv div div.sizeDetail, .itemDetailDiv div div.addOnsDetail , .itemDetailDiv div div.specialInstruction{
+.itemDetailDiv div div.sizeDetail , .itemDetailDiv div div.specialInstruction{
     margin-top: 5%;
 }
 
-.subAddOnDetail{
-    margin-bottom: 2%;
+.itemDetailDiv div div.addOnsDetail .add{
+    margin-top: 5%;
 }
 
+/*.subAddOnDetail{
+    margin-bottom: 2%;
+}
+*/
 .cnt-input button fa{
     margin:1px;
     width:15px;
@@ -423,7 +427,7 @@ footer.footer .footerButton .saveButton .button-separator{
 
 .pos-header{
     margin-bottom: 100px;
-    max-height: 200px;
+    max-height: 350px;
     overflow-x: auto;
 }
 

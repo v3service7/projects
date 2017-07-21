@@ -20,6 +20,7 @@ var RestaurantSchema = new Schema({
     phoneNo : String,
     emailstatus: { type: Boolean, default: false },
     pickup: { type: Boolean, default: true },
+    delivery: { type: Boolean},
     orderforlater: { type: Boolean, default: true },
     orderforlaterpickup: { mintime: String, mindate: String },    
     orderforlaterdelivery: { mintime: String, mindate: String },

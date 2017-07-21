@@ -25,7 +25,7 @@ import {OrderPipe} from "./order.pipe"
 import {FilterPipe} from "./filter.pipe";
 
 import { RestaurantsComponent , RestaurantaddComponent , RestaurantupdateComponent,RestaurantupdateownerComponent,RestaurantlocationComponent, RestaurantconfirmationComponent,OwnermailactivateComponent} from './restaurants/index';
-import { RestaurantOwnerPickupComponent, RestaurantOwnerOrderForLaterComponent, RestaurantOwnerTaxationComponent, RestaurantOwnerPaymentOptionComponent, RestaurantOwnerOpeningHoursComponent, RestaurantOwnerDeliveryZoneComponent, KitchenMenuListComponent, KitchenMenuAddComponent, KitchenMenuUpdateComponent,KitchenitemComponent,KitchenMenuItemUpdateComponent,LegacyComponent,LegacycodeComponent, NotificationComponent, SupportedLanguagesComponent} from './serviceandopening/index';
+import { RestaurantOwnerPickupComponent, RestaurantOwnerOrderForLaterComponent, RestaurantOwnerTaxationComponent, RestaurantOwnerPaymentOptionComponent, RestaurantOwnerOpeningHoursComponent, RestaurantOwnerDeliveryZoneComponent, KitchenMenuListComponent, KitchenMenuAddComponent, KitchenMenuUpdateComponent,KitchenitemComponent,KitchenMenuItemUpdateComponent,LegacyComponent,LegacycodeComponent, NotificationComponent, SupportedLanguagesComponent,OnlinePaymentComponent} from './serviceandopening/index';
 import { OwnerDriversComponent, OwnerDriversupdateComponent,OwnerDriversaddComponent} from './ownerdrivers/index';
 import { DriversComponent,DriveraddComponent, DriverupdateComponent} from './drivers/index';
 import { PromotionsComponent, PromotionaddComponent, PromotionupdateComponent } from './promotions/promotions.component';
@@ -50,7 +50,7 @@ import { ReportingComponent,ReportingnavComponent,ReportingoverviewComponent,Rep
     OwnerAutologinComponent,
     FilterPipe,
     DriversComponent,
-    RestaurantOwnerOrderForLaterComponent,RestaurantOwnerPaymentOptionComponent,RestaurantOwnerDeliveryZoneComponent, KitchenMenuListComponent, KitchenMenuAddComponent, KitchenMenuUpdateComponent,KitchenitemComponent,KitchenMenuItemUpdateComponent,LegacyComponent,LegacycodeComponent, NotificationComponent, SupportedLanguagesComponent,
+    RestaurantOwnerOrderForLaterComponent,RestaurantOwnerPaymentOptionComponent,RestaurantOwnerDeliveryZoneComponent, KitchenMenuListComponent, KitchenMenuAddComponent, KitchenMenuUpdateComponent,KitchenitemComponent,KitchenMenuItemUpdateComponent,LegacyComponent,LegacycodeComponent, NotificationComponent, SupportedLanguagesComponent,OnlinePaymentComponent,
     DriveraddComponent,
     DriverupdateComponent,
     OwnerDriversComponent, OwnerDriversupdateComponent,OwnerDriversaddComponent,

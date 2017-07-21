@@ -7,80 +7,84 @@
         <div class="settings-heading"><span class="settings-title ng-binding">On-site payment options</span>
             <input type="submit" class="btn btn-next ng-binding" value="Next">
         </div>
-        <div class="settings-content">
-            <div class="row">
-                <div class="col-xs-12">
-                    <div class="payment-subtitle"><strong class="ng-binding">Payment options for pickup:</strong></div>
+        <div class="settings-content" *ngIf="this.restaurants">
+            <div *ngIf="this.restaurants.pickup">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="payment-subtitle"><strong class="ng-binding">Payment options for pickup:</strong></div>
+                    </div>
                 </div>
-            </div>
-            <div class="row">
-                <div class="col-xs-7 payment-text ng-binding">Cash</div>
-                <div class="col-xs-5">
-                    <div class="btn-group" data-toggle="buttons">
-                        <label class="btn btn-info2" [ngStyle]="cashi == true ? forgreen : forwhite"  (click)="intialoption2('cash',true)">
-                            <input type="radio" id="optionsRadios2" value="true">Yes</label>
-                        <label class="btn btn-info2 btn_red" [ngStyle]="cashi == false ? forred : forwhite" (click)="intialoption2('cash',false)">
-                            <input type="radio" id="optionsRadios2" value="false"  checked="">No</label>
+                <div class="row">
+                    <div class="col-xs-7 payment-text ng-binding">Cash</div>
+                    <div class="col-xs-5">
+                        <div class="btn-group" data-toggle="buttons">
+                            <label class="btn btn-info2" [ngStyle]="cashi == true ? forgreen : forwhite"  (click)="intialoption2('cash',true)">
+                                <input type="radio" id="optionsRadios2" value="true">Yes</label>
+                            <label class="btn btn-info2 btn_red" [ngStyle]="cashi == false ? forred : forwhite" (click)="intialoption2('cash',false)">
+                                <input type="radio" id="optionsRadios2" value="false"  checked="">No</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-7 payment-text ng-binding">Card at pickup counter</div>
+                    <div class="col-xs-5">
+                        <div class="btn-group" data-toggle="buttons">
+                            <label class="btn btn-info2" [ngStyle]="cardpickupi == true ? forgreen : forwhite"  (click)="intialoption2('cardpickup',true)">
+                                <input type="radio" id="optionsRadios2" value="true">Yes</label>
+                            <label class="btn btn-info2 btn_red" [ngStyle]="cardpickupi == false ? forred : forwhite"  (click)="intialoption2('cardpickup',false)">
+                                <input type="radio" id="optionsRadios2" value="false" checked="">No</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-7 payment-text ng-binding">Card onlive via internet</div>
+                    <div class="col-xs-5">
+                        <div class="btn-group" data-toggle="buttons">
+                            <label class="btn btn-info2" [ngStyle]="cardinterneti == true ? forgreen : forwhite"  (click)="intialoption2('cardinternet',true)">
+                                <input type="radio" id="optionsRadios2" value="true">Yes</label>
+                            <label class="btn btn-info2 btn_red" [ngStyle]="cardinterneti == false ? forred : forwhite"  (click)="intialoption2('cardinternet',false)">
+                                <input type="radio" id="optionsRadios2"  value="false" checked="">No</label>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-xs-7 payment-text ng-binding">Card at pickup counter</div>
-                <div class="col-xs-5">
-                    <div class="btn-group" data-toggle="buttons">
-                        <label class="btn btn-info2" [ngStyle]="cardpickupi == true ? forgreen : forwhite"  (click)="intialoption2('cardpickup',true)">
-                            <input type="radio" id="optionsRadios2" value="true">Yes</label>
-                        <label class="btn btn-info2 btn_red" [ngStyle]="cardpickupi == false ? forred : forwhite"  (click)="intialoption2('cardpickup',false)">
-                            <input type="radio" id="optionsRadios2" value="false" checked="">No</label>
+            <div *ngIf="this.restaurants.delivery">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="payment-subtitle"><strong class="ng-binding">Payment options for delivery:</strong></div>
                     </div>
                 </div>
-            </div>
-            <div class="row">
-                <div class="col-xs-7 payment-text ng-binding">Card onlive via internet</div>
-                <div class="col-xs-5">
-                    <div class="btn-group" data-toggle="buttons">
-                        <label class="btn btn-info2" [ngStyle]="cardinterneti == true ? forgreen : forwhite"  (click)="intialoption2('cardinternet',true)">
-                            <input type="radio" id="optionsRadios2" value="true">Yes</label>
-                        <label class="btn btn-info2 btn_red" [ngStyle]="cardinterneti == false ? forred : forwhite"  (click)="intialoption2('cardinternet',false)">
-                            <input type="radio" id="optionsRadios2"  value="false" checked="">No</label>
+                <div class="row">
+                    <div class="col-xs-7 payment-text ng-binding">Cash</div>
+                    <div class="col-xs-5">
+                        <div class="btn-group" data-toggle="buttons">
+                            <label class="btn btn-info2" [ngStyle]="dcashi == true ? forgreen : forwhite"  (click)="intialoption2('dcash',true)">
+                                <input type="radio" id="optionsRadios2" value="true">Yes</label>
+                            <label class="btn btn-info2 btn_red" [ngStyle]="dcashi == false ? forred : forwhite"  (click)="intialoption2('dcash',false)">
+                                <input type="radio" id="optionsRadios2" value="false" checked="">No</label>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="row">
-                <div class="col-xs-12">
-                    <div class="payment-subtitle"><strong class="ng-binding">Payment options for delivery:</strong></div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-xs-7 payment-text ng-binding">Cash</div>
-                <div class="col-xs-5">
-                    <div class="btn-group" data-toggle="buttons">
-                        <label class="btn btn-info2" [ngStyle]="dcashi == true ? forgreen : forwhite"  (click)="intialoption2('dcash',true)">
-                            <input type="radio" id="optionsRadios2" value="true">Yes</label>
-                        <label class="btn btn-info2 btn_red" [ngStyle]="dcashi == false ? forred : forwhite"  (click)="intialoption2('dcash',false)">
-                            <input type="radio" id="optionsRadios2" value="false" checked="">No</label>
+                <div class="row">
+                    <div class="col-xs-7 payment-text ng-binding">Card at pickup counter</div>
+                    <div class="col-xs-5">
+                        <div class="btn-group" data-toggle="buttons">
+                            <label class="btn btn-info2" [ngStyle]="dcardpickupi == true ? forgreen : forwhite"  (click)="intialoption2('dcardpickup',true)">
+                                <input type="radio" id="optionsRadios2" value="true">Yes</label>
+                            <label class="btn btn-info2 btn_red" [ngStyle]="dcardpickupi == false ? forred : forwhite"  (click)="intialoption2('dcardpickup',false)">
+                                <input type="radio" id="optionsRadios2" value="false" checked="">No</label>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="row">
-                <div class="col-xs-7 payment-text ng-binding">Card at pickup counter</div>
-                <div class="col-xs-5">
-                    <div class="btn-group" data-toggle="buttons">
-                        <label class="btn btn-info2" [ngStyle]="dcardpickupi == true ? forgreen : forwhite"  (click)="intialoption2('dcardpickup',true)">
-                            <input type="radio" id="optionsRadios2" value="true">Yes</label>
-                        <label class="btn btn-info2 btn_red" [ngStyle]="dcardpickupi == false ? forred : forwhite"  (click)="intialoption2('dcardpickup',false)">
-                            <input type="radio" id="optionsRadios2" value="false" checked="">No</label>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-xs-7 payment-text ng-binding">Card onlive via internet</div>
-                <div class="col-xs-5">
-                    <div class="btn-group" data-toggle="buttons">
-                        <label class="btn btn-info2" [ngStyle]="dcardinterneti == true ? forgreen : forwhite"  (click)="intialoption2('dcardinternet',true)">
-                            <input type="radio" id="optionsRadios2" value="true">Yes</label>
-                        <label class="btn btn-info2 btn_red" [ngStyle]="dcardinterneti == false ? forred : forwhite"  (click)="intialoption2('dcardinternet',false)">
-                            <input type="radio" id="optionsRadios2" value="false" checked="">No</label>
+                <div class="row">
+                    <div class="col-xs-7 payment-text ng-binding">Card onlive via internet</div>
+                    <div class="col-xs-5">
+                        <div class="btn-group" data-toggle="buttons">
+                            <label class="btn btn-info2" [ngStyle]="dcardinterneti == true ? forgreen : forwhite"  (click)="intialoption2('dcardinternet',true)">
+                                <input type="radio" id="optionsRadios2" value="true">Yes</label>
+                            <label class="btn btn-info2 btn_red" [ngStyle]="dcardinterneti == false ? forred : forwhite"  (click)="intialoption2('dcardinternet',false)">
+                                <input type="radio" id="optionsRadios2" value="false" checked="">No</label>
+                        </div>
                     </div>
                 </div>
             </div>

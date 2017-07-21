@@ -6,7 +6,7 @@ import { UsersComponent, UsersupdateComponent, UsersaddComponent, AdminComponent
 
 import { RestaurantsComponent, RestaurantaddComponent, RestaurantupdateComponent,  RestaurantupdateownerComponent, RestaurantlocationComponent, RestaurantconfirmationComponent,OwnermailactivateComponent} from './restaurants/index';
 
-import {RestaurantOwnerPickupComponent, RestaurantOwnerOrderForLaterComponent, RestaurantOwnerTaxationComponent, RestaurantOwnerPaymentOptionComponent, RestaurantOwnerOpeningHoursComponent, RestaurantOwnerDeliveryZoneComponent, KitchenMenuListComponent, KitchenMenuAddComponent, KitchenMenuUpdateComponent,KitchenitemComponent,KitchenMenuItemUpdateComponent,LegacyComponent,LegacycodeComponent, NotificationComponent, SupportedLanguagesComponent} from './serviceandopening/index';
+import {RestaurantOwnerPickupComponent, RestaurantOwnerOrderForLaterComponent, RestaurantOwnerTaxationComponent, RestaurantOwnerPaymentOptionComponent, RestaurantOwnerOpeningHoursComponent, RestaurantOwnerDeliveryZoneComponent, KitchenMenuListComponent, KitchenMenuAddComponent, KitchenMenuUpdateComponent,KitchenitemComponent,KitchenMenuItemUpdateComponent,LegacyComponent,LegacycodeComponent, NotificationComponent, SupportedLanguagesComponent,OnlinePaymentComponent} from './serviceandopening/index';
 
 import { OwnerDriversComponent, OwnerDriversupdateComponent,OwnerDriversaddComponent} from './ownerdrivers/index';
 
@@ -90,6 +90,7 @@ const appRoutes: Routes = [
         { path: 'drivers/:id', component: OwnerDriversupdateComponent, canActivate: [OwnerAuthGuard]  },
         { path: 'driver-add', component: OwnerDriversaddComponent, canActivate: [OwnerAuthGuard]  },
         { path: 'legacy', component: LegacyComponent, canActivate: [OwnerAuthGuard]  },
+        { path: 'online-payment', component: OnlinePaymentComponent, canActivate: [OwnerAuthGuard]  },
         { path: 'legacy-code/:id', component: LegacycodeComponent, canActivate: [OwnerAuthGuard]  },
         { path: 'notification', component: NotificationComponent, canActivate: [OwnerAuthGuard]  },
         { path: 'supported-languages', component: SupportedLanguagesComponent, canActivate: [OwnerAuthGuard]  },

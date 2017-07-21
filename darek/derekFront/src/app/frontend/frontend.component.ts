@@ -199,6 +199,9 @@ export class FrontendComponent implements OnInit {
         });
         this.kitchenMenuService.getAllAddOn(this.restaurants._id).subscribe(data => {
             this.addOns = data.message;
+
+            console.log("this.addOns");
+            console.log(this.addOns);
         });
     }
 
@@ -272,6 +275,9 @@ export class FrontendComponent implements OnInit {
         }
         this.orderItem.totalPrice = this.finalPrice;
         this.orderItem.quantity = this.quantity;
+
+        console.log("this.orderItem.addon");
+        console.log(this.orderItem.addon);
     }
 
     private multiSizePriceInfo(itemMultiSizeObj) {
@@ -505,6 +511,7 @@ export class FrontendCartComponent implements OnInit {
     //orderPayment:any;
     detailForm:FormGroup;
     addressForm:FormGroup;
+    makePaymentModel:FormGroup;
     currentDate:any;
     date : any;
     timeO : any;
@@ -514,6 +521,8 @@ export class FrontendCartComponent implements OnInit {
     days:any = [{day : "today"}, {day: "tomorrow"}];
     time:any = '8:00';
     times:any = [{time:"8:00"},{time:"9:00"},{time:"10:00"},{time:"11:00"},{time:"12:00"},{time:"13:00"},{time:"14:00"},{time:"15:00"},{time:"16:00"},{time:"17:00"},{time:"18:00"},{time:"19:00"},{time:"20:00"}]
+    months:any = ['01','02','03','04','05','06','07','08','09','10','11','12'];
+    years:any=[];
 
     constructor(
         private lf: FormBuilder,
@@ -562,6 +571,13 @@ export class FrontendCartComponent implements OnInit {
             this.deliveryZone(id);
             this.locale(id);
         });
+        this.makePaymentModel = this.lf.group({
+            cardNumber: ['', [Validators.required, Validators.minLength(16),Validators.maxLength(16), Validators.pattern('[0-9]+')]],
+            month: ['', Validators.required],
+            year: ['', Validators.required],
+            cvv: ['', Validators.required],
+        });
+
         if (JSON.parse(localStorage.getItem(this.customerStorage))) {
             this.currentCustomerId = JSON.parse(localStorage.getItem(this.customerStorage));
             this.getCurrentCustomer(this.currentCustomerId);
@@ -613,6 +629,65 @@ export class FrontendCartComponent implements OnInit {
 
         var days = ["sunday","monday","tuesday","wednesday","thursday","friday","saturday"];
         this.dayO = days[this.currentDate.getDay()];
+
+
+        (<HTMLInputElement>document.getElementById("paymentDiv")).style.display = 'none';
+
+        this.makePaymentModel.valueChanges.subscribe(data => this.onValueChanged(data));
+        this.onValueChanged(); // (re)set validation messages now
+        this.yearAdd();
+    }
+
+    private yearAdd(){
+        let dateObj = new Date();
+        let currentYear = dateObj.getFullYear();
+        this.years.push(currentYear);
+        for (var i = 0; i < 15; i++) {
+            currentYear = currentYear+1;
+            this.years.push(currentYear);
+        }
+        console.log(this.years);
+    }
+    onValueChanged(data?: any) {
+    if (!this.makePaymentModel){
+        return;
+    }
+    const form = this.makePaymentModel;
+
+    for (const field in this.formErrors) {
+      // clear previous error message (if any)
+      this.formErrors[field] = '';
+      const control = form.get(field);      
+      if (control && control.dirty && !control.valid) {
+        const messages = this.validationMessages[field];
+        for (const key in control.errors) {
+          this.formErrors[field] += messages[key] + ' ';          
+        }
+      }
+    }
+  }
+
+
+  formErrors = {
+    'cardNumber': ''    
+  };
+
+  validationMessages = {
+    'cardNumber': {
+      'required':      'Card Number is required.',
+      'minlength':     'Card Number must be 16 character long.',
+      'maxlength':     'Card Number must be 16 character long.',
+      'pattern'   :    'Card Number contains Numberic only '
+    }          
+  };
+
+
+
+
+
+    private showCartDiv(){
+        (<HTMLInputElement>document.getElementById("cartDetailDiv")).style.display = 'block';
+        (<HTMLInputElement>document.getElementById("paymentDiv")).style.display = 'none';
     }
     private locale(id){
         let langObj = 'lang'+id;
@@ -946,18 +1021,63 @@ export class FrontendCartComponent implements OnInit {
             this.delivery = users.message;
         });
     }
+
     private placeOrder(){
         this.cartDetail.orderTime = this.orderTime;
         this.cartDetail.orderPayment = this.orderPayment;
         this.cartDetail.status = 'Accepted';
-        this.customerService.addOrder(this.cartDetail).subscribe(
+
+        if (this.cartDetail.orderPayment) {
+            if (this.cartDetail.orderPayment.cardinternet == true) {
+                (<HTMLInputElement>document.getElementById("cartDetailDiv")).style.display = 'none';
+                (<HTMLInputElement>document.getElementById("paymentDiv")).style.display = 'block';
+            }else{
+                this.customerService.addOrder(this.cartDetail).subscribe(
+                  (data) => {
+                    this.user = data.message;
+                    localStorage.setItem(this.cartStorage,'[]');
+                    this.orderPlacedSuccess();
+                    this.router.navigate(['/frontend',this.restaurants._id]);
+                    }
+                );                
+            }
+        }
+
+        console.log("this.cartDetail");
+        console.log(this.cartDetail);
+
+       /* this.customerService.addOrder(this.cartDetail).subscribe(
           (data) => {
             this.user = data.message;
             localStorage.setItem(this.cartStorage,'[]');
             this.orderPlacedSuccess();
             this.router.navigate(['/frontend',this.restaurants._id]);
             }
-        );
+        );*/
+    }
+
+    private makePayment(){
+        this.hmacGenerate();
+        this.customerService.addOrder(this.cartDetail).subscribe(
+          (data) => {
+            this.user = data.message;
+            localStorage.setItem(this.cartStorage,'[]');
+            this.orderPlacedSuccess();
+            this.router.navigate(['/frontend',this.restaurants._id]);
+        });
+    }
+
+    private hmacGenerate(){
+        var apiKey = "orC0OGDhIz3NUg2HShAzczEeM18Zaciw";
+        var apiSecret = "e71e64ce4eddfa0920c42d030207933166b9c8166874d0b0d65bfce10ddb8c5f";
+        var nonce = Math.random();
+        var timestamp = Math.round(+new Date()/1000);;
+        var token = "9a7f7bef6a5f0ef2";
+        var payload = "https://api-cert.payeezy.com/v1/transactions";
+        var data = apiKey + nonce + timestamp + token + payload;
+        var hashAlgorithm = "sha256";
+        //var hmac = hash_hmac( hashAlgorithm , data , apiSecret, false );
+        return hashAlgorithm;
     }
 }
 

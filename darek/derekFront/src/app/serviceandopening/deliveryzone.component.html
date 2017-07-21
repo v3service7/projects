@@ -1,8 +1,38 @@
 <app-headerowner></app-headerowner>
 
-
 <div class="rightMenu1" style="margin-left: 25%;background-color: #E9E9E8;height: 585px;">
-  <alert></alert>
+
+  <div class="profile col-lg-12 col-md-12 col-sm-12 col-xs-12" id="deliveryChoice" style="background: rgba(255, 255, 255, 0.87);padding: 7% 14%;z-index: 1;position: absolute;width: 75%;height: 585px;margin: 0;">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="width: 80%;padding: 0;    box-shadow: 0 1px 6px rgba(0,1,1,.35);background: white;">
+      <form [formGroup]="deliveryConfirmAddModel" (ngSubmit)="deliveryDetailUpdate()">
+        <div class="firstDiv col-lg-12 col-md-12 col-sm-12 col-xs-12" style="box-shadow: 0 -1px 0 #d5d5d3, inset 0 1px 0 rgba(0, 0, 0, .04);">  
+          <span class="">Delivery Options</span>
+          <input type="submit" class="btn btn-next" value="Next" style="float: right;" 
+          [disabled]="!deliveryConfirmAddModel.valid" />   
+        </div>
+        <div class="secondDiv col-lg-12 col-md-12 col-sm-12 col-xs-12" style="box-shadow: 0 -1px 0 #d5d5d3, inset 0 1px 0 rgba(0, 0, 0, .04);">   
+          <div class="col-sm-8 delivery_text"> Do you offer food delivery? </div>
+          <div class="col-sm-4">
+            <div class="input-group">
+              <span class="input-group-addon" class="btn pickupindegate1" [ngClass]="btn_class1" (click)="deliveryYesUpdate()" >Yes</span>
+              <span class="input-group-addon" class="btn pickupindegate2" [ngClass]="btn_class2" (click)="deliveryNoUpdate()" >No</span>
+            </div>
+          </div>        
+        </div>  
+      </form>
+    </div>
+  </div>
+
+  <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8" style="display: -webkit-box;padding: 1%;">
+    <div class="" style="padding: 1%; font-weight: 700;"> Delivery Areas Are </div>
+    <div class="">
+      <div class="input-group">
+        <span class="input-group-addon" class="btn pickupindegate1" [ngClass]="btn_class1" (click)="deliveryYesUpdate()" style="border-radius: 0;" >Active</span>
+        <span class="input-group-addon" class="btn pickupindegate2" [ngClass]="btn_class2" (click)="deliveryNoUpdate()" style="border-radius: 0;" >Inactive</span>
+      </div>
+    </div>
+    <div class="btn saveButton pull-right" style="padding: 1%;left: 48%;width: 10%;">Next</div>
+  </div>
 
   <div class="screen screen-form js-screen-address-form ng-scope col-lg-8 col-md-8 col-sm-8 col-xs-8" id="Menu18" id="gmap" style="min-height: 0;padding: 0">   
   </div>

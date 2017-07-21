@@ -5,6 +5,7 @@ var Resturant = require('../model/Restaurant.js');
 
 var AddOni = new Schema({
     name: { type: String, required: true},
+    groupType: {},
     restaurantId: { type: Schema.Types.ObjectId, ref:'Restaurant',  required: true},
     itemId: { type: Schema.Types.ObjectId, ref:'Item'},
     subaddon: [{name: String, price: String}]

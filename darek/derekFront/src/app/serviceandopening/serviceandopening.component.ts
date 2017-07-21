@@ -322,9 +322,7 @@ export class RestaurantOwnerPaymentOptionComponent implements OnInit {
 
 	restaurants: any;
 	user = [];
-
 	cashObj: any = { "cash": false, "cardpickup": false, "cardinternet": false, "dcash": false, "dcardpickup": false, "dcardinternet": false };
-
 	cashi: any;
 	cardpickupi: any;
 	cardinterneti: any;
@@ -425,6 +423,8 @@ export class RestaurantOwnerPaymentOptionComponent implements OnInit {
 	getRestaurants() {
 		this.restaurantsService.getOwnerRestaurants(JSON.parse(localStorage.getItem('currentOwner'))._id).subscribe(users => {
 			this.restaurants = users.message;
+			console.log("this.restaurants");
+			console.log(this.restaurants);
 			this.intialOnLoadOption(this.restaurants);
 		});
 	}
@@ -447,7 +447,7 @@ export class RestaurantOwnerPaymentOptionComponent implements OnInit {
 @Component({
 	selector: 'app-pickup',
 	templateUrl: './deliveryzone.component.html',
-	styles: []
+	styleUrls: ['./kitchenmenulist.component.css']
 })
 export class RestaurantOwnerDeliveryZoneComponent implements OnInit {
 	deliveryAddModel: FormGroup;
@@ -476,6 +476,12 @@ export class RestaurantOwnerDeliveryZoneComponent implements OnInit {
 	mypolygoneedit: any = [];
 	mycircleedit: any = [];
 
+	deliveryConfirmAddModel: FormGroup;
+	
+	btn_class1: any = 'btn-success';
+	btn_class2: any = 'btn-default';
+	user : any ;
+
 	constructor(
 		private elem: ElementRef,
 		private restaurantsService: RestaurantsService,
@@ -483,9 +489,14 @@ export class RestaurantOwnerDeliveryZoneComponent implements OnInit {
 		private alertService: AlertService,
 		private lf: FormBuilder,
 		private ngZone: NgZone
-		) { }
+		) {}
 
 	ngOnInit() {
+		
+		this.deliveryConfirmAddModel = this.lf.group({
+			delivery: ['', Validators.required],
+			_id: []
+		});
 		this.deliveryAddModel = this.lf.group({
 			type: [],
 			name: ['', Validators.required],
@@ -521,6 +532,37 @@ export class RestaurantOwnerDeliveryZoneComponent implements OnInit {
 				}
 			});
 		});
+	}
+
+	deliveryYesUpdate() {
+		this.deliveryConfirmAddModel.controls['delivery'].setValue(true);
+		if (this.btn_class1 != 'btn-success') {
+			this.btn_class2 = 'btn-default';
+			this.btn_class1 = 'btn-success';
+		}
+	}
+
+	deliveryNoUpdate() {
+		this.deliveryConfirmAddModel.controls['delivery'].setValue(false);
+		if (this.btn_class2 != 'btn-danger') {
+			this.btn_class1 = 'btn-default';
+			this.btn_class2 = 'btn-danger';
+		}
+		document.getElementById('deliveryChoice').style.display = 'block';
+	}
+
+	deliveryDetailUpdate() {
+		this.restaurantsService.updateDelivery(this.deliveryConfirmAddModel.value).subscribe(
+			(data) => {
+				this.user = data.message;
+				toastr.success('Delivery Availability Updated','Success!');
+				if (!this.deliveryConfirmAddModel.controls['delivery'].value) {
+					this.router.navigate(['/owner/restaurant-openinghours']);
+				}else{
+				this.getRestaurants();
+				}
+			}
+		);
 	}
 	selectCircleEdit(Obj1) {
 		let mapProp = {
@@ -687,12 +729,22 @@ export class RestaurantOwnerDeliveryZoneComponent implements OnInit {
 	}
 	getRestaurants() {
 		this.restaurantsService.getOwnerRestaurants(JSON.parse(localStorage.getItem('currentOwner'))._id).subscribe(users => {
-			this.restaurants = users.message;		    
-			this.lat = this.restaurants.lat;
-			this.lng = this.restaurants.lng;
-			this.citymap = { center: { lat: parseFloat(this.lat), lng: parseFloat(this.lng) } };
-			this.triangleCoords = [{ lat: parseFloat(this.lat), lng: parseFloat(this.lng) }, { lat: parseFloat(this.lat), lng: parseFloat(this.lng) }];
-			this.getAllDeliveryZoneLoad();
+			this.restaurants = users.message;
+			this.deliveryConfirmAddModel.controls['delivery'].setValue(this.restaurants.delivery);
+			this.deliveryConfirmAddModel.controls['_id'].setValue(this.restaurants._id);
+
+			if (this.restaurants.delivery) {
+				document.getElementById('deliveryChoice').style.display = 'none';
+				this.deliveryYesUpdate();
+				this.lat = this.restaurants.lat;
+				this.lng = this.restaurants.lng;
+				this.citymap = { center: { lat: parseFloat(this.lat), lng: parseFloat(this.lng) } };
+				this.triangleCoords = [{ lat: parseFloat(this.lat), lng: parseFloat(this.lng) }, { lat: parseFloat(this.lat), lng: parseFloat(this.lng) }];
+				this.getAllDeliveryZoneLoad();
+			} else {
+				document.getElementById('deliveryChoice').style.display = 'block';
+				this.deliveryNoUpdate();
+			}
 		});		
 	}
 	circleShapeClick(val) {
@@ -881,6 +933,13 @@ export class KitchenMenuListComponent implements OnInit {
 	addgroup : any = {"display" : "none"};;
 	edit : any = true;
     df: any;
+
+	groupDetail: any = {};
+	btn_class1: any = 'btn-success';
+	btn_class2: any = 'btn-default';
+
+
+
 	//imageUrl: string = 'http://localhost:4003/uploads/';
 	imageUrl: string = globalVariable.url+'uploads/';
 	public uploader: FileUploader = new FileUploader({ url: globalVariable.url+'upload' });
@@ -904,11 +963,13 @@ export class KitchenMenuListComponent implements OnInit {
 
 		this.editableDetail = this.lf.group({
 			_id : [],
-			name : ['', Validators.required]						
+			name : ['', Validators.required],
+			groupType : []
 		});
 
 		this.groupAddModel = this.lf.group({
 			name : ['', Validators.required],
+			groupType : [],
 			restaurantId : []						
 		});
 
@@ -964,7 +1025,27 @@ export class KitchenMenuListComponent implements OnInit {
 			});
 		});
 	}
-	private modelClose(){      
+
+	optionalUpdate() {
+		this.groupDetail = {};
+		if (this.btn_class1 != 'btn-success') {
+			this.btn_class2 = 'btn-default';
+			this.btn_class1 = 'btn-success';
+		}
+		this.groupDetail.gType = 'optional';
+		document.getElementById('mandatoryFields').style.display = 'none';
+	}
+
+	mandatoryUpdate() {
+		this.groupDetail = {};
+		if (this.btn_class2 != 'btn-success') {
+			this.btn_class1 = 'btn-default';
+			this.btn_class2 = 'btn-success';
+		}
+		this.groupDetail.gType = 'mandatory';
+		document.getElementById('mandatoryFields').style.display = 'block';
+	}
+	private modelClose(){
 		$("#myeditModal").modal('hide');
 		$("#myModal").modal('hide');
 		$('#mymenuModal').modal('hide');
@@ -989,15 +1070,29 @@ export class KitchenMenuListComponent implements OnInit {
 			//console.log(this.restaurants);	
 		});
 	}
-	private addAnothergroup(){	
-		this.currentOpen = 'group';	
-		this.addgroup = {"display" : "block"};    
+	private addAnothergroup(){
+		this.currentOpen = 'group';
+		this.addgroup = {"display" : "block"};
+		this.groupDetail.gType = 'optional';
+		this.btn_class2 = 'btn-default';
+		this.btn_class1 = 'btn-success';
 	}
 	private clearadd(){
 		this.addgroup = {"display" : "none"}; 
 	}
 	private groupDetailAdd(){
-		this.groupAddModel.controls['restaurantId'].setValue(this.restaurants._id);		   	
+		var min=((<HTMLInputElement>document.getElementById("forceMin")).value);
+		var max=((<HTMLInputElement>document.getElementById("forceMax")).value);
+
+		if (this.groupDetail.gType == 'optional') {
+			this.groupAddModel.controls['groupType'].setValue(this.groupDetail);
+		}
+		if (this.groupDetail.gType == 'mandatory') {
+			this.groupDetail.min = min;
+			this.groupDetail.max = max;
+			this.groupAddModel.controls['groupType'].setValue(this.groupDetail);
+		}
+		this.groupAddModel.controls['restaurantId'].setValue(this.restaurants._id);
 		this.kitchenMenuService.adddetailAddOn(this.groupAddModel.value).subscribe(addons => {     
 			this.getAllAddonDetail();
 			this.clearCancel();  
@@ -1012,12 +1107,39 @@ export class KitchenMenuListComponent implements OnInit {
 	}
 	private groupDetailEdit(id){
 		this.currentOpen = 'editgroup';
-		this.kitchenMenuService.groupDetailEditser(id).subscribe(data => {        	
+		this.kitchenMenuService.groupDetailEditser(id).subscribe(data => {   
+		console.log("data")     	
+		console.log(data)     	
 			this.editableDetail.controls['_id'].setValue(data.message._id);
 			this.editableDetail.controls['name'].setValue(data.message.name);
+			
+			if (data.message.groupType.gType == 'mandatory') {
+				this.mandatoryUpdate();
+				(<HTMLInputElement>document.getElementById("forceMinEdit")).value = data.message.groupType.min;
+				(<HTMLInputElement>document.getElementById("forceMaxEdit")).value = data.message.groupType.max;
+			}else{
+				this.optionalUpdate();
+			}
+			/*this.groupDetail = {}
+			this.groupDetail.groupType = data.message.groupType;
+			this.editableDetail.controls['groupType'].setValue(this.groupDetail.groupType);*/
+
+			console.log("this.editableDetail.value");
+			console.log(this.editableDetail.value);
 		});
 	}
-	private groupDetailEditUpdate(){ 	   
+	private groupDetailEditUpdate(){
+		var min=((<HTMLInputElement>document.getElementById("forceMinEdit")).value);
+		var max=((<HTMLInputElement>document.getElementById("forceMaxEdit")).value);
+
+		if (this.groupDetail.gType == 'optional') {
+			this.editableDetail.controls['groupType'].setValue(this.groupDetail);
+		}
+		if (this.groupDetail.gType == 'mandatory') {
+			this.groupDetail.min = min;
+			this.groupDetail.max = max;
+			this.editableDetail.controls['groupType'].setValue(this.groupDetail);
+		}
 		this.kitchenMenuService.groupEditUpdate(this.editableDetail.value).subscribe(data => {
 			this.getAllAddonDetail();
 			this.clearCancel();
@@ -1027,13 +1149,13 @@ export class KitchenMenuListComponent implements OnInit {
 	private getAllAddonDetail(){
 		this.kitchenMenuService.getAllAddOn(this.restaurants._id).subscribe(data => { 
 			this.groups = data.message;
+			console.log("this.groups");
+			console.log(this.groups);
 		})
 	}
 	private loadAllUsers() {
 		this.kitchenMenuService.getAll(this.restaurants._id).subscribe(users => { 			
 			this.users = users.message;
-			console.log("this.users");
-			console.log(this.users);
 		});
 	}
 	private loadAllItem() {
@@ -1141,9 +1263,14 @@ export class KitchenMenuListComponent implements OnInit {
 		});
 	}
 	private editChoiceUpdate(){
+		let id = 'gr'+this.editableChoiceDetail.value._id;
+			console.log(this.editableChoiceDetail.value)
 		this.kitchenMenuItemService.editSubAddOnUpdate(this.editableChoiceDetail.value).subscribe(data => {	
 			this.clearCancel();
+			document.getElementById(id).className = 'in';
 			this.getAllAddonDetail();
+			console.log(id)
+			
 			toastr.success('Choice Updated','Success!');
 		})
 	}
@@ -1243,7 +1370,6 @@ export class KitchenMenuListComponent implements OnInit {
    		}
    		if (data == 'hidden') {
    			if(id) {
-   				console.log(id,data)
    				return id;
    			}else{
    				return id;
@@ -1998,3 +2124,33 @@ export class SupportedLanguagesComponent implements OnInit {
 	    }
 	}
 }
+
+@Component({
+  selector: 'app-online-payment',
+  templateUrl: './onlinePayment.component.html',
+  styles: []
+})
+export class OnlinePaymentComponent implements OnInit {
+    restaurants:any={};
+    addLng = [];
+  	constructor(
+  		private masterService: MasterService,
+  		private restaurantsService: RestaurantsService,
+  		private router: Router,
+  		private alertService: AlertService,
+  		private lf: FormBuilder
+  		) { }
+
+  	ngOnInit() {
+		this.getRestaurants();
+	}
+
+	private getRestaurants() {
+		this.restaurantsService.getOwnerRestaurants(JSON.parse(localStorage.getItem('currentOwner'))._id).subscribe(users => {
+			this.restaurants = users.message;
+			console.log(this.restaurants);
+		});
+	}
+}
+
+
