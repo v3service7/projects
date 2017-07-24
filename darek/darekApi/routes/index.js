@@ -803,6 +803,20 @@ router.put('/itemaddonedit/:id',function(req, res){
 
 });
 
+
+router.get('/item-list/:id', function(req, res, next) {
+	var response={};
+	itemModel.find({kitchenId : req.params.id}, null, {sort: {created_at: 1}},function(err,data){
+		if (err) {
+			response = {"error" : true,"message" : "Error fetching data"};
+		} else{
+			response = {"error" : false,"message" : data};
+		};
+		res.json(response);
+	});	
+});
+
+
 /*-------------------------------END ITEM--------------------------------------------------------*/
 
 

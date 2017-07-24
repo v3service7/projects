@@ -906,7 +906,7 @@ export class KitchenMenuListComponent implements OnInit {
 
 	restaurants : any;
 	order: string = 'name';
-	userFilter: any = { name: '' };
+	userFilter: any = { name: ''};
 	reverse: boolean = false;
 	users = [];
 	items = [];
@@ -938,10 +938,9 @@ export class KitchenMenuListComponent implements OnInit {
 	btn_class1: any = 'btn-success';
 	btn_class2: any = 'btn-default';
 
-
-
 	//imageUrl: string = 'http://localhost:4003/uploads/';
 	imageUrl: string = globalVariable.url+'uploads/';
+
 	public uploader: FileUploader = new FileUploader({ url: globalVariable.url+'upload' });
 	constructor(
 		private lf: FormBuilder,
@@ -954,7 +953,6 @@ export class KitchenMenuListComponent implements OnInit {
 		){ }
 
 	ngOnInit() {
-
 		this.multisizeAddModel = this.lf.group({
 			sid : [],
 			sizename: ['', Validators.required],
@@ -1264,10 +1262,10 @@ export class KitchenMenuListComponent implements OnInit {
 	}
 	private editChoiceUpdate(){
 		let id = 'gr'+this.editableChoiceDetail.value._id;
-			console.log(this.editableChoiceDetail.value)
+		console.log(this.editableChoiceDetail.value);
 		this.kitchenMenuItemService.editSubAddOnUpdate(this.editableChoiceDetail.value).subscribe(data => {	
 			this.clearCancel();
-			document.getElementById(id).className = 'in';
+			//document.getElementById(id).className = 'in';
 			this.getAllAddonDetail();
 			console.log(id)
 			
@@ -1316,22 +1314,50 @@ export class KitchenMenuListComponent implements OnInit {
             });
 	   }
    }
-   	private showDayOption(id,type,specific,hidden){
-   		console.log(id,type,specific,hidden)
+   	private showDayOption(user,type){
+   		console.log("user,type");
+   		console.log(user.openinghours,type);
    		this.mondayCheck,this.tuesdayCheck,this.wednesdayCheck,this.thursdayCheck, this.fridayCheck, this.saturdayCheck, this.sundayCheck = false;
+
+   		for (var i in user.openinghours) {
+			if (user.openinghours[i] == true) {
+				if (i == 'monday') {
+					this.mondayCheck = true;
+				}
+				if (i == 'tuesday') {
+					this.tuesdayCheck = true;
+				}
+				if (i == 'wednesday') {
+					this.wednesdayCheck = true;
+				}
+				if (i == 'thursday') {
+					this.thursdayCheck = true;
+				}
+				if (i == 'friday') {
+					this.fridayCheck = true;
+				}
+				if (i == 'saturday') {
+					this.saturdayCheck = true;
+				}
+				if (i == 'sunday') {
+					this.sundayCheck = true;
+				}
+			}
+		}
+
    		if (type == 'menu') {
-   			this.showDivDetail = id;
+   			this.showDivDetail = user._id;
 
    		}else{
-   			this.showDivItemDetail = id;
+   			this.showDivItemDetail = user._id;
    		}
-   		if (specific) {
-   			this.showMenu(id)
+   		if (user.isSpecific) {
+   			this.showMenu(user._id)
    		}
-   		if (hidden) {
-   			this.hideMenu(id)
+   		if (user.isHidden) {
+   			this.hideMenu(user._id)
    		}
-   		this.menuObj._id = id;
+   		this.menuObj._id = user._id;
    	}
    	
    	private checkChecked(allDay,day){
@@ -1411,11 +1437,6 @@ export class KitchenMenuListComponent implements OnInit {
    		document.getElementById(divId).style.display = 'none';
    		this.hideMenuOption = true;
    		this.showMenuOption = false;
-
-   		console.log(this.hideMenuOption);
-   		console.log("this.hideMenuOption");
-   		console.log(this.showMenuOption);
-   		console.log("this.showMenuOption");
    	}
    	private showMenu(id){
    		var divId = 'days'+id;
@@ -1423,7 +1444,6 @@ export class KitchenMenuListComponent implements OnInit {
    		document.getElementById(divId).style.display = 'block';
    		this.hideMenuOption = false;
    		this.showMenuOption = true;
-
 
    		console.log(this.hideMenuOption);
    		console.log("this.hideMenuOption");
@@ -1501,20 +1521,24 @@ export class KitchenMenuListComponent implements OnInit {
    		if (this.sundayCheck==false){
    			delete this.openinghours.sunday;
    		}
-   		var opentime=((<HTMLInputElement>document.getElementById("opentime_"+this.menuObj._id)).value);
-   		var closetime=((<HTMLInputElement>document.getElementById("closetime_"+this.menuObj._id)).value);
-   		this.openinghours.opentime = opentime;
-   		this.openinghours.closetime = closetime;
-   		console.log("this.openinghours");
+  		console.log("this.openinghours");
    		console.log(this.openinghours);
    	}
    	private saveOpeningTimings(type){
+   		this.save();
+   		// console.log("this.openinghours");
+   		// console.log(this.openinghours);
    		if (this.hideMenuOption == true) {
    			this.menuObj.isHidden = true;
    			this.menuObj.isSpecific = false;
    			this.menuObj.openinghours = {};
    		}
    		if (this.hideMenuOption == false){
+
+   		var opentime=((<HTMLInputElement>document.getElementById("opentime_"+this.menuObj._id)).value);
+   		var closetime=((<HTMLInputElement>document.getElementById("closetime_"+this.menuObj._id)).value);
+   		this.openinghours.opentime = opentime;
+   		this.openinghours.closetime = closetime;
    			this.menuObj.isHidden = false;
    			this.menuObj.isSpecific = true;
    			this.menuObj.openinghours = this.openinghours;
@@ -1686,7 +1710,15 @@ export class KitchenitemComponent implements OnInit {
 			let id = params['id'];
 			this.menuAddModel.controls['menuId'].setValue(id);
 		});
-		this.menuAddModel.controls['kitchenId'].setValue(JSON.parse(localStorage.getItem('currentOwner'))._id);
+
+		this.restaurantsService.getOwnerRestaurants(JSON.parse(localStorage.getItem('currentOwner'))._id).subscribe(users => {
+			console.log("users.message");
+			console.log(users.message);
+			this.menuAddModel.controls['kitchenId'].setValue(users.message._id);
+		});
+
+
+		//this.menuAddModel.controls['kitchenId'].setValue(JSON.parse(localStorage.getItem('currentOwner'))._id);
 		this.getAllGroups();
 	}
 
@@ -1711,6 +1743,10 @@ export class KitchenitemComponent implements OnInit {
 	private userAdd() {
 		this.kitchenItemService.addUser(this.menuAddModel.value).subscribe(
 			(data) => {
+
+
+				console.log("data in item");
+				console.log(data);
 				toastr.success('Item Add successful');
 				//this.alertService.success('Item Add successful', true);
 				this.router.navigate(['/owner/menu-list']);

@@ -1,18 +1,26 @@
 <div class="container-fluid topNav1">
-	<div class="kitchenName col-lg-8 col-md-8 col-sm-8">
+	<div class="kitchenName col-lg-7 col-md-7 col-sm-7 col-xs-7">
 		<h3><strong>{{restaurants.name}}</strong></h3>
 	</div>
-	<div class="sideMenu col-lg-4 col-md-4 col-sm-4">
-		<a class="col-lg-3 col-md-3 col-sm-3 links" [routerLink]="['/frontend', ids]" routerLinkActive="selected" [routerLinkActiveOptions]="{id: ids}"><i class="fa fa-cutlery" aria-hidden="true"></i></a>
+	<div class="sideMenu col-lg-5 col-md-5 col-sm-5 col-xs-5" *ngIf="!currentCustomer">
+		<a class="col-lg-3 col-md-3 col-sm-3 col-xs-3 links" [routerLink]="['/frontend', ids]" routerLinkActive="selected" [routerLinkActiveOptions]="{id: ids}"><i class="fa fa-cutlery" aria-hidden="true"></i></a>
 
-		<a class="col-lg-3 col-md-3 col-sm-3 links"  [routerLink]="['/frontend-detail', ids]" routerLinkActive="selected" [routerLinkActiveOptions]="{id: ids}"><i class="fa fa-info-circle" aria-hidden="true"></i></a>
+		<a class="col-lg-3 col-md-3 col-sm-3 col-xs-3 links"  [routerLink]="['/frontend-detail', ids]" routerLinkActive="selected" [routerLinkActiveOptions]="{id: ids}"><i class="fa fa-info-circle" aria-hidden="true"></i></a>
 		
-		<a class="col-lg-3 col-md-3 col-sm-3 links"  [routerLink]="['/frontend-cart', ids]" routerLinkActive="selected" [routerLinkActiveOptions]="{id: ids}"><i class="fa fa-shopping-cart" aria-hidden="true"></i></a>
+		<a class="col-lg-3 col-md-3 col-sm-3 col-xs-3 links"  [routerLink]="['/frontend-cart', ids]" routerLinkActive="selected" [routerLinkActiveOptions]="{id: ids}"><i class="fa fa-shopping-cart" aria-hidden="true"></i></a>
 		
-		<a class="col-lg-3 col-md-3 col-sm-3 links" *ngIf="!currentCustomer" [routerLink]="['/login', ids]" routerLinkActive="selected" [routerLinkActiveOptions]="{id: ids}" ><i class="fa fa-user" aria-hidden="true"></i></a>
+		<a class="col-lg-3 col-md-3 col-sm-3 col-xs-3 links" [routerLink]="['/login', ids]" routerLinkActive="selected" [routerLinkActiveOptions]="{id: ids}" ><i class="fa fa-user" aria-hidden="true"></i></a>
+	</div>
 
-		<a class="col-lg-2 col-md-2 col-sm-2 links" *ngIf='currentCustomer' [routerLink]="['/profile', ids]" style="padding-left:1%;"><h5>{{currentCustomer.firstname}}<span></span></h5></a>
+	<div class="sideMenu col-lg-5 col-md-5 col-sm-5 col-xs-5"  *ngIf='currentCustomer'>
+		<a class="col-lg-2 col-md-2 col-sm-2 col-xs-2 links" [routerLink]="['/frontend', ids]" routerLinkActive="selected" [routerLinkActiveOptions]="{id: ids}"><i class="fa fa-cutlery" aria-hidden="true"></i></a>
+
+		<a class="col-lg-2 col-md-2 col-sm-2 col-xs-2 links"  [routerLink]="['/frontend-detail', ids]" routerLinkActive="selected" [routerLinkActiveOptions]="{id: ids}"><i class="fa fa-info-circle" aria-hidden="true"></i></a>
+		
+		<a class="col-lg-2 col-md-2 col-sm-2 col-xs-2 links"  [routerLink]="['/frontend-cart', ids]" routerLinkActive="selected" [routerLinkActiveOptions]="{id: ids}"><i class="fa fa-shopping-cart" aria-hidden="true"></i></a>
+
+		<a class="col-lg-4 col-md-4 col-sm-4 col-xs-4 links" [routerLink]="['/profile', ids]" style="padding-left:1%;"><h5>{{currentCustomer.firstname}}<span></span></h5></a>
         
-        <a class="col-lg-1 col-md-1 col-sm-1 links" *ngIf='currentCustomer' [routerLink]="['/frontend', ids]" (click)="logout()" style="padding-left:1%;"><h5><span><i class="fa fa-power-off"></i></span></h5></a>
+        <a class="col-lg-2 col-md-2 col-sm-2 col-xs-2 links" [routerLink]="['/frontend', ids]" (click)="logout()" style="padding-left:1%;"><h5><span><i class="fa fa-power-off"></i></span></h5></a>
 	</div>
 </div>

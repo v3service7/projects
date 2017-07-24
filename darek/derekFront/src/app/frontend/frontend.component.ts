@@ -94,6 +94,7 @@ export class FrontendComponent implements OnInit {
     time : any;
     day : any;
     resTime:any={};
+    mandFlag : boolean = true;
     constructor(
         private masterService: MasterService,
         private restaurantsService: RestaurantsService,
@@ -125,11 +126,26 @@ export class FrontendComponent implements OnInit {
 
         this.currentDate = new Date();
         this.date = this.currentDate.toLocaleDateString();
-        this.time = this.currentDate.getHours()+':'+this.currentDate.getMinutes() +':'+ this.currentDate.getSeconds();
+        var h = this.addZero(this.currentDate.getHours());
+        var m = this.addZero(this.currentDate.getMinutes());
+        var s = this.addZero(this.currentDate.getSeconds());
+
+
+        this.time = h+':'+m +':'+ s;
 
         var days = ["sunday","monday","tuesday","wednesday","thursday","friday","saturday"];
         this.day = days[this.currentDate.getDay()];
+
+        console.log(this.time);
     }
+
+    private addZero(i) {
+        if (i < 10) {
+            i = "0" + i;
+            }
+        return i;
+    }
+
 
     private locale(id){
         let langObj = 'lang'+id;
@@ -172,54 +188,66 @@ export class FrontendComponent implements OnInit {
         }
     }
     private checkMenuItemShow(obj){
+        var currentDate2 = new Date();
+        var date2 = currentDate2.toLocaleDateString();
+        var h = this.addZero(currentDate2.getHours());
+        var m = this.addZero(currentDate2.getMinutes());
+        var s = this.addZero(currentDate2.getSeconds());
+        var time2 = h+':'+m;
+
         if (obj.isSpecific) {
             for (var i in obj.openinghours) {
                 if (obj.openinghours[i] == true) {
-                    if ((this.day == i) && (obj.openinghours.opentime <= this.time) && (obj.openinghours.closetime >= this.time)) {
-                        'block';
+                    //console.log(i,obj.name,obj.openinghours.opentime,obj.openinghours.closetime,time2)
+                    if (/**/ (obj.openinghours.opentime <= time2) && (obj.openinghours.closetime >= time2)) {
+                       // console.log(i,obj.name)
+                        if (this.day == i) {
+                            return 'block';
+                        }
                     }else{
-                        'none';
+                        return 'none';
                     }
                 }
             }
         }else{
-            'block';
+            return 'block';
         }
     }
     private loadAllUsers(id) {
         this.kitchenMenuService.getAll(id).subscribe(users => {       
             this.menus = users.message;
-            this.menus.image=this.imageURL+this.menus.image;
+            //this.menus.image=this.imageURL+this.menus.image;
+            console.log("this.menus");
+            console.log(this.menus);
+            // console.log("this.menus.image");
+            // console.log(this.menus.image);
         });
     }
-    private loadAllItem() {
-        this.kitchenMenuItemService.getAll().subscribe(users => { 
+    private loadAllItem(id) {
+        this.kitchenMenuItemService.getAllItems(id).subscribe(users => { 
             this.items = users.message;
-            this.items.image=this.imageURL+this.items.image;
+            //this.items.image=this.imageURL+this.items.image;
+            console.log("this.items");
+            console.log(this.items);
         });
         this.kitchenMenuService.getAllAddOn(this.restaurants._id).subscribe(data => {
             this.addOns = data.message;
-
             console.log("this.addOns");
             console.log(this.addOns);
         });
     }
-
     private addToCartSuccess(){
         toastr.remove();
         toastr.info(null, this.totalOrder.length+' Items Added');
     }
-
     private showDiv(id) {
         if (this.detailShow == id) {
             return 'block';
         }
     }
-    
     private hideDiv() {
         this.detailShow=''; 
     }
-    
     private addToCart() {   
         this.totalOrder = JSON.parse(localStorage.getItem(this.cartStorage));
         /*if (this.totalOrder.length>0) {
@@ -256,18 +284,49 @@ export class FrontendComponent implements OnInit {
         }
     }
     
-    private addonPriceInfo(addonObj,addonDetail) {
+    private mandatory(data, option, group){
+        console.log("data.length");
+        console.log(data.length);
+        if (group.groupType.gType == "mandatory") {
+            this.mandFlag = false;
+            var manda = [];
+            for (var j = 0; j < data.length; j++) {
+                var num = data.reduce(function (n, x) {
+                    return n + (x.groupId == group._id);
+                }, 0);
+            }
+            manda[group._id] = num;
+            if ((group.groupType.min <= num) && (group.groupType.max  >= num)) {
+                this.mandFlag = true;
+            }
+            else{
+                this.mandFlag = false;
+            }
+            console.log("manda");
+            console.log(manda);
+        }
+        if (data.length == 0) {
+            this.mandFlag = true;
+        }
+
+    }
+
+    private addonPriceInfo(addonObj,addonDetail,group,option) {
         var isCheck = addonDetail.getAttribute('data-addon');
         var id = addonDetail.getAttribute('id');
+        var groupId = group._id;
         if (isCheck == 'check') {
             document.getElementById(id).style.backgroundColor = '#e1eef5';
             document.getElementById(id).setAttribute('data-addon','uncheck');
+            addonObj.groupId = groupId;
             this.orderItem.addon.push(addonObj);
+            this.mandatory(this.orderItem.addon,option, group);
             this.addonPrice = this.addonPrice + parseInt(addonObj.price);
             this.finalPrice = (this.multiSizePrice + this.price+ this.addonPrice)* this.quantity;
         }else{
             var addonIndex = this.orderItem.addon.findIndex(item => item._id == addonObj._id);
             this.orderItem.addon.splice(addonIndex, 1);
+            this.mandatory(this.orderItem.addon,option, group);
             document.getElementById(id).style.backgroundColor = '#fff';
             document.getElementById(id).setAttribute('data-addon','check');
             this.addonPrice = this.addonPrice - parseInt(addonObj.price);
@@ -275,9 +334,6 @@ export class FrontendComponent implements OnInit {
         }
         this.orderItem.totalPrice = this.finalPrice;
         this.orderItem.quantity = this.quantity;
-
-        console.log("this.orderItem.addon");
-        console.log(this.orderItem.addon);
     }
 
     private multiSizePriceInfo(itemMultiSizeObj) {
@@ -328,7 +384,7 @@ export class FrontendComponent implements OnInit {
             this.restaurants = users.message;    
             this.loadAllUsers(this.restaurants._id);
             this.checkOpenClose(this.restaurants);
-            this.loadAllItem(); 
+            this.loadAllItem(this.restaurants._id); 
         });
     }
 }
@@ -1003,10 +1059,12 @@ export class FrontendCartComponent implements OnInit {
         this.saveInfo();
     }
     private deleteCart(index) {
-        this.cart.splice(index,1);
-        localStorage.setItem(this.cartStorage, JSON.stringify(this.cart));
-        this.update();
-        this.deleteSuccess();
+        if (confirm("Are you sure to delete ?")) {
+            this.cart.splice(index,1);
+            localStorage.setItem(this.cartStorage, JSON.stringify(this.cart));
+            this.update();
+            this.deleteSuccess();
+        }
     }
     private getRestaurants(id) {
         this.restaurantsService.getOne(id).subscribe(users => {

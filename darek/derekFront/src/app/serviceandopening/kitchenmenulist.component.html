@@ -1,5 +1,6 @@
 <app-headerowner></app-headerowner>
-<div class="rightMenu col-lg-9 col-md-9 col-sm-9 custom_chng_menu" style="background-color: #E9E9E8;">
+<div class="rightMenu col-lg-9 col-md-9 col-sm-9 custom_chng_menu" style="background-color: #E9E9E8;min-height: 600px;
+">
    <alert></alert>
 
 <!-- Group Detail -->
@@ -77,7 +78,7 @@
                   <div class="clearfix"></div>            
                </div>
                <div class="comp-edit-zone comp-edit-composed js-edit-zone">            
-                  <div class="comp-edit-field comp-medium-field ng-binding">Price</div>                     
+                  <div class="comp-edit-field comp-medium-field ng-binding">Price</div>
                   <input type="text" class="comp-medium-field form-control js-edit-name has-success" name="name" data-completed="1" placeholder="Price Name" data-rule="notEmpty" formControlName="price">
                   <div class="clearfix"></div>            
                </div>
@@ -97,7 +98,8 @@
             <div class="zoneData" data-type="true" data-radius="200" data-color="#905dba"></div>
 
             <div class="comp-alt-panel js-area">
-               <div class="comp-area-name js-info-name pull-left ng-binding"><a class="colls" data-toggle="collapse" data-parent="#accordion" href = "#gr{{group._id}}"><span class="icon-collapse"></span>&nbsp;&nbsp;</a>{{group.name}}&nbsp;&nbsp;
+               <div class="comp-area-name js-info-name pull-left ng-binding"><a class="colls" data-toggle="collapse" data-parent="#accordion" href = "#gr{{group._id}}">
+               <span class="icon-collapse"></span>&nbsp;&nbsp;</a>{{group.name}}&nbsp;&nbsp;
                   <span *ngIf="group.groupType">
                      ({{group.groupType.gType | uppercase}})
                   </span>
@@ -309,7 +311,7 @@
                   <a class="colls" data-toggle="collapse" data-parent="#accordion" href = "#menuID{{user._id}}" style="float: right;"><i class="fa fa-chevron-down" aria-hidden="true"></i></a>
                </div>
                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 hovericons" style="padding: 0;">
-                  <a href="javascript:void(0);" (click)="showDayOption(user._id,'menu',user.isSpecific, user.isHidden)"><i class="fa fa-chevron-circle-down" aria-hidden="true"></i></a>
+                  <a href="javascript:void(0);" (click)="showDayOption(user,'menu')"><i class="fa fa-chevron-circle-down" aria-hidden="true"></i></a>
                   <a [routerLink]="['/owner/menu-edit/',user._id]"><i class="fa fa-pencil" aria-hidden="true"></i></a>
                   <a (click)="deleteUser(user._id)" href="javascript:void(0);"><i class="fa fa-trash" aria-hidden="true"></i></a>
                   <a [routerLink]="['/owner/item-add/',user._id]" title="Add Item"><i class="fa fa-plus" aria-hidden="true"></i></a>
@@ -393,7 +395,7 @@
                            </div>
                         </div>
                         <div class="icons col-lg-2 col-md-2 col-sm-2 col-xs-2" style="">
-                           <a href="javascript:void(0);" (click)="showDayOption(item._id, 'item',item.isSpecific, item.isHidden)"><i class="fa fa-chevron-circle-down" aria-hidden="true"></i></a>
+                           <a href="javascript:void(0);" (click)="showDayOption(item, 'item')"><i class="fa fa-chevron-circle-down" aria-hidden="true"></i></a>
                            <a [routerLink]="['/owner/item-edit/',item._id]"><i class="fa fa-pencil" aria-hidden="true"></i></a>
                            <a (click)="deleteItem(item._id)" href="javascript:void(0);"><i class="fa fa-trash" aria-hidden="true"></i></a>
                         </div>

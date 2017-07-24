@@ -27,8 +27,15 @@ export class KitchenItemService {
     }
 
     
-  	getAll() {
-  		return this.http.get(globalVariable.url+'item/')
+    getAll() {
+      return this.http.get(globalVariable.url+'item/')
+        .map(
+          (response: Response) => response.json()
+        );
+    }
+
+  	getAllItems(id) {
+  		return this.http.get(globalVariable.url+'item-list/'+ id)
   			.map(
   				(response: Response) => response.json()
   			);
