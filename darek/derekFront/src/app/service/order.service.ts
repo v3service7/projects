@@ -15,6 +15,12 @@ export class OrderService {
 		);
 	}
 
+	getUpdate(data) {
+		return this.http.put(globalVariable.url+'order/update/'+data.id, data)
+		.map(
+			(response: Response) => response.json()
+			);
+	}
   	overview(id) {
 		return this.http.get(globalVariable.url+'reporting/overview/'+id)
 		.map(
@@ -91,6 +97,4 @@ export class OrderService {
 			(response: Response) => response.json()
 		);
 	}
-
-
 }

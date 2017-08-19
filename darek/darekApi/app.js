@@ -59,21 +59,6 @@ var storage = multer.diskStorage({ //multers disk storage settings
     }
 });
 
-var upload = multer({ //multer settings
-    storage: storage
-}).single('file');
-
-/** API path that will upload the files */
-app.post('/upload', function(req, res) {
-    upload(req,res,function(err){
-        console.log(req.file);
-        if(err){
-             res.json({error_code:1,err_desc:err});
-             return;
-        }
-         res.json({error_code:0,err_desc:null,filename:req.file.filename});
-    });
-});
 
 /*mail configure start*/
 var nodemailer = require("nodemailer");
@@ -120,6 +105,24 @@ app.use('/owners', owners);
 app.use('/customer', customer);
 app.use('/order', order);
 app.use('/reporting', reporting);
+
+
+var upload = multer({ //multer settings
+    storage: storage
+}).single('file');
+
+/** API path that will upload the files */
+app.post('/upload', function(req, res) {
+    upload(req,res,function(err){
+        console.log(req.file);
+        console.log(err);
+        if(err){
+             res.json({error_code:1,err_desc:err});
+             return;
+        }
+         res.json({error_code:0,err_desc:null,filename:req.file.filename});
+    });
+});
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

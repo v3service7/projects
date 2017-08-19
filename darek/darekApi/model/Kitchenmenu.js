@@ -3,7 +3,7 @@ var Schema = mongoose.Schema;
 
 var KitchenmenuSchema = new Schema({
 	name: { type: String, required: true},
-	kitchenId: { type: String, required: true},
+	kitchenId: { type: String, required: true},  /*resaurant Id*/
 	image:  String,
 	isHidden:  {type:Boolean,default:false},
     isSpecific:  {type:Boolean,default:false},

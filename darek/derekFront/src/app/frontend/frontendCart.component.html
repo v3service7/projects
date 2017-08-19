@@ -1,17 +1,25 @@
 <app-frontendheader [ids]="restaurants._id"></app-frontendheader>
 
-<div *ngIf="cart.length">
-	<div class="cartLength" *ngIf="cart.length > 0">{{cart.length}}
+<div *ngIf="!currentCustomerId">
+	<div *ngIf="cart.length">
+		<div class="cartLength" *ngIf="cart.length > 0">{{cart.length}}
+		</div>
+	</div>
+</div>
+<div *ngIf="currentCustomerId">
+	<div *ngIf="cart.length">
+		<div class="cartLength2" *ngIf="cart.length > 0">{{cart.length}}
+		</div>
 	</div>
 </div>
 
-<div *ngIf="resTime.status != 'open'" style="background: rgba(0, 0, 0, 0.68);top: 0px;position: fixed; color: white; width: 100%; text-align: center; height: 100%;padding: 25%;font-weight: 600;"  [style.z-index]="getStyle()">
-	<div><img src="./assets/images/sad-face.png" width="40%"></div>
-	<div><h1 style="font-weight: 700;">{{'CLOSED' | translate}}!!</h1></div>
-	<div><h4 style="font-weight: 700;">{{'Opens'|translate}} {{'between'|translate}}</h4></div>
-	<div><h5 style="font-weight: 700;">{{resTime.open}} and {{resTime.close}}</h5></div>
-</div>
 
+<!-- <div *ngIf="resTime.status != 'open'">
+	<div style="background: rgba(0, 0, 0, 0.68);top: 0px;position: fixed; color: white; width: 100%; text-align: center; height: 100%;padding: 25%;font-weight: 600;z-index: 1057;">
+		<div><img src="./assets/images/sad-face.PNG" width="40%"></div>
+		<div><h1 style="font-weight: 700;">{{'CLOSED' | translate}}!!</h1></div>
+	</div>
+</div> -->
 <div class="container-fluid cartDiv" id="cartDetailDiv" style="background-color: rgba(128, 128, 128, 0.16) !important;" >
 	<div *ngIf="currentCustomer">
 		<div class="minOrder btn saveButton" style="width: inherit;left: 34%;cursor: context-menu;" *ngIf="amount > grandTotal">
@@ -19,7 +27,7 @@
 		</div>
 	</div>
 
-	<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 container-fluid">
+	<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 container-fluid" style="padding: 0;">
 		<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 leftCartDetail" style="padding: 0;">
 			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 pull-left" *ngIf="!currentCustomer">
 				<div class="col-lg-12 col-md-12 col-sm-12" style="padding:0;"> 
@@ -92,12 +100,12 @@
 						</div>
 						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" *ngIf="showHideOrderingMethod">
 							<div *ngIf="addressClicked">
-								<div class="checkbox1 col-lg-12 col-md-12 col-sm-12 col-xs-12 pointer" *ngIf="restaurants.pickup">
+								<div class="checkbox1 col-lg-12 col-md-12 col-sm-12 col-xs-12 pointer" *ngIf="restaurants.pickup && resTime.status != 'close'">
 									<input type="radio" name="order" id="pickup" value="" (click)="addressButton('pickup')" [checked]="this.orderMethod.mType == 'Pickup'">  {{'pickup' | translate}}
 								</div>
 								<div class="checkbox1 col-lg-12 col-md-12 col-sm-12 col-xs-12 pointer" *ngIf = "delivery.length > 0">
 									<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="padding:0 0 10px 0;">
-										<input type="radio"  name="order" id="delivery"  value="" (click)="addressButton('delivery')" [checked]="this.orderMethod.mType == 'Delivery'">{{'delivery' | translate}}
+										<input type="radio"  name="order" id="delivery"  value="" (click)="addressButton('delivery')" [checked]="this.orderMethod.mType == 'Delivery'">  {{'delivery' | translate}}
 									</div>
 									<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" *ngIf="this.orderMethod.mType == 'Delivery'" (click)="addressInfo()">
 										<div class="btn btn-default pointer" style="width: 100%;padding: 4%"><span><strong><i class="fa fa-pencil" aria-hidden="true"></i>&nbsp;&nbsp;{{'Add' | translate}} {{'your' | translate}} {{'address' | translate}}</strong></span>
@@ -267,8 +275,8 @@
 		<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 rightCartDetail" style="padding: 0;">
 			<div class="pull-right col-lg-12 col-md-12 col-sm-12 col-xs-12">
 				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 cart-header well well-sm">
-					<div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 cart-header-quantity">{{'Quantity' | translate}}</div>
-					<div class="col-lg-8 col-md-8 col-sm-8 col-xs-8 cart-header-name">{{'Item' | translate}}</div>
+					<div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 cart-header-quantity">{{'Quantity' | translate}}</div>
+					<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 cart-header-name">{{'Item' | translate}}</div>
 					<div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 cart-header-price">{{'Price' | translate}}</div>
 				</div>
 				
@@ -276,10 +284,21 @@
 					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 cart-items" *ngIf="cart">
 						<div *ngIf="cart.length == 0" class="col-lg-12 col-md-12 col-sm-12 col-xs-12 cart-empty" style="text-align: center; font-weight: 700;">{{'Cart' | translate}} {{'is' | translate}} {{'empty' | translate}}
 						</div>
-						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" *ngIf="cart.length > 0" >
+						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" *ngIf="cart.length > 0" style="padding:0;">
 							<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" *ngFor="let crt of cart; let i = index" style="padding:0;">
-								<div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 cart-price"><span>{{crt.quantity}}x</span></div>
-								<div class="col-lg-8 col-md-8 col-sm-8">
+								<!-- <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 cart-price"><span>{{crt.quantity}}x</span></div> -->
+								<div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 cart-price cnt-input-buttons" style="position: inherit;padding-left: 0;padding-right: 0;">
+									<div style="display: flex;padding: 0;border-top: 1px solid #ccc;border-bottom: 1px solid #ccc;">
+										<button class="cnt-input-decrease col-lg-4 col-md-4 col-sm-4 col-xs-4" id="minus" style="margin: 0;" (click)="quantityDecrement(i)">
+											<i class=" fa fa-minus" ></i>
+										</button>
+										<label class="col-lg-4 col-md-4 col-sm-4 col-xs-4" style="padding: 4% 8%;margin: 0;text-align: -webkit-center;">{{crt.quantity}}</label>
+										<button class="cnt-input-increase col-lg-4 col-md-4 col-sm-4 col-xs-4"  id="plus" style="margin: 0;" (click)="quantityIncrement(i)">
+											<i class=" fa fa-plus"></i>
+										</button>
+									</div>
+								</div>
+								<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6" style="padding: 0;">
 									<div class="col-lg-12 col-md-12 col-sm-12 col-xs-2 cart-item-name">{{crt.item.name}}</div>
 									<div class="col-lg-12 col-md-12 col-sm-12 col-xs-2 cart-item-option">
 										<div *ngIf="crt.multisize">
@@ -296,7 +315,7 @@
 									<div class="cart-item-instructions"></div>
 								</div>
 								<div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 cart-price ng-binding">{{crt.totalPrice}}</div>
-								<div class="label cart-item-remove" style="position: absolute;padding:0;">
+								<div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 label cart-item-remove" style="position: absolute;padding:0;">
 									<a href="javascript:void(0)" (click)="deleteCart(i)"><i class="fa fa-trash"></i></a>
 									<span class="glf-loader"><div class="glf-loader-circle"></div></span>
 								</div>
@@ -306,30 +325,26 @@
 					</div>
 					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 cart-footer">
 						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 sub-total">
-							<div class="col-lg-10 col-md-10 col-sm-10 col-xs-10 pull-left">{{'Sub' | translate}} {{'Total' | translate}}</div>
-							<div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 pull-right">
-								<div>
-									{{grandTotal}}
-								</div>
+							<div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">{{'Sub' | translate}} {{'Total' | translate}}</div>
+							<div class="col-lg-3 col-md-3 col-sm-3 col-xs-3" style="text-align: -webkit-right;">
+								{{grandTotal}}
 							</div>
 						</div>
 						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 deliveryFee">
-							<div class="col-lg-10 col-md-10 col-sm-10 col-xs-10 pull-left">{{'DeliveryFee' | translate}}</div>
-							<div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 pull-right">
-								<div>
-									{{deliveryFee}}
-								</div>
+							<div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">{{'DeliveryFee' | translate}}</div>
+							<div class="col-lg-3 col-md-3 col-sm-3 col-xs-3" style="text-align: -webkit-right;">
+								{{deliveryFee}}
 							</div>
 						</div>
 						<div *ngIf="cart.length > 0" >
 							<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 tax" *ngIf="restaurants.taxation">
-								<div class="col-lg-10 col-md-10 col-sm-10 col-xs-10 pull-left">{{restaurants.taxation.name}}</div>
-								<div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 pull-right">{{restaurants.taxation.taxpercent}} %</div>
+								<div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">{{restaurants.taxation.name}}</div>
+								<div class="col-lg-3 col-md-3 col-sm-3 col-xs-3" style="text-align: -webkit-right;">{{restaurants.taxation.taxpercent}} %</div>
 							</div>
 						</div>
 						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 grand-total">
-							<div class="col-lg-10 col-md-10 col-sm-10 col-xs-10 pull-left"><h4>{{'Total' | translate}}</h4></div>
-							<div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 pull-right"><h4>{{grandTotalWithTax |number : '1.2-2'}}</h4></div>
+							<div class="col-lg-9 col-md-9 col-sm-9 col-xs-9"><h4>{{'Total' | translate}}</h4></div>
+							<div class="col-lg-3 col-md-3 col-sm-3 col-xs-3" style="text-align: -webkit-right;"><h4>{{grandTotalWithTax |number : '1.2-2'}}</h4></div>
 						</div>
 					</div>
 				</div>

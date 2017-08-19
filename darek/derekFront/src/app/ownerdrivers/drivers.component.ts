@@ -16,27 +16,28 @@ export class OwnerDriversComponent implements OnInit {
   userFilter: any = { email: '' };
   reverse: boolean = false;
   drivers= []; 
-
+  restaurants : any;
 
   constructor(
+    private restaurantsService: RestaurantsService,
     private driversService: DriversService,
     private router: Router,
     private alertService: AlertService) { }
 
   ngOnInit() {
-    this.loadAllDrivers();
+    this.getRestaurants();
   }
 
 
-  private loadAllDrivers() {
-    this.driversService.getAll().subscribe(users => { this.drivers = users.message; });
+  private loadAllDrivers(id) {
+    this.driversService.getRestaurantDrivers(id).subscribe(users => { this.drivers = users.message; });
 
   }
 
   private deleteDrivers(id) {
     if(confirm("Are you sure to delete ?")) {
       this.driversService.deleteOne(id).subscribe(data => {       
-        this.loadAllDrivers();
+        this.loadAllDrivers(this.restaurants._id);
         toastr.success('Driver Deleted successful');
         //this.alertService.success('Driver Deleted successful', true);
       });
@@ -50,6 +51,13 @@ export class OwnerDriversComponent implements OnInit {
     }else{
       this.reverse = false;
     }
+  }
+
+  private getRestaurants() {
+    this.restaurantsService.getOwnerRestaurants(JSON.parse(localStorage.getItem('currentOwner'))._id).subscribe(users => {
+      this.restaurants = users.message;
+      this.loadAllDrivers(users.message._id);
+    });
   }
 }
 

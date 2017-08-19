@@ -1,7 +1,7 @@
 import {Component, NgZone, OnInit, ViewChild} from '@angular/core';
 import {Router, ActivatedRoute, Params} from '@angular/router';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
-import { FlashMessagesService } from 'angular2-flash-messages';
+//import { FlashMessagesService } from 'angular2-flash-messages';
 import {AlertService, RestaurantsService, UsersService } from '../service/index';
 import { FileUploader } from 'ng2-file-upload';
 import * as globalVariable from "../global";
@@ -164,7 +164,7 @@ export class OwnermailactivateComponent implements OnInit {
 		private alertService: AlertService,
 		private restaurantsService: RestaurantsService,
 		private router: Router,
-		private _flashMessagesService: FlashMessagesService,
+		//private _flashMessagesService: FlashMessagesService,
 		private route: ActivatedRoute,
 		) { }
 
@@ -185,7 +185,7 @@ export class OwnermailactivateComponent implements OnInit {
 					this.router.navigate(['owner/profile']);
 				}
 			}
-			);
+		);
 	}
 }
 
@@ -223,6 +223,9 @@ export class RestaurantupdateownerComponent implements OnInit {
 			image: []
 		});
 		this.getRestaurants();
+		/*document.getElementById('Menu18').className = 'progress';
+		document.getElementById('Menu18').addClass('progree');*/
+		
 	}
 
 	initMap(){
@@ -255,30 +258,43 @@ export class RestaurantupdateownerComponent implements OnInit {
 	}
 
 	onChange(event) {
-		var files = event.srcElement.files;
-		this.uploader.uploadAll();
-		this.uploader.onCompleteItem = (item: any, response: any, status: any, headers: any) => {
-			var responsePath = JSON.parse(response);
-			this.restaurantAddModel.controls['image'].setValue(responsePath.filename);
-			toastr.success('Picture Uploaded Successfully','Success!');
-		};
+		var files = event.target.files;
+		this.restaurantAddModel.controls['image'].setValue(files[0].name);
 	}
 
 	private restaurantUpdate() {
-		this.restaurantsService.updateRestaurant(this.restaurantAddModel.value).subscribe(
-			(data) => {
-				toastr.success('Restaurant Updated Successfully','Success!');
-				//this.alertService.success('Restaurant Updated Successfully', true);
-				this.router.navigate(['/owner/restaurant-location']);
-			}
-		);
+		document.getElementById('Menu18').style.cursor = 'wait';
+		document.getElementById('submitButton').style.cursor = 'wait';
+		//document.body.style.cursor='progress';
+		console.log(this.restaurantAddModel.value);
+		console.log(this.restaurants.image);
+		if (this.restaurantAddModel.value.image == this.restaurants.image ) {
+			this.restaurantsService.updateRestaurant(this.restaurantAddModel.value).subscribe(
+				(data) => {
+					toastr.success('Restaurant Updated Successfully','Success!');
+					this.router.navigate(['/owner/restaurant-location']);
+				}
+			);
+		}else{
+			this.uploader.uploadAll();
+			this.uploader.onCompleteItem = (item: any, response: any, status: any, headers: any) => {
+				var responsePath = JSON.parse(response);
+				this.restaurantAddModel.controls['image'].setValue(responsePath.filename);
+				this.restaurantsService.updateRestaurant(this.restaurantAddModel.value).subscribe(
+					(data) => {
+						toastr.success('Restaurant Updated Successfully','Success!');
+						this.router.navigate(['/owner/restaurant-location']);
+					}
+				);
+			};	
+		}
 	}
 }
 
 @Component({
 	selector: 'app-addrestaurants',
 	templateUrl: './restaurantlocation.component.html',
-	styles: ['#gmap {height: 500px; overflow:hidden;position:relative}']
+	styles: ['#gmap {height: 600px; overflow:hidden;position:relative}']
 })
 export class RestaurantlocationComponent implements OnInit {
 
@@ -306,7 +322,7 @@ export class RestaurantlocationComponent implements OnInit {
 			lat: [],
 			lng: []
 		});
-		this.getRestaurants();			
+		this.getRestaurants();
 	}
 
 	initMap(){
@@ -353,6 +369,8 @@ export class RestaurantlocationComponent implements OnInit {
 	}
 
 	private restaurantUpdate() {
+		document.getElementById('Menu18').style.cursor = 'wait';
+		document.getElementById('submitButton').style.cursor = 'wait';
 		this.restaurantAddModel.controls['lat'].setValue(RestaurantlocationComponent.latt);
 		this.restaurantAddModel.controls['lng'].setValue(RestaurantlocationComponent.lngg);
 		console.log(this.restaurantAddModel.value);
@@ -385,43 +403,46 @@ export class RestaurantconfirmationComponent implements OnInit {
 		) { }
 
 	ngOnInit() {
-
-		this.user = JSON.parse(localStorage.getItem('currentOwner'));
-		console.log("this.user on nginit");
-		console.log(this.user);
-
 		this.getUserData();	
 	}
 
-	private restaurantUpdate() {
+	/*private restaurantUpdate() {
 		this.router.navigate(['/owner/basic-detail']);
-	}
+	}*/
 
 	private getUserData(){
 		this.usersService.getOne(JSON.parse(localStorage.getItem('currentOwner'))._id).subscribe(
 			(data) => {
 				this.user = data.message;
+				if (this.user.emailstatus) {
+					document.getElementById("MyElement").className = "status-smile";
+				}else{
+					document.getElementById("MyElement").className = "status-sad";
+				}
 
-				console.log("this.userdfghjkl;dfghjkml,;fghjkl")
-				console.log(this.user)
+				localStorage.setItem('currentOwner',JSON.stringify(this.user));
+				/*console.log("this.user");
+				console.log(this.user);*/
 			}
-			);
+		);
 	}
 
 	private accountConfirm() {
+		document.getElementById('rightMenu1').style.cursor = 'wait';
+		document.getElementById('submitButton').style.cursor = 'wait';
 		this.restaurantsService.emailConfirm({'email': this.user.email }).subscribe(
 			(data) => {
 				toastr.info('Email Sent Successfully','Email Sent');
 				//this.alertService.success('Email Sent Successfully', true);
 				this.router.navigate(['/owner/basic-detail']);
 			}
-			);
+		);
 	}
 
-	private getRestaurants() {
+	/*private getRestaurants() {
 		this.restaurantsService.getOwnerRestaurants(JSON.parse(localStorage.getItem('currentOwner'))._id).subscribe(users => {
 			this.restaurants = users.message;					
 		});
-	}
+	}*/
 }
 

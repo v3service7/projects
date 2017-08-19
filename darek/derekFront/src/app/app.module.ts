@@ -1,11 +1,14 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpModule } from '@angular/http';
+//import { HttpModule } from '@angular/http';
+import {HttpModule, Http} from "@angular/http";
 import { RouterModule, Routes } from '@angular/router';
-import { FlashMessagesModule } from 'angular2-flash-messages';
+//import { FlashMessagesModule } from 'angular2-flash-messages';
 import { FileSelectDirective, FileDropDirective } from 'ng2-file-upload';
-import {TranslateModule} from 'ng2-translate';
+//import {TranslateModule} from 'ng2-translate';
+import {TranslateModule, TranslateLoader} from '@ngx-translate/core';
+import {TranslateHttpLoader} from "@ngx-translate/http-loader";
 import { ChartsModule } from 'ng2-charts';
 // import {ToastModule} from 'ng2-toastr/ng2-toastr';
 
@@ -25,7 +28,7 @@ import {OrderPipe} from "./order.pipe"
 import {FilterPipe} from "./filter.pipe";
 
 import { RestaurantsComponent , RestaurantaddComponent , RestaurantupdateComponent,RestaurantupdateownerComponent,RestaurantlocationComponent, RestaurantconfirmationComponent,OwnermailactivateComponent} from './restaurants/index';
-import { RestaurantOwnerPickupComponent, RestaurantOwnerOrderForLaterComponent, RestaurantOwnerTaxationComponent, RestaurantOwnerPaymentOptionComponent, RestaurantOwnerOpeningHoursComponent, RestaurantOwnerDeliveryZoneComponent, KitchenMenuListComponent, KitchenMenuAddComponent, KitchenMenuUpdateComponent,KitchenitemComponent,KitchenMenuItemUpdateComponent,LegacyComponent,LegacycodeComponent, NotificationComponent, SupportedLanguagesComponent,OnlinePaymentComponent} from './serviceandopening/index';
+import { RestaurantOwnerPickupComponent, RestaurantOwnerOrderForLaterComponent, RestaurantOwnerTaxationComponent, RestaurantOwnerPaymentOptionComponent, RestaurantOwnerOpeningHoursComponent, RestaurantOwnerDeliveryZoneComponent, KitchenMenuListComponent,LegacyComponent,LegacycodeComponent, NotificationComponent, SupportedLanguagesComponent,OnlinePaymentComponent} from './serviceandopening/index';
 import { OwnerDriversComponent, OwnerDriversupdateComponent,OwnerDriversaddComponent} from './ownerdrivers/index';
 import { DriversComponent,DriveraddComponent, DriverupdateComponent} from './drivers/index';
 import { PromotionsComponent, PromotionaddComponent, PromotionupdateComponent } from './promotions/promotions.component';
@@ -33,9 +36,12 @@ import { ForgetComponent,ResetPasswordAdminComponent } from './login/forgetPassw
 import { OwnerComponent,OwnerloginComponent,OwnerAutologinComponent,OwnerregisterComponent,OwnerprofileComponent,OwnerchangepasswordComponent,ForgetOwnerComponent,ResetPasswordOwnerComponent } from './owner/owner.component';
 import { LanguageComponent,LanguagelistComponent, LanguageaddComponent, LanguageupdateComponent } from './language/language.component';
 import { FrontendHeaderComponent, FrontendComponent, FrontendDetailComponent, FrontendCartComponent, FrontendLoginComponent,FrontendForgetPasswordComponent,FrontendResetPasswordComponent,FrontendUserProfileComponent,FrontendChangePasswordComponent } from './frontend/frontend.component';
-import { MarketingComponent,MarketingNavComponent } from './marketing/marketing.component';
+import { MarketingComponent,MarketingNavComponent,MarketingOverviewComponent,MarketingPromotionsComponent, MarketingPromotionsListComponent, MarketingPromotionsTemplateComponent, MarketingPromotionsSubscriptionComponent, MarketingStatsComponent } from './marketing/marketing.component';
 import { ReportingComponent,ReportingnavComponent,ReportingoverviewComponent,ReportingMethodComponent,ReportingResultComponent,ReportingTypeComponent,ReportingPaymentMethodComponent,ReportingItemsComponent,ReportingItemCategoriesComponent,ReportingClientComponent,ReportingOrderComponent,ReportingDetailComponent,ReportingSaleDetailComponent} from './reporting/reporting.component';
 
+export function HttpLoaderFactory(http: Http) {
+    return new TranslateHttpLoader(http);
+}
 @NgModule({
   declarations: [
     AppComponent,FileSelectDirective,
@@ -50,7 +56,7 @@ import { ReportingComponent,ReportingnavComponent,ReportingoverviewComponent,Rep
     OwnerAutologinComponent,
     FilterPipe,
     DriversComponent,
-    RestaurantOwnerOrderForLaterComponent,RestaurantOwnerPaymentOptionComponent,RestaurantOwnerDeliveryZoneComponent, KitchenMenuListComponent, KitchenMenuAddComponent, KitchenMenuUpdateComponent,KitchenitemComponent,KitchenMenuItemUpdateComponent,LegacyComponent,LegacycodeComponent, NotificationComponent, SupportedLanguagesComponent,OnlinePaymentComponent,
+    RestaurantOwnerOrderForLaterComponent,RestaurantOwnerPaymentOptionComponent,RestaurantOwnerDeliveryZoneComponent, KitchenMenuListComponent,LegacyComponent,LegacycodeComponent, NotificationComponent, SupportedLanguagesComponent,OnlinePaymentComponent,
     DriveraddComponent,
     DriverupdateComponent,
     OwnerDriversComponent, OwnerDriversupdateComponent,OwnerDriversaddComponent,
@@ -63,7 +69,8 @@ import { ReportingComponent,ReportingnavComponent,ReportingoverviewComponent,Rep
     OwnerComponent,OwnerloginComponent,OwnerprofileComponent,OwnerregisterComponent,OwnerchangepasswordComponent,OwnermailactivateComponent,ForgetOwnerComponent,ResetPasswordOwnerComponent,
     LanguageComponent,LanguagelistComponent, LanguageaddComponent, LanguageupdateComponent, 
     FrontendHeaderComponent, FrontendComponent, FrontendDetailComponent, FrontendCartComponent, FrontendLoginComponent, FrontendForgetPasswordComponent, FrontendResetPasswordComponent,FrontendUserProfileComponent, FrontendChangePasswordComponent,
-    MarketingComponent, MarketingNavComponent, ReportingComponent,ReportingnavComponent,ReportingoverviewComponent,ReportingMethodComponent,ReportingResultComponent,ReportingTypeComponent,ReportingPaymentMethodComponent,ReportingItemsComponent,ReportingItemCategoriesComponent,ReportingClientComponent,ReportingOrderComponent,ReportingDetailComponent,ReportingSaleDetailComponent
+    MarketingComponent, MarketingNavComponent, MarketingOverviewComponent, MarketingPromotionsComponent, MarketingPromotionsListComponent, MarketingPromotionsTemplateComponent,MarketingPromotionsSubscriptionComponent, MarketingStatsComponent,
+    ReportingComponent,ReportingnavComponent,ReportingoverviewComponent,ReportingMethodComponent,ReportingResultComponent,ReportingTypeComponent,ReportingPaymentMethodComponent,ReportingItemsComponent,ReportingItemCategoriesComponent,ReportingClientComponent,ReportingOrderComponent,ReportingDetailComponent,ReportingSaleDetailComponent
   ],
   imports: [
     BrowserModule,
@@ -71,9 +78,16 @@ import { ReportingComponent,ReportingnavComponent,ReportingoverviewComponent,Rep
     HttpModule,
     routing,
     ReactiveFormsModule,
-    FlashMessagesModule,
+    //FlashMessagesModule,
     ChartsModule,
-    TranslateModule.forRoot(),
+    //TranslateModule.forRoot(),
+    TranslateModule.forRoot({
+          loader: {
+            provide: TranslateLoader,
+            useFactory: HttpLoaderFactory,
+            deps: [Http]
+          }
+        })
   ],
   providers: [AuthGuard,OwnerAuthGuard,AlertService,UsersService,AuthService,DriversService,RestaurantsService,PromotionsService, KitchenMenuService,KitchenItemService,MasterService, CustomersService, OrderService],
   bootstrap: [AppComponent]

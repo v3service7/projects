@@ -1,6 +1,16 @@
 <app-frontendheader [ids]="restaurants._id"></app-frontendheader>
 
-<div class="cartLength" *ngIf="cart.length > 0">{{cart.length}}
+<div *ngIf="!currentCustomerId">
+	<div *ngIf="cart">
+		<div class="cartLength" *ngIf="cart.length > 0">{{cart.length}}
+		</div>
+	</div>
+</div>
+<div *ngIf="currentCustomerId">
+	<div *ngIf="cart">
+		<div class="cartLength2" *ngIf="cart.length > 0">{{cart.length}}
+		</div>
+	</div>
 </div>
 
 <div class="container-fluid detailDiv" style="background-color: rgba(128, 128, 128, 0.16) !important;color: #4c4c4c;line-height: 2em;font-family: Arial,Helvetica,sans-serif;
@@ -132,9 +142,15 @@
 				</div>
 				<div class="info-hours-container col-lg-12 col-md-12 col-sm-12 col-xs-12">
 					<div class="dropdown col-lg-12 col-md-12 col-sm-12 col-xs-12">
-						<select class="form-control" id="sel1" #langSelect  (change)="selectLang(langSelect.value)" >
+						<!-- <select class="form-control" id="sel1" #langSelect  (change)="selectLang(langSelect.value)" >
 					        <option	*ngFor="let language of restaurants.languages" [value]="language.abbr" [selected]="language.abbr == lang">{{language.name}}</option>
-					    </select>
+					    </select> -->
+					    <!-- <select #langSelect (change)="translate.use(langSelect.value)">
+				        	<option *ngFor="let lang of translate.getLangs()" [value]="lang" [selected]="lang === translate.currentLang">{{ lang }}</option>
+				        </select> -->
+				        <select class="form-control"  id="sel1" #langSelect (change)="selectLang(langSelect.value)">
+				        	<option *ngFor="let language of restaurants.languages" [value]="language.abbr" [selected]="language.abbr === translate.currentLang">{{ language.name }}</option>
+				        </select>
 					</div>
 				</div>
 			</div>

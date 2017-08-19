@@ -1,7 +1,7 @@
 import { Component, OnInit, NgZone, ViewChild, ElementRef, ViewEncapsulation } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
-import { FlashMessagesService } from 'angular2-flash-messages';
+//import { FlashMessagesService } from 'angular2-flash-messages';
 import { AlertService, RestaurantsService, UsersService, KitchenMenuService, KitchenItemService, MasterService } from '../service/index';
 import { FileUploader } from 'ng2-file-upload';
 import * as globalVariable from "../global";
@@ -118,7 +118,6 @@ export class RestaurantOwnerOpeningHoursComponent implements OnInit {
 		this.initailfun();
 	}
 
-
 	initailfun() {
 		// var objForUpdate : any = {}; 	
 		this.restaurantsService.getOwnerRestaurants(JSON.parse(localStorage.getItem('currentOwner'))._id).subscribe(users => {
@@ -130,9 +129,11 @@ export class RestaurantOwnerOpeningHoursComponent implements OnInit {
 					this.preoptionSet[i] = this.restaurants.openinghours[i];
 				}
 			}
+
+			console.log("users.message");
+			console.log(users.message);
 			//this.optionSet.openinghours.push(objForUpdate);
 		});
-
 	}
 
 	openingHourDetailUpdate() {
@@ -164,6 +165,19 @@ export class RestaurantOwnerOpeningHoursComponent implements OnInit {
 			toastr.success('Restaurant Opening Hours Updated','Success!')
 			this.router.navigate(['/owner/restaurant-orderforlater']);
 		});
+	}
+
+	remove(day){
+		var time = day + "time";
+		delete this.preoptionSet[day];
+		delete this.preoptionSet[time];
+
+		this.optionSet.result = { "openinghours": this.preoptionSet };
+		this.restaurantsService.updatePickUpHours(this.optionSet).subscribe((data) => {
+			this.user = data.message;
+			toastr.success('Restaurant Opening Hours Updated','Success!');
+			this.initailfun();
+		});
 
 	}
 }
@@ -194,6 +208,7 @@ export class RestaurantOwnerOrderForLaterComponent implements OnInit {
 
 
 	ngOnInit() {
+		this.getRestaurants();
 		this.orderAddModel = this.lf.group({
 			orderforlater: [],
 			mintime: ['', Validators.required],
@@ -203,7 +218,6 @@ export class RestaurantOwnerOrderForLaterComponent implements OnInit {
 			_id: []
 		});
 		this.orderAddModel.controls['orderforlater'].setValue(true);
-		this.getRestaurants();
 	}
 
 
@@ -244,7 +258,7 @@ export class RestaurantOwnerOrderForLaterComponent implements OnInit {
 			console.log(this.restaurants)
 			if (typeof this.restaurants.orderforlaterpickup !== 'undefined') {
 				this.orderForChange(this.restaurants.orderforlater);
-				console.log(this.restaurants.orderforlaterpickup)		
+				//console.log(this.restaurants.orderforlaterpickup)		
 				this.orderAddModel.controls['_id'].setValue(this.restaurants._id);
 				this.orderAddModel.controls['orderforlater'].setValue(this.restaurants.orderforlater);
 				this.orderAddModel.controls['mintime'].setValue(this.restaurants.orderforlaterpickup.mintime);
@@ -423,8 +437,8 @@ export class RestaurantOwnerPaymentOptionComponent implements OnInit {
 	getRestaurants() {
 		this.restaurantsService.getOwnerRestaurants(JSON.parse(localStorage.getItem('currentOwner'))._id).subscribe(users => {
 			this.restaurants = users.message;
-			console.log("this.restaurants");
-			console.log(this.restaurants);
+			/*console.log("this.restaurants");
+			console.log(this.restaurants);*/
 			this.intialOnLoadOption(this.restaurants);
 		});
 	}
@@ -910,6 +924,8 @@ export class KitchenMenuListComponent implements OnInit {
 	reverse: boolean = false;
 	users = [];
 	items = [];
+	addGroupAddon = [];
+	option2 = [];
 
 	mondayCheck : boolean;
 	tuesdayCheck : boolean;
@@ -938,8 +954,21 @@ export class KitchenMenuListComponent implements OnInit {
 	btn_class1: any = 'btn-success';
 	btn_class2: any = 'btn-default';
 
+
+	menuAddModel: FormGroup;
+	menuUpdateModel: FormGroup;
+	itemUpdateModel: FormGroup;
+	itemAddModel: FormGroup;
+	userForUpdate: any;
+	itemGroups : any;
+	item : any;
+	allAddons : any;
+	err: any;
+
+
 	//imageUrl: string = 'http://localhost:4003/uploads/';
 	imageUrl: string = globalVariable.url+'uploads/';
+	frontUrl: string = globalVariable.frontUrl;
 
 	public uploader: FileUploader = new FileUploader({ url: globalVariable.url+'upload' });
 	constructor(
@@ -953,6 +982,38 @@ export class KitchenMenuListComponent implements OnInit {
 		){ }
 
 	ngOnInit() {
+
+		this.menuAddModel = this.lf.group({
+			name: ['', Validators.required],
+			kitchenId: ['', Validators.required],
+			image: [],
+		});
+
+		this.menuUpdateModel = this.lf.group({
+			_id: ['', Validators.required],
+			name: ['', Validators.required],
+			image:[]
+		});
+
+		this.itemAddModel = this.lf.group({
+			name: ['', Validators.required],
+			kitchenId: ['', Validators.required],
+			menuId: ['', Validators.required],
+			price: ['', Validators.required],
+			description: ['', Validators.required],
+			options : [],
+			image: [],
+		});
+
+		this.itemUpdateModel = this.lf.group({
+			_id: ['', Validators.required],
+			name: ['', Validators.required],
+			price: ['', Validators.required],
+			description: ['', Validators.required],
+			options: [],
+			image: []
+		});
+
 		this.multisizeAddModel = this.lf.group({
 			sid : [],
 			sizename: ['', Validators.required],
@@ -1005,8 +1066,10 @@ export class KitchenMenuListComponent implements OnInit {
 			
 		});
 
+
 		this.getRestaurants();		
-		this.jq();	
+		this.jq();
+		$('#previewModal').css('display','none');
 	}
 	jq() {
 		$(document).ready(function() {
@@ -1022,6 +1085,211 @@ export class KitchenMenuListComponent implements OnInit {
 				}
 			});
 		});
+	}
+
+	private showPreview(){
+		var gfid = this.restaurants._id;
+	    var baseUrl = this.frontUrl;
+	    var src = baseUrl + 'frontend/' + gfid;
+
+	    console.log(gfid , baseUrl, src)
+	    var height = '500px';
+	    $("#previewModal iframe").attr({'src':src , 'height':height});
+		$('#previewModal iframe').css({'position':'absolute','left': '0','width': '100%','padding': '3% 20%','background': 'rgba(0, 0, 0, 0.58)','height':'-webkit-fill-available'});
+		/*$('#previewModal').show();*/
+		$('#previewModal').css({'display':'block'});
+
+		var closeBtn  = $('<a class ="closeBtn" href="javascript:void(0)">Close</a>');
+		$('#previewModal').append(closeBtn);
+		$('.closeBtn').css({'text-decoration-line:':'unset','padding':'10px','border-radius':'3px','background-color':'rgba(0,0,0,.6)','position':'absolute','right':'13%','top':'17%','color':'#fff','box-shadow':'0 2px 10px rgba(0,0,0,.5)'});
+		$('a.closeBtn').on('click', function(e) {
+			/*$('#previewModal').hide();*/
+			$('#previewModal').css('display','none');
+		});
+	}
+
+	private onClicked(event){
+	    if (!event.target.checked) {
+	    	this.addGroupAddon.splice(this.addGroupAddon.indexOf(event.target.value),1);
+	    }
+	    if ((event.target.checked) && (this.addGroupAddon.indexOf(event.target.value) == -1)) {
+	    	this.addGroupAddon.push(event.target.value);
+	    }
+	    /*console.log(this.addGroupAddon);*/
+	    this.getGroupDetail(this.addGroupAddon);
+    }
+
+    private getGroupDetail(data){
+    	this.option2 = []
+    	/*console.log(data);*/
+    	for (var i = 0; i < data.length; i++) {
+    		this.kitchenMenuService.groupDetailEditser(data[i]).subscribe(user=>{
+    			this.option2.push(user.message);
+    		});
+    	}
+    }
+
+    private checkCheckedGroup(id){
+    	if((typeof this.addGroupAddon !='undefined') && (this.addGroupAddon.length > 0)) {
+	    	if(this.addGroupAddon.indexOf(id) > -1) {
+		    	return true;
+		    }else{
+		    	return false;
+		    }
+	    }
+	}
+
+	onChange(event) {
+	    var files = event.srcElement.files;
+	    this.uploader.uploadAll();
+		this.uploader.onCompleteItem = (item: any, response: any, status: any, headers: any) => {
+			var responsePath = JSON.parse(response);
+			this.menuAddModel.controls['image'].setValue(responsePath.filename);
+			toastr.success('Image Uploaded Successfully');
+		};
+	}
+
+	private menuModelShow() {
+		$("#addMenu").modal('show');
+		this.restaurantsService.getOwnerRestaurants(JSON.parse(localStorage.getItem('currentOwner'))._id).subscribe(users => {
+			this.menuAddModel.controls['kitchenId'].setValue(users.message._id);
+		});
+	}
+
+	private userAdd() {
+		this.kitchenMenuService.addUser(this.menuAddModel.value).subscribe(
+			(data) => {
+				this.modelClose();
+				this.refresh();
+				toastr.success('Menu Add successful');
+			}
+		);
+	}
+
+	private menuUpdateModelShow(id) {
+		$("#updateMenu").modal('show');
+		this.getUsers(id);
+	}
+
+	private getUsers(id) {
+		this.kitchenMenuService.getOne(id).subscribe(users => {
+			this.userForUpdate = users.message;
+			this.menuUpdateModel.patchValue(this.userForUpdate);			
+		});
+	}
+	onChangeMenuUpdate(event) {
+	    var files = event.target.files;
+	    this.menuUpdateModel.controls['image'].setValue(files[0].name);
+	}
+
+	private userUpdate() {
+		if (this.menuUpdateModel.value.image == null || this.menuUpdateModel.value.image == this.userForUpdate.image) {
+			this.kitchenMenuService.updateMenu(this.menuUpdateModel.value).subscribe(
+				(data) => {
+					this.modelClose();
+					this.refresh();
+					toastr.success('Menu Updated successful');
+				}
+			);
+		}else{
+			this.uploader.uploadAll();
+			this.uploader.onCompleteItem = (item: any, response: any, status: any, headers: any) => {
+				var responsePath = JSON.parse(response);
+				this.menuUpdateModel.controls['image'].setValue(responsePath.filename);
+				this.kitchenMenuService.updateMenu(this.menuUpdateModel.value).subscribe(
+					(data) => {
+						this.modelClose();
+						this.refresh();
+						toastr.success('Menu Updated successful');
+					}
+				);
+			};
+		}
+	}
+
+	private itemAddModelShow(id) {
+		$("#addItem").modal('show');
+		this.itemAddModel.controls['menuId'].setValue(id);
+		this.restaurantsService.getOwnerRestaurants(JSON.parse(localStorage.getItem('currentOwner'))._id).subscribe(users => {
+			this.itemAddModel.controls['kitchenId'].setValue(users.message._id);
+		});
+		this.getAllGroups();
+	}
+
+    private getAllGroups(){
+		this.restaurantsService.getOwnerRestaurants(JSON.parse(localStorage.getItem('currentOwner'))._id).subscribe(data => {		
+			this.kitchenMenuService.getAllAddOn(data.message._id).subscribe(users => {
+				this.itemGroups = users.message;
+				console.log("this.itemGroups");
+				console.log(this.itemGroups);
+			});
+		});
+	}
+
+	onChangeItem(event) {
+	    var files = event.srcElement.files;
+	    this.uploader.uploadAll();
+		this.uploader.onCompleteItem = (item: any, response: any, status: any, headers: any) => {
+			var responsePath = JSON.parse(response);
+			this.itemAddModel.controls['image'].setValue(responsePath.filename);
+			toastr.success('Image Uploaded Successfully');
+		};
+	}
+
+	private itemAdd() {
+		this.itemAddModel.controls['options'].setValue(this.addGroupAddon) ;
+		this.kitchenMenuItemService.addUser(this.itemAddModel.value).subscribe(
+			(data) => {
+				this.modelClose();
+				//this.refresh();
+				this.loadAllItem();
+				toastr.success('Item Add successful');
+				this.addGroupAddon = [];
+			}
+		);
+	}
+
+	private itemUpdateModelShow(item) {
+		$("#updateItem").modal('show');
+		this.getAllGroups();
+		this.itemUpdateModel.patchValue(item);
+		for (var i = 0; i < item.options.length; ++i) {
+			this.addGroupAddon.push(item.options[i]._id);
+		}
+	}
+
+	onChangeItemUpdate(event) {
+	    var files = event.target.files;
+	    this.itemUpdateModel.controls['image'].setValue(files[0].name);
+	}
+
+	private itemUpdate() {
+		if (this.option2.length > 0) {
+			this.itemUpdateModel.controls['options'].setValue(this.option2);
+		}
+		if (this.itemUpdateModel.value.image == null || this.itemUpdateModel.value.image == this.item.image) {
+			this.kitchenMenuItemService.updateMenu(this.itemUpdateModel.value).subscribe((data) => {
+				this.modelClose();
+				//this.refresh();
+				this.loadAllItem(); 
+				toastr.success('Item Updated successful');
+				this.addGroupAddon = [];
+				this.option2 = [];
+			});
+		}else{
+			this.uploader.uploadAll();
+			this.uploader.onCompleteItem = (item: any, response: any, status: any, headers: any) => {
+				this.modelClose();
+				this.refresh();
+				var responsePath = JSON.parse(response);
+				this.itemUpdateModel.controls['image'].setValue(responsePath.filename);
+				this.kitchenMenuItemService.updateMenu(this.itemUpdateModel.value).subscribe((data) => {
+					toastr.success('Item Updated successful');
+					this.addGroupAddon = [];
+					this.option2 = [];
+				});
+			};
+		}
 	}
 
 	optionalUpdate() {
@@ -1045,6 +1313,10 @@ export class KitchenMenuListComponent implements OnInit {
 	}
 	private modelClose(){
 		$("#myeditModal").modal('hide');
+		$("#addMenu").modal('hide');
+		$("#updateMenu").modal('hide');
+		$("#addItem").modal('hide');
+		$("#updateItem").modal('hide');
 		$("#myModal").modal('hide');
 		$('#mymenuModal').modal('hide');
 		$('#mySubMenuModal').modal('hide');
@@ -1052,8 +1324,20 @@ export class KitchenMenuListComponent implements OnInit {
         $('#mymenuModal').on('hidden.bs.modal', function () {
                $(this).find('form').trigger('reset');
            });
-           $('#mySubMenuModal').on('hidden.bs.modal', function () {
-               $(this).find('form').trigger('reset');
+        $('#mySubMenuModal').on('hidden.bs.modal', function () {
+            $(this).find('form').trigger('reset');
+           });
+        $('#addMenu').on('hidden.bs.modal', function () {
+            $(this).find('form').trigger('reset');
+           });
+		$('#updateMenu').on('hidden.bs.modal', function () {
+            $(this).find('form').trigger('reset');
+           });
+		$('#addItem').on('hidden.bs.modal', function () {
+            $(this).find('form').trigger('reset');
+           });
+		$('#updateItem').on('hidden.bs.modal', function () {
+            $(this).find('form').trigger('reset');
            });
 	}
 	private refresh(){
@@ -1065,7 +1349,7 @@ export class KitchenMenuListComponent implements OnInit {
 		this.restaurantsService.getOwnerRestaurants(JSON.parse(localStorage.getItem('currentOwner'))._id).subscribe(users => {
 			this.restaurants = users.message;	
 			this.refresh();	
-			//console.log(this.restaurants);	
+			////console.log(this.restaurants);	
 		});
 	}
 	private addAnothergroup(){
@@ -1106,8 +1390,8 @@ export class KitchenMenuListComponent implements OnInit {
 	private groupDetailEdit(id){
 		this.currentOpen = 'editgroup';
 		this.kitchenMenuService.groupDetailEditser(id).subscribe(data => {   
-		console.log("data")     	
-		console.log(data)     	
+		//console.log("data")     	
+		//console.log(data)     	
 			this.editableDetail.controls['_id'].setValue(data.message._id);
 			this.editableDetail.controls['name'].setValue(data.message.name);
 			
@@ -1118,12 +1402,6 @@ export class KitchenMenuListComponent implements OnInit {
 			}else{
 				this.optionalUpdate();
 			}
-			/*this.groupDetail = {}
-			this.groupDetail.groupType = data.message.groupType;
-			this.editableDetail.controls['groupType'].setValue(this.groupDetail.groupType);*/
-
-			console.log("this.editableDetail.value");
-			console.log(this.editableDetail.value);
 		});
 	}
 	private groupDetailEditUpdate(){
@@ -1154,6 +1432,8 @@ export class KitchenMenuListComponent implements OnInit {
 	private loadAllUsers() {
 		this.kitchenMenuService.getAll(this.restaurants._id).subscribe(users => { 			
 			this.users = users.message;
+			//console.log("this.users");
+			//console.log(this.users);
 		});
 	}
 	private loadAllItem() {
@@ -1175,7 +1455,7 @@ export class KitchenMenuListComponent implements OnInit {
 	private deleteItem(id) {
 		if (confirm("Are you sure to delete ?")) {
 			this.kitchenMenuItemService.deleteOne(id).subscribe(data => {
-				this.loadAllUsers();
+				//this.loadAllUsers();
 				this.loadAllItem();
 				toastr.warning('Item Deleted');
 			});
@@ -1198,7 +1478,8 @@ export class KitchenMenuListComponent implements OnInit {
 		allvalue.multisize = {size: this.multisizeAddModel.value.sizename, price: this.multisizeAddModel.value.sizeprice};	 		
 		this.kitchenMenuItemService.updateMenuAddOn(allvalue).subscribe(data =>{		
 			this.multisizeAddModel.reset();
-			this.refresh();
+			this.loadAllItem();
+			//this.refresh();
 			this.modelClose();
 			toastr.success('Multisize Added');
 		});
@@ -1207,7 +1488,8 @@ export class KitchenMenuListComponent implements OnInit {
 		if (confirm("Are you sure to delete ?")) {
 			var removedata = {_id: submenuid, indexi: index}; 
 			this.kitchenMenuItemService.removeAddOnToSubmenu(removedata).subscribe(data => {      
-				this.refresh();
+				//this.refresh();
+				this.loadAllItem();
 			});
 		toastr.success('Removed!');
 		}
@@ -1223,29 +1505,56 @@ export class KitchenMenuListComponent implements OnInit {
 	}
 	private multisizeEditAddUpdate(){
 		this.kitchenMenuItemService.updateEditMenuAddOn(this.multisizeEditAddModel.value).subscribe(data => {
-			this.refresh();
+			//this.refresh();
+			this.loadAllItem();
 			this.modelClose(); 
 			toastr.success('Multisize Updated');
 
 		});           
 	}
-	private addChoic(id, name){	
+	private addChoic(id, name){
+		var groupId = "gr"+id;
+		//console.log("groupId on click");
+		//console.log(groupId);
 		this.currentOpen = 'choice';
 		this.currentChoice = name;
 		this.choiceAddModel.controls['_id'].setValue(id);
 	}
 	private choiceDetailadd(){
+		var groupId = "gr"+this.choiceAddModel.value._id;
 		this.kitchenMenuItemService.addChoice(this.choiceAddModel.value).subscribe(data => {   
-			this.getAllAddonDetail();
+			//this.getAllAddonDetail();
+			this.loadAllAddons(this.choiceAddModel.value._id);
 			this.clearCancel();
 			toastr.success('Choice Added Successfully','Success!');
 		}); 
+	}
+
+	private showHideAddons(id, property){
+		var addonGroupId = "#gr"+id;
+		var x = property.getAttribute('class');
+		if (x == 'icon-collapse') {
+			this.loadAllAddons(id);
+			$("div[id^='gr']").hide();
+			$(addonGroupId).show();
+		}else{
+			$("div[id^='gr']").hide();
+		}
+	}
+
+	private loadAllAddons(id){
+		this.kitchenMenuService.groupDetailEditser(id).subscribe(data => {   
+			this.allAddons = data.message.subaddon;
+			//console.log("id, this.allAddons")
+			//console.log(id, this.allAddons)
+		})
 	}
 	private removechoice(id, index){
 		if (confirm("Are you sure to delete ?")) {
 			var removeid = {_id : id, index: index};
 			this.kitchenMenuItemService.removeChoice(removeid).subscribe(data => {
-				this.getAllAddonDetail();
+				//this.getAllAddonDetail();
+				this.loadAllAddons(index);
 			});
 			toastr.success('Choice Removed');
 		}
@@ -1262,13 +1571,13 @@ export class KitchenMenuListComponent implements OnInit {
 	}
 	private editChoiceUpdate(){
 		let id = 'gr'+this.editableChoiceDetail.value._id;
-		console.log(this.editableChoiceDetail.value);
+		//console.log(this.editableChoiceDetail.value);
 		this.kitchenMenuItemService.editSubAddOnUpdate(this.editableChoiceDetail.value).subscribe(data => {	
+			this.loadAllAddons(this.editableChoiceDetail.value._id);
 			this.clearCancel();
 			//document.getElementById(id).className = 'in';
-			this.getAllAddonDetail();
-			console.log(id)
-			
+			//this.getAllAddonDetail();
+			////console.log(id)
 			toastr.success('Choice Updated','Success!');
 		})
 	}
@@ -1292,7 +1601,7 @@ export class KitchenMenuListComponent implements OnInit {
 			var responsePath = JSON.parse(response);
 			this.menuImageAddModel.controls['image'].setValue(responsePath.filename);
             this.kitchenMenuService.updateMenu(this.menuImageAddModel.value).subscribe(data => {
-                // console.log(data.message);
+                //// console.log(data.message);
                 this.menuImageAddModel.reset();
                 this.refresh();
 			    this.modelClose();
@@ -1313,38 +1622,18 @@ export class KitchenMenuListComponent implements OnInit {
 			     toastr.success('Image Uploaded Successfully');	
             });
 	   }
-   }
+	}
    	private showDayOption(user,type){
-   		console.log("user,type");
-   		console.log(user.openinghours,type);
-   		this.mondayCheck,this.tuesdayCheck,this.wednesdayCheck,this.thursdayCheck, this.fridayCheck, this.saturdayCheck, this.sundayCheck = false;
-
-   		for (var i in user.openinghours) {
-			if (user.openinghours[i] == true) {
-				if (i == 'monday') {
-					this.mondayCheck = true;
-				}
-				if (i == 'tuesday') {
-					this.tuesdayCheck = true;
-				}
-				if (i == 'wednesday') {
-					this.wednesdayCheck = true;
-				}
-				if (i == 'thursday') {
-					this.thursdayCheck = true;
-				}
-				if (i == 'friday') {
-					this.fridayCheck = true;
-				}
-				if (i == 'saturday') {
-					this.saturdayCheck = true;
-				}
-				if (i == 'sunday') {
-					this.sundayCheck = true;
-				}
-			}
-		}
-
+   		//console.log("user,type");
+   		//console.log(user,type);
+   		this.mondayCheck = false; 
+		this.tuesdayCheck = false;
+		this.wednesdayCheck = false;
+		this.thursdayCheck = false;
+		this.fridayCheck = false;
+		this.saturdayCheck = false;
+		this.sundayCheck = false;
+   		/*this.mondayCheck,this.tuesdayCheck,this.wednesdayCheck,this.thursdayCheck, this.fridayCheck, this.saturdayCheck, this.sundayCheck = false;*/
    		if (type == 'menu') {
    			this.showDivDetail = user._id;
 
@@ -1358,8 +1647,35 @@ export class KitchenMenuListComponent implements OnInit {
    			this.hideMenu(user._id)
    		}
    		this.menuObj._id = user._id;
+   		if (user.openinghours) {
+   			for (var i in user.openinghours) {
+				if (user.openinghours[i] == true) {
+					if (i == 'monday') {
+						this.mondayCheck = true;
+					}
+					if (i == 'tuesday') {
+						this.tuesdayCheck = true;
+					}
+					if (i == 'wednesday') {
+						this.wednesdayCheck = true;
+					}
+					if (i == 'thursday') {
+						this.thursdayCheck = true;
+					}
+					if (i == 'friday') {
+						this.fridayCheck = true;
+					}
+					if (i == 'saturday') {
+						this.saturdayCheck = true;
+					}
+					if (i == 'sunday') {
+						this.sundayCheck = true;
+					}
+				}
+			}
+   		}
+
    	}
-   	
    	private checkChecked(allDay,day){
    		if (allDay) {
 	   		if (allDay.monday && day == 'Monday') {
@@ -1385,7 +1701,6 @@ export class KitchenMenuListComponent implements OnInit {
 	   		}
    		}
    	}
-
    	private radioChecked(id,data){
    		if (data == 'specific') {
    			if(id) {
@@ -1402,7 +1717,6 @@ export class KitchenMenuListComponent implements OnInit {
    			}
    		}
    	}
-
    	private showDiv(id,type) {
    		if (type == 'menu') {
 	        if (this.showDivDetail == id) {
@@ -1436,19 +1750,19 @@ export class KitchenMenuListComponent implements OnInit {
    		var divId = 'days'+id;
    		document.getElementById(divId).style.display = 'none';
    		this.hideMenuOption = true;
-   		this.showMenuOption = false;
+		this.showMenuOption = false;
    	}
    	private showMenu(id){
    		var divId = 'days'+id;
-   		console.log(divId)
+   		//console.log(divId)
    		document.getElementById(divId).style.display = 'block';
    		this.hideMenuOption = false;
    		this.showMenuOption = true;
 
-   		console.log(this.hideMenuOption);
-   		console.log("this.hideMenuOption");
-   		console.log(this.showMenuOption);
-   		console.log("this.showMenuOption");
+   		//console.log(this.hideMenuOption);
+   		//console.log("this.hideMenuOption");
+   		//console.log(this.showMenuOption);
+   		//console.log("this.showMenuOption");
    	}
    	private checkMon(){
    		this.mondayCheck = !this.mondayCheck;
@@ -1521,20 +1835,27 @@ export class KitchenMenuListComponent implements OnInit {
    		if (this.sundayCheck==false){
    			delete this.openinghours.sunday;
    		}
-  		console.log("this.openinghours");
-   		console.log(this.openinghours);
+  		//console.log("this.openinghours sdfghjk");
+   		//console.log(this.openinghours);
    	}
    	private saveOpeningTimings(type){
-   		this.save();
-   		// console.log("this.openinghours");
-   		// console.log(this.openinghours);
+   		//console.log("this.hideMenuOption");
+   		//console.log(this.hideMenuOption);
    		if (this.hideMenuOption == true) {
    			this.menuObj.isHidden = true;
    			this.menuObj.isSpecific = false;
+   			this.mondayCheck = false; 
+   			this.tuesdayCheck = false;
+   			this.wednesdayCheck = false;
+   			this.thursdayCheck = false;
+   			this.fridayCheck = false;
+   			this.saturdayCheck = false;
+   			this.sundayCheck = false;
+   			this.openinghours = {};
    			this.menuObj.openinghours = {};
+   			this.save();
    		}
    		if (this.hideMenuOption == false){
-
    		var opentime=((<HTMLInputElement>document.getElementById("opentime_"+this.menuObj._id)).value);
    		var closetime=((<HTMLInputElement>document.getElementById("closetime_"+this.menuObj._id)).value);
    		this.openinghours.opentime = opentime;
@@ -1542,13 +1863,13 @@ export class KitchenMenuListComponent implements OnInit {
    			this.menuObj.isHidden = false;
    			this.menuObj.isSpecific = true;
    			this.menuObj.openinghours = this.openinghours;
+   			this.save();
    		}
    		if (type == 'menu'){
    			this.kitchenMenuService.updateMenu(this.menuObj).subscribe(
 				(data) => {
 					toastr.success('Menu Updated successful');
-					//this.alertService.success('Menu Updated successful', true);
-					this.refresh();
+					this.loadAllUsers();
 				}
 			);
    		}
@@ -1556,18 +1877,34 @@ export class KitchenMenuListComponent implements OnInit {
    			this.kitchenMenuItemService.updateMenu(this.menuObj).subscribe(
    				(data) => {
    					toastr.success('Item Updated successful');
-					//this.alertService.success('Item Updated successful', true);
-					this.refresh();
+					this.loadAllItem();
 				}
 			);
    		}
-		console.log("this.menuObj");
-		console.log(this.menuObj);
+		// console.log("this.menuObj");
+		// console.log(this.menuObj);
 		this.hideDiv(type);
+   	}
+
+   	private deleteHiddenSpecific(user, type){
+
+   		user.isSpecific = false;
+   		user.isHidden = false;
+   		user.openinghours = {};
+   		if (type == 'menu') {
+	   		this.kitchenMenuService.updateMenu(user).subscribe((data)=>{
+	   			toastr.success('Menu is no more Hidden or Specific');
+	   		});
+   		}
+   		if (type == 'item') {
+	   		this.kitchenMenuItemService.updateMenu(user).subscribe((data)=>{
+	   			toastr.success('Item is no more Hidden or Specific');
+	   		});
+   		}
    	}
 }
 
-@Component({
+/*@Component({
 	selector: 'app-kitchenmenuadd',
 	templateUrl: './kitchenmenuadd.component.html',
 	styles: []
@@ -1619,7 +1956,6 @@ export class KitchenMenuAddComponent implements OnInit {
 	}
 }
 
-
 @Component({
 	selector: 'app-kitchenmenuupdate',
 	templateUrl: './kitchenmenuupdate.component.html',
@@ -1654,23 +1990,32 @@ export class KitchenMenuUpdateComponent implements OnInit {
 	}
 
 	onChange(event) {
-	    var files = event.srcElement.files;
-	    this.uploader.uploadAll();
-		this.uploader.onCompleteItem = (item: any, response: any, status: any, headers: any) => {
-			var responsePath = JSON.parse(response);
-			this.menuUpdateModel.controls['image'].setValue(responsePath.filename);
-			toastr.success('Image Uploaded Successfully');
-		};
+	    var files = event.target.files;
+	    this.menuUpdateModel.controls['image'].setValue(files[0].name);
 	}
 
-	private userUpdate() {		
-		this.kitchenMenuService.updateMenu(this.menuUpdateModel.value).subscribe(
-			(data) => {
-				toastr.success('Menu Updated successful');
-				//this.alertService.success('Menu Updated successful', true);
-				this.router.navigate(['/owner/menu-list']);
-			}
-		);
+	private userUpdate() {
+		if (this.menuUpdateModel.value.image == this.users.image) {
+			this.kitchenMenuService.updateMenu(this.menuUpdateModel.value).subscribe(
+				(data) => {
+					toastr.success('Menu Updated successful');
+					//this.alertService.success('Menu Updated successful', true);
+					this.router.navigate(['/owner/menu-list']);
+				}
+			);
+		}else{
+			this.uploader.uploadAll();
+			this.uploader.onCompleteItem = (item: any, response: any, status: any, headers: any) => {
+				var responsePath = JSON.parse(response);
+				this.menuUpdateModel.controls['image'].setValue(responsePath.filename);
+				this.kitchenMenuService.updateMenu(this.menuUpdateModel.value).subscribe(
+					(data) => {
+						toastr.success('Menu Updated successful');
+						this.router.navigate(['/owner/menu-list']);
+					}
+				);
+			};
+		}
 	}
 }
 
@@ -1712,8 +2057,8 @@ export class KitchenitemComponent implements OnInit {
 		});
 
 		this.restaurantsService.getOwnerRestaurants(JSON.parse(localStorage.getItem('currentOwner'))._id).subscribe(users => {
-			console.log("users.message");
-			console.log(users.message);
+			//console.log("users.message");
+			//console.log(users.message);
 			this.menuAddModel.controls['kitchenId'].setValue(users.message._id);
 		});
 
@@ -1743,10 +2088,8 @@ export class KitchenitemComponent implements OnInit {
 	private userAdd() {
 		this.kitchenItemService.addUser(this.menuAddModel.value).subscribe(
 			(data) => {
-
-
-				console.log("data in item");
-				console.log(data);
+				//console.log("data in item");
+				//console.log(data);
 				toastr.success('Item Add successful');
 				//this.alertService.success('Item Add successful', true);
 				this.router.navigate(['/owner/menu-list']);
@@ -1794,7 +2137,7 @@ export class KitchenMenuItemUpdateComponent implements OnInit {
 	private getUsers(id) {
 		this.kitchenItemService.getOne(id).subscribe(users => {
 			this.users = users.message;
-			//console.log(users.message);
+			////console.log(users.message);
 			this.menuUpdateModel.patchValue(this.users);			
 		});
 	}
@@ -1808,24 +2151,30 @@ export class KitchenMenuItemUpdateComponent implements OnInit {
 	}
 
 	onChange(event) {
-	    var files = event.srcElement.files;
-	    this.uploader.uploadAll();
-		this.uploader.onCompleteItem = (item: any, response: any, status: any, headers: any) => {
-			var responsePath = JSON.parse(response);
-			this.menuUpdateModel.controls['image'].setValue(responsePath.filename);
-			toastr.success('Image Uploaded Successfully');
-		};
+	    var files = event.target.files;
+	    this.menuUpdateModel.controls['image'].setValue(files[0].name);
 	}
 
 	private userUpdate() {	
-		this.kitchenItemService.updateMenu(this.menuUpdateModel.value).subscribe((data) => {
-			toastr.success('Item Updated successful');
-			//this.alertService.success('Item Updated successful', true);
-			this.router.navigate(['/owner/menu-list']);
-		});
+		if (this.menuUpdateModel.value.image == this.users.image) {
+			this.kitchenItemService.updateMenu(this.menuUpdateModel.value).subscribe((data) => {
+				toastr.success('Item Updated successful');
+				this.router.navigate(['/owner/menu-list']);
+			});
+		}else{
+			this.uploader.uploadAll();
+			this.uploader.onCompleteItem = (item: any, response: any, status: any, headers: any) => {
+				var responsePath = JSON.parse(response);
+				this.menuUpdateModel.controls['image'].setValue(responsePath.filename);
+				this.kitchenItemService.updateMenu(this.menuUpdateModel.value).subscribe((data) => {
+					toastr.success('Item Updated successful');
+					this.router.navigate(['/owner/menu-list']);
+				});
+			};
+		}
 	}
 }
-
+*/
 @Component({
   selector: 'app-legacy',
   templateUrl: './legacy.component.html',
@@ -1845,7 +2194,7 @@ export class LegacyComponent implements OnInit {
   	private getRestaurants() {
 		this.restaurantsService.getOwnerRestaurants(JSON.parse(localStorage.getItem('currentOwner'))._id).subscribe(users => {
 			this.restaurants = users.message;
-			console.log(this.restaurants);
+			//console.log(this.restaurants);
 		});
 	}
 }
@@ -1890,7 +2239,7 @@ export class LegacycodeComponent implements OnInit {
   	private getRestaurants() {
 		this.restaurantsService.getOwnerRestaurants(JSON.parse(localStorage.getItem('currentOwner'))._id).subscribe(users => {
 			this.restaurants = users.message;
-			console.log(this.restaurants);
+			//console.log(this.restaurants);
 		});
 	}
 }
@@ -2018,7 +2367,7 @@ export class NotificationComponent implements OnInit {
 	getRestaurants() {
 		this.restaurantsService.getOwnerRestaurants(JSON.parse(localStorage.getItem('currentOwner'))._id).subscribe(users => {
 			this.restaurants = users.message;
-			console.log(this.restaurants);
+			//console.log(this.restaurants);
 		});
 	}
 
@@ -2036,10 +2385,10 @@ export class NotificationComponent implements OnInit {
 		objForUpdate.notification.badConnection = this.badConnectioni;
 		objForUpdate.notification.email = this.restaurantAddModel.controls['email'].value;
 
-		console.log(objForUpdate);
+		//console.log(objForUpdate);
 		this.restaurantsService.updateNotification(objForUpdate).subscribe(
 			(data) => {
-				console.log(data);
+				//console.log(data);
 				//this.user = data.message;
 				toastr.success('Notification Settings Updated');
 				this.router.navigate(['/owner/supported-languages']);
@@ -2137,7 +2486,7 @@ export class SupportedLanguagesComponent implements OnInit {
     	this.cusObj._id = this.restaurants._id;
     	this.cusObj.languages = this.addLng;
     	this.restaurantsService.updateRestaurant(this.cusObj).subscribe(users => {
-			console.log(users);
+			//console.log(users);
 			toastr.success('Language Settings Updated');
 		});
     }
@@ -2146,7 +2495,7 @@ export class SupportedLanguagesComponent implements OnInit {
 		this.restaurantsService.getOwnerRestaurants(JSON.parse(localStorage.getItem('currentOwner'))._id).subscribe(users => {
 			this.restaurants = users.message;
 			this.addLng = this.restaurants.languages;
-			console.log(this.restaurants);
+			//console.log(this.restaurants);
 		});
 	}
 
@@ -2164,11 +2513,28 @@ export class SupportedLanguagesComponent implements OnInit {
 @Component({
   selector: 'app-online-payment',
   templateUrl: './onlinePayment.component.html',
-  styles: []
+  styleUrls: ['./payment.component.css'],
 })
 export class OnlinePaymentComponent implements OnInit {
     restaurants:any={};
-    addLng = [];
+    paymentConfirmModel : FormGroup;
+    billingDetailModel : FormGroup;
+    cardDetailModel : FormGroup;
+    providerModel : FormGroup;
+
+    btn_class1: any = 'btn-default';
+	btn_class2: any = 'btn-danger';
+	months:any = ['01','02','03','04','05','06','07','08','09','10','11','12'];
+    years:any=[];
+	show:boolean = false;
+	firstSection:boolean = false;
+	secondSection:boolean = false;
+	thirdSection:boolean = false;
+	forthSection:boolean = false;
+	fifthSection:boolean = false;
+	sixthSection:boolean = false;
+
+
   	constructor(
   		private masterService: MasterService,
   		private restaurantsService: RestaurantsService,
@@ -2178,15 +2544,190 @@ export class OnlinePaymentComponent implements OnInit {
   		) { }
 
   	ngOnInit() {
+  		this.paymentConfirmModel = this.lf.group({
+			paymentCard: ['', Validators.required],
+			_id: []
+		});
+		
+		this.billingDetailModel = this.lf.group({
+			businessType : ['', Validators.required],
+			companyName : ['', Validators.required],
+			fName : ['', Validators.required],
+			lName : ['', Validators.required],
+			address : ['', Validators.required],
+			city : ['', Validators.required],
+			zipcode : ['', Validators.required],
+			country : ['', Validators.required],
+			_id: []
+		});
+
+		this.cardDetailModel = this.lf.group({
+			fName : ['', Validators.required],
+			lName : ['', Validators.required],
+			cardNumber : ['', [Validators.required, Validators.minLength(16),Validators.maxLength(16), Validators.pattern('[0-9]+')]],
+			month : ['', Validators.required],
+			year : ['', Validators.required],
+			cvv : ['', Validators.required],
+			phoneNumber : ['', Validators.required],
+			_id: []
+		});
+
+		this.providerModel = this.lf.group({
+			apiKey : ['', Validators.required],
+			secretKey : ['', Validators.required],
+			gatewayId : ['', Validators.required],
+			terminalPass : ['', Validators.required],
+			_id: []
+		});
+
+
+		this.cardDetailModel.valueChanges.subscribe(data => this.onValueChanged(data));
+        this.onValueChanged(); // (re)set validation messages now
+        this.yearAdd();
+
+		document.getElementById('showCards').style.display = 'none';		
+		$("[id$='Section']").css("display","none"); 
+	    document.getElementById('firstSection').style.display = 'block';
+
+		this.paymentConfirmModel.controls['paymentCard'].setValue(false);
 		this.getRestaurants();
 	}
 
 	private getRestaurants() {
 		this.restaurantsService.getOwnerRestaurants(JSON.parse(localStorage.getItem('currentOwner'))._id).subscribe(users => {
 			this.restaurants = users.message;
+			this.wantEdit(this.restaurants);
 			console.log(this.restaurants);
 		});
 	}
-}
+	private wantEdit(obj){
+		if (obj.onlinepayment) {
+			this.billingDetailModel.patchValue(obj.billingaddress);			
+			this.providerModel.patchValue(obj.paymentcredential);			
+			document.getElementById('firstSection').style.display = 'none';
+			document.getElementById('sixthSection').style.display = 'block';
+		}
+	}
 
+	private yearAdd(){
+        let dateObj = new Date();
+        let currentYear = dateObj.getFullYear();
+        this.years.push(currentYear);
+        for (var i = 0; i < 15; i++) {
+            currentYear = currentYear+1;
+            this.years.push(currentYear);
+        }
+    }
+    onValueChanged(data?: any) {
+        if (!this.cardDetailModel){
+            return;
+        }
+        const form = this.cardDetailModel;
+        for (const field in this.formErrors) {
+            this.formErrors[field] = '';
+            const control = form.get(field);      
+            if (control && control.dirty && !control.valid) {
+                const messages = this.validationMessages[field];
+                for (const key in control.errors) {
+                    this.formErrors[field] += messages[key] + ' ';          
+                }
+            }
+        }
+    }
+
+    formErrors = {
+        'cardNumber': ''    
+    };
+    validationMessages = {
+        'cardNumber': {
+            'required':      'Card Number is required.',
+            'minlength':     'Card Number must be 16 character long.',
+            'maxlength':     'Card Number must be 16 character long.',
+            'pattern'   :    'Card Number contains Numberic only '
+        }          
+    };
+
+	onlineYesUpdate() {
+		this.paymentConfirmModel.controls['paymentCard'].setValue(true);
+		if (this.btn_class1 != 'btn-success') {
+			this.btn_class2 = 'btn-default';
+			this.btn_class1 = 'btn-success';
+			document.getElementById('showCards').style.display = 'block';
+		}
+		
+	}
+
+	onlineNoUpdate() {
+		this.paymentConfirmModel.controls['paymentCard'].setValue(false);
+		if (this.btn_class2 != 'btn-danger') {
+			this.btn_class1 = 'btn-default';
+			this.btn_class2 = 'btn-danger';
+			document.getElementById('showCards').style.display = 'none';
+		}	
+	}
+
+	private goFurther(id){
+		$("[id$='Section']").css("display","none"); 
+	    document.getElementById(id).style.display = 'block';
+	}
+
+	private acceptOnlinePayment(){
+		if (this.btn_class1 == 'btn-success') {
+			document.getElementById('firstSection').style.display = 'none';
+			document.getElementById('secondSection').style.display = 'block';
+		}
+		if (this.btn_class2 == 'btn-danger') {
+			let obj = {};
+			obj['onlinepayment'] = false;
+			obj['_id'] = this.restaurants._id;
+			this.restaurantsService.updateRestaurant(obj).subscribe(users => {
+	    		toastr.success('Payment option has been saved successfully');
+				this.router.navigate(['/owner/restaurant-paymentoption']);
+			});
+		}
+	}
+
+	private showDetail(){
+		this.show = !this.show;
+	}
+
+	private cardDetailSubmit(id){
+		let obj = {};
+		obj['_id'] = this.restaurants._id;
+		obj['onlinepayment'] = true;
+		obj['billingaddress'] = this.billingDetailModel.value;
+    	console.log('obj');
+    	console.log(obj);
+
+    	this.restaurantsService.updateRestaurant(obj).subscribe(users => {
+    		console.log(users)
+			toastr.success('Payment done successfully');
+		});
+
+		this.goFurther(id);
+		/*document.getElementById('firstSection').style.display = 'none';
+		document.getElementById('secondSection').style.display = 'none';
+		document.getElementById('thirdSection').style.display = 'none';
+		document.getElementById('forthSection').style.display = 'none';
+		document.getElementById('fifthSection').style.display = 'none';
+		document.getElementById('sixthSection').style.display = 'block';*/
+		/*console.log("this.cardDetailModel.value");
+		console.log(this.cardDetailModel.value);*/
+	}
+
+	private providerSetting(){
+		toastr.success('Successful');
+		console.log("this.providerModel.value");
+		console.log(this.providerModel.value);
+		let obj = {};
+		obj['_id'] = this.restaurants._id;
+		obj['paymentcredential'] = this.providerModel.value;
+    	this.restaurantsService.updateRestaurant(obj).subscribe(users => {
+    		toastr.success('Credential has been saved successfully');
+			this.router.navigate(['/owner/restaurant-paymentoption']);
+		});
+		
+	}
+
+}
 

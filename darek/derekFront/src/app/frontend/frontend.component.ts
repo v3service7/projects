@@ -3,13 +3,15 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 import { AlertService, RestaurantsService, UsersService, KitchenMenuService, KitchenItemService, MasterService,CustomersService} from '../service/index';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import * as globalVariable from "../global";
-import { FlashMessagesService } from 'angular2-flash-messages';
-import {TranslateService} from 'ng2-translate';
+//import { FlashMessagesService } from 'angular2-flash-messages';
+//import {TranslateService} from 'ng2-translate';
+import {TranslateService} from '@ngx-translate/core';
 import { FileUploader } from 'ng2-file-upload';
 // import { ToastsManager,Toast } from 'ng2-toastr/ng2-toastr';
 
 declare var google: any;
 declare var toastr: any;
+declare var $: any;
 
 @Component({
     selector: 'app-frontendheader',
@@ -25,6 +27,12 @@ export class FrontendHeaderComponent implements OnInit {
     cart:any =[];
     currentCustomer:any;
     currentCustomerId:any;
+    currentDate:any;
+    date : any;
+    time : any;
+    day : any;
+    resTime:any={};
+    showOpeningHour : boolean = false;
     constructor(
         private masterService: MasterService,
         private restaurantsService: RestaurantsService,
@@ -44,7 +52,53 @@ export class FrontendHeaderComponent implements OnInit {
                 this.getCurrentCustomer(this.currentCustomerId);
             }
         });
+
+        this.currentDate = new Date();
+        this.date = this.currentDate.toLocaleDateString();
+        var h = this.addZero(this.currentDate.getHours());
+        var m = this.addZero(this.currentDate.getMinutes());
+        var s = this.addZero(this.currentDate.getSeconds());
+
+
+        this.time = h+':'+m +':'+ s;
+
+        var days = ["sunday","monday","tuesday","wednesday","thursday","friday","saturday"];
+        this.day = days[this.currentDate.getDay()];
+
+        console.log(this.time);
     }
+
+    private addZero(i) {
+        if (i < 10) {
+            i = "0" + i;
+            }
+        return i;
+    }
+
+    private hideDiv(){
+        document.getElementById('closeNotification').style.display = 'none';
+    }
+
+    private checkOpenClose(restaurant){
+        for (var i in restaurant.openinghours) {
+            if (this.day == i) {
+                var ch = i+'time';
+                this.resTime['open'] = restaurant.openinghours[ch].opentime+':00'; 
+                this.resTime['close'] = restaurant.openinghours[ch].closetime+':00';
+                this.resTime['day'] = this.day;
+                if ((this.time >=  this.resTime.open) &&  (this.time <=  this.resTime.close)) {
+                    this.resTime['status'] = 'open';
+                }else{
+                    this.resTime['status'] = 'close';
+                }
+            }
+        }
+    }
+
+    private showOpeningHours(){
+        this.showOpeningHour = !this.showOpeningHour;
+    }
+
     private getCurrentCustomer(id){
         this.customerService.getOneCustomer(id).subscribe(
             users => {
@@ -60,6 +114,7 @@ export class FrontendHeaderComponent implements OnInit {
             this.restaurants = users.message;
             console.log("this.restaurants");
             console.log(this.restaurants);
+            this.checkOpenClose(this.restaurants);
         });
     }
 }
@@ -76,6 +131,7 @@ export class FrontendComponent implements OnInit {
     customerStorage : string;
     menus: any = [];
     items: any = [];
+    item: any;
     addOns: any = [];
     detailShow: String;
     price: number;
@@ -94,7 +150,13 @@ export class FrontendComponent implements OnInit {
     time : any;
     day : any;
     resTime:any={};
-    mandFlag : boolean = true;
+    mandDefaultCount: number=0;
+    mandCheckedCount: boolean;
+    mandStatus: boolean=true;
+    mand: number = 0;
+    tempGroup=[];
+    mandatoryItemId=[];
+    mandatoryItemIdList=[];
     constructor(
         private masterService: MasterService,
         private restaurantsService: RestaurantsService,
@@ -112,6 +174,7 @@ export class FrontendComponent implements OnInit {
             this.getRestaurants(id);
             this.locale(id);
             this.cartStorage = 'cart'+id;
+            this.customerStorage = 'currentCustomer'+id;
             var cartalready = JSON.parse(localStorage.getItem(this.cartStorage));
             if(cartalready){
                 this.totalOrder = JSON.parse(localStorage.getItem(this.cartStorage));
@@ -146,15 +209,19 @@ export class FrontendComponent implements OnInit {
         return i;
     }
 
-
     private locale(id){
         let langObj = 'lang'+id;
+        console.log('before');
+        console.log(localStorage.getItem(langObj));
         if (localStorage.getItem(langObj)) {
             this.translate.setDefaultLang(localStorage.getItem(langObj));
             this.translate.use(localStorage.getItem(langObj));
         }else{
+            localStorage.setItem(langObj,'en');
             this.translate.setDefaultLang('en');
             this.translate.use('en');
+            console.log('after');
+            console.log(localStorage.getItem(langObj));
         }
     }
 
@@ -181,7 +248,7 @@ export class FrontendComponent implements OnInit {
     }
     private getStyle(){
         if(this.resTime['status'] == 'close'){
-            return "-1";
+            return "1";
         }
         else{
             return "";
@@ -194,25 +261,33 @@ export class FrontendComponent implements OnInit {
         var m = this.addZero(currentDate2.getMinutes());
         var s = this.addZero(currentDate2.getSeconds());
         var time2 = h+':'+m;
-
         if (obj.isSpecific) {
-            for (var i in obj.openinghours) {
-                if (obj.openinghours[i] == true) {
-                    //console.log(i,obj.name,obj.openinghours.opentime,obj.openinghours.closetime,time2)
-                    if (/**/ (obj.openinghours.opentime <= time2) && (obj.openinghours.closetime >= time2)) {
-                       // console.log(i,obj.name)
-                        if (this.day == i) {
-                            return 'block';
-                        }
-                    }else{
-                        return 'none';
-                    }
+            if (obj.openinghours.opentime <= time2 && obj.openinghours.closetime >= this.time) {
+                if ((obj.openinghours.monday == true) && ('monday' == this.day)) {
+                    return 'block';
+                }else if ((obj.openinghours.tuesday == true) && ('tuesday' == this.day)) {
+                    return 'block';
+                }else if (obj.openinghours.wednesday == true && 'wednesday' == this.day) {
+                    return 'block';
+                }else if (obj.openinghours.thursday == true && 'thursday' == this.day) {
+                    return 'block';
+                }else if (obj.openinghours.friday == true && 'friday' == this.day) {
+                    return 'block';
+                }else if (obj.openinghours.saturday == true && 'saturday' == this.day) {
+                    return 'block';
+                }else if (obj.openinghours.sunday == true && 'sunday' == this.day) {
+                    return 'block';
+                }else{
+                    return 'none';
                 }
+            }else{
+                return 'none';
             }
         }else{
             return 'block';
         }
     }
+
     private loadAllUsers(id) {
         this.kitchenMenuService.getAll(id).subscribe(users => {       
             this.menus = users.message;
@@ -238,7 +313,7 @@ export class FrontendComponent implements OnInit {
     }
     private addToCartSuccess(){
         toastr.remove();
-        toastr.info(null, this.totalOrder.length+' Items Added');
+        toastr.info(null, this.totalOrder.length+' Items Added', {'positionClass' : 'toast-top-full-width'});
     }
     private showDiv(id) {
         if (this.detailShow == id) {
@@ -247,8 +322,15 @@ export class FrontendComponent implements OnInit {
     }
     private hideDiv() {
         this.detailShow=''; 
+        this.addonUncheck();
     }
-    private addToCart() {   
+
+    private addonUncheck(){
+        $('.subAddOnDetailList').css('background','white');
+        $('.subAddOnDetailList').attr('data-addon','check');
+    }
+
+    private addToCart() {
         this.totalOrder = JSON.parse(localStorage.getItem(this.cartStorage));
         /*if (this.totalOrder.length>0) {
             for (var i = 0; i < this.totalOrder.length; i++) {
@@ -265,7 +347,8 @@ export class FrontendComponent implements OnInit {
             this.totalOrder.push(this.orderItem);
             localStorage.setItem(this.cartStorage, JSON.stringify(this.totalOrder));
             this.addToCartSuccess();
-            this.detailShow='';
+            /*this.detailShow='';*/
+            this.hideDiv();
         // }
     }
 
@@ -284,34 +367,105 @@ export class FrontendComponent implements OnInit {
         }
     }
     
-    private mandatory(data, option, group){
+    private mandatory(data, option, group,type){
+        /*console.log("data, option, group");
+        console.log(data, option, group);
         console.log("data.length");
-        console.log(data.length);
+        console.log(data.length);*/
         if (group.groupType.gType == "mandatory") {
-            this.mandFlag = false;
+            var num = 0;
             var manda = [];
             for (var j = 0; j < data.length; j++) {
-                var num = data.reduce(function (n, x) {
+                num = data.reduce(function (n, x) {
                     return n + (x.groupId == group._id);
                 }, 0);
             }
             manda[group._id] = num;
-            if ((group.groupType.min <= num) && (group.groupType.max  >= num)) {
-                this.mandFlag = true;
-            }
-            else{
-                this.mandFlag = false;
-            }
-            console.log("manda");
-            console.log(manda);
-        }
-        if (data.length == 0) {
-            this.mandFlag = true;
-        }
 
+            this.mand = 0;
+            
+            /*for (var i = 0; i < this.mandatoryItemId.length; i++) {*/
+                /*if (this.mandatoryItemId[i] == group._id){*/
+                    
+                if (type == 'add') {                    
+                    if((group.groupType.min <= num) && (group.groupType.max >= num)) {
+                        this.mand ++;
+                        this.addRemoveGroup(type,group._id);
+                    }
+                    else{
+                        type = 'remove'
+                        this.mand --;
+                        this.addRemoveGroup(type,group._id);
+                    }
+                }
+
+                else if (type == 'remove') {                    
+                    if((group.groupType.min <= num) && (group.groupType.max >= num)) {
+                        type = 'add'
+                        this.mand ++;
+                        this.addRemoveGroup(type,group._id);
+                    }
+                    else{
+                        this.mand --;
+                        this.addRemoveGroup(type,group._id);
+                    }
+                }
+            if (this.mand != 1 && this.mandatoryItemId.length != this.mandDefaultCount) {
+                toastr.warning('Please ensure Minimum and Maximum Addons for this Item',null, {'positionClass' : 'toast-top-full-width'});
+            }
+
+
+
+
+                /*}
+                else{
+                    this.mand --;
+                }*/
+            /*}*/
+
+            /*if ((group.groupType.min <= num) && (group.groupType.max >= num)) {
+                this.mandStatus = false;
+            //   this.addRemoveGroup(type,group._id)
+            }
+            if (this.tempGroup.indexOf(group._id) > -1) {
+                if (type == 'remove') {
+                    this.mandCheckedCount--;
+                    this.tempGroup.splice(group._id, 1);
+                }
+            }else if (type == 'add') {
+                this.mandCheckedCount++;
+                this.tempGroup.push(group._id);
+            }*/
+
+            console.log(manda)
+            /*else{
+                this.mandDefaultCount = 0;
+            }*/
+        }
+        /*if (data.length == 0) {
+            this.mandDefaultCount = true;
+        }*/
+    }
+
+    addRemoveGroup(type,id){
+        if (this.mandatoryItemId.indexOf(id) > -1) {
+            if (type == 'remove') {
+                this.mandatoryItemId.splice(this.mandatoryItemId.indexOf(id), 1);
+            }
+        }
+        else if (type == 'add') {
+            this.mandatoryItemId.push(id);
+        }
     }
 
     private addonPriceInfo(addonObj,addonDetail,group,option) {
+        if (this.mandDefaultCount != 0) {
+            this.mandCheckedCount = false;
+        }
+        if (this.mandDefaultCount == 0) {
+            this.mandCheckedCount = true;
+        }
+        
         var isCheck = addonDetail.getAttribute('data-addon');
         var id = addonDetail.getAttribute('id');
         var groupId = group._id;
@@ -320,13 +474,27 @@ export class FrontendComponent implements OnInit {
             document.getElementById(id).setAttribute('data-addon','uncheck');
             addonObj.groupId = groupId;
             this.orderItem.addon.push(addonObj);
-            this.mandatory(this.orderItem.addon,option, group);
+            //this.addRemoveGroup('add',groupId);
+            this.mandatory(this.orderItem.addon,option, group,'add');
+            /*console.log("this.mand");
+            console.log(this.mand);
+            console.log("this.mandatoryItemId");
+            console.log(this.mandatoryItemId);*/
+            console.log('this.mandCheckedCount add')
+            console.log(this.mandCheckedCount)
             this.addonPrice = this.addonPrice + parseInt(addonObj.price);
             this.finalPrice = (this.multiSizePrice + this.price+ this.addonPrice)* this.quantity;
         }else{
             var addonIndex = this.orderItem.addon.findIndex(item => item._id == addonObj._id);
             this.orderItem.addon.splice(addonIndex, 1);
-            this.mandatory(this.orderItem.addon,option, group);
+            //this.addRemoveGroup('remove',groupId);
+            this.mandatory(this.orderItem.addon,option, group,'remove');
+            /*console.log("this.mand");
+            console.log(this.mand);
+            console.log("this.mandatoryItemId");
+            console.log(this.mandatoryItemId);*/
+            /*console.log('this.mandCheckedCount remove')
+            console.log(this.mandCheckedCount)*/
             document.getElementById(id).style.backgroundColor = '#fff';
             document.getElementById(id).setAttribute('data-addon','check');
             this.addonPrice = this.addonPrice - parseInt(addonObj.price);
@@ -334,6 +502,10 @@ export class FrontendComponent implements OnInit {
         }
         this.orderItem.totalPrice = this.finalPrice;
         this.orderItem.quantity = this.quantity;
+
+        if (this.mand == 1 && this.mandatoryItemId.length == this.mandDefaultCount) {
+            this.mandCheckedCount = true;
+        }
     }
 
     private multiSizePriceInfo(itemMultiSizeObj) {
@@ -345,6 +517,7 @@ export class FrontendComponent implements OnInit {
     }
 
     private quantityIncrement() {
+
         this.quantity = this.quantity +1;
         this.finalPrice = (this.multiSizePrice + this.price+ this.addonPrice)* this.quantity;
         this.orderItem.totalPrice = this.finalPrice;
@@ -360,7 +533,37 @@ export class FrontendComponent implements OnInit {
         }
     }
 
+    private loadThisItem(itemSent){
+        this.mandatoryItemId = [];
+        this.mandDefaultCount = 0;
+        if (itemSent.options.length > 0) {
+            for (var j = 0; j < itemSent.options.length; j++) {
+                if (itemSent.options[j].groupType) {
+                    if (itemSent.options[j].groupType.gType == 'mandatory') {
+                        this.mandDefaultCount++;
+                        //this.mandatoryItemIdList.push(itemSent.options[j]._id);
+                    }
+                }
+            }
+        }else{
+            this.mandCheckedCount = true;
+        }
+    }
+
     private showDetail(itemObj,itemMultiSizeObj) {
+        console.log("itemObj,itemMultiSizeObj");
+        console.log(itemObj,itemMultiSizeObj);
+
+        this.mandCheckedCount = false;
+        this.loadThisItem(itemObj);
+        console.log("this.mandDefaultCount");
+        console.log(this.mandDefaultCount);
+
+        if (this.mandDefaultCount == 0) {
+            this.mandCheckedCount = true;
+        }
+
+
         this.detailShow = itemObj._id;
         this.multiSizePrice = 0;  
         this.price = 0;
@@ -398,6 +601,9 @@ export class FrontendComponent implements OnInit {
 export class FrontendDetailComponent implements OnInit {
     restaurants: any = {};
     cartStorage : string;
+    customerStorage : string;
+    currentCustomer:any;
+    currentCustomerId:any;
     delivery: any = {};
     deliverys: any = [];
     mypolygone: any = [];
@@ -413,7 +619,12 @@ export class FrontendDetailComponent implements OnInit {
         private router: Router,
         private activatedRoute:ActivatedRoute,
         private translate: TranslateService,
-        ) { }
+        ) { 
+            //translate.addLangs(["en", "fr","es","cn"]);
+            /*translate.setDefaultLang('en');
+            let browserLang = translate.getBrowserLang();
+            translate.use(browserLang.match(/en|fr|es|cn/) ? browserLang : 'en');*/
+        }
     ngOnInit() {
         this.activatedRoute.params.subscribe((params: Params) => {
             let id = params['id'];
@@ -421,9 +632,13 @@ export class FrontendDetailComponent implements OnInit {
             this.deliveryZone(id);
             this.locale(id);
             this.cartStorage = 'cart'+id;
+            this.customerStorage = 'currentCustomer'+id;
             this.cart = JSON.parse(localStorage.getItem(this.cartStorage));
         });
-       //this.translate.setDefaultLang(this.lang);
+        if (JSON.parse(localStorage.getItem(this.customerStorage))) {
+            this.currentCustomerId = JSON.parse(localStorage.getItem(this.customerStorage));
+        }
+       this.translate.setDefaultLang(this.lang);
     }
     selectLang(lang: string) {
         this.lang = lang;
@@ -444,7 +659,10 @@ export class FrontendDetailComponent implements OnInit {
             console.log(localStorage.getItem(langObj));
         }else{
             this.translate.setDefaultLang('en');
-            this.translate.use('en');
+            let browserLang = this.translate.getBrowserLang();
+            this.translate.use(browserLang.match(/en|fr|es|cn/) ? browserLang : 'en');
+            // this.translate.setDefaultLang('en');
+            // this.translate.use('en');
             this.lang = 'en';
         }
     }
@@ -587,7 +805,7 @@ export class FrontendCartComponent implements OnInit {
         private customerService: CustomersService,
         private router: Router,
         private activatedRoute:ActivatedRoute,
-        private _flashMessagesService: FlashMessagesService,
+        //private _flashMessagesService: FlashMessagesService,
         private translate: TranslateService,
         ) {
         this.showHideContactDetail = false;
@@ -646,7 +864,7 @@ export class FrontendCartComponent implements OnInit {
                 this.zoneCalculate(this.orderMethod);
             }
             this.editOrderMethod = true;
-            this.orderType = true;
+            //this.orderType = true;
             this.saveInfo();
             this.deliveryAddress=true;
         }
@@ -681,19 +899,31 @@ export class FrontendCartComponent implements OnInit {
 
         this.currentDate = new Date();
         this.date = this.currentDate.toLocaleDateString();
-        this.timeO = this.currentDate.getHours()+':'+this.currentDate.getMinutes() +':'+ this.currentDate.getSeconds();
+        var h = this.addZero(this.currentDate.getHours());
+        var m = this.addZero(this.currentDate.getMinutes());
+        var s = this.addZero(this.currentDate.getSeconds());
+
+        this.timeO = h+':'+m +':'+ s;
 
         var days = ["sunday","monday","tuesday","wednesday","thursday","friday","saturday"];
         this.dayO = days[this.currentDate.getDay()];
-
 
         (<HTMLInputElement>document.getElementById("paymentDiv")).style.display = 'none';
 
         this.makePaymentModel.valueChanges.subscribe(data => this.onValueChanged(data));
         this.onValueChanged(); // (re)set validation messages now
         this.yearAdd();
-    }
 
+        console.log("this.cart");
+        console.log(this.cart);
+
+    }
+    private addZero(i) {
+        if (i < 10) {
+            i = "0" + i;
+            }
+        return i;
+    }
     private yearAdd(){
         let dateObj = new Date();
         let currentYear = dateObj.getFullYear();
@@ -705,42 +935,34 @@ export class FrontendCartComponent implements OnInit {
         console.log(this.years);
     }
     onValueChanged(data?: any) {
-    if (!this.makePaymentModel){
-        return;
-    }
-    const form = this.makePaymentModel;
-
-    for (const field in this.formErrors) {
-      // clear previous error message (if any)
-      this.formErrors[field] = '';
-      const control = form.get(field);      
-      if (control && control.dirty && !control.valid) {
-        const messages = this.validationMessages[field];
-        for (const key in control.errors) {
-          this.formErrors[field] += messages[key] + ' ';          
+        if (!this.makePaymentModel){
+            return;
         }
-      }
+        const form = this.makePaymentModel;
+
+        for (const field in this.formErrors) {
+            // clear previous error message (if any)
+            this.formErrors[field] = '';
+            const control = form.get(field);      
+            if (control && control.dirty && !control.valid) {
+                const messages = this.validationMessages[field];
+                for (const key in control.errors) {
+                    this.formErrors[field] += messages[key] + ' ';          
+                }
+            }
+        }
     }
-  }
-
-
-  formErrors = {
-    'cardNumber': ''    
-  };
-
-  validationMessages = {
-    'cardNumber': {
-      'required':      'Card Number is required.',
-      'minlength':     'Card Number must be 16 character long.',
-      'maxlength':     'Card Number must be 16 character long.',
-      'pattern'   :    'Card Number contains Numberic only '
-    }          
-  };
-
-
-
-
-
+    formErrors = {
+        'cardNumber': ''    
+    };
+    validationMessages = {
+        'cardNumber': {
+            'required':      'Card Number is required.',
+            'minlength':     'Card Number must be 16 character long.',
+            'maxlength':     'Card Number must be 16 character long.',
+            'pattern'   :    'Card Number contains Numberic only '
+        }          
+    };
     private showCartDiv(){
         (<HTMLInputElement>document.getElementById("cartDetailDiv")).style.display = 'block';
         (<HTMLInputElement>document.getElementById("paymentDiv")).style.display = 'none';
@@ -749,37 +971,37 @@ export class FrontendCartComponent implements OnInit {
         let langObj = 'lang'+id;
         if (localStorage.getItem(langObj)) {
             this.translate.setDefaultLang(localStorage.getItem(langObj));
-            console.log(localStorage.getItem(langObj));
+            this.translate.use(localStorage.getItem(langObj));
         }else{
+            localStorage.setItem(langObj,'en');
             this.translate.setDefaultLang('en');
             this.translate.use('en');
         }
     }
     private basicDetailSuccess(){
         toastr.remove();
-        toastr.info('Basic Detail Updated','Information');
+        toastr.info('Basic Detail Updated','Information', {'positionClass' : 'toast-top-full-width'});
     }
     private orderMethodSuccess(){
         toastr.remove();
-        toastr.info('Order Method Updated','Information');   
+        toastr.info('Order Method Updated','Information', {'positionClass' : 'toast-top-full-width'});   
     }
     private orderTimeSuccess(){
         toastr.remove();
-        toastr.info('Order Type Updated','Information');
+        toastr.info('Order Type Updated','Information', {'positionClass' : 'toast-top-full-width'});
     }
     private orderPaymentSuccess(){
         toastr.remove();
-        toastr.info('Order Payment Method Updated','Information');   
+        toastr.info('Order Payment Method Updated','Information', {'positionClass' : 'toast-top-full-width'});   
     }
     private deleteSuccess(){
         toastr.remove();
-        toastr.info('Item Deleted!',null);   
+        toastr.info('Item Deleted!',null, {'positionClass' : 'toast-top-full-width'});   
     }
     private orderPlacedSuccess(){
         toastr.remove();
-        toastr.success('Your Order is Placed!','Thank You!!');   
+        toastr.success('Your Order is Placed!','Thank You!!', {'positionClass' : 'toast-top-full-width'});   
     }
-
     private checkOpenClose(restaurant){
         for (var i in restaurant.openinghours) {
             if (this.dayO == i) {
@@ -890,6 +1112,8 @@ export class FrontendCartComponent implements OnInit {
         }
     }
     private zoneCalculate(method){
+        console.log("this.delivery");
+        console.log(this.delivery);
         this.customerService.getLatLng(method).subscribe(data => {
             this.orderMethod = {"streetName": this.addressForm.value.streetName, "city": this.addressForm.value.city, "postcode": this.addressForm.value.postcode,"lat": data.message.lat,"lng": data.message.lng,"mType":'Delivery'};
             localStorage.setItem(this.orderMethodStorage, JSON.stringify(this.orderMethod));
@@ -918,7 +1142,17 @@ export class FrontendCartComponent implements OnInit {
                 var zones = this.calculateDeliveryZone(this.delivery[i],latLngDeliveryAddress,map,marker);
                 if (typeof zones != 'undefined') {
                     this.zoneObject.push(zones);
+                        console.log("zones");
+                        console.log(this.zoneObject);
+                        console.log(zones);
                 }
+
+                if (typeof zones == 'undefined') {
+                    console.log("zones when undefined");
+                    console.log(this.zoneObject);
+                    console.log(zones);
+                }
+
             }
             if (this.zoneObject.length > 0) {
                 this.deliveryFee = parseInt(this.zoneObject[0].deliveryfee);
@@ -931,8 +1165,23 @@ export class FrontendCartComponent implements OnInit {
                     }
                 }
                 this.cartDetail.deliveryfee = this.deliveryFee;
+                toastr.info('Delivery Available',null,{'positionClass' : 'toast-top-full-width'});
                 this.update();
+                console.log("this.zoneObject");
+                console.log(this.zoneObject);
             }
+            
+            if (this.zoneObject.length == 0) {
+                this.deliveryFee = 0;
+                this.amount = 0;
+                this.orderType = false;
+                this.cartDetail.deliveryfee = this.deliveryFee;
+                this.update();
+                toastr.warning('No delivery Available on this address','Try Again',{'positionClass' : 'toast-top-full-width'});
+                console.log("this.zoneObject.length is zero");
+                console.log(this.zoneObject);
+            }
+
         });
     }
     private saveAddressInfo(){
@@ -946,17 +1195,15 @@ export class FrontendCartComponent implements OnInit {
         this.editOrderMethod = true;
         this.saveInfo();
         this.changeShowOrderingStatus();
-        this.orderMethodSuccess();
+        //this.orderMethodSuccess();
         localStorage.removeItem(this.orderPaymentStorage);
         this.orderPayment={};
     }
-
     private editOrder(){
         this.editOrderMethod = !this.editOrderMethod;
         this.showHideOrderingMethod = true;
         this.deliveryAddress = true;
     }
-
     private setTime(id){
         if (id=="now") {
             this.delLater=false;
@@ -1052,10 +1299,15 @@ export class FrontendCartComponent implements OnInit {
         for (var i = 0; i < this.cart.length; ++i) {
             this.grandTotal = this.grandTotal+this.cart[i].totalPrice;
         }
-        this.grandTotalWithTax =this.deliveryFee + ((parseInt(this.restaurants.taxation.taxpercent) + 100)/100) * this.grandTotal;
         this.cartDetail.subTotal=this.grandTotal;
+        if (typeof this.restaurants.taxation != 'undefined') {        
+            this.grandTotalWithTax = this.deliveryFee + ((parseInt(this.restaurants.taxation.taxpercent) + 100)/100) * this.grandTotal;
+        }else{
+            this.grandTotalWithTax =this.deliveryFee + this.grandTotal;
+        }
+
         this.cartDetail.gTotal=this.grandTotalWithTax.toFixed(2) ;
-        this.cartDetail.orderMethod=this.orderMethod ;
+        this.cartDetail.orderMethod=this.orderMethod;
         this.saveInfo();
     }
     private deleteCart(index) {
@@ -1070,7 +1322,11 @@ export class FrontendCartComponent implements OnInit {
         this.restaurantsService.getOne(id).subscribe(users => {
             this.restaurants = users.message;
             this.update();
-            this.cartDetail.tax=this.restaurants.taxation.taxpercent;
+            if (typeof this.restaurants.taxation != 'undefined') {
+                this.cartDetail.tax=this.restaurants.taxation.taxpercent;
+            }else{
+                this.cartDetail.tax=0;
+            }
             this.checkOpenClose(this.restaurants);
         });
     }
@@ -1079,11 +1335,10 @@ export class FrontendCartComponent implements OnInit {
             this.delivery = users.message;
         });
     }
-
     private placeOrder(){
         this.cartDetail.orderTime = this.orderTime;
         this.cartDetail.orderPayment = this.orderPayment;
-        this.cartDetail.status = 'Accepted';
+        this.cartDetail.status = 'Received';
 
         if (this.cartDetail.orderPayment) {
             if (this.cartDetail.orderPayment.cardinternet == true) {
@@ -1101,19 +1356,10 @@ export class FrontendCartComponent implements OnInit {
             }
         }
 
+        //localStorage.setItem('cartDetail',JSON.stringify(this.cartDetail));
         console.log("this.cartDetail");
         console.log(this.cartDetail);
-
-       /* this.customerService.addOrder(this.cartDetail).subscribe(
-          (data) => {
-            this.user = data.message;
-            localStorage.setItem(this.cartStorage,'[]');
-            this.orderPlacedSuccess();
-            this.router.navigate(['/frontend',this.restaurants._id]);
-            }
-        );*/
     }
-
     private makePayment(){
         this.hmacGenerate();
         this.customerService.addOrder(this.cartDetail).subscribe(
@@ -1124,7 +1370,6 @@ export class FrontendCartComponent implements OnInit {
             this.router.navigate(['/frontend',this.restaurants._id]);
         });
     }
-
     private hmacGenerate(){
         var apiKey = "orC0OGDhIz3NUg2HShAzczEeM18Zaciw";
         var apiSecret = "e71e64ce4eddfa0920c42d030207933166b9c8166874d0b0d65bfce10ddb8c5f";
@@ -1136,6 +1381,63 @@ export class FrontendCartComponent implements OnInit {
         var hashAlgorithm = "sha256";
         //var hmac = hash_hmac( hashAlgorithm , data , apiSecret, false );
         return hashAlgorithm;
+    }
+    private quantityIncrement(index) {
+        var addonPrice = 0;
+        var itemPrice = 0;
+        var multisizePrice = 0;
+        var totalprice = 0;
+        itemPrice= this.cartDetail.orders[index].item.price;
+        if (this.cartDetail.orders[index].addon.length > 0) {
+            for (var i = 0; i < this.cartDetail.orders[index].addon.length; i++) {
+                addonPrice = parseInt(this.cartDetail.orders[index].addon[i].price) + addonPrice;
+                console.log(addonPrice);
+            }
+        }
+        if (this.cartDetail.orders[index].multisize) {
+            multisizePrice = parseInt(this.cartDetail.orders[index].multisize.price);
+        }
+
+        totalprice = addonPrice + itemPrice + multisizePrice;
+
+        console.log(totalprice);
+        this.cartDetail.orders[index].quantity = this.cartDetail.orders[index].quantity + 1;
+        this.cartDetail.orders[index].totalPrice = totalprice * this.cartDetail.orders[index].quantity;
+
+        localStorage.setItem(this.cartStorage,JSON.stringify(this.cartDetail.orders));
+
+        this.cart = JSON.parse(localStorage.getItem(this.cartStorage));
+        this.update();
+    }
+    private quantityDecrement(index) {
+        if (this.cartDetail.orders[index].quantity > 1) {
+            var addonPrice = 0;
+            var itemPrice = 0;
+            var multisizePrice = 0;
+            var totalprice = 0;
+            itemPrice= this.cartDetail.orders[index].item.price;
+            if (this.cartDetail.orders[index].addon.length > 0) {
+                for (var i = 0; i < this.cartDetail.orders[index].addon.length; i++) {
+                    addonPrice = parseInt(this.cartDetail.orders[index].addon[i].price) + addonPrice;
+                    console.log(addonPrice);
+                }
+            }
+            if (this.cartDetail.orders[index].multisize) {
+                multisizePrice = parseInt(this.cartDetail.orders[index].multisize.price);
+            }
+
+            totalprice = addonPrice + itemPrice + multisizePrice;
+            
+            this.cartDetail.orders[index].quantity = this.cartDetail.orders[index].quantity - 1;
+            this.cartDetail.orders[index].totalPrice = totalprice * this.cartDetail.orders[index].quantity;
+        }
+        else{
+            toastr.warning('Atleast 1 Item is Mandatory',null, {'positionClass' : 'toast-top-full-width'});
+        }
+        localStorage.setItem(this.cartStorage,JSON.stringify(this.cartDetail.orders));
+
+        this.cart = JSON.parse(localStorage.getItem(this.cartStorage));
+        this.update();
     }
 }
 
@@ -1168,7 +1470,7 @@ export class FrontendLoginComponent implements OnInit {
         private router: Router,
         private route: ActivatedRoute,
         private alertService: AlertService,
-        private _flashMessagesService: FlashMessagesService,
+        //private _flashMessagesService: FlashMessagesService,
         private restaurantsService: RestaurantsService,
         private translate: TranslateService,
         )
@@ -1195,38 +1497,52 @@ export class FrontendLoginComponent implements OnInit {
             let id = params['id'];
             this.id= params['id'];
             this.getRestaurants(id);
+            this.locale(id);
             this.customerStorage = 'currentCustomer' + id;
             this.customerService.customerLogout(this.customerStorage);
         });
-        this.currentDate = new Date();
+                this.currentDate = new Date();
         this.date = this.currentDate.toLocaleDateString();
-        this.time = this.currentDate.getHours()+':'+this.currentDate.getMinutes() +':'+ this.currentDate.getSeconds();
+        var h = this.addZero(this.currentDate.getHours());
+        var m = this.addZero(this.currentDate.getMinutes());
+        var s = this.addZero(this.currentDate.getSeconds());
+
+
+        this.time = h+':'+m +':'+ s;
 
         var days = ["sunday","monday","tuesday","wednesday","thursday","friday","saturday"];
         this.day = days[this.currentDate.getDay()];
     }
+
+    private addZero(i) {
+        if (i < 10) {
+            i = "0" + i;
+            }
+        return i;
+    }
+    
     private locale(id){
         let langObj = 'lang'+id;
         if (localStorage.getItem(langObj)) {
             this.translate.setDefaultLang(localStorage.getItem(langObj));
-            console.log(localStorage.getItem(langObj));
+            this.translate.use(localStorage.getItem(langObj));
         }else{
+            localStorage.setItem(langObj,'en');
             this.translate.setDefaultLang('en');
             this.translate.use('en');
         }
     }
-
     showSuccessLogin() {
         toastr.remove();
-        toastr.success('You are successfully Logged In!', 'Success!');
+        toastr.success('You are successfully Logged In!', 'Success!', {'positionClass' : 'toast-top-full-width'});
       }
     showSuccessRegister() {
         toastr.remove();
-        toastr.success('Registration successfully!', 'Success!');
+        toastr.success('Registration successfully!', 'Success!', {'positionClass' : 'toast-top-full-width'});
       }
     showErrorLogin() {
         toastr.remove();
-        toastr.warning('Incorrect Validations!', 'Oops!');
+        toastr.warning('Incorrect Validations!', 'Oops!', {'positionClass' : 'toast-top-full-width'});
     }
 
     private checkOpenClose(restaurant){
@@ -1310,7 +1626,7 @@ export class FrontendForgetPasswordComponent implements OnInit {
         private router: Router,
         private route: ActivatedRoute,
         private alertService: AlertService,
-        private _flashMessagesService: FlashMessagesService,
+        //private _flashMessagesService: FlashMessagesService,
         private restaurantsService: RestaurantsService,
         private translate: TranslateService,
         ) { }
@@ -1322,6 +1638,7 @@ export class FrontendForgetPasswordComponent implements OnInit {
         this.route.params.subscribe((params: Params) => {
             let id = params['id'];
             this.getRestaurants(id);
+            this.locale(id);
         });
     }
 
@@ -1329,8 +1646,9 @@ export class FrontendForgetPasswordComponent implements OnInit {
         let langObj = 'lang'+id;
         if (localStorage.getItem(langObj)) {
             this.translate.setDefaultLang(localStorage.getItem(langObj));
-            console.log(localStorage.getItem(langObj));
+            this.translate.use(localStorage.getItem(langObj));
         }else{
+            localStorage.setItem(langObj,'en');
             this.translate.setDefaultLang('en');
             this.translate.use('en');
         }
@@ -1345,12 +1663,12 @@ export class FrontendForgetPasswordComponent implements OnInit {
 
     private showSuccessMsg(){
         toastr.remove();
-        toastr.info('check ur email', 'Email Sent!');
+        toastr.info('check ur email', 'Email Sent!', {'positionClass' : 'toast-top-full-width'});
     }
 
     private emailDontExist(){
         toastr.remove();
-        toastr.warning('Email Dont Exist', 'Try Again!');
+        toastr.warning('Email Dont Exist', 'Try Again!', {'positionClass' : 'toast-top-full-width'});
     }
 
     private forgetPass(){
@@ -1387,13 +1705,14 @@ export class FrontendResetPasswordComponent implements OnInit {
         private router: Router,
         private route: ActivatedRoute,
         private alertService: AlertService,
-        private _flashMessagesService: FlashMessagesService,
+        //private _flashMessagesService: FlashMessagesService,
         private restaurantsService: RestaurantsService,
         private translate: TranslateService,
         ) { }
     ngOnInit() {
         this.route.params.subscribe((params: Params) => {
             this.id = params['id'];
+            this.locale(this.id);
         });
         this.forgetForm = this.lf.group({
             password: ['', Validators.required],
@@ -1405,8 +1724,9 @@ export class FrontendResetPasswordComponent implements OnInit {
         let langObj = 'lang'+id;
         if (localStorage.getItem(langObj)) {
             this.translate.setDefaultLang(localStorage.getItem(langObj));
-            console.log(localStorage.getItem(langObj));
+            this.translate.use(localStorage.getItem(langObj));
         }else{
+            localStorage.setItem(langObj,'en');
             this.translate.setDefaultLang('en');
             this.translate.use('en');
         }
@@ -1414,12 +1734,12 @@ export class FrontendResetPasswordComponent implements OnInit {
 
     private showSuccessMsg(){
         toastr.remove();
-        toastr.success('Password Successfully Changed', 'Success!');
+        toastr.success('Password Successfully Changed', 'Success!', {'positionClass' : 'toast-top-full-width'});
     }
 
     private showErrorMsg(){
         toastr.remove();
-        toastr.error('Password do not Match', 'Incorrect Password!');
+        toastr.error('Password do not Match', 'Incorrect Password!', {'positionClass' : 'toast-top-full-width'});
     }
 
     private resetPass(){
@@ -1460,7 +1780,7 @@ export class FrontendUserProfileComponent implements OnInit {
         private router: Router,
         private route: ActivatedRoute,
         private alertService: AlertService,
-        private _flashMessagesService: FlashMessagesService,
+        //private _flashMessagesService: FlashMessagesService,
         private restaurantsService: RestaurantsService,
         private translate: TranslateService,
         ) { }
@@ -1469,6 +1789,7 @@ export class FrontendUserProfileComponent implements OnInit {
         this.route.params.subscribe((params: Params) => {
             this.id = params['id'];
             this.getRestaurants(this.id);
+            this.locale(this.id);
             this.customerStorage = 'currentCustomer' + this.id;
         });
         if (JSON.parse(localStorage.getItem(this.customerStorage))) {
@@ -1491,8 +1812,9 @@ export class FrontendUserProfileComponent implements OnInit {
         let langObj = 'lang'+id;
         if (localStorage.getItem(langObj)) {
             this.translate.setDefaultLang(localStorage.getItem(langObj));
-            console.log(localStorage.getItem(langObj));
+            this.translate.use(localStorage.getItem(langObj));
         }else{
+            localStorage.setItem(langObj,'en');
             this.translate.setDefaultLang('en');
             this.translate.use('en');
         }
@@ -1516,33 +1838,42 @@ export class FrontendUserProfileComponent implements OnInit {
 
     private profilePicUploaded(){
         toastr.remove();
-        toastr.success('Profile Pic Uploaded Successfully', 'Success!');
+        toastr.success('Profile Pic Uploaded Successfully', 'Success!', {'positionClass' : 'toast-top-full-width'});
     }
 
     private showSuccessMsg(){
         toastr.remove();
-        toastr.success('Profile Updated Successfuly', 'Success!');
+        toastr.success('Profile Updated Successfuly', 'Success!', {'positionClass' : 'toast-top-full-width'});
     }
 
     onChange(event) {
-        var files = event.srcElement.files;
-        this.uploader.uploadAll();
-        this.uploader.onCompleteItem = (item: any, response: any, status: any, headers: any) => {
-            var responsePath = JSON.parse(response);
-            this.profileForm.controls['image'].setValue(responsePath.filename);
-            this.profilePicUploaded();
-        };
+        var files = event.target.files;
+        this.profileForm.controls['image'].setValue(files[0].name);
     }
 
     private saveProfile(){
-        console.log("this.profileForm.value");
-        console.log(this.profileForm.value);
-        this.customerService.updateCustomer(this.profileForm.value).subscribe(
-            (data) => {
-                this.showSuccessMsg();
-            }
-        );
-        this.router.navigate(['/frontend',this.id]);
+        if (this.profileForm.value.image == this.currentCustomer.image) {
+            this.customerService.updateCustomer(this.profileForm.value).subscribe(
+                (data) => {
+                    this.showSuccessMsg();
+                }
+            );
+            this.router.navigate(['/frontend',this.id]);
+        }else{
+            this.uploader.uploadAll();
+            this.uploader.onCompleteItem = (item: any, response: any, status: any, headers: any) => {
+                var responsePath = JSON.parse(response);
+                this.profileForm.controls['image'].setValue(responsePath.filename);
+                this.profilePicUploaded();
+                this.customerService.updateCustomer(this.profileForm.value).subscribe(
+                    (data) => {
+                        this.showSuccessMsg();
+                    }
+                );
+                this.router.navigate(['/frontend',this.id]);
+            };
+
+        }
     }
 }
 
@@ -1568,13 +1899,14 @@ export class FrontendChangePasswordComponent implements OnInit {
         private router: Router,
         private route: ActivatedRoute,
         private alertService: AlertService,
-        private _flashMessagesService: FlashMessagesService,
+        //private _flashMessagesService: FlashMessagesService,
         private restaurantsService: RestaurantsService,
         private translate: TranslateService,
         ) { }
     ngOnInit() {
         this.route.params.subscribe((params: Params) => {
             this.id = params['id'];
+            this.locale(this.id);
             this.customerStorage = 'currentCustomer' + this.id;
         });
         
@@ -1594,21 +1926,21 @@ export class FrontendChangePasswordComponent implements OnInit {
         let langObj = 'lang'+id;
         if (localStorage.getItem(langObj)) {
             this.translate.setDefaultLang(localStorage.getItem(langObj));
-            console.log(localStorage.getItem(langObj));
+            this.translate.use(localStorage.getItem(langObj));
         }else{
+            localStorage.setItem(langObj,'en');
             this.translate.setDefaultLang('en');
             this.translate.use('en');
         }
     }
 
-
     private showSuccessMsg() {
         toastr.remove();
-        toastr.success('Password Changed!', 'Success!');
+        toastr.success('Password Changed!', 'Success!', {'positionClass' : 'toast-top-full-width'});
       }
     private showErrorMsg() {
         toastr.remove();
-        toastr.error('Password do not Match', 'Incorrect Password!');
+        toastr.error('Password do not Match', 'Incorrect Password!', {'positionClass' : 'toast-top-full-width'});
     }
 
     private getCurrentCustomer(id){

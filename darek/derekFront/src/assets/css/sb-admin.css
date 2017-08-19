@@ -246,31 +246,37 @@ a {
     color: black;   
 }
 
+.rightMenu1 {
+    padding: 0;
+}
+
 .option-menu > li:hover{
    background-color:#5AC15E;
 }
 
-<!--#basic-option, #service, #taxes, #orders, #publishing, #payment, #setting{
+#basic-option, #service, #taxes, #orders, #publishing, #payment, #setting{
    color: grey;
-}-->
+}
 
-ul.leftMenuUl li{
+/*ul.leftMenuUl li{
     max-width: 500px;
     min-width: 300px;
-/*  width: 320px;*/
+    width: 320px;
     font-size: 1em;
-    /*left:-40px;*/
-    }
-
-.leftMenu .option-menu li{
     left:-40px;
-    /*width: 320px;*/
+    }*/
+
+/*.leftMenu .option-menu li{
+    left:-40px;
+    width: 320px;
     font-size: 1em;
     width: 113.5%;
 }
+*/
 
 .leftMenuUl .list-group-item{
     font-size: 1em;
+    border-radius: 0;
 }
 
 h5{
@@ -288,6 +294,7 @@ h5{
     padding-top: 2%;
     background: lightgray;
     height: 100%;
+    min-height: 585px;
 }
 
 legend{
@@ -405,6 +412,9 @@ a {
    text-decoration: none !important;
     color: black;   
 }
+ul.leftMenuUl div ul.option-menu{
+    padding: 0;
+}
 
 .option-menu > li:hover{
    background-color:#5AC15E;
@@ -420,14 +430,16 @@ ul.leftMenuUl li{
     }
 
 .leftMenu .option-menu li{
-    left:-41px;
-    width: 114%;
+    /*left:-41px;
+    width: 114%;*/
     font-size: 1em;
     cursor:pointer;
+    font-weight: 100;
 }
 
 .leftMenuUl .list-group-item{
     font-size: 1em;
+     font-weight: 600;
 }
 
 h5{
@@ -445,7 +457,13 @@ h5{
     font-size: 15px;
     color: #777;
 }
-.collapse > ul > li > a:hover , .leftMenuUl .collapse > ul > li:hover a{
+
+.fa-check{
+    float: right;
+    color:#5AC15E;
+}
+
+.collapse > ul > li > a:hover , .leftMenuUl .collapse > ul > li:hover a, .leftMenuUl .collapse > ul > li:hover i.fa-check{
     color: white;
 }
 

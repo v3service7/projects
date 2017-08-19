@@ -6,7 +6,7 @@ import { UsersComponent, UsersupdateComponent, UsersaddComponent, AdminComponent
 
 import { RestaurantsComponent, RestaurantaddComponent, RestaurantupdateComponent,  RestaurantupdateownerComponent, RestaurantlocationComponent, RestaurantconfirmationComponent,OwnermailactivateComponent} from './restaurants/index';
 
-import {RestaurantOwnerPickupComponent, RestaurantOwnerOrderForLaterComponent, RestaurantOwnerTaxationComponent, RestaurantOwnerPaymentOptionComponent, RestaurantOwnerOpeningHoursComponent, RestaurantOwnerDeliveryZoneComponent, KitchenMenuListComponent, KitchenMenuAddComponent, KitchenMenuUpdateComponent,KitchenitemComponent,KitchenMenuItemUpdateComponent,LegacyComponent,LegacycodeComponent, NotificationComponent, SupportedLanguagesComponent,OnlinePaymentComponent} from './serviceandopening/index';
+import {RestaurantOwnerPickupComponent, RestaurantOwnerOrderForLaterComponent, RestaurantOwnerTaxationComponent, RestaurantOwnerPaymentOptionComponent, RestaurantOwnerOpeningHoursComponent, RestaurantOwnerDeliveryZoneComponent, KitchenMenuListComponent,LegacyComponent,LegacycodeComponent, NotificationComponent, SupportedLanguagesComponent,OnlinePaymentComponent} from './serviceandopening/index';
 
 import { OwnerDriversComponent, OwnerDriversupdateComponent,OwnerDriversaddComponent} from './ownerdrivers/index';
 
@@ -29,6 +29,8 @@ import { AuthGuard,OwnerAuthGuard} from './guards/index';
 import { FrontendHeaderComponent, FrontendComponent, FrontendDetailComponent, FrontendCartComponent, FrontendLoginComponent, FrontendForgetPasswordComponent,FrontendResetPasswordComponent,FrontendUserProfileComponent,FrontendChangePasswordComponent} from './frontend/frontend.component';
 
 import { ReportingComponent,ReportingnavComponent,ReportingoverviewComponent,ReportingMethodComponent,ReportingResultComponent,ReportingTypeComponent,ReportingPaymentMethodComponent,ReportingItemsComponent,ReportingItemCategoriesComponent,ReportingClientComponent,ReportingOrderComponent,ReportingDetailComponent,ReportingSaleDetailComponent} from './reporting/reporting.component';
+
+import { MarketingComponent,MarketingNavComponent,MarketingOverviewComponent,MarketingPromotionsComponent,MarketingPromotionsListComponent,MarketingPromotionsTemplateComponent, MarketingPromotionsSubscriptionComponent, MarketingStatsComponent } from './marketing/marketing.component';
 
 const appRoutes: Routes = [
   { path: 'admin/login', component: LoginComponent },
@@ -56,59 +58,65 @@ const appRoutes: Routes = [
   { path: 'admin/promotions', component: PromotionsComponent, canActivate: [AuthGuard],children :[]  },
   { path: 'admin/promotions/:id', component: PromotionupdateComponent, canActivate: [AuthGuard]  },
   { path: 'admin/promotion/add', component: PromotionaddComponent, canActivate: [AuthGuard]  },
-
-      { path: 'admin/language', component: LanguageComponent, canActivate: [AuthGuard],children :[
-        { path: '', component: LanguagelistComponent, canActivate: [AuthGuard]  },
-        { path: 'add', component: LanguageaddComponent, canActivate: [AuthGuard]  },
-        { path: 'edit/:id', component: LanguageupdateComponent, canActivate: [AuthGuard]  },
-    ]},
+    { path: 'admin/language', component: LanguageComponent, canActivate: [AuthGuard],children :[
+      { path: '', component: LanguagelistComponent, canActivate: [AuthGuard]  },
+      { path: 'add', component: LanguageaddComponent, canActivate: [AuthGuard]  },
+      { path: 'edit/:id', component: LanguageupdateComponent, canActivate: [AuthGuard]  },
+  ]},
   
   { path: 'owner', component: OwnerComponent, children :[
-        { path: '', component: OwnerloginComponent },
-        { path: 'login', component: OwnerloginComponent },
-        { path: 'register', component: OwnerregisterComponent },
-        { path: 'forget-password', component: ForgetOwnerComponent },
-        { path: 'resetpassword/:id', component: ResetPasswordOwnerComponent },
-        { path: 'change-password', component: OwnerchangepasswordComponent, canActivate: [OwnerAuthGuard]  },
-        { path: 'mailactivate/:id', component: OwnermailactivateComponent, canActivate: [OwnerAuthGuard]  },
-        { path: 'profile', component: OwnerprofileComponent, canActivate: [OwnerAuthGuard]  },
-        { path: 'basic-detail', component: RestaurantupdateownerComponent, canActivate: [OwnerAuthGuard]  },
-        { path: 'restaurant-location', component: RestaurantlocationComponent, canActivate: [OwnerAuthGuard]  },
-        { path: 'restaurant-confirm', component: RestaurantconfirmationComponent, canActivate: [OwnerAuthGuard]  },
-        { path: 'restaurant-pickup', component: RestaurantOwnerPickupComponent, canActivate: [OwnerAuthGuard]},
-        { path: 'restaurant-orderforlater', component: RestaurantOwnerOrderForLaterComponent, canActivate: [OwnerAuthGuard]},
-        { path: 'restaurant-taxation', component: RestaurantOwnerTaxationComponent, canActivate: [OwnerAuthGuard]},
-        { path: 'restaurant-paymentoption', component: RestaurantOwnerPaymentOptionComponent, canActivate: [OwnerAuthGuard]},
-        { path: 'restaurant-openinghours', component: RestaurantOwnerOpeningHoursComponent, canActivate: [OwnerAuthGuard]},
-        { path: 'restaurant-deliveryzone', component: RestaurantOwnerDeliveryZoneComponent, canActivate: [OwnerAuthGuard]},
-        { path: 'menu-list', component: KitchenMenuListComponent, canActivate: [OwnerAuthGuard]  },
-        { path: 'menu-add', component: KitchenMenuAddComponent, canActivate: [OwnerAuthGuard]  },
-        { path: 'menu-edit/:id', component: KitchenMenuUpdateComponent, canActivate: [OwnerAuthGuard]  },
-        { path: 'item-add/:id', component: KitchenitemComponent, canActivate: [OwnerAuthGuard]  },
-        { path: 'item-edit/:id', component: KitchenMenuItemUpdateComponent, canActivate: [OwnerAuthGuard]  },
-        { path: 'drivers', component: OwnerDriversComponent, canActivate: [OwnerAuthGuard] },
-        { path: 'drivers/:id', component: OwnerDriversupdateComponent, canActivate: [OwnerAuthGuard]  },
-        { path: 'driver-add', component: OwnerDriversaddComponent, canActivate: [OwnerAuthGuard]  },
-        { path: 'legacy', component: LegacyComponent, canActivate: [OwnerAuthGuard]  },
-        { path: 'online-payment', component: OnlinePaymentComponent, canActivate: [OwnerAuthGuard]  },
-        { path: 'legacy-code/:id', component: LegacycodeComponent, canActivate: [OwnerAuthGuard]  },
-        { path: 'notification', component: NotificationComponent, canActivate: [OwnerAuthGuard]  },
-        { path: 'supported-languages', component: SupportedLanguagesComponent, canActivate: [OwnerAuthGuard]  },
-        { path: 'reports', component: ReportingComponent, canActivate: [OwnerAuthGuard],children:[
-          { path: 'overview', component: ReportingoverviewComponent, canActivate: [OwnerAuthGuard]  },
-          { path: 'method', component: ReportingMethodComponent, canActivate: [OwnerAuthGuard]  },
-          { path: 'result', component: ReportingResultComponent, canActivate: [OwnerAuthGuard]  },
-          { path: 'sales-detail', component: ReportingSaleDetailComponent, canActivate: [OwnerAuthGuard]  },
-          { path: 'type', component: ReportingTypeComponent, canActivate: [OwnerAuthGuard]  },
-          { path: 'payment-method', component: ReportingPaymentMethodComponent, canActivate: [OwnerAuthGuard]  },
-          { path: 'items', component: ReportingItemsComponent, canActivate: [OwnerAuthGuard]  },
-          { path: 'item-categories', component: ReportingItemCategoriesComponent, canActivate: [OwnerAuthGuard]  },
-          { path: 'clients', component: ReportingClientComponent, canActivate: [OwnerAuthGuard]  },
-          { path: 'orders', component: ReportingOrderComponent, canActivate: [OwnerAuthGuard]  },
-          { path: 'detail/:id', component: ReportingDetailComponent, canActivate: [OwnerAuthGuard]  },
-        ]},
-
+    { path: '', component: OwnerloginComponent },
+    { path: 'login', component: OwnerloginComponent },
+    { path: 'register', component: OwnerregisterComponent },
+    { path: 'forget-password', component: ForgetOwnerComponent },
+    { path: 'resetpassword/:id', component: ResetPasswordOwnerComponent },
+    { path: 'change-password', component: OwnerchangepasswordComponent, canActivate: [OwnerAuthGuard]  },
+    { path: 'mailactivate/:id', component: OwnermailactivateComponent, canActivate: [OwnerAuthGuard]  },
+    { path: 'profile', component: OwnerprofileComponent, canActivate: [OwnerAuthGuard]  },
+    { path: 'basic-detail', component: RestaurantupdateownerComponent, canActivate: [OwnerAuthGuard]  },
+    { path: 'restaurant-location', component: RestaurantlocationComponent, canActivate: [OwnerAuthGuard]  },
+    { path: 'restaurant-confirm', component: RestaurantconfirmationComponent, canActivate: [OwnerAuthGuard]  },
+    { path: 'restaurant-pickup', component: RestaurantOwnerPickupComponent, canActivate: [OwnerAuthGuard]},
+    { path: 'restaurant-orderforlater', component: RestaurantOwnerOrderForLaterComponent, canActivate: [OwnerAuthGuard]},
+    { path: 'restaurant-taxation', component: RestaurantOwnerTaxationComponent, canActivate: [OwnerAuthGuard]},
+    { path: 'restaurant-paymentoption', component: RestaurantOwnerPaymentOptionComponent, canActivate: [OwnerAuthGuard]},
+    { path: 'restaurant-openinghours', component: RestaurantOwnerOpeningHoursComponent, canActivate: [OwnerAuthGuard]},
+    { path: 'restaurant-deliveryzone', component: RestaurantOwnerDeliveryZoneComponent, canActivate: [OwnerAuthGuard]},
+    { path: 'menu-list', component: KitchenMenuListComponent, canActivate: [OwnerAuthGuard]  },
+    /*{ path: 'menu-add', component: KitchenMenuAddComponent, canActivate: [OwnerAuthGuard]  },
+    { path: 'menu-edit/:id', component: KitchenMenuUpdateComponent, canActivate: [OwnerAuthGuard]  },
+    { path: 'item-add/:id', component: KitchenitemComponent, canActivate: [OwnerAuthGuard]  },
+    { path: 'item-edit/:id', component: KitchenMenuItemUpdateComponent, canActivate: [OwnerAuthGuard]  },*/
+    { path: 'drivers', component: OwnerDriversComponent, canActivate: [OwnerAuthGuard] },
+    { path: 'drivers/:id', component: OwnerDriversupdateComponent, canActivate: [OwnerAuthGuard]  },
+    { path: 'driver-add', component: OwnerDriversaddComponent, canActivate: [OwnerAuthGuard]  },
+    { path: 'legacy', component: LegacyComponent, canActivate: [OwnerAuthGuard]  },
+    { path: 'online-payment', component: OnlinePaymentComponent, canActivate: [OwnerAuthGuard]},
+    { path: 'legacy-code/:id', component: LegacycodeComponent, canActivate: [OwnerAuthGuard]  },
+    { path: 'notification', component: NotificationComponent, canActivate: [OwnerAuthGuard]  },
+    { path: 'supported-languages', component: SupportedLanguagesComponent, canActivate: [OwnerAuthGuard]  },
+    { path: 'reports', component: ReportingComponent, canActivate: [OwnerAuthGuard],children:[
+      { path: 'overview', component: ReportingoverviewComponent, canActivate: [OwnerAuthGuard]  },
+      { path: 'method', component: ReportingMethodComponent, canActivate: [OwnerAuthGuard]  },
+      { path: 'result', component: ReportingResultComponent, canActivate: [OwnerAuthGuard]  },
+      { path: 'sales-detail', component: ReportingSaleDetailComponent, canActivate: [OwnerAuthGuard]  },
+      { path: 'type', component: ReportingTypeComponent, canActivate: [OwnerAuthGuard]  },
+      { path: 'payment-method', component: ReportingPaymentMethodComponent, canActivate: [OwnerAuthGuard]},
+      { path: 'items', component: ReportingItemsComponent, canActivate: [OwnerAuthGuard]  },
+      { path: 'item-categories', component: ReportingItemCategoriesComponent, canActivate: [OwnerAuthGuard]  },
+      { path: 'clients', component: ReportingClientComponent, canActivate: [OwnerAuthGuard]  },
+      { path: 'orders', component: ReportingOrderComponent, canActivate: [OwnerAuthGuard]  },
+      { path: 'detail/:id', component: ReportingDetailComponent, canActivate: [OwnerAuthGuard]  },
     ]},
+    { path: 'marketing', component: MarketingComponent, canActivate: [OwnerAuthGuard],children:[
+      { path: 'overview', component: MarketingOverviewComponent, canActivate: [OwnerAuthGuard]  },
+      { path: 'promotions', component: MarketingPromotionsComponent, canActivate: [OwnerAuthGuard]  },
+      { path: 'promotions/select-template', component: MarketingPromotionsListComponent, canActivate: [OwnerAuthGuard]  },
+      { path: 'promotions/edit-template/:id', component: MarketingPromotionsTemplateComponent, canActivate: [OwnerAuthGuard, MarketingPromotionsSubscriptionComponent]  },
+      { path: 'promotions/subscription/:id', component: MarketingPromotionsSubscriptionComponent, canActivate: [OwnerAuthGuard]  },
+      { path: 'stats', component: MarketingStatsComponent, canActivate: [OwnerAuthGuard]  },
+    ]}
+  ]},
 
   { path: 'frontend/:id', component: FrontendComponent },
   { path: 'frontend-detail/:id', component: FrontendDetailComponent },
@@ -118,7 +126,6 @@ const appRoutes: Routes = [
   { path: 'resetpassword/:id', component: FrontendResetPasswordComponent },
   { path: 'profile/:id', component: FrontendUserProfileComponent },
   { path: 'change-password/:id', component: FrontendChangePasswordComponent },
-
 
   { path: '', component: LoginComponent },
   { path: '**', redirectTo: '' }

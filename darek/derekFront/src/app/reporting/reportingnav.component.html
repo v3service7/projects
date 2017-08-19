@@ -2,28 +2,26 @@
 	<div class="restaurant-name col-lg-2 col-md-2 col-sm-2" style="float: left;">
 		<h1><b>LOGO</b></h1>
 	</div>
-	<div class="col-lg-7 col-md-7 col-sm-7">
+	<div class="col-lg-7 col-md-7 col-sm-7 col-xs-7">
 		<ul class="topLinks">
-			<li> <a [routerLink]="['/owner/profile']">SETUP</a></li>
-			<li><a href="javascript:void(0)">REPORTS</a></li>
-			<li><a href="javascript:void(0)">MARKETING</a></li>
-			<li><a href="javascript:void(0)">TRANSLATE</a></li>
-			<li><a href="javascript:void(0)">MAIL & SMS</a></li>	
+			<li><a [routerLink]="['/owner/basic-detail']">SETUP</a></li>
+			<li><a [routerLink]="['/owner/reports/overview']">REPORTS</a></li>
+			<li><a [routerLink]="['/owner/marketing/promotions']">MARKETING</a></li>
 		</ul>
 	</div>
 	<div class="dropdown col-lg-2 col-md-2 col-sm-2">
 	  	<button class="dropbtn">{{currentOwner.username}} <i class="fa fa-caret-down"></i></button>
 	  	<div class="dropdown-content" style="z-index: 4;">
-	    	<a [routerLink]="['/owner/profile']" ><i class="fa fa-user" aria-hidden="true"></i>My Profile</a>
-	    	<a [routerLink]="['/owner/change-password']"><i class="fa fa-key" aria-hidden="true"></i>Password Change</a>
-	    	<a [routerLink]="['/owner/login/']"><i class="fa  fa-power-off"></i> Sign Out</a>
+	    	<a [routerLink]="['/owner/profile']" ><i class="fa fa-user" aria-hidden="true"></i>&nbsp;&nbsp;My Profile</a>
+	    	<a [routerLink]="['/owner/change-password']"><i class="fa fa-key" aria-hidden="true"></i>&nbsp;&nbsp;Password Change</a>
+	    	<a [routerLink]="['/owner/login/']"><i class="fa  fa-power-off"></i>&nbsp;&nbsp;Sign Out</a>
 	  	</div>
 	</div>
 </div>
 
 <div class="leftMenu col-lg-3 col-md-3 col-sm-3" style="vertical-align: middle;">
 	<ul class="list-group list-group-flush leftMenuUl">
-		<li class="list-group-item" data-toggle="collapse" data-target="#basic-option">
+		<li class="list-group-item">
 			{{restaurants.name}} ({{restaurants.resCode}})
 		</li>
 		<li class="list-group-item" data-toggle="collapse" data-target="#basic-option">
@@ -33,7 +31,7 @@
 			<ul class="option-menu">
 				<li class="list-group-item" [routerLink]="['/owner/reports/overview']" [routerLinkActive]="['selected']">
 					<a>&#x27A5;&nbsp;&nbsp;&nbsp;&nbsp;Quick Overview</a>
-					<i class="fa fa-check" aria-hidden="true" style="float: right;	color:#5AC15E;"></i>
+					<i class="fa fa-check" aria-hidden="true"></i>
 				</li>
 			</ul>
 		</div>
@@ -44,31 +42,35 @@
 			<ul class="option-menu">
 				<li class="list-group-item" [routerLink]="['/owner/reports/method']" [routerLinkActive]="['selected']">
 					<a>&#x27A5;&nbsp;&nbsp;&nbsp;&nbsp;Method</a>
-					<i class="fa fa-check" aria-hidden="true" style="float: right;	color:#5AC15E;"></i>
+					<i class="fa fa-check" aria-hidden="true"></i>
 				</li>
 				<li class="list-group-item" [routerLink]="['/owner/reports/result']" [routerLinkActive]="['selected']">
 					<a>&#x27A5;&nbsp;&nbsp;&nbsp;&nbsp;Result</a>
-					<i class="fa fa-check" aria-hidden="true" style="float: right;	color:#5AC15E;"></i>
+					<i class="fa fa-check" aria-hidden="true"></i>
 				</li>
 				<li class="list-group-item" [routerLink]="['/owner/reports/type']" [routerLinkActive]="['selected']">
 					<a>&#x27A5;&nbsp;&nbsp;&nbsp;&nbsp;Type</a>
-					<i class="fa fa-check" aria-hidden="true" style="float: right;	color:#5AC15E;"></i>
+					<i class="fa fa-check" aria-hidden="true"></i>
 				</li>
 				<li class="list-group-item" [routerLink]="['/owner/reports/payment-method']" [routerLinkActive]="['selected']">
 					<a>&#x27A5;&nbsp;&nbsp;&nbsp;&nbsp;Payment Method</a>
-					<i class="fa fa-check" aria-hidden="true" style="float: right;	color:#5AC15E;"></i>
+					<i class="fa fa-check" aria-hidden="true"></i>
 				</li>
+				<!-- <li class="list-group-item" [routerLink]="['/owner/reports/type']" [routerLinkActive]="['selected']">
+					<a>&#x27A5;&nbsp;&nbsp;&nbsp;&nbsp;Items</a>
+					<i class="fa fa-check" aria-hidden="true"></i>
+				</li> -->
 				<li class="list-group-item" [routerLink]="['/owner/reports/items']" [routerLinkActive]="['selected']">
 					<a>&#x27A5;&nbsp;&nbsp;&nbsp;&nbsp;Items</a>
-					<i class="fa fa-check" aria-hidden="true" style="float: right;	color:#5AC15E;"></i>
+					<i class="fa fa-check" aria-hidden="true"></i>
 				</li>
 				<li class="list-group-item" [routerLink]="['/owner/reports/item-categories']" [routerLinkActive]="['selected']">
 					<a>&#x27A5;&nbsp;&nbsp;&nbsp;&nbsp;Item Categories</a>
-					<i class="fa fa-check" aria-hidden="true" style="float: right;	color:#5AC15E;"></i>
+					<i class="fa fa-check" aria-hidden="true"></i>
 				</li>
 				<li class="list-group-item" [routerLink]="['/owner/reports/sales-detail']" [routerLinkActive]="['selected']">
 					<a>&#x27A5;&nbsp;&nbsp;&nbsp;&nbsp;Sales Detail</a>
-					<i class="fa fa-check" aria-hidden="true" style="float: right;	color:#5AC15E;"></i>
+					<i class="fa fa-check" aria-hidden="true"></i>
 				</li>
 			</ul>
 		</div>
@@ -79,11 +81,11 @@
 			<ul class="option-menu">
 				<li class="list-group-item" [routerLink]="['/owner/reports/clients']" [routerLinkActive]="['selected']">
 					<a>&#x27A5;&nbsp;&nbsp;&nbsp;&nbsp;Clients</a>
-					<i class="fa fa-check" aria-hidden="true" style="float: right;	color:#5AC15E;"></i>
+					<i class="fa fa-check" aria-hidden="true"></i>
 				</li>
 				<li class="list-group-item" [routerLink]="['/owner/reports/orders']" [routerLinkActive]="['selected']">
 					<a>&#x27A5;&nbsp;&nbsp;&nbsp;&nbsp;Orders</a>
-					<i class="fa fa-check" aria-hidden="true" style="float: right;	color:#5AC15E;"></i>
+					<i class="fa fa-check" aria-hidden="true"></i>
 				</li>
 			</ul>
 		</div>

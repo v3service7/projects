@@ -15,24 +15,45 @@
 	        <div *ngIf="restaurants.openinghours">
 		        <div *ngIf="restaurants.openinghours.monday">
 		        	<span><b> Monday </b></span><span><b>:</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{restaurants.openinghours.mondaytime.opentime}} &nbsp;-&nbsp;{{restaurants.openinghours.mondaytime.closetime}}</span>
+                    <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <a href="javascript:void(0)" (click) = "remove('monday')"><i class="fa fa-times-circle-o" aria-hidden="true"></i></a>
+                    </span>
 		        </div>
 		        <div *ngIf="restaurants.openinghours.tuesday">
 		        	<span><b> Tuesday </b></span><span><b>:</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{restaurants.openinghours.tuesdaytime.opentime}} &nbsp;-&nbsp;{{restaurants.openinghours.tuesdaytime.closetime}}</span>
+                    <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <a href="javascript:void(0)" (click) = "remove('tuesday')"><i class="fa fa-times-circle-o" aria-hidden="true"></i></a>
+                    </span>                    
 		        </div>
 		        <div *ngIf="restaurants.openinghours.wednesday">
 		        	<span><b> Wednesday </b></span><span><b>:</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{restaurants.openinghours.wednesdaytime.opentime}} &nbsp;-&nbsp;{{restaurants.openinghours.wednesdaytime.closetime}}</span>
+                    <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <a href="javascript:void(0)" (click) = "remove('wednesday')"><i class="fa fa-times-circle-o" aria-hidden="true"></i></a>
+                    </span>
 		        </div>
 		        <div *ngIf="restaurants.openinghours.thursday">
 		        	<span><b> Thursday </b></span><span><b>:</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{restaurants.openinghours.thursdaytime.opentime}} &nbsp;-&nbsp;{{restaurants.openinghours.thursdaytime.closetime}}</span>
+                    <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <a href="javascript:void(0)" (click) = "remove('thursday')"><i class="fa fa-times-circle-o" aria-hidden="true"></i></a>
+                    </span>
 		        </div>
 		        <div *ngIf="restaurants.openinghours.friday">
 		        	<span><b> Friday </b></span><span><b>:</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{restaurants.openinghours.fridaytime.opentime}} &nbsp;-&nbsp;{{restaurants.openinghours.fridaytime.closetime}}</span>
+                    <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <a href="javascript:void(0)" (click) = "remove('friday')"><i class="fa fa-times-circle-o" aria-hidden="true"></i></a>
+                    </span>
 		        </div>
 		        <div *ngIf="restaurants.openinghours.saturday">
-		        	<span><b> Saturday </b></span><span><b>:</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{restaurants.openinghours.saturdaytime.opentime}} &nbsp;-&nbsp;{{restaurants.openinghours.saturdaytime.closetime}}</span>		        
+		        	<span><b> Saturday </b></span><span><b>:</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{restaurants.openinghours.saturdaytime.opentime}} &nbsp;-&nbsp;{{restaurants.openinghours.saturdaytime.closetime}}</span>
+                    <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <a href="javascript:void(0)" (click) = "remove('saturday')"><i class="fa fa-times-circle-o" aria-hidden="true"></i></a>
+                    </span>
 		        </div>
 		        <div *ngIf="restaurants.openinghours.sunday">
 		        	<span><b> Sunday </b></span><span><b>:</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{restaurants.openinghours.sundaytime.opentime}} &nbsp;-&nbsp;{{restaurants.openinghours.sundaytime.closetime}}</span>
+                    <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <a href="javascript:void(0)" (click) = "remove('sunday')"><i class="fa fa-times-circle-o" aria-hidden="true"></i></a>
+                    </span>
 		        </div>
 	        </div>
              

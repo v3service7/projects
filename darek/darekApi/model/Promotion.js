@@ -1,9 +1,13 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
+var Restaurant = require('../model/Restaurant.js');
 
 // create a schema
 var PromotionSchema = new Schema({
-    name: String
+    image:  { type: String},
+    name: { type: String, required: true},
+    desc:  { type: String, required: true},
+    restaurantOptions : [{ type: Schema.Types.ObjectId, ref:'Restaurant'}]
 });
 
 var Promotion = mongoose.model('Promotion', PromotionSchema);

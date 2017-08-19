@@ -1,11 +1,11 @@
 <app-frontendheader [ids]="restaurants._id"></app-frontendheader>
 
-<div *ngIf="resTime.status != 'open'" style="background: rgba(0, 0, 0, 0.68);top: 0px;position: fixed; color: white; width: 100%; text-align: center; height: 100%;padding: 25%;font-weight: 600;"  [style.z-index]="getStyle()">
-    <div><img src="./assets/images/sad-face.png" width="40%"></div>
-    <div><h1 style="font-weight: 700;">{{'CLOSED' | translate}}!!</h1></div>
-    <div><h4 style="font-weight: 700;">{{'Opens'|translate}} {{'between'|translate}}</h4></div>
-    <div><h5 style="font-weight: 700;">{{resTime.open}} and {{resTime.close}}</h5></div>
-</div>
+<!-- <div *ngIf="resTime.status != 'open'">
+    <div style="background: rgba(0, 0, 0, 0.68);top: 0px;position: fixed; color: white; width: 100%; text-align: center; height: 100%;padding: 25%;font-weight: 600;z-index: 1;">
+        <div><img src="./assets/images/sad-face.PNG" width="40%"></div>
+        <div><h1 style="font-weight: 700;">{{'CLOSED' | translate}}!!</h1></div>
+    </div>
+</div> -->
 
 <div class="container" style="padding-top: 10%;">
     <div class="row col-lg-12 col-md-12 col-sm-12 col-xs-12" style="padding-left: 30%;">
@@ -25,8 +25,6 @@
                     <div class="panel-heading">
                         <h3 class="panel-title">{{'Please' | translate}} {{'Login' | translate}}</h3>
                     </div>
-                    <!-- <alert></alert> -->
-                    <!-- <flash-messages></flash-messages> -->
                     <div class="panel-body">
                         <form role="form" [formGroup]="loginForm" (ngSubmit)="login()">
                             <div class="form-group">

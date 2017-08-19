@@ -1,7 +1,7 @@
 import { Component, OnInit,ViewEncapsulation } from '@angular/core';
 import { Router,ActivatedRoute, Params } from '@angular/router';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
-import { FlashMessagesService } from 'angular2-flash-messages';
+//import { FlashMessagesService } from 'angular2-flash-messages';
 
 import { AlertService, AuthService, UsersService } from '../service/index';
 
@@ -38,12 +38,14 @@ export class OwnerregisterComponent implements OnInit {
         private ownerService: UsersService,
         private router: Router,
         private route: ActivatedRoute,
-        private _flashMessagesService: FlashMessagesService
+        //private _flashMessagesService: FlashMessagesService
     ) { }
 
       ngOnInit() {
         this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || 'owner/login';
           this.loginForm = this.lf.group({
+            firstname: ['', Validators.required],
+            lastname: ['', Validators.required],
             username: ['', Validators.required],
             email: ['', Validators.required],
             password: ['', Validators.required],
@@ -76,7 +78,7 @@ export class OwnerloginComponent implements OnInit {
         private router: Router,
         private route: ActivatedRoute,
         private alertService: AlertService,
-        private _flashMessagesService: FlashMessagesService
+        //private _flashMessagesService: FlashMessagesService
     ) { }
 
 
@@ -157,7 +159,7 @@ export class OwnerprofileComponent implements OnInit {
         private userService: UsersService,
         private router: Router,
         private alertService: AlertService,
-        private _flashMessagesService: FlashMessagesService,
+        //private _flashMessagesService: FlashMessagesService,
         private route: ActivatedRoute,
     ) { 
     }
@@ -186,7 +188,7 @@ export class OwnerprofileComponent implements OnInit {
                     localStorage.setItem('currentOwner', JSON.stringify(this.ownerProfile.value));
                     toastr.success('Profile updated successfully','Success!');
                     //this._flashMessagesService.show('Profile updated successfully', { cssClass: 'alert-success', timeout: 10000 });
-                    this.router.navigate(['owner/profile']);
+                    this.router.navigate(['owner/basic-detail']);
                 }
             }
         );
@@ -208,7 +210,7 @@ export class OwnerchangepasswordComponent implements OnInit {
         private authService: AuthService,
         private userService: UsersService,
         private router: Router,
-        private _flashMessagesService: FlashMessagesService,
+        //private _flashMessagesService: FlashMessagesService,
         private route: ActivatedRoute,
     ) { }
 

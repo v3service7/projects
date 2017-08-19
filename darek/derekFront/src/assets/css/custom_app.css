@@ -1,3 +1,7 @@
+body{
+    font-family: 'Open Sans',sans-serif;
+}
+
 .modal.fade .modal-dialog {
     -webkit-transition: -webkit-transform .3s ease-out!important;
     transition: transform .3s ease-out!important
@@ -3218,7 +3222,7 @@ input.comp-size-default:checked+.comp-size-default-text>.svg-icon-info2 {
     top: 0;
     right: 0;
     height: 100%;
-    width: 320px;
+    /*width: 320px;*/
     float: right;
     background: #fff;
     border-left: 1px solid #d5d5d3;
@@ -14956,3 +14960,16 @@ body.open-for-menu-upload .screen-menu .btn-next {
  padding: 3px;
 
 }
+
+.input-group-addon .fa{
+    width: 25px;
+}
+
+.rightMenu {
+    min-height: 585px;
+}
+
+
+
+
+

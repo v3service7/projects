@@ -20,8 +20,22 @@
               <div class="panel-body">
                 <form [formGroup]="promotionAddModel" (ngSubmit)="promotionAdd()">
                   <div class="form-group">
+                    <label>Image</label>
+                    <input type="file" class="form-control" name="single" ng2FileSelect [uploader]="uploader" (change)="onChange($event)" />
+                  </div>
+                  <div class="form-group">
                     <label>Name</label>
                     <input formControlName="name" type="text" class="form-control" placeholder="Promotion Name" required>
+                  </div>
+                  <div class="form-group">
+                    <label>Description</label>
+                    <input formControlName="desc" type="text" class="form-control" placeholder="Promotion Description" required>
+                  </div>
+                  <div class="form-group">
+                    <label>Select Restaurant for this Promotion</label>
+                    <select multiple formControlName="restaurantOptions" style="width: 100%;">
+                      <option *ngFor="let restaurant of restaurants" [ngValue]="restaurant._id">{{restaurant.name}}</option>
+                    </select>
                   </div>
                   <button class="btn btn-default" [disabled]="!promotionAddModel.valid">Submit</button>
                   <a [routerLink]="['/admin/promotions']" class="btn btn-default">Cancel</a>

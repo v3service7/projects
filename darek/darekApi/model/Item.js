@@ -6,8 +6,8 @@ var addonModel = require('../model/addon.js');
 var MenuSchema = new Schema({
     name: { type: String, required: true},
     description: String,
-    kitchenId: { type: String, required: true},
-    menuId: { type: Schema.Types.ObjectId, ref:'Menu', required: true},
+    kitchenId: { type: String, required: true},     /*restaurant id*/
+    menuId: { type: Schema.Types.ObjectId, ref:'Menu', required: true}, /*menu id*/
     price: Number,
     image: String,
     isHidden:  {type:Boolean,default:false},

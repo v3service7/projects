@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';import {Router, ActivatedRoute, Params} from '@angular/router';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
-import { FlashMessagesService } from 'angular2-flash-messages';
+//import { FlashMessagesService } from 'angular2-flash-messages';
 import { AuthService, AlertService, UsersService, PromotionsService, DriversService, RestaurantsService } from '../service/index';
 
 declare var toastr: any;
@@ -16,7 +16,7 @@ export class DashboardComponent implements OnInit {
   drivers= [];
   promotions = [];
 
-  	constructor(private usersService: UsersService,private driversService: DriversService,private restaurantsService: RestaurantsService,private promotionsService: PromotionsService,private _flashMessagesService: FlashMessagesService,) {}
+  	constructor(private usersService: UsersService,private driversService: DriversService,private restaurantsService: RestaurantsService,private promotionsService: PromotionsService,) {}
 
   	ngOnInit() {
   		this.loadAllUsers();

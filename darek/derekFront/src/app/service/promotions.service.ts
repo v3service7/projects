@@ -3,6 +3,7 @@
  */
 import { Injectable } from '@angular/core';
 import { Http, Response,Headers } from '@angular/http';
+import { Observable } from 'rxjs/Observable'
 import * as globalVariable from "../global";
 
 @Injectable()
@@ -43,4 +44,11 @@ export class PromotionsService {
       (response: Response) => response.json()
     );
   }
+
+  getCustom = (): Observable<Response> => {
+        console.log("In getConfiguration of ConfigurationService");
+        return this.http.get('assets/custom.json').map(
+         res => res.json()
+        );
+    }
 }

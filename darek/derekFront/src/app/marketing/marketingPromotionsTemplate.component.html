@@ -1,0 +1,705 @@
+<app-marketingnav></app-marketingnav>
+
+<div class="modal fade" id="itemGroup" role="dialog">
+	<div class="modal-dialog"> 
+		<div class="modal-content borderRadius0">
+			<div class="modal-header padding1" style="display: flex;">
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+				<h4 class="modal-title width85 padding1"> Set eligible items for: Items Group 1</h4>
+				<input type="submit" class="btn saveButton width10 padding0" value="Submit">
+			</div>
+			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 modal-body">
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 form-group">
+					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0" *ngFor="let menu of menus" style="border-left: 1px solid #d9d9d9;    border-right: 1px solid #d9d9d9;">
+						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding20 fontWeight600 borderTopBottom cursorPointer" style="display: -webkit-inline-box;">
+							<input type="checkbox" name="" value="{{menu._id}}" (change)="selectCheck($event,'','menu')"> 
+							<div class="paddingLeft10 width95" data-toggle="collapse" [attr.data-target]="'#' + menu._id">
+								{{menu.name}}
+								<span class="pull-right" style="font-weight: 100;color: #c5c5bf;">sdfg</span>
+							</div>
+						</div>
+						<div id="{{menu._id}}" class="collapse">
+							<div *ngFor="let item of items">
+								<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 bgLightGray itemName fontWeight600 cursorPointer" style="display: -webkit-inline-box;border-bottom: 1px solid #d9d9d9;" *ngIf="item.menuId == menu._id">
+									<input type="checkbox" name="" id="item_{{item._id}}" value="{{item._id}}" (change)="selectCheck($event, item,'item')"> 
+									<div class="paddingLeft10">{{item.name}}</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>                
+			</div>
+		</div>     
+	</div>
+</div>
+
+
+<div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 minheight585 padding3">
+	<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0 borderRadius3 fontMedium bgWhite marginBottom2">
+		<div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+			<img src="{{imageUrl}}{{promotion.image}}" class="img-responsive">
+		</div>
+		<div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 padding10-0 fontXSmall">
+			TEMPLATE : <br>
+			<span class="fontLarge">{{promotion.name}}</span>
+		</div>
+		<div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 padding10-0">
+			<button class="btn" style="color: #fff;background-color: #999;margin-right:3%;">
+				Cancle
+			</button>
+			<button type="button" class="btn btn-success">Save</button>
+		</div>
+	</div>
+
+	<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0 marginBottom2">
+		<div #step1 class="col-lg-12 col-md-12 col-sm-12 col-xs-12 promotionStep promotionHover borderRadius3 padding10 bgWhite fontSmall fontWeight600">
+			<div><span class="numberingInCircle">1</span></div>
+			<div class="col-lg-11 col-md-11 col-sm-11 col-xs-10 cursorPointer paddingLeft40" (click)="showStep(step1,'1')"><span>Set name, description & picture</span></div>
+			<button class="col-lg-1 col-md-1 col-sm-1 col-xs-2 btn bgWhite promotionStepNext" (click)="save(step2,'1')">Next</button>
+		</div>
+		<div id="step1" class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding3 bgWhite">
+			<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0 marginBottom5">
+					<input type="text" #promoname name="" maxlength="35" class="form-control padding5 fontSmall" value="{{promotion.name}}" placeholder="Type promotion name here" (keyup)="countCharacter($event,promoname,'promoName')">
+					<span class="pull-right"> {{promoname.value.length}}/35</span>
+				</div>
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0 marginBottom5">
+					<textarea #promodesc name="" maxlength="100" class="form-control padding5 fontSmall" value="" placeholder="Description (Idealy left empty since your title says it all)" (keyup)="countCharacter($event,promodesc,'promoDesc')"></textarea>
+					<span class="pull-right"> {{promodesc.value.length}}/100</span>
+				</div>
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0">
+					<label>Change Picture</label>
+					<input type="file" class="form-control" name="single" ng2FileSelect [uploader]="uploader" (change)="onChange($event)" />
+				</div>
+			</div>
+			<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 displayGrid">
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" *ngIf = "promoImage">
+					<img src="{{imageUrl}}{{promoImage}}" class="offerImage">
+				</div>
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" *ngIf = "!promoImage">
+					<img src="assets/images/2.jpg" class="offerImage">
+				</div>
+				<div class="col-lg-10 col-md-10 col-sm-10 col-xs-10 positionAbsolute marginX fontWeight600 colorWhite fontXLarge">
+					{{promoName}}
+				</div>
+				<div class="col-lg-10 col-md-10 col-sm-10 col-xs-10 top45 positionAbsolute marginX colorWhite fontMedium">
+					{{promoDesc}}
+				</div>
+				<div class="col-lg-10 col-md-10 col-sm-10 col-xs-10 marginX padding0 positionAbsolute" style="top:80%">
+					<button class="btn offerButton pull-right">Get it now</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0 marginBottom2">
+		<div #step2 class="col-lg-12 col-md-12 col-sm-12 col-xs-12 promotionStep promotionHover borderRadius3 padding10 bgWhite fontSmall fontWeight600">
+			<div><span class="numberingInCircle">2</span></div>
+			<div class="col-lg-11 col-md-11 col-sm-11 col-xs-10 cursorPointer paddingLeft40" (click)="showStep(step2,'2')"><span>Set promo deal benefit <span class="fontXSmall">(What's in it for your client)</span></span></div>
+			<button class="col-lg-1 col-md-1 col-sm-1 col-xs-2 btn bgWhite promotionStepNext" (click)="save(step3,'2')">Next</button>
+		</div>
+		<div id="step2">
+			<!-- buy one get one free -->
+			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding3 bgWhite" *ngIf = "promotion._id == '5978781999e7511a1408a7ea'">
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0 fontWeight600 fontSmall marginBottom2">
+					Set which items are eligible in this bundle
+				</div>
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 bgGray padding3">
+					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 marginBottom2 fontWeight600">
+						Set which items are eligible:
+					</div>
+					<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 marginBottom2 padding0" style="display: -webkit-inline-box;">
+							<div class="marginRight15">Items Group 1:</div>
+							<label class="form-control" style="width: 50%;border-radius: 0;">0 selected</label>
+							<label class="form-control" style="width: 10%;border-radius: 0;background-color: #ededed;" data-toggle="modal" data-target="#itemGroup"><i class="fa fa-pencil" aria-hidden="true"></i></label>
+						</div>
+						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 marginBottom2 padding0" style="display: -webkit-inline-box;">
+							<div class="marginRight15">Items Group 2:</div>
+							<label class="form-control" style="width: 50%;border-radius: 0;">0 selected</label>
+							<label class="form-control" style="width: 10%;border-radius: 0;background-color: #ededed;" data-toggle="modal" data-target="#itemGroup"><i class="fa fa-pencil" aria-hidden="true"></i></label>
+						</div>
+					</div>
+					<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 paddingLeft10prcnt">
+						Example: Buy 1 Pizza and get the 2nd Pizza free would require to select all Pizzas for "Items Group 1" and the same for "Items Group 2". By default this template is set to discount the cheaper item by 100%.
+					</div>
+				</div>
+			</div>
+
+			<!-- fixed discout amount on cart -->
+			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding3 bgWhite" *ngIf = "promotion._id == '59787079ecfaa406ec845aba'">
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0 fontWeight600 fontSmall marginBottom2">
+					Grant fixed discount amount on total order value
+				</div>
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 bgGray padding3">
+					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 marginBottom2 fontWeight600">
+						Set the benefit:
+					</div>
+					<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 marginBottom2 padding0" style="display: -webkit-inline-box;">
+							<div class="marginRight15">Discount:</div>
+							<input type="number" #disPrcnt class="form-control" placeholder="5" style="width: 50%;border-radius: 0;" (keyup)="countCharacter($event,disPrcnt,'discountPercent')">
+							<label class="form-control" style="width: 15%;border-radius: 0;background-color: #ededed;">USD</label>
+						</div>
+					</div>
+					<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 paddingLeft10prcnt">
+						The discount amount will be deducted from the order cart sub-total value and it will be explicitly shown in the cart calculation.
+					</div>
+				</div>
+			</div>
+
+			<!-- % discount on cart -->
+			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding3 bgWhite" *ngIf = "promotion._id == '59787087ecfaa406ec845abb'">
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0 fontWeight600 fontSmall marginBottom2">
+					Grant % discount on total order value
+				</div>
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 bgGray padding3">
+					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 marginBottom2 fontWeight600">
+						Set the benefit:
+					</div>
+					<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 marginBottom2 padding0" style="display: -webkit-inline-box;">
+							<div class="marginRight15">Discount:</div>
+							<input type="number" #disPrcnt class="form-control" placeholder="5" style="width: 50%;border-radius: 0;" (keyup)="countCharacter($event,disPrcnt,'discountPercent')">
+							<label class="form-control" style="width: 15%;border-radius: 0;background-color: #ededed;">USD</label>
+						</div>
+					</div>
+					<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 paddingLeft10prcnt">
+						The discount amount will be deducted from the order cart sub-total value and it will be explicitly shown in the cart calculation.
+					</div>
+				</div>
+			</div>
+
+			<!-- % Discount on selected Item -->
+			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding3 bgWhite" *ngIf = "promotion._id == '597870efecfaa406ec845abf'">
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0 fontWeight600 fontSmall marginBottom2">
+					Grant a discount for certain items or categories
+				</div>
+
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 bgGray padding3 marginBottom2">
+					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 marginBottom2 fontWeight600">
+						Set which items are eligible:
+					</div>
+					<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 marginBottom2 padding0" style="display: -webkit-inline-box;">
+							<div class="marginRight15">Items Group 1:</div>
+							<label class="form-control" style="width: 50%;border-radius: 0;">0 selected</label>
+							<label class="form-control" style="width: 10%;border-radius: 0;background-color: #ededed;" data-toggle="modal" data-target="#itemGroup"><i class="fa fa-pencil" aria-hidden="true"></i></label>
+						</div>
+					</div>
+					<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 paddingLeft10prcnt">
+						Select one or more items. When clients add an item from your selection to the cart, the discount set below will be applied automatically.
+					</div>
+				</div>
+				
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 bgGray padding3">
+					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 marginBottom2 fontWeight600">
+						Set the benefit:
+					</div>
+					<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 marginBottom2 padding0" style="display: -webkit-inline-box;">
+							<div class="marginRight15">Items Group 1:</div>
+							<input type="number" #disPrcnt class="form-control" placeholder="30" style="width: 50%;border-radius: 0;" (keyup)="countCharacter($event,disPrcnt,'discountPercent')">
+							<label class="form-control" style="width: 10%;border-radius: 0;background-color: #ededed;">%</label>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!-- Buy 2,3... get one free -->
+			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding3 bgWhite" *ngIf = "promotion._id == '59787096ecfaa406ec845abc'">
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0 fontWeight600 fontSmall marginBottom2">
+					Grant % discount to one or more items if they are ordered together
+				</div>
+
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 bgGray padding3 marginBottom2">
+					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 marginBottom2 fontWeight600">
+						Set which items are eligible:
+					</div>
+					<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 marginBottom2 padding0" style="display: -webkit-inline-box;">
+							<div class="marginRight15">Items Group 1:</div>
+							<label class="form-control" style="width: 50%;border-radius: 0;">0 selected</label>
+							<label class="form-control" style="width: 10%;border-radius: 0;background-color: #ededed;" data-toggle="modal" data-target="#itemGroup"><i class="fa fa-pencil" aria-hidden="true"></i></label>
+						</div>
+						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 marginBottom2 padding0" style="display: -webkit-inline-box;">
+							<div class="marginRight15">Items Group 2:</div>
+							<label class="form-control" style="width: 50%;border-radius: 0;">0 selected</label>
+							<label class="form-control" style="width: 10%;border-radius: 0;background-color: #ededed;" data-toggle="modal" data-target="#itemGroup"><i class="fa fa-pencil" aria-hidden="true"></i></label>
+						</div>
+						<button class="btn" style="color: #fff;background-color: #999;">Add</button>
+					</div>
+					<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 paddingLeft10prcnt">
+						Example: Buy 2 Pizzas and get the 3rd Pizza free would require you to select all Pizzas for "Items Group 1", "Items Group 2" and the same for "Items Group 3". By default the ordering system discounts the cheapest item by 100%.
+					</div>
+				</div>
+				
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 bgGray padding3">
+					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 marginBottom2 fontWeight600">
+						Set the benefit:
+					</div>
+					<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 marginBottom2 padding0" style="display: -webkit-inline-box;">
+							<div class="marginRight15">Items Group 1:</div>
+							<input type="number" #disPrcnt class="form-control" placeholder="30" style="width: 50%;border-radius: 0;" (keyup)="countCharacter($event,disPrcnt,'discountPercent')">
+							<label class="form-control" style="width: 10%;border-radius: 0;background-color: #ededed;">%</label>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!-- Free dish or discounted item, if your order past a certain amount -->
+			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding3 bgWhite" *ngIf = "promotion._id == '597870a5ecfaa406ec845abd'">
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0 fontWeight600 fontSmall marginBottom2">
+					Grant % discount to one or more items if they are ordered together
+				</div>
+
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 bgGray padding3 marginBottom2">
+					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 marginBottom2 fontWeight600">
+						Set which items are eligible:
+					</div>
+					<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 marginBottom2 padding0" style="display: -webkit-inline-box;">
+							<div class="marginRight15">Items Group 1:</div>
+							<label class="form-control" style="width: 50%;border-radius: 0;">0 selected</label>
+							<label class="form-control" style="width: 10%;border-radius: 0;background-color: #ededed;" data-toggle="modal" data-target="#itemGroup"><i class="fa fa-pencil" aria-hidden="true"></i></label>
+						</div>
+						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 marginBottom2 padding0" style="display: -webkit-inline-box;">
+							<div class="marginRight15">Items Group 2:</div>
+							<label class="form-control" style="width: 50%;border-radius: 0;">0 selected</label>
+							<label class="form-control" style="width: 10%;border-radius: 0;background-color: #ededed;" data-toggle="modal" data-target="#itemGroup"><i class="fa fa-pencil" aria-hidden="true"></i></label>
+						</div>
+						<button class="btn" style="color: #fff;background-color: #999;">Add</button>
+					</div>
+					<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 paddingLeft10prcnt">
+						Example: Buy 2 Pizzas and get the 3rd Pizza free would require you to select all Pizzas for "Items Group 1", "Items Group 2" and the same for "Items Group 3". By default the ordering system discounts the cheapest item by 100%.
+					</div>
+				</div>
+				
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 bgGray padding3">
+					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 marginBottom2 fontWeight600">
+						Set the benefit:
+					</div>
+					<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 marginBottom2 padding0" style="display: -webkit-inline-box;">
+							<div class="marginRight15">Items Group 1:</div>
+							<input type="number" #disPrcnt class="form-control" placeholder="30" style="width: 50%;border-radius: 0;" (keyup)="countCharacter($event,disPrcnt,'discountPercent')">
+							<label class="form-control" style="width: 10%;border-radius: 0;background-color: #ededed;">%</label>
+						</div>
+						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 marginBottom2 padding0" style="display: -webkit-inline-box;">
+							<div class="marginRight15">Items Group 1:</div>
+							<input type="number" #disPrcnt class="form-control" placeholder="30" style="width: 50%;border-radius: 0;" (keyup)="countCharacter($event,disPrcnt,'discountPercent')">
+							<label class="form-control" style="width: 10%;border-radius: 0;background-color: #ededed;">%</label>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0 marginBottom2">
+		<div #step3 class="col-lg-12 col-md-12 col-sm-12 col-xs-12 promotionStep promotionHover borderRadius3 padding10 bgWhite fontSmall fontWeight600">
+			<div><span class="numberingInCircle">3</span></div>
+			<div class="col-lg-11 col-md-11 col-sm-11 col-xs-10 cursorPointer paddingLeft40" (click)="showStep(step3,'3')"><span>Set a "limited showtime" for this promo deal</span></div>
+			<button class="col-lg-1 col-md-1 col-sm-1 col-xs-2 btn bgWhite promotionStepNext" (click)="save(step4,'3')">Next</button>
+		</div>
+		<div id="step3" class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding3 bgWhite">
+			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0 fontWeight600 fontSmall marginBottom2">
+				<div [ngClass]="displayTrue" class="col-lg-4 col-md-4 col-sm-4 col-xs-4 cursorPointer" (click)="showDisplayTime()"><i class="fa fa-clock-o" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;<span>DISPLAY TIME</span></div>
+				<div  [ngClass]="displayFalse" class="col-lg-4 col-md-4 col-sm-4 col-xs-4 cursorPointer"  (click)="showFulfillmentTime()"><i class="fa fa-calendar" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;<span>FULFILLMENT TIME</span></div>
+			</div>
+			
+			<div *ngIf = "displayTime">
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 bgGray padding3 marginBottom2">
+					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 marginBottom2 fontWeight600">
+						Days & time of the week:
+					</div>
+					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 marginBottom10">
+						<div [ngClass]="selected1" (click)="defaultUpdate('displayTime')" class="cursorPointer">
+							<i class="fa fa-check-circle" aria-hidden="true"></i>
+							<span>24/7 (Default)</span>
+						</div>
+					</div>
+					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 marginBottom10">
+						<div class="marginBottom10" [ngClass]="selected2" (click)="customUpdate('displayTime')" class="cursorPointer">
+							<i class="fa fa-check-circle" aria-hidden="true"></i>
+							<span>Custom selection</span>
+						</div>
+						<div *ngIf = "customSelectionDay">
+							<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0">
+								<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0">
+									<div *ngIf="preoptionSet">
+										<div *ngIf="preoptionSet.monday">
+											<span><b> Monday </b></span>
+											<span><b>:</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{preoptionSet.mondaytime.opentime}} &nbsp;-&nbsp;{{preoptionSet.mondaytime.closetime}}</span>
+											<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+												<a href="javascript:void(0)" (click) = "remove(preoptionSet,'monday')"><i class="fa fa-times-circle-o" aria-hidden="true"></i></a>
+											</span>
+										</div>
+										<div *ngIf="preoptionSet.tuesday">
+											<span><b> Tuesday </b></span><span><b>:</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{preoptionSet.tuesdaytime.opentime}} &nbsp;-&nbsp;{{preoptionSet.tuesdaytime.closetime}}</span>
+											<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+												<a href="javascript:void(0)" (click) = "remove(preoptionSet,'tuesday')"><i class="fa fa-times-circle-o" aria-hidden="true"></i></a>
+											</span>
+										</div>
+										<div *ngIf="preoptionSet.wednesday">
+											<span><b> Wednesday </b></span><span><b>:</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{preoptionSet.wednesdaytime.opentime}} &nbsp;-&nbsp;{{preoptionSet.wednesdaytime.closetime}}</span>
+											<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+												<a href="javascript:void(0)" (click) = "remove(preoptionSet,'wednesday')"><i class="fa fa-times-circle-o" aria-hidden="true"></i></a>
+											</span>
+										</div>
+										<div *ngIf="preoptionSet.thursday">
+											<span><b> Thursday </b></span><span><b>:</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{preoptionSet.thursdaytime.opentime}} &nbsp;-&nbsp;{{preoptionSet.thursdaytime.closetime}}</span>
+											<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+												<a href="javascript:void(0)" (click) = "remove(preoptionSet,'thursday')"><i class="fa fa-times-circle-o" aria-hidden="true"></i></a>
+											</span>
+										</div>
+										<div *ngIf="preoptionSet.friday">
+											<span><b> Friday </b></span><span><b>:</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{preoptionSet.fridaytime.opentime}} &nbsp;-&nbsp;{{preoptionSet.fridaytime.closetime}}</span>
+											<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+												<a href="javascript:void(0)" (click) = "remove(preoptionSet,'friday')"><i class="fa fa-times-circle-o" aria-hidden="true"></i></a>
+											</span>
+										</div>
+										<div *ngIf="preoptionSet.saturday">
+											<span><b> Saturday </b></span><span><b>:</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{preoptionSet.saturdaytime.opentime}} &nbsp;-&nbsp;{{preoptionSet.saturdaytime.closetime}}</span>
+											<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+												<a href="javascript:void(0)" (click) = "remove(preoptionSet,'saturday')"><i class="fa fa-times-circle-o" aria-hidden="true"></i></a>
+											</span>	        
+										</div>
+										<div *ngIf="preoptionSet.sunday">
+											<span><b> Sunday </b></span><span><b>:</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{preoptionSet.sundaytime.opentime}} &nbsp;-&nbsp;{{preoptionSet.sundaytime.closetime}}</span>
+											<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+												<a href="javascript:void(0)" (click) = "remove(preoptionSet,'sunday')"><i class="fa fa-times-circle-o" aria-hidden="true"></i></a>
+											</span>
+										</div>
+									</div>
+								</div>
+								<form [formGroup]="openingAddModel" (ngSubmit) = "openingHourDetailUpdate('displayTime')">
+									<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0">
+										<div class="checkbox">
+											<label><input type="checkbox" id="optionsRadios2" value="Monday" formControlName="monday"> Mon</label>
+											<label><input type="checkbox" name="tue" id="optionsRadios2" value="Tuesday" formControlName="tuesday"> Tue</label>
+											<label><input type="checkbox" name="wed" id="optionsRadios2" value="Wednesday" formControlName="wednesday"> Wed</label>
+											<label><input type="checkbox" name="thu" id="optionsRadios2" value="Thursday" formControlName="thursday"> Thu</label>
+											<label><input type="checkbox" name="fri" id="optionsRadios2" value="Friday" formControlName="friday"> Fri</label>
+											<label><input type="checkbox" name="sat" id="optionsRadios2" value="Saturday" formControlName="saturday"> Sat</label>
+											<label><input type="checkbox" name="sun" id="optionsRadios2" value="Sunday" formControlName="sunday"> Sun</label>
+										</div>
+										<div class="form-group">
+											<div class="col-sm-4 lpaddingzero">
+												<input type="time" class="form-control"  formControlName="opentime" name="open">
+											</div>
+										</div>
+										<div class="form-group">
+											<div class="col-sm-4 lpaddingzero">
+												<input type="time"  formControlName="closetime" class="form-control" name="close">
+											</div>
+										</div>
+									</div>
+									<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0">
+										<input type="submit" class="btn btn-next ng-binding" value="Save" [disabled]="!openingAddModel.valid">
+									</div>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 bgGray padding3">
+					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 marginBottom2 fontWeight600">
+						Available between:
+					</div>
+					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 marginBottom10">
+						<div [ngClass]="selected3" (click)="defaultUpdate('availableTime')" class="cursorPointer">
+							<i class="fa fa-check-circle" aria-hidden="true"></i>
+							<span>Unlimited (Default)</span>
+						</div>
+					</div>
+					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 marginBottom10">
+						<div class="marginBottom10 cursorPointer" [ngClass]="selected4" (click)="customUpdate('availableTime')">
+							<i class="fa fa-check-circle" aria-hidden="true"></i>
+							<span>Custom selection</span>
+						</div>
+						<div *ngIf = "customSelectionAvailable">
+							<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0" style="display: -webkit-inline-box;">
+								<input type="text" id="datePicker1" placeholder="-- Select Date --" (click)="showDatePicker('displayTime')" (blur)="getValue('datePicker1')" class="form-control" name="" style="width: 30%">
+								&nbsp;&nbsp;-&nbsp;&nbsp;
+								<input type="text" id="datePicker2" placeholder="-- Select Date --" (click)="showDatePicker('displayTime')" (blur)="getValue('datePicker2')" class="form-control" name="" style="width: 30%">
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div *ngIf = "fulfillmentTime">
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 bgGray padding3 marginBottom2">
+					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 marginBottom2 fontWeight600">
+						Days & time of the week:
+					</div>
+					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 marginBottom10">
+						<div [ngClass]="selected5" (click)="defaultUpdate('fulfillmentTime')" class="cursorPointer">
+							<i class="fa fa-check-circle" aria-hidden="true"></i>
+							<span>Any time within service / opening hours (Default)</span>
+						</div>
+					</div>
+					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 marginBottom10">
+						<div class="marginBottom10 cursorPointer" [ngClass]="selected6" (click)="customUpdate('fulfillmentTime')">
+							<i class="fa fa-check-circle" aria-hidden="true"></i>
+							<span>Custom selection</span>
+						</div>
+						<div *ngIf = "fulfillmentTimeDay">
+							<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0">
+								<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0">
+									<div *ngIf="preoptionSetFulfill">
+										<div *ngIf="preoptionSetFulfill.monday">
+											<span><b> Monday </b></span>
+											<span><b>:</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{preoptionSetFulfill.mondaytime.opentime}} &nbsp;-&nbsp;{{preoptionSetFulfill.mondaytime.closetime}}</span>
+											<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+												<a href="javascript:void(0)" (click) = "delete(preoptionSetFulfill,'monday')"><i class="fa fa-times-circle-o" aria-hidden="true"></i></a>
+											</span>
+										</div>
+										<div *ngIf="preoptionSetFulfill.tuesday">
+											<span><b> Tuesday </b></span><span><b>:</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{preoptionSetFulfill.tuesdaytime.opentime}} &nbsp;-&nbsp;{{preoptionSetFulfill.tuesdaytime.closetime}}</span>
+											<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+												<a href="javascript:void(0)" (click) = "delete(preoptionSetFulfill,'tuesday')"><i class="fa fa-times-circle-o" aria-hidden="true"></i></a>
+											</span>
+										</div>
+										<div *ngIf="preoptionSetFulfill.wednesday">
+											<span><b> Wednesday </b></span><span><b>:</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{preoptionSetFulfill.wednesdaytime.opentime}} &nbsp;-&nbsp;{{preoptionSetFulfill.wednesdaytime.closetime}}</span>
+											<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+												<a href="javascript:void(0)" (click) = "delete(preoptionSetFulfill,'wednesday')"><i class="fa fa-times-circle-o" aria-hidden="true"></i></a>
+											</span>
+										</div>
+										<div *ngIf="preoptionSetFulfill.thursday">
+											<span><b> Thursday </b></span><span><b>:</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{preoptionSetFulfill.thursdaytime.opentime}} &nbsp;-&nbsp;{{preoptionSetFulfill.thursdaytime.closetime}}</span>
+											<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+												<a href="javascript:void(0)" (click) = "delete(preoptionSetFulfill,'thursday')"><i class="fa fa-times-circle-o" aria-hidden="true"></i></a>
+											</span>
+										</div>
+										<div *ngIf="preoptionSetFulfill.friday">
+											<span><b> Friday </b></span><span><b>:</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{preoptionSetFulfill.fridaytime.opentime}} &nbsp;-&nbsp;{{preoptionSetFulfill.fridaytime.closetime}}</span>
+											<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+												<a href="javascript:void(0)" (click) = "delete(preoptionSetFulfill,'friday')"><i class="fa fa-times-circle-o" aria-hidden="true"></i></a>
+											</span>
+										</div>
+										<div *ngIf="preoptionSetFulfill.saturday">
+											<span><b> Saturday </b></span><span><b>:</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{preoptionSetFulfill.saturdaytime.opentime}} &nbsp;-&nbsp;{{preoptionSetFulfill.saturdaytime.closetime}}</span>
+											<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+												<a href="javascript:void(0)" (click) = "delete(preoptionSetFulfill,'saturday')"><i class="fa fa-times-circle-o" aria-hidden="true"></i></a>
+											</span>	        
+										</div>
+										<div *ngIf="preoptionSetFulfill.sunday">
+											<span><b> Sunday </b></span><span><b>:</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{preoptionSetFulfill.sundaytime.opentime}} &nbsp;-&nbsp;{{preoptionSetFulfill.sundaytime.closetime}}</span>
+											<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+												<a href="javascript:void(0)" (click) = "delete(preoptionSetFulfill,'sunday')"><i class="fa fa-times-circle-o" aria-hidden="true"></i></a>
+											</span>
+										</div>
+									</div>
+								</div>
+								<form [formGroup]="openingAddModel" (ngSubmit) = "openingHourDetailUpdate('fulfillmentTime')">
+									<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0">
+										<div class="checkbox">
+											<label><input type="checkbox" id="optionsRadios2" value="Monday" formControlName="monday"> Mon</label>
+											<label><input type="checkbox" name="tue" id="optionsRadios2" value="Tuesday" formControlName="tuesday"> Tue</label>
+											<label><input type="checkbox" name="wed" id="optionsRadios2" value="Wednesday" formControlName="wednesday"> Wed</label>
+											<label><input type="checkbox" name="thu" id="optionsRadios2" value="Thursday" formControlName="thursday"> Thu</label>
+											<label><input type="checkbox" name="fri" id="optionsRadios2" value="Friday" formControlName="friday"> Fri</label>
+											<label><input type="checkbox" name="sat" id="optionsRadios2" value="Saturday" formControlName="saturday"> Sat</label>
+											<label><input type="checkbox" name="sun" id="optionsRadios2" value="Sunday" formControlName="sunday"> Sun</label>
+										</div>
+										<div class="form-group">
+											<div class="col-sm-4 lpaddingzero">
+												<input type="time" class="form-control"  formControlName="opentime" name="open">
+											</div>
+										</div>
+										<div class="form-group">
+											<div class="col-sm-4 lpaddingzero">
+												<input type="time"  formControlName="closetime" class="form-control" name="close">
+											</div>
+										</div>
+									</div>
+									<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0">
+										<input type="submit" class="btn btn-next ng-binding" value="Save" [disabled]="!openingAddModel.valid">
+									</div>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 bgGray padding3">
+					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 marginBottom2 fontWeight600">
+						Available between:
+					</div>
+					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 marginBottom10">
+						<div [ngClass]="selected7" class="cursorPointer" (click)="defaultUpdate('fulfillmentAvailableTime')">
+							<i class="fa fa-check-circle" aria-hidden="true"></i>
+							<span>Unlimited (Default)</span>
+						</div>
+					</div>
+					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 marginBottom10">
+						<div class="marginBottom10 cursorPointer" [ngClass]="selected8" (click)="customUpdate('fulfillmentAvailableTime')">
+							<i class="fa fa-check-circle" aria-hidden="true"></i>
+							<span>Custom selection</span>
+						</div>
+						<div *ngIf = "fulfillmentTimeAvailable">
+							<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0" style="display: -webkit-inline-box;">
+								<input type="text" id="datePicker3" placeholder="-- Select Date --" (click)="showDatePicker('fulfillmentTime')" (blur)="getValue('datePicker3')" class="form-control" name="" style="width: 30%">
+								&nbsp;&nbsp;-&nbsp;&nbsp;
+								<input type="text" id="datePicker4" placeholder="-- Select Date --" (click)="showDatePicker('fulfillmentTime')" (blur)="getValue('datePicker4')" class="form-control" name="" style="width: 30%">
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0 marginBottom2">
+		<div #step4 class="col-lg-12 col-md-12 col-sm-12 col-xs-12 promotionStep promotionHover borderRadius3 padding10 bgWhite fontSmall fontWeight600">
+			<div><span class="numberingInCircle">4</span></div>
+			<div class="col-lg-11 col-md-11 col-sm-11 col-xs-10 cursorPointer paddingLeft40" (click)="showStep(step4,'4')"><span>Apply promo deal rules and restrictions <span class="fontXSmall">(What orders can benefit from this promo deal)</span></span></div>
+			<button class="col-lg-1 col-md-1 col-sm-1 col-xs-2 btn bgWhite promotionStepNext" (click)="save(step5,'4')">Next</button>
+		</div>
+		<div id="step4" class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding3 bgWhite">
+			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 bgGray padding3 marginBottom2">
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 marginBottom2 fontWeight600">
+					Allowed order type:
+				</div>
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 marginBottom10">
+					<div id="orderType1" (click)="orderType('any')" class="cursorPointer">
+						<i class="fa fa-check-circle" aria-hidden="true"></i>
+						<span>Any type (Default)</span>
+					</div>
+				</div>
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 marginBottom10">
+					<div id="orderType2" class="marginBottom10" (click)="orderType('pickup')" class="cursorPointer">
+						<i class="fa fa-check-circle" aria-hidden="true"></i>
+						<span>Pickup</span>
+					</div>
+				</div>
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 marginBottom10">
+					<div id="orderType3" class="marginBottom10" (click)="orderType('delivery')" class="cursorPointer">
+						<i class="fa fa-check-circle" aria-hidden="true"></i>
+						<span>Delivery</span>
+					</div>
+				</div>
+			</div>
+			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 bgGray padding3 marginBottom2">
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 marginBottom2 fontWeight600">
+					Allowed order time:
+				</div>
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 marginBottom10">
+					<div id="orderTime1" (click)="orderTime('any')" class="cursorPointer">
+						<i class="fa fa-check-circle" aria-hidden="true"></i>
+						<span>Any time (Default)</span>
+					</div>
+				</div>
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 marginBottom10">
+					<div id="orderTime2" class="marginBottom10" (click)="orderTime('now')" class="cursorPointer">
+						<i class="fa fa-check-circle" aria-hidden="true"></i>
+						<span>Now (As soon as possible)</span>
+					</div>
+				</div>
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 marginBottom10">
+					<div id="orderTime3" class="marginBottom10" (click)="orderTime('later')" class="cursorPointer">
+						<i class="fa fa-check-circle" aria-hidden="true"></i>
+						<span>Order for later</span>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0 marginBottom2">
+		<div #step5 class="col-lg-12 col-md-12 col-sm-12 col-xs-12 promotionStep promotionHover borderRadius3 padding10 bgWhite fontSmall fontWeight600">
+			<div><span class="numberingInCircle">5</span></div>
+			<div class="col-lg-11 col-md-11 col-sm-11 col-xs-10 cursorPointer paddingLeft40" (click)="showStep(step5,'5')"><span>Choose which clients can benefit from this promo deal</span></div>
+			<button class="col-lg-1 col-md-1 col-sm-1 col-xs-2 btn bgWhite promotionStepNext" (click)="save(step6,'5')">Next</button>
+		</div>
+		<div id="step5" class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding3 bgWhite">
+			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 bgGray padding3 marginBottom2">
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 marginBottom10">
+					<div id="clientType1" (click)="clientType('any')" class="cursorPointer">
+						<i class="fa fa-check-circle" aria-hidden="true"></i>
+						<span>Any client, new or returning (Default)</span>
+					</div>
+				</div>
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 marginBottom10">
+					<div id="clientType2" class="marginBottom10" (click)="clientType('new')" class="cursorPointer">
+						<i class="fa fa-check-circle" aria-hidden="true"></i>
+						<span>New clients only</span>
+					</div>
+				</div>
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 marginBottom10">
+					<div id="clientType3" class="marginBottom10" (click)="clientType('returning')" class="cursorPointer">
+						<i class="fa fa-check-circle" aria-hidden="true"></i>
+						<span>Only returning clients </span>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0 marginBottom2">
+		<div #step6 class="col-lg-12 col-md-12 col-sm-12 col-xs-12 promotionStep promotionHover borderRadius3 padding10 bgWhite fontSmall fontWeight600">
+			<div><span class="numberingInCircle">6</span></div>
+			<div class="col-lg-11 col-md-11 col-sm-11 col-xs-10 cursorPointer paddingLeft40" (click)="showStep(step6,'6')"><span>Decide how this promo deal is redeemable<span class="fontXSmall"> (Allow this once per client, show it only to coupon holders)</span></span></div>
+			<button class="col-lg-1 col-md-1 col-sm-1 col-xs-2 btn bgWhite promotionStepNext" (click)="save(step7,'6')">Next</button>
+		</div>
+		<div id="step6" class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding3 bgWhite">
+			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 bgGray padding3 marginBottom2">
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 marginBottom10">
+					<div id="showAll" (click)="dealRedemption('showAll')" class="cursorPointer">
+						<i class="fa fa-check-circle" aria-hidden="true"></i>
+						<span>Show on menu (Default)<br><span class="fontXSmall paddingLeft15">All eligible clients can see this on the menu.</span></span>
+					</div>
+				</div>
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 marginBottom10">
+					<div id="showSome" class="marginBottom10" (click)="dealRedemption('showSome')" class="cursorPointer">
+						<i class="fa fa-check-circle" aria-hidden="true"></i>
+						<span>Hide from menu<br><span class="fontXSmall paddingLeft15">Only clients that inserted a coupon code or came via a special URL link can see this.</span></span>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0 marginBottom2">
+		<div #step7 class="col-lg-12 col-md-12 col-sm-12 col-xs-12 promotionStep promotionHover borderRadius3 padding10 bgWhite fontSmall fontWeight600">
+			<div><span class="numberingInCircle">7</span></div>
+			<div class="col-lg-11 col-md-11 col-sm-11 col-xs-10 cursorPointer paddingLeft40" (click)="showStep(step7,'7')"><span>Set a coupon code</span></div>
+			<button class="col-lg-1 col-md-1 col-sm-1 col-xs-2 btn bgWhite promotionStepNext" (click)="save('','7')">Next</button>
+		</div>
+		<div id="step7" class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding3 bgWhite">
+			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 bgGray padding3 marginBottom2">
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 fontWeight600 marginBottom2">
+					Set a coupon code for this promo deal:
+				</div>
+				<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 marginBottom10">
+						<div id="auto" (click)="couponCode('auto')" class="cursorPointer">
+							<i class="fa fa-check-circle" aria-hidden="true"></i>
+							<span>Auto generated (Default)</span>
+						</div>
+					</div>
+					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 marginBottom10">
+						<div id="code" class="marginBottom10" (click)="couponCode('code')" class="cursorPointer">
+							<i class="fa fa-check-circle" aria-hidden="true"></i>
+							<span>Custom</span>
+						</div>
+						<div *ngIf = "customCouponCode">
+							<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 paddingLeft40 marginTop5">
+								<input #couponCode type="text" maxlength="10" minlength="5" placeholder="Your Code..." name="" class="form-control padding5 fontSmall" (keyup)="countCharacter($event,couponCode,'couponCode')" style="width:35%;">
+								<div class="fontXSmall paddingTop3">Between 5-10 characters.</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 marginBottom10">In most cases clients will be able to pick the promo deal directly from the menu without a coupon code.</div>
+					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 marginBottom10">Coupon codes are used most successful when printed on flyers.</div>
+					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 marginBottom10">You may consider marking this promo as "Hide from menu". This way only clients who know the coupon code can unlock this promo.</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,418 @@
+.promotionHeading{
+	padding: 4%;
+    font-size: xx-large;
+    text-align: -webkit-center;
+}
+
+.view{
+	padding: 4%;
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.profile{
+	width: 72%;
+	padding: 0;
+	box-shadow: 0 1px 6px rgba(0,1,1,.35);
+	background: white;
+	margin-top: 5%;
+	margin-bottom: 7%;
+}
+
+/*.selected1 ,.selected2,.selected3 ,.selected4,.selected5 ,.selected6,.selected7 ,.selected8,.displayTrue {
+	cursor: pointer;
+}*/
+
+.displayTrue i{
+    color: green;
+    font-size: initial;
+}
+.displayTrue span{
+    font-weight: 700;
+    color: green;
+    font-size: initial;
+}
+.displayFalse i{
+    color: #777;
+    font-size: initial;
+}
+.displayFalse span{
+    font-weight: 100;
+    color: #777;
+    font-size: initial;
+}
+
+.selected1 i,.selected3 i,.selected5 i,.selected7 i{
+	color: green;
+}
+.selected1 span,.selected3 span,.selected5 span,.selected7 span{
+	font-weight: 600;
+}
+.selected2 i,.selected4 i,.selected6 i,.selected8 i{
+	color: white;
+}
+.selected2 span,.selected4 span,.selected6 span,.selected8 span{
+	font-weight: 100;
+}
+
+.modal-body , .bgWhite{
+	background-color: white;
+}
+
+.modal-dialog{
+	margin: 10% 22.5%;
+    width: 55%;
+}
+
+.modal-title{
+	font-size: 18px;
+}
+
+.modal-content{
+	 padding: 0;
+}
+
+.modal-header{
+    padding: 3% 1%;
+}
+
+.selectDate{
+    background-color: #ededed;
+    padding: 20px;
+    color: #666;
+    font-size: 14px;
+    position: relative;
+    border-radius: 3px;
+    margin-bottom: 10px;
+}
+
+.selectDateWhite{
+    background-color: white;
+    padding: 20px;
+    color: #666;
+    font-size: 14px;
+    position: relative;
+    border-radius: 3px;
+    margin-bottom: 10px;
+}
+
+.marginBottom10{
+    margin-bottom: 10px;
+}
+
+.marginBottom20{
+    margin-bottom: 20px;
+}
+
+.marginTop20{
+	margin-top: 20px;
+}
+
+.fontWeight600{
+    font-weight: 600;
+}
+
+.minheight585 {
+    background-color: #E9E9E8;
+    min-height: 585px;
+}
+
+.padding0{
+    padding: 0 !important;
+}
+
+.padding1{
+    padding: 1%;
+}
+
+.paddingTop0{
+    padding-top: 0;
+}
+
+.paddingTop3{
+    padding-top: 3%;
+}
+
+.paddingLeft40{
+    padding: 0.5% 0% 0% 40px;
+}
+
+.paddingLeft10prcnt{
+    padding-left: 10%;
+}
+
+.padding3{
+    padding: 3%;
+}
+
+.padding5{
+    padding: 5%;
+}
+
+.paddingBottom{
+    padding: 0 0 1.5% 0;
+}
+
+.padding10-0{
+    padding:10px 0; 
+}
+
+.padding10{
+    padding:10px; 
+}
+
+.padding20{
+    padding:20px; 
+}
+
+.padding15{
+    padding:15px; 
+}
+
+.paddingLeft10{
+    padding-left : 10px; 
+}
+
+.paddingLeft15{
+    padding-left : 15px; 
+}
+
+.marginBottom2{
+    margin-bottom: 2%;
+}
+
+.marginBottom5{
+    margin-bottom: 5%;
+}
+
+.fontLarge{
+    font-size: large;
+}
+
+.fontXLarge{
+    font-size: x-large;
+}
+
+.fontMedium{
+    font-size: medium;
+}
+
+.fontSmall{
+    font-size: small;
+}
+
+.fontXSmall{
+    font-size: x-small;
+}
+
+.fontSmaller{
+    font-size: smaller;
+}
+
+.promotionList{
+    background-color: white;
+    padding: 15px;
+    margin-bottom: 1%;
+    border-radius: 4px;
+}
+
+.promotionIcon{
+    text-align: -webkit-center;
+    font-size: x-large;
+}
+
+.promotionLockImage img{
+    height: 45px;
+}
+
+.promotionLockImage a{
+    color: #f08b18;
+}
+
+.promotionLockImage{
+    text-align: -webkit-center;
+}
+
+.alignCenter{
+    text-align: -webkit-center;
+}
+
+a.nextButton , .colorWhite{
+    color: white !important;
+}
+
+.borderRadius3{
+    border-radius: 3px;
+}
+
+.colorGreen{
+    color: #5AC15E;
+}
+
+.numberingInCircle{
+    top: 11px;
+    position: absolute;
+    background-color: #999;
+    border-radius: 13px;
+    width: 26px;
+    height: 26px;
+    text-align: center;
+    color: #fff;
+    padding: 5px 0 0 0;
+}
+
+.changeBg{
+    background-color: #5AC15E;
+    border: 1px solid #5AC15E !important;
+    color: white;
+    cursor: default;
+    border-radius: 3px 3px 0 0;
+}
+
+.changeBg .numberingInCircle{
+    background-color: white;
+    color: #5AC15E;
+}
+
+.promotionHover:hover {
+    color: #5AC15E;
+    cursor: pointer;
+    /*background-color: #5AC15E;*/
+    border: 1px solid #5AC15E;
+    transition: border-color .4s ease-out;
+}
+
+.promotionHover:hover .numberingInCircle {
+    color: white;
+    cursor: pointer;
+    background-color: #5AC15E;
+}
+
+.promotionStep{
+    border: solid 1px #ddd;
+    transition: border-color .4s ease-out;
+}
+
+.promotionStepNext{
+    display: none;
+    color: #5AC15E;
+    /*cursor: pointer;*/
+    padding: 0.5%;
+    text-align: -webkit-center;
+}
+
+.toast-top-full-width{
+    top: 10%;
+    padding: 0 15% 0 15%;
+}
+
+.positionAbsolute{
+    position: absolute;
+}
+
+.displayGrid{
+    display: grid;
+}
+
+.marginX{
+    margin: 1% 0 0 6%;
+}
+
+.offerButton{
+    background-color: #f08b18;
+    color: white;
+}
+.cursorPointer{
+    cursor: pointer;
+}
+
+.top45{
+    top: 45%;
+}
+
+.offerImage{
+    width : 377px;
+    height : 221px;
+}
+
+#step1 ,#step2 ,#step3 ,#step4,#step5,#step6,#step7{
+    border: 1px solid #5AC15E;
+}
+
+.bgGray{
+    background-color: #ededed;
+}
+
+.bgLightGray{
+    background-color: #F4F4F4;
+}
+
+.fa-pencil{
+    color: #999;
+}
+
+.marginRight15{
+    margin-right: 15%;
+}
+
+.marginTop5{
+    margin-top: 5%
+}
+
+.saveButton{
+    text-align: -webkit-center;
+    position: relative;
+    padding: 10px;
+    background-color: #f08b18;
+    box-shadow: 0 1px 0 rgba(0,0,0,.15), inset 0 -1px 0 rgba(0,0,0,.15);
+    border-radius: 3px;
+    width: 100%;
+    color: white;
+    display: -webkit-inline-box;
+}
+
+.width85{
+    width: 85%;
+}
+
+.width95{
+    width: 95%;
+}
+
+.width10{
+    width: 10%;
+}
+
+.close{
+    position: absolute;
+    right: -25px;
+    top: -25px;
+    font-size: xx-large;
+    background-color: rgba(255, 255, 255, 0);
+    box-shadow: 2px -2px 4px rgba(0, 0, 0, 0);
+}
+
+.borderRadius0{
+    border-radius: 0;
+}
+
+.itemName{
+    padding: 15px 10px 15px 40px;
+}
+
+.borderTopBottom{
+    border-top: 1px solid #d9d9d9;
+    border-bottom: 1px solid #d9d9d9;
+}
+
+.modal-dialog{
+    margin: 5% 22.5%;
+}
+
+.activationDetail div{
+    min-height: 20px !important;
+}
+
+ div.secondDiv  div.formField{
+    padding: 15px;
+ }

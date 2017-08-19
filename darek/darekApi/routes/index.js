@@ -9,6 +9,7 @@ var kitchenMenuModel  =  require("../model/Kitchenmenu.js");
 var itemModel  =  require("../model/Item.js");
 var addOnModel  =  require("../model/addon.js");
 var languageModel  =  require("../model/Language.js");
+var promotionDetailModel  =  require("../model/promotionDetail.js");
 
 
 
@@ -668,8 +669,10 @@ router.delete('/menu/:id',function(req,res){
 	kitchenMenuModel.remove({_id:req.params.id},function(err,data){
 		if (err) {
 			response = {"error" : true,"message" : "Error fetching data"};
-		} else{
-			response = {"error" : false,"message" : "Deleted Successfully"};
+		}else{
+			itemModel.remove({menuId:req.params.id},function(err,data){
+				response = {"error" : false,"message" : "Deleted Successfully"};
+			});
 		};
 		res.json(response);
 	});	
@@ -680,7 +683,7 @@ router.delete('/menu/:id',function(req,res){
 
 router.get('/item', function(req, res, next) {
 	var response={};
-	itemModel.find({}, null, {sort: {created_at: 1}},function(err,data){
+	itemModel.find({}, null, {sort: {created_at: 1}}).populate('options').exec(function(err,data){
 		if (err) {
 			response = {"error" : true,"message" : "Error fetching data"};
 		} else{
@@ -719,7 +722,7 @@ router.put('/item/:id',function(req, res){
 
 router.get('/item/:id',function(req,res){
 	var response={};
-	itemModel.findById(req.params.id,function(err,data){
+	itemModel.findById(req.params.id).populate('options').exec(function(err,data){
 		if (err) {
 			response = {"error" : true,"message" : "Error fetching data"};
 		} else{
@@ -803,10 +806,9 @@ router.put('/itemaddonedit/:id',function(req, res){
 
 });
 
-
 router.get('/item-list/:id', function(req, res, next) {
 	var response={};
-	itemModel.find({kitchenId : req.params.id}, null, {sort: {created_at: 1}},function(err,data){
+	itemModel.find({kitchenId : req.params.id}, null, {sort: {created_at: 1}}).populate('options').exec(function(err,data){
 		if (err) {
 			response = {"error" : true,"message" : "Error fetching data"};
 		} else{
@@ -835,7 +837,6 @@ router.get('/addon', function(req, res, next) {
 	});	
 });
 
-
 router.get('/addon-list/:id', function(req, res, next) {
 	var response={};
 	addOnModel.find({restaurantId : req.params.id}, null, {sort: {created_at: 1}},function(err,data){
@@ -847,7 +848,6 @@ router.get('/addon-list/:id', function(req, res, next) {
 		res.json(response);
 	});	
 });
-
 
 router.post('/addon',function(req, res){
 	var response={};
@@ -928,7 +928,6 @@ router.delete('/addonchoice/:index/:id',function(req, res){
 	});
 });
 
-
 router.get('/addonchoice/:id/:subaddonid',function(req, res){
 	var response={};	
 	addOnModel.findOne({"_id": req.params.id},{"subaddon" : { $elemMatch : { "_id": req.params.subaddonid }}}, function(err, data){		
@@ -940,7 +939,6 @@ router.get('/addonchoice/:id/:subaddonid',function(req, res){
 		res.json(response);
 	});
 });
-
 
 router.put('/addonchoiceedit/:id',function(req, res){	
 	var response={};
@@ -955,7 +953,85 @@ router.put('/addonchoiceedit/:id',function(req, res){
 		};
 		res.json(response);
 	});
-
 });
 
 module.exports = router;
+
+
+/*-------------------------------START PROMOTIONDETAILS--------------------------------------------------------*/
+
+router.get('/promodetail', function(req, res, next) {
+	var response={};
+	promotionDetailModel.find({}, null, {sort: {created_at: 1}},function(err,data){
+		if (err) {
+			response = {"error" : true,"message" : "Error fetching data"};
+		} else{
+			response = {"error" : false,"message" : data};
+		};
+		res.json(response);
+	});	
+});
+
+router.post('/promodetail',function(req, res){
+	var response={};
+    var promotionDetailModelObj = new promotionDetailModel(req.body);
+    promotionDetailModel.save(function(err){
+    	if(err) {
+            response = {"error" : true,"message" : err};
+        } else {
+            response = {"error" : false,"message" : "Data added"};
+        }
+        res.json(response);
+    });
+});
+
+router.put('/promodetail/:id',function(req, res){
+	var response={};
+	promotionDetailModel.findByIdAndUpdate(req.params.id, req.body, function(err, promotionDetailModelObj) {
+	    	if(err) {
+	            response = {"error" : true,"message" : err};
+	        } else {
+	            response = {"error" : false,"message" : "Data Update"};
+	        }
+	        res.json(response);
+        });
+});
+
+router.get('/promodetail/:id',function(req,res){
+	var response={};
+	promotionDetailModel.findById(req.params.id,function(err,data){
+		if (err) {
+			response = {"error" : true,"message" : "Error fetching data"};
+		} else{
+			response = {"error" : false,"message" : data};
+		};
+		res.json(response);
+	});	
+});
+
+router.delete('/promodetail/:id',function(req,res){
+	var response={};
+	promotionDetailModel.remove({_id:req.params.id},function(err,data){
+		if (err) {
+			response = {"error" : true,"message" : "Error fetching data"};
+		} else{
+			response = {"error" : false,"message" : "Deleted Successfully"};
+		};
+		res.json(response);
+	});	
+});
+
+router.get('/restaurantpromo-list/:id', function(req, res, next) {
+	var response={};
+	promotionDetailModel.find({restaurantId : req.params.id}, null, {sort: {created_at: 1}},function(err,data){
+		if (err) {
+			response = {"error" : true,"message" : "Error fetching data"};
+		} else{
+			response = {"error" : false,"message" : data};
+		};
+		res.json(response);
+	});	
+});
+
+
+/*-------------------------------END PROMOTIONDETAILS--------------------------------------------------------*/

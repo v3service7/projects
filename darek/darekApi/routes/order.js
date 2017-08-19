@@ -38,6 +38,19 @@ router.get('/', function(req, res, next) {
         res.json(response);
     }); 
 });
+
+router.get('/driver/:id', function(req, res, next) {
+    var response={};
+    Order.find({driverId:req.params.id}, null, {sort: {created_at: 1}},function(err,data){
+        if (err) {
+            response = {"error" : true,"message" : "Error fetching data"};
+        } else{
+
+            response = {"error" : false,"message" : data};
+        };
+        res.json(response);
+    }); 
+});
 /*
 router.get('/create-hmac', function(req, res, next) {
     var response={};
@@ -117,19 +130,6 @@ router.delete('/:id',function(req,res){
         };
         res.json(response);
     }); 
-});
-
-router.get('/status', function(req, res) {
-    console.log(req.user);
-    if (!req.isAuthenticated()) {
-        return res.status(200).json({
-            status: false
-        });
-    }
-    res.status(200).json({
-        data:req.user,
-        status: true
-    });
 });
 
 module.exports = router;

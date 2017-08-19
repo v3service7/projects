@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router,ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
-import { FlashMessagesService } from 'angular2-flash-messages';
+//import { FlashMessagesService } from 'angular2-flash-messages';
 import { AlertService, AuthService, UsersService } from '../service/index';
 
 declare var toastr: any;
@@ -23,7 +23,7 @@ export class LoginComponent implements OnInit {
         private router: Router,
         private alertService: AlertService,
         private route: ActivatedRoute,
-        private _flashMessagesService: FlashMessagesService,
+        //private _flashMessagesService: FlashMessagesService,
     ) { }
 
 

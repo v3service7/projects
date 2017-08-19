@@ -1,0 +1,209 @@
+<app-marketingnav></app-marketingnav>
+
+<div class="modal fade" id="myModal" role="dialog">
+	<div class="modal-dialog col-lg-12 col-md-12 col-sm-12 col-xs-12"> 
+		<div class="modal-content col-lg-12 col-md-12 col-sm-12 col-xs-12">
+			<form>
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<div class="modal-title">
+						<span>Preview your menu with the following criteria</span>
+						<span class="pull-right"><input type="submit" class="btn btn-success" value="Preview"></span>
+					</div>
+				</div>
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 modal-body">
+					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="padding: 3%; border: 1px solid #d6d6d6;margin-bottom: 10px;">
+						<div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+							<i class="fa fa-info-circle" aria-hidden="true" style=" font-size: x-large;"></i>
+						</div>
+						<div class="col-lg-11 col-md-11 col-sm-11 col-xs-11">
+							Promo deals are visible to eligible clients so you can create targeted promo deals for different audiences.
+						</div>
+					</div>
+					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 selectDate">
+						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 marginBottom10">
+							<div class="cursorPointer" [ngClass]="selected1" (click)="presentTimeUpdate('forTime')">
+								<i class="fa fa-check-circle" aria-hidden="true"></i>
+								<span>Present Time</span>
+							</div>
+						</div>
+						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 marginBottom10">
+							<div class="marginBottom10 cursorPointer" [ngClass]="selected2" (click)="dateNtimeUpdate('forTime')">
+								<i class="fa fa-check-circle" aria-hidden="true"></i>
+								<span>As if date and time would be:</span>
+							</div>
+
+							<div *ngIf="showTiming" style="display: -webkit-inline-box;">
+								<input type="text" id="datepicker" placeholder="-- Select Date --" (click)="showDatePicker()" (blur)="getValue('datepicker')" class="form-control" style="width: auto;">
+								<input type="text" id="timepicker" placeholder="-- Select Time --" (click)="showTimePicker()" (blur)="getValue('timepicker')" class="form-control" style="width: auto;">
+							</div>
+						</div>
+					</div>
+					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 selectDate">
+						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 marginBottom10">
+							<div class="cursorPointer" [ngClass]="selected3" (click)="presentTimeUpdate('forClient')">
+								<i class="fa fa-check-circle" aria-hidden="true"></i>
+								<span>As new client</span>
+							</div>
+						</div>
+						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 marginBottom10">
+							<div class="marginBottom10 cursorPointer" [ngClass]="selected4" (click)="dateNtimeUpdate('forClient')">
+								<i class="fa fa-check-circle" aria-hidden="true"></i>
+								<span>As returning client</span>
+							</div>
+							<div *ngIf = "clientDetail">
+								<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 selectDateWhite">
+									<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 marginBottom10">
+										<span class="fontWeight600">Client's with a certain number of orders</span>
+									</div>
+									<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 marginBottom10" *ngIf = "clientOrderNum">
+										<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0" *ngFor="let x of clientOrderNum ; let j = index;">
+											<div class="col-lg-5 col-md-5 col-sm-5 col-xs-5 padding0">
+												<strong>{{x.name}}</strong>
+											</div>
+											<div class="col-lg-2 col-md-2 col-sm-2 col-xs-5 padding0">
+												{{x.num}}
+											</div>
+											<div class="col-lg-2 col-md-2 col-sm-2 col-xs-5 padding0">
+												<a href="javascript:void(0)" (click) = "remove(x,j, 'num')">
+								                    <i class="fa fa-times-circle-o" aria-hidden="true"></i>
+								                </a>
+											</div>
+										</div>
+									</div>
+									<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 marginBottom10" *ngIf="!addClicked && orderType.length > 0">
+										<button type="button" class="btn" style="color: #fff;background-color: #999;" (click)="showOrder('num')">Add</button>
+									</div>
+									<form role="form" [formGroup]="clientOrderForm" (ngSubmit)="clientOrderDetail()" *ngIf = "addClicked && orderType.length > 0">
+										<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0 marginBottom10">
+											<div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
+												<select [(ngModel)]="orderNum" #orderData class="form-control" formControlName = "selectOptn">
+											    	<option *ngFor="let name of orderType" [value]="name.key">{{name.name}}</option>
+											    </select>
+											</div>
+											<div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+												<input type="text" name="" class="form-control" formControlName = "orderNum">
+											</div>
+										</div>
+										<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0 marginBottom10">
+											<button type="submit" class="btn btn-success" [disabled] = "!clientOrderForm.valid">Save</button>
+											<div class="btn" style="color: #fff;background-color: #999;margin-right:3%;" (click)="hideOrder('num')">Cancel</div>
+										</div>
+									</form>
+								</div>
+
+								<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 selectDateWhite">
+									<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 marginBottom10">
+										<span class="fontWeight600">Client's total order amount</span>
+									</div>
+
+									<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 marginBottom10" *ngIf = "clientOrderAmount">
+										<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0" *ngFor="let x of clientOrderAmount ; let k = index;">
+											<div class="col-lg-5 col-md-5 col-sm-5 col-xs-5 padding0">
+												<strong>{{x.name}}</strong>
+											</div>
+											<div class="col-lg-2 col-md-2 col-sm-2 col-xs-5 padding0">
+												{{x.amt}}
+											</div>
+											<div class="col-lg-2 col-md-2 col-sm-2 col-xs-5 padding0">
+												<a href="javascript:void(0)" (click) = "remove(x,k, 'amount')">
+								                    <i class="fa fa-times-circle-o" aria-hidden="true"></i>
+								                </a>
+											</div>
+										</div>
+									</div>
+
+									<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 marginBottom10" *ngIf="!addClickedForAmount && orderAmount.length > 0">
+										<button type="button" class="btn" style="color: #fff;background-color: #999;" (click)="showOrder('amount')">Add</button>
+									</div>
+									<form role="form" [formGroup]="clientAmountForm" (ngSubmit)="clientAmountDetail()" *ngIf = "addClickedForAmount && orderAmount.length > 0">
+										<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0 marginBottom10">
+											<div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
+												<select [(ngModel)]="orderAmt" #orderAm class="form-control" formControlName = "selectOptnAmount">
+											    	<option *ngFor="let name of orderAmount" [value]="name.key">{{name.name}}</option>
+											    </select>
+											</div>
+											<div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+												<input type="text" name="" class="form-control" formControlName = "orderAmt">
+											</div>
+										</div>
+										<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0 marginBottom10">
+											<button type="submit" class="btn btn-success" [disabled] = "!clientAmountForm.valid">Save</button>
+											<div class="btn" style="color: #fff;background-color: #999;margin-right:3%;" (click)="hideOrder('amount')">Cancel</div>
+										</div>
+									</form>
+								</div>
+
+								<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 selectDateWhite">
+									<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 marginBottom10">
+										<span class="fontWeight600">Client's last order</span>
+									</div>
+
+									<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 marginBottom10" *ngIf = "clientLastOrder">
+										<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0" *ngFor="let x of clientLastOrder ; let j = index;">
+											<div class="col-lg-5 col-md-5 col-sm-5 col-xs-5 padding0">
+												<strong>{{x.lastOrder}}</strong>
+											</div>
+											<div class="col-lg-5 col-md-5 col-sm-5 col-xs-5 padding0">
+												{{x.orderVia}}
+											</div>
+											<div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 padding0">
+												<a href="javascript:void(0)" (click) = "remove(x,j,'lastOrder')">
+								                    <i class="fa fa-times-circle-o" aria-hidden="true"></i>
+								                </a>
+											</div>
+										</div>
+									</div>
+
+									<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 marginBottom10" *ngIf="!addClickedForLst && orderLast.length > 0">
+										<button type="button" class="btn" style="color: #fff;background-color: #999;" (click)="showOrder('lastOrder')">Add</button>
+									</div>
+
+									<form role="form" [formGroup] = "clientLastOrderForm" (ngSubmit)="clientLastOrderDetail()" *ngIf = "addClickedForLst && orderLast.length > 0">
+										<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0 marginBottom10">
+											<div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
+												<select [(ngModel)]="orderLst" #lastOrder class="form-control" (change)="onChange(lastOrder.value)" formControlName = "lastOrder">
+											    	<option *ngFor="let name of orderLast; let i=index;" [value]="i">{{name.name}}</option>
+											    </select>
+											</div>
+											<div class="col-lg-5 col-md-5 col-sm-5 col-xs-5" *ngIf="typeAvailable">
+												<select [(ngModel)]="orderVia1" class="form-control" formControlName = "orderViaSelect">
+											    	<option *ngFor="let name of orderSource" [value]="name.key">{{name.name}}</option>
+											    </select>
+											</div>
+											<div class="col-lg-5 col-md-5 col-sm-5 col-xs-5" *ngIf="!typeAvailable">
+												<input type="text" name="" class="form-control" formControlName = "orderViaText">
+											</div>
+
+										</div>
+										<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0 marginBottom10">
+											<button type="submit" class="btn btn-success" [disabled] = "!clientLastOrderForm.valid">Save</button>
+											<div class="btn" style="color: #fff;background-color: #999;margin-right:3%;" (click)="hideOrder('lastOrder')">Cancel</div>
+										</div>
+									</form>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</form>
+		</div>     
+	</div>
+</div>
+
+<div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 minheight585">
+	<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding3">
+		<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 fontWeight600" style="color: white; background-color:#737373;min-height: 20px;padding: 19px;display: -webkit-box;text-align: center;font-size: small;">
+			<div style="width: 20%;">STATUS</div>
+			<div style="width: 20%;">NAME</div>
+			<div style="width: 20%;">COUPON</div>
+			<div style="width: 20%;">USED</div>
+			<div style="width: 20%;">CREATED</div>
+		</div>
+
+		<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="padding: 2%;background: white;">
+			<a class="btn" style="color: #fff;background-color: #999;margin-right:3%;" [routerLink]="['select-template']">Add Promo Deal</a>
+			<button type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal">Preview</button>
+		</div>
+	</div>
+</div>

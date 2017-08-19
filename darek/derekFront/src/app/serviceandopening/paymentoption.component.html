@@ -36,7 +36,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="row">
+                <div class="row" *ngIf="restaurants.onlinepayment">
                     <div class="col-xs-7 payment-text ng-binding">Card onlive via internet</div>
                     <div class="col-xs-5">
                         <div class="btn-group" data-toggle="buttons">
@@ -76,7 +76,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="row">
+                <div class="row" *ngIf="restaurants.onlinepayment">
                     <div class="col-xs-7 payment-text ng-binding">Card onlive via internet</div>
                     <div class="col-xs-5">
                         <div class="btn-group" data-toggle="buttons">

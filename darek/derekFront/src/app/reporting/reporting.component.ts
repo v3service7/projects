@@ -124,6 +124,7 @@ export class ReportingMethodComponent implements OnInit {
     }
     ];
     public lineChartLegend:boolean = true;
+    isShow:boolean = false;
     public lineChartType:string = 'line';
 
     constructor(
@@ -133,8 +134,10 @@ export class ReportingMethodComponent implements OnInit {
     }
 
     ngOnInit() {
+        document.getElementById('noRecordClass').style.display = 'none';
         this.getRestaurants();
     }
+
     private lastSevenDays(day){
         var array = [];
         for (var i = 0; i < day; i++) {
@@ -146,7 +149,17 @@ export class ReportingMethodComponent implements OnInit {
     }
     private getMethodData(id , days) {
         this.orderService.getMethodChart(id , days).subscribe(users => {
-            this.lineChartData = users.message;
+            /*console.log("users.message");
+            console.log(users.message);*/
+            if (users.message.length > 0) {
+                this.lineChartData = users.message;
+                this.isShow = true;
+            }
+
+            if(users.message.length == 0){
+                this.isShow = false;
+                document.getElementById('noRecordClass').style.display = 'block';
+            }
         });
     }
     private getRestaurants() {
@@ -194,6 +207,7 @@ export class ReportingResultComponent implements OnInit {
     ];
     public lineChartLegend:boolean = true;
     public lineChartType:string = 'line';
+    public isShow:boolean = false;
 
     constructor(
         private restaurantsService: RestaurantsService,
@@ -201,6 +215,7 @@ export class ReportingResultComponent implements OnInit {
         ) {}
 
     ngOnInit() {
+        document.getElementById('noRecordClass').style.display = 'none';
         this.getRestaurants();
         
     }
@@ -215,8 +230,17 @@ export class ReportingResultComponent implements OnInit {
     }
     private getResultData(id, days) {
         this.orderService.getResultChart(id,days).subscribe(users => {
-            this.lineChartData = users.message;
-            console.log(this.lineChartData)
+            /*console.log("users.message");
+            console.log(users.message);*/
+            if (users.message.length > 0) {
+                this.lineChartData = users.message;
+                this.isShow = true;
+            }
+
+            if(users.message.length == 0){
+                this.isShow = false;
+                document.getElementById('noRecordClass').style.display = 'block';
+            }
         });
     }
     private getRestaurants() {
@@ -263,6 +287,7 @@ export class ReportingTypeComponent implements OnInit {
     ];
     public lineChartLegend:boolean = true;
     public lineChartType:string = 'line';
+    public isShow:boolean = false;
 
     constructor(
         private restaurantsService: RestaurantsService,
@@ -270,6 +295,7 @@ export class ReportingTypeComponent implements OnInit {
         ) {}
 
     ngOnInit() {
+        document.getElementById('noRecordClass').style.display = 'none';
         this.getRestaurants();
     }
     private lastSevenDays(days){
@@ -283,8 +309,15 @@ export class ReportingTypeComponent implements OnInit {
     }
     private getTypeData(id, days) {
         this.orderService.getTypeChart(id,days).subscribe(users => {
-            this.lineChartData = users.message;
-            console.log(this.lineChartData)
+            if (users.message.length > 0) {
+                this.lineChartData = users.message;
+                this.isShow = true;
+            }
+
+            if(users.message.length == 0){
+                this.isShow = false;
+                document.getElementById('noRecordClass').style.display = 'block';
+            }
         });
     }
     private getRestaurants() {
@@ -331,6 +364,7 @@ export class ReportingPaymentMethodComponent implements OnInit {
     ];
     public lineChartLegend:boolean = true;
     public lineChartType:string = 'line';
+    public isShow:boolean = false;
 
     constructor(
         private restaurantsService: RestaurantsService,
@@ -338,6 +372,7 @@ export class ReportingPaymentMethodComponent implements OnInit {
         ) {}
 
     ngOnInit() {
+        document.getElementById('noRecordClass').style.display = 'none';
         this.getRestaurants();
     }
     private lastSevenDays(days){
@@ -351,8 +386,15 @@ export class ReportingPaymentMethodComponent implements OnInit {
     }
     private getPaymentData(id,days) {
         this.orderService.getPaymentChart(id,days).subscribe(users => {
-            this.lineChartData = users.message;
-            console.log(this.lineChartData)
+            if (users.message.length > 0) {
+                this.lineChartData = users.message;
+                this.isShow = true;
+            }
+
+            if(users.message.length == 0){
+                this.isShow = false;
+                document.getElementById('noRecordClass').style.display = 'block';
+            }
         });
     }
     private getRestaurants() {
@@ -396,6 +438,7 @@ export class ReportingItemsComponent implements OnInit {
     ];
     public lineChartLegend:boolean = true;
     public lineChartType:string = 'line';
+    public isShow:boolean = false;
 
     constructor(
         private restaurantsService: RestaurantsService,
@@ -403,6 +446,7 @@ export class ReportingItemsComponent implements OnInit {
         ) {}
 
     ngOnInit() {
+        document.getElementById('noRecordClass').style.display = 'none';
         this.getRestaurants();
     }
     private lastSevenDays(days){
@@ -417,7 +461,15 @@ export class ReportingItemsComponent implements OnInit {
 
     private getItemData(id,days) {
         this.orderService.getItemChart(id,days).subscribe(users => {
-            this.lineChartData = users.message;
+            if (users.message.length > 0) {
+                this.lineChartData = users.message;
+                this.isShow = true;
+            }
+
+            if(users.message.length == 0){
+                this.isShow = false;
+                document.getElementById('noRecordClass').style.display = 'block';
+            }
         });
     }
 
@@ -447,6 +499,7 @@ export class ReportingItemCategoriesComponent implements OnInit {
     selectedTime = this.timeValue[0].name;
     menu = [];
     menuId:string;
+    menuName : string;
     public lineChartData:Array<any>=[{data: [], label: ''}];
     public lineChartLabels:Array<any> = [];
     public lineChartOptions:any = {responsive: true};
@@ -462,6 +515,7 @@ export class ReportingItemCategoriesComponent implements OnInit {
     ];
     public lineChartLegend:boolean = true;
     public lineChartType:string = 'line';
+    public isShow:boolean = false;
 
     constructor(
         private restaurantsService: RestaurantsService,
@@ -470,6 +524,7 @@ export class ReportingItemCategoriesComponent implements OnInit {
         ) {}
 
     ngOnInit() {
+        document.getElementById('noRecordClass').style.display = 'none';
         this.getRestaurants();
     }
     private changeMenu(id) {
@@ -482,6 +537,7 @@ export class ReportingItemCategoriesComponent implements OnInit {
         this.kitchenMenuService.getAll(this.restaurants._id).subscribe(users => {             
             this.menu = users.message;
             this.menuId = this.menu[0]._id;
+            this.menuName = this.menu[0]._id;
             this.lineChartLabels = this.lastSevenDays(this.selectedTime);
             this.getItemCategoryData(this.restaurants._id,this.menuId, this.selectedTime);
         });
@@ -499,10 +555,17 @@ export class ReportingItemCategoriesComponent implements OnInit {
 
     private getItemCategoryData(id,menuid,days) {
         this.orderService.getItemCategoryChart({'id':id,'menuid':menuid, 'days':days}).subscribe(users => {
+            console.log(users.message);
+            console.log(users.message.length);
             if (users.message.length > 0) {
                 this.lineChartData = users.message;
-                console.log('this.lineChartData')
-                console.log(this.lineChartData)
+                this.isShow = true;
+
+            }
+
+            if (users.message.length == 0){
+                this.isShow = false;
+                document.getElementById('noRecordClass').style.display = 'block';
             }
         });
     }
@@ -548,6 +611,7 @@ export class ReportingSaleDetailComponent implements OnInit {
     ];
     public lineChartLegend:boolean = true;
     public lineChartType:string = 'line';
+    public isShow:boolean = false;
 
     constructor(
         private restaurantsService: RestaurantsService,
@@ -555,6 +619,7 @@ export class ReportingSaleDetailComponent implements OnInit {
         ) {}
 
     ngOnInit() {
+        document.getElementById('noRecordClass').style.display = 'none';
         this.getRestaurants();
     }
     private lastSevenDays(days){
@@ -568,8 +633,15 @@ export class ReportingSaleDetailComponent implements OnInit {
     }
     private getAllSaleData(id,days) {
         this.orderService.getAllSaleChart(id,days).subscribe(users => {
-            this.lineChartData = users.message;
-            console.log(this.lineChartData)
+            if (users.message.length > 0) {
+                this.lineChartData = users.message;
+                this.isShow = true;
+            }
+
+            if (users.message.length == 0){
+                this.isShow = false;
+                document.getElementById('noRecordClass').style.display = 'block';
+            }
         });
     }
     private getRestaurants() {
@@ -686,8 +758,7 @@ export class ReportingDetailComponent implements OnInit {
         this.restaurantsService.getOwnerRestaurants(JSON.parse(localStorage.getItem('currentOwner'))._id).subscribe(users => {
             this.restaurants = users.message;
             this.mapInit();
-        }
-        );
+        });
     }
 
 

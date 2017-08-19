@@ -1,0 +1,22 @@
+.noRecordClass{
+	background: white;
+	text-align: center;
+	padding: 10%;
+	font-size: large;
+}
+
+#noRecordClass{
+	background: white;
+	text-align: center;
+	padding: 10%;
+	font-size: large;
+}
+
+.padding0{
+	padding: 0;
+}
+
+.minheight585 {
+	background-color: #E9E9E8;
+	min-height: 585px;
+}

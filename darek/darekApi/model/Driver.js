@@ -3,6 +3,7 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var menuModel = require('../model/Restaurant.js');
+var OrderModel = require('../model/Order.js');
 
 // create a schema
 var DriverSchema = new Schema({
@@ -18,6 +19,7 @@ var DriverSchema = new Schema({
     status: { type: Boolean, default: true },
     created_at: Date,
     updated_at: Date,
+    orderIds : [{  type: Schema.Types.ObjectId, ref:'Order' }],
     restaurantId : {  type: Schema.Types.ObjectId, ref:'Restaurant', required: true },
 });
 

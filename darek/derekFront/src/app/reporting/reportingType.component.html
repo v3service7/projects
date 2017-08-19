@@ -1,18 +1,18 @@
 <app-reporting-nav></app-reporting-nav>
 
-<div style="margin-left: 25%;background-color: #E9E9E8;height: 655px;">
+<div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 minheight585" style="min-height: 655px;">
 	<div class="col-lg-12" style="padding: 3%">
 		<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 well" style="color: white; background-color:#737373 ">
-			<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+			<div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
 				Time of orders by Ordering Method  in Last {{this.selectedTime}} Days
 			</div>
-			<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+			<div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
 			    <select [ngModel]="selectedTime" (ngModelChange)="onChangeObj($event)"  style="color: white; background-color:#737373">
 			    	<option *ngFor="let i of timeValue" [ngValue]="i.name">{{i.name}} Days</option>
 				</select>
 			</div>
 		</div>
-		<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 well" style="background: white;">
+		<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 well" style="background: white;" *ngIf="isShow">
 			<canvas baseChart
                 [datasets]="lineChartData"
                 [labels]="lineChartLabels"
@@ -21,6 +21,9 @@
                 [legend]="lineChartLegend"
                 [chartType]="lineChartType">
             </canvas>
+		</div>
+		<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 well" id="noRecordClass">
+			<strong> ** NO RECORDS AVAILABLE **</strong>
 		</div>
 	</div>
 

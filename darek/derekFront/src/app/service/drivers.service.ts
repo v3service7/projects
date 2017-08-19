@@ -22,8 +22,15 @@ export class DriversService {
         );
     }
 
-  	getAll() {
-  		return this.http.get(globalVariable.url+'driver/')
+    getAll() {
+      return this.http.get(globalVariable.url+'driver/')
+        .map(
+          (response: Response) => response.json()
+        );
+    }
+
+  	getRestaurantDrivers(id) {
+  		return this.http.get(globalVariable.url+'restaurant-drivers/'+id)
   			.map(
   				(response: Response) => response.json()
   			);
