@@ -2582,7 +2582,7 @@ export class OnlinePaymentComponent implements OnInit {
 
 
 		this.cardDetailModel.valueChanges.subscribe(data => this.onValueChanged(data));
-        this.onValueChanged(); // (re)set validation messages now
+        this.onValueChanged(); // reset validation messages now
         this.yearAdd();
 
 		document.getElementById('showCards').style.display = 'none';		

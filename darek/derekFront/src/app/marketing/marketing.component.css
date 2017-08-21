@@ -112,6 +112,10 @@
     font-weight: 600;
 }
 
+.fontWeight100{
+    font-weight: 100;
+}
+
 .minheight585 {
     background-color: #E9E9E8;
     min-height: 585px;
@@ -347,7 +351,7 @@ a.nextButton , .colorWhite{
     background-color: #F4F4F4;
 }
 
-.fa-pencil{
+.fa-pencil , .color999{
     color: #999;
 }
 

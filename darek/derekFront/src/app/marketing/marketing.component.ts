@@ -389,18 +389,22 @@ export class MarketingPromotionsListComponent implements OnInit {
 })
 export class MarketingPromotionsTemplateComponent implements OnInit {
   promotion = [];
+  promotions = [];
   menus: any = [];
   items: any = [];
   itemIds = [];
   menuIds = [];
-  menu = [];
+  discountOn = [];
+  discountTiming = [];
+  menu1 = [];
+  menu2 = [];
   restaurants:any ={};
   optionSet: any = {};
-  //preoptionSet: any = [];
   preoptionSet: any = {};
   preoptionSetFulfill: any = {};
   displayTimeObj: any = {};
   fulfillmentTimeObj: any = {};
+  days : any = {};
 
   obj1 = {}
   obj2 = {}
@@ -425,6 +429,10 @@ export class MarketingPromotionsTemplateComponent implements OnInit {
   customCouponCode : boolean = false;
   displayTime : boolean = true;
   fulfillmentTime : boolean = false;
+
+  index: number;
+  itemNo1: number = 0;
+  itemNo2: number = 0;
 
   promoDetailAddModel :FormGroup;
   openingAddModel: FormGroup;
@@ -454,7 +462,7 @@ export class MarketingPromotionsTemplateComponent implements OnInit {
       image: [],
       discountOn: ['', Validators.required],
       discountPercent: ['', Validators.required],
-      discoutTiming: ['', Validators.required],
+      discountTiming: ['', Validators.required],
       orderType: ['', Validators.required],
       orderTime: ['', Validators.required],
       clientbenefited: ['', Validators.required],
@@ -478,13 +486,12 @@ export class MarketingPromotionsTemplateComponent implements OnInit {
     this.activatedRoute.params.subscribe((params: Params) => {
       let id = params['id'];
       this.loadPromotion(id);
+      this.loadAllPromotions(id);
     });
 
-
     this.displayTimeObj['tType'] = 'display';
-    this.displayTimeObj['days'] = {'monday':true,'tuesday':true,'wednesday':true,'thursday':true,'friday':true,'saturday':true,'sunday':true};
     this.displayTimeObj['available'] = 'unlimited';
-
+    this.displayTimeObj['days'] = {'monday':true,'tuesday':true,'wednesday':true,'thursday':true,'friday':true,'saturday':true,'sunday':true};
 
     this.fulfillmentTimeObj['tType'] = 'fulfillment';
     this.fulfillmentTimeObj['available'] = 'unlimited';
@@ -497,8 +504,6 @@ export class MarketingPromotionsTemplateComponent implements OnInit {
     $("div[id='auto']").addClass('selected2');
     $("div[id='code']").addClass('selected2');
     this.getRestaurants();
-    /*$('#datepicker1').datetimepicker({format:'DD - MM - YYYY'});
-    $('#datepicker2').datetimepicker({format:'DD - MM - YYYY'});*/
   }
 
   public loadScript(url,type) {
@@ -522,13 +527,11 @@ export class MarketingPromotionsTemplateComponent implements OnInit {
     timeObj.opentime = this.openingAddModel.value.opentime;
     timeObj.closetime = this.openingAddModel.value.closetime;
 
-
     for (var i in this.openingAddModel.value) {
       if (this.openingAddModel.value[i] == true) {
         objForUpdate[i] = this.openingAddModel.value[i];
         var timeKey = i + 'time';
         objForUpdate[timeKey] = timeObj;
-
 
         if (type == 'displayTime') {
           var d = this.preoptionSet;        
@@ -544,6 +547,9 @@ export class MarketingPromotionsTemplateComponent implements OnInit {
             }
           }
           this.displayTimeObj['days'] = this.preoptionSet;
+          var x = this.discountTiming.findIndex(mn => mn.tType == 'display');
+          this.discountTiming[x]['days'] = this.preoptionSet;
+
         }
 
         if (type == 'fulfillmentTime') {
@@ -559,16 +565,17 @@ export class MarketingPromotionsTemplateComponent implements OnInit {
               this.preoptionSetFulfill[i] = objForUpdate[i];
             }
           }
-        this.fulfillmentTimeObj['days'] = this.preoptionSetFulfill;
+          this.fulfillmentTimeObj['days'] = this.preoptionSetFulfill;
+          var y = this.discountTiming.findIndex(mn => mn.tType == 'fulfillment');
+          this.discountTiming[y]['days'] = this.preoptionSetFulfill;
         }
       }
     }
 
-    console.log("this.fulfillmentTimeObj");
-    console.log(this.fulfillmentTimeObj);
-    console.log("this.displayTimeObj");
-    console.log(this.displayTimeObj);
     this.openingAddModel.reset();
+    
+    this.promoDetailAddModel.controls['discountTiming'].setValue(this.discountTiming);
+    console.log(this.promoDetailAddModel.value);
   }
 
   private remove(preoptionSet,day){
@@ -577,9 +584,12 @@ export class MarketingPromotionsTemplateComponent implements OnInit {
     delete this.preoptionSet[day];
     delete this.preoptionSet[time];
     this.displayTimeObj['days'] = this.preoptionSet;
+    
+    var x = this.discountTiming.findIndex(mn => mn.tType == 'display');
+    this.discountTiming[x]['days'] = this.preoptionSet;
 
-    console.log("this.displayTimeObj");
-    console.log(this.displayTimeObj);
+    this.promoDetailAddModel.controls['discountTiming'].setValue(this.discountTiming);
+    console.log(this.promoDetailAddModel.value);
   }
 
   private delete(preoptionSetFulfill,day){
@@ -588,15 +598,18 @@ export class MarketingPromotionsTemplateComponent implements OnInit {
     delete this.preoptionSetFulfill[day];
     delete this.preoptionSetFulfill[time];
     this.fulfillmentTimeObj['days'] = this.preoptionSetFulfill;
+   
+    var y = this.discountTiming.findIndex(mn => mn.tType == 'fulfillment');
+    this.discountTiming[y]['days'] = this.preoptionSetFulfill;
 
-    console.log("this.fulfillmentTimeObj");
-    console.log(this.fulfillmentTimeObj);
+    this.promoDetailAddModel.controls['discountTiming'].setValue(this.discountTiming);
+    console.log(this.promoDetailAddModel.value);
   }
 
   private showDatePicker(type){
     if (type == 'displayTime') {
       $('#datePicker1').datetimepicker({format:'DD - MM - YYYY'});
-      $('#datePicker2').datetimepicker({format:'DD - MM - YYYY'});
+      $('#datePicker2').datetimepicker({format:'DD - MM - YYYY',useCurrent: false});
       $("#datePicker1").on("dp.change", function (e) {
         $('#datePicker2').data("DateTimePicker").minDate(e.date);
       });
@@ -607,7 +620,7 @@ export class MarketingPromotionsTemplateComponent implements OnInit {
 
     if (type == 'fulfillmentTime') {
       $('#datePicker3').datetimepicker({format:'DD - MM - YYYY'});
-      $('#datePicker4').datetimepicker({format:'DD - MM - YYYY'});
+      $('#datePicker4').datetimepicker({format:'DD - MM - YYYY',useCurrent: false});
       $("#datePicker3").on("dp.change", function (e) {
         $('#datePicker4').data("DateTimePicker").minDate(e.date);
       });
@@ -621,23 +634,23 @@ export class MarketingPromotionsTemplateComponent implements OnInit {
     let eleObj = (<HTMLInputElement>document.getElementById(type));
     if (type == 'datePicker1') {
       this.obj1['from'] = eleObj.value;
+      this.displayTimeObj['available'] = this.obj1;
     }
     if (type == 'datePicker2') {
       this.obj1['till'] = eleObj.value;
+      this.displayTimeObj['available'] = this.obj1;
     }
     if (type == 'datePicker3') {
       this.obj2['from'] = eleObj.value;
+      this.fulfillmentTimeObj['available'] = this.obj2;
+
     }
     if (type == 'datePicker4') {
       this.obj2['till'] = eleObj.value;
+      this.fulfillmentTimeObj['available'] = this.obj2;
     }
-    this.displayTimeObj['available'] = this.obj1
-    this.fulfillmentTimeObj['available'] = this.obj2
-
-    console.log("this.fulfillmentTimeObj");
-    console.log(this.fulfillmentTimeObj);
-    console.log("this.displayTimeObj");
-    console.log(this.displayTimeObj);
+    /*this.displayTimeObj['available'] = this.obj1;*/
+    /*this.fulfillmentTimeObj['available'] = this.obj2;*/
   }
 
   private showDisplayTime(){
@@ -648,7 +661,7 @@ export class MarketingPromotionsTemplateComponent implements OnInit {
     this.displayTime = true;
     this.fulfillmentTime = false;
     $('#datePicker1').datetimepicker({format:'DD - MM - YYYY'});
-    $('#datePicker2').datetimepicker({format:'DD - MM - YYYY'});
+    $('#datePicker2').datetimepicker({format:'DD - MM - YYYY',useCurrent: false});
   }
 
   private showFulfillmentTime(){
@@ -659,16 +672,22 @@ export class MarketingPromotionsTemplateComponent implements OnInit {
     this.displayTime = false;
     this.fulfillmentTime = true;
     $('#datePicker3').datetimepicker({format:'DD - MM - YYYY'});
-    $('#datePicker4').datetimepicker({format:'DD - MM - YYYY'});
+    $('#datePicker4').datetimepicker({format:'DD - MM - YYYY',useCurrent: false});
   }
 
   private defaultUpdate(property){
+    var a = this.discountTiming.findIndex(mn => mn.tType == 'display');
+    var b = this.discountTiming.findIndex(mn => mn.tType == 'fulfillment');
+
     if (property == 'displayTime') {
       if (this.selected1 != 'selected1') {
         this.selected2 = 'selected2';
         this.selected1 = 'selected1';
         this.customSelectionDay = false;
         this.displayTimeObj['days'] = {'monday':true,'tuesday':true,'wednesday':true,'thursday':true,'friday':true,'saturday':true,'sunday':true};
+        
+        this.discountTiming[a]['days'] = this.displayTimeObj['days'];
+        this.preoptionSet = {};
       }
     }
 
@@ -679,6 +698,8 @@ export class MarketingPromotionsTemplateComponent implements OnInit {
         this.customSelectionAvailable = false;
       }
       this.displayTimeObj['available'] = 'unlimited';
+      this.obj1 = {};
+      this.discountTiming[a]['available'] = this.displayTimeObj['available'];
     }
 
 
@@ -688,7 +709,10 @@ export class MarketingPromotionsTemplateComponent implements OnInit {
         this.selected5 = 'selected5';
         this.fulfillmentTimeDay = false;
       }
-      this.fulfillmentTimeObj['days'] = this.restaurants.openinghours;
+      this.fulfillmentTimeObj['days'] = this.days;
+
+      this.discountTiming[b]['days'] = this.fulfillmentTimeObj['days'];
+      this.preoptionSetFulfill = {};
     }
 
     if (property == 'fulfillmentAvailableTime') {
@@ -698,17 +722,17 @@ export class MarketingPromotionsTemplateComponent implements OnInit {
         this.fulfillmentTimeAvailable = false;
       }
       this.fulfillmentTimeObj['available'] = 'unlimited';
+      this.obj2 = {};
+      this.discountTiming[b]['available'] = this.fulfillmentTimeObj['available'];
     }
 
-    $('#datePicker1').datetimepicker({format:'DD - MM - YYYY'});
-    $('#datePicker2').datetimepicker({format:'DD - MM - YYYY'});
-    $('#datePicker3').datetimepicker({format:'DD - MM - YYYY'});
-    $('#datePicker4').datetimepicker({format:'DD - MM - YYYY'});
+    this.promoDetailAddModel.controls['discountTiming'].setValue(this.discountTiming);
+    console.log(this.promoDetailAddModel.value);
 
-    console.log("this.displayTimeObj");
-    console.log(this.displayTimeObj);
-    console.log("this.fulfillmentTimeObj");
-    console.log(this.fulfillmentTimeObj);
+    $('#datePicker1').datetimepicker({format:'DD - MM - YYYY'});
+    $('#datePicker2').datetimepicker({format:'DD - MM - YYYY',useCurrent: false});
+    $('#datePicker3').datetimepicker({format:'DD - MM - YYYY'});
+    $('#datePicker4').datetimepicker({format:'DD - MM - YYYY',useCurrent: false});
   }
 
   private customUpdate(property){
@@ -745,15 +769,9 @@ export class MarketingPromotionsTemplateComponent implements OnInit {
     }
 
     $('#datePicker1').datetimepicker({format:'DD - MM - YYYY'});
-    $('#datePicker2').datetimepicker({format:'DD - MM - YYYY'});
+    $('#datePicker2').datetimepicker({format:'DD - MM - YYYY',useCurrent: false});
     $('#datePicker3').datetimepicker({format:'DD - MM - YYYY'});
-    $('#datePicker4').datetimepicker({format:'DD - MM - YYYY'});
-
-
-    console.log("this.displayTimeObj");
-    console.log(this.displayTimeObj);
-    console.log("this.fulfillmentTimeObj");
-    console.log(this.fulfillmentTimeObj);
+    $('#datePicker4').datetimepicker({format:'DD - MM - YYYY',useCurrent: false});
   }
 
   private orderType(type){
@@ -893,114 +911,182 @@ export class MarketingPromotionsTemplateComponent implements OnInit {
     console.log(this.menuIds);
   }*/
 
-  private selectCheck(event,obj,type){
+  private selectCheck(event,obj,type,itemGroup){
     var menuObj = {};
     var itemIdObj = [];
 
-    if (type == 'menu' && obj == '') {
-      if (event.target.checked) {
-        var x = this.menu.findIndex(mn => mn.id == event.target.value);
-        console.log(x);
 
-        if (x > -1) {
-          /*menuObj = this.menu[x];*/
-          //itemIdObj = this.menu[x]['item'];
-          for (var i = 0; i < this.items.length; i++) {
-            if (this.items[i].menuId == event.target.value) {
-              itemIdObj.push(this.items[i]._id);
+    if (itemGroup == 'itemGroup1') {
+      if (type == 'menu' && obj == '') {
+        if (event.target.checked) {
+          var x = this.menu1.findIndex(mn => mn.id == event.target.value);
+          console.log("x - "+ x);
+          if (x > -1) {
+            for (var i = 0; i < this.items.length; i++) {
+              if (this.items[i].menuId == event.target.value) {
+                itemIdObj.push(this.items[i]._id);
+              }
             }
+            this.menu1[x]['item'] = itemIdObj;
+            this.markChecked(this.menu1[x],event,type);
           }
-          //menuObj['item'] = itemIdObj;
-          this.menu[x]['item'] = itemIdObj;
-          console.log("this.menu[x]");
-          console.log(this.menu[x]);
-          this.markChecked(this.menu[x],event,type);
-        }
 
-        if (x == -1) {
-          menuObj['id'] = event.target.value;
-          for (var i = 0; i < this.items.length; i++) {
-            if (this.items[i].menuId == event.target.value) {
-              itemIdObj.push(this.items[i]._id);
-              menuObj['item'] = itemIdObj;
+          if (x == -1) {
+            menuObj['id'] = event.target.value;
+            for (var i = 0; i < this.items.length; i++) {
+              if (this.items[i].menuId == event.target.value) {
+                itemIdObj.push(this.items[i]._id);
+                menuObj['item'] = itemIdObj;
+              }
             }
+            this.menu1.push(menuObj);
+            this.markChecked(menuObj,event,type);
           }
-          console.log("menuObj");
-          console.log(menuObj);
-          this.menu.push(menuObj);
-          this.markChecked(menuObj,event,type);
         }
-      }
-      if (!event.target.checked) {
-        if (this.menu.length > 0){
-          for (var i = 0; i < this.menu.length; i++) {
-            if (this.menu[i]['id'] == event.target.value) {
-              this.markChecked(this.menu[i],event,type);
-              itemIdObj = [];
-              this.menu.splice(i,1);
+        if (!event.target.checked) {
+          if (this.menu1.length > 0){
+            for (var i = 0; i < this.menu1.length; i++) {
+              if (this.menu1[i]['id'] == event.target.value) {
+                this.markChecked(this.menu1[i],event,type);
+                itemIdObj = [];
+                this.menu1.splice(i,1);
+              }
             }
           }
         }
       }
-    }
 
-    if (type == 'item' && obj != '') {
-      var id = 'item_' + event.target.value
-      var x = this.menu.findIndex(mn => mn.id == obj.menuId);
-      if (event.target.checked) {
-        if (x == -1) {
-          menuObj['id'] = obj.menuId;
-          itemIdObj.push(event.target.value);
-          menuObj['item'] = itemIdObj;
-          this.menu.push(menuObj);
-          console.log(document.getElementById(id).getAttribute('checked'));
-          document.getElementById(id).setAttribute('checked','true');
-        }
-        if (x > -1) {
-          menuObj = this.menu[x];
-          itemIdObj = menuObj['item'];
-          if (itemIdObj.indexOf(event.target.value) == -1) {
+      if (type == 'item' && obj != '') {
+        var id = 'item_' + event.target.value
+        var x = this.menu1.findIndex(mn => mn.id == obj.menuId);
+        if (event.target.checked) {
+          if (x == -1) {
+            menuObj['id'] = obj.menuId;
             itemIdObj.push(event.target.value);
             menuObj['item'] = itemIdObj;
-            this.menu[x]['item'] = itemIdObj;
-            document.getElementById(id).setAttribute('checked','true');            
+            this.menu1.push(menuObj);
+            document.getElementById(id).setAttribute('checked','true');
+          }
+          if (x > -1) {
+            menuObj = this.menu1[x];
+            itemIdObj = menuObj['item'];
+            if (itemIdObj.indexOf(event.target.value) == -1) {
+              itemIdObj.push(event.target.value);
+              menuObj['item'] = itemIdObj;
+              this.menu1[x]['item'] = itemIdObj;
+              document.getElementById(id).setAttribute('checked','true');            
+            }
           }
         }
-      }
 
-      if (!event.target.checked) {
-        if (x > -1) {
-          menuObj = this.menu[x];
-          if (menuObj['item'].indexOf(event.target.value) > -1) {
-            itemIdObj = menuObj['item'];
-            itemIdObj.splice(itemIdObj.indexOf(event.target.value),1);
-            menuObj['item'] = itemIdObj;
-            document.getElementById(id).removeAttribute('checked');
+        if (!event.target.checked) {
+          if (x > -1) {
+            menuObj = this.menu1[x];
+            if (menuObj['item'].indexOf(event.target.value) > -1) {
+              itemIdObj = menuObj['item'];
+              itemIdObj.splice(itemIdObj.indexOf(event.target.value),1);
+              menuObj['item'] = itemIdObj; 
+              document.getElementById(id).removeAttribute('checked');
+            }
           }
         }
       }
     }
-    console.log(this.menu);
+
+    if (itemGroup == 'itemGroup2') {
+      if (type == 'menu' && obj == '') {
+        if (event.target.checked) {
+          var x = this.menu2.findIndex(mn => mn.id == event.target.value);
+          console.log("x - "+ x);
+          if (x > -1) {
+            for (var i = 0; i < this.items.length; i++) {
+              if (this.items[i].menuId == event.target.value) {
+                itemIdObj.push(this.items[i]._id);
+              }
+            }
+            this.menu2[x]['item'] = itemIdObj;
+            this.markChecked(this.menu2[x],event,type);
+          }
+
+          if (x == -1) {
+            menuObj['id'] = event.target.value;
+            for (var i = 0; i < this.items.length; i++) {
+              if (this.items[i].menuId == event.target.value) {
+                itemIdObj.push(this.items[i]._id);
+                menuObj['item'] = itemIdObj;
+              }
+            }
+            this.menu2.push(menuObj);
+            this.markChecked(menuObj,event,type);
+          }
+        }
+        if (!event.target.checked) {
+          if (this.menu2.length > 0){
+            for (var i = 0; i < this.menu2.length; i++) {
+              if (this.menu2[i]['id'] == event.target.value) {
+                this.markChecked(this.menu2[i],event,type);
+                itemIdObj = [];
+                this.menu2.splice(i,1);
+              }
+            }
+          }
+        }
+      }
+
+      if (type == 'item' && obj != '') {
+        var id = 'item_' + event.target.value
+        var x = this.menu2.findIndex(mn => mn.id == obj.menuId);
+        if (event.target.checked) {
+          if (x == -1) {
+            menuObj['id'] = obj.menuId;
+            itemIdObj.push(event.target.value);
+            menuObj['item'] = itemIdObj;
+            this.menu2.push(menuObj);
+            document.getElementById(id).setAttribute('checked','true');
+          }
+          if (x > -1) {
+            menuObj = this.menu2[x];
+            itemIdObj = menuObj['item'];
+            if (itemIdObj.indexOf(event.target.value) == -1) {
+              itemIdObj.push(event.target.value);
+              menuObj['item'] = itemIdObj;
+              this.menu2[x]['item'] = itemIdObj;
+              document.getElementById(id).setAttribute('checked','true');            
+            }
+          }
+        }
+
+        if (!event.target.checked) {
+          if (x > -1) {
+            menuObj = this.menu2[x];
+            if (menuObj['item'].indexOf(event.target.value) > -1) {
+              itemIdObj = menuObj['item'];
+              itemIdObj.splice(itemIdObj.indexOf(event.target.value),1);
+              menuObj['item'] = itemIdObj; 
+              document.getElementById(id).removeAttribute('checked');
+            }
+          }
+        }
+      }
+    }
+
+    console.log("this.menu1");
+    console.log(this.menu1);
+    console.log("this.menu2");
+    console.log(this.menu2);
   }
 
   private markChecked(menu,event,type){
-    console.log("menu");
-    console.log(menu);
     if (type == 'menu') {
       if (menu['item'].length > 0) {
         for (var i = 0; i < menu['item'].length; i++) {        
           var id = 'item_' + menu['item'][i];
           if (event.target.checked) {
-            //console.log(id);
-            console.log(document.getElementById(id).getAttribute('checked'));
             if (!document.getElementById(id).getAttribute('checked')) {
               document.getElementById(id).setAttribute('checked','true');
             }
           }
           if (!event.target.checked) {
-            //this.itemIds.splice(this.itemIds.indexOf(menu['item'][i]));
-            //console.log(id);
-            console.log(document.getElementById(id).getAttribute('checked'));
             if (document.getElementById(id).getAttribute('checked')) {
               document.getElementById(id).removeAttribute('checked');
             }
@@ -1008,6 +1094,46 @@ export class MarketingPromotionsTemplateComponent implements OnInit {
         }
       }
     }
+  }
+
+  private saveMenu(type){
+    var discountOnItem = {};
+    this.itemIds = [];
+    if (type == 'itemGroup1') {
+      this.itemNo1 = 0;
+      discountOnItem['itemGroup'] = 1;
+      for (var i = 0; i < this.menu1.length; i++) {
+        if (this.menu1[i].item.length > 0) {      
+          for (var j = 0; j < this.menu1[i].item.length; j++) {
+            this.itemNo1++;
+            this.itemIds.push(this.menu1[i].item[j])
+          }
+        }
+      }
+      $("#itemGroup1").modal('hide');
+      discountOnItem['item'] = this.itemIds;
+    }
+
+    if (type == 'itemGroup2') {
+      this.itemNo2 = 0;
+      discountOnItem['itemGroup'] = 2;
+      for (var i = 0; i < this.menu2.length; i++) {
+        if (this.menu2[i].item.length > 0) {      
+          for (var j = 0; j < this.menu2[i].item.length; j++) {
+            this.itemNo2++;
+            this.itemIds.push(this.menu2[i].item[j])
+          }
+        }
+      }
+      $("#itemGroup2").modal('hide');
+      discountOnItem['item'] = this.itemIds;
+    }
+
+    this.discountOn.push(discountOnItem);
+    this.promoDetailAddModel.controls['discountOn'].setValue(this.discountOn);
+
+    console.log("this.promoDetailAddModel.value");
+    console.log(this.promoDetailAddModel.value);
   }
 
   private countCharacter(event:any,name,type){
@@ -1075,16 +1201,16 @@ export class MarketingPromotionsTemplateComponent implements OnInit {
       this.promotion = user.message;
       this.promoName = user.message.name;
       this.promoDetailAddModel.controls['promoname'].setValue(this.promoName);
-      console.log("this.promotion");
-      console.log(this.promotion);
+      /*console.log("this.promotion");
+      console.log(this.promotion);*/
     });
   }
 
   private loadAllUsers(id) {
     this.kitchenMenuService.getAll(id).subscribe(users => {       
         this.menus = users.message;
-        console.log("this.menus");
-        console.log(this.menus);
+        /*console.log("this.menus");
+        console.log(this.menus);*/
         /*for (var i = 0; i < this.menus.length; i++) {
           this.menuIds.push(this.menus[i]._id);
         } */           
@@ -1094,20 +1220,39 @@ export class MarketingPromotionsTemplateComponent implements OnInit {
   private loadAllItem(id) {
     this.kitchenMenuItemService.getAllItems(id).subscribe(users => { 
         this.items = users.message;
-        //this.items.image=this.imageURL+this.items.image;
-        console.log("this.items");
-        console.log(this.items);
+        /*console.log("this.items");
+        console.log(this.items);*/
         
+    });
+  }
+
+  private loadAllPromotions(id) {
+    this.promotionsService.getAll().subscribe(pro => {
+      this.promotions = pro.message;
+      this.index = pro.message.findIndex(mn => mn._id == id);
     });
   }
 
   private getRestaurants() {
     this.restaurantsService.getOwnerRestaurants(JSON.parse(localStorage.getItem('currentOwner'))._id).subscribe(users => {
       this.restaurants = users.message;
-      this.fulfillmentTimeObj['days'] = users.message.openinghours;
+
+      for (var i in users.message.openinghours) {
+        if (users.message.openinghours[i] == true) {
+          this.days[i]=users.message.openinghours[i];
+        }
+      }
+      this.fulfillmentTimeObj['days'] = this.days;
       this.promoDetailAddModel.controls['restaurantId'].setValue(users.message._id);
       this.loadAllUsers(users.message._id);
-      this.loadAllItem(users.message._id); 
+      this.loadAllItem(users.message._id);
+
+      this.discountTiming.push(this.displayTimeObj);
+      this.discountTiming.push(this.fulfillmentTimeObj);
+      this.promoDetailAddModel.controls['discountTiming'].setValue(this.discountTiming);
+
+      console.log(this.promoDetailAddModel.value);
+
     });
   }
 }
@@ -1122,6 +1267,8 @@ export class MarketingPromotionsSubscriptionComponent implements OnInit {
   show :boolean = false;
   showPricingDetail :boolean = false;
   restaurants:any ={};
+  months:any = ['01','02','03','04','05','06','07','08','09','10','11','12'];
+    years:any=[];
 
   billingDetailModel : FormGroup;
   cardDetailModel : FormGroup;
@@ -1170,15 +1317,77 @@ export class MarketingPromotionsSubscriptionComponent implements OnInit {
       this.loadPromotion(id);
     });
 
+
+    this.cardDetailModel.valueChanges.subscribe(data => this.onValueChanged(data));
+    this.onValueChanged(); // reset validation messages now
     this.getRestaurants();
+    this.yearAdd();
     this.goFurther('section1');
   }
+
+  private yearAdd(){
+    let dateObj = new Date();
+    let currentYear = dateObj.getFullYear();
+    this.years.push(currentYear);
+    for (var i = 0; i < 15; i++) {
+      currentYear = currentYear+1;
+      this.years.push(currentYear);
+    }
+  }
+  onValueChanged(data?: any) {
+    if (!this.cardDetailModel){
+      return;
+    }
+    const form = this.cardDetailModel;
+    for (const field in this.formErrors) {
+      this.formErrors[field] = '';
+      const control = form.get(field);      
+      if (control && control.dirty && !control.valid) {
+        const messages = this.validationMessages[field];
+        for (const key in control.errors) {
+          this.formErrors[field] += messages[key] + ' ';          
+        }
+      }
+    }
+  }
+
+  formErrors = {
+    'cardNumber': ''    
+  };
+  validationMessages = {
+    'cardNumber': {
+      'required':      'Card Number is required.',
+      'minlength':     'Card Number must be 16 character long.',
+      'maxlength':     'Card Number must be 16 character long.',
+      'pattern'   :    'Card Number contains Numberic only '
+    }          
+  };
+
 
   private goFurther(id){
     console.log("id");
     console.log(id);
     $("[id^='section']").css("display","none"); 
-    $('#'+id).css("display","block"); 
+    $('#'+id).css("display","block");
+  }
+
+  private cardDetailSubmit(id){
+    console.log("this.cardDetailModel.value");
+    console.log(this.cardDetailModel.value);
+    toastr.success('Payment done successfully');
+    this.goFurther(id);
+  }
+
+  private providerSetting(){
+    toastr.success('Successful');
+    let obj = {};
+    obj['_id'] = this.restaurants._id;
+    obj['onlinepayment'] = true;
+    obj['billingaddress'] = this.billingDetailModel.value;
+    obj['cardDetail'] = this.cardDetailModel.value;
+    obj['paymentcredential'] = this.providerModel.value;
+    console.log("obj");
+    console.log(obj);
   }
 
   private showDetail(type){

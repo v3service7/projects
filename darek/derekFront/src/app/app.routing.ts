@@ -112,7 +112,7 @@ const appRoutes: Routes = [
       { path: 'overview', component: MarketingOverviewComponent, canActivate: [OwnerAuthGuard]  },
       { path: 'promotions', component: MarketingPromotionsComponent, canActivate: [OwnerAuthGuard]  },
       { path: 'promotions/select-template', component: MarketingPromotionsListComponent, canActivate: [OwnerAuthGuard]  },
-      { path: 'promotions/edit-template/:id', component: MarketingPromotionsTemplateComponent, canActivate: [OwnerAuthGuard, MarketingPromotionsSubscriptionComponent]  },
+      { path: 'promotions/edit-template/:id', component: MarketingPromotionsTemplateComponent, canActivate: [OwnerAuthGuard]  },
       { path: 'promotions/subscription/:id', component: MarketingPromotionsSubscriptionComponent, canActivate: [OwnerAuthGuard]  },
       { path: 'stats', component: MarketingStatsComponent, canActivate: [OwnerAuthGuard]  },
     ]}

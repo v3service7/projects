@@ -1,27 +1,60 @@
 <app-marketingnav></app-marketingnav>
 
-<div class="modal fade" id="itemGroup" role="dialog">
+<div class="modal fade" id="itemGroup1" role="dialog">
 	<div class="modal-dialog"> 
 		<div class="modal-content borderRadius0">
 			<div class="modal-header padding1" style="display: flex;">
 				<button type="button" class="close" data-dismiss="modal">&times;</button>
-				<h4 class="modal-title width85 padding1"> Set eligible items for: Items Group 1</h4>
-				<input type="submit" class="btn saveButton width10 padding0" value="Submit">
+				<h4 class="modal-title width85 padding1"> Set eligible items for: Items Group : 1</h4>
+				<input type="btn" class="btn saveButton width10 padding0" value="Submit" (click)="saveMenu('itemGroup1')">
 			</div>
 			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 modal-body">
 				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 form-group">
 					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0" *ngFor="let menu of menus" style="border-left: 1px solid #d9d9d9;    border-right: 1px solid #d9d9d9;">
 						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding20 fontWeight600 borderTopBottom cursorPointer" style="display: -webkit-inline-box;">
-							<input type="checkbox" name="" value="{{menu._id}}" (change)="selectCheck($event,'','menu')"> 
+							<input type="checkbox" name="" value="{{menu._id}}" (change)="selectCheck($event,'','menu','itemGroup1')"> 
+							<div class="paddingLeft10 width95" data-toggle="collapse" [attr.data-target]="'#ig1_' + menu._id">
+								{{menu.name}}
+								<!-- <span class="pull-right" style="font-weight: 100;color: #c5c5bf;">sdfg</span> -->
+							</div>
+						</div>
+						<div id="ig1_{{menu._id}}" class="collapse">
+							<div *ngFor="let item of items">
+								<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 bgLightGray itemName fontWeight600 cursorPointer" style="display: -webkit-inline-box;border-bottom: 1px solid #d9d9d9;" *ngIf="item.menuId == menu._id">
+									<input type="checkbox" name="" id="item_{{item._id}}" value="{{item._id}}" (change)="selectCheck($event, item,'item','itemGroup1')"> 
+									<div class="paddingLeft10">{{item.name}}</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>                
+			</div>
+		</div>     
+	</div>
+</div>
+
+<div class="modal fade" id="itemGroup2" role="dialog">
+	<div class="modal-dialog"> 
+		<div class="modal-content borderRadius0">
+			<div class="modal-header padding1" style="display: flex;">
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+				<h4 class="modal-title width85 padding1"> Set eligible items for: Items Group : 1</h4>
+				<input type="btn" class="btn saveButton width10 padding0" value="Submit" (click)="saveMenu('itemGroup2')">
+			</div>
+			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 modal-body">
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 form-group">
+					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0" *ngFor="let menu of menus" style="border-left: 1px solid #d9d9d9;    border-right: 1px solid #d9d9d9;">
+						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding20 fontWeight600 borderTopBottom cursorPointer" style="display: -webkit-inline-box;">
+							<input type="checkbox" name="" value="{{menu._id}}" (change)="selectCheck($event,'','menu','itemGroup2')"> 
 							<div class="paddingLeft10 width95" data-toggle="collapse" [attr.data-target]="'#' + menu._id">
 								{{menu.name}}
-								<span class="pull-right" style="font-weight: 100;color: #c5c5bf;">sdfg</span>
+								<!-- <span class="pull-right" style="font-weight: 100;color: #c5c5bf;">sdfg</span> -->
 							</div>
 						</div>
 						<div id="{{menu._id}}" class="collapse">
 							<div *ngFor="let item of items">
 								<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 bgLightGray itemName fontWeight600 cursorPointer" style="display: -webkit-inline-box;border-bottom: 1px solid #d9d9d9;" *ngIf="item.menuId == menu._id">
-									<input type="checkbox" name="" id="item_{{item._id}}" value="{{item._id}}" (change)="selectCheck($event, item,'item')"> 
+									<input type="checkbox" name="" id="item_{{item._id}}" value="{{item._id}}" (change)="selectCheck($event, item,'item','itemGroup2')"> 
 									<div class="paddingLeft10">{{item.name}}</div>
 								</div>
 							</div>
@@ -44,9 +77,9 @@
 			<span class="fontLarge">{{promotion.name}}</span>
 		</div>
 		<div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 padding10-0">
-			<button class="btn" style="color: #fff;background-color: #999;margin-right:3%;">
+			<a class="btn" style="color: #fff;background-color: #999;margin-right:3%;"  [routerLink]="['/owner/marketing/promotions']" >
 				Cancle
-			</button>
+			</a>
 			<button type="button" class="btn btn-success">Save</button>
 		</div>
 	</div>
@@ -99,35 +132,82 @@
 			<button class="col-lg-1 col-md-1 col-sm-1 col-xs-2 btn bgWhite promotionStepNext" (click)="save(step3,'2')">Next</button>
 		</div>
 		<div id="step2">
+
 			<!-- buy one get one free -->
-			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding3 bgWhite" *ngIf = "promotion._id == '5978781999e7511a1408a7ea'">
+			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding3 bgWhite" *ngIf = "index == 0">
 				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0 fontWeight600 fontSmall marginBottom2">
 					Set which items are eligible in this bundle
 				</div>
-				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 bgGray padding3">
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 bgGray padding3 marginBottom2">
 					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 marginBottom2 fontWeight600">
 						Set which items are eligible:
 					</div>
 					<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
 						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 marginBottom2 padding0" style="display: -webkit-inline-box;">
 							<div class="marginRight15">Items Group 1:</div>
-							<label class="form-control" style="width: 50%;border-radius: 0;">0 selected</label>
-							<label class="form-control" style="width: 10%;border-radius: 0;background-color: #ededed;" data-toggle="modal" data-target="#itemGroup"><i class="fa fa-pencil" aria-hidden="true"></i></label>
+							<label class="form-control fontWeight100 color999" style="width: 50%;border-radius: 0;">{{itemNo1}} selected</label>
+							<label class="form-control fontWeight100 color999" style="width: 10%;border-radius: 0;background-color: #ededed;" data-toggle="modal" data-target="#itemGroup1"><i class="fa fa-pencil" aria-hidden="true"></i></label>
 						</div>
 						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 marginBottom2 padding0" style="display: -webkit-inline-box;">
 							<div class="marginRight15">Items Group 2:</div>
-							<label class="form-control" style="width: 50%;border-radius: 0;">0 selected</label>
-							<label class="form-control" style="width: 10%;border-radius: 0;background-color: #ededed;" data-toggle="modal" data-target="#itemGroup"><i class="fa fa-pencil" aria-hidden="true"></i></label>
+							<label class="form-control fontWeight100 color999" style="width: 50%;border-radius: 0;">{{itemNo2}} selected</label>
+							<label class="form-control fontWeight100 color999" style="width: 10%;border-radius: 0;background-color: #ededed;" data-toggle="modal" data-target="#itemGroup2"><i class="fa fa-pencil" aria-hidden="true"></i></label>
 						</div>
 					</div>
 					<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 paddingLeft10prcnt">
 						Example: Buy 1 Pizza and get the 2nd Pizza free would require to select all Pizzas for "Items Group 1" and the same for "Items Group 2". By default this template is set to discount the cheaper item by 100%.
 					</div>
 				</div>
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 bgGray padding3">
+					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 marginBottom2 fontWeight600">
+						Set the benefit:
+					</div>
+					<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 marginBottom2 padding0" style="display: -webkit-inline-box;">
+							<div class="marginRight15">Discount : </div>
+							<input type="number" #disPrcnt class="form-control" placeholder="30" style="width: 50%;border-radius: 0;" (keyup)="countCharacter($event,disPrcnt,'discountPercent')">
+							<label class="form-control" style="width: 10%;border-radius: 0;background-color: #ededed;">%</label>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!-- % Discount on selected Item -->
+			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding3 bgWhite" *ngIf = "index == 1">
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0 fontWeight600 fontSmall marginBottom2">
+					Grant a discount for certain items or categories
+				</div>
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 bgGray padding3 marginBottom2">
+					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 marginBottom2 fontWeight600">
+						Set which items are eligible:
+					</div>
+					<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 marginBottom2 padding0" style="display: -webkit-inline-box;">
+							<div class="marginRight15">Items Group 1:</div>
+							<label class="form-control fontWeight100 color999" style="width: 50%;border-radius: 0;">{{itemNo1}} selected</label>
+							<label class="form-control" style="width: 10%;border-radius: 0;background-color: #ededed;" data-toggle="modal" data-target="#itemGroup1"><i class="fa fa-pencil" aria-hidden="true"></i></label>
+						</div>
+					</div>
+					<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 paddingLeft10prcnt">
+						Select one or more items. When clients add an item from your selection to the cart, the discount set below will be applied automatically.
+					</div>
+				</div>
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 bgGray padding3">
+					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 marginBottom2 fontWeight600">
+						Set the benefit:
+					</div>
+					<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 marginBottom2 padding0" style="display: -webkit-inline-box;">
+							<div class="marginRight15">Discount :</div>
+							<input type="number" #disPrcnt class="form-control" placeholder="30" style="width: 50%;border-radius: 0;" (keyup)="countCharacter($event,disPrcnt,'discountPercent')">
+							<label class="form-control" style="width: 10%;border-radius: 0;background-color: #ededed;">%</label>
+						</div>
+					</div>
+				</div>
 			</div>
 
 			<!-- fixed discout amount on cart -->
-			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding3 bgWhite" *ngIf = "promotion._id == '59787079ecfaa406ec845aba'">
+			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding3 bgWhite" *ngIf = "index == 2">
 				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0 fontWeight600 fontSmall marginBottom2">
 					Grant fixed discount amount on total order value
 				</div>
@@ -149,7 +229,7 @@
 			</div>
 
 			<!-- % discount on cart -->
-			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding3 bgWhite" *ngIf = "promotion._id == '59787087ecfaa406ec845abb'">
+			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding3 bgWhite" *ngIf = "index == 3">
 				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0 fontWeight600 fontSmall marginBottom2">
 					Grant % discount on total order value
 				</div>
@@ -161,7 +241,7 @@
 						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 marginBottom2 padding0" style="display: -webkit-inline-box;">
 							<div class="marginRight15">Discount:</div>
 							<input type="number" #disPrcnt class="form-control" placeholder="5" style="width: 50%;border-radius: 0;" (keyup)="countCharacter($event,disPrcnt,'discountPercent')">
-							<label class="form-control" style="width: 15%;border-radius: 0;background-color: #ededed;">USD</label>
+							<label class="form-control" style="width: 15%;border-radius: 0;background-color: #ededed;"> % </label>
 						</div>
 					</div>
 					<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 paddingLeft10prcnt">
@@ -170,44 +250,30 @@
 				</div>
 			</div>
 
-			<!-- % Discount on selected Item -->
-			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding3 bgWhite" *ngIf = "promotion._id == '597870efecfaa406ec845abf'">
+			<!-- Free Delivery -->
+			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding3 bgWhite" *ngIf ="index == 4">
 				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0 fontWeight600 fontSmall marginBottom2">
-					Grant a discount for certain items or categories
+					Give % discount on delivery fee
 				</div>
-
-				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 bgGray padding3 marginBottom2">
-					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 marginBottom2 fontWeight600">
-						Set which items are eligible:
-					</div>
-					<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 marginBottom2 padding0" style="display: -webkit-inline-box;">
-							<div class="marginRight15">Items Group 1:</div>
-							<label class="form-control" style="width: 50%;border-radius: 0;">0 selected</label>
-							<label class="form-control" style="width: 10%;border-radius: 0;background-color: #ededed;" data-toggle="modal" data-target="#itemGroup"><i class="fa fa-pencil" aria-hidden="true"></i></label>
-						</div>
-					</div>
-					<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 paddingLeft10prcnt">
-						Select one or more items. When clients add an item from your selection to the cart, the discount set below will be applied automatically.
-					</div>
-				</div>
-				
 				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 bgGray padding3">
 					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 marginBottom2 fontWeight600">
 						Set the benefit:
 					</div>
 					<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
 						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 marginBottom2 padding0" style="display: -webkit-inline-box;">
-							<div class="marginRight15">Items Group 1:</div>
-							<input type="number" #disPrcnt class="form-control" placeholder="30" style="width: 50%;border-radius: 0;" (keyup)="countCharacter($event,disPrcnt,'discountPercent')">
-							<label class="form-control" style="width: 10%;border-radius: 0;background-color: #ededed;">%</label>
+							<div class="marginRight15">Discount:</div>
+							<input type="number" #disPrcnt class="form-control" placeholder="5" style="width: 50%;border-radius: 0;" (keyup)="countCharacter($event,disPrcnt,'discountPercent')">
+							<label class="form-control" style="width: 15%;border-radius: 0;background-color: #ededed;"> % </label>
 						</div>
+					</div>
+					<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 paddingLeft10prcnt">
+						The discount amount will be deducted from the delivery fee and it will be explicitly shown in the client cart calculation.
 					</div>
 				</div>
 			</div>
 
 			<!-- Buy 2,3... get one free -->
-			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding3 bgWhite" *ngIf = "promotion._id == '59787096ecfaa406ec845abc'">
+			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding3 bgWhite" *ngIf = "index == 5">
 				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0 fontWeight600 fontSmall marginBottom2">
 					Grant % discount to one or more items if they are ordered together
 				</div>
@@ -219,15 +285,14 @@
 					<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
 						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 marginBottom2 padding0" style="display: -webkit-inline-box;">
 							<div class="marginRight15">Items Group 1:</div>
-							<label class="form-control" style="width: 50%;border-radius: 0;">0 selected</label>
-							<label class="form-control" style="width: 10%;border-radius: 0;background-color: #ededed;" data-toggle="modal" data-target="#itemGroup"><i class="fa fa-pencil" aria-hidden="true"></i></label>
+							<label class="form-control fontWeight100 color999" style="width: 50%;border-radius: 0;">{{itemNo1}} selected</label>
+							<label class="form-control" style="width: 10%;border-radius: 0;background-color: #ededed;" data-toggle="modal" data-target="#itemGroup1"><i class="fa fa-pencil" aria-hidden="true"></i></label>
 						</div>
 						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 marginBottom2 padding0" style="display: -webkit-inline-box;">
 							<div class="marginRight15">Items Group 2:</div>
-							<label class="form-control" style="width: 50%;border-radius: 0;">0 selected</label>
-							<label class="form-control" style="width: 10%;border-radius: 0;background-color: #ededed;" data-toggle="modal" data-target="#itemGroup"><i class="fa fa-pencil" aria-hidden="true"></i></label>
+							<label class="form-control fontWeight100 color999" style="width: 50%;border-radius: 0;">{{itemNo2}} selected</label>
+							<label class="form-control" style="width: 10%;border-radius: 0;background-color: #ededed;" data-toggle="modal" data-target="#itemGroup2"><i class="fa fa-pencil" aria-hidden="true"></i></label>
 						</div>
-						<button class="btn" style="color: #fff;background-color: #999;">Add</button>
 					</div>
 					<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 paddingLeft10prcnt">
 						Example: Buy 2 Pizzas and get the 3rd Pizza free would require you to select all Pizzas for "Items Group 1", "Items Group 2" and the same for "Items Group 3". By default the ordering system discounts the cheapest item by 100%.
@@ -240,7 +305,7 @@
 					</div>
 					<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
 						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 marginBottom2 padding0" style="display: -webkit-inline-box;">
-							<div class="marginRight15">Items Group 1:</div>
+							<div class="marginRight15">Discount : </div>
 							<input type="number" #disPrcnt class="form-control" placeholder="30" style="width: 50%;border-radius: 0;" (keyup)="countCharacter($event,disPrcnt,'discountPercent')">
 							<label class="form-control" style="width: 10%;border-radius: 0;background-color: #ededed;">%</label>
 						</div>
@@ -249,7 +314,7 @@
 			</div>
 
 			<!-- Free dish or discounted item, if your order past a certain amount -->
-			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding3 bgWhite" *ngIf = "promotion._id == '597870a5ecfaa406ec845abd'">
+			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding3 bgWhite" *ngIf = "index == 6">
 				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0 fontWeight600 fontSmall marginBottom2">
 					Grant % discount to one or more items if they are ordered together
 				</div>
@@ -261,15 +326,14 @@
 					<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
 						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 marginBottom2 padding0" style="display: -webkit-inline-box;">
 							<div class="marginRight15">Items Group 1:</div>
-							<label class="form-control" style="width: 50%;border-radius: 0;">0 selected</label>
-							<label class="form-control" style="width: 10%;border-radius: 0;background-color: #ededed;" data-toggle="modal" data-target="#itemGroup"><i class="fa fa-pencil" aria-hidden="true"></i></label>
+							<label class="form-control fontWeight100 color999" style="width: 50%;border-radius: 0;">{{itemNo1}} selected</label>
+							<label class="form-control" style="width: 10%;border-radius: 0;background-color: #ededed;" data-toggle="modal" data-target="#itemGroup1"><i class="fa fa-pencil" aria-hidden="true"></i></label>
 						</div>
 						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 marginBottom2 padding0" style="display: -webkit-inline-box;">
 							<div class="marginRight15">Items Group 2:</div>
-							<label class="form-control" style="width: 50%;border-radius: 0;">0 selected</label>
-							<label class="form-control" style="width: 10%;border-radius: 0;background-color: #ededed;" data-toggle="modal" data-target="#itemGroup"><i class="fa fa-pencil" aria-hidden="true"></i></label>
+							<label class="form-control fontWeight100 color999" style="width: 50%;border-radius: 0;">{{itemNo2}} selected</label>
+							<label class="form-control" style="width: 10%;border-radius: 0;background-color: #ededed;" data-toggle="modal" data-target="#itemGroup2"><i class="fa fa-pencil" aria-hidden="true"></i></label>
 						</div>
-						<button class="btn" style="color: #fff;background-color: #999;">Add</button>
 					</div>
 					<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 paddingLeft10prcnt">
 						Example: Buy 2 Pizzas and get the 3rd Pizza free would require you to select all Pizzas for "Items Group 1", "Items Group 2" and the same for "Items Group 3". By default the ordering system discounts the cheapest item by 100%.
@@ -282,12 +346,7 @@
 					</div>
 					<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
 						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 marginBottom2 padding0" style="display: -webkit-inline-box;">
-							<div class="marginRight15">Items Group 1:</div>
-							<input type="number" #disPrcnt class="form-control" placeholder="30" style="width: 50%;border-radius: 0;" (keyup)="countCharacter($event,disPrcnt,'discountPercent')">
-							<label class="form-control" style="width: 10%;border-radius: 0;background-color: #ededed;">%</label>
-						</div>
-						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 marginBottom2 padding0" style="display: -webkit-inline-box;">
-							<div class="marginRight15">Items Group 1:</div>
+							<div class="marginRight15">Discount : </div>
 							<input type="number" #disPrcnt class="form-control" placeholder="30" style="width: 50%;border-radius: 0;" (keyup)="countCharacter($event,disPrcnt,'discountPercent')">
 							<label class="form-control" style="width: 10%;border-radius: 0;background-color: #ededed;">%</label>
 						</div>

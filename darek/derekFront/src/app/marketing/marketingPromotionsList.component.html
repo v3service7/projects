@@ -23,19 +23,19 @@
 			</div>
 		</div>
 		<div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 promotionLockImage" *ngIf = "promotion.restaurantOptions">
-			<div *ngIf = "promotion.restaurantOptions.length > 0">
+			<!-- <div *ngIf = "promotion.restaurantOptions.length > 0"> -->
 				<div *ngIf = "promotion.restaurantOptions.indexOf(restaurants._id) > -1">
 					<a class="btn btn-success nextButton" [routerLink]="['/owner/marketing/promotions/edit-template', promotion._id]">NEXT</a>
 				</div>
-				<div *ngIf = "promotion.restaurantOptions.indexOf(restaurants._id) == -1">
+				<!-- <div *ngIf = "promotion.restaurantOptions.indexOf(restaurants._id) == -1">
 					<a [routerLink]="['/owner/marketing/promotions/subscription', promotion._id]">
 						<img src="/assets/images/lock.png"><br>
 						<a href="javascript:void(0)">View details</a>
 					</a>
-				</div>
-			</div>
+				</div> -->
+			<!-- </div> -->
 		</div>
-		<div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 promotionLockImage" *ngIf = "!promotion.restaurantOptions">
+		<div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 promotionLockImage" *ngIf = "!promotion.restaurantOptions || promotion.restaurantOptions.indexOf(restaurants._id) == -1">
 			<a [routerLink]="['/owner/marketing/promotions/subscription', promotion._id]">
 				<img src="/assets/images/lock.png"><br>
 				<a href="javascript:void(0)">View details</a>
