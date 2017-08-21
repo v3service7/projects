@@ -7,7 +7,8 @@ var PromotionSchema = new Schema({
     image:  { type: String},
     name: { type: String, required: true},
     desc:  { type: String, required: true},
-    restaurantOptions : [{ type: Schema.Types.ObjectId, ref:'Restaurant'}]
+    restaurantOptions : [{ type: Schema.Types.ObjectId, ref:'Restaurant'}],
+    created_at: { type: Date, default: Date.now }
 });
 
 var Promotion = mongoose.model('Promotion', PromotionSchema);
