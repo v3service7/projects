@@ -50,5 +50,12 @@ export class PromotionsService {
         return this.http.get('assets/custom.json').map(
          res => res.json()
         );
-    }
+  }
+
+  addPromotionDetail(data){
+    return this.http.post(globalVariable.url+'promodetail',data)
+      .map(
+      (response: Response) => response.json()
+    );
+  }
 }

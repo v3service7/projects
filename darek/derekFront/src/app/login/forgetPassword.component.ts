@@ -4,6 +4,8 @@ import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angula
 
 import { AlertService, AuthService, UsersService } from '../service/index';
 
+declare var toastr: any;
+
 @Component({
   selector: 'app-forget',
   templateUrl: './forgetPassword.component.html',
@@ -34,7 +36,8 @@ export class ForgetComponent implements OnInit {
             }
         );
 
-        this.alertService.success('Check your email to reset password', true);
+        //this.alertService.success('Check your email to reset password', true);
+        toastr.success('Check your email to reset password');
         this.router.navigate(['/admin/login']);
 	}
 }
@@ -70,7 +73,8 @@ export class ResetPasswordAdminComponent implements OnInit {
         console.log(this.forgetForm.value);
         this.authService.resetAdminPassword(this.id,this.forgetForm.value).subscribe(
             (data) => {
-                this.alertService.success('Password update successfully', true);
+                //this.alertService.success('Password update successfully', true);
+                toastr.success('Password update successfully');
                 this.router.navigate(['/admin/login']);
             }
         );

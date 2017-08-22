@@ -3,6 +3,8 @@ import {Router, ActivatedRoute, Params} from '@angular/router';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { AlertService, UsersService } from '../service/index';
 
+declare var toastr: any;
+
 @Component({
   selector: 'app-users',
   templateUrl: './usersadd.component.html',
@@ -34,7 +36,8 @@ export class UsersaddComponent implements OnInit {
   	private userAdd() {
         this.usersService.addUser(this.userAddModel.value).subscribe(
             (data) => {
-                this.alertService.success('Owner Added Successfully', true);
+                //this.alertService.success('Owner Added Successfully', true);
+                toastr.success('Owner Added Successfully');
                 this.router.navigate(['/admin/users']);
             }
         );

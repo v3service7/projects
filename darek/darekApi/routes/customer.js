@@ -161,8 +161,8 @@ router.post('/forget-pass',function(req,res,next){
             if (data.length>0) {
                 var name = data[0].firstname+" <"+data[0].email+" >";
                 /*var content = "Password reset Link <a href='http://localhost:4200/resetpassword/"+data[0]._id+"'>Click Here</a>"*/
-                /*var content = "Password reset Link <a href='http://104.236.69.166:3000/resetpassword/"+data[0]._id+"'>Click Here</a>"*/
-                var content = "Password reset Link <a href='http://34.209.114.118:3003/resetpassword/"+data[0]._id+"'>Click Here</a>"
+                var content = "Password reset Link <a href='http://104.236.69.166:3000/resetpassword/"+data[0]._id+"'>Click Here</a>"
+                /*var content = "Password reset Link <a href='http://34.209.114.118:3003/resetpassword/"+data[0]._id+"'>Click Here</a>"*/
                 console.log(content);
                 req.mail.sendMail({  //email options
                    from: "Restaurant Team <logindharam@gmail.com>", // sender address.  Must be the same as authenticated user if using GMail.

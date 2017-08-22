@@ -9,7 +9,7 @@ var kitchenMenuModel  =  require("../model/Kitchenmenu.js");
 var itemModel  =  require("../model/Item.js");
 var addOnModel  =  require("../model/addon.js");
 var languageModel  =  require("../model/Language.js");
-var promotionDetailModel  =  require("../model/promotionDetail.js");
+var promotionDetailModel  =  require("../model/PromotionDetail.js");
 
 
 
@@ -975,11 +975,11 @@ router.get('/promodetail', function(req, res, next) {
 router.post('/promodetail',function(req, res){
 	var response={};
     var promotionDetailModelObj = new promotionDetailModel(req.body);
-    promotionDetailModel.save(function(err){
+    promotionDetailModelObj.save(function(err,data){
     	if(err) {
             response = {"error" : true,"message" : err};
         } else {
-            response = {"error" : false,"message" : "Data added"};
+            response = {"error" : false,"message" : data};
         }
         res.json(response);
     });
@@ -991,7 +991,7 @@ router.put('/promodetail/:id',function(req, res){
 	    	if(err) {
 	            response = {"error" : true,"message" : err};
 	        } else {
-	            response = {"error" : false,"message" : "Data Update"};
+	            response = {"error" : false,"message" : promotionDetailModelObj};
 	        }
 	        res.json(response);
         });

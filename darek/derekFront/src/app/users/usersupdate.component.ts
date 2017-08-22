@@ -3,6 +3,8 @@ import {Router, ActivatedRoute, Params} from '@angular/router';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { AlertService, UsersService } from '../service/index';
 
+declare var toastr: any;
+
 @Component({
   selector: 'app-users',
   templateUrl: './usersupdate.component.html',
@@ -46,7 +48,8 @@ export class UsersupdateComponent implements OnInit {
         console.log(this.userAddModel.value);
         this.usersService.updateUser(this.userAddModel.value).subscribe(
             (data) => {
-                this.alertService.success('Owner Updated Successfully', true);
+                toastr.success('Owner Updated Successfully');
+                //this.alertService.success('Owner Updated Successfully', true);
                 this.router.navigate(['/admin/users']);
             }
         );

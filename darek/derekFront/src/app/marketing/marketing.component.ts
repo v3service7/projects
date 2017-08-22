@@ -429,6 +429,7 @@ export class MarketingPromotionsTemplateComponent implements OnInit {
   customCouponCode : boolean = false;
   displayTime : boolean = true;
   fulfillmentTime : boolean = false;
+  autoCode:string;
 
   index: number;
   itemNo1: number = 0;
@@ -455,20 +456,21 @@ export class MarketingPromotionsTemplateComponent implements OnInit {
     this.loadScript('/assets/css/bootstrap-datetimepicker.css','css');
 
     this.promoDetailAddModel = this.lf.group({
-      restaurantId: ['', Validators.required],
-      promotionId: ['', Validators.required],
-      promoname: ['', Validators.required],
-      description: [],
-      image: [],
-      discountOn: ['', Validators.required],
-      discountPercent: ['', Validators.required],
-      discountTiming: ['', Validators.required],
-      orderType: ['', Validators.required],
-      orderTime: ['', Validators.required],
-      clientbenefited: ['', Validators.required],
-      dealredemption: ['', Validators.required],
-      couponcode: ['', Validators.required],
-      status: ['', Validators.required]
+      restaurantId: [null, Validators.required],
+      promotionId: [null, Validators.required],
+      promoname: [null, Validators.required],
+      description: [null],
+      image: [null],
+      discountOn: [null],
+      discountPercent: [null],
+      discountAmount: [null],
+      discountTiming: [null, Validators.required],
+      orderType: [null, Validators.required],
+      orderTime: [null, Validators.required],
+      clientbenefited: [null, Validators.required],
+      dealredemption: [null, Validators.required],
+      couponcode: [null],
+      status: [null]
     });
 
     this.openingAddModel = this.lf.group({
@@ -497,6 +499,10 @@ export class MarketingPromotionsTemplateComponent implements OnInit {
     this.fulfillmentTimeObj['available'] = 'unlimited';
 
     $("div[id^='step']").hide();
+
+    $("div[id='step1']").show();
+    $('div.changeBg .promotionStepNext').css('display','block');
+
     $("div[id^='orderType']").addClass('selected2');
     $("div[id^='orderTime']").addClass('selected2');
     $("div[id^='clientType']").addClass('selected2');
@@ -504,6 +510,26 @@ export class MarketingPromotionsTemplateComponent implements OnInit {
     $("div[id='auto']").addClass('selected2');
     $("div[id='code']").addClass('selected2');
     this.getRestaurants();
+
+    this.orderType('any');
+    this.orderTime('any');
+    this.clientType('any');
+    this.dealRedemption('showAll');
+    this.couponCode('auto');
+    console.log("typeof this.promoDetailAddModel.controls['discountOn']");
+    console.log(typeof this.promoDetailAddModel.controls['discountOn']);
+
+    this.checkFormValidation();
+  }
+
+  public autoGenerate(){
+    var text = "";
+    var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
+    for (var i = 0; i < 5; i++)
+      text += possible.charAt(Math.floor(Math.random() * possible.length));
+
+    return text;
   }
 
   public loadScript(url,type) {
@@ -788,7 +814,7 @@ export class MarketingPromotionsTemplateComponent implements OnInit {
       $("div[id='orderType3']").removeClass('selected2').addClass('selected1');
       this.promoDetailAddModel.controls['orderType'].setValue({'mType':'Delivery'});
     }
-    console.log(this.promoDetailAddModel.value);
+    //console.log(this.promoDetailAddModel.value);
   }
 
   private orderTime(type){
@@ -805,7 +831,7 @@ export class MarketingPromotionsTemplateComponent implements OnInit {
       $("div[id='orderTime3']").removeClass('selected2').addClass('selected1');
       this.promoDetailAddModel.controls['orderTime'].setValue({'tType':'later'});
     }
-    console.log(this.promoDetailAddModel.value);
+    //console.log(this.promoDetailAddModel.value);
   }
 
   private clientType(type){
@@ -822,7 +848,7 @@ export class MarketingPromotionsTemplateComponent implements OnInit {
       $("div[id='clientType3']").removeClass('selected2').addClass('selected1');
       this.promoDetailAddModel.controls['clientbenefited'].setValue({'cType':'returning'});
     }
-    console.log(this.promoDetailAddModel.value);
+    //console.log(this.promoDetailAddModel.value);
   }
 
   private dealRedemption(type){
@@ -835,22 +861,23 @@ export class MarketingPromotionsTemplateComponent implements OnInit {
       $("div[id='showSome']").removeClass('selected2').addClass('selected1');
       this.promoDetailAddModel.controls['dealredemption'].setValue({'redeemTo':'some'});
     }
-    console.log(this.promoDetailAddModel.value);
+    //console.log(this.promoDetailAddModel.value);
   }
 
   private couponCode(type){
     if (type == 'auto') {
+      this.autoCode = this.autoGenerate()
       $("div[id='auto']").removeClass('selected2').addClass('selected1');
       $("div[id='code']").addClass('selected2').removeClass('selected1');
       this.customCouponCode = false;
-      this.promoDetailAddModel.controls['couponcode'].setValue('');
+      this.promoDetailAddModel.controls['couponcode'].setValue(this.autoCode);
     }
     if (type == 'code') {
       $("div[id='auto']").removeClass('selected1').addClass('selected2');
       $("div[id='code']").addClass('selected1').removeClass('selected2');
       this.customCouponCode = true;
     }
-    console.log(this.promoDetailAddModel.value);
+    //console.log(this.promoDetailAddModel.value);
   }
 
   /*private selectCheck(event,obj,type){
@@ -915,7 +942,6 @@ export class MarketingPromotionsTemplateComponent implements OnInit {
     var menuObj = {};
     var itemIdObj = [];
 
-
     if (itemGroup == 'itemGroup1') {
       if (type == 'menu' && obj == '') {
         if (event.target.checked) {
@@ -928,7 +954,7 @@ export class MarketingPromotionsTemplateComponent implements OnInit {
               }
             }
             this.menu1[x]['item'] = itemIdObj;
-            this.markChecked(this.menu1[x],event,type);
+            this.markChecked(this.menu1[x],event,type,itemGroup);
           }
 
           if (x == -1) {
@@ -940,14 +966,14 @@ export class MarketingPromotionsTemplateComponent implements OnInit {
               }
             }
             this.menu1.push(menuObj);
-            this.markChecked(menuObj,event,type);
+            this.markChecked(menuObj,event,type,itemGroup);
           }
         }
         if (!event.target.checked) {
           if (this.menu1.length > 0){
             for (var i = 0; i < this.menu1.length; i++) {
               if (this.menu1[i]['id'] == event.target.value) {
-                this.markChecked(this.menu1[i],event,type);
+                this.markChecked(this.menu1[i],event,type,itemGroup);
                 itemIdObj = [];
                 this.menu1.splice(i,1);
               }
@@ -1005,7 +1031,7 @@ export class MarketingPromotionsTemplateComponent implements OnInit {
               }
             }
             this.menu2[x]['item'] = itemIdObj;
-            this.markChecked(this.menu2[x],event,type);
+            this.markChecked(this.menu2[x],event,type,itemGroup);
           }
 
           if (x == -1) {
@@ -1017,14 +1043,14 @@ export class MarketingPromotionsTemplateComponent implements OnInit {
               }
             }
             this.menu2.push(menuObj);
-            this.markChecked(menuObj,event,type);
+            this.markChecked(menuObj,event,type,itemGroup);
           }
         }
         if (!event.target.checked) {
           if (this.menu2.length > 0){
             for (var i = 0; i < this.menu2.length; i++) {
               if (this.menu2[i]['id'] == event.target.value) {
-                this.markChecked(this.menu2[i],event,type);
+                this.markChecked(this.menu2[i],event,type,itemGroup);
                 itemIdObj = [];
                 this.menu2.splice(i,1);
               }
@@ -1076,11 +1102,16 @@ export class MarketingPromotionsTemplateComponent implements OnInit {
     console.log(this.menu2);
   }
 
-  private markChecked(menu,event,type){
+  private markChecked(menu,event,type,itemGroup){
     if (type == 'menu') {
       if (menu['item'].length > 0) {
         for (var i = 0; i < menu['item'].length; i++) {        
-          var id = 'item_' + menu['item'][i];
+          if (itemGroup == 'itemGroup1') {
+            var id = 'item_ig1_' + menu['item'][i];
+          }
+          if (itemGroup == 'itemGroup2') {
+            var id = 'item_' + menu['item'][i];
+          }
           if (event.target.checked) {
             if (!document.getElementById(id).getAttribute('checked')) {
               document.getElementById(id).setAttribute('checked','true');
@@ -1112,6 +1143,17 @@ export class MarketingPromotionsTemplateComponent implements OnInit {
       }
       $("#itemGroup1").modal('hide');
       discountOnItem['item'] = this.itemIds;
+      if (this.itemNo1 > 0) {
+        var elementExists = document.getElementById("iG2");
+        if (typeof elementExists != 'undefined' && elementExists != null && this.itemNo2 == 0) {
+          document.getElementById('saveButton').setAttribute('disabled','true');
+        }
+        else{
+          document.getElementById('saveButton').removeAttribute('disabled');
+        }
+      }else{
+        document.getElementById('saveButton').setAttribute('disabled','true');
+      }
     }
 
     if (type == 'itemGroup2') {
@@ -1127,7 +1169,20 @@ export class MarketingPromotionsTemplateComponent implements OnInit {
       }
       $("#itemGroup2").modal('hide');
       discountOnItem['item'] = this.itemIds;
+      if (this.itemNo2 > 0) {
+        var elementExists1 = document.getElementById("iG1");
+        if (typeof elementExists1 != 'undefined' && elementExists1 != null && this.itemNo1 ==0) {
+          document.getElementById('saveButton').setAttribute('disabled','true');
+        }
+        else{
+          document.getElementById('saveButton').removeAttribute('disabled');
+        }
+      }else{
+        document.getElementById('saveButton').setAttribute('disabled','true');
+      }
     }
+
+    this.checkFormValidation();
 
     this.discountOn.push(discountOnItem);
     this.promoDetailAddModel.controls['discountOn'].setValue(this.discountOn);
@@ -1146,13 +1201,20 @@ export class MarketingPromotionsTemplateComponent implements OnInit {
       this.promoDetailAddModel.controls['description'].setValue(this.promoDesc);
     }
     if (type == 'discountPercent') {
+      /*console.log("name.value");
+      console.log(name.value);*/
       this.promoDetailAddModel.controls['discountPercent'].setValue(name.value);
+    }
+    if (type == 'discountAmount') {
+      /*console.log("name.value in discountAmount");
+      console.log(name.value);*/
+      this.promoDetailAddModel.controls['discountAmount'].setValue(name.value);
     }
     if (type == 'couponCode') {
       this.promoDetailAddModel.controls['couponcode'].setValue(name.value);
     }
-
-    console.log(this.promoDetailAddModel.value);
+    this.checkFormValidation();
+    //console.log(this.promoDetailAddModel.value);
   }
 
   onChange(event) {
@@ -1203,6 +1265,8 @@ export class MarketingPromotionsTemplateComponent implements OnInit {
       this.promoDetailAddModel.controls['promoname'].setValue(this.promoName);
       /*console.log("this.promotion");
       console.log(this.promotion);*/
+
+      this.checkFormValidation();
     });
   }
 
@@ -1230,6 +1294,8 @@ export class MarketingPromotionsTemplateComponent implements OnInit {
     this.promotionsService.getAll().subscribe(pro => {
       this.promotions = pro.message;
       this.index = pro.message.findIndex(mn => mn._id == id);
+
+
     });
   }
 
@@ -1252,8 +1318,50 @@ export class MarketingPromotionsTemplateComponent implements OnInit {
       this.promoDetailAddModel.controls['discountTiming'].setValue(this.discountTiming);
 
       console.log(this.promoDetailAddModel.value);
-
+      this.checkFormValidation();
     });
+  }
+
+  private checkFormValidation(){
+
+    var val1 = this.promoDetailAddModel.controls['discountPercent'].value;
+    var val2 = this.promoDetailAddModel.controls['discountAmount'].value;
+
+    if (this.index == 2 || this.index == 3 || this.index == 4) {
+      if (this.promoDetailAddModel.valid && ( (val1 != null && val1 != '') || (val2 != null && val2 != '') )) {
+        document.getElementById('saveButton').removeAttribute('disabled');
+      }
+      else{
+        document.getElementById('saveButton').setAttribute('disabled','true');
+      }
+    }
+
+    if ( this.index == 1) {
+      if (this.promoDetailAddModel.valid && (val1 != null && val1 != '') && this.itemNo1 > 0) {
+        document.getElementById('saveButton').removeAttribute('disabled');
+      }
+      else{
+        document.getElementById('saveButton').setAttribute('disabled','true');
+      }      
+    }
+
+    if (this.index == 0 || this.index == 5 || this.index == 6) {
+      if (this.promoDetailAddModel.valid && (val1 != null && val1 != '') && this.itemNo1 > 0 && this.itemNo2 > 0) {
+        document.getElementById('saveButton').removeAttribute('disabled');
+      }
+      else{
+        document.getElementById('saveButton').setAttribute('disabled','true');
+      }      
+    }
+  }
+
+  private savePromotion(){
+    this.promotionsService.addPromotionDetail(this.promoDetailAddModel.value).subscribe(data=>{
+      console.log("data");
+      console.log(data);
+    });
+    console.log("this.promoDetailAddModel.value");
+    console.log(this.promoDetailAddModel.value);
   }
 }
 

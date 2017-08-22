@@ -12,13 +12,14 @@ var PromotionDetail = new Schema({
     image : String,
     discountOn : {},
     discountPercent : Number,
+    discountAmount : Number,
     discoutTiming : {},
     orderType : {any: Boolean, pickup: Boolean, delivery: Boolean},
     orderTime : {any: Boolean, now: Boolean, later: Boolean},
     clientbenefited : {any: Boolean, new: Boolean, returning: Boolean},
     dealredemption : {},
     couponcode : String,
-    status : Boolean,
+    status : { type: Boolean, default: false},
     created_at: { type: Date, default: Date.now },
 	updated_at: { type: Date, default: Date.now }
 });

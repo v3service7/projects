@@ -21,7 +21,7 @@
 						<div id="ig1_{{menu._id}}" class="collapse">
 							<div *ngFor="let item of items">
 								<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 bgLightGray itemName fontWeight600 cursorPointer" style="display: -webkit-inline-box;border-bottom: 1px solid #d9d9d9;" *ngIf="item.menuId == menu._id">
-									<input type="checkbox" name="" id="item_{{item._id}}" value="{{item._id}}" (change)="selectCheck($event, item,'item','itemGroup1')"> 
+									<input type="checkbox" name="" id="item_ig1_{{item._id}}" value="{{item._id}}" (change)="selectCheck($event, item,'item','itemGroup1')"> 
 									<div class="paddingLeft10">{{item.name}}</div>
 								</div>
 							</div>
@@ -80,12 +80,12 @@
 			<a class="btn" style="color: #fff;background-color: #999;margin-right:3%;"  [routerLink]="['/owner/marketing/promotions']" >
 				Cancle
 			</a>
-			<button type="button" class="btn btn-success">Save</button>
+			<button type="button" id="saveButton" class="btn btn-success" (click)="savePromotion()">Save</button>
 		</div>
 	</div>
 
 	<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0 marginBottom2">
-		<div #step1 class="col-lg-12 col-md-12 col-sm-12 col-xs-12 promotionStep promotionHover borderRadius3 padding10 bgWhite fontSmall fontWeight600">
+		<div #step1 class="col-lg-12 col-md-12 col-sm-12 col-xs-12 promotionStep changeBg borderRadius3 padding10 bgWhite fontSmall fontWeight600">
 			<div><span class="numberingInCircle">1</span></div>
 			<div class="col-lg-11 col-md-11 col-sm-11 col-xs-10 cursorPointer paddingLeft40" (click)="showStep(step1,'1')"><span>Set name, description & picture</span></div>
 			<button class="col-lg-1 col-md-1 col-sm-1 col-xs-2 btn bgWhite promotionStepNext" (click)="save(step2,'1')">Next</button>
@@ -143,15 +143,15 @@
 						Set which items are eligible:
 					</div>
 					<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 marginBottom2 padding0" style="display: -webkit-inline-box;">
+						<div id="iG1" class="col-lg-12 col-md-12 col-sm-12 col-xs-12 marginBottom2 padding0" style="display: -webkit-inline-box;">
 							<div class="marginRight15">Items Group 1:</div>
 							<label class="form-control fontWeight100 color999" style="width: 50%;border-radius: 0;">{{itemNo1}} selected</label>
-							<label class="form-control fontWeight100 color999" style="width: 10%;border-radius: 0;background-color: #ededed;" data-toggle="modal" data-target="#itemGroup1"><i class="fa fa-pencil" aria-hidden="true"></i></label>
+							<label class="form-control color999 cursorPointer" style="width: 10%;border-radius: 0;background-color: #ededed;" data-toggle="modal" data-target="#itemGroup1"><i class="fa fa-pencil" aria-hidden="true"></i></label>
 						</div>
-						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 marginBottom2 padding0" style="display: -webkit-inline-box;">
+						<div id="iG2" class="col-lg-12 col-md-12 col-sm-12 col-xs-12 marginBottom2 padding0" style="display: -webkit-inline-box;">
 							<div class="marginRight15">Items Group 2:</div>
 							<label class="form-control fontWeight100 color999" style="width: 50%;border-radius: 0;">{{itemNo2}} selected</label>
-							<label class="form-control fontWeight100 color999" style="width: 10%;border-radius: 0;background-color: #ededed;" data-toggle="modal" data-target="#itemGroup2"><i class="fa fa-pencil" aria-hidden="true"></i></label>
+							<label class="form-control color999 cursorPointer" style="width: 10%;border-radius: 0;background-color: #ededed;" data-toggle="modal" data-target="#itemGroup2"><i class="fa fa-pencil" aria-hidden="true"></i></label>
 						</div>
 					</div>
 					<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 paddingLeft10prcnt">
@@ -166,7 +166,7 @@
 						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 marginBottom2 padding0" style="display: -webkit-inline-box;">
 							<div class="marginRight15">Discount : </div>
 							<input type="number" #disPrcnt class="form-control" placeholder="30" style="width: 50%;border-radius: 0;" (keyup)="countCharacter($event,disPrcnt,'discountPercent')">
-							<label class="form-control" style="width: 10%;border-radius: 0;background-color: #ededed;">%</label>
+							<label class="form-control color999" style="width: 10%;border-radius: 0;background-color: #ededed;">%</label>
 						</div>
 					</div>
 				</div>
@@ -182,10 +182,10 @@
 						Set which items are eligible:
 					</div>
 					<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 marginBottom2 padding0" style="display: -webkit-inline-box;">
+						<div id="iG1" class="col-lg-12 col-md-12 col-sm-12 col-xs-12 marginBottom2 padding0" style="display: -webkit-inline-box;">
 							<div class="marginRight15">Items Group 1:</div>
 							<label class="form-control fontWeight100 color999" style="width: 50%;border-radius: 0;">{{itemNo1}} selected</label>
-							<label class="form-control" style="width: 10%;border-radius: 0;background-color: #ededed;" data-toggle="modal" data-target="#itemGroup1"><i class="fa fa-pencil" aria-hidden="true"></i></label>
+							<label class="form-control color999 cursorPointer" style="width: 10%;border-radius: 0;background-color: #ededed;" data-toggle="modal" data-target="#itemGroup1"><i class="fa fa-pencil" aria-hidden="true"></i></label>
 						</div>
 					</div>
 					<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 paddingLeft10prcnt">
@@ -200,7 +200,7 @@
 						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 marginBottom2 padding0" style="display: -webkit-inline-box;">
 							<div class="marginRight15">Discount :</div>
 							<input type="number" #disPrcnt class="form-control" placeholder="30" style="width: 50%;border-radius: 0;" (keyup)="countCharacter($event,disPrcnt,'discountPercent')">
-							<label class="form-control" style="width: 10%;border-radius: 0;background-color: #ededed;">%</label>
+							<label class="form-control color999" style="width: 10%;border-radius: 0;background-color: #ededed;">%</label>
 						</div>
 					</div>
 				</div>
@@ -218,8 +218,8 @@
 					<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
 						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 marginBottom2 padding0" style="display: -webkit-inline-box;">
 							<div class="marginRight15">Discount:</div>
-							<input type="number" #disPrcnt class="form-control" placeholder="5" style="width: 50%;border-radius: 0;" (keyup)="countCharacter($event,disPrcnt,'discountPercent')">
-							<label class="form-control" style="width: 15%;border-radius: 0;background-color: #ededed;">USD</label>
+							<input type="number" #disPrcnt class="form-control" placeholder="5" style="width: 50%;border-radius: 0;" (keyup)="countCharacter($event,disPrcnt,'discountAmount')">
+							<label class="form-control color999" style="width: 15%;border-radius: 0;background-color: #ededed;">USD</label>
 						</div>
 					</div>
 					<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 paddingLeft10prcnt">
@@ -241,7 +241,7 @@
 						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 marginBottom2 padding0" style="display: -webkit-inline-box;">
 							<div class="marginRight15">Discount:</div>
 							<input type="number" #disPrcnt class="form-control" placeholder="5" style="width: 50%;border-radius: 0;" (keyup)="countCharacter($event,disPrcnt,'discountPercent')">
-							<label class="form-control" style="width: 15%;border-radius: 0;background-color: #ededed;"> % </label>
+							<label class="form-control color999" style="width: 15%;border-radius: 0;background-color: #ededed;">%</label>
 						</div>
 					</div>
 					<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 paddingLeft10prcnt">
@@ -263,7 +263,7 @@
 						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 marginBottom2 padding0" style="display: -webkit-inline-box;">
 							<div class="marginRight15">Discount:</div>
 							<input type="number" #disPrcnt class="form-control" placeholder="5" style="width: 50%;border-radius: 0;" (keyup)="countCharacter($event,disPrcnt,'discountPercent')">
-							<label class="form-control" style="width: 15%;border-radius: 0;background-color: #ededed;"> % </label>
+							<label class="form-control color999" style="width: 15%;border-radius: 0;background-color: #ededed;">%</label>
 						</div>
 					</div>
 					<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 paddingLeft10prcnt">
@@ -283,15 +283,15 @@
 						Set which items are eligible:
 					</div>
 					<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 marginBottom2 padding0" style="display: -webkit-inline-box;">
+						<div id="iG1" class="col-lg-12 col-md-12 col-sm-12 col-xs-12 marginBottom2 padding0" style="display: -webkit-inline-box;">
 							<div class="marginRight15">Items Group 1:</div>
 							<label class="form-control fontWeight100 color999" style="width: 50%;border-radius: 0;">{{itemNo1}} selected</label>
-							<label class="form-control" style="width: 10%;border-radius: 0;background-color: #ededed;" data-toggle="modal" data-target="#itemGroup1"><i class="fa fa-pencil" aria-hidden="true"></i></label>
+							<label class="form-control color999 cursorPointer" style="width: 10%;border-radius: 0;background-color: #ededed;" data-toggle="modal" data-target="#itemGroup1"><i class="fa fa-pencil" aria-hidden="true"></i></label>
 						</div>
-						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 marginBottom2 padding0" style="display: -webkit-inline-box;">
+						<div id="iG2" class="col-lg-12 col-md-12 col-sm-12 col-xs-12 marginBottom2 padding0" style="display: -webkit-inline-box;">
 							<div class="marginRight15">Items Group 2:</div>
 							<label class="form-control fontWeight100 color999" style="width: 50%;border-radius: 0;">{{itemNo2}} selected</label>
-							<label class="form-control" style="width: 10%;border-radius: 0;background-color: #ededed;" data-toggle="modal" data-target="#itemGroup2"><i class="fa fa-pencil" aria-hidden="true"></i></label>
+							<label class="form-control color999 cursorPointer" style="width: 10%;border-radius: 0;background-color: #ededed;" data-toggle="modal" data-target="#itemGroup2"><i class="fa fa-pencil" aria-hidden="true"></i></label>
 						</div>
 					</div>
 					<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 paddingLeft10prcnt">
@@ -307,7 +307,7 @@
 						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 marginBottom2 padding0" style="display: -webkit-inline-box;">
 							<div class="marginRight15">Discount : </div>
 							<input type="number" #disPrcnt class="form-control" placeholder="30" style="width: 50%;border-radius: 0;" (keyup)="countCharacter($event,disPrcnt,'discountPercent')">
-							<label class="form-control" style="width: 10%;border-radius: 0;background-color: #ededed;">%</label>
+							<label class="form-control color999" style="width: 10%;border-radius: 0;background-color: #ededed;">%</label>
 						</div>
 					</div>
 				</div>
@@ -324,15 +324,15 @@
 						Set which items are eligible:
 					</div>
 					<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 marginBottom2 padding0" style="display: -webkit-inline-box;">
+						<div id="iG1" class="col-lg-12 col-md-12 col-sm-12 col-xs-12 marginBottom2 padding0" style="display: -webkit-inline-box;">
 							<div class="marginRight15">Items Group 1:</div>
 							<label class="form-control fontWeight100 color999" style="width: 50%;border-radius: 0;">{{itemNo1}} selected</label>
-							<label class="form-control" style="width: 10%;border-radius: 0;background-color: #ededed;" data-toggle="modal" data-target="#itemGroup1"><i class="fa fa-pencil" aria-hidden="true"></i></label>
+							<label class="form-control color999 cursorPointer" style="width: 10%;border-radius: 0;background-color: #ededed;" data-toggle="modal" data-target="#itemGroup1"><i class="fa fa-pencil" aria-hidden="true"></i></label>
 						</div>
-						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 marginBottom2 padding0" style="display: -webkit-inline-box;">
+						<div id="iG2" class="col-lg-12 col-md-12 col-sm-12 col-xs-12 marginBottom2 padding0" style="display: -webkit-inline-box;">
 							<div class="marginRight15">Items Group 2:</div>
 							<label class="form-control fontWeight100 color999" style="width: 50%;border-radius: 0;">{{itemNo2}} selected</label>
-							<label class="form-control" style="width: 10%;border-radius: 0;background-color: #ededed;" data-toggle="modal" data-target="#itemGroup2"><i class="fa fa-pencil" aria-hidden="true"></i></label>
+							<label class="form-control color999 cursorPointer" style="width: 10%;border-radius: 0;background-color: #ededed;" data-toggle="modal" data-target="#itemGroup2"><i class="fa fa-pencil" aria-hidden="true"></i></label>
 						</div>
 					</div>
 					<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 paddingLeft10prcnt">
@@ -348,7 +348,7 @@
 						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 marginBottom2 padding0" style="display: -webkit-inline-box;">
 							<div class="marginRight15">Discount : </div>
 							<input type="number" #disPrcnt class="form-control" placeholder="30" style="width: 50%;border-radius: 0;" (keyup)="countCharacter($event,disPrcnt,'discountPercent')">
-							<label class="form-control" style="width: 10%;border-radius: 0;background-color: #ededed;">%</label>
+							<label class="form-control color999" style="width: 10%;border-radius: 0;background-color: #ededed;">%</label>
 						</div>
 					</div>
 				</div>
@@ -749,6 +749,11 @@
 							<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 paddingLeft40 marginTop5">
 								<input #couponCode type="text" maxlength="10" minlength="5" placeholder="Your Code..." name="" class="form-control padding5 fontSmall" (keyup)="countCharacter($event,couponCode,'couponCode')" style="width:35%;">
 								<div class="fontXSmall paddingTop3">Between 5-10 characters.</div>
+							</div>
+						</div>
+						<div *ngIf = "!customCouponCode">
+							<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 paddingLeft40 marginTop5">
+								<label class="form-control fontWeight600 color999" style="width: 50%;border-radius: 0; text-align: center;">{{autoCode}}</label>
 							</div>
 						</div>
 					</div>
