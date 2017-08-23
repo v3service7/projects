@@ -89,6 +89,7 @@ export class MarketingOverviewComponent implements OnInit {
 export class MarketingPromotionsComponent implements OnInit {
   promotions : any;
   clientOrderNum = [];
+  restroPromotions = [];
   clientOrderAmount = [];
   clientLastOrder = [];
   orderDetail = {};
@@ -123,12 +124,9 @@ export class MarketingPromotionsComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    //this.loadScript('/assets/js/Moment.js','js');
     this.loadScript('/assets/css/bootstrap-datetimepicker.css','css');
     this.loadScript('/assets/js/bootstrap-datetimepicker.min.js','js');
-    //this.loadScript('/assets/js/custome.js','js');
-    
-    //$('#datepicker').datepicker();
+
     this.clientOrderForm = this.lf.group({
       selectOptn: ['', Validators.required],
       orderNum: ['', Validators.required]
@@ -144,11 +142,47 @@ export class MarketingPromotionsComponent implements OnInit {
       orderViaSelect: [''],
       orderViaText: ['']
     });
-    console.log('ngInit') 
 
     this.getRestaurants();
-    //this.loadAllPromotions();
     this.getCustomData();
+  }
+
+  private selectCheck(event,id){
+    this.promotionsService.getOnePromo(id).subscribe(data=> {
+      var pro = data.message;
+      if (event.target['checked']) {    
+        pro.status = true;
+      }
+      
+      if (!event.target['checked']) {    
+        pro.status = false;
+      }        
+      this.promotionsService.updateRestroPromotion(pro).subscribe(data=> {
+        this.loadAllRestroPromotions(this.restaurants._id);
+      });
+    });
+  }
+
+  private createDuplicate(id){
+    this.promotionsService.getOnePromo(id).subscribe(data=> {
+      var pro = data.message;
+      //console.log(data.message);
+      pro.promoname = pro.promoname + '-Copy';
+      delete pro._id;
+      this.promotionsService.addPromotionDetail(pro).subscribe(data=>{
+        if(data.error == false){
+          this.loadAllRestroPromotions(this.restaurants._id);
+        }
+      });
+    });
+  }
+
+  private removePromotion(id){
+    this.promotionsService.deleteRestroPromotion(id).subscribe(data=> {
+      if(data.error == false){
+        this.loadAllRestroPromotions(this.restaurants._id);
+      }
+    });
   }
 
   private onChange(value){
@@ -278,15 +312,29 @@ export class MarketingPromotionsComponent implements OnInit {
       this.orderType = promotions['certainNoOrder'];
       this.orderAmount = promotions['certainAmt'];
       this.orderLast = promotions['lastOrder'];
-
-      console.log(this.orderLast);
     });
   }
 
+  private loadAllRestroPromotions(id){
+    this.promotionsService.getRestroPromotions(id).subscribe(data => {
+      this.restroPromotions = data.message;
+      console.log("this.restroPromotions");
+      console.log(this.restroPromotions);
+    });
+  }
+
+  private checkCheck(promo){
+    if (promo.status == true) {    
+      return true;
+    }else return false;
+  }
+
+
   private getRestaurants() {
-      this.restaurantsService.getOwnerRestaurants(JSON.parse(localStorage.getItem('currentOwner'))._id).subscribe(users => {
-        this.restaurants = users.message;
-      });
+    this.restaurantsService.getOwnerRestaurants(JSON.parse(localStorage.getItem('currentOwner'))._id).subscribe(users => {
+      this.restaurants = users.message;
+      this.loadAllRestroPromotions(users.message._id);
+    });
   }
 
   private presentTimeUpdate(property){
@@ -444,6 +492,7 @@ export class MarketingPromotionsTemplateComponent implements OnInit {
   constructor(
     private restaurantsService: RestaurantsService,
     private activatedRoute:ActivatedRoute,
+    private router: Router,
     private promotionsService: PromotionsService,
     private kitchenMenuService: KitchenMenuService,
     private kitchenMenuItemService: KitchenItemService,
@@ -469,8 +518,7 @@ export class MarketingPromotionsTemplateComponent implements OnInit {
       orderTime: [null, Validators.required],
       clientbenefited: [null, Validators.required],
       dealredemption: [null, Validators.required],
-      couponcode: [null],
-      status: [null]
+      couponcode: [null]
     });
 
     this.openingAddModel = this.lf.group({
@@ -516,8 +564,6 @@ export class MarketingPromotionsTemplateComponent implements OnInit {
     this.clientType('any');
     this.dealRedemption('showAll');
     this.couponCode('auto');
-    console.log("typeof this.promoDetailAddModel.controls['discountOn']");
-    console.log(typeof this.promoDetailAddModel.controls['discountOn']);
 
     this.checkFormValidation();
   }
@@ -526,10 +572,9 @@ export class MarketingPromotionsTemplateComponent implements OnInit {
     var text = "";
     var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
 
-    for (var i = 0; i < 5; i++)
+    for (var i = 0; i <10 ; i++)
       text += possible.charAt(Math.floor(Math.random() * possible.length));
-
-    return text;
+      return text;
   }
 
   public loadScript(url,type) {
@@ -1359,9 +1404,8 @@ export class MarketingPromotionsTemplateComponent implements OnInit {
     this.promotionsService.addPromotionDetail(this.promoDetailAddModel.value).subscribe(data=>{
       console.log("data");
       console.log(data);
+      this.router.navigate(['/owner/marketing/promotions']);
     });
-    console.log("this.promoDetailAddModel.value");
-    console.log(this.promoDetailAddModel.value);
   }
 }
 

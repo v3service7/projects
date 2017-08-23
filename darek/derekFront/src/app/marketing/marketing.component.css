@@ -121,8 +121,16 @@
     min-height: 585px;
 }
 
+.padding1510{
+    padding: 15px 10px;
+}
+
 .padding0{
     padding: 0 !important;
+}
+
+.paddingTop8{
+    padding-top: 8px;
 }
 
 .padding1{
@@ -211,6 +219,10 @@
 
 .fontSmaller{
     font-size: smaller;
+}
+
+.fontSize12{
+    font-size: 12px;
 }
 
 .promotionList{
@@ -421,6 +433,109 @@ a.nextButton , .colorWhite{
     padding: 15px;
  }
 
-/* #step1{
-    display:block;
- }*/
+div.alternateColor:nth-child(odd) {
+    background-color: #f5f4f2;
+}
+
+div.alternateColor:nth-child(even) {
+    background-color: #fff;
+}
+
+/*
+.promotion-status .active {
+    background-color: #5ac15e;
+}
+
+.promotion-status {
+    background-color: #ef4e4b;
+    display: inline-block;
+    padding: 3px;
+    border-radius: 16px;
+    cursor: pointer;
+    width: 70px;
+    overflow: hidden;
+}
+
+.promotion-status .promotion-active-circle {
+    display: inline-block;
+    background-color: #fff;
+    height: 26px;
+    width: 26px;
+    border-radius: 13px;
+    position: relative;
+    top: 1px;
+}
+*/
+
+.onoffswitch {
+    position: relative; width: 75px;
+    -webkit-user-select:none; -moz-user-select:none; -ms-user-select: none;
+}
+.onoffswitch-checkbox {
+    display: none;
+}
+.onoffswitch-label {
+    display: block; overflow: hidden; cursor: pointer;
+    border-radius: 20px;
+}
+.onoffswitch-inner {
+    display: block; width: 200%; margin-left: -100%;
+    transition: margin 0.3s ease-in 0s;
+}
+.onoffswitch-inner:before, .onoffswitch-inner:after {
+    display: block; float: left; width: 50%; height: 32px; padding: 0; line-height: 32px;
+    font-size: 14px; color: white; font-family: Trebuchet, Arial, sans-serif; font-weight: bold;
+    box-sizing: border-box;
+}
+.onoffswitch-inner:before {
+    content: "ON";
+    padding-left: 10px;
+    background-color: #29C236; color: ;
+}
+.onoffswitch-inner:after {
+    content: "OFF";
+    padding-right: 10px;
+    background-color: #ED2121; color: ;
+    text-align: right;
+}
+.onoffswitch-switch {
+    display: block; width: 30px; margin: 1.5px;
+    background: #FFFFFF;
+    position: absolute; top: 0; bottom: 0;
+    right: 42px;
+    border-radius: 20px;
+    transition: all 0.3s ease-in 0s; 
+}
+.onoffswitch-checkbox:checked + .onoffswitch-label .onoffswitch-inner {
+    margin-left: 0;
+}
+.onoffswitch-checkbox:checked + .onoffswitch-label .onoffswitch-switch {
+    right: 0px; 
+}
+
+.editPromo{
+    width: 40px;
+    height: 40px;
+    padding: 10px;
+    border: solid 1px #c7cdd6;
+    border-radius: 3px;
+    background-color: #fff;
+}
+
+.copyPromo, .deletePromo{
+    width: 40px;
+    height: 40px;
+    padding: 10px;
+}
+
+.alternateColor .fa-times{
+    display: none;
+}
+
+.alternateColor:hover .fa-times{
+    display: block;
+}
+
+.alternateColor .fa-times:hover{
+    color: red;
+}

@@ -193,15 +193,39 @@
 
 <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 minheight585">
 	<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding3">
-		<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 fontWeight600" style="color: white; background-color:#737373;min-height: 20px;padding: 19px;display: -webkit-box;text-align: center;font-size: small;">
-			<div style="width: 20%;">STATUS</div>
-			<div style="width: 20%;">NAME</div>
-			<div style="width: 20%;">COUPON</div>
-			<div style="width: 20%;">USED</div>
-			<div style="width: 20%;">CREATED</div>
+		<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 fontWeight600 fontSmall colorWhite padding1510 fontSize12" style="background-color:#737373;">
+			<div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">STATUS</div>
+			<div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">NAME</div>
+			<div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">COUPON</div>
+			<div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">USED</div>
+			<div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">CREATED</div>
+			<div class="col-lg-2 col-md-2 col-sm-2 col-xs-2"></div>
 		</div>
 
-		<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="padding: 2%;background: white;">
+		<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0" *ngIf = "restroPromotions.length > 0">
+			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding1510 alternateColor" style="min-height: 20px;display: -webkit-box;" *ngFor = "let promo of restroPromotions">
+				<div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 ">
+					<div class="onoffswitch">
+					    <input type="checkbox" value="{{promo._id}}" name="onoffswitch" class="onoffswitch-checkbox" id="onoff_{{promo._id}}" (change)="selectCheck($event,promo._id)" [checked]="checkCheck(promo)">
+					    <label class="onoffswitch-label" for="onoff_{{promo._id}}">
+					        <span class="onoffswitch-inner"></span>
+					        <span class="onoffswitch-switch"></span>
+					    </label>
+					</div>
+				</div>
+				<div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 paddingTop8"><strong>{{promo.promoname}}</strong></div>
+				<div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 paddingTop8">{{promo.couponcode}}</div>
+				<div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 paddingTop8">USED</div>
+				<div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 paddingTop8">{{promo.created_at | date: 'MMM dd, y'}}</div>
+				<div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+					<div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 copyPromo"><i class="fa fa-clone cursorPointer" aria-hidden="true" (click)="createDuplicate(promo._id)"></i></div>
+					<div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 editPromo"><i class="fa fa-pencil cursorPointer" aria-hidden="true"></i></div>
+					<div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 deletePromo"><i class="fa fa-times cursorPointer" aria-hidden="true" (click)="removePromotion(promo._id)"></i></div>
+				</div>
+			</div>
+		</div>
+
+		<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="padding: 2%;background-color: #f5f4f2;">
 			<a class="btn" style="color: #fff;background-color: #999;margin-right:3%;" [routerLink]="['select-template']">Add Promo Deal</a>
 			<button type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal">Preview</button>
 		</div>

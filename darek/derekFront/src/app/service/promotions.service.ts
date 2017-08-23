@@ -46,14 +46,43 @@ export class PromotionsService {
   }
 
   getCustom = (): Observable<Response> => {
-        console.log("In getConfiguration of ConfigurationService");
-        return this.http.get('assets/custom.json').map(
-         res => res.json()
-        );
+    console.log("In getConfiguration of ConfigurationService");
+    return this.http.get('assets/custom.json').map(
+     res => res.json()
+    );
   }
 
+  /*promotionDetail services*/
   addPromotionDetail(data){
     return this.http.post(globalVariable.url+'promodetail',data)
+      .map(
+      (response: Response) => response.json()
+    );
+  }
+
+  getRestroPromotions(id) {
+    return this.http.get(globalVariable.url+'restaurantpromo-list/'+id)
+      .map(
+      (response: Response) => response.json()
+    );
+  }
+
+  deleteRestroPromotion(id){
+    return this.http.delete(globalVariable.url+'promodetail/'+id)
+      .map(
+      (response: Response) => response.json()
+    );
+  }
+
+  getOnePromo(id){
+    return this.http.get(globalVariable.url+'promodetail/'+id)
+      .map(
+      (response: Response) => response.json()
+    );
+  }
+
+  updateRestroPromotion(data) {
+    return this.http.put(globalVariable.url+'promodetail/'+data._id,data)
       .map(
       (response: Response) => response.json()
     );
