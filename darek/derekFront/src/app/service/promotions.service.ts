@@ -38,6 +38,13 @@ export class PromotionsService {
     );
   }
 
+  getPromotionChart(id, days) {
+      return this.http.get(globalVariable.url+'reporting/promotion-stats/'+id + '/'+ days)
+      .map(
+        (response: Response) => response.json()
+      );
+  }
+
   deleteOne(id) {
     return this.http.delete(globalVariable.url+'promotion/'+id)
       .map(

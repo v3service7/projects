@@ -15,14 +15,11 @@ $('a.resbtn').on('click', function(e) {
 });
 
 $('a.resbtn').css({'padding': '6px 12px','color': '#fff','background-color': '#337ab7','border': '1px solid #2e6da4','border-radius': '4px','text-decoration': 'none', 'cursor':'pointer','position' : 'absolute','margin':'1%'});
-/*$('iframe').css({'min-width':'100%','height':'100%', 'margin': '0px 250px', 'box-shadow': '0 2px 10px rgba(0,0,0,.5)', 'border-radius': '4px'});*/
 $('iframe').css({'min-width':'100%','box-shadow': '0 2px 10px rgba(0,0,0,.5)', 'border-radius': '4px'});
-/*$('#myModal').css({'width':'840px','height':'587px','width':'80%','height':'95%','margin':'0 10% 0 10%'});*/
-$('#myModal').css({'height':'95%','padding': '2% 16.5%'});
+$('#myModal').css({'height':'90%','padding': '2% 20%'});
 var closeBtn  = $('<a class ="closeBtn" href="javascript:void(0)">Close</a>');
 $('#myModal').append(closeBtn);
-/*$('.closeBtn').css({'text-decoration-line:':'unset','padding':'10px','border-radius':'3px','background-color':'rgba(0,0,0,.6)','position':'absolute','right':'12%','top':'28px','color':'#fff','box-shadow':'0 2px 10px rgba(0,0,0,.5)'});*/
-$('.closeBtn').css({'text-decoration-line:':'unset','padding':'10px','border-radius':'3px','background-color':'rgba(0,0,0,.6)','position':'absolute','right':'10%','top':'4%','color':'#fff','box-shadow':'0 2px 10px rgba(0,0,0,.5)'});
+$('.closeBtn').css({'text-decoration-line:':'unset','padding':'10px','border-radius':'3px','background-color':'rgba(0,0,0,.6)','position':'absolute','right':'15%','top':'4%','color':'#fff','box-shadow':'0 2px 10px rgba(0,0,0,.5)'});
 $('a.closeBtn').on('click', function(e) {
 	$('#myModal').hide();
 	$('a.resbtn').css({'z-index':'0'});

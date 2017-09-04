@@ -2,6 +2,7 @@ body{
 	margin: 0;
     min-width: inherit;
 	background-color: white !important;
+    color: #4c4c4c !important;
 }
 
 .topNav1{
@@ -90,20 +91,20 @@ a.selected {
 }
 
 .deal-list {
-    padding-bottom: 20px;
+    padding : 15px;
 }
 
 .deal-special {
+    padding: 0;
     position: relative;
-    width: 770px;
-    height: 230px;
+    height: 250px;
     color: #fff;
     float: left;
-    margin: 20px 0 0 20px;
     box-shadow: inset 0 0 0 1px rgba(0,0,0,.1);
 }
 
 .deal-special-background {
+    padding: 0;
     width: 100%;
     height: 100%;
     background-image: url('../../assets/images/2.jpg');
@@ -117,11 +118,9 @@ a.selected {
 }
 
 .deal-special>.deal {
-	background-image: url('../../assets/images/3.png');
+    padding: 0;
     position: absolute;
     left: 50%;
-    top: 0;
-    width: 375px;
     height: 200px;
     margin: 0;
     -webkit-transform: translateX(-50%);
@@ -131,6 +130,21 @@ a.selected {
     border-radius: 0 0 5px 5px;
     box-shadow: 0 10px 20px rgba(0,0,0,.6);
 /*    color: #fff;*/
+    background-position: center center;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.deal-special>.deal2 {
+    padding: 0;
+    position: absolute;
+    left: 50%;
+    height: 100%;
+    margin: 0;
+    -webkit-transform: translateX(-50%);
+    transform: translateX(-50%);
+    border-top: 0;
+    border-radius: 0 0 5px 5px;
     background-position: center center;
     background-size: cover;
     background-repeat: no-repeat;
@@ -173,6 +187,17 @@ a.selected {
     font-size: 10px;
     cursor: pointer;
     transition: background-color .4s ease-out;
+}
+
+.buttonPosition{
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    padding: 5px;
+    border-radius: 0 5px 0 0;
+    font-size: 10px;
+    cursor: pointer;
+    transition: background-color .4s ease-out;    
 }
 
 .itemDetailDiv{
@@ -247,7 +272,7 @@ div.cnt-input-buttons button .fa{
 }
 
 .cartDiv{
-    padding: 10% 0 0 0;
+    padding: 10% 0 20% 0;
 }
 
 
@@ -286,21 +311,29 @@ div.cnt-input-buttons button .fa{
 }
 
 .menuImage{
-    /*border-radius: 15px;*/
+    /*border-radius: 15px;
     background-size: cover;
     background-position: center;
-    /*height: 100px;*/
-    /*height: -webkit-fill-available;*/
-    height: inherit;
+    height: 100px;
+    height: -webkit-fill-available;*/
+    height: 120px;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    box-shadow: inset 0 0 0 1px rgba(0,0,0,.1);
+    -webkit-column-break-inside: avoid;
+    page-break-inside: avoid;
+    break-inside: avoid;
 }
 
 .itemDetailDiv{
     background-color: #f7f7f7;
-    left: 85%;
+    left: 106%;
     position: absolute;
     z-index: 1;
     box-shadow: 0 2px 10px rgba(0,0,0,.2);
     border: 1px solid #ccc;
+    width: 103%;
 }
 
 #gmap{
@@ -386,7 +419,6 @@ div.checkbox1{
     min-height: 90px;
     border-left: 1px solid #ccc;
     border-right: 1px solid #ccc;
-    padding: 15px 0 15px 5px;
     position: relative;
 }
 
@@ -402,12 +434,9 @@ div.checkbox1{
 
 
 footer.footer{
-    left: -13px;
-/*    position: fixed;*/
     bottom: 0;
-    width: 810px;
+    width: 100%;
     margin: auto;
-    margin-top: 5%;
     padding: 20px;
     background-color: #fff;
     box-shadow: 0 -5px 10px rgba(0,0,0,.1);
@@ -581,7 +610,6 @@ div.cartLength2{
     padding: 0;
     height: inherit;
     border-bottom: 1px solid rgb(219, 219, 219);
-    /*border-top: 1px solid rgb(219, 219, 219);*/
     transition: background-color 0.4s ease-out;
 }
 
@@ -589,11 +617,268 @@ div.cartLength2{
     background-color: rgb(244, 244, 244);
 }
 
+.changeBg{
+    background-color: rgb(244, 244, 244);
+    color: #4c4c4c;
+    transition: background-color 0.4s ease-out;
+}
+
 .fontSize25{
     font-size: 25px;
+}
+
+.fontSize24{
+    font-size: 24px;
 }
 
 .toast-top-full-width{
     top: 10%;
     padding: 0 15% 0 15%;
+}
+
+.padding0{
+    padding: 0;
+}
+
+.padding20px5px{
+    padding: 20px 5px;
+}
+
+.padding0px15px{
+    padding: 0px 15px;
+}
+
+.offerButton{
+    background-color: #f08b18;
+    color: white;
+    box-shadow: 0 2px 10px rgba(0,0,0,.3), inset 0 1px 0 rgba(255,255,255,.2);
+    padding: 10px 20px;
+    border-radius: 3px;
+    transition: background-color .3s ease-out;
+    font-weight: 700px
+}
+
+.offerButton:hover{
+    background-color: #ffa532;
+    color: white;
+    transition: background-color .3s ease-out;
+}
+
+.fontWeight700{
+    font-weight: 700;
+}
+
+.fontLarge{
+    font-size: large;
+}
+
+div.deal-list div.oddEven:nth-child(odd) {
+    margin: 1% ;
+}
+
+.showAllPromotionsButton{
+    padding: 15px;
+    background-color: #2e2e33;
+    color: #fff;
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 16px;
+    text-align: center;
+    cursor: pointer;
+}
+
+.hide {
+    display: none;
+}
+
+.display {
+    display: block;
+}
+
+.colorWhite{
+    color: white !important;
+}
+
+.padding20px{
+    padding: 20px;
+}
+
+.padding5px{
+    padding: 5px;
+}
+
+.cursorPointer{
+    cursor: pointer;
+}
+
+.colorRust{
+    color: #f08b18;
+}
+
+#itemGroup2{
+    display: none;
+}
+
+#selectItem2{
+    display: none;
+}
+
+#itemNo1{
+    color: #f08b18;
+}
+
+#selectItem1 , #selectItem2{
+    text-align: center;
+    font-size: x-large;
+    margin-top: 37px;
+}
+
+#base:before {
+    border-top: 15px solid rgba(0, 0, 0, 0.95);
+    border-left: 20px solid transparent;
+    border-right: 20px solid transparent;
+    height: 0;
+    content: "";
+    left: 48%;
+    position: absolute;
+    top: 250px;
+    width: 0;
+}
+
+.itemDetailDiv:before {
+    height: 0;
+    left: -12px;
+    position: absolute;
+    content: "";
+    width: 0;
+    top: 92px;
+    border-top: 12px solid transparent;
+    border-right: 12px solid #f7f7f7;
+    border-bottom: 12px solid transparent;
+}
+
+.textCenter{
+    text-align: center;
+}
+
+.padding12px{
+    padding: 12px;
+}
+
+.paddingX10px{
+    padding: 0px 10px 10px 10px;
+}
+
+.promotionName{
+    color: #666;
+    font-size: 16px;
+    border-width: thin;
+    border-bottom-style: dotted;
+}
+
+.cartItemList{
+    padding: 10px 0;
+    border-width: thin;
+    border-bottom-style: dotted;
+}
+
+.promoDiv{
+    background-color: #f0f0f0;
+    border-radius: 3px;
+    padding: 15px;
+    color: grey;
+    font-size: 12px;
+}
+
+.padding5px15px{
+    padding: 5px 15px;
+}
+
+.padding10px15px{
+    padding: 10px 15px;
+}
+
+.deletePromotion{
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: -9px;
+    border-radius: 12px;
+    background-color: rgb(191, 191, 191);
+    border: 1px solid #ccc;
+    color: #ccc;
+    font-size: 9px;
+    cursor: pointer;
+    box-shadow: 1px -1px 5px rgba(0,0,0,.1);
+    color: rgb(64, 61, 61);
+    font-size: 13px;
+    padding: 0px 4px;
+}
+
+.deal-available{
+    position: inherit;
+    margin: 120px 15px 0 0;
+    font-size: medium;
+    float: right;
+    padding: 15px;
+    text-align: justify;
+    border-radius: 5px;
+    background-color: rgba(46,46,51,.5);
+    transition: background-color .4s ease-out;
+}
+
+.deal-available1{
+    position: absolute;
+    margin: 120px 15px 0 0;
+    font-size: medium;
+    right: 0;
+    padding: 15px;
+    text-align: justify;
+    border-radius: 5px;
+    background-color: rgba(46,46,51,.5);
+    transition: background-color .4s ease-out;
+}
+
+.cursorDefault{
+    cursor: default;
+}
+
+.couponCodeForm{
+    color: #9a9a9a;
+    font-size: 12px;
+}
+
+.couponCodeForm input{
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    box-shadow: inset 1px 1px 3px -1px rgba(0,0,0,.15);
+    color: #595959;
+    width: 100%;
+    padding: 2px 10px;
+}
+
+.marginRight12px{
+    margin-right: 12px;
+}
+
+#cartDetailDiv{
+    min-height: 500px;
+    background-color: rgba(128, 128, 128, 0.16) !important;
+}
+
+.minOrder{
+    width: inherit;
+    position: inherit;
+    margin: 120px 15px 0 0;
+    font-size: medium;
+    float: right;
+    padding: 15px;
+    text-align: justify;
+    border-radius: 5px;
+    background-color: rgba(46,46,51,.5);
+    transition: background-color .4s ease-out;
+    color: white;
+    width: 50%;
+    margin-left: 25%;
+    margin: 0% 25% 2% 25%;
 }

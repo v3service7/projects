@@ -50,10 +50,6 @@
     display: none;
 }
 
-/*.daysList{
-    padding: 0;
-}
-*/
 .menuDays .daysList div, .itemDays .daysList div{
     border: 1px solid #ccc;
     margin: -1px -1px 0 0px;
@@ -61,29 +57,10 @@
     margin-bottom: 0; 
 }
 
-/*.rotate{
-    -moz-transition: all 2s linear;
-    -webkit-transition: all 2s linear;
-    transition: all 2s linear;
-}
-
-.rotate.down{
-    -moz-transform:rotate(180deg);
-    -webkit-transform:rotate(180deg);
-    transform:rotate(180deg);
-}*/
-
-
-/*.comp-alt-panel:hover> div.icons > .comp-action-zone {
-    display: block;
-    opacity: 1;*/
-
-
 .mainMenuItem12:hover .icons .hovericons{
     display: block;
-/*    margin-top: 18%;
-    padding-left: 30% !important;*/
 }
+
 .mainMenuItem12 .icons .hovericons{
     display: none;
     margin-top: 5%;

@@ -9,6 +9,26 @@ var restaurantModel = require('../model/Restaurant.js');
 var itemModel = require('../model/Item.js');
 var menuModel = require('../model/Kitchenmenu.js');
 
+
+router.get('/promotion-stats/:id/:days', function(req, res, next) {
+    var lastWeek = new Date();
+    lastWeek.setDate(lastWeek.getDate()-req.params.days);
+    var promotionsData=[];
+    var days = req.params.days; 
+    Order.find({restaurantId:req.params.id,created_at:{'$gte':lastWeek}}).exec(function(err,orderList){
+        var pickupCount = 0;
+        var deliveryCount = 0;
+        for (var j = 0; j < orderList.length; j++) {
+            if (orderList[j].orderMethod.mType == 'Pickup') {
+                pickupCount++;
+            }
+        }
+        promotionsData.push(pickupCount);
+        res.json({'status':true,'message':[{'data':promotionsData,'label':'Promotion'}]});
+    });
+});
+
+
 router.get('/overview/:id', function(req, res, next) {
     var response={};
     console.log(req.params.id);
@@ -23,6 +43,32 @@ router.get('/overview/:id', function(req, res, next) {
             }); 
         }); 
     }); 
+});
+
+router.get('/all-restaurants-sales/:days', function(req, res, next) {
+    var lastWeek = new Date();
+    var dayParams = req.params.days; 
+    lastWeek.setDate(lastWeek.getDate()-dayParams);
+    let resPriceData = [];
+    let resNameData = [];
+    restaurantModel.find({},function(err,resList){
+        async.each(resList,function(resObj,callback){
+            resNameData.push(resObj.name);
+            Order.find({restaurantId:resObj._id,created_at:{'$gte':lastWeek}}).exec(function(err,orderList){
+                var amount = 0;
+                async.each(orderList,function(ordrObj,callback){
+                    amount = amount+ordrObj.gTotal
+                    callback(null);
+                }, function(err) {
+                    resPriceData.push(amount);
+                    console.log(resPriceData)
+                });
+                callback(null);
+            });
+        }, function(err) {
+            res.json({'status':true,'message':{'name':resNameData,'price':resPriceData}});
+        });
+    });
 });
 
 router.get('/method/:id/:days', function(req, res, next) {

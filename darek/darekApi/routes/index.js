@@ -708,6 +708,16 @@ router.post('/item',function(req, res){
     });
 });
 
+
+router.post('/item-all',function(req, res){
+	var response={};
+	console.log(req.body);
+    itemModel.find({_id:{$in:req.body.items}}).populate('options').exec(function(err,custData){
+        response = {"error" : false,"message" : custData};
+        res.json(response);
+    });
+});
+
 router.put('/item/:id',function(req, res){
 	var response={};
 	itemModel.findByIdAndUpdate(req.params.id, req.body, function(err, item) {

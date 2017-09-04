@@ -8,7 +8,7 @@ import { RestaurantsComponent, RestaurantaddComponent, RestaurantupdateComponent
 
 import {RestaurantOwnerPickupComponent, RestaurantOwnerOrderForLaterComponent, RestaurantOwnerTaxationComponent, RestaurantOwnerPaymentOptionComponent, RestaurantOwnerOpeningHoursComponent, RestaurantOwnerDeliveryZoneComponent, KitchenMenuListComponent,LegacyComponent,LegacycodeComponent, NotificationComponent, SupportedLanguagesComponent,OnlinePaymentComponent} from './serviceandopening/index';
 
-import { OwnerDriversComponent, OwnerDriversupdateComponent,OwnerDriversaddComponent} from './ownerdrivers/index';
+import { OwnerDriversComponent, DriverOrdersComponent, OwnerDriversupdateComponent,OwnerDriversaddComponent} from './ownerdrivers/index';
 
 import { DriversComponent, DriveraddComponent,DriverupdateComponent} from './drivers/index';
 
@@ -26,11 +26,11 @@ import { LanguageComponent,LanguagelistComponent, LanguageaddComponent, Language
 
 import { AuthGuard,OwnerAuthGuard} from './guards/index';
 
-import { FrontendHeaderComponent, FrontendComponent, FrontendDetailComponent, FrontendCartComponent, FrontendLoginComponent, FrontendForgetPasswordComponent,FrontendResetPasswordComponent,FrontendUserProfileComponent,FrontendChangePasswordComponent} from './frontend/frontend.component';
+import { FrontendHeaderComponent, FrontendComponent, FrontendDetailComponent, FrontendCartComponent, FrontendPromoDetailComponent, FrontendLoginComponent, FrontendForgetPasswordComponent,FrontendResetPasswordComponent,FrontendUserProfileComponent,FrontendChangePasswordComponent} from './frontend/frontend.component';
 
 import { ReportingComponent,ReportingnavComponent,ReportingoverviewComponent,ReportingMethodComponent,ReportingResultComponent,ReportingTypeComponent,ReportingPaymentMethodComponent,ReportingItemsComponent,ReportingItemCategoriesComponent,ReportingClientComponent,ReportingOrderComponent,ReportingDetailComponent,ReportingSaleDetailComponent} from './reporting/reporting.component';
 
-import { MarketingComponent,MarketingNavComponent,MarketingOverviewComponent,MarketingPromotionsComponent,MarketingPromotionsListComponent,MarketingPromotionsTemplateComponent, MarketingPromotionsSubscriptionComponent, MarketingStatsComponent } from './marketing/marketing.component';
+import { MarketingComponent,MarketingNavComponent,MarketingOverviewComponent,MarketingPromotionsComponent,MarketingEditPromotionComponent,MarketingPromotionsListComponent,MarketingPromotionsTemplateComponent, MarketingPromotionsSubscriptionComponent, MarketingStatsComponent } from './marketing/marketing.component';
 
 const appRoutes: Routes = [
   { path: 'admin/login', component: LoginComponent },
@@ -83,11 +83,8 @@ const appRoutes: Routes = [
     { path: 'restaurant-openinghours', component: RestaurantOwnerOpeningHoursComponent, canActivate: [OwnerAuthGuard]},
     { path: 'restaurant-deliveryzone', component: RestaurantOwnerDeliveryZoneComponent, canActivate: [OwnerAuthGuard]},
     { path: 'menu-list', component: KitchenMenuListComponent, canActivate: [OwnerAuthGuard]  },
-    /*{ path: 'menu-add', component: KitchenMenuAddComponent, canActivate: [OwnerAuthGuard]  },
-    { path: 'menu-edit/:id', component: KitchenMenuUpdateComponent, canActivate: [OwnerAuthGuard]  },
-    { path: 'item-add/:id', component: KitchenitemComponent, canActivate: [OwnerAuthGuard]  },
-    { path: 'item-edit/:id', component: KitchenMenuItemUpdateComponent, canActivate: [OwnerAuthGuard]  },*/
     { path: 'drivers', component: OwnerDriversComponent, canActivate: [OwnerAuthGuard] },
+    { path: 'driver-orders/:id', component: DriverOrdersComponent, canActivate: [OwnerAuthGuard] },
     { path: 'drivers/:id', component: OwnerDriversupdateComponent, canActivate: [OwnerAuthGuard]  },
     { path: 'driver-add', component: OwnerDriversaddComponent, canActivate: [OwnerAuthGuard]  },
     { path: 'legacy', component: LegacyComponent, canActivate: [OwnerAuthGuard]  },
@@ -112,6 +109,7 @@ const appRoutes: Routes = [
       { path: 'overview', component: MarketingOverviewComponent, canActivate: [OwnerAuthGuard]  },
       { path: 'promotions', component: MarketingPromotionsComponent, canActivate: [OwnerAuthGuard]  },
       { path: 'promotions/select-template', component: MarketingPromotionsListComponent, canActivate: [OwnerAuthGuard]  },
+      { path: 'promotions/edit-promotion/:id', component: MarketingEditPromotionComponent, canActivate: [OwnerAuthGuard]  },
       { path: 'promotions/edit-template/:id', component: MarketingPromotionsTemplateComponent, canActivate: [OwnerAuthGuard]  },
       { path: 'promotions/subscription/:id', component: MarketingPromotionsSubscriptionComponent, canActivate: [OwnerAuthGuard]  },
       { path: 'stats', component: MarketingStatsComponent, canActivate: [OwnerAuthGuard]  },
@@ -121,6 +119,7 @@ const appRoutes: Routes = [
   { path: 'frontend/:id', component: FrontendComponent },
   { path: 'frontend-detail/:id', component: FrontendDetailComponent },
   { path: 'frontend-cart/:id', component: FrontendCartComponent },
+  { path: 'frontend-promotion/:id/:promotionId', component: FrontendPromoDetailComponent },
   { path: 'login/:id', component: FrontendLoginComponent },
   { path: 'forget-pass/:id', component: FrontendForgetPasswordComponent },
   { path: 'resetpassword/:id', component: FrontendResetPasswordComponent },

@@ -338,8 +338,13 @@ a.nextButton , .colorWhite{
     background-color: #f08b18;
     color: white;
 }
+
 .cursorPointer{
     cursor: pointer;
+}
+
+.cursorDefault{
+    cursor: default;
 }
 
 .top45{
@@ -538,4 +543,9 @@ div.alternateColor:nth-child(even) {
 
 .alternateColor .fa-times:hover{
     color: red;
+}
+
+.borderX{
+    border: 1px solid rgba(0,0,0,.125);
+    border-radius: .25rem;
 }

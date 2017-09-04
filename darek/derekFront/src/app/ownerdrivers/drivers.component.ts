@@ -61,6 +61,44 @@ export class OwnerDriversComponent implements OnInit {
   }
 }
 
+@Component({
+  selector: 'app-driverOrders',
+  templateUrl: './driverOrders.component.html',
+  styles: []
+})
+export class DriverOrdersComponent implements OnInit {
+
+  order= []; 
+  restaurants : any;
+
+  constructor(
+    private restaurantsService: RestaurantsService,
+    private driversService: DriversService,
+    private route: ActivatedRoute,
+    private router: Router,
+    private alertService: AlertService) { }
+
+  ngOnInit() {
+    this.route.params.subscribe((params: Params) => {
+      let driverId = params['id'];
+      this.loadDriver(driverId);
+    });
+    this.getRestaurants();
+  }
+
+  private loadDriver(driverId){
+    this.driversService.getDriverOrders(driverId).subscribe(users => {
+      this.order = users.message;
+    });
+  }
+
+  private getRestaurants() {
+    this.restaurantsService.getOwnerRestaurants(JSON.parse(localStorage.getItem('currentOwner'))._id).subscribe(users => {
+      this.restaurants = users.message;
+    });
+  }
+}
+
 
 @Component({
   selector: 'app-adddrivers',
@@ -117,7 +155,6 @@ export class OwnerDriversaddComponent implements OnInit {
     );
   }
 }
-
 
 
 @Component({

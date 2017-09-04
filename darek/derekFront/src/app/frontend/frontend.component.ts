@@ -1,13 +1,10 @@
 import { Component, OnInit, ViewEncapsulation, Input, ElementRef,ViewContainerRef } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
-import { AlertService, RestaurantsService, UsersService, KitchenMenuService, KitchenItemService, MasterService,CustomersService} from '../service/index';
+import { AlertService, RestaurantsService, UsersService, KitchenMenuService, KitchenItemService, MasterService,CustomersService,PromotionsService} from '../service/index';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import * as globalVariable from "../global";
-//import { FlashMessagesService } from 'angular2-flash-messages';
-//import {TranslateService} from 'ng2-translate';
 import {TranslateService} from '@ngx-translate/core';
 import { FileUploader } from 'ng2-file-upload';
-// import { ToastsManager,Toast } from 'ng2-toastr/ng2-toastr';
 
 declare var google: any;
 declare var toastr: any;
@@ -31,7 +28,7 @@ export class FrontendHeaderComponent implements OnInit {
     date : any;
     time : any;
     day : any;
-    resTime:any={};
+    resTime:any;
     showOpeningHour : boolean = false;
     constructor(
         private masterService: MasterService,
@@ -40,9 +37,11 @@ export class FrontendHeaderComponent implements OnInit {
         private router: Router,
         private activatedRoute:ActivatedRoute,
         ) { }
+
     ngOnInit() {
         this.activatedRoute.params.subscribe((params: Params) => {
             let id = params['id'];
+            console.log(id);
             this.getRestaurants(id);
             this.cartStorage = 'cart'+id;
             this.customerStorage = 'currentCustomer'+id;
@@ -64,8 +63,6 @@ export class FrontendHeaderComponent implements OnInit {
 
         var days = ["sunday","monday","tuesday","wednesday","thursday","friday","saturday"];
         this.day = days[this.currentDate.getDay()];
-
-        console.log(this.time);
     }
 
     private addZero(i) {
@@ -82,6 +79,7 @@ export class FrontendHeaderComponent implements OnInit {
     private checkOpenClose(restaurant){
         for (var i in restaurant.openinghours) {
             if (this.day == i) {
+                this.resTime = {};
                 var ch = i+'time';
                 this.resTime['open'] = restaurant.openinghours[ch].opentime+':00'; 
                 this.resTime['close'] = restaurant.openinghours[ch].closetime+':00';
@@ -106,50 +104,37 @@ export class FrontendHeaderComponent implements OnInit {
         });
     }
 
-    logout(){
+    private logout(){
         this.customerService.customerLogout(this.customerStorage);
     }
+
     private getRestaurants(id) {
         this.restaurantsService.getOne(id).subscribe(users => {
             this.restaurants = users.message;
-            console.log("this.restaurants");
-            console.log(this.restaurants);
             this.checkOpenClose(this.restaurants);
         });
     }
 }
 
 @Component({
-    selector: 'app-frontend',
-    templateUrl: './frontend.component.html',
+    selector: 'app-frontendPromotion',
+    templateUrl: './promotionDetail.component.html',
     styleUrls: ['./frontend.component.css'],
     encapsulation: ViewEncapsulation.None
 })
-export class FrontendComponent implements OnInit {
+export class FrontendPromoDetailComponent implements OnInit {
     restaurants: any = {};
-    cartStorage : string;
-    customerStorage : string;
+    promotion: any = [];
+    cart: any = [];
     menus: any = [];
     items: any = [];
-    item: any;
     addOns: any = [];
-    detailShow: String;
-    price: number;
-    finalPrice: number;
-    addonPrice: number;
-    multiSizePrice: number;
-    quantity: number;
-    orderItem: any={};
-    totalOrder: any;
-    imageURL: string = globalVariable.imageUrl;
-    count: any= 1;
-    currentCustomer:any;
-    currentCustomerId:any;
+    itemG1: any = [];
+    itemG2: any = [];
     currentDate:any;
     date : any;
     time : any;
     day : any;
-    resTime:any={};
     mandDefaultCount: number=0;
     mandCheckedCount: boolean;
     mandStatus: boolean=true;
@@ -157,31 +142,50 @@ export class FrontendComponent implements OnInit {
     tempGroup=[];
     mandatoryItemId=[];
     mandatoryItemIdList=[];
-    constructor(
-        private masterService: MasterService,
-        private restaurantsService: RestaurantsService,
-        private kitchenMenuService: KitchenMenuService,
-        private customerService: CustomersService,
-        private kitchenMenuItemService: KitchenItemService,
-        private router: Router,
-        private activatedRoute:ActivatedRoute,
-        private translate: TranslateService,
-        ){}
-    ngOnInit() {
+    detailShow: String;
+    promotionStorage : string;
+    customerStorage : string;
+    cartStorage : string;
+    price: number;
+    finalPrice: number;
+    addonPrice: number;
+    promotionTotal: number = 0;
+    multiSizePrice: number;
+    quantity: number;
+    orderItem: any={};
+    promotionItem: any={};
+    promoGroup: any = [];
+    currentCustomerId: any;
+    currentCustomer: any;
 
-        this.activatedRoute.params.subscribe((params: Params) => {
-            let id = params['id'];
-            this.getRestaurants(id);
-            this.locale(id);
-            this.cartStorage = 'cart'+id;
-            this.customerStorage = 'currentCustomer'+id;
-            var cartalready = JSON.parse(localStorage.getItem(this.cartStorage));
-            if(cartalready){
-                this.totalOrder = JSON.parse(localStorage.getItem(this.cartStorage));
-            }else{
-                localStorage.setItem(this.cartStorage,'[]');
-            }
+    imageURL: string = globalVariable.imageUrl;
+
+    constructor(
+        private lf: FormBuilder, 
+        private customerService: CustomersService,
+        private router: Router,
+        private route: ActivatedRoute,
+        private alertService: AlertService,
+        private restaurantsService: RestaurantsService,
+        private promotionsService: PromotionsService,
+        private kitchenMenuService: KitchenMenuService,
+        private kitchenMenuItemService: KitchenItemService,
+        private translate: TranslateService,
+        )
+    {}
+    ngOnInit() {
+        this.route.params.subscribe((params: Params) => {
+            let resId = params['id'];
+            let promotionId = params['promotionId'];
+            this.getRestaurants(resId,promotionId);
+            this.locale(resId);
+            this.promotionStorage = 'promotion_'+resId;
+            this.customerStorage = 'currentCustomer'+resId;
+            this.cartStorage = 'cart'+resId;
+
+            this.cart = JSON.parse(localStorage.getItem(this.cartStorage));
         });
+
         if (JSON.parse(localStorage.getItem(this.customerStorage))) {
             this.currentCustomerId = JSON.parse(localStorage.getItem(this.customerStorage));            
             this.getCurrentCustomer(this.currentCustomerId);
@@ -198,8 +202,6 @@ export class FrontendComponent implements OnInit {
 
         var days = ["sunday","monday","tuesday","wednesday","thursday","friday","saturday"];
         this.day = days[this.currentDate.getDay()];
-
-        console.log(this.time);
     }
 
     private addZero(i) {
@@ -209,51 +211,13 @@ export class FrontendComponent implements OnInit {
         return i;
     }
 
-    private locale(id){
-        let langObj = 'lang'+id;
-        console.log('before');
-        console.log(localStorage.getItem(langObj));
-        if (localStorage.getItem(langObj)) {
-            this.translate.setDefaultLang(localStorage.getItem(langObj));
-            this.translate.use(localStorage.getItem(langObj));
-        }else{
-            localStorage.setItem(langObj,'en');
-            this.translate.setDefaultLang('en');
-            this.translate.use('en');
-            console.log('after');
-            console.log(localStorage.getItem(langObj));
-        }
-    }
-
     private getCurrentCustomer(id){
         this.customerService.getOneCustomer(id).subscribe(
             users => {
             this.currentCustomer = users.message;
         });
     }
-    private checkOpenClose(restaurant){
-        for (var i in restaurant.openinghours) {
-            if (this.day == i) {
-                var ch = i+'time';
-                this.resTime['open'] = restaurant.openinghours[ch].opentime+':00'; 
-                this.resTime['close'] = restaurant.openinghours[ch].closetime+':00';
-                this.resTime['day'] = this.day;
-                if ((this.time >=  this.resTime.open) &&  (this.time <=  this.resTime.close)) {
-                    this.resTime['status'] = 'open';
-                }else{
-                    this.resTime['status'] = 'close';
-                }
-            }
-        }
-    }
-    private getStyle(){
-        if(this.resTime['status'] == 'close'){
-            return "1";
-        }
-        else{
-            return "";
-        }
-    }
+
     private checkMenuItemShow(obj){
         var currentDate2 = new Date();
         var date2 = currentDate2.toLocaleDateString();
@@ -291,38 +255,157 @@ export class FrontendComponent implements OnInit {
     private loadAllUsers(id) {
         this.kitchenMenuService.getAll(id).subscribe(users => {       
             this.menus = users.message;
-            //this.menus.image=this.imageURL+this.menus.image;
-            console.log("this.menus");
-            console.log(this.menus);
-            // console.log("this.menus.image");
-            // console.log(this.menus.image);
         });
     }
-    private loadAllItem(id) {
+
+    private loadAllItem(id,promotionId) {
         this.kitchenMenuItemService.getAllItems(id).subscribe(users => { 
             this.items = users.message;
-            //this.items.image=this.imageURL+this.items.image;
-            console.log("this.items");
-            console.log(this.items);
+            this.getPromotion(promotionId);
         });
-        this.kitchenMenuService.getAllAddOn(this.restaurants._id).subscribe(data => {
+    }
+
+    private loadAllAddons(id){
+        this.kitchenMenuService.getAllAddOn(id).subscribe(data => {
             this.addOns = data.message;
-            console.log("this.addOns");
-            console.log(this.addOns);
         });
     }
-    private addToCartSuccess(){
-        toastr.remove();
-        toastr.info(null, this.totalOrder.length+' Items Added', {'positionClass' : 'toast-top-full-width'});
+
+    private getRestaurants(id,promotionId) {
+        this.restaurantsService.getOne(id).subscribe(users => {
+            this.restaurants = users.message;
+            this.loadAllUsers(this.restaurants._id);
+            this.loadAllItem(this.restaurants._id,promotionId);
+            this.loadAllAddons(this.restaurants._id);
+        });
     }
+
+    private locale(id){
+        let langObj = 'lang'+id;
+        if (localStorage.getItem(langObj)) {
+            this.translate.setDefaultLang(localStorage.getItem(langObj));
+            this.translate.use(localStorage.getItem(langObj));
+        }else{
+            localStorage.setItem(langObj,'en');
+            this.translate.setDefaultLang('en');
+            this.translate.use('en');
+        }
+    }
+
+    private getPromotion(id) {
+        this.promotionsService.getOnePromo(id).subscribe(data=>{
+            this.promotion = data.message;
+
+            this.promotionItem['promotion'] = this.promotion;
+            
+            console.log("this.promotion");
+            console.log(this.promotion);
+            this.itemGroup1(this.promotion.discountOn[0]);
+            if (this.promotion.discountOn[1]['itemGroup2'].length > 0) {
+                this.itemGroup2(this.promotion.discountOn[1]);
+            }
+        });
+    }
+
+    private itemGroup1(menuIds){
+        var menuObjectsArray = [];
+        var length2 = menuIds.itemGroup1.length;
+        if (menuIds.itemGroup1) {        
+            menuIds.itemGroup1.forEach((menuObj) => {
+                var menuObjects = {}
+                var x = this.menus.findIndex(mn => mn._id == menuObj.id);
+                this.kitchenMenuItemService.promotionsItem(menuObj.item).subscribe(users => {
+                    if (x > -1) {
+                        menuObjects['menu'] = this.menus[x];
+                        menuObjects['items'] = users.message;
+                        menuObjectsArray.push(menuObjects);
+                        this.itemG1 = menuObjectsArray;
+                    }
+                });
+            });
+            console.log("menuObjectsArray ig1");
+            console.log(menuObjectsArray);
+        }
+    }
+
+    private itemGroup2(menuIds){
+        var menuObjectsArray = [];
+        var menuObjects = {}
+        if (menuIds.itemGroup2) {        
+            menuIds.itemGroup2.forEach((menuObj) => {
+                var menuObjects = {}
+                var x = this.menus.findIndex(mn => mn._id == menuObj.id);
+                this.kitchenMenuItemService.promotionsItem(menuObj.item).subscribe(users => {
+                    if (x > -1) {
+                        menuObjects['menu'] = this.menus[x];
+                        menuObjects['items'] = users.message;
+                        menuObjectsArray.push(menuObjects);
+                        this.itemG2 = menuObjectsArray;
+                    }
+                });
+            });
+            console.log("menuObjectsArray ig2");
+            console.log(menuObjectsArray);
+        }
+    }
+
+    private loadThisItem(itemSent){
+        this.mandatoryItemId = [];
+        this.mandDefaultCount = 0;
+        if (itemSent.options.length > 0) {
+            for (var j = 0; j < itemSent.options.length; j++) {
+                if (itemSent.options[j].groupType) {
+                    if (itemSent.options[j].groupType.gType == 'mandatory') {
+                        this.mandDefaultCount++;
+                    }
+                }
+            }
+        }else{
+            this.mandCheckedCount = true;
+        }
+    }
+
+    private showDetail(itemObj,itemMultiSizeObj) {
+
+        $("a[id^='changeBg_']").removeClass('changeBg');
+        $('#changeBg_'+itemObj._id).addClass('changeBg');
+
+        this.mandCheckedCount = false;
+        this.loadThisItem(itemObj);
+
+        if (this.mandDefaultCount == 0) {
+            this.mandCheckedCount = true;
+        }
+
+
+        this.detailShow = itemObj._id;
+        this.multiSizePrice = 0;  
+        this.price = 0;
+        this.finalPrice = 0;
+        this.addonPrice = 0;
+        this.quantity = 1;
+        if ( itemMultiSizeObj ) {
+            this.multiSizePrice = parseInt(itemMultiSizeObj.price);  
+            this.orderItem.multisize = itemMultiSizeObj; 
+        }
+        this.price = parseInt(itemObj.price);
+        this.finalPrice = (this.multiSizePrice + this.price+ this.addonPrice)* this.quantity;
+        this.orderItem.item = itemObj; 
+        this.orderItem.addon = [];
+        this.orderItem.totalPrice = this.finalPrice;
+        this.orderItem.quantity = this.quantity;
+    }
+
     private showDiv(id) {
         if (this.detailShow == id) {
             return 'block';
         }
     }
+
     private hideDiv() {
         this.detailShow=''; 
         this.addonUncheck();
+        $("a[id^='changeBg_']").removeClass('changeBg');
     }
 
     private addonUncheck(){
@@ -330,48 +413,15 @@ export class FrontendComponent implements OnInit {
         $('.subAddOnDetailList').attr('data-addon','check');
     }
 
-    private addToCart() {
-        this.totalOrder = JSON.parse(localStorage.getItem(this.cartStorage));
-        /*if (this.totalOrder.length>0) {
-            for (var i = 0; i < this.totalOrder.length; i++) {
-                let cartObj = this.cartItemCompare(this.totalOrder[i],this.orderItem,i);
-                console.log(cartObj)
-                if (typeof cartObj == 'undefined') {
-                    this.totalOrder.push(this.orderItem);
-                    localStorage.setItem(this.cartStorage, JSON.stringify(this.totalOrder));
-                    this.addToCartSuccess();
-                    this.detailShow='';
-                }
-            }
-        }else{*/
-            this.totalOrder.push(this.orderItem);
-            localStorage.setItem(this.cartStorage, JSON.stringify(this.totalOrder));
-            this.addToCartSuccess();
-            /*this.detailShow='';*/
-            this.hideDiv();
-        // }
+    private multiSizePriceInfo(itemMultiSizeObj) {
+        this.orderItem.multisize = itemMultiSizeObj;
+        this.multiSizePrice = parseInt(itemMultiSizeObj.price);
+        this.finalPrice = (this.multiSizePrice + this.price+ this.addonPrice)* this.quantity;
+        this.orderItem.totalPrice = this.finalPrice;
+        this.orderItem.quantity = this.quantity;
     }
 
-    private cartItemCompare(obj1,obj2,index){
-        console.log(obj1)
-        console.log(index)
-        console.log(obj2)
-        if (((obj1.item._id == obj2.item._id) && (obj1.addon.length == obj2.addon.length)) ) {
-            if ((typeof obj1.multisize != 'undefined') && (typeof obj2.multisize != 'undefined') && (obj1.item.multisize.size == obj2.item.multisize.size)) {
-                    this.totalOrder[index].quantity = this.totalOrder[index].quantity+obj2.quantity
-                    this.totalOrder[index].totalPrice = this.totalOrder[index].totalPrice+obj2.totalPrice
-                    localStorage.setItem(this.cartStorage, JSON.stringify(this.totalOrder));
-                    return true;
-                
-            }
-        }
-    }
-    
     private mandatory(data, option, group,type){
-        /*console.log("data, option, group");
-        console.log(data, option, group);
-        console.log("data.length");
-        console.log(data.length);*/
         if (group.groupType.gType == "mandatory") {
             var num = 0;
             var manda = [];
@@ -383,10 +433,6 @@ export class FrontendComponent implements OnInit {
             manda[group._id] = num;
 
             this.mand = 0;
-            
-            /*for (var i = 0; i < this.mandatoryItemId.length; i++) {*/
-                /*if (this.mandatoryItemId[i] == group._id){*/
-                    
                 if (type == 'add') {                    
                     if((group.groupType.min <= num) && (group.groupType.max >= num)) {
                         this.mand ++;
@@ -411,43 +457,13 @@ export class FrontendComponent implements OnInit {
                     }
                 }
             if (this.mand != 1 && this.mandatoryItemId.length != this.mandDefaultCount) {
+                toastr.remove();
                 toastr.warning('Please ensure Minimum and Maximum Addons for this Item',null, {'positionClass' : 'toast-top-full-width'});
             }
-
-
-
-
-                /*}
-                else{
-                    this.mand --;
-                }*/
-            /*}*/
-
-            /*if ((group.groupType.min <= num) && (group.groupType.max >= num)) {
-                this.mandStatus = false;
-            //   this.addRemoveGroup(type,group._id)
-            }
-            if (this.tempGroup.indexOf(group._id) > -1) {
-                if (type == 'remove') {
-                    this.mandCheckedCount--;
-                    this.tempGroup.splice(group._id, 1);
-                }
-            }else if (type == 'add') {
-                this.mandCheckedCount++;
-                this.tempGroup.push(group._id);
-            }*/
-
-            console.log(manda)
-            /*else{
-                this.mandDefaultCount = 0;
-            }*/
         }
-        /*if (data.length == 0) {
-            this.mandDefaultCount = true;
-        }*/
     }
 
-    addRemoveGroup(type,id){
+    private addRemoveGroup(type,id){
         if (this.mandatoryItemId.indexOf(id) > -1) {
             if (type == 'remove') {
                 this.mandatoryItemId.splice(this.mandatoryItemId.indexOf(id), 1);
@@ -474,27 +490,440 @@ export class FrontendComponent implements OnInit {
             document.getElementById(id).setAttribute('data-addon','uncheck');
             addonObj.groupId = groupId;
             this.orderItem.addon.push(addonObj);
-            //this.addRemoveGroup('add',groupId);
             this.mandatory(this.orderItem.addon,option, group,'add');
-            /*console.log("this.mand");
-            console.log(this.mand);
-            console.log("this.mandatoryItemId");
-            console.log(this.mandatoryItemId);*/
-            console.log('this.mandCheckedCount add')
-            console.log(this.mandCheckedCount)
             this.addonPrice = this.addonPrice + parseInt(addonObj.price);
             this.finalPrice = (this.multiSizePrice + this.price+ this.addonPrice)* this.quantity;
         }else{
             var addonIndex = this.orderItem.addon.findIndex(item => item._id == addonObj._id);
             this.orderItem.addon.splice(addonIndex, 1);
-            //this.addRemoveGroup('remove',groupId);
             this.mandatory(this.orderItem.addon,option, group,'remove');
-            /*console.log("this.mand");
-            console.log(this.mand);
-            console.log("this.mandatoryItemId");
-            console.log(this.mandatoryItemId);*/
-            /*console.log('this.mandCheckedCount remove')
-            console.log(this.mandCheckedCount)*/
+            document.getElementById(id).style.backgroundColor = '#fff';
+            document.getElementById(id).setAttribute('data-addon','check');
+            this.addonPrice = this.addonPrice - parseInt(addonObj.price);
+            this.finalPrice = (this.multiSizePrice + this.price+ this.addonPrice)* this.quantity;
+        }
+        this.orderItem.totalPrice = this.finalPrice;
+        this.orderItem.quantity = this.quantity;
+
+        if (this.mand == 1 && this.mandatoryItemId.length == this.mandDefaultCount) {
+            this.mandCheckedCount = true;
+        }
+    }
+
+    private quantityIncrement() {
+        this.quantity = this.quantity +1;
+        this.finalPrice = (this.multiSizePrice + this.price+ this.addonPrice)* this.quantity;
+        this.orderItem.totalPrice = this.finalPrice;
+        this.orderItem.quantity = this.quantity;
+    }
+
+    private quantityDecrement() {
+        if(this.quantity > 1){
+            this.quantity = this.quantity -1; 
+            this.finalPrice = (this.multiSizePrice + this.price+ this.addonPrice)* this.quantity;
+            this.orderItem.totalPrice = this.finalPrice;
+            this.orderItem.quantity = this.quantity;
+        }
+    }
+
+    private addToCart(type) {
+        var discountOn = this.promotion.discountOn;
+
+        if (type == 'itemG1') {
+
+            if (discountOn[1]['itemGroup2'].length == 0) {
+                var discountedPrice = ((100 - this.promotion.discountPercent)/100)*this.orderItem.totalPrice;
+                this.orderItem.totalPrice = discountedPrice;
+
+                this.promotionTotal = this.promotionTotal + this.orderItem.totalPrice;
+
+                this.promotionItem['itemGroup1'] = this.orderItem;
+            }
+            
+            if (discountOn[1]['itemGroup2'].length > 0 && (this.promotionItem['itemGroup2'] == null || typeof this.promotionItem['itemGroup2'] == 'undefined')) {
+                this.promotionItem['itemGroup1'] = this.orderItem;
+
+                console.log("this.promotionItem['itemGroup1']");
+                console.log(this.promotionItem['itemGroup1']);
+                console.log("this.promotionItem['itemGroup2']");
+                console.log(this.promotionItem['itemGroup2']);
+
+
+                this.promotionTotal = this.promotionTotal + this.orderItem.totalPrice;
+                toastr.remove();
+                toastr.warning("Please select another item to get this deal",null, {'positionClass' : 'toast-top-full-width'});
+                this.selectItem(2);
+            }
+
+
+            if (discountOn[1]['itemGroup2'].length > 0 && (this.promotionItem['itemGroup2'] != null || typeof this.promotionItem['itemGroup2'] != 'undefined')) {
+                this.promotionItem['itemGroup1'] = this.orderItem;
+
+                console.log("this.promotionItem['itemGroup1']");
+                console.log(this.promotionItem['itemGroup1']);
+                console.log("this.promotionItem['itemGroup2']");
+                console.log(this.promotionItem['itemGroup2']);
+
+
+                this.promotionTotal = this.promotionTotal + this.orderItem.totalPrice;
+
+            }
+        }
+
+        if (type == 'itemG2') {
+            var discountedPrice = ((100 - this.promotion.discountPercent)/100)*this.orderItem.totalPrice;
+            this.orderItem.totalPrice = discountedPrice;
+            this.promotionItem['itemGroup2'] = this.orderItem;
+
+            this.promotionTotal = this.promotionTotal + this.orderItem.totalPrice;
+            
+            if (discountOn[0]['itemGroup1'].length > 0 && (this.promotionItem['itemGroup1'] == null || typeof this.promotionItem['itemGroup1'] == 'undefined')) {
+
+                console.log("this.promotionItem['itemGroup1']");
+                console.log(this.promotionItem['itemGroup1']);
+                console.log("this.promotionItem['itemGroup2']");
+                console.log(this.promotionItem['itemGroup2']);
+
+                toastr.remove();
+                toastr.warning("Please select another item to get this deal",null, {'positionClass' : 'toast-top-full-width'});
+                this.selectItem(1);
+            }
+        }
+
+        if (discountOn[0]['itemGroup1'].length > 0 && discountOn[1]['itemGroup2'].length > 0 && this.promotionItem['itemGroup1'] != null && typeof this.promotionItem['itemGroup1'] != 'undefined' && this.promotionItem['itemGroup2'] != null && typeof this.promotionItem['itemGroup2'] != 'undefined') {
+            /*this.promoGroup = JSON.parse(localStorage.getItem(this.promotionStorage));*/
+            this.promotionItem['total'] = this.promotionTotal;
+            this.promoGroup = this.promotionItem;
+            localStorage.setItem(this.promotionStorage, JSON.stringify(this.promoGroup));
+            toastr.remove();
+            toastr.success("Deal Added",null, {'positionClass' : 'toast-top-full-width'});
+            this.router.navigate(['/frontend',this.restaurants._id]);
+
+            console.log("this.promoGroup");
+            console.log(this.promoGroup);
+        }
+
+        if (discountOn[0]['itemGroup1'].length > 0 && discountOn[1]['itemGroup2'].length == 0 && this.promotionItem['itemGroup1'] != null && typeof this.promotionItem['itemGroup1'] != 'undefined') {
+            /*this.promoGroup = JSON.parse(localStorage.getItem(this.promotionStorage));*/
+            this.promotionItem['total'] = this.promotionTotal;
+            this.promoGroup = this.promotionItem;
+            localStorage.setItem(this.promotionStorage, JSON.stringify(this.promoGroup));
+            toastr.remove();
+            toastr.success("Deal Added",null, {'positionClass' : 'toast-top-full-width'});
+            this.router.navigate(['/frontend',this.restaurants._id]);
+
+            console.log("this.promoGroup");
+            console.log(this.promoGroup);
+        }
+
+
+        this.orderItem = {}
+        this.hideDiv();
+    }
+
+    private selectItem(i){
+        $("div[id^='itemGroup']").hide();
+        $("#itemGroup"+ i).show();
+        
+        $("div[id^='itemNo']").removeClass('colorRust').addClass('colorWhite');
+        $("#itemNo"+i).addClass('colorRust').removeClass('colorWhite');
+        
+        $("div[id^='selectItem']").hide();
+        $("#selectItem"+ i).show();
+    }
+}
+
+@Component({
+    selector: 'app-frontend',
+    templateUrl: './frontend.component.html',
+    styleUrls: ['./frontend.component.css'],
+    encapsulation: ViewEncapsulation.None
+})
+export class FrontendComponent implements OnInit {
+    restaurants: any = {};
+    cartStorage : string;
+    customerStorage : string;
+    promotionStorage : string;
+    completeDate : string;
+    currentTime : string;
+    menus: any = [];
+    items: any = [];
+    restroPromotions : any = [];
+    promotionOrder : any;
+    hideButton : boolean = false;
+    restroPromotionsLength : number = 0
+    item: any;
+    addOns: any = [];
+    detailShow: String;
+    price: number;
+    finalPrice: number;
+    addonPrice: number;
+    multiSizePrice: number;
+    quantity: number;
+    orderItem: any={};
+    totalOrder: any;
+    imageURL: string = globalVariable.imageUrl;
+    count: any= 1;
+    currentCustomer:any;
+    currentCustomerId:any;
+    currentDate:any;
+    date : any;
+    time : any;
+    day : any;
+    mandDefaultCount: number=0;
+    mandCheckedCount: boolean;
+    offerAvailable: boolean = false;
+    mandStatus: boolean=true;
+    mand: number = 0;
+    tempGroup=[];
+    mandatoryItemId=[];
+    mandatoryItemIdList=[];
+    constructor(
+        private masterService: MasterService,
+        private restaurantsService: RestaurantsService,
+        private kitchenMenuService: KitchenMenuService,
+        private customerService: CustomersService,
+        private kitchenMenuItemService: KitchenItemService,
+        private router: Router,
+        private activatedRoute:ActivatedRoute,
+        private translate: TranslateService,
+        private promotionsService: PromotionsService
+        ){}
+
+    ngOnInit() {
+        this.activatedRoute.params.subscribe((params: Params) => {
+            let id = params['id'];
+            this.getRestaurants(id);
+            this.locale(id);
+            this.cartStorage = 'cart'+id;
+            this.customerStorage = 'currentCustomer'+id;
+            this.promotionStorage = 'promotion_'+id;
+            var cartalready = JSON.parse(localStorage.getItem(this.cartStorage));
+            if(cartalready){
+                this.totalOrder = JSON.parse(localStorage.getItem(this.cartStorage));
+            }else{
+                localStorage.setItem(this.cartStorage,'[]');
+            }
+        });
+        if (JSON.parse(localStorage.getItem(this.customerStorage))) {
+            this.currentCustomerId = JSON.parse(localStorage.getItem(this.customerStorage));            
+            this.getCurrentCustomer(this.currentCustomerId);
+        }
+
+        if (JSON.parse(localStorage.getItem(this.promotionStorage))) {
+            this.promotionOrder = JSON.parse(localStorage.getItem(this.promotionStorage));
+        }
+        this.currentDate = new Date();
+        this.date = this.currentDate.toLocaleDateString();
+        var h = this.addZero(this.currentDate.getHours());
+        var m = this.addZero(this.currentDate.getMinutes());
+        var s = this.addZero(this.currentDate.getSeconds());
+
+
+        var date = this.addZero(this.currentDate.getDate());
+        var month = this.addZero(this.currentDate.getMonth()+1);
+        var year = this.currentDate.getFullYear();
+        
+        this.currentTime = h+':'+m;
+
+        this.completeDate = date+'-'+month+'-'+year;
+
+
+        this.time = h+':'+m +':'+ s;
+
+        var days = ["sunday","monday","tuesday","wednesday","thursday","friday","saturday"];
+        this.day = days[this.currentDate.getDay()];
+    }
+
+    private addZero(i) {
+        if (i < 10) {
+            i = "0" + i;
+            }
+        return i;
+    }
+
+    private locale(id){
+        let langObj = 'lang'+id;
+        if (localStorage.getItem(langObj)) {
+            this.translate.setDefaultLang(localStorage.getItem(langObj));
+            this.translate.use(localStorage.getItem(langObj));
+        }else{
+            localStorage.setItem(langObj,'en');
+            this.translate.setDefaultLang('en');
+            this.translate.use('en');
+        }
+    }
+
+    private getCurrentCustomer(id){
+        this.customerService.getOneCustomer(id).subscribe(
+            users => {
+            this.currentCustomer = users.message;
+        });
+    }
+
+    private checkMenuItemShow(obj){
+        var currentDate2 = new Date();
+        var date2 = currentDate2.toLocaleDateString();
+        var h = this.addZero(currentDate2.getHours());
+        var m = this.addZero(currentDate2.getMinutes());
+        var s = this.addZero(currentDate2.getSeconds());
+        var time2 = h+':'+m;
+        if (obj.isSpecific) {
+            if (obj.openinghours.opentime <= time2 && obj.openinghours.closetime >= this.time) {
+                if ((obj.openinghours.monday == true) && ('monday' == this.day)) {
+                    return 'block';
+                }else if ((obj.openinghours.tuesday == true) && ('tuesday' == this.day)) {
+                    return 'block';
+                }else if (obj.openinghours.wednesday == true && 'wednesday' == this.day) {
+                    return 'block';
+                }else if (obj.openinghours.thursday == true && 'thursday' == this.day) {
+                    return 'block';
+                }else if (obj.openinghours.friday == true && 'friday' == this.day) {
+                    return 'block';
+                }else if (obj.openinghours.saturday == true && 'saturday' == this.day) {
+                    return 'block';
+                }else if (obj.openinghours.sunday == true && 'sunday' == this.day) {
+                    return 'block';
+                }else{
+                    return 'none';
+                }
+            }else{
+                return 'none';
+            }
+        }else{
+            return 'block';
+        }
+    }
+
+    private loadAllUsers(id) {
+        this.kitchenMenuService.getAll(id).subscribe(users => {       
+            this.menus = users.message;
+        });
+    }
+
+    private loadAllItem(id) {
+        this.kitchenMenuItemService.getAllItems(id).subscribe(users => { 
+            this.items = users.message;
+        });
+        this.kitchenMenuService.getAllAddOn(this.restaurants._id).subscribe(data => {
+            this.addOns = data.message;
+        });
+    }
+
+    private showDiv(id) {
+        if (this.detailShow == id) {
+            return 'block';
+        }
+    }
+
+    private hideDiv() {
+        this.detailShow='';
+        this.addonUncheck();
+        $("a[id^='changeBg_']").removeClass('changeBg');
+    }
+
+    private addonUncheck(){
+        $('.subAddOnDetailList').css('background','white');
+        $('.subAddOnDetailList').attr('data-addon','check');
+    }
+
+    private addToCart() {
+        this.totalOrder = JSON.parse(localStorage.getItem(this.cartStorage));
+        this.totalOrder.push(this.orderItem);
+        localStorage.setItem(this.cartStorage, JSON.stringify(this.totalOrder));
+        toastr.remove();
+        toastr.info(null, this.totalOrder.length+' Items Added', {'positionClass' : 'toast-top-full-width'});
+        this.hideDiv();
+    }
+
+    private cartItemCompare(obj1,obj2,index){
+        if (((obj1.item._id == obj2.item._id) && (obj1.addon.length == obj2.addon.length)) ) {
+            if ((typeof obj1.multisize != 'undefined') && (typeof obj2.multisize != 'undefined') && (obj1.item.multisize.size == obj2.item.multisize.size)) {
+                    this.totalOrder[index].quantity = this.totalOrder[index].quantity+obj2.quantity
+                    this.totalOrder[index].totalPrice = this.totalOrder[index].totalPrice+obj2.totalPrice
+                    localStorage.setItem(this.cartStorage, JSON.stringify(this.totalOrder));
+                    return true;
+                
+            }
+        }
+    }
+    
+    private mandatory(data, option, group,type){
+        if (group.groupType.gType == "mandatory") {
+            var num = 0;
+            var manda = [];
+            for (var j = 0; j < data.length; j++) {
+                num = data.reduce(function (n, x) {
+                    return n + (x.groupId == group._id);
+                }, 0);
+            }
+            manda[group._id] = num;
+
+            this.mand = 0;
+                if (type == 'add') {                    
+                    if((group.groupType.min <= num) && (group.groupType.max >= num)) {
+                        this.mand ++;
+                        this.addRemoveGroup(type,group._id);
+                    }
+                    else{
+                        type = 'remove'
+                        this.mand --;
+                        this.addRemoveGroup(type,group._id);
+                    }
+                }
+
+                else if (type == 'remove') {                    
+                    if((group.groupType.min <= num) && (group.groupType.max >= num)) {
+                        type = 'add'
+                        this.mand ++;
+                        this.addRemoveGroup(type,group._id);
+                    }
+                    else{
+                        this.mand --;
+                        this.addRemoveGroup(type,group._id);
+                    }
+                }
+            if (this.mand != 1 && this.mandatoryItemId.length != this.mandDefaultCount) {
+                toastr.remove();
+                toastr.warning('Please ensure Minimum and Maximum Addons for this Item',null, {'positionClass' : 'toast-top-full-width'});
+            }
+        }
+    }
+
+    private addRemoveGroup(type,id){
+        if (this.mandatoryItemId.indexOf(id) > -1) {
+            if (type == 'remove') {
+                this.mandatoryItemId.splice(this.mandatoryItemId.indexOf(id), 1);
+            }
+        }
+        else if (type == 'add') {
+            this.mandatoryItemId.push(id);
+        }
+    }
+
+    private addonPriceInfo(addonObj,addonDetail,group,option) {
+        if (this.mandDefaultCount != 0) {
+            this.mandCheckedCount = false;
+        }
+        if (this.mandDefaultCount == 0) {
+            this.mandCheckedCount = true;
+        }
+        
+        var isCheck = addonDetail.getAttribute('data-addon');
+        var id = addonDetail.getAttribute('id');
+        var groupId = group._id;
+        if (isCheck == 'check') {
+            document.getElementById(id).style.backgroundColor = '#e1eef5';
+            document.getElementById(id).setAttribute('data-addon','uncheck');
+            addonObj.groupId = groupId;
+            this.orderItem.addon.push(addonObj);
+            this.mandatory(this.orderItem.addon,option, group,'add');
+            this.addonPrice = this.addonPrice + parseInt(addonObj.price);
+            this.finalPrice = (this.multiSizePrice + this.price+ this.addonPrice)* this.quantity;
+        }else{
+            var addonIndex = this.orderItem.addon.findIndex(item => item._id == addonObj._id);
+            this.orderItem.addon.splice(addonIndex, 1);
+            this.mandatory(this.orderItem.addon,option, group,'remove');
             document.getElementById(id).style.backgroundColor = '#fff';
             document.getElementById(id).setAttribute('data-addon','check');
             this.addonPrice = this.addonPrice - parseInt(addonObj.price);
@@ -541,7 +970,6 @@ export class FrontendComponent implements OnInit {
                 if (itemSent.options[j].groupType) {
                     if (itemSent.options[j].groupType.gType == 'mandatory') {
                         this.mandDefaultCount++;
-                        //this.mandatoryItemIdList.push(itemSent.options[j]._id);
                     }
                 }
             }
@@ -551,13 +979,13 @@ export class FrontendComponent implements OnInit {
     }
 
     private showDetail(itemObj,itemMultiSizeObj) {
-        console.log("itemObj,itemMultiSizeObj");
-        console.log(itemObj,itemMultiSizeObj);
+
+        $("a[id^='changeBg_']").removeClass('changeBg');
+        $('#changeBg_'+itemObj._id).addClass('changeBg');
+
 
         this.mandCheckedCount = false;
         this.loadThisItem(itemObj);
-        console.log("this.mandDefaultCount");
-        console.log(this.mandDefaultCount);
 
         if (this.mandDefaultCount == 0) {
             this.mandCheckedCount = true;
@@ -584,11 +1012,132 @@ export class FrontendComponent implements OnInit {
 
     private getRestaurants(id) {
         this.restaurantsService.getOne(id).subscribe(users => {
-            this.restaurants = users.message;    
+            this.restaurants = users.message;
+            this.loadAllRestroPromotions(this.restaurants._id);
             this.loadAllUsers(this.restaurants._id);
-            this.checkOpenClose(this.restaurants);
             this.loadAllItem(this.restaurants._id); 
         });
+    }
+    
+    private loadAllRestroPromotions(id){
+        this.promotionsService.getRestroPromotions(id).subscribe(data => {
+            for (var i = 0; i < data.message.length; i++) {
+                if (data.message[i].status == true) {
+                    var returnValue = this.displayPromotion(data.message[i]);
+
+                    if (returnValue == 'block') {
+                        this.restroPromotions.push(data.message[i]);
+                    }
+                    this.restroPromotionsLength = this.restroPromotions.length;
+                    if (this.restroPromotionsLength > 4) {
+                        this.hideButton = true;
+                    }
+                }
+            }
+        });
+    }
+
+    private displayPromotion(promo){
+        if ((this.completeDate >= promo.discountTiming[0].available.from && this.completeDate <= promo.discountTiming[0].available.till) || promo.discountTiming[0].available == 'unlimited') {
+            for (var i in promo.discountTiming[0].days) {
+                if (this.day == i) {
+                    var ch = i+'time';
+                    if (typeof promo.discountTiming[0].days[ch] !=  'undefined') {
+                        if (promo.discountTiming[0].days[ch]['opentime'] <= this.currentTime && promo.discountTiming[0].days[ch]['closetime'] >= this.currentTime) {
+                            return 'block';
+                        }
+                    }
+
+                    if (typeof promo.discountTiming[0].days[ch] == 'undefined') {
+                        return 'block';
+                    }
+                }
+            }
+        }else{
+            return 'none';
+        }
+    }
+
+    private countDay(obj){
+        var countObj1 = {};
+        countObj1['count'] = 0;
+        for (var i in obj) {
+            if (this.day == i) {
+                countObj1['count'] = 1;
+                countObj1['ch'] = i+'time';
+            }
+        }
+        return countObj1;
+    }
+
+    private fullfilment(promo){
+        var discountObj2 = promo.discountTiming[1];
+        if (discountObj2.available == 'unlimited' || (this.completeDate >= discountObj2.available.from && this.completeDate <= discountObj2.available.till)) {
+            
+            var dayObj = this.countDay(discountObj2.days);
+            
+            if (dayObj['count'] == 0) {
+                this.offerAvailable = true;
+                return false;
+            }
+
+            if (dayObj['count'] == 1) {
+                if (typeof dayObj['ch'] == 'undefined') {
+                    this.offerAvailable = false;
+                    return true;
+                }
+
+                if (typeof dayObj['ch'] !=  'undefined') {
+                    var ch = dayObj['ch'];
+
+                    if (typeof discountObj2.days[ch] == 'undefined') {
+                        this.offerAvailable = false;
+                        return true;
+                    }
+
+                    if (typeof discountObj2.days[ch] !=  'undefined') {
+                        if (discountObj2.days[ch]['opentime'] <= this.currentTime && discountObj2.days[ch]['closetime'] >= this.currentTime) {
+                            this.offerAvailable = false;
+                            return true;
+                        }else{
+                            this.offerAvailable = true;
+                            return false;
+                        }
+                    }
+                }
+            }
+        }else{
+            this.offerAvailable = true;
+            return false;
+        }
+    }
+
+    private typeofAvailable(available){
+        var typeObj = typeof available;
+        if (typeObj == 'object') {
+            return 'object';
+        }
+
+        if (typeObj == 'string') {
+            return 'string';
+        }
+    }
+
+    private promotionClass(j){
+        if (j > 3) {
+        return 'hide';
+        }
+    }
+
+   private showPromotions(){
+        $('.oddEven').removeClass('hide');
+        $('.oddEven').addClass('display');
+        this.hideButton = false;
+    }
+
+   private showPromoDetail(promo){
+        console.log(promo)
+        this.router.navigate(['/frontend-promotion',{'resId':this.restaurants._id,'promotionId':promo._id}])
     }
 }
 
@@ -619,12 +1168,8 @@ export class FrontendDetailComponent implements OnInit {
         private router: Router,
         private activatedRoute:ActivatedRoute,
         private translate: TranslateService,
-        ) { 
-            //translate.addLangs(["en", "fr","es","cn"]);
-            /*translate.setDefaultLang('en');
-            let browserLang = translate.getBrowserLang();
-            translate.use(browserLang.match(/en|fr|es|cn/) ? browserLang : 'en');*/
-        }
+        ) {}
+
     ngOnInit() {
         this.activatedRoute.params.subscribe((params: Params) => {
             let id = params['id'];
@@ -640,32 +1185,28 @@ export class FrontendDetailComponent implements OnInit {
         }
        this.translate.setDefaultLang(this.lang);
     }
-    selectLang(lang: string) {
+
+    private selectLang(lang: string) {
         this.lang = lang;
         this.translate.setDefaultLang(this.lang);
         this.translate.use(this.lang);
         let langObj = 'lang'+this.restaurants._id;
         localStorage.setItem(langObj,this.lang)
-        console.log(localStorage.getItem(langObj));
     }
-
 
     private locale(id){
         let langObj = 'lang'+id;
-        console.log(langObj)
         if (localStorage.getItem(langObj)) {
             this.lang = localStorage.getItem(langObj);
             this.translate.setDefaultLang(localStorage.getItem(langObj));
-            console.log(localStorage.getItem(langObj));
         }else{
             this.translate.setDefaultLang('en');
             let browserLang = this.translate.getBrowserLang();
             this.translate.use(browserLang.match(/en|fr|es|cn/) ? browserLang : 'en');
-            // this.translate.setDefaultLang('en');
-            // this.translate.use('en');
             this.lang = 'en';
         }
     }
+
     private getRestaurants(id) {
         this.restaurantsService.getOne(id).subscribe(users => {
             this.restaurants = users.message;
@@ -673,6 +1214,7 @@ export class FrontendDetailComponent implements OnInit {
             this.lng = this.restaurants.lng;        
         });
     }
+
     private deliveryZone(id){
         this.restaurantsService.getAllDeliveryZone(id).subscribe(users => {
             this.delivery = users.message;
@@ -680,6 +1222,7 @@ export class FrontendDetailComponent implements OnInit {
             this.selectCircle();
         });
     }
+
     private selectCircle() {        
         let mapProp = {
             center: new google.maps.LatLng(this.lat, this.lng),
@@ -741,19 +1284,30 @@ export class FrontendDetailComponent implements OnInit {
 })
 export class FrontendCartComponent implements OnInit {
     restaurants: any = {};
+    resTime:any;
     delivery: any = {};
     cartStorage:string ;
+    promotionStorage:string ;
     orderMethodStorage :string ;
     orderTimeStorage :string ;
     orderPaymentStorage :string ;
     customerStorage :string ;
+    currentTime :string ;
+    completeDate :string ;
+    couponCodeApplied :string ;
+    coupon :string ;
     order: any = {};
     cartDetail: any = {};
     objForUpdate: any = {};
     cart:any=[];
+    promotionOrder:any;
     user = [];
+    allPromotions = [];
+    restroPromotions = [];
     zoneObject = [];
-    deliveryFee : number;
+    deliveryFee : number = 0;
+    discountAmount : number;
+    cartTotal : number;
     amount : number;
     showHideContactDetail:boolean;
     showHideOrderingMethod:boolean;
@@ -777,12 +1331,11 @@ export class FrontendCartComponent implements OnInit {
     grandTotalWithTax:number = 0;
     currentCustomer:any;
     currentCustomerId:any;
-    deliveryAddress:Boolean = false;
+    deliveryAddress:boolean = false;
+    couponField:boolean = false;
     orderMethod:any={};
     orderTime:any={};
     orderPayment:any={};
-    //orderTime:any;
-    //orderPayment:any;
     detailForm:FormGroup;
     addressForm:FormGroup;
     makePaymentModel:FormGroup;
@@ -790,7 +1343,6 @@ export class FrontendCartComponent implements OnInit {
     date : any;
     timeO : any;
     dayO : any;
-    resTime:any={};
     day :any = 'today';
     days:any = [{day : "today"}, {day: "tomorrow"}];
     time:any = '8:00';
@@ -805,8 +1357,8 @@ export class FrontendCartComponent implements OnInit {
         private customerService: CustomersService,
         private router: Router,
         private activatedRoute:ActivatedRoute,
-        //private _flashMessagesService: FlashMessagesService,
         private translate: TranslateService,
+        private promotionsService: PromotionsService
         ) {
         this.showHideContactDetail = false;
         this.showHideOrderingMethod = false;
@@ -837,10 +1389,12 @@ export class FrontendCartComponent implements OnInit {
             let id = params['id'];
             this.cartDetail.restaurantId=id;
             this.cartStorage = 'cart'+id;
+            this.promotionStorage = 'promotion_'+id;
             this.orderMethodStorage = 'orderMethod' + id;
             this.orderTimeStorage = 'orderTime' + id;
             this.orderPaymentStorage = 'orderPayment' + id;
             this.customerStorage = 'currentCustomer' + id;
+            this.coupon = 'coupon_' + id;
             this.getRestaurants(id);
             this.deliveryZone(id);
             this.locale(id);
@@ -856,15 +1410,17 @@ export class FrontendCartComponent implements OnInit {
             this.currentCustomerId = JSON.parse(localStorage.getItem(this.customerStorage));
             this.getCurrentCustomer(this.currentCustomerId);
         }
-        // this.currentCustomerId = JSON.parse(localStorage.getItem(this.customerStorage));
         if (JSON.parse(localStorage.getItem(this.orderMethodStorage)) != null) {
-
             this.orderMethod = JSON.parse(localStorage.getItem(this.orderMethodStorage));
             if (this.orderMethod.mType == 'Delivery') {
                 this.zoneCalculate(this.orderMethod);
             }
+
+            if (this.orderMethod.mType == 'Pickup') {
+                this.orderType = true;
+            }
+
             this.editOrderMethod = true;
-            //this.orderType = true;
             this.saveInfo();
             this.deliveryAddress=true;
         }
@@ -883,7 +1439,7 @@ export class FrontendCartComponent implements OnInit {
             this.flagForPayment=true;
         }
 
-        if ( JSON.parse(localStorage.getItem(this.cartStorage))) {
+        if (JSON.parse(localStorage.getItem(this.cartStorage))) {
             this.cart = JSON.parse(localStorage.getItem(this.cartStorage));
             if (this.cart.length > 0) {
                 this.cartDetail.orders = this.cart;
@@ -892,16 +1448,31 @@ export class FrontendCartComponent implements OnInit {
             }
         }
 
+        if (JSON.parse(localStorage.getItem(this.promotionStorage))) {
+            this.promotionOrder = JSON.parse(localStorage.getItem(this.promotionStorage));
+            this.cartZero = true;
+            this.cartDetail.promotion = this.promotionOrder;
+            this.saveInfo();
+        }
+
         if(typeof this.orderMethod != 'undefined'){
             this.addressForm.patchValue(this.orderMethod);
         }
-        this.deliveryFee = 0;
 
         this.currentDate = new Date();
         this.date = this.currentDate.toLocaleDateString();
         var h = this.addZero(this.currentDate.getHours());
         var m = this.addZero(this.currentDate.getMinutes());
         var s = this.addZero(this.currentDate.getSeconds());
+
+        var date = this.addZero(this.currentDate.getDate());
+        var month = this.addZero(this.currentDate.getMonth()+1);
+        var year = this.currentDate.getFullYear();
+        
+        this.currentTime = h+':'+m;
+
+        this.completeDate = date+'-'+month+'-'+year;
+
 
         this.timeO = h+':'+m +':'+ s;
 
@@ -911,19 +1482,26 @@ export class FrontendCartComponent implements OnInit {
         (<HTMLInputElement>document.getElementById("paymentDiv")).style.display = 'none';
 
         this.makePaymentModel.valueChanges.subscribe(data => this.onValueChanged(data));
-        this.onValueChanged(); // (re)set validation messages now
+        this.onValueChanged();
         this.yearAdd();
-
-        console.log("this.cart");
-        console.log(this.cart);
-
+        this.loadAllPromotions();
     }
+
+    private loadAllPromotions() {
+        this.promotionsService.getAll().subscribe(promotions => {
+            this.allPromotions = promotions.message;
+            console.log("this.allPromotions");
+            console.log(this.allPromotions);
+        });
+    }
+
     private addZero(i) {
         if (i < 10) {
             i = "0" + i;
             }
         return i;
     }
+
     private yearAdd(){
         let dateObj = new Date();
         let currentYear = dateObj.getFullYear();
@@ -932,9 +1510,9 @@ export class FrontendCartComponent implements OnInit {
             currentYear = currentYear+1;
             this.years.push(currentYear);
         }
-        console.log(this.years);
     }
-    onValueChanged(data?: any) {
+
+    private onValueChanged(data?: any) {
         if (!this.makePaymentModel){
             return;
         }
@@ -952,9 +1530,11 @@ export class FrontendCartComponent implements OnInit {
             }
         }
     }
+
     formErrors = {
         'cardNumber': ''    
     };
+    
     validationMessages = {
         'cardNumber': {
             'required':      'Card Number is required.',
@@ -963,10 +1543,12 @@ export class FrontendCartComponent implements OnInit {
             'pattern'   :    'Card Number contains Numberic only '
         }          
     };
+
     private showCartDiv(){
         (<HTMLInputElement>document.getElementById("cartDetailDiv")).style.display = 'block';
         (<HTMLInputElement>document.getElementById("paymentDiv")).style.display = 'none';
     }
+
     private locale(id){
         let langObj = 'lang'+id;
         if (localStorage.getItem(langObj)) {
@@ -978,53 +1560,7 @@ export class FrontendCartComponent implements OnInit {
             this.translate.use('en');
         }
     }
-    private basicDetailSuccess(){
-        toastr.remove();
-        toastr.info('Basic Detail Updated','Information', {'positionClass' : 'toast-top-full-width'});
-    }
-    private orderMethodSuccess(){
-        toastr.remove();
-        toastr.info('Order Method Updated','Information', {'positionClass' : 'toast-top-full-width'});   
-    }
-    private orderTimeSuccess(){
-        toastr.remove();
-        toastr.info('Order Type Updated','Information', {'positionClass' : 'toast-top-full-width'});
-    }
-    private orderPaymentSuccess(){
-        toastr.remove();
-        toastr.info('Order Payment Method Updated','Information', {'positionClass' : 'toast-top-full-width'});   
-    }
-    private deleteSuccess(){
-        toastr.remove();
-        toastr.info('Item Deleted!',null, {'positionClass' : 'toast-top-full-width'});   
-    }
-    private orderPlacedSuccess(){
-        toastr.remove();
-        toastr.success('Your Order is Placed!','Thank You!!', {'positionClass' : 'toast-top-full-width'});   
-    }
-    private checkOpenClose(restaurant){
-        for (var i in restaurant.openinghours) {
-            if (this.dayO == i) {
-                var ch = i+'time';
-                this.resTime['open'] = restaurant.openinghours[ch].opentime+':00'; 
-                this.resTime['close'] = restaurant.openinghours[ch].closetime+':00';
-                this.resTime['day'] = this.dayO;
-                if ((this.timeO >=  this.resTime.open) &&  (this.timeO <=  this.resTime.close)) {
-                    this.resTime['status'] = 'open';
-                }else{
-                    this.resTime['status'] = 'close';
-                }
-            }
-        }
-    }
-    private getStyle(){
-        if(this.resTime['status'] == 'close'){
-            return "1057";
-        }
-        else{
-            return "";
-        }
-    }
+
     private getCurrentCustomer(id){
         this.customerService.getOneCustomer(this.currentCustomerId).subscribe(
             users => {
@@ -1035,6 +1571,7 @@ export class FrontendCartComponent implements OnInit {
             this.saveInfo();
         });
     }
+
     private saveDetailInfo(){
         this.customerService.updateCustomer(this.detailForm.value).subscribe(
             (data) => {
@@ -1042,9 +1579,11 @@ export class FrontendCartComponent implements OnInit {
                 this.addDetail=true;
                 this.saveInfo();
                 this.changeShowDetailStatus();
-                this.basicDetailSuccess();
+                toastr.remove();
+                toastr.info('Basic Detail Updated','Information', {'positionClass' : 'toast-top-full-width'});
             });
     }
+
     private addressButton(id){
         if (id=="pickup") {
             this.orderMethod = {};
@@ -1059,19 +1598,25 @@ export class FrontendCartComponent implements OnInit {
             this.deliveryAddress = false;
         }
     }
+
     private pickupOnly(){
         localStorage.setItem(this.orderMethodStorage, JSON.stringify(this.orderMethod));
         this.orderMethod = JSON.parse(localStorage.getItem(this.orderMethodStorage));
         this.cartDetail.orderMethod=this.orderMethod;        
         this.orderType=true;
         this.saveInfo();
+
+        console.log("this.orderType");
+        console.log(this.orderType);
         this.showHideOrderingMethod =false;
         this.editOrderMethod = true;
-        this.orderMethodSuccess();
+        toastr.remove();
+        toastr.info('Order Method Updated','Information', {'positionClass' : 'toast-top-full-width'});   
         localStorage.removeItem(this.orderPaymentStorage);
         this.orderPayment={};
     }
-    private calculateDeliveryZone(zoneObj,deliveryAddress,map,marker){        
+
+    private calculateDeliveryZone(zoneObj,deliveryAddress,map,marker){
         if (zoneObj.type=='Circle') {
             let circle = new google.maps.Circle({
                 map: map,
@@ -1111,9 +1656,8 @@ export class FrontendCartComponent implements OnInit {
             }
         }
     }
+
     private zoneCalculate(method){
-        console.log("this.delivery");
-        console.log(this.delivery);
         this.customerService.getLatLng(method).subscribe(data => {
             this.orderMethod = {"streetName": this.addressForm.value.streetName, "city": this.addressForm.value.city, "postcode": this.addressForm.value.postcode,"lat": data.message.lat,"lng": data.message.lng,"mType":'Delivery'};
             localStorage.setItem(this.orderMethodStorage, JSON.stringify(this.orderMethod));
@@ -1142,15 +1686,9 @@ export class FrontendCartComponent implements OnInit {
                 var zones = this.calculateDeliveryZone(this.delivery[i],latLngDeliveryAddress,map,marker);
                 if (typeof zones != 'undefined') {
                     this.zoneObject.push(zones);
-                        console.log("zones");
-                        console.log(this.zoneObject);
-                        console.log(zones);
                 }
 
                 if (typeof zones == 'undefined') {
-                    console.log("zones when undefined");
-                    console.log(this.zoneObject);
-                    console.log(zones);
                 }
 
             }
@@ -1161,49 +1699,43 @@ export class FrontendCartComponent implements OnInit {
                         this.deliveryFee = parseInt(this.zoneObject[i].deliveryfee);
                         this.amount = parseInt(this.zoneObject[i].amount);
                         this.orderType=true;
-
                     }
                 }
                 this.cartDetail.deliveryfee = this.deliveryFee;
+                toastr.remove();
                 toastr.info('Delivery Available',null,{'positionClass' : 'toast-top-full-width'});
                 this.update();
-                console.log("this.zoneObject");
-                console.log(this.zoneObject);
             }
-            
             if (this.zoneObject.length == 0) {
                 this.deliveryFee = 0;
                 this.amount = 0;
                 this.orderType = false;
                 this.cartDetail.deliveryfee = this.deliveryFee;
                 this.update();
+                toastr.remove();
                 toastr.warning('No delivery Available on this address','Try Again',{'positionClass' : 'toast-top-full-width'});
-                console.log("this.zoneObject.length is zero");
-                console.log(this.zoneObject);
             }
-
         });
     }
+
     private saveAddressInfo(){
         this.zoneObject=[];
         this.orderMethod = {"streetName": this.addressForm.value.streetName, "city": this.addressForm.value.city, "postcode": this.addressForm.value.postcode,"mType":'Delivery'};
         this.zoneCalculate(this.orderMethod);
-        //localStorage.setItem(this.orderMethodStorage, JSON.stringify(this.orderMethod));
-        //this.orderMethod = JSON.parse(localStorage.getItem(this.orderMethodStorage));
         this.cartDetail.orderMethod = this.orderMethod;
-        //this.orderType=true;
         this.editOrderMethod = true;
         this.saveInfo();
         this.changeShowOrderingStatus();
-        //this.orderMethodSuccess();
         localStorage.removeItem(this.orderPaymentStorage);
         this.orderPayment={};
     }
+
     private editOrder(){
         this.editOrderMethod = !this.editOrderMethod;
         this.showHideOrderingMethod = true;
         this.deliveryAddress = true;
     }
+
     private setTime(id){
         if (id=="now") {
             this.delLater=false;
@@ -1218,6 +1750,7 @@ export class FrontendCartComponent implements OnInit {
             this.flagForTime=true;
         }
     }
+
     private saveTimeInfo(){
         if (this.orderTime.tType == 'Later') {
             this.orderTime = {"day":this.day, "time":this.time, "tType": 'Later'}
@@ -1233,12 +1766,15 @@ export class FrontendCartComponent implements OnInit {
         this.addTime=true;
         this.saveInfo();
         this.changeShowTimingStatus();
-        this.orderTimeSuccess();
+        toastr.remove();
+        toastr.info('Order Type Updated','Information', {'positionClass' : 'toast-top-full-width'});
     }
+
     private editTime(){
         this.editTimeMethod =!this.editTimeMethod;
         this.showHideTime = true;
     }
+
     private paymentOption(id){
         if (id=="cash") {
             this.flagForPayment=true;
@@ -1253,6 +1789,7 @@ export class FrontendCartComponent implements OnInit {
             this.orderPayment = {"ptype":this.orderMethod.mType,"cash":false, "cardpickup":false,"cardinternet":true}
         }
     }
+
     private savePaymentInfo(){
         localStorage.setItem(this.orderPaymentStorage, JSON.stringify(this.orderPayment));
         this.cartDetail.orderPayment=this.orderPayment;        
@@ -1261,15 +1798,16 @@ export class FrontendCartComponent implements OnInit {
         this.editPaymentMethod = true;
         this.saveInfo();
         this.changeShowPaymentStatus();
-        this.orderPaymentSuccess();
+        toastr.remove();
+        toastr.info('Order Payment Method Updated','Information', {'positionClass' : 'toast-top-full-width'});
     }
+
     private editPayment(){
         this.editPaymentMethod =!this.editTimeMethod;
         this.showHidePaymentMethod = true;
     }
-    private saveInfo(){
 
-        console.log(this.addDetail,this.orderType,this.addTime,this.paymentMethod,this.cartZero,this.amount,this.grandTotal);
+    private saveInfo(){
         if (this.addDetail == true && this.orderType == true && this.addTime == true && this.paymentMethod == true && this.cartZero == true && (this.orderMethod.mType == 'Pickup' || (typeof this.amount == 'undefined' || this.amount < this.grandTotal))) {
             this.all=true;
         }
@@ -1277,68 +1815,181 @@ export class FrontendCartComponent implements OnInit {
             this.all=false;
         }
     }
+
     private changeShowDetailStatus(){
         this.showHideContactDetail = !this.showHideContactDetail;
     }
+
     private changeShowOrderingStatus(){
-        this.showHideOrderingMethod = !this.showHideOrderingMethod;
-        this.addressClicked =true;
-        this.del =false;
+        if (((typeof this.resTime == 'undefined' || (typeof this.resTime != 'undefined' && this.resTime['status'] == 'close')) && this.restaurants.delivery == false) || (typeof this.resTime != 'undefined' && this.resTime['status'] == 'open' && this.restaurants.delivery == false && this.restaurants.pickup == false)) {
+            toastr.remove();
+            toastr.error('No pickup or Delivery is available now. Please visit in Opening Hours');
+        }else{
+            this.showHideOrderingMethod = !this.showHideOrderingMethod;
+            this.addressClicked =true;
+            this.del = false;
+        }
     }
+
     private changeShowTimingStatus(){
         this.showHideTime = !this.showHideTime;
     }
+
     private changeShowPaymentStatus(){
         this.showHidePaymentMethod = !this.showHidePaymentMethod;
     }
+
     private addressInfo(){
         this.addressClicked = !this.addressClicked;
     }
+
     private update(){
+
+        if (this.cart.length > 0 || typeof this.promotionOrder != 'undefined') {
+            this.cartZero = true;
+        }else{
+            this.cartZero = false;
+        }
+
         this.grandTotal=0;
-        for (var i = 0; i < this.cart.length; ++i) {
+        if(this.promotionOrder){
+            this.grandTotal = this.grandTotal+this.promotionOrder.total;
+        }
+        for (var i = 0; i < this.cart.length; i++) {
             this.grandTotal = this.grandTotal+this.cart[i].totalPrice;
         }
-        this.cartDetail.subTotal=this.grandTotal;
-        if (typeof this.restaurants.taxation != 'undefined') {        
-            this.grandTotalWithTax = this.deliveryFee + ((parseInt(this.restaurants.taxation.taxpercent) + 100)/100) * this.grandTotal;
+
+        if (typeof this.restaurants.taxation != 'undefined') {
+
+            var taxAmount = (parseInt(this.restaurants.taxation.taxpercent)/100) * this.grandTotal;
+            this.cartDetail.tax = taxAmount;
+
+            if (typeof this.cartTotal != 'undefined') {            
+                this.grandTotalWithTax = this.deliveryFee + ((parseInt(this.restaurants.taxation.taxpercent) + 100)/100) * this.cartTotal;
+            }else{
+                this.grandTotalWithTax = this.deliveryFee + ((parseInt(this.restaurants.taxation.taxpercent) + 100)/100) * this.grandTotal;
+            }
         }else{
+            this.cartDetail.tax = 0;
             this.grandTotalWithTax =this.deliveryFee + this.grandTotal;
         }
 
+
+        this.cartDetail.subTotal=this.grandTotal;
+        if (typeof this.discountAmount != 'undefined') {
+            this.cartDetail.discountAmount=this.discountAmount;
+        }else{
+            this.cartDetail.discountAmount=0;
+        }
+        
         this.cartDetail.gTotal=this.grandTotalWithTax.toFixed(2) ;
         this.cartDetail.orderMethod=this.orderMethod;
         this.saveInfo();
     }
+
     private deleteCart(index) {
         if (confirm("Are you sure to delete ?")) {
             this.cart.splice(index,1);
             localStorage.setItem(this.cartStorage, JSON.stringify(this.cart));
             this.update();
-            this.deleteSuccess();
+            toastr.remove();
+            toastr.info('Item Deleted!',null, {'positionClass' : 'toast-top-full-width'});   
         }
     }
+
+    private deleteDeal() {
+        if (confirm("Are you sure to delete ?")) {
+            delete this.promotionOrder;
+            localStorage.removeItem(this.promotionStorage);
+            this.update();
+            toastr.remove();
+            toastr.success('Deal Removed!',null, {'positionClass' : 'toast-top-full-width'});   
+        }
+    }
+
+    private checkOpenClose(restaurant){
+        for (var i in restaurant.openinghours) {
+            if (this.dayO == i) {
+                this.resTime = {};
+                var ch = i+'time';
+                this.resTime['open'] = restaurant.openinghours[ch].opentime+':00'; 
+                this.resTime['close'] = restaurant.openinghours[ch].closetime+':00';
+                this.resTime['day'] = this.dayO;
+                if ((this.timeO >=  this.resTime.open) &&  (this.timeO <=  this.resTime.close)) {
+                    this.resTime['status'] = 'open';
+                }else{
+                    this.resTime['status'] = 'close';
+                }
+            }
+        }
+    }
+
     private getRestaurants(id) {
         this.restaurantsService.getOne(id).subscribe(users => {
             this.restaurants = users.message;
-            this.update();
-            if (typeof this.restaurants.taxation != 'undefined') {
-                this.cartDetail.tax=this.restaurants.taxation.taxpercent;
-            }else{
-                this.cartDetail.tax=0;
-            }
+
+            console.log("this.restaurants");
+            console.log(this.restaurants);
+
             this.checkOpenClose(this.restaurants);
+            this.update();
+            this.loadAllRestroPromotions(this.restaurants._id);
         });
     }
+
+    private loadAllRestroPromotions(id){
+        this.promotionsService.getRestroPromotions(id).subscribe(data => {
+            for (var i = 0; i < data.message.length; i++) {
+                if (data.message[i].status == true) {
+                    var returnValue = this.displayPromotion(data.message[i]);
+
+                    if (returnValue == 'block') {
+                        this.restroPromotions.push(data.message[i]);
+                    }
+                }
+            }
+
+            if (localStorage.getItem(this.coupon) != 'undefined' && localStorage.getItem(this.coupon) != null) {
+                this.couponCodeApplied = localStorage.getItem(this.coupon);
+                this.applyCouponCodeonLoad();
+            }
+        });
+    }
+
+    private displayPromotion(promo){
+        if ((this.completeDate >= promo.discountTiming[0].available.from && this.completeDate <= promo.discountTiming[0].available.till) || promo.discountTiming[0].available == 'unlimited') {
+            for (var i in promo.discountTiming[0].days) {
+                if (this.dayO == i) {
+                    var ch = i+'time';
+                    if (typeof promo.discountTiming[0].days[ch] !=  'undefined') {
+                        if (promo.discountTiming[0].days[ch]['opentime'] <= this.currentTime && promo.discountTiming[0].days[ch]['closetime'] >= this.currentTime) {
+                            return 'block';
+                        }
+                    }
+
+                    if (typeof promo.discountTiming[0].days[ch] == 'undefined') {
+                        return 'block';
+                    }
+                }
+            }
+        }else{
+            return 'none';
+        }
+    }
+
     private deliveryZone(id){
         this.restaurantsService.getAllDeliveryZone(id).subscribe(users => {
             this.delivery = users.message;
         });
     }
+
     private placeOrder(){
         this.cartDetail.orderTime = this.orderTime;
         this.cartDetail.orderPayment = this.orderPayment;
         this.cartDetail.status = 'Received';
+        if (this.cartDetail['promotion'] != 'undefined') {
+            this.cartDetail['isPromotion'] = true;
+        }
 
         if (this.cartDetail.orderPayment) {
             if (this.cartDetail.orderPayment.cardinternet == true) {
@@ -1348,28 +1999,35 @@ export class FrontendCartComponent implements OnInit {
                 this.customerService.addOrder(this.cartDetail).subscribe(
                   (data) => {
                     this.user = data.message;
+                    console.log("order Placed", this.cartDetail, data.message);
                     localStorage.setItem(this.cartStorage,'[]');
-                    this.orderPlacedSuccess();
+                    if (localStorage.getItem(this.coupon) != 'undefined' && localStorage.getItem(this.coupon) != 'null') {
+                        localStorage.removeItem(this.coupon);
+                    }
+                    toastr.remove();
+                    toastr.success('Your Order is Placed!','Thank You!!', {'positionClass' : 'toast-top-full-width'});
                     this.router.navigate(['/frontend',this.restaurants._id]);
                     }
                 );                
             }
         }
-
-        //localStorage.setItem('cartDetail',JSON.stringify(this.cartDetail));
-        console.log("this.cartDetail");
-        console.log(this.cartDetail);
     }
+
     private makePayment(){
         this.hmacGenerate();
         this.customerService.addOrder(this.cartDetail).subscribe(
           (data) => {
             this.user = data.message;
             localStorage.setItem(this.cartStorage,'[]');
-            this.orderPlacedSuccess();
+            if (localStorage.getItem(this.coupon) != 'undefined' && localStorage.getItem(this.coupon) != 'null') {
+                localStorage.remove(this.coupon);
+            }
+            toastr.remove();
+            toastr.success('Your Order is Placed!','Thank You!!', {'positionClass' : 'toast-top-full-width'});
             this.router.navigate(['/frontend',this.restaurants._id]);
         });
     }
+
     private hmacGenerate(){
         var apiKey = "orC0OGDhIz3NUg2HShAzczEeM18Zaciw";
         var apiSecret = "e71e64ce4eddfa0920c42d030207933166b9c8166874d0b0d65bfce10ddb8c5f";
@@ -1379,9 +2037,9 @@ export class FrontendCartComponent implements OnInit {
         var payload = "https://api-cert.payeezy.com/v1/transactions";
         var data = apiKey + nonce + timestamp + token + payload;
         var hashAlgorithm = "sha256";
-        //var hmac = hash_hmac( hashAlgorithm , data , apiSecret, false );
         return hashAlgorithm;
     }
+
     private quantityIncrement(index) {
         var addonPrice = 0;
         var itemPrice = 0;
@@ -1391,7 +2049,6 @@ export class FrontendCartComponent implements OnInit {
         if (this.cartDetail.orders[index].addon.length > 0) {
             for (var i = 0; i < this.cartDetail.orders[index].addon.length; i++) {
                 addonPrice = parseInt(this.cartDetail.orders[index].addon[i].price) + addonPrice;
-                console.log(addonPrice);
             }
         }
         if (this.cartDetail.orders[index].multisize) {
@@ -1409,6 +2066,7 @@ export class FrontendCartComponent implements OnInit {
         this.cart = JSON.parse(localStorage.getItem(this.cartStorage));
         this.update();
     }
+
     private quantityDecrement(index) {
         if (this.cartDetail.orders[index].quantity > 1) {
             var addonPrice = 0;
@@ -1419,7 +2077,6 @@ export class FrontendCartComponent implements OnInit {
             if (this.cartDetail.orders[index].addon.length > 0) {
                 for (var i = 0; i < this.cartDetail.orders[index].addon.length; i++) {
                     addonPrice = parseInt(this.cartDetail.orders[index].addon[i].price) + addonPrice;
-                    console.log(addonPrice);
                 }
             }
             if (this.cartDetail.orders[index].multisize) {
@@ -1432,11 +2089,102 @@ export class FrontendCartComponent implements OnInit {
             this.cartDetail.orders[index].totalPrice = totalprice * this.cartDetail.orders[index].quantity;
         }
         else{
+            toastr.remove();
             toastr.warning('Atleast 1 Item is Mandatory',null, {'positionClass' : 'toast-top-full-width'});
         }
         localStorage.setItem(this.cartStorage,JSON.stringify(this.cartDetail.orders));
 
         this.cart = JSON.parse(localStorage.getItem(this.cartStorage));
+        this.update();
+    }
+
+    private showCouponField(type){
+        if (type == 'add') {
+            this.couponField = true;
+        }
+        if (type == 'cancel') {
+            this.couponField = false;
+        }
+    }
+
+    private applyCouponCode(){
+        let couponCode = (<HTMLInputElement>document.getElementById('couponCode'));
+        
+        let codeIndex = this.restroPromotions.findIndex(mn=> mn.couponcode.code == couponCode.value);
+        if (codeIndex > -1) {
+    
+            this.couponCodeApplied = couponCode.value;
+            localStorage.setItem(this.coupon,this.couponCodeApplied)
+            toastr.remove();
+            toastr.success('Coupon Code Applied');
+
+            $('.couponClass').hide();
+            $('.couponApplied').show();
+
+            this.cartDetail['promotion'] = this.restroPromotions[codeIndex];
+
+            let promoIndex = this.allPromotions.findIndex(abc=> abc._id == this.restroPromotions[codeIndex].promotionId[0]);
+            if (promoIndex == 4) {
+                if (typeof this.deliveryFee != 'undefined') {
+                    this.discountAmount = (this.restroPromotions[codeIndex].discountPercent/100)*this.deliveryFee;
+                    console.log(this.discountAmount);
+                }
+            }else if(promoIndex == 2){
+                this.discountAmount = this.restroPromotions[codeIndex].discountAmount;
+                this.cartTotal= this.cartDetail.subTotal - this.discountAmount;
+                this.update();
+            }else{
+                this.discountAmount = (this.restroPromotions[codeIndex].discountPercent/100)*this.cartDetail.subTotal;
+                this.cartTotal = this.cartDetail.subTotal - this.discountAmount;
+                this.update();
+            }
+        }else{
+            toastr.remove();
+            toastr.error('Invalid Coupon Code','Oops!', {'positionClass' : 'toast-top-full-width'});
+        }
+    }
+
+    private applyCouponCodeonLoad(){
+        let codeIndex = this.restroPromotions.findIndex(mn=> mn.couponcode.code == this.couponCodeApplied);
+        if (codeIndex > -1) {
+
+            $('.couponClass').hide();
+            $('.couponApplied').show();
+
+            this.cartDetail['promotion'] = this.restroPromotions[codeIndex];
+
+            let promoIndex = this.allPromotions.findIndex(abc=> abc._id == this.restroPromotions[codeIndex].promotionId[0]);
+            if (promoIndex == 4) {
+                if (typeof this.deliveryFee != 'undefined') {
+                    this.discountAmount = (this.restroPromotions[codeIndex].discountPercent/100)*this.deliveryFee;
+                    console.log(this.discountAmount);
+                }
+            }else if(promoIndex == 2){
+                this.discountAmount = this.restroPromotions[codeIndex].discountAmount;
+                this.cartTotal= this.cartDetail.subTotal - this.discountAmount;
+                this.update();
+            }else{
+                this.discountAmount = (this.restroPromotions[codeIndex].discountPercent/100)*this.cartDetail.subTotal;
+                this.cartTotal = this.cartDetail.subTotal - this.discountAmount;
+                this.update();
+            }
+        }else{
+            toastr.remove();
+            toastr.error('Invalid Coupon Code','Oops!', {'positionClass' : 'toast-top-full-width'});
+        }
+    }
+
+    private removeCoupon(){
+        this.cartDetail.subTotal = this.cartTotal + this.discountAmount;
+        localStorage.removeItem(this.coupon);
+        delete this.couponCodeApplied;
+        delete this.cartTotal;
+        delete this.discountAmount;
+        delete this.cartDetail['promotion'];
+
+        $('.couponApplied').hide();
+        $('.couponClass').show();
+        this.showCouponField('cancel');
         this.update();
     }
 }
@@ -1462,7 +2210,6 @@ export class FrontendLoginComponent implements OnInit {
     date : any;
     time : any;
     day : any;
-    resTime:any={};
 
     constructor(
         private lf: FormBuilder, 
@@ -1470,7 +2217,6 @@ export class FrontendLoginComponent implements OnInit {
         private router: Router,
         private route: ActivatedRoute,
         private alertService: AlertService,
-        //private _flashMessagesService: FlashMessagesService,
         private restaurantsService: RestaurantsService,
         private translate: TranslateService,
         )
@@ -1532,78 +2278,48 @@ export class FrontendLoginComponent implements OnInit {
             this.translate.use('en');
         }
     }
-    showSuccessLogin() {
-        toastr.remove();
-        toastr.success('You are successfully Logged In!', 'Success!', {'positionClass' : 'toast-top-full-width'});
-      }
-    showSuccessRegister() {
-        toastr.remove();
-        toastr.success('Registration successfully!', 'Success!', {'positionClass' : 'toast-top-full-width'});
-      }
-    showErrorLogin() {
-        toastr.remove();
-        toastr.warning('Incorrect Validations!', 'Oops!', {'positionClass' : 'toast-top-full-width'});
-    }
 
-    private checkOpenClose(restaurant){
-        for (var i in restaurant.openinghours) {
-            if (this.day == i) {
-                var ch = i+'time';
-                this.resTime['open'] = restaurant.openinghours[ch].opentime+':00'; 
-                this.resTime['close'] = restaurant.openinghours[ch].closetime+':00';
-                this.resTime['day'] = this.day;
-                if ((this.time >=  this.resTime.open) &&  (this.time <=  this.resTime.close)) {
-                    this.resTime['status'] = 'open';
-                }else{
-                    this.resTime['status'] = 'close';
-                }
-            }
-        }
-    }
-    private getStyle(){
-        if(this.resTime['status'] == 'close'){
-            return "1";
-        }
-        else{
-            return "";
-        }
-    }
-    showLoginForm(){
+    private showLoginForm(){
         this.showLogin = true;
         this.showRegister = false;
     }
-    showRegisterForm(){
+
+    private showRegisterForm(){
         this.showLogin = false;
         this.showRegister = true;
     }
-    login(){
+
+    private login(){
         this.customerService.getCustomer(this.loginForm.value).subscribe(
             (data) => {
-
                 if (data.status) {
                     localStorage.setItem(this.customerStorage, JSON.stringify(data.data._id));
-                    this.showSuccessLogin();
+                    toastr.remove();
+                    toastr.success('You are successfully Logged In!', 'Success!', {'positionClass' : 'toast-top-full-width'});
                     this.router.navigate(['/frontend-cart',this.id]);
                 }
                 else{
-                    this.showErrorLogin();
+                    toastr.remove();
+                    toastr.warning('Incorrect Validations!', 'Oops!', {'positionClass' : 'toast-top-full-width'});
                     this.router.navigate(['/login',this.id]);
                 }
             }
         );
     }
-    register(){
+
+    private register(){
         this.customerService.addCustomer(this.regForm.value).subscribe(
             (data) => {
-                this.showSuccessRegister();
+                toastr.remove();
+                toastr.success('Registration successfully!', 'Success!', {'positionClass' : 'toast-top-full-width'});
                 this.showLoginForm();
             }
         );
     }
+
     private getRestaurants(id) {
         this.restaurantsService.getOne(id).subscribe(users => {
             this.restaurants = users.message;
-            this.checkOpenClose(this.restaurants);
         });
     }
 }
@@ -1626,7 +2342,6 @@ export class FrontendForgetPasswordComponent implements OnInit {
         private router: Router,
         private route: ActivatedRoute,
         private alertService: AlertService,
-        //private _flashMessagesService: FlashMessagesService,
         private restaurantsService: RestaurantsService,
         private translate: TranslateService,
         ) { }
@@ -1654,31 +2369,22 @@ export class FrontendForgetPasswordComponent implements OnInit {
         }
     }
 
-
     private getRestaurants(id) {
         this.restaurantsService.getOne(id).subscribe(users => {
             this.restaurants = users.message;
         });
     }
 
-    private showSuccessMsg(){
-        toastr.remove();
-        toastr.info('check ur email', 'Email Sent!', {'positionClass' : 'toast-top-full-width'});
-    }
-
-    private emailDontExist(){
-        toastr.remove();
-        toastr.warning('Email Dont Exist', 'Try Again!', {'positionClass' : 'toast-top-full-width'});
-    }
-
     private forgetPass(){
         this.customerService.forgetPassword(this.forgetForm.value).subscribe(
             (data) => {
                 if (data.error == true) {
-                    this.emailDontExist();
+                    toastr.remove();
+                    toastr.warning('Email Dont Exist', 'Try Again!', {'positionClass' : 'toast-top-full-width'});
                 }
                 else{
-                    this.showSuccessMsg();
+                    toastr.remove();
+                    toastr.info('check ur email', 'Email Sent!', {'positionClass' : 'toast-top-full-width'});
                     this.router.navigate(['/login', this.restaurants._id]);
                 }
             }
@@ -1705,10 +2411,10 @@ export class FrontendResetPasswordComponent implements OnInit {
         private router: Router,
         private route: ActivatedRoute,
         private alertService: AlertService,
-        //private _flashMessagesService: FlashMessagesService,
         private restaurantsService: RestaurantsService,
         private translate: TranslateService,
         ) { }
+
     ngOnInit() {
         this.route.params.subscribe((params: Params) => {
             this.id = params['id'];
@@ -1732,28 +2438,19 @@ export class FrontendResetPasswordComponent implements OnInit {
         }
     }
 
-    private showSuccessMsg(){
-        toastr.remove();
-        toastr.success('Password Successfully Changed', 'Success!', {'positionClass' : 'toast-top-full-width'});
-    }
-
-    private showErrorMsg(){
-        toastr.remove();
-        toastr.error('Password do not Match', 'Incorrect Password!', {'positionClass' : 'toast-top-full-width'});
-    }
-
     private resetPass(){
         if (this.forgetForm.value.password == this.forgetForm.value.newpassword) {
             let cusObj = this.forgetForm.value;
             cusObj._id = this.id
-            console.log(cusObj);
             this.customerService.updateCustomer(cusObj).subscribe(
                 (data) => {
-                    this.showSuccessMsg();
+                    toastr.remove();
+                    toastr.success('Password Successfully Changed', 'Success!', {'positionClass' : 'toast-top-full-width'});
                 }
             );
         }else{
-            this.showErrorMsg();
+            toastr.remove();
+            toastr.error('Password do not Match', 'Incorrect Password!', {'positionClass' : 'toast-top-full-width'});
         }
     }
 }
@@ -1780,7 +2477,6 @@ export class FrontendUserProfileComponent implements OnInit {
         private router: Router,
         private route: ActivatedRoute,
         private alertService: AlertService,
-        //private _flashMessagesService: FlashMessagesService,
         private restaurantsService: RestaurantsService,
         private translate: TranslateService,
         ) { }
@@ -1836,16 +2532,6 @@ export class FrontendUserProfileComponent implements OnInit {
         });
     }
 
-    private profilePicUploaded(){
-        toastr.remove();
-        toastr.success('Profile Pic Uploaded Successfully', 'Success!', {'positionClass' : 'toast-top-full-width'});
-    }
-
-    private showSuccessMsg(){
-        toastr.remove();
-        toastr.success('Profile Updated Successfuly', 'Success!', {'positionClass' : 'toast-top-full-width'});
-    }
-
     onChange(event) {
         var files = event.target.files;
         this.profileForm.controls['image'].setValue(files[0].name);
@@ -1855,7 +2541,8 @@ export class FrontendUserProfileComponent implements OnInit {
         if (this.profileForm.value.image == this.currentCustomer.image) {
             this.customerService.updateCustomer(this.profileForm.value).subscribe(
                 (data) => {
-                    this.showSuccessMsg();
+                    toastr.remove();
+                    toastr.success('Profile Updated Successfuly', 'Success!', {'positionClass' : 'toast-top-full-width'});
                 }
             );
             this.router.navigate(['/frontend',this.id]);
@@ -1864,10 +2551,12 @@ export class FrontendUserProfileComponent implements OnInit {
             this.uploader.onCompleteItem = (item: any, response: any, status: any, headers: any) => {
                 var responsePath = JSON.parse(response);
                 this.profileForm.controls['image'].setValue(responsePath.filename);
-                this.profilePicUploaded();
+                toastr.remove();
+                toastr.success('Profile Pic Uploaded Successfully', 'Success!', {'positionClass' : 'toast-top-full-width'});
                 this.customerService.updateCustomer(this.profileForm.value).subscribe(
                     (data) => {
-                        this.showSuccessMsg();
+                        toastr.remove();
+                        toastr.success('Profile Updated Successfuly', 'Success!', {'positionClass' : 'toast-top-full-width'});
                     }
                 );
                 this.router.navigate(['/frontend',this.id]);
@@ -1899,7 +2588,6 @@ export class FrontendChangePasswordComponent implements OnInit {
         private router: Router,
         private route: ActivatedRoute,
         private alertService: AlertService,
-        //private _flashMessagesService: FlashMessagesService,
         private restaurantsService: RestaurantsService,
         private translate: TranslateService,
         ) { }
@@ -1934,31 +2622,23 @@ export class FrontendChangePasswordComponent implements OnInit {
         }
     }
 
-    private showSuccessMsg() {
-        toastr.remove();
-        toastr.success('Password Changed!', 'Success!', {'positionClass' : 'toast-top-full-width'});
-      }
-    private showErrorMsg() {
-        toastr.remove();
-        toastr.error('Password do not Match', 'Incorrect Password!', {'positionClass' : 'toast-top-full-width'});
-    }
-
     private getCurrentCustomer(id){
         this.customerService.getOneCustomer(id).subscribe(
             users => {
             this.currentCustomer = users.message;
         });
     }
+
     private customerChangePassword(){
         this.customerProfile.controls['_id'].setValue(this.currentCustomerId);
         this.customerService.changePassword(this.customerProfile.value).subscribe(
             (data) => {
-                console.log(this.customerProfile.value);
-                console.log(data);
                 if (data.error) {
-                    this.showErrorMsg();
+                    toastr.remove();
+                    toastr.error('Password do not Match', 'Incorrect Password!', {'positionClass' : 'toast-top-full-width'});
                 }else{
-                    this.showSuccessMsg();
+                    toastr.remove();
+                    toastr.success('Password Changed!', 'Success!', {'positionClass' : 'toast-top-full-width'});
                     this.router.navigate(['/profile', this.id]);
                 }
             }

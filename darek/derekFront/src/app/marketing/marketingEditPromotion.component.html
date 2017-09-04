@@ -21,7 +21,7 @@
 						<div id="ig1_{{menu._id}}" class="collapse">
 							<div *ngFor="let item of items">
 								<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 bgLightGray itemName fontWeight600 cursorPointer" style="display: -webkit-inline-box;border-bottom: 1px solid #d9d9d9;" *ngIf="item.menuId == menu._id">
-									<input type="checkbox" name="" id="item_ig1_{{item._id}}" value="{{item._id}}" (change)="selectCheck($event, item,'item','itemGroup1')"> 
+									<input type="checkbox" name="" id="item_ig1_{{item._id}}" value="{{item._id}}" (change)="selectCheck($event, item,'item','itemGroup1')" [checked]="checkChecked(item._id,'ig1')"> 
 									<div class="paddingLeft10">{{item.name}}</div>
 								</div>
 							</div>
@@ -54,7 +54,7 @@
 						<div id="{{menu._id}}" class="collapse">
 							<div *ngFor="let item of items">
 								<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 bgLightGray itemName fontWeight600 cursorPointer" style="display: -webkit-inline-box;border-bottom: 1px solid #d9d9d9;" *ngIf="item.menuId == menu._id">
-									<input type="checkbox" name="" id="item_{{item._id}}" value="{{item._id}}" (change)="selectCheck($event, item,'item','itemGroup2')"> 
+									<input type="checkbox" name="" id="item_{{item._id}}" value="{{item._id}}" (change)="selectCheck($event, item,'item','itemGroup2')" [checked]="checkChecked(item._id,'ig2')"> 
 									<div class="paddingLeft10">{{item.name}}</div>
 								</div>
 							</div>
@@ -69,11 +69,11 @@
 <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 minheight585 padding3">
 	<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0 borderRadius3 fontMedium bgWhite marginBottom2">
 		<div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
-			<img src="{{imageUrl}}{{promotion.image}}" class="img-responsive">
+			<img src="{{imageUrl}}{{promotionTemplate.image}}" class="img-responsive">
 		</div>
 		<div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 padding10-0 fontXSmall">
 			TEMPLATE : <br>
-			<span class="fontLarge">{{promotion.name}}</span>
+			<span class="fontLarge">{{promotionTemplate.name}}</span>
 		</div>
 		<div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 padding10-0">
 			<a class="btn" style="color: #fff;background-color: #999;margin-right:3%;"  [routerLink]="['/owner/marketing/promotions']" >
@@ -92,11 +92,11 @@
 		<div id="step1" class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding3 bgWhite">
 			<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
 				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0 marginBottom5">
-					<input type="text" #promoname name="" maxlength="35" class="form-control padding5 fontSmall" value="{{promotion.name}}" placeholder="Type promotion name here" (keyup)="countCharacter($event,promoname,'promoName')">
+					<input type="text" #promoname name="" maxlength="35" class="form-control padding5 fontSmall" value="{{promotionEdit.promoname}}" placeholder="Type promotion name here" (keyup)="countCharacter($event,promoname,'promoName')">
 					<span class="pull-right"> {{promoname.value.length}}/35</span>
 				</div>
 				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0 marginBottom5">
-					<textarea #promodesc name="" maxlength="100" class="form-control padding5 fontSmall" value="" placeholder="Description (Idealy left empty since your title says it all)" (keyup)="countCharacter($event,promodesc,'promoDesc')"></textarea>
+					<textarea #promodesc name="" maxlength="100" class="form-control padding5 fontSmall" value="{{promotionEdit.description}}" placeholder="Description (Idealy left empty since your title says it all)" (keyup)="countCharacter($event,promodesc,'promoDesc')"></textarea>
 					<span class="pull-right"> {{promodesc.value.length}}/100</span>
 				</div>
 				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0">
@@ -131,7 +131,6 @@
 			<button class="col-lg-1 col-md-1 col-sm-1 col-xs-2 btn bgWhite promotionStepNext" (click)="save(step3,'2')">Next</button>
 		</div>
 		<div id="step2">
-
 			<!-- buy one get one free -->
 			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding3 bgWhite" *ngIf = "index == 0">
 				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0 fontWeight600 fontSmall marginBottom2">
@@ -164,7 +163,7 @@
 					<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
 						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 marginBottom2 padding0" style="display: -webkit-inline-box;">
 							<div class="marginRight15">Discount : </div>
-							<input type="number" #disPrcnt class="form-control" placeholder="30" style="width: 50%;border-radius: 0;" (keyup)="countCharacter($event,disPrcnt,'discountPercent')">
+							<input type="number" #disPrcnt class="form-control" placeholder="30" style="width: 50%;border-radius: 0;" (keyup)="countCharacter($event,disPrcnt,'discountPercent')" value="{{discount}}">
 							<label class="form-control color999" style="width: 10%;border-radius: 0;background-color: #ededed;">%</label>
 						</div>
 					</div>
@@ -198,7 +197,7 @@
 					<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
 						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 marginBottom2 padding0" style="display: -webkit-inline-box;">
 							<div class="marginRight15">Discount :</div>
-							<input type="number" #disPrcnt class="form-control" placeholder="30" style="width: 50%;border-radius: 0;" (keyup)="countCharacter($event,disPrcnt,'discountPercent')">
+							<input type="number" #disPrcnt class="form-control" placeholder="30" style="width: 50%;border-radius: 0;" (keyup)="countCharacter($event,disPrcnt,'discountPercent')" value="{{discount}}">
 							<label class="form-control color999" style="width: 10%;border-radius: 0;background-color: #ededed;">%</label>
 						</div>
 					</div>
@@ -217,7 +216,7 @@
 					<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
 						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 marginBottom2 padding0" style="display: -webkit-inline-box;">
 							<div class="marginRight15">Discount:</div>
-							<input type="number" #disPrcnt class="form-control" placeholder="5" style="width: 50%;border-radius: 0;" (keyup)="countCharacter($event,disPrcnt,'discountAmount')">
+							<input type="number" #disPrcnt class="form-control" placeholder="5" style="width: 50%;border-radius: 0;" (keyup)="countCharacter($event,disPrcnt,'discountAmount')" value="{{discount}}">
 							<label class="form-control color999" style="width: 15%;border-radius: 0;background-color: #ededed;">USD</label>
 						</div>
 					</div>
@@ -239,7 +238,7 @@
 					<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
 						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 marginBottom2 padding0" style="display: -webkit-inline-box;">
 							<div class="marginRight15">Discount:</div>
-							<input type="number" #disPrcnt class="form-control" placeholder="5" style="width: 50%;border-radius: 0;" (keyup)="countCharacter($event,disPrcnt,'discountPercent')">
+							<input type="number" #disPrcnt class="form-control" placeholder="5" style="width: 50%;border-radius: 0;" (keyup)="countCharacter($event,disPrcnt,'discountPercent')" value="{{discount}}">
 							<label class="form-control color999" style="width: 15%;border-radius: 0;background-color: #ededed;">%</label>
 						</div>
 					</div>
@@ -261,7 +260,7 @@
 					<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
 						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 marginBottom2 padding0" style="display: -webkit-inline-box;">
 							<div class="marginRight15">Discount:</div>
-							<input type="number" #disPrcnt class="form-control" placeholder="5" style="width: 50%;border-radius: 0;" (keyup)="countCharacter($event,disPrcnt,'discountPercent')">
+							<input type="number" #disPrcnt class="form-control" placeholder="5" style="width: 50%;border-radius: 0;" (keyup)="countCharacter($event,disPrcnt,'discountPercent')" value="{{discount}}">
 							<label class="form-control color999" style="width: 15%;border-radius: 0;background-color: #ededed;">%</label>
 						</div>
 					</div>
@@ -305,7 +304,7 @@
 					<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
 						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 marginBottom2 padding0" style="display: -webkit-inline-box;">
 							<div class="marginRight15">Discount : </div>
-							<input type="number" #disPrcnt class="form-control" placeholder="30" style="width: 50%;border-radius: 0;" (keyup)="countCharacter($event,disPrcnt,'discountPercent')">
+							<input type="number" #disPrcnt class="form-control" placeholder="30" style="width: 50%;border-radius: 0;" (keyup)="countCharacter($event,disPrcnt,'discountPercent')" value="{{discount}}">
 							<label class="form-control color999" style="width: 10%;border-radius: 0;background-color: #ededed;">%</label>
 						</div>
 					</div>
@@ -346,7 +345,7 @@
 					<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
 						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 marginBottom2 padding0" style="display: -webkit-inline-box;">
 							<div class="marginRight15">Discount : </div>
-							<input type="number" #disPrcnt class="form-control" placeholder="30" style="width: 50%;border-radius: 0;" (keyup)="countCharacter($event,disPrcnt,'discountPercent')">
+							<input type="number" #disPrcnt class="form-control" placeholder="30" style="width: 50%;border-radius: 0;" (keyup)="countCharacter($event,disPrcnt,'discountPercent')" value="{{discount}}">
 							<label class="form-control color999" style="width: 10%;border-radius: 0;background-color: #ededed;">%</label>
 						</div>
 					</div>
@@ -479,9 +478,9 @@
 						</div>
 						<div *ngIf = "customSelectionAvailable">
 							<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0" style="display: -webkit-inline-box;">
-								<input type="text" id="datePicker1" placeholder="-- Select Date --" (click)="showDatePicker('displayTime')" (blur)="getValue('datePicker1')" class="form-control" name="" style="width: 30%">
+								<input type="text" id="datePicker1" placeholder="-- Select Date --" (click)="showDatePicker('displayTime')" (blur)="getValue('datePicker1')" class="form-control" name="" style="width: 30%" value="{{displayFrom}}">
 								&nbsp;&nbsp;-&nbsp;&nbsp;
-								<input type="text" id="datePicker2" placeholder="-- Select Date --" (click)="showDatePicker('displayTime')" (blur)="getValue('datePicker2')" class="form-control" name="" style="width: 30%">
+								<input type="text" id="datePicker2" placeholder="-- Select Date --" (click)="showDatePicker('displayTime')" (blur)="getValue('datePicker2')" class="form-control" name="" style="width: 30%" value="{{displayTill}}">
 							</div>
 						</div>
 					</div>
@@ -600,9 +599,9 @@
 						</div>
 						<div *ngIf = "fulfillmentTimeAvailable">
 							<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0" style="display: -webkit-inline-box;">
-								<input type="text" id="datePicker3" placeholder="-- Select Date --" (click)="showDatePicker('fulfillmentTime')" (blur)="getValue('datePicker3')" class="form-control" name="" style="width: 30%">
+								<input type="text" id="datePicker3" placeholder="-- Select Date --" (click)="showDatePicker('fulfillmentTime')" (blur)="getValue('datePicker3')" class="form-control" name="" style="width: 30%" value = "{{fulfillmentFrom}}">
 								&nbsp;&nbsp;-&nbsp;&nbsp;
-								<input type="text" id="datePicker4" placeholder="-- Select Date --" (click)="showDatePicker('fulfillmentTime')" (blur)="getValue('datePicker4')" class="form-control" name="" style="width: 30%">
+								<input type="text" id="datePicker4" placeholder="-- Select Date --" (click)="showDatePicker('fulfillmentTime')" (blur)="getValue('datePicker4')" class="form-control" name="" style="width: 30%" value="{{fulfillmentTill}}">
 							</div>
 						</div>
 					</div>
@@ -746,7 +745,7 @@
 						</div>
 						<div *ngIf = "customCouponCode">
 							<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 paddingLeft40 marginTop5">
-								<input #couponCode type="text" maxlength="10" minlength="5" placeholder="Your Code..." name="" class="form-control padding5 fontSmall" (keyup)="countCharacter($event,couponCode,'couponCode')" style="width:35%;">
+								<input #couponCode type="text" maxlength="10" minlength="5" placeholder="Your Code..." name="" class="form-control padding5 fontSmall" (keyup)="countCharacter($event,couponCode,'couponCode')" style="width:35%;" value="{{selfCode}}">
 								<div class="fontXSmall paddingTop3">Between 5-10 characters.</div>
 							</div>
 						</div>

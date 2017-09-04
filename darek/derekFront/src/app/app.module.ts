@@ -29,14 +29,14 @@ import {FilterPipe} from "./filter.pipe";
 
 import { RestaurantsComponent , RestaurantaddComponent , RestaurantupdateComponent,RestaurantupdateownerComponent,RestaurantlocationComponent, RestaurantconfirmationComponent,OwnermailactivateComponent} from './restaurants/index';
 import { RestaurantOwnerPickupComponent, RestaurantOwnerOrderForLaterComponent, RestaurantOwnerTaxationComponent, RestaurantOwnerPaymentOptionComponent, RestaurantOwnerOpeningHoursComponent, RestaurantOwnerDeliveryZoneComponent, KitchenMenuListComponent,LegacyComponent,LegacycodeComponent, NotificationComponent, SupportedLanguagesComponent,OnlinePaymentComponent} from './serviceandopening/index';
-import { OwnerDriversComponent, OwnerDriversupdateComponent,OwnerDriversaddComponent} from './ownerdrivers/index';
+import { OwnerDriversComponent, DriverOrdersComponent, OwnerDriversupdateComponent,OwnerDriversaddComponent} from './ownerdrivers/index';
 import { DriversComponent,DriveraddComponent, DriverupdateComponent} from './drivers/index';
 import { PromotionsComponent, PromotionaddComponent, PromotionupdateComponent } from './promotions/promotions.component';
 import { ForgetComponent,ResetPasswordAdminComponent } from './login/forgetPassword.component';
 import { OwnerComponent,OwnerloginComponent,OwnerAutologinComponent,OwnerregisterComponent,OwnerprofileComponent,OwnerchangepasswordComponent,ForgetOwnerComponent,ResetPasswordOwnerComponent } from './owner/owner.component';
 import { LanguageComponent,LanguagelistComponent, LanguageaddComponent, LanguageupdateComponent } from './language/language.component';
-import { FrontendHeaderComponent, FrontendComponent, FrontendDetailComponent, FrontendCartComponent, FrontendLoginComponent,FrontendForgetPasswordComponent,FrontendResetPasswordComponent,FrontendUserProfileComponent,FrontendChangePasswordComponent } from './frontend/frontend.component';
-import { MarketingComponent,MarketingNavComponent,MarketingOverviewComponent,MarketingPromotionsComponent, MarketingPromotionsListComponent, MarketingPromotionsTemplateComponent, MarketingPromotionsSubscriptionComponent, MarketingStatsComponent } from './marketing/marketing.component';
+import { FrontendHeaderComponent, FrontendComponent, FrontendDetailComponent, FrontendCartComponent, FrontendPromoDetailComponent, FrontendLoginComponent,FrontendForgetPasswordComponent,FrontendResetPasswordComponent,FrontendUserProfileComponent,FrontendChangePasswordComponent } from './frontend/frontend.component';
+import { MarketingComponent,MarketingNavComponent,MarketingOverviewComponent,MarketingPromotionsComponent, MarketingEditPromotionComponent, MarketingPromotionsListComponent, MarketingPromotionsTemplateComponent, MarketingPromotionsSubscriptionComponent, MarketingStatsComponent } from './marketing/marketing.component';
 import { ReportingComponent,ReportingnavComponent,ReportingoverviewComponent,ReportingMethodComponent,ReportingResultComponent,ReportingTypeComponent,ReportingPaymentMethodComponent,ReportingItemsComponent,ReportingItemCategoriesComponent,ReportingClientComponent,ReportingOrderComponent,ReportingDetailComponent,ReportingSaleDetailComponent} from './reporting/reporting.component';
 
 export function HttpLoaderFactory(http: Http) {
@@ -59,7 +59,7 @@ export function HttpLoaderFactory(http: Http) {
     RestaurantOwnerOrderForLaterComponent,RestaurantOwnerPaymentOptionComponent,RestaurantOwnerDeliveryZoneComponent, KitchenMenuListComponent,LegacyComponent,LegacycodeComponent, NotificationComponent, SupportedLanguagesComponent,OnlinePaymentComponent,
     DriveraddComponent,
     DriverupdateComponent,
-    OwnerDriversComponent, OwnerDriversupdateComponent,OwnerDriversaddComponent,
+    OwnerDriversComponent, DriverOrdersComponent, OwnerDriversupdateComponent,OwnerDriversaddComponent,
     RestaurantsComponent,RestaurantaddComponent,RestaurantupdateComponent,RestaurantupdateownerComponent,RestaurantlocationComponent,RestaurantconfirmationComponent,
     RestaurantOwnerPickupComponent, RestaurantOwnerTaxationComponent, RestaurantOwnerOpeningHoursComponent,
     PromotionsComponent,
@@ -68,8 +68,8 @@ export function HttpLoaderFactory(http: Http) {
     ForgetComponent,ResetPasswordAdminComponent,
     OwnerComponent,OwnerloginComponent,OwnerprofileComponent,OwnerregisterComponent,OwnerchangepasswordComponent,OwnermailactivateComponent,ForgetOwnerComponent,ResetPasswordOwnerComponent,
     LanguageComponent,LanguagelistComponent, LanguageaddComponent, LanguageupdateComponent, 
-    FrontendHeaderComponent, FrontendComponent, FrontendDetailComponent, FrontendCartComponent, FrontendLoginComponent, FrontendForgetPasswordComponent, FrontendResetPasswordComponent,FrontendUserProfileComponent, FrontendChangePasswordComponent,
-    MarketingComponent, MarketingNavComponent, MarketingOverviewComponent, MarketingPromotionsComponent, MarketingPromotionsListComponent, MarketingPromotionsTemplateComponent,MarketingPromotionsSubscriptionComponent, MarketingStatsComponent,
+    FrontendHeaderComponent, FrontendComponent, FrontendDetailComponent, FrontendCartComponent,FrontendPromoDetailComponent, FrontendLoginComponent, FrontendForgetPasswordComponent, FrontendResetPasswordComponent,FrontendUserProfileComponent, FrontendChangePasswordComponent,
+    MarketingComponent, MarketingNavComponent, MarketingOverviewComponent, MarketingPromotionsComponent, MarketingEditPromotionComponent, MarketingPromotionsListComponent, MarketingPromotionsTemplateComponent,MarketingPromotionsSubscriptionComponent, MarketingStatsComponent,
     ReportingComponent,ReportingnavComponent,ReportingoverviewComponent,ReportingMethodComponent,ReportingResultComponent,ReportingTypeComponent,ReportingPaymentMethodComponent,ReportingItemsComponent,ReportingItemCategoriesComponent,ReportingClientComponent,ReportingOrderComponent,ReportingDetailComponent,ReportingSaleDetailComponent
   ],
   imports: [

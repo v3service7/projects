@@ -35,6 +35,13 @@ export class OrderService {
 		);
 	}
 
+	getAllResSaleData(days) {
+  		return this.http.get(globalVariable.url+'reporting/all-restaurants-sales/'+days)
+		.map(
+			(response: Response) => response.json()
+		);
+	}
+
 	orders(id) {
   		return this.http.get(globalVariable.url+'reporting/list/'+id)
 		.map(

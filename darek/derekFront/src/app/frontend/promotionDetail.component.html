@@ -1,0 +1,323 @@
+<app-frontendheader [ids]="restaurants._id"></app-frontendheader>
+
+<div *ngIf="!currentCustomerId">
+	<div *ngIf="cart">
+		<div class="cartLength" *ngIf="cart.length > 0">{{cart.length}}
+		</div>
+	</div>
+</div>
+<div *ngIf="currentCustomerId">
+	<div *ngIf="cart">
+		<div class="cartLength2" *ngIf="cart.length > 0">{{cart.length}}
+		</div>
+	</div>
+</div>
+
+<div class="col-lg-12 col-md-12 col-xs-12 col-sm-12 padding0" style="top: 60px">
+	<div class="col-lg-12 col-md-12 col-xs-12 col-sm-12 padding0 colorWhite" id="base" style=" height: 250px" [ngStyle]="{'background-image': 'url(' + imageURL + promotion.image + ')'}">
+		<div class="col-lg-12 col-md-12 col-xs-12 col-sm-12" style="background-color: rgba(0,0,0,.55); box-shadow: inset 0 -20px 30px -10px #000;height: inherit;">
+			<div class="col-lg-12 col-md-12 col-xs-12 col-sm-12 padding20px5px fontWeight700 fontSize24">
+				{{promotion.promoname}}
+				<a [routerLink]="['/frontend', restaurants._id]" class="pull-right colorWhite cursorPointer" >&#10006;</a>
+			</div>
+			<div class="col-lg-12 col-md-12 col-xs-12 col-sm-12">{{promotion.description}}</div>
+			<div class="col-lg-6 col-md-6 col-xs-6 col-sm-6 padding20px itemSelectedDetail" style="background-color: rgba(0,0,0,.55); box-shadow: inset 0 -20px 30px -10px #000;">
+				<div class="col-lg-12 col-md-12 col-xs-12 col-sm-12 padding5px cursorPointer" *ngIf = "promotion.discountOn && promotion.discountOn[0].itemGroup1.length > 0" id="itemNo1" (click) = "selectItem(1)">
+					<div class="col-lg-3 col-md-3 col-xs-3 col-sm-3 fontWeight700">
+						Item 1 :
+					</div>
+					<div class="col-lg-9 col-md-9 col-xs-9 col-sm-9" *ngIf = "promotionItem.itemGroup1"> {{promotionItem.itemGroup1.item.name}} </div>
+				</div>
+
+				<div class="col-lg-12 col-md-12 col-xs-12 col-sm-12 padding5px cursorPointer" *ngIf = "promotion.discountOn && promotion.discountOn[1].itemGroup2.length > 0" id="itemNo2" (click) = "selectItem(2)">
+					<div class="col-lg-3 col-md-3 col-xs-3 col-sm-3 fontWeight700">
+						Item 2 :
+					</div>
+					<div class="col-lg-9 col-md-9 col-xs-9 col-sm-9" *ngIf = "promotionItem.itemGroup2"> {{promotionItem.itemGroup2.item.name}} </div>
+				</div>
+			</div>
+
+			<div class="col-lg-5 col-md-5 col-xs-5 col-sm-5 padding20px pull-right" style="background-color: rgba(0,0,0,.55); box-shadow: inset 0 -20px 30px -10px #000;">
+				Special offer for  <span *ngIf="promotion.discountAmount != null">{{promotion.discountAmount}} USD</span> <span *ngIf = "promotion.discountPercent != null">{{promotion.discountPercent}} %</span>
+			</div>
+
+			<div class="col-lg-12 col-md-12 col-xs-12 col-sm-12 colorRust" id="selectItem1">
+				Select Item 1
+			</div>
+			<div class="col-lg-12 col-md-12 col-xs-12 col-sm-12 colorRust" id="selectItem2">
+				Select Item 2
+			</div>
+		</div>
+	</div>
+
+	<div class="container-fluid menuDetail padding0" style="margin: 3% auto 10% auto;" id="itemGroup1">
+		<div class="col-lg-12 col-md-12 col-xs-12 col-sm-12 padding0" *ngIf = "itemG1">
+			<div class="col-lg-12 col-md-12 col-xs-12 col-sm-12 padding20px5px" *ngFor = "let ig1 of itemG1">
+				<div *ngIf = "ig1.menu && !ig1.menu.isHidden" [style.display]="checkMenuItemShow(ig1.menu)">
+					
+					<div class="col-lg-12 col-md-12 col-xs-12 col-sm-12 fontSize24 padding0px15px">
+						<strong>{{ig1.menu.name | uppercase}}</strong>
+					</div>
+					
+					<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pull-right">
+						<div class="menuImage" [ngStyle]="{'background-image': 'url(' + imageURL + ig1.menu.image + ')'}" style="z-index: -1;" *ngIf="ig1.menu.image"></div>
+						<div class="menuImage" style="z-index: -1; background-image: url('../assets/images/menu.jpg');" *ngIf="!ig1.menu.image">
+						</div>
+					</div>
+					<div *ngIf = "ig1.items && ig1.items.length > 0">
+						<div *ngFor = "let item of ig1.items">
+							<div *ngIf="!item.isHidden" [style.display]="checkMenuItemShow(item)">
+								<div  class="col-lg-6 col-md-6 col-sm-6 col-xs-6"  style="height: 60px;">
+									<div class="itemDetailListDiv col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0">
+										<div class="subMenuItem col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0">
+											<a class="col-lg-12 col-md-12 col-sm-12 col-xs-12 itemDetailList" href="javascript:void(0)" (click)="showDetail(item,item.multisize[0] )" id="changeBg_{{item._id}}">
+												<div class="col-lg-10 col-md-10 col-sm-10 col-xs-10 padding0" style="height: inherit;">
+													<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0"><h5><strong>{{item.name}}</strong></h5></div>
+													<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0">
+													<div *ngIf="item.description.length >= 40">
+														{{item.description.substr(0,40)}}...	
+													</div>
+													<div *ngIf="item.description.length < 40">
+														{{item.description}}	
+													</div>
+													</div>
+												</div>
+												<div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 padding0" style="height: inherit;text-align: -webkit-right;"><h5><strong>{{item.price}}</strong></h5></div>
+											</a>
+											<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 itemDetailDiv" [style.display]="showDiv(item._id)">
+												<button class="hideDetailDiv" type="button"  (click) = "hideDiv()" >
+													<span aria-hidden="true">&times;</span>
+												</button>
+
+												<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 pos-header">
+													<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">{{item.description}}</div>
+													<!-- item size -->
+													<div class="sizeDetail col-lg-12 col-md-12 col-sm-12 col-xs-12" *ngIf = "item.multisize.length > 0">
+														<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12"><h5><span>{{'Size' | translate}} ({{'Required' | translate}})</span></h5></div>
+														<form>
+															<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 sizeOption" *ngFor = "let multisizes of item.multisize; let i = index;" >
+																<div *ngIf="i == 0">
+																	<input type="radio" (click)="multiSizePriceInfo(multisizes)" [name]="'optnButton'+item._id" checked="checked" [attr.id]="'Location_' + item._id + '_' + multisizes._id">
+																</div>
+																<div *ngIf="i != 0">
+																	<input type="radio" (click)="multiSizePriceInfo(multisizes)" [name]="'optnButton'+item._id" [attr.id]="'Location_' + item._id + '_' + multisizes._id">
+																</div>
+																<div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">{{multisizes.size}}</div>
+																<div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 sizePrice pull-right">{{multisizes.price}}</div>
+															</div>
+														</form>
+													</div>
+													<!-- item size end-->
+
+													<!-- items addOns -->
+													<div class="addOnsDetail col-lg-12 col-md-12 col-sm-12 col-xs-12" *ngIf = "item.options">
+														<div class=" col-lg-12 col-md-12 col-sm-12 col-xs-12 add padding0" *ngFor = "let group of item.options">
+															<div class=" col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0">
+																<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">{{group.name}}
+																	<span *ngIf="group.groupType">({{group.groupType.gType | uppercase}})
+																		<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0" *ngIf="group.groupType.gType == 'mandatory'" style="font-size: 11px;">Min Addon : {{group.groupType.min}},Max Addon : {{group.groupType.max}}
+																		</div>
+																	</span>
+																</div>
+																<div class="subAddOn col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0" *ngIf = "group.subaddon">
+																	<div class="subAddOnDetail col-lg-12 col-md-12 col-sm-12 col-xs-12" *ngFor = "let detail of group.subaddon">
+																		<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 subAddOnDetailList" #addonDetail [attr.data-addon]="'check'" [attr.id]="'Location_' + item._id + '_' + detail._id" (click)="addonPriceInfo(detail,addonDetail,group,item.options)" >
+																			{{detail.name}}<span class="pull-right">{{detail.price}}</span>
+																		</div>
+																	</div>
+																</div>
+															</div>
+														</div>
+													</div>
+													<!-- items addOns end-->
+
+													<!-- item special Instruction -->
+													<div class="col-lg-12  col-md-12 col-sm-12 col-xs-12 specialInstruction">
+														<div class="col-lg-12  col-md-12 col-sm-12 col-xs-12">{{'Special' | translate}} {{'Instructions' | translate}}</div>
+														<div class="col-lg-12  col-md-12 col-sm-12 col-xs-12 padding0">
+															<textarea placeholder="Example: No pepper / sugar/ salt please..." style=" width: 100%;border-color: #ccc;"  [attr.id]="'Location_' + item._id + '_specialInstruction'"></textarea>
+														</div>
+													</div>
+													<!-- items special Instruction end-->
+
+													<!-- items quantity -->
+													<!-- <div class="col-lg-12  col-md-12 col-sm-12 col-xs-12 quantityDetail">
+														<div class="col-lg-12  col-md-12 col-sm-12 col-xs-12">{{'Quantity' | translate}}</div>
+														<div class="col-lg-12  col-md-12 col-sm-12 col-xs-12 fillQuantity">
+															<div class=" form-group">
+																<input type="text" name="quantity" class="form-control" [value]="quantity" min="1" max="10"  [attr.id]="'Location_' + item._id + '_count'">
+																<div class="cnt-input-buttons">
+																	<button class="cnt-input-decrease" id="minus" (click)="quantityDecrement()">
+																		<i class=" fa fa-minus" ></i>
+																	</button>
+																	<button class="cnt-input-increase"  id="plus" (click)="quantityIncrement()">
+																		<i class=" fa fa-plus"></i>
+																	</button>
+																</div>
+															</div>
+														</div>
+													</div> -->
+													<!-- items quantity end-->
+												</div>
+
+												<div class="pos-footer">
+													<div class="pos-footer-shadow"></div>
+													<div class="pos-footer-inner" >
+														<button class="btn saveButton" style="padding: 15px 20px;text-align: justify;" (click)="addToCart('itemG1')" [disabled]="!mandCheckedCount">
+															<div class="col-lg-12  col-md-12 col-sm-12 col-xs-12 btn btn-action-primary checkout-button">
+																<div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+																	<div class="checkout-button">{{finalPrice}}</div>
+																</div>
+																<div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 checkout-button-separator"></div>
+																<div class="col-lg-8 col-md-8 col-sm-8 col-xs-8 checkout-button-label" >{{'Add_to_cart' | translate}}</div>
+															</div>
+														</button>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="container-fluid menuDetail padding0" style="margin: 3% auto 10% auto;" id="itemGroup2">
+		<div class="col-lg-12 col-md-12 col-xs-12 col-sm-12 padding0" *ngIf = "itemG2">
+			<div class="col-lg-12 col-md-12 col-xs-12 col-sm-12 padding20px5px" *ngFor = "let ig2 of itemG2">
+				<div *ngIf = "ig2.menu && !ig2.menu.isHidden" [style.display]="checkMenuItemShow(ig2.menu)">
+					<div class="col-lg-12 col-md-12 col-xs-12 col-sm-12 fontSize24 padding0px15px">
+						<strong>{{ig2.menu.name | uppercase}}</strong>
+					</div>
+					
+					<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pull-right">
+						<div class="menuImage" [ngStyle]="{'background-image': 'url(' + imageURL + ig2.menu.image + ')'}" style="z-index: -1;" *ngIf="ig2.menu.image"></div>
+						<div class="menuImage" style="z-index: -1; background-image: url('../assets/images/menu.jpg');" *ngIf="!ig2.menu.image">
+						</div>
+					</div>
+					<div *ngIf = "ig2.items && ig2.items.length > 0">
+						<div *ngFor = "let item of ig2.items">
+							<div *ngIf="!item.isHidden" [style.display]="checkMenuItemShow(item)">
+								<div  class="col-lg-6 col-md-6 col-sm-6 col-xs-6"  style="height: 60px;">
+									<div class="itemDetailListDiv col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0">
+										<div class="subMenuItem col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0">
+											<a class="col-lg-12 col-md-12 col-sm-12 col-xs-12 itemDetailList" href="javascript:void(0)" (click)="showDetail(item,item.multisize[0] )" id="changeBg_{{item._id}}">
+												<div class="col-lg-10 col-md-10 col-sm-10 col-xs-10 padding0" style="height: inherit;">
+													<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0"><h5><strong>{{item.name}}</strong></h5></div>
+													<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0">
+													<div *ngIf="item.description.length >= 40">
+														{{item.description.substr(0,40)}}...	
+													</div>
+													<div *ngIf="item.description.length < 40">
+														{{item.description}}	
+													</div>
+													</div>
+												</div>
+												<div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 padding0" style="height: inherit;text-align: -webkit-right;"><h5><strong>{{item.price}}</strong></h5></div>
+											</a>
+											<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 itemDetailDiv" [style.display]="showDiv(item._id)">
+												<button class="hideDetailDiv" type="button"  (click) = "hideDiv()" >
+													<span aria-hidden="true">&times;</span>
+												</button>
+
+												<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 pos-header">
+													<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">{{item.description}}</div>
+													<!-- item size -->
+													<div class="sizeDetail col-lg-12 col-md-12 col-sm-12 col-xs-12" *ngIf = "item.multisize.length > 0">
+														<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12"><h5><span>{{'Size' | translate}} ({{'Required' | translate}})</span></h5></div>
+														<form>
+															<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 sizeOption" *ngFor = "let multisizes of item.multisize; let i = index;" >
+																<div *ngIf="i == 0">
+																	<input type="radio" (click)="multiSizePriceInfo(multisizes)" [name]="'optnButton'+item._id" checked="checked" [attr.id]="'Location_' + item._id + '_' + multisizes._id">
+																</div>
+																<div *ngIf="i != 0">
+																	<input type="radio" (click)="multiSizePriceInfo(multisizes)" [name]="'optnButton'+item._id" [attr.id]="'Location_' + item._id + '_' + multisizes._id">
+																</div>
+																<div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">{{multisizes.size}}</div>
+																<div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 sizePrice pull-right">{{multisizes.price}}</div>
+															</div>
+														</form>
+													</div>
+													<!-- item size end-->
+
+													<!-- items addOns -->
+													<div class="addOnsDetail col-lg-12 col-md-12 col-sm-12 col-xs-12" *ngIf = "item.options">
+														<div class=" col-lg-12 col-md-12 col-sm-12 col-xs-12 add padding0" *ngFor = "let group of item.options">
+															<div class=" col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0">
+																<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">{{group.name}}
+																	<span *ngIf="group.groupType">({{group.groupType.gType | uppercase}})
+																		<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0" *ngIf="group.groupType.gType == 'mandatory'" style="font-size: 11px;">Min Addon : {{group.groupType.min}},Max Addon : {{group.groupType.max}}
+																		</div>
+																	</span>
+																</div>
+																<div class="subAddOn col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0" *ngIf = "group.subaddon">
+																	<div class="subAddOnDetail col-lg-12 col-md-12 col-sm-12 col-xs-12" *ngFor = "let detail of group.subaddon">
+																		<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 subAddOnDetailList" #addonDetail [attr.data-addon]="'check'" [attr.id]="'Location_' + item._id + '_' + detail._id" (click)="addonPriceInfo(detail,addonDetail,group,item.options)" >
+																			{{detail.name}}<span class="pull-right">{{detail.price}}</span>
+																		</div>
+																	</div>
+																</div>
+															</div>
+														</div>
+													</div>
+													<!-- items addOns end-->
+
+													<!-- item special Instruction -->
+													<div class="col-lg-12  col-md-12 col-sm-12 col-xs-12 specialInstruction">
+														<div class="col-lg-12  col-md-12 col-sm-12 col-xs-12">{{'Special' | translate}} {{'Instructions' | translate}}</div>
+														<div class="col-lg-12  col-md-12 col-sm-12 col-xs-12 padding0">
+															<textarea placeholder="Example: No pepper / sugar/ salt please..." style=" width: 100%;border-color: #ccc;"  [attr.id]="'Location_' + item._id + '_specialInstruction'"></textarea>
+														</div>
+													</div>
+													<!-- items special Instruction end-->
+
+													<!-- items quantity -->
+													<!-- <div class="col-lg-12  col-md-12 col-sm-12 col-xs-12 quantityDetail">
+														<div class="col-lg-12  col-md-12 col-sm-12 col-xs-12">{{'Quantity' | translate}}</div>
+														<div class="col-lg-12  col-md-12 col-sm-12 col-xs-12 fillQuantity">
+															<div class=" form-group">
+																<input type="text" name="quantity" class="form-control" [value]="quantity" min="1" max="10"  [attr.id]="'Location_' + item._id + '_count'">
+																<div class="cnt-input-buttons">
+																	<button class="cnt-input-decrease" id="minus" (click)="quantityDecrement()">
+																		<i class=" fa fa-minus" ></i>
+																	</button>
+																	<button class="cnt-input-increase"  id="plus" (click)="quantityIncrement()">
+																		<i class=" fa fa-plus"></i>
+																	</button>
+																</div>
+															</div>
+														</div>
+													</div> -->
+													<!-- items quantity end-->
+												</div>
+
+												<div class="pos-footer">
+													<div class="pos-footer-shadow"></div>
+													<div class="pos-footer-inner" >
+														<button class="btn saveButton" style="padding: 15px 20px;text-align: justify;" (click)="addToCart('itemG2')" [disabled]="!mandCheckedCount">
+															<div class="col-lg-12  col-md-12 col-sm-12 col-xs-12 btn btn-action-primary checkout-button">
+																<div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+																	<div class="checkout-button">{{finalPrice}}</div>
+																</div>
+																<div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 checkout-button-separator"></div>
+																<div class="col-lg-8 col-md-8 col-sm-8 col-xs-8 checkout-button-label" >{{'Add_to_cart' | translate}}</div>
+															</div>
+														</button>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

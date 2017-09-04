@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';import {Router, ActivatedRoute, Params} from '@angular/router';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
-import { AuthService, AlertService, UsersService, PromotionsService, DriversService, RestaurantsService } from '../service/index';
+import { AuthService, AlertService, UsersService, PromotionsService, DriversService, RestaurantsService,OrderService } from '../service/index';
 
 declare var toastr: any;
 
@@ -14,14 +14,27 @@ export class DashboardComponent implements OnInit {
   restaurants= [];
   drivers= [];
   promotions = [];
+  timeValue = [{name: 7}, {name: 15}, {name: 30}, {name: 90}, {name: 180}];
+   selectedTime = this.timeValue[0].name;
+  public barChartOptions:any = {scaleShowVerticalLines: false,responsive: true}; public lineChartColors:Array<any> = [
+    { 
+        backgroundColor: '#337ab7',
+        borderColor: '#337ab7',
+    }
+    ];
+  public barChartLabels:string[] = [];
+  public barChartType:string = 'bar';
+  public barChartLegend:boolean = true;
+  public barChartData:any[] = [{data: [], label: 'Restaurant'}];
 
-  constructor(private usersService: UsersService,private driversService: DriversService,private restaurantsService: RestaurantsService,private promotionsService: PromotionsService,) {}
+  constructor(private orderService: OrderService,private usersService: UsersService,private driversService: DriversService,private restaurantsService: RestaurantsService,private promotionsService: PromotionsService,) {}
 
   ngOnInit() {
     this.loadAllUsers();
     this.loadAllDrivers();
     this.loadAllRestaurants();
     this.loadAllPromotions();
+    this.getAllSalesData(this.selectedTime);
   }
 
   private loadAllUsers() {
@@ -38,6 +51,28 @@ export class DashboardComponent implements OnInit {
 
   private loadAllPromotions() {
     this.promotionsService.getAll().subscribe(promotions => { this.promotions = promotions.message; });
+  }
+
+  private getAllSalesData( days) {
+      this.orderService.getAllResSaleData(days).subscribe(users => {
+          if (users.status) {
+              this.barChartLabels = users.message.name;
+              this.barChartData[0]['data'] = users.message.price;
+            console.log(this.barChartLabels)
+            console.log(this.barChartData)
+              //this.isShow = true;
+          }
+
+          if(!users.status){
+              //this.isShow = false;
+              document.getElementById('noRecordClass').style.display = 'block';
+          }
+      });
+  }
+
+  private onChangeObj(newObj) {
+      this.selectedTime = newObj;
+      this.getAllSalesData(this.selectedTime);
   }
 }
 

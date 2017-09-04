@@ -12,6 +12,14 @@ export class KitchenItemService {
         );
     }
 
+    promotionsItem(data) {
+        let obj = {'items':data}
+        return this.http.post(globalVariable.url+'item-all/',obj)
+        .map(
+            (response: Response) => response.json()
+        );
+    }
+
     updateMenu(data) {
         return this.http.put(globalVariable.url+'item/'+data._id,data)
         .map(

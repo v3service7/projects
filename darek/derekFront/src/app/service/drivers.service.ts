@@ -37,10 +37,10 @@ export class DriversService {
     }
 
     getOne(id) {
-          return this.http.get(globalVariable.url+'driver/'+id)
-              .map(
-                  (response: Response) => response.json()
-              );
+      return this.http.get(globalVariable.url+'driver/'+id)
+      .map(
+          (response: Response) => response.json()
+      );
     }
 
     deleteOne(id) {
@@ -48,5 +48,12 @@ export class DriversService {
   			.map(
   				(response: Response) => response.json()
   			);
+    }
+
+    getDriverOrders(id) {
+      return this.http.get(globalVariable.url+'order/driver/'+id)
+      .map(
+        (response: Response) => response.json()
+      );
     }
 }
