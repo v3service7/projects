@@ -703,6 +703,7 @@ export class ReportingOrderComponent implements OnInit {
 	orders:any = [];
 	constructor(
 		private restaurantsService: RestaurantsService,
+        private router: Router,
         private orderService: OrderService
         ) { }
 
@@ -723,8 +724,11 @@ export class ReportingOrderComponent implements OnInit {
             this.orders = users.message;
             console.log("this.orders");
             console.log(this.orders);
-        }
-        );
+        });
+    }
+
+    private showOrderDetail(id){
+        this.router.navigate(['/owner/reports/detail',id]);
     }
 }
 
@@ -749,9 +753,8 @@ export class ReportingDetailComponent implements OnInit {
             let id = params['id'];
             this.orderID = id;
             this.getCompleteDetail(id);
+            this.currentOwner = JSON.parse(localStorage.getItem('currentOwner'));
         });
-        this.currentOwner = JSON.parse(localStorage.getItem('currentOwner'));
-        this.getRestaurants();
     }
 
     private getRestaurants() {
@@ -767,6 +770,7 @@ export class ReportingDetailComponent implements OnInit {
             this.detail = users.message;
             console.log("this.detail");
             console.log(this.detail);
+            this.getRestaurants();
         });
     }
 

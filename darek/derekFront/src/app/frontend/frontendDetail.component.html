@@ -2,14 +2,14 @@
 
 <div *ngIf="!currentCustomerId">
 	<div *ngIf="cart">
-		<div class="cartLength" *ngIf="cart.length > 0">{{cart.length}}
-		</div>
+		<div class="cartLength" *ngIf="promotionOrder">{{cart.length+1}}</div>
+		<div class="cartLength" *ngIf="!promotionOrder  && cart.length > 0">{{cart.length}}</div>
 	</div>
 </div>
 <div *ngIf="currentCustomerId">
 	<div *ngIf="cart">
-		<div class="cartLength2" *ngIf="cart.length > 0">{{cart.length}}
-		</div>
+		<div class="cartLength2" *ngIf="promotionOrder">{{cart.length+1}}</div>
+		<div class="cartLength2" *ngIf="!promotionOrder  && cart.length > 0">{{cart.length}}</div>
 	</div>
 </div>
 

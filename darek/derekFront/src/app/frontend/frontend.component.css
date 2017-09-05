@@ -597,12 +597,14 @@ div.cartLength2{
 }
 
 .profilePic{
-    height: 150px;
-    width: 150px;
+    /*height: 150px;
+    width: 150px;*/
+    margin: 0 35%;
+    padding: 3%;
 }
 
 .profilePic div img{
-    height: auto;
+    max-height: 150px;
     width: 100%;
 }
 

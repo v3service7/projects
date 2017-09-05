@@ -2571,6 +2571,7 @@ export class MarketingStatsComponent implements OnInit {
       ) {}
 
    ngOnInit() {
+      document.getElementById('noRecordClass').style.display = 'none';
       this.getRestaurants();
       this.loadAllPromotions();
    }

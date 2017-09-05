@@ -1,17 +1,18 @@
 <app-frontendheader [ids]="restaurants._id"></app-frontendheader>
 
 <div *ngIf="!currentCustomerId">
-	<div *ngIf="cart.length && cart.length > 0">
+	<div *ngIf="cart">
 		<div class="cartLength" *ngIf="promotionOrder">{{cart.length+1}}</div>
-		<div class="cartLength" *ngIf="!promotionOrder">{{cart.length}}</div>
+		<div class="cartLength" *ngIf="!promotionOrder  && cart.length > 0">{{cart.length}}</div>
 	</div>
 </div>
 <div *ngIf="currentCustomerId">
-	<div *ngIf="cart.length && cart.length > 0">
+	<div *ngIf="cart">
 		<div class="cartLength2" *ngIf="promotionOrder">{{cart.length+1}}</div>
-		<div class="cartLength2" *ngIf="!promotionOrder">{{cart.length}}</div>
+		<div class="cartLength2" *ngIf="!promotionOrder  && cart.length > 0">{{cart.length}}</div>
 	</div>
 </div>
+
 
 <div class="container-fluid cartDiv col-lg-12" id="cartDetailDiv">
 	<div *ngIf="currentCustomer">
@@ -401,7 +402,7 @@
 								{{deliveryFee}}
 							</div>
 						</div>
-						<div *ngIf="cart.length > 0" >
+						<div *ngIf="cart.length > 0 || promotionOrder">
 							<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 tax" *ngIf="restaurants.taxation">
 								<div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">{{restaurants.taxation.name}}</div>
 								<div class="col-lg-3 col-md-3 col-sm-3 col-xs-3" style="text-align: -webkit-right;">{{restaurants.taxation.taxpercent}} %</div>

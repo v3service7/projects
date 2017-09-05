@@ -47,6 +47,7 @@ export class FrontendHeaderComponent implements OnInit {
             this.customerStorage = 'currentCustomer'+id;
             this.cart = JSON.parse(localStorage.getItem(this.cartStorage));
             if (JSON.parse(localStorage.getItem(this.customerStorage))) {
+                this.currentCustomer = {};
                 this.currentCustomerId = JSON.parse(localStorage.getItem(this.customerStorage));            
                 this.getCurrentCustomer(this.currentCustomerId);
             }
@@ -76,19 +77,35 @@ export class FrontendHeaderComponent implements OnInit {
         document.getElementById('closeNotification').style.display = 'none';
     }
 
-    private checkOpenClose(restaurant){
-        for (var i in restaurant.openinghours) {
+    private checkDay(obj){
+        let ifDay = {};
+        ifDay['count'] = 0;
+        for (var i in obj) {
             if (this.day == i) {
-                this.resTime = {};
-                var ch = i+'time';
-                this.resTime['open'] = restaurant.openinghours[ch].opentime+':00'; 
-                this.resTime['close'] = restaurant.openinghours[ch].closetime+':00';
-                this.resTime['day'] = this.day;
-                if ((this.time >=  this.resTime.open) &&  (this.time <=  this.resTime.close)) {
-                    this.resTime['status'] = 'open';
-                }else{
-                    this.resTime['status'] = 'close';
-                }
+                ifDay['count'] = 1;
+                ifDay['ch'] = i + 'time';
+            }
+        }
+        return ifDay;
+    }
+
+    private checkOpenClose(restaurant){
+        var countObj = this.checkDay(restaurant.openinghours)
+        if (countObj['count'] == 0) {
+            this.resTime = {};
+            this.resTime['status'] = 'close';
+        }
+
+        if (countObj['count'] == 1) {
+            this.resTime = {};
+            var ch = countObj['ch'];
+            this.resTime['open'] = restaurant.openinghours[ch].opentime+':00'; 
+            this.resTime['close'] = restaurant.openinghours[ch].closetime+':00';
+            this.resTime['day'] = this.day;
+            if ((this.time >=  this.resTime.open) &&  (this.time <=  this.resTime.close)) {
+                this.resTime['status'] = 'open';
+            }else{
+                this.resTime['status'] = 'close';
             }
         }
     }
@@ -154,7 +171,7 @@ export class FrontendPromoDetailComponent implements OnInit {
     quantity: number;
     orderItem: any={};
     promotionItem: any={};
-    promoGroup: any = [];
+    promoGroup: any;
     currentCustomerId: any;
     currentCustomer: any;
 
@@ -191,6 +208,10 @@ export class FrontendPromoDetailComponent implements OnInit {
             this.getCurrentCustomer(this.currentCustomerId);
         }
 
+        if (JSON.parse(localStorage.getItem(this.promotionStorage))) {
+            this.promoGroup = JSON.parse(localStorage.getItem(this.promotionStorage));
+        }
+
         this.currentDate = new Date();
         this.date = this.currentDate.toLocaleDateString();
         var h = this.addZero(this.currentDate.getHours());
@@ -202,6 +223,9 @@ export class FrontendPromoDetailComponent implements OnInit {
 
         var days = ["sunday","monday","tuesday","wednesday","thursday","friday","saturday"];
         this.day = days[this.currentDate.getDay()];
+
+        toastr.remove();
+        toastr.warning("You can add only 1 promotion at a time",null, {'positionClass' : 'toast-top-full-width'});
     }
 
     private addZero(i) {
@@ -510,22 +534,6 @@ export class FrontendPromoDetailComponent implements OnInit {
         }
     }
 
-    private quantityIncrement() {
-        this.quantity = this.quantity +1;
-        this.finalPrice = (this.multiSizePrice + this.price+ this.addonPrice)* this.quantity;
-        this.orderItem.totalPrice = this.finalPrice;
-        this.orderItem.quantity = this.quantity;
-    }
-
-    private quantityDecrement() {
-        if(this.quantity > 1){
-            this.quantity = this.quantity -1; 
-            this.finalPrice = (this.multiSizePrice + this.price+ this.addonPrice)* this.quantity;
-            this.orderItem.totalPrice = this.finalPrice;
-            this.orderItem.quantity = this.quantity;
-        }
-    }
-
     private addToCart(type) {
         var discountOn = this.promotion.discountOn;
 
@@ -533,7 +541,7 @@ export class FrontendPromoDetailComponent implements OnInit {
 
             if (discountOn[1]['itemGroup2'].length == 0) {
                 var discountedPrice = ((100 - this.promotion.discountPercent)/100)*this.orderItem.totalPrice;
-                this.orderItem.totalPrice = discountedPrice;
+                this.orderItem.totalPrice = discountedPrice.toFixed(3);
 
                 this.promotionTotal = this.promotionTotal + this.orderItem.totalPrice;
 
@@ -542,12 +550,6 @@ export class FrontendPromoDetailComponent implements OnInit {
             
             if (discountOn[1]['itemGroup2'].length > 0 && (this.promotionItem['itemGroup2'] == null || typeof this.promotionItem['itemGroup2'] == 'undefined')) {
                 this.promotionItem['itemGroup1'] = this.orderItem;
-
-                console.log("this.promotionItem['itemGroup1']");
-                console.log(this.promotionItem['itemGroup1']);
-                console.log("this.promotionItem['itemGroup2']");
-                console.log(this.promotionItem['itemGroup2']);
-
 
                 this.promotionTotal = this.promotionTotal + this.orderItem.totalPrice;
                 toastr.remove();
@@ -559,12 +561,6 @@ export class FrontendPromoDetailComponent implements OnInit {
             if (discountOn[1]['itemGroup2'].length > 0 && (this.promotionItem['itemGroup2'] != null || typeof this.promotionItem['itemGroup2'] != 'undefined')) {
                 this.promotionItem['itemGroup1'] = this.orderItem;
 
-                console.log("this.promotionItem['itemGroup1']");
-                console.log(this.promotionItem['itemGroup1']);
-                console.log("this.promotionItem['itemGroup2']");
-                console.log(this.promotionItem['itemGroup2']);
-
-
                 this.promotionTotal = this.promotionTotal + this.orderItem.totalPrice;
 
             }
@@ -572,17 +568,12 @@ export class FrontendPromoDetailComponent implements OnInit {
 
         if (type == 'itemG2') {
             var discountedPrice = ((100 - this.promotion.discountPercent)/100)*this.orderItem.totalPrice;
-            this.orderItem.totalPrice = discountedPrice;
+            this.orderItem.totalPrice = discountedPrice.toFixed(3);
             this.promotionItem['itemGroup2'] = this.orderItem;
 
             this.promotionTotal = this.promotionTotal + this.orderItem.totalPrice;
             
             if (discountOn[0]['itemGroup1'].length > 0 && (this.promotionItem['itemGroup1'] == null || typeof this.promotionItem['itemGroup1'] == 'undefined')) {
-
-                console.log("this.promotionItem['itemGroup1']");
-                console.log(this.promotionItem['itemGroup1']);
-                console.log("this.promotionItem['itemGroup2']");
-                console.log(this.promotionItem['itemGroup2']);
 
                 toastr.remove();
                 toastr.warning("Please select another item to get this deal",null, {'positionClass' : 'toast-top-full-width'});
@@ -591,29 +582,21 @@ export class FrontendPromoDetailComponent implements OnInit {
         }
 
         if (discountOn[0]['itemGroup1'].length > 0 && discountOn[1]['itemGroup2'].length > 0 && this.promotionItem['itemGroup1'] != null && typeof this.promotionItem['itemGroup1'] != 'undefined' && this.promotionItem['itemGroup2'] != null && typeof this.promotionItem['itemGroup2'] != 'undefined') {
-            /*this.promoGroup = JSON.parse(localStorage.getItem(this.promotionStorage));*/
-            this.promotionItem['total'] = this.promotionTotal;
+            this.promotionItem['total'] = this.promotionTotal.toFixed(3);
             this.promoGroup = this.promotionItem;
             localStorage.setItem(this.promotionStorage, JSON.stringify(this.promoGroup));
             toastr.remove();
             toastr.success("Deal Added",null, {'positionClass' : 'toast-top-full-width'});
             this.router.navigate(['/frontend',this.restaurants._id]);
-
-            console.log("this.promoGroup");
-            console.log(this.promoGroup);
         }
 
         if (discountOn[0]['itemGroup1'].length > 0 && discountOn[1]['itemGroup2'].length == 0 && this.promotionItem['itemGroup1'] != null && typeof this.promotionItem['itemGroup1'] != 'undefined') {
-            /*this.promoGroup = JSON.parse(localStorage.getItem(this.promotionStorage));*/
-            this.promotionItem['total'] = this.promotionTotal;
+            this.promotionItem['total'] = this.promotionTotal.toFixed(3);
             this.promoGroup = this.promotionItem;
             localStorage.setItem(this.promotionStorage, JSON.stringify(this.promoGroup));
             toastr.remove();
             toastr.success("Deal Added",null, {'positionClass' : 'toast-top-full-width'});
             this.router.navigate(['/frontend',this.restaurants._id]);
-
-            console.log("this.promoGroup");
-            console.log(this.promoGroup);
         }
 
 
@@ -713,6 +696,7 @@ export class FrontendComponent implements OnInit {
         if (JSON.parse(localStorage.getItem(this.promotionStorage))) {
             this.promotionOrder = JSON.parse(localStorage.getItem(this.promotionStorage));
         }
+
         this.currentDate = new Date();
         this.date = this.currentDate.toLocaleDateString();
         var h = this.addZero(this.currentDate.getHours());
@@ -1151,8 +1135,10 @@ export class FrontendDetailComponent implements OnInit {
     restaurants: any = {};
     cartStorage : string;
     customerStorage : string;
+    promotionStorage : string;
     currentCustomer:any;
     currentCustomerId:any;
+    promotionOrder:any;
     delivery: any = {};
     deliverys: any = [];
     mypolygone: any = [];
@@ -1177,12 +1163,18 @@ export class FrontendDetailComponent implements OnInit {
             this.deliveryZone(id);
             this.locale(id);
             this.cartStorage = 'cart'+id;
+            this.promotionStorage = 'promotion_'+id;
             this.customerStorage = 'currentCustomer'+id;
             this.cart = JSON.parse(localStorage.getItem(this.cartStorage));
         });
         if (JSON.parse(localStorage.getItem(this.customerStorage))) {
             this.currentCustomerId = JSON.parse(localStorage.getItem(this.customerStorage));
         }
+        
+        if (JSON.parse(localStorage.getItem(this.promotionStorage))) {
+            this.promotionOrder = JSON.parse(localStorage.getItem(this.promotionStorage));
+        }
+
        this.translate.setDefaultLang(this.lang);
     }
 
@@ -1407,6 +1399,7 @@ export class FrontendCartComponent implements OnInit {
         });
 
         if (JSON.parse(localStorage.getItem(this.customerStorage))) {
+            this.currentCustomer = {};
             this.currentCustomerId = JSON.parse(localStorage.getItem(this.customerStorage));
             this.getCurrentCustomer(this.currentCustomerId);
         }
@@ -1562,12 +1555,12 @@ export class FrontendCartComponent implements OnInit {
     }
 
     private getCurrentCustomer(id){
-        this.customerService.getOneCustomer(this.currentCustomerId).subscribe(
+        this.customerService.getOneCustomer(id).subscribe(
             users => {
             this.currentCustomer = users.message;
             this.addDetail=true;
             this.detailForm.patchValue(this.currentCustomer);
-            this.cartDetail.customerId=this.currentCustomerId;
+            this.cartDetail.customerId=id;
             this.saveInfo();
         });
     }
@@ -1659,6 +1652,8 @@ export class FrontendCartComponent implements OnInit {
 
     private zoneCalculate(method){
         this.customerService.getLatLng(method).subscribe(data => {
+
+
             this.orderMethod = {"streetName": this.addressForm.value.streetName, "city": this.addressForm.value.city, "postcode": this.addressForm.value.postcode,"lat": data.message.lat,"lng": data.message.lng,"mType":'Delivery'};
             localStorage.setItem(this.orderMethodStorage, JSON.stringify(this.orderMethod));
             this.orderMethod = JSON.parse(localStorage.getItem(this.orderMethodStorage));
@@ -1844,7 +1839,7 @@ export class FrontendCartComponent implements OnInit {
     }
 
     private update(){
-
+        let taxAmount : any;
         if (this.cart.length > 0 || typeof this.promotionOrder != 'undefined') {
             this.cartZero = true;
         }else{
@@ -1860,24 +1855,27 @@ export class FrontendCartComponent implements OnInit {
         }
 
         if (typeof this.restaurants.taxation != 'undefined') {
-
-            var taxAmount = (parseInt(this.restaurants.taxation.taxpercent)/100) * this.grandTotal;
-            this.cartDetail.tax = taxAmount;
-
             if (typeof this.cartTotal != 'undefined') {            
-                this.grandTotalWithTax = this.deliveryFee + ((parseInt(this.restaurants.taxation.taxpercent) + 100)/100) * this.cartTotal;
+                taxAmount = (parseInt(this.restaurants.taxation.taxpercent)/100) * this.cartTotal;
+                this.cartDetail.tax = taxAmount.toFixed(2);
+                this.grandTotalWithTax = this.deliveryFee + this.cartTotal + taxAmount;
             }else{
-                this.grandTotalWithTax = this.deliveryFee + ((parseInt(this.restaurants.taxation.taxpercent) + 100)/100) * this.grandTotal;
+                taxAmount = (parseInt(this.restaurants.taxation.taxpercent)/100) * this.grandTotal;
+                this.cartDetail.tax = taxAmount.toFixed(2);
+                this.grandTotalWithTax = this.deliveryFee + this.grandTotal + taxAmount;
             }
         }else{
             this.cartDetail.tax = 0;
-            this.grandTotalWithTax =this.deliveryFee + this.grandTotal;
+            if (typeof this.cartTotal != 'undefined') {
+                this.grandTotalWithTax =this.deliveryFee + this.cartTotal;
+            }else{
+                this.grandTotalWithTax =this.deliveryFee + this.grandTotal;
+            }
         }
 
-
-        this.cartDetail.subTotal=this.grandTotal;
+        this.cartDetail.subTotal=this.grandTotal.toFixed(2);
         if (typeof this.discountAmount != 'undefined') {
-            this.cartDetail.discountAmount=this.discountAmount;
+            this.cartDetail.discountAmount=this.discountAmount.toFixed(2);
         }else{
             this.cartDetail.discountAmount=0;
         }
@@ -1885,6 +1883,8 @@ export class FrontendCartComponent implements OnInit {
         this.cartDetail.gTotal=this.grandTotalWithTax.toFixed(2) ;
         this.cartDetail.orderMethod=this.orderMethod;
         this.saveInfo();
+
+        console.log("this.cartDetail", this.cartDetail);
     }
 
     private deleteCart(index) {
@@ -2004,6 +2004,9 @@ export class FrontendCartComponent implements OnInit {
                     if (localStorage.getItem(this.coupon) != 'undefined' && localStorage.getItem(this.coupon) != 'null') {
                         localStorage.removeItem(this.coupon);
                     }
+                    if (localStorage.getItem(this.promotionStorage) != 'undefined' && localStorage.getItem(this.promotionStorage) != 'null') {
+                        localStorage.removeItem(this.promotionStorage);
+                    }
                     toastr.remove();
                     toastr.success('Your Order is Placed!','Thank You!!', {'positionClass' : 'toast-top-full-width'});
                     this.router.navigate(['/frontend',this.restaurants._id]);
@@ -2021,6 +2024,9 @@ export class FrontendCartComponent implements OnInit {
             localStorage.setItem(this.cartStorage,'[]');
             if (localStorage.getItem(this.coupon) != 'undefined' && localStorage.getItem(this.coupon) != 'null') {
                 localStorage.remove(this.coupon);
+            }
+            if (localStorage.getItem(this.promotionStorage) != 'undefined' && localStorage.getItem(this.promotionStorage) != 'null') {
+                localStorage.removeItem(this.promotionStorage);
             }
             toastr.remove();
             toastr.success('Your Order is Placed!','Thank You!!', {'positionClass' : 'toast-top-full-width'});
@@ -2247,7 +2253,7 @@ export class FrontendLoginComponent implements OnInit {
             this.customerStorage = 'currentCustomer' + id;
             this.customerService.customerLogout(this.customerStorage);
         });
-                this.currentDate = new Date();
+        this.currentDate = new Date();
         this.date = this.currentDate.toLocaleDateString();
         var h = this.addZero(this.currentDate.getHours());
         var m = this.addZero(this.currentDate.getMinutes());
@@ -2463,7 +2469,11 @@ export class FrontendResetPasswordComponent implements OnInit {
 })
 export class FrontendUserProfileComponent implements OnInit {
     restaurants: any = {};
+    cart : any;
+    promotionOrder : any;
     customerStorage :string;
+    cartStorage :string;
+    promotionStorage :string;
     currentCustomer:any;
     currentCustomerId:any;
     id : any;
@@ -2486,11 +2496,20 @@ export class FrontendUserProfileComponent implements OnInit {
             this.id = params['id'];
             this.getRestaurants(this.id);
             this.locale(this.id);
+            this.promotionStorage = 'promotion_'+this.id;
+            this.cartStorage = 'cart'+this.id;
             this.customerStorage = 'currentCustomer' + this.id;
         });
         if (JSON.parse(localStorage.getItem(this.customerStorage))) {
             this.currentCustomerId = JSON.parse(localStorage.getItem(this.customerStorage));
             this.getCurrentCustomer(this.currentCustomerId);    
+        }
+        if (JSON.parse(localStorage.getItem(this.cartStorage))) {
+            this.cart = JSON.parse(localStorage.getItem(this.cartStorage));
+        }
+
+        if (JSON.parse(localStorage.getItem(this.promotionStorage))) {
+            this.promotionOrder = JSON.parse(localStorage.getItem(this.promotionStorage));
         }
         this.profileForm = this.lf.group({
             _id : ['', Validators.required],
@@ -2543,9 +2562,9 @@ export class FrontendUserProfileComponent implements OnInit {
                 (data) => {
                     toastr.remove();
                     toastr.success('Profile Updated Successfuly', 'Success!', {'positionClass' : 'toast-top-full-width'});
+                    this.router.navigate(['/frontend',this.id]);
                 }
             );
-            this.router.navigate(['/frontend',this.id]);
         }else{
             this.uploader.uploadAll();
             this.uploader.onCompleteItem = (item: any, response: any, status: any, headers: any) => {
@@ -2557,9 +2576,9 @@ export class FrontendUserProfileComponent implements OnInit {
                     (data) => {
                         toastr.remove();
                         toastr.success('Profile Updated Successfuly', 'Success!', {'positionClass' : 'toast-top-full-width'});
+                        this.router.navigate(['/frontend',this.id]);
                     }
                 );
-                this.router.navigate(['/frontend',this.id]);
             };
 
         }

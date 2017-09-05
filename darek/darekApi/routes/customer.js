@@ -52,8 +52,10 @@ router.post('/add-lat-lng', function(req, res) {
     var fullAddress = req.body.streetName+" "+req.body.postcode+" "+req.body.city;
     console.log(fullAddress);
     geocoder.geocode(fullAddress, function(err, gResponse) {
-        req.body.lat = gResponse[0].latitude;
-        req.body.lng = gResponse[0].longitude;
+        if (gResponse.length > 0) {
+            req.body.lat = gResponse[0].latitude;
+            req.body.lng = gResponse[0].longitude;
+        }
         response = {"error" : false,"message" : req.body};
         res.json(response);
     });

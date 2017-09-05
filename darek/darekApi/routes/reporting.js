@@ -333,7 +333,7 @@ router.get('/all-sale/:id/:days', function(req, res, next) {
 });
 
 router.get('/list/:id', function(req, res, next) {
-    Order.find({restaurantId:req.params.id}).populate('customerId').populate('restaurantId').populate('driverId').exec(function(err,orderList){
+    Order.find({restaurantId:req.params.id}).sort('-created_at').populate('customerId').populate('restaurantId').populate('driverId').exec(function(err,orderList){
         res.json({'status':true,'message':orderList});
     }); 
 });
