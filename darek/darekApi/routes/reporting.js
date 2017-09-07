@@ -49,24 +49,29 @@ router.get('/all-restaurants-sales/:days', function(req, res, next) {
     var lastWeek = new Date();
     var dayParams = req.params.days; 
     lastWeek.setDate(lastWeek.getDate()-dayParams);
-    let resPriceData = [];
-    let resNameData = [];
+    let objArry = [];
+    /*let resPriceData = [];
+    let resNameData = [];*/
+    var i = 0;
     restaurantModel.find({},function(err,resList){
         async.each(resList,function(resObj,callback){
-            resNameData.push(resObj.name);
+            //resNameData[i] = resObj.name;
+            //resNameData.push(resObj.name);
             Order.find({restaurantId:resObj._id,created_at:{'$gte':lastWeek}}).exec(function(err,orderList){
                 var amount = 0;
                 async.each(orderList,function(ordrObj,callback){
                     amount = amount+ordrObj.gTotal
                     callback(null);
                 }, function(err) {
-                    resPriceData.push(amount);
-                    console.log(resPriceData)
+                    objArry.push({'name':resObj.name,'amount':amount})
+                    /*resPriceData[i] = amount;
+                    i++;*/
+                    //console.log(resPriceData)
                 });
                 callback(null);
             });
         }, function(err) {
-            res.json({'status':true,'message':{'name':resNameData,'price':resPriceData}});
+            res.json({'status':true,'message':{'data':objArry}});
         });
     });
 });

@@ -24,13 +24,25 @@ import { DriverDetailPage } from './driver-detail';
 	drivers: Array<{}>;
 	loading:any;
     
-    constructor(public modalCtrl: ModalController,public navCtrl: NavController, public loadingCtrl: LoadingController, public toastCtrl: ToastController,public navParams: NavParams,private restaurantsService: RestaurantsService,private driversService: DriversService) {
+    constructor(public modalCtrl: ModalController, public menuCtrl: MenuController, public viewCtrl: ViewController,public navCtrl: NavController, public loadingCtrl: LoadingController, public toastCtrl: ToastController,public navParams: NavParams,private restaurantsService: RestaurantsService,private driversService: DriversService) {
  		this.loading = this.loadingCtrl.create({
             content: 'Please wait...'
         });
         this.loading.present();
 		this.currentOwner = JSON.parse(localStorage.getItem('currentOwner'));
         this.getRestaurants();
+        this.menuCtrl.enable(true);
+        //console.log(this.currentOwner)
+        
+        
+    }
+
+    ionViewDidEnter() {
+        //this.isLogin();
+    }
+    ionViewWillEnter() {
+           
+        this.viewCtrl.showBackButton(false);
     }
 
     private getRestaurants() {
@@ -57,8 +69,11 @@ import { DriverDetailPage } from './driver-detail';
  	}
 
     private driverDetail(event,obj){
- 		let modal = this.modalCtrl.create(DriverDetailPage, {'driverDetail':obj});
-    	modal.present();
+        this.navCtrl.push(DriverDetailPage, {
+            'driverDetail':obj
+        });
+ 		/*let modal = this.modalCtrl.create(DriverDetailPage, {'driverDetail':obj});
+    	modal.present();*/
  	}
 
     private getToast(msg){

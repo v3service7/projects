@@ -24,7 +24,7 @@
 					<ion-icon name="close" ios="ios-close" md="md-close"> Reject</ion-icon>
 				</button>
             </div>
-            <div *ngIf="!selectedOrder.driverId">
+            <div *ngIf="!selectedOrder.driverId && selectedOrder.status != 'Rejected'">
                 <button ion-button full (click)="assignOrder($event,selectedOrder)">
 					<ion-icon name="car" ios="ios-car" md="md-car"></ion-icon> &nbsp; Assign to Drivers
 				</button>
@@ -102,9 +102,7 @@
             <ion-item *ngFor="let order of selectedOrder.orders" text-left>
                 <ion-row *ngIf="order.item">
                     <ion-col col-6>
-
                         <span style="font-size: 14px"> <b>{{order.quantity}} x </b></span>{{order.item.name}}
-
                     </ion-col>
                     <ion-col col-6>
                         <b>{{order.totalPrice}}</b>
@@ -131,6 +129,72 @@
                             </ion-col>
                         </ion-row>
                     </ion-item>
+                </ion-row>
+            </ion-item>
+
+            <hr>
+            <ion-item *ngIf="selectedOrder.promotion">
+                <b>Promotion Item</b>
+                <ion-row *ngIf="selectedOrder.promotion.itemGroup1 && selectedOrder.promotion.itemGroup1.item">
+                    <ion-row >
+                        <ion-col col-6>
+                            <span style="font-size: 14px"> <b>{{selectedOrder.promotion.itemGroup1.quantity}} x </b></span>{{selectedOrder.promotion.itemGroup1.item.name}}
+                        </ion-col>
+                        <ion-col col-6>
+                            <b>{{selectedOrder.promotion.itemGroup1.totalPrice}}</b>
+                        </ion-col>
+
+                        <ion-row *ngIf="selectedOrder.promotion.itemGroup1.multisize">
+                            <ion-col col-6>
+                                {{selectedOrder.promotion.itemGroup1.multisize.size}}
+                            </ion-col>
+                            <ion-col col-6>
+                                <b>{{selectedOrder.promotion.itemGroup1.multisize.price}}</b>
+                            </ion-col>
+                        </ion-row>
+                    </ion-row>
+                    <ion-row *ngIf="selectedOrder.promotion.itemGroup1.addon.length > 0">
+                        <ion-item *ngFor="let adn of selectedOrder.promotion.itemGroup1.addon">
+                            <ion-row>
+                                <ion-col col-6>
+                                    {{adn.name}}
+                                </ion-col>
+                                <ion-col col-6>
+                                    <b>{{adn.price}}</b>
+                                </ion-col>
+                            </ion-row>
+                        </ion-item>
+                    </ion-row>
+                </ion-row>
+                <ion-row *ngIf="selectedOrder.promotion.itemGroup2 && selectedOrder.promotion.itemGroup2.item">
+                    <ion-col col-6>
+                        <span style="font-size: 14px"> <b>{{selectedOrder.promotion.itemGroup2.quantity}} x </b></span>{{selectedOrder.promotion.itemGroup2.item.name}}
+                    </ion-col>
+                    <ion-col col-6>
+                        <b>{{selectedOrder.promotion.itemGroup2.totalPrice}}</b>
+                    </ion-col>
+
+                    <ion-row *ngIf="selectedOrder.promotion.itemGroup2.multisize">
+                        <ion-col col-6>
+                            {{selectedOrder.promotion.itemGroup2.multisize.size}}
+                        </ion-col>
+                        <ion-col col-6>
+                            <b>{{selectedOrder.promotion.itemGroup2.multisize.price}}</b>
+                        </ion-col>
+                    </ion-row>
+
+                    <ion-row *ngIf="selectedOrder.promotion.itemGroup2.addon.length > 0">
+                        <ion-item *ngFor="let adn of order.promotion.itemGroup2.addon">
+                            <ion-row>
+                                <ion-col col-6>
+                                    {{adn.name}}
+                                </ion-col>
+                                <ion-col col-6>
+                                    <b>{{adn.price}}</b>
+                                </ion-col>
+                            </ion-row>
+                        </ion-item>
+                    </ion-row>
                 </ion-row>
             </ion-item>
             <hr>
@@ -164,7 +228,7 @@
                         Total
                     </ion-col>
                     <ion-col col-6>
-                        <b>{{selectedOrder.gTotal | number : '1.2-2'}}%</b>
+                        <b>{{selectedOrder.gTotal | number : '1.2-2'}}</b>
                     </ion-col>
                 </ion-row>
             </ion-item>
