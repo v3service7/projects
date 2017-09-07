@@ -23,9 +23,9 @@
       </div>
 
       <div class="icons col-lg-2 col-md-2 col-sm-2 col-xs-2" style="">                    
-        <a [routerLink]="['/owner/drivers',driver._id]"><i class="fa fa-pencil" aria-hidden="true"></i></a>
-        <a (click)="deleteDrivers(driver._id)" href="javascript:void(0);"><i class="fa fa-trash" aria-hidden="true"></i></a>            
-        <a [routerLink] = "['/owner/driver-orders',driver._id]"><i class="fa fa-eye" aria-hidden="true"></i></a>            
+        <a title = "Edit" [routerLink]="['/owner/drivers',driver._id]"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+        <a title = "Delete" (click)="deleteDrivers(driver._id)" href="javascript:void(0);"><i class="fa fa-trash" aria-hidden="true"></i></a>            
+        <a title = "View Report" [routerLink] = "['/owner/driver-orders',driver._id]"><i class="fa fa-eye" aria-hidden="true"></i></a>            
       </div>
 
     </div>

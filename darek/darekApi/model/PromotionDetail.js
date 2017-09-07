@@ -13,6 +13,8 @@ var PromotionDetail = new Schema({
     discountOn : {},
     discountPercent : Number,
     discountAmount : Number,
+    minCartAmount : Number,
+    count : {type : Number, default : 0},
     discountTiming : [],
     orderType : {type: String,default: 'any',enum:['any', 'pickup', 'delivery']},
     orderTime : {type: String,default: 'any',enum:['any', 'now', 'later']},

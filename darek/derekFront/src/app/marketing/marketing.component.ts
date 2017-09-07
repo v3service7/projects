@@ -184,11 +184,15 @@ export class MarketingPromotionsComponent implements OnInit {
    }
 
    private removePromotion(id){
-      this.promotionsService.deleteRestroPromotion(id).subscribe(data=> {
-         if(data.error == false){
-            this.loadAllRestroPromotions(this.restaurants._id);
-         }
-      });
+      if (confirm("Are you sure to delete ?")) {
+         this.promotionsService.deleteRestroPromotion(id).subscribe(data=> {
+            if(data.error == false){
+               this.loadAllRestroPromotions(this.restaurants._id);
+               toastr.remove();
+               toastr.success('Deleted Successfully');
+            }
+         });
+      }
    }
 
    private onChange(value){
@@ -460,6 +464,7 @@ export class MarketingEditPromotionComponent implements OnInit {
 
    index: number;
    discount: number;
+   minCartAmount: number;
    itemNo1: number = 0;
    itemNo2: number = 0;
 
@@ -494,6 +499,7 @@ export class MarketingEditPromotionComponent implements OnInit {
          discountOn: [null],
          discountPercent: [null],
          discountAmount: [null],
+         minCartAmount: [null],
          discountTiming: [null, Validators.required],
          orderType: [],
          orderTime: [],
@@ -519,8 +525,11 @@ export class MarketingEditPromotionComponent implements OnInit {
          this.promotionsService.getOnePromo(id).subscribe(data=>{
             this.promotionEdit = data.message;
 
+            console.log("data.message",data.message);
+
             this.promoDetailUpdateModel.controls['_id'].setValue(data.message._id);
             this.promoDetailUpdateModel.controls['promotionId'].setValue(data.message.promotionId[0]);
+            this.promoDetailUpdateModel.controls['restaurantId'].setValue(data.message.restaurantId[0]);
             this.promoDetailUpdateModel.controls['promoname'].setValue(data.message.promoname);
             this.promoDetailUpdateModel.controls['description'].setValue(data.message.description);
             this.promoDetailUpdateModel.controls['image'].setValue(data.message.image);
@@ -537,7 +546,6 @@ export class MarketingEditPromotionComponent implements OnInit {
             this.promoImage = data.message.image;
             this.promoDesc = data.message.description;
             this.promoName = data.message.promoname;
-            this.discountOn = data.message.discountOn;
             this.discountOn = data.message.discountOn;
             this.discountTiming = data.message.discountTiming;
 
@@ -596,6 +604,11 @@ export class MarketingEditPromotionComponent implements OnInit {
                this.promoDetailUpdateModel.controls['discountPercent'].setValue(data.message.discountPercent);
             }
 
+            if (data.message.minCartAmount != null) {
+               this.minCartAmount = data.message.minCartAmount;
+               this.promoDetailUpdateModel.controls['minCartAmount'].setValue(data.message.minCartAmount);
+            }
+
             this.promotionsService.getOne(data.message.promotionId[0]).subscribe(user => {
                this.promotionTemplate = user.message;
             });
@@ -631,11 +644,13 @@ export class MarketingEditPromotionComponent implements OnInit {
             this.couponCodeUpdate(data.message.couponcode.type);
 
             this.loadAllPromotions(data.message.promotionId[0]);
+
+            console.log("this.promoDetailUpdateModel.value");
+            console.log(this.promoDetailUpdateModel.value);
+            this.getRestaurants();
          })
       });
 
-      this.getRestaurants();
-      this.checkFormValidation();
    }
 
    private checkChecked(id,type){
@@ -1265,6 +1280,9 @@ export class MarketingEditPromotionComponent implements OnInit {
       if (type == 'discountAmount') {
          this.promoDetailUpdateModel.controls['discountAmount'].setValue(name.value);
       }
+      if (type == 'cartAmount') {
+         this.promoDetailUpdateModel.controls['minCartAmount'].setValue(name.value);
+      }
       if (type == 'couponCode') {
          var obj = {'type' : 'self' , 'code' : name.value};
          this.promoDetailUpdateModel.controls['couponcode'].setValue(obj);
@@ -1407,9 +1425,11 @@ export class MarketingEditPromotionComponent implements OnInit {
 
       var val1 = this.promoDetailUpdateModel.controls['discountPercent'].value;
       var val2 = this.promoDetailUpdateModel.controls['discountAmount'].value;
+      var val3 = this.promoDetailUpdateModel.controls['minCartAmount'].value;
+
 
       if (this.index == 2 || this.index == 3 || this.index == 4) {
-         if (this.promoDetailUpdateModel.valid && ( (val1 != null && val1 != '') || (val2 != null && val2 != '') )) {
+         if (this.promoDetailUpdateModel.valid && ((val1 != null && val1 != '') || (val2 != null && val2 != '')) && (val3 != null && val3 != '')) {
             document.getElementById('saveButton').removeAttribute('disabled');
          }
          else{
@@ -1426,8 +1446,17 @@ export class MarketingEditPromotionComponent implements OnInit {
          }      
       }
 
-      if (this.index == 0 || this.index == 5 || this.index == 6) {
+      if (this.index == 0 || this.index == 5) {
          if (this.promoDetailUpdateModel.valid && (val1 != null && val1 != '') && this.itemNo1 > 0 && this.itemNo2 > 0) {
+            document.getElementById('saveButton').removeAttribute('disabled');
+         }
+         else{
+            document.getElementById('saveButton').setAttribute('disabled','true');
+         }      
+      }
+
+      if (this.index == 6) {
+         if (this.promoDetailUpdateModel.valid && (val1 != null && val1 != '') && (val3 != null && val3 != '') && this.itemNo1 > 0 && this.itemNo2 > 0) {
             document.getElementById('saveButton').removeAttribute('disabled');
          }
          else{
@@ -1565,6 +1594,7 @@ export class MarketingPromotionsTemplateComponent implements OnInit {
          discountOn: [null],
          discountPercent: [null],
          discountAmount: [null],
+         minCartAmount: [null],
          discountTiming: [null, Validators.required],
          orderType: [],
          orderTime: [],
@@ -2225,6 +2255,9 @@ export class MarketingPromotionsTemplateComponent implements OnInit {
       if (type == 'discountAmount') {
          this.promoDetailAddModel.controls['discountAmount'].setValue(name.value);
       }
+      if (type == 'cartAmount') {
+         this.promoDetailAddModel.controls['minCartAmount'].setValue(name.value);
+      }
       if (type == 'couponCode') {
          var obj = {'type' : 'self' , 'code' : name.value};
          this.promoDetailAddModel.controls['couponcode'].setValue(obj);
@@ -2335,9 +2368,10 @@ export class MarketingPromotionsTemplateComponent implements OnInit {
 
       var val1 = this.promoDetailAddModel.controls['discountPercent'].value;
       var val2 = this.promoDetailAddModel.controls['discountAmount'].value;
+      var val3 = this.promoDetailAddModel.controls['minCartAmount'].value;
 
       if (this.index == 2 || this.index == 3 || this.index == 4) {
-         if (this.promoDetailAddModel.valid && ( (val1 != null && val1 != '') || (val2 != null && val2 != '') )) {
+         if (this.promoDetailAddModel.valid &&  ((val1 != null && val1 != '') || (val2 != null && val2 != '')) && (val3 != null && val3 != '')) {
             document.getElementById('saveButton').removeAttribute('disabled');
          }
          else{
@@ -2354,8 +2388,17 @@ export class MarketingPromotionsTemplateComponent implements OnInit {
          }      
       }
 
-      if (this.index == 0 || this.index == 5 || this.index == 6) {
+      if (this.index == 0 || this.index == 5) {
          if (this.promoDetailAddModel.valid && (val1 != null && val1 != '') && this.itemNo1 > 0 && this.itemNo2 > 0) {
+            document.getElementById('saveButton').removeAttribute('disabled');
+         }
+         else{
+            document.getElementById('saveButton').setAttribute('disabled','true');
+         }      
+      }
+
+      if (this.index == 6) {
+         if (this.promoDetailAddModel.valid && (val1 != null && val1 != '') && (val3 != null && val3 != '') && this.itemNo1 > 0 && this.itemNo2 > 0) {
             document.getElementById('saveButton').removeAttribute('disabled');
          }
          else{

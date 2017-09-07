@@ -163,6 +163,7 @@ export class FrontendPromoDetailComponent implements OnInit {
     promotionStorage : string;
     customerStorage : string;
     cartStorage : string;
+    coupon : string;
     price: number;
     finalPrice: number;
     addonPrice: number;
@@ -199,6 +200,7 @@ export class FrontendPromoDetailComponent implements OnInit {
             this.promotionStorage = 'promotion_'+resId;
             this.customerStorage = 'currentCustomer'+resId;
             this.cartStorage = 'cart'+resId;
+            this.coupon = 'coupon_' + resId;
 
             this.cart = JSON.parse(localStorage.getItem(this.cartStorage));
         });
@@ -541,34 +543,53 @@ export class FrontendPromoDetailComponent implements OnInit {
 
             if (discountOn[1]['itemGroup2'].length == 0) {
                 var discountedPrice = ((100 - this.promotion.discountPercent)/100)*this.orderItem.totalPrice;
-                this.orderItem.totalPrice = discountedPrice.toFixed(3);
-
+                this.orderItem.totalPrice = discountedPrice;
                 this.promotionTotal = this.promotionTotal + this.orderItem.totalPrice;
-
                 this.promotionItem['itemGroup1'] = this.orderItem;
+                this.promotionItem['total'] = this.promotionTotal;
+                this.promoGroup = this.promotionItem;
+                localStorage.setItem(this.promotionStorage, JSON.stringify(this.promoGroup));
+                localStorage.removeItem(this.coupon);
+                toastr.remove();
+                toastr.success("Deal Added",null, {'positionClass' : 'toast-top-full-width'});
+                this.router.navigate(['/frontend',this.restaurants._id]);
+                this.orderItem = {}
+                this.hideDiv();
             }
             
             if (discountOn[1]['itemGroup2'].length > 0 && (this.promotionItem['itemGroup2'] == null || typeof this.promotionItem['itemGroup2'] == 'undefined')) {
+                this.promotionTotal = this.promotionTotal + this.orderItem.totalPrice;
                 this.promotionItem['itemGroup1'] = this.orderItem;
 
-                this.promotionTotal = this.promotionTotal + this.orderItem.totalPrice;
                 toastr.remove();
                 toastr.warning("Please select another item to get this deal",null, {'positionClass' : 'toast-top-full-width'});
+                this.orderItem = {}
+                this.hideDiv();
                 this.selectItem(2);
             }
 
 
             if (discountOn[1]['itemGroup2'].length > 0 && (this.promotionItem['itemGroup2'] != null || typeof this.promotionItem['itemGroup2'] != 'undefined')) {
-                this.promotionItem['itemGroup1'] = this.orderItem;
-
                 this.promotionTotal = this.promotionTotal + this.orderItem.totalPrice;
+                this.promotionItem['itemGroup1'] = this.orderItem;
+                this.promotionItem['total'] = this.promotionTotal;
+                this.promoGroup = this.promotionItem;
+
+                localStorage.setItem(this.promotionStorage, JSON.stringify(this.promoGroup));
+                localStorage.removeItem(this.coupon);
+                toastr.remove();
+                toastr.success("Deal Added",null, {'positionClass' : 'toast-top-full-width'});
+
+                this.router.navigate(['/frontend',this.restaurants._id]);
+                this.orderItem = {}
+                this.hideDiv();
 
             }
         }
 
         if (type == 'itemG2') {
             var discountedPrice = ((100 - this.promotion.discountPercent)/100)*this.orderItem.totalPrice;
-            this.orderItem.totalPrice = discountedPrice.toFixed(3);
+            this.orderItem.totalPrice = discountedPrice;
             this.promotionItem['itemGroup2'] = this.orderItem;
 
             this.promotionTotal = this.promotionTotal + this.orderItem.totalPrice;
@@ -577,31 +598,24 @@ export class FrontendPromoDetailComponent implements OnInit {
 
                 toastr.remove();
                 toastr.warning("Please select another item to get this deal",null, {'positionClass' : 'toast-top-full-width'});
+                this.orderItem = {}
+                this.hideDiv();
                 this.selectItem(1);
             }
+
+            if (discountOn[0]['itemGroup1'].length > 0 && (this.promotionItem['itemGroup1'] != null || typeof this.promotionItem['itemGroup1'] != 'undefined')) {
+                this.promotionItem['total'] = this.promotionTotal;
+                this.promoGroup = this.promotionItem;
+                localStorage.setItem(this.promotionStorage, JSON.stringify(this.promoGroup));
+                localStorage.removeItem(this.coupon);
+
+                toastr.remove();
+                toastr.success("Deal Added",null, {'positionClass' : 'toast-top-full-width'});
+                this.router.navigate(['/frontend',this.restaurants._id]);
+                this.orderItem = {}
+                this.hideDiv();
+            }
         }
-
-        if (discountOn[0]['itemGroup1'].length > 0 && discountOn[1]['itemGroup2'].length > 0 && this.promotionItem['itemGroup1'] != null && typeof this.promotionItem['itemGroup1'] != 'undefined' && this.promotionItem['itemGroup2'] != null && typeof this.promotionItem['itemGroup2'] != 'undefined') {
-            this.promotionItem['total'] = this.promotionTotal.toFixed(3);
-            this.promoGroup = this.promotionItem;
-            localStorage.setItem(this.promotionStorage, JSON.stringify(this.promoGroup));
-            toastr.remove();
-            toastr.success("Deal Added",null, {'positionClass' : 'toast-top-full-width'});
-            this.router.navigate(['/frontend',this.restaurants._id]);
-        }
-
-        if (discountOn[0]['itemGroup1'].length > 0 && discountOn[1]['itemGroup2'].length == 0 && this.promotionItem['itemGroup1'] != null && typeof this.promotionItem['itemGroup1'] != 'undefined') {
-            this.promotionItem['total'] = this.promotionTotal.toFixed(3);
-            this.promoGroup = this.promotionItem;
-            localStorage.setItem(this.promotionStorage, JSON.stringify(this.promoGroup));
-            toastr.remove();
-            toastr.success("Deal Added",null, {'positionClass' : 'toast-top-full-width'});
-            this.router.navigate(['/frontend',this.restaurants._id]);
-        }
-
-
-        this.orderItem = {}
-        this.hideDiv();
     }
 
     private selectItem(i){
@@ -613,6 +627,9 @@ export class FrontendPromoDetailComponent implements OnInit {
         
         $("div[id^='selectItem']").hide();
         $("#selectItem"+ i).show();
+
+
+        this.hideDiv();
     }
 }
 
@@ -1403,20 +1420,7 @@ export class FrontendCartComponent implements OnInit {
             this.currentCustomerId = JSON.parse(localStorage.getItem(this.customerStorage));
             this.getCurrentCustomer(this.currentCustomerId);
         }
-        if (JSON.parse(localStorage.getItem(this.orderMethodStorage)) != null) {
-            this.orderMethod = JSON.parse(localStorage.getItem(this.orderMethodStorage));
-            if (this.orderMethod.mType == 'Delivery') {
-                this.zoneCalculate(this.orderMethod);
-            }
-
-            if (this.orderMethod.mType == 'Pickup') {
-                this.orderType = true;
-            }
-
-            this.editOrderMethod = true;
-            this.saveInfo();
-            this.deliveryAddress=true;
-        }
+        
         if (JSON.parse(localStorage.getItem(this.orderTimeStorage)) != null) {
             this.orderTime = JSON.parse(localStorage.getItem(this.orderTimeStorage));
             this.editTimeMethod = true;
@@ -1446,10 +1450,6 @@ export class FrontendCartComponent implements OnInit {
             this.cartZero = true;
             this.cartDetail.promotion = this.promotionOrder;
             this.saveInfo();
-        }
-
-        if(typeof this.orderMethod != 'undefined'){
-            this.addressForm.patchValue(this.orderMethod);
         }
 
         this.currentDate = new Date();
@@ -1653,10 +1653,10 @@ export class FrontendCartComponent implements OnInit {
     private zoneCalculate(method){
         this.customerService.getLatLng(method).subscribe(data => {
 
-
             this.orderMethod = {"streetName": this.addressForm.value.streetName, "city": this.addressForm.value.city, "postcode": this.addressForm.value.postcode,"lat": data.message.lat,"lng": data.message.lng,"mType":'Delivery'};
             localStorage.setItem(this.orderMethodStorage, JSON.stringify(this.orderMethod));
             this.orderMethod = JSON.parse(localStorage.getItem(this.orderMethodStorage));
+            
             let latLng = new google.maps.LatLng(this.restaurants.lat, this.restaurants.lng);
             let latLngDeliveryAddress = new google.maps.LatLng(data.message.lat, data.message.lng);
             let map = new google.maps.Map(document.getElementById('gmap'), {
@@ -1671,12 +1671,15 @@ export class FrontendCartComponent implements OnInit {
                 map: map,
                 draggable: true
             });
+
+            console.log("marker", marker);
             let markerB =  new google.maps.Marker({
                 position: latLngDeliveryAddress,
                 title: 'Location',
                 map: map,
                 draggable: true
             });
+
             for (var i = 0; i < this.delivery.length; i++) {
                 var zones = this.calculateDeliveryZone(this.delivery[i],latLngDeliveryAddress,map,marker);
                 if (typeof zones != 'undefined') {
@@ -1928,9 +1931,6 @@ export class FrontendCartComponent implements OnInit {
         this.restaurantsService.getOne(id).subscribe(users => {
             this.restaurants = users.message;
 
-            console.log("this.restaurants");
-            console.log(this.restaurants);
-
             this.checkOpenClose(this.restaurants);
             this.update();
             this.loadAllRestroPromotions(this.restaurants._id);
@@ -1948,6 +1948,8 @@ export class FrontendCartComponent implements OnInit {
                     }
                 }
             }
+
+            console.log("this.restroPromotions",this.restroPromotions)
 
             if (localStorage.getItem(this.coupon) != 'undefined' && localStorage.getItem(this.coupon) != null) {
                 this.couponCodeApplied = localStorage.getItem(this.coupon);
@@ -1980,6 +1982,26 @@ export class FrontendCartComponent implements OnInit {
     private deliveryZone(id){
         this.restaurantsService.getAllDeliveryZone(id).subscribe(users => {
             this.delivery = users.message;
+
+            if (JSON.parse(localStorage.getItem(this.orderMethodStorage)) != null) {
+                this.orderMethod = JSON.parse(localStorage.getItem(this.orderMethodStorage));
+
+                if(typeof this.orderMethod != 'undefined'){
+                    this.addressForm.patchValue(this.orderMethod);
+                }
+
+                if (this.orderMethod.mType == 'Delivery') {
+                    this.zoneCalculate(this.orderMethod);
+                }
+
+                if (this.orderMethod.mType == 'Pickup') {
+                    this.orderType = true;
+                }
+
+                this.editOrderMethod = true;
+                this.saveInfo();
+                this.deliveryAddress=true;
+            }
         });
     }
 
@@ -1996,23 +2018,35 @@ export class FrontendCartComponent implements OnInit {
                 (<HTMLInputElement>document.getElementById("cartDetailDiv")).style.display = 'none';
                 (<HTMLInputElement>document.getElementById("paymentDiv")).style.display = 'block';
             }else{
-                this.customerService.addOrder(this.cartDetail).subscribe(
-                  (data) => {
-                    this.user = data.message;
-                    console.log("order Placed", this.cartDetail, data.message);
-                    localStorage.setItem(this.cartStorage,'[]');
-                    if (localStorage.getItem(this.coupon) != 'undefined' && localStorage.getItem(this.coupon) != 'null') {
-                        localStorage.removeItem(this.coupon);
+                this.customerService.addOrder(this.cartDetail).subscribe((data) => {
+                    if (data.error == false) {
+
+                        if (this.cartDetail.promotion) {
+                            this.increaseCount(this.cartDetail.promotion);
+                        }
+
+                        localStorage.setItem(this.cartStorage,'[]');
+                        if (localStorage.getItem(this.coupon) != 'undefined' && localStorage.getItem(this.coupon) != 'null') {
+                            localStorage.removeItem(this.coupon);
+                        }
+                        if (localStorage.getItem(this.promotionStorage) != 'undefined' && localStorage.getItem(this.promotionStorage) != 'null') {
+                            localStorage.removeItem(this.promotionStorage);
+                        }
+                        toastr.remove();
+                        toastr.success('Your Order is Placed!','Thank You!!', {'positionClass' : 'toast-top-full-width'});
+                        this.router.navigate(['/frontend',this.restaurants._id]);
                     }
-                    if (localStorage.getItem(this.promotionStorage) != 'undefined' && localStorage.getItem(this.promotionStorage) != 'null') {
-                        localStorage.removeItem(this.promotionStorage);
-                    }
-                    toastr.remove();
-                    toastr.success('Your Order is Placed!','Thank You!!', {'positionClass' : 'toast-top-full-width'});
-                    this.router.navigate(['/frontend',this.restaurants._id]);
-                    }
-                );                
+                });                
             }
+        }
+    }
+
+    private increaseCount(promotion){
+        if (promotion.promotion) {
+            promotion.promotion.count = promotion.promotion.count + 1;
+            this.promotionsService.updateRestroPromotion(promotion.promotion).subscribe(data =>{
+                console.log(data);
+            });
         }
     }
 
@@ -2020,17 +2054,24 @@ export class FrontendCartComponent implements OnInit {
         this.hmacGenerate();
         this.customerService.addOrder(this.cartDetail).subscribe(
           (data) => {
-            this.user = data.message;
-            localStorage.setItem(this.cartStorage,'[]');
-            if (localStorage.getItem(this.coupon) != 'undefined' && localStorage.getItem(this.coupon) != 'null') {
-                localStorage.remove(this.coupon);
+            /*this.user = data.message;*/
+            if (data.error == false) {
+
+                if (this.cartDetail.promotion) {
+                    this.increaseCount(this.cartDetail.promotion);
+                }
+
+                localStorage.setItem(this.cartStorage,'[]');
+                if (localStorage.getItem(this.coupon) != 'undefined' && localStorage.getItem(this.coupon) != 'null') {
+                    localStorage.remove(this.coupon);
+                }
+                if (localStorage.getItem(this.promotionStorage) != 'undefined' && localStorage.getItem(this.promotionStorage) != 'null') {
+                    localStorage.removeItem(this.promotionStorage);
+                }
+                toastr.remove();
+                toastr.success('Your Order is Placed!','Thank You!!', {'positionClass' : 'toast-top-full-width'});
+                this.router.navigate(['/frontend',this.restaurants._id]);
             }
-            if (localStorage.getItem(this.promotionStorage) != 'undefined' && localStorage.getItem(this.promotionStorage) != 'null') {
-                localStorage.removeItem(this.promotionStorage);
-            }
-            toastr.remove();
-            toastr.success('Your Order is Placed!','Thank You!!', {'positionClass' : 'toast-top-full-width'});
-            this.router.navigate(['/frontend',this.restaurants._id]);
         });
     }
 
@@ -2118,31 +2159,34 @@ export class FrontendCartComponent implements OnInit {
         
         let codeIndex = this.restroPromotions.findIndex(mn=> mn.couponcode.code == couponCode.value);
         if (codeIndex > -1) {
-    
-            this.couponCodeApplied = couponCode.value;
-            localStorage.setItem(this.coupon,this.couponCodeApplied)
-            toastr.remove();
-            toastr.success('Coupon Code Applied');
+            if (this.cartDetail.subTotal >= this.restroPromotions[codeIndex].minCartAmount) {
+                this.couponCodeApplied = couponCode.value;
+                localStorage.setItem(this.coupon,this.couponCodeApplied)
+                toastr.remove();
+                toastr.success('Coupon Code Applied');
 
-            $('.couponClass').hide();
-            $('.couponApplied').show();
+                $('.couponClass').hide();
+                $('.couponApplied').show();
 
-            this.cartDetail['promotion'] = this.restroPromotions[codeIndex];
+                this.cartDetail['promotion'] = this.restroPromotions[codeIndex];
 
-            let promoIndex = this.allPromotions.findIndex(abc=> abc._id == this.restroPromotions[codeIndex].promotionId[0]);
-            if (promoIndex == 4) {
-                if (typeof this.deliveryFee != 'undefined') {
-                    this.discountAmount = (this.restroPromotions[codeIndex].discountPercent/100)*this.deliveryFee;
-                    console.log(this.discountAmount);
+                let promoIndex = this.allPromotions.findIndex(abc=> abc._id == this.restroPromotions[codeIndex].promotionId[0]);
+                if (promoIndex == 4) {
+                    if (typeof this.deliveryFee != 'undefined') {
+                        this.discountAmount = (this.restroPromotions[codeIndex].discountPercent/100)*this.deliveryFee;
+                        console.log(this.discountAmount);
+                    }
+                }else if(promoIndex == 2){
+                    this.discountAmount = this.restroPromotions[codeIndex].discountAmount;
+                    this.cartTotal= this.cartDetail.subTotal - this.discountAmount;
+                    this.update();
+                }else{
+                    this.discountAmount = (this.restroPromotions[codeIndex].discountPercent/100)*this.cartDetail.subTotal;
+                    this.cartTotal = this.cartDetail.subTotal - this.discountAmount;
+                    this.update();
                 }
-            }else if(promoIndex == 2){
-                this.discountAmount = this.restroPromotions[codeIndex].discountAmount;
-                this.cartTotal= this.cartDetail.subTotal - this.discountAmount;
-                this.update();
             }else{
-                this.discountAmount = (this.restroPromotions[codeIndex].discountPercent/100)*this.cartDetail.subTotal;
-                this.cartTotal = this.cartDetail.subTotal - this.discountAmount;
-                this.update();
+                toastr.warning('To apply this coupon, Min order amount is ' + this.restroPromotions[codeIndex].minCartAmount);
             }
         }else{
             toastr.remove();

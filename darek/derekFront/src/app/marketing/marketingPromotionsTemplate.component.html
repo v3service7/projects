@@ -77,7 +77,7 @@
 		</div>
 		<div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 padding10-0">
 			<a class="btn" style="color: #fff;background-color: #999;margin-right:3%;"  [routerLink]="['/owner/marketing/promotions']" >
-				Cancle
+				Cancel
 			</a>
 			<button type="button" id="saveButton" class="btn btn-success" (click)="savePromotion()">Save</button>
 		</div>
@@ -220,6 +220,11 @@
 							<input type="number" #disPrcnt class="form-control" placeholder="5" style="width: 50%;border-radius: 0;" (keyup)="countCharacter($event,disPrcnt,'discountAmount')">
 							<label class="form-control color999" style="width: 15%;border-radius: 0;background-color: #ededed;">USD</label>
 						</div>
+						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 marginBottom2 padding0" style="display: -webkit-inline-box;">
+							<div class="marginRight15">Cart Amount:</div>
+							<input type="number" #cartAmount class="form-control" placeholder="5" style="width: 50%;border-radius: 0;" (keyup)="countCharacter($event,cartAmount,'cartAmount')">
+							<label class="form-control color999" style="width: 15%;border-radius: 0;background-color: #ededed;">USD</label>
+						</div>
 					</div>
 					<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 paddingLeft10prcnt">
 						The discount amount will be deducted from the order cart sub-total value and it will be explicitly shown in the cart calculation.
@@ -242,6 +247,11 @@
 							<input type="number" #disPrcnt class="form-control" placeholder="5" style="width: 50%;border-radius: 0;" (keyup)="countCharacter($event,disPrcnt,'discountPercent')">
 							<label class="form-control color999" style="width: 15%;border-radius: 0;background-color: #ededed;">%</label>
 						</div>
+						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 marginBottom2 padding0" style="display: -webkit-inline-box;">
+							<div class="marginRight15">Cart Amount:</div>
+							<input type="number" #cartAmount class="form-control" placeholder="5" style="width: 50%;border-radius: 0;" (keyup)="countCharacter($event,cartAmount,'cartAmount')">
+							<label class="form-control color999" style="width: 15%;border-radius: 0;background-color: #ededed;">USD</label>
+						</div>
 					</div>
 					<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 paddingLeft10prcnt">
 						The discount amount will be deducted from the order cart sub-total value and it will be explicitly shown in the cart calculation.
@@ -263,6 +273,11 @@
 							<div class="marginRight15">Discount:</div>
 							<input type="number" #disPrcnt class="form-control" placeholder="5" style="width: 50%;border-radius: 0;" (keyup)="countCharacter($event,disPrcnt,'discountPercent')">
 							<label class="form-control color999" style="width: 15%;border-radius: 0;background-color: #ededed;">%</label>
+						</div>
+						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 marginBottom2 padding0" style="display: -webkit-inline-box;">
+							<div class="marginRight15">Cart Amount:</div>
+							<input type="number" #cartAmount class="form-control" placeholder="5" style="width: 50%;border-radius: 0;" (keyup)="countCharacter($event,cartAmount,'cartAmount')">
+							<label class="form-control color999" style="width: 15%;border-radius: 0;background-color: #ededed;">USD</label>
 						</div>
 					</div>
 					<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 paddingLeft10prcnt">
@@ -348,6 +363,11 @@
 							<div class="marginRight15">Discount : </div>
 							<input type="number" #disPrcnt class="form-control" placeholder="30" style="width: 50%;border-radius: 0;" (keyup)="countCharacter($event,disPrcnt,'discountPercent')">
 							<label class="form-control color999" style="width: 10%;border-radius: 0;background-color: #ededed;">%</label>
+						</div>
+						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 marginBottom2 padding0" style="display: -webkit-inline-box;">
+							<div class="marginRight15">Cart Amount:</div>
+							<input type="number" #cartAmount class="form-control" placeholder="5" style="width: 50%;border-radius: 0;" (keyup)="countCharacter($event,cartAmount,'cartAmount')">
+							<label class="form-control color999" style="width: 15%;border-radius: 0;background-color: #ededed;">USD</label>
 						</div>
 					</div>
 				</div>
