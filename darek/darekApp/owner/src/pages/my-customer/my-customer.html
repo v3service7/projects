@@ -1,0 +1,30 @@
+<ion-header>
+    <ion-navbar color="secondary">
+        <button ion-button menuToggle>
+			<ion-icon name="menu"></ion-icon>
+		</button>
+        <ion-title>
+            <ion-icon name="people" item-start></ion-icon> &nbsp;Customers</ion-title>
+    </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+    <ion-refresher (ionRefresh)="doRefresh($event)">
+        <ion-refresher-content></ion-refresher-content>
+    </ion-refresher>
+
+    <ion-list>
+        <ion-item *ngFor="let p of client" (click)="cleintDetail($event,p)">
+            <ion-avatar item-start>
+                <img src="http://dsi-vd.github.io/patternlab-vd/images/fpo_avatar.png">
+            </ion-avatar>
+            <h2>
+                {{p.firstname}} {{p.lastname}}</h2>
+
+            <p>{{p.phonenumber}}</p>
+
+
+        </ion-item>
+
+    </ion-list>
+</ion-content>

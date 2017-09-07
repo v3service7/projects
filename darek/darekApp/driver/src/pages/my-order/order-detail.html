@@ -1,0 +1,177 @@
+<ion-header>
+    <ion-navbar color="secondary">
+        <button ion-button menuToggle>
+			<ion-icon name="menu"></ion-icon>
+		</button>
+        <span class="white"># {{selectedOrder._id.substr(18,6)}}</span><br>
+        <span class="white">{{selectedOrder.orderTime.time | date:'EEE dd MMM' }} - {{selectedOrder.orderTime.time | date:'shortTime' }}
+            </span>
+    </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+    <ion-card>
+        <ion-card-header>
+            Order Status
+        </ion-card-header>
+        <ion-card-content>
+            <h2>{{selectedOrder.status}}</h2>
+            <div *ngIf="selectedOrder.status == 'Received'">
+                <button ion-button icon-only color="secondary" (click)="updateStatus($event,selectedOrder,'Pending')">
+					<ion-icon name="checkmark" ios="ios-checkmark" md="md-checkmark"> Accept</ion-icon>
+				</button>
+                <button ion-button icon-only color="danger" (click)="updateStatus($event,selectedOrder,'Rejected')">
+					<ion-icon name="close" ios="ios-close" md="md-close"> Reject</ion-icon>
+				</button>
+            </div>
+			<div *ngIf="selectedOrder.status == 'Received'">
+				<button ion-button icon-only  color="secondary" (click)="updateStatus($event,selectedOrder,'Pending')">
+					<ion-icon name="checkmark" ios="ios-checkmark" md="md-checkmark"> Accept</ion-icon>
+				</button>
+				<button ion-button icon-only  color="danger" (click)="updateStatus($event,selectedOrder,'Rejected')">
+					<ion-icon name="close" ios="ios-close" md="md-close"> Reject</ion-icon>
+				</button>
+			</div>
+        </ion-card-content>
+    </ion-card>
+    <ion-card>
+        <ion-card-header>
+            Customer Detail
+        </ion-card-header>
+        <ion-card-content>
+            <p>
+                <ion-icon name="person" ios="ios-person" md="md-person"> Name: {{selectedOrder.customerId.firstname}} {{selectedOrder.customerId.lastname}}</ion-icon>
+            </p>
+            <p>
+                <ion-icon name="call" ios="ios-call" md="md-call"> Phone: {{selectedOrder.customerId.phonenumber}}</ion-icon>
+            </p>
+            <p>
+                <ion-icon name="mail" ios="ios-mail" md="md-mail"> Email: {{selectedOrder.customerId.email}}</ion-icon>
+            </p>
+        </ion-card-content>
+    </ion-card>
+    <ion-card *ngIf="selectedOrder.driverId">
+        <ion-card-header>
+            Driver Detail
+        </ion-card-header>
+        <ion-card-content>
+            <h2>{{selectedOrder.driverId.firstname}} {{selectedOrder.driverId.lastname}}</h2>
+            <p>{{selectedOrder.driverId.phoneNo}}</p>
+            <p>{{selectedOrder.driverId.email}}</p>
+            <p>{{selectedOrder.driverId.address}}</p>
+            <p>{{selectedOrder.driverId.vehicleType}}</p>
+            <p>{{selectedOrder.driverId.vehicleName}} : {{selectedOrder.driverId.vehicleNo}}</p>
+        </ion-card-content>
+    </ion-card>
+
+    <ion-card>
+        <ion-card-header>
+            Order Detail
+        </ion-card-header>
+        <ion-card-content>
+            <p *ngIf="selectedOrder.orderMethod">
+                <ion-icon name="card" ios="ios-card" md="md-card"> Type: {{selectedOrder.orderMethod.mType}}
+                    <span *ngIf="selectedOrder.orderPayment">
+				, <span *ngIf="selectedOrder.orderPayment.cash">Cash</span>
+                    <span *ngIf="selectedOrder.orderPayment.cardpickup">Card Pickup</span>
+                    <span *ngIf="selectedOrder.orderPayment.cardinternet">Card via Internet</span>
+                    </span>
+                </ion-icon>
+            </p>
+            <p *ngIf="selectedOrder.orderTime">
+                <ion-icon name="time">
+                    Fulfillment date & time : </ion-icon><br>{{selectedOrder.orderTime.time | date:'fullDate'}}</p>
+        </ion-card-content>
+    </ion-card>
+
+    <ion-card>
+        <ion-card-header>
+            Restaurant Detail
+        </ion-card-header>
+        <ion-card-content>
+            <p *ngIf="selectedOrder.restaurantId">
+                <ion-icon name="home"> {{selectedOrder.restaurantId.name}}</ion-icon>
+                <span *ngIf="selectedOrder.restaurantId">
+				 , {{selectedOrder.restaurantId.address}} {{selectedOrder.restaurantId.zipcode}} {{selectedOrder.restaurantId.city}}
+			</span></p>
+        </ion-card-content>
+    </ion-card>
+
+    <ion-card>
+        <ion-card-header>
+            Menu & Item Detail
+        </ion-card-header>
+        <ion-card-content *ngIf="selectedOrder.orders">
+            <ion-item *ngFor="let order of selectedOrder.orders" text-left>
+                <ion-row *ngIf="order.item">
+                    <ion-col col-6>
+
+                        <span style="font-size: 14px"> <b>{{order.quantity}} x </b></span>{{order.item.name}}
+
+                    </ion-col>
+                    <ion-col col-6>
+                        <b>{{order.totalPrice}}</b>
+                    </ion-col>
+                </ion-row>
+
+                <ion-row *ngIf="order.multisize">
+                    <ion-col col-6>
+                        {{order.multisize.size}}
+                    </ion-col>
+                    <ion-col col-6>
+                        <b>{{order.multisize.price}}</b>
+                    </ion-col>
+                </ion-row>
+
+                <ion-row *ngIf="order.addon.length > 0">
+                    <ion-item *ngFor="let adn of order.addon">
+                        <ion-row>
+                            <ion-col col-6>
+                                {{adn.name}}
+                            </ion-col>
+                            <ion-col col-6>
+                                <b>{{adn.price}}</b>
+                            </ion-col>
+                        </ion-row>
+                    </ion-item>
+                </ion-row>
+            </ion-item>
+            <hr>
+            <ion-item>
+                <ion-row>
+                    <ion-col col-6>
+                        Sub-Total
+                    </ion-col>
+                    <ion-col col-6>
+                        <b>{{selectedOrder.subTotal}}</b>
+                    </ion-col>
+                </ion-row>
+                <ion-row *ngIf="selectedOrder.orderMethod && selectedOrder.orderMethod.mType == 'Delivery'">
+                    <ion-col col-6>
+                        Delivery Fee
+                    </ion-col>
+                    <ion-col col-6>
+                        <b>{{selectedOrder.deliveryfee}}</b>
+                    </ion-col>
+                </ion-row>
+                <ion-row *ngIf="selectedOrder.orders && selectedOrder.orders.length > 0">
+                    <ion-col col-6>
+                        Tax
+                    </ion-col>
+                    <ion-col col-6>
+                        <b>{{selectedOrder.tax}}%</b>
+                    </ion-col>
+                </ion-row>
+                <ion-row *ngIf="selectedOrder.orders && selectedOrder.orders.length > 0">
+                    <ion-col col-6>
+                        Total
+                    </ion-col>
+                    <ion-col col-6>
+                        <b>{{selectedOrder.gTotal | number : '1.2-2'}}%</b>
+                    </ion-col>
+                </ion-row>
+            </ion-item>
+        </ion-card-content>
+    </ion-card>
+
+</ion-content>

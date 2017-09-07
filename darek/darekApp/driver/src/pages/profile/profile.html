@@ -1,0 +1,51 @@
+<ion-header>
+  <ion-navbar color="secondary">
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Edit Profile</ion-title>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content padding>
+	<ion-list>
+		<form role="form" [formGroup]="profileForm" (ngSubmit)="update()">
+			<ion-item>
+				<ion-label><ion-icon name="mail" ios="ios-mail" md="md-mail"></ion-icon></ion-label>
+				<ion-input formControlName="email" type="email" disabled="true"></ion-input>
+			</ion-item>
+			<ion-item>
+				<ion-label><ion-icon name="person" ios="ios-person" md="md-person"></ion-icon></ion-label>
+				<ion-input formControlName="firstname" type="text"></ion-input>
+			</ion-item>
+			<ion-item>
+				<ion-label><ion-icon name="person" ios="ios-person" md="md-person"></ion-icon></ion-label>
+				<ion-input formControlName="lastname" type="text"></ion-input>
+			</ion-item>
+			<ion-item>
+				<ion-label><ion-icon name="call" ios="ios-call" md="md-call"></ion-icon></ion-label>
+				<ion-input formControlName="phoneNo" type="text"></ion-input>
+			</ion-item>
+			<ion-item>
+				<ion-label><ion-icon name="pin" ios="ios-pin" md="md-pin"></ion-icon></ion-label>
+				<ion-input formControlName="address" type="text"></ion-input>
+			</ion-item>
+			<ion-item>
+				<ion-label><ion-icon name="car" ios="ios-car" md="md-car"></ion-icon></ion-label>
+				<ion-input formControlName="vehicleType" type="text"></ion-input>
+			</ion-item>
+			<ion-item>
+				<ion-label><ion-icon name="car" ios="ios-car" md="md-car"></ion-icon></ion-label>
+				<ion-input formControlName="vehicleName" type="text"></ion-input>
+			</ion-item>
+			<ion-item>
+				<ion-label><ion-icon name="car" ios="ios-car" md="md-car"></ion-icon></ion-label>
+				<ion-input formControlName="vehicleNo" type="text"></ion-input>
+			</ion-item>
+			<ion-item>
+				<button ion-button full [disabled]="!profileForm.valid">Submit</button>
+			</ion-item>	
+		</form>	
+	</ion-list>
+</ion-content>
