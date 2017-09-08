@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewEncapsulation, Input, ElementRef,ViewContainerRef } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
-import { AlertService, RestaurantsService, UsersService, KitchenMenuService, KitchenItemService, MasterService,CustomersService,PromotionsService} from '../service/index';
+import { AlertService, RestaurantsService, UsersService, KitchenMenuService, KitchenItemService, MasterService,CustomersService,PromotionsService,OrderService} from '../service/index';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import * as globalVariable from "../global";
 import {TranslateService} from '@ngx-translate/core';
@@ -130,6 +130,78 @@ export class FrontendHeaderComponent implements OnInit {
             this.restaurants = users.message;
             this.checkOpenClose(this.restaurants);
         });
+    }
+}
+
+@Component({
+    selector: 'app-thanku',
+    templateUrl: './frontendThankuPage.component.html',
+    styleUrls: ['./frontend.component.css'],
+    encapsulation: ViewEncapsulation.None
+})
+export class FrontendThankuPageComponent implements OnInit {
+    order : any = {};
+    restaurants : any = {};
+
+    showFlag : boolean = true;
+
+    constructor(
+        private activatedRoute : ActivatedRoute,
+        private orderServices : OrderService
+        ) { }
+    ngOnInit() {
+        this.activatedRoute.params.subscribe((params: Params) => {
+            let id = params['id'];
+            this.orderPlaced(id);
+        });
+    }
+
+    private orderPlaced(id){
+        this.orderServices.getDetail(id).subscribe(data=>{
+            this.order = data.message;
+            this.restaurants = data.message.restaurantId;
+            this.authenticate_loop(id);
+        });
+    }
+
+    private authenticate_loop(id){
+        var count = 0;
+        var loopCount = setInterval(() => {
+            count++;
+            console.log("Count - " + count);
+            this.orderServices.getDetail(id).subscribe(data=>{
+                if (data.error == false) {
+                    console.log(data.message);
+                    if (data.message.status == 'Accepted') {
+                        $('.backend-loader-preloader-wrapper').hide();
+                        $('.continue').show();
+                        this.showFlag = false;
+                        clearInterval(loopCount);
+                        /*console.log("Accepted");*/
+                        /*$('.orderPlaced').show();*/
+                    }
+                    if (data.message.status == 'Rejected') {
+                        $('.backend-loader-preloader-wrapper').hide();
+                        $('.continue').show();
+                        this.showFlag = false;
+                        clearInterval(loopCount);
+                        /*console.log("Not Accepted");*/
+                        /*$('.orderRejected').show();*/
+                    }
+                    if (data.message.status == 'Received') {
+                        console.log("Still Received...");
+                    }
+                }
+            });
+
+            if (count >= 3){
+                clearInterval(loopCount);
+                $('.backend-loader-preloader-wrapper').hide();
+                $('.orderMissed').show();
+                $('.continue').show();
+                this.showFlag = false;
+            }
+        },60000)
     }
 }
 
@@ -817,6 +889,22 @@ export class FrontendComponent implements OnInit {
         }
     }
 
+    private showPos(id) {
+        if (this.detailShow == id) {
+            let divId = '#changeBg_'+id
+            let left = '';
+
+            var offset = $(divId).offset();
+            let offsetLeft = offset.left;
+            if (offsetLeft < 150) {
+                left = '106%';
+            }else{
+                left = '-106%';
+            }
+            return left;
+        }
+    }
+
     private hideDiv() {
         this.detailShow='';
         this.addonUncheck();
@@ -828,7 +916,11 @@ export class FrontendComponent implements OnInit {
         $('.subAddOnDetailList').attr('data-addon','check');
     }
 
-    private addToCart() {
+    private addToCart(id) {
+        var itemId = 'Location_' + id + '_specialInstruction'
+        var itemInstruction = <HTMLInputElement>document.getElementById(itemId);
+        this.orderItem['itemInstruction'] = itemInstruction.value;
+
         this.totalOrder = JSON.parse(localStorage.getItem(this.cartStorage));
         this.totalOrder.push(this.orderItem);
         localStorage.setItem(this.cartStorage, JSON.stringify(this.totalOrder));
@@ -1295,6 +1387,7 @@ export class FrontendCartComponent implements OnInit {
     restaurants: any = {};
     resTime:any;
     delivery: any = {};
+    commentMade:string ;
     cartStorage:string ;
     promotionStorage:string ;
     orderMethodStorage :string ;
@@ -1326,6 +1419,8 @@ export class FrontendCartComponent implements OnInit {
     editTimeMethod:boolean;
     editPaymentMethod:boolean;
     del:boolean;
+    addComment:boolean =false;
+    commentNotMade:boolean =true;
     flagForTime:boolean =false;
     flagForPayment:boolean =false;
     addDetail:boolean =false;
@@ -2004,13 +2099,23 @@ export class FrontendCartComponent implements OnInit {
             }
         });
     }
+    private saveComment(){
+        var comment = <HTMLInputElement>document.getElementById('commentArea');
+        this.commentMade = comment.value;
+        this.commentNotMade = false;
+        this.cartDetail['comment'] = this.commentMade;
+    }
 
     private placeOrder(){
+        
         this.cartDetail.orderTime = this.orderTime;
         this.cartDetail.orderPayment = this.orderPayment;
-        this.cartDetail.status = 'Received';
-        if (this.cartDetail['promotion'] != 'undefined') {
+        this.cartDetail.status = 'Pending';
+        if (typeof this.cartDetail['promotion'] != 'undefined') {
             this.cartDetail['isPromotion'] = true;
+        }
+        if (typeof this.cartDetail['promotion'] == 'undefined') {
+            this.cartDetail['isPromotion'] = false;
         }
 
         if (this.cartDetail.orderPayment) {
@@ -2018,8 +2123,13 @@ export class FrontendCartComponent implements OnInit {
                 (<HTMLInputElement>document.getElementById("cartDetailDiv")).style.display = 'none';
                 (<HTMLInputElement>document.getElementById("paymentDiv")).style.display = 'block';
             }else{
+
+                console.log("this.cartDetail while placing order");
+                console.log(this.cartDetail);
                 this.customerService.addOrder(this.cartDetail).subscribe((data) => {
                     if (data.error == false) {
+                        console.log("data.message");
+                        console.log(data.message);
 
                         if (this.cartDetail.promotion) {
                             this.increaseCount(this.cartDetail.promotion);
@@ -2032,11 +2142,10 @@ export class FrontendCartComponent implements OnInit {
                         if (localStorage.getItem(this.promotionStorage) != 'undefined' && localStorage.getItem(this.promotionStorage) != 'null') {
                             localStorage.removeItem(this.promotionStorage);
                         }
-                        toastr.remove();
-                        toastr.success('Your Order is Placed!','Thank You!!', {'positionClass' : 'toast-top-full-width'});
-                        this.router.navigate(['/frontend',this.restaurants._id]);
+                        /*toastr.success('Your Order is Placed!','Thank You!!', {'positionClass' : 'toast-top-full-width'});*/
+                        this.router.navigate(['/thanku',data.message._id]);
                     }
-                });                
+                });
             }
         }
     }
@@ -2068,9 +2177,9 @@ export class FrontendCartComponent implements OnInit {
                 if (localStorage.getItem(this.promotionStorage) != 'undefined' && localStorage.getItem(this.promotionStorage) != 'null') {
                     localStorage.removeItem(this.promotionStorage);
                 }
-                toastr.remove();
-                toastr.success('Your Order is Placed!','Thank You!!', {'positionClass' : 'toast-top-full-width'});
-                this.router.navigate(['/frontend',this.restaurants._id]);
+                /*toastr.remove();
+                toastr.success('Your Order is Placed!','Thank You!!', {'positionClass' : 'toast-top-full-width'});*/
+                this.router.navigate(['/thanku',data.message._id]);
             }
         });
     }
@@ -2236,6 +2345,14 @@ export class FrontendCartComponent implements OnInit {
         $('.couponClass').show();
         this.showCouponField('cancel');
         this.update();
+    }
+
+    private addOrderComment(){
+        this.addComment = true;
+    }
+
+    private cancelComment(){
+        this.addComment = false;
     }
 }
 

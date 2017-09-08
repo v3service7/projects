@@ -21,7 +21,8 @@ var OrderSchema = new Schema({
 	status : String,
 	discountAmount : Number,
 	isPromotion :{type : Boolean, default : false},
-	promotion : {},	
+	promotion : {},
+	comment : String,
 	created_at: { type: Date, default: Date.now },
 	updated_at: { type: Date, default: Date.now }
 });

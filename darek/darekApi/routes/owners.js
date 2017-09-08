@@ -23,7 +23,7 @@ router.post('/register', function(req, res) {
 
 router.post('/login', function(req, res, next) {
     console.log(req.body);
-    ownerModel.find({username:req.body.username,password:req.body.password},function(err,owner) {
+    ownerModel.find({username: {$regex : new RegExp(req.body.username,"i")},password:req.body.password},function(err,owner) {
         if (owner.length>0) {
             res.json({status:true,data:owner[0]});
         }else{

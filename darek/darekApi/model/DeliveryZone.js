@@ -8,7 +8,7 @@ var ZoneSchema = new Schema({
   type: String,
   amount: String,
   radius: String,
-  currency: {type: String, default : 'CZK'},
+  currency: {type: String, default : 'USD'},
   color: String,
   deliveryfee: String
 });

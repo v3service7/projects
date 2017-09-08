@@ -88,21 +88,18 @@ router.post('/add', function(req, res) {
     var response={};
     var orderObj = new Order(req.body);
     orderObj.save(function(err,data){
-        //console.log(data);
         if(err) {
             response = {"error" : true,"message" : err};
         } else {
             restaurantModel.findById(req.body.restaurantId).populate('ownerId').exec(function(err,resData){
                 var name = resData.ownerId.firstname+" <"+resData.ownerId.email+" >";
-                console.log('owner '+name)
                 sendOrderMail(req,name,'Order Notification','Order Receive Successfully');
             });
             customerModel.findById(req.body.customerId,function(err,cusData){
                 var name = cusData.firstname+" <"+cusData.email+" >";
-                console.log('customer '+name)
                 sendOrderMail(req,name,'Order Notification','Order Accepted Successfully');
             });
-            response = {"error" : false,"message" : "Data added"};
+            response = {"error" : false,"message" : data};
         }
         res.json(response);
     });

@@ -601,7 +601,7 @@
                         <span class="label label-warning" *ngIf="item.isSpecific == true" style="font-size: 60%;position: absolute;border-radius: 1.25em;padding: 1%;">Show on specific time  &nbsp;&nbsp;
                            <span style=" cursor: pointer;border: 0px;"  (click) = "deleteHiddenSpecific(item,'item')">&times;</span>
                         </span>
-                           <span class="custom_sub_price" *ngIf="item.multisize.length < 1"><code> {{item.price}} CZK</code></span>
+                           <span class="custom_sub_price" *ngIf="item.multisize.length < 1"><code> {{item.price}} USD</code></span>
                            <div class="row" style="margin-top: 10px;">
                               <!-- <small *ngFor="let grop of groups">
                                  <span *ngFor="let itemx of item.options; let i = index;">
@@ -692,7 +692,7 @@
                         <div class="pull-left comp-info-size-name js-info-size-name ">{{itemsp.size}}</div>
                         <div class="pull-right comp-info-size-price">
                            <div class="pull-left js-info-size-price">{{itemsp.price}}</div>
-                           <div class="pull-left comp-info-size-currency js-info-currency">CZK &nbsp;</div>
+                           <div class="pull-left comp-info-size-currency js-info-currency">USD &nbsp;</div>
 
                            <a href="javascript:void(0);" title="Delete" (click)="removeSubmenuAddOn(i,item._id)"><span class="icon-menu-remove js-remove" data-original-title="" title=""></span></a>
 
