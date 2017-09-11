@@ -19,6 +19,8 @@ var OrderSchema = new Schema({
 	deliveryfee: Number,
 	orders:{},
 	status : String,
+	custMessage : String,
+	custTime : String,
 	discountAmount : Number,
 	isPromotion :{type : Boolean, default : false},
 	promotion : {},

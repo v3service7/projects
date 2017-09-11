@@ -774,6 +774,14 @@ export class ReportingDetailComponent implements OnInit {
         });
     }
 
+     private deleteOrder(id){
+        this.orderService.deleteOneOrder(id).subscribe(data=>{
+            console.log("data");
+            console.log(data);
+            this.router.navigate(['/owner/reports/orders']);
+        });
+    }
+
     private mapInit(){
         let mapProp = {
             center: new google.maps.LatLng(this.restaurants.lat, this.restaurants.lng),

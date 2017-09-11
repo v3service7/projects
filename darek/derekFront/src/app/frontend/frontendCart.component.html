@@ -392,6 +392,9 @@
 									<div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 cart-price ng-binding padding0" style="text-align: right;">
 										{{promotionOrder.itemGroup1.totalPrice | number : '1.2-2'}}
 									</div>
+									<div *ngIf = "promotionOrder.itemGroup1.itemInstruction" class="col-lg-12 col-md-12 col-sm-12 col-xs-12 promotionSpecialInstruction">
+										Instruction : {{promotionOrder.itemGroup1.itemInstruction}}
+									</div>
 								</div>
 
 								<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding5px15px" *ngIf="promotionOrder.itemGroup2">
@@ -413,6 +416,9 @@
 									</div>
 									<div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 cart-price ng-binding padding0" style="text-align: right;">
 										{{promotionOrder.itemGroup2.totalPrice | number : '1.2-2'}}
+									</div>
+									<div *ngIf = "promotionOrder.itemGroup2.itemInstruction" class="col-lg-12 col-md-12 col-sm-12 col-xs-12 promotionSpecialInstruction">
+										Instruction : {{promotionOrder.itemGroup2.itemInstruction}}
 									</div>
 								</div>
 

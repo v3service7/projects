@@ -104,4 +104,11 @@ export class OrderService {
 			(response: Response) => response.json()
 		);
 	}
+
+	deleteOneOrder(id) {
+    return this.http.delete(globalVariable.url+'order/'+id)
+      .map(
+      (response: Response) => response.json()
+    );
+  }
 }

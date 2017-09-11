@@ -2,9 +2,13 @@
 
 <div class="backend-loader-preloader-wrapper"><div class="backend-loader-preloader"></div></div>
 
-<div class="orderPlaced" *ngIf = "order && order.status == 'Accepted'">THANK You :)<br>Order Placed Successfully</div>
+<div class="orderPlaced" *ngIf = "order && order.status == 'Pending'">THANK You :)<br>Order Placed Successfully
+	<div class="fontSize24" *ngIf="order.custTime">Your order will reach you at {{order.custTime}}</div>
+</div>
 
-<div class="orderRejected" *ngIf = "order && order.status == 'Rejected'">Sorry :( <br>Order Rejected</div>
+<div class="orderRejected" *ngIf = "order && order.status == 'Rejected'">Sorry :( <br>Order Rejected
+	<div class="fontSize24" *ngIf="order.custMessage">Your order is rejected due to {{order.custMessage}}</div>
+</div>
 
 <div class="orderMissed" style="display: none;">Sorry :( <br>Order Missed <span class="fontSize24">Please try again</span></div>
 

@@ -1183,7 +1183,7 @@ export class MarketingEditPromotionComponent implements OnInit {
 
    private markChecked(menu,event,type,itemGroup){
       if (type == 'menu') {
-         if (menu['item'].length > 0) {
+         if (typeof menu['item'] != 'undefined' && menu['item'].length > 0) {
             for (var i = 0; i < menu['item'].length; i++) {        
                if (itemGroup == 'itemGroup1') {
                   var id = 'item_ig1_' + menu['item'][i];
@@ -1525,8 +1525,8 @@ export class MarketingPromotionsTemplateComponent implements OnInit {
    menuIds = [];
    discountOn = [];
    discountTiming = [];
-   menu1 = [];
-   menu2 = [];
+   menu1 : any = [];
+   menu2 : any = [];
    restaurants:any ={};
    optionSet: any = {};
    preoptionSet: any = {};
@@ -2153,15 +2153,15 @@ export class MarketingPromotionsTemplateComponent implements OnInit {
       console.log(this.menu2);
    }
 
-   private markChecked(menu,event,type,itemGroup){
+   private markChecked(menuObj,event,type,itemGroup){
       if (type == 'menu') {
-         if (menu['item'].length > 0) {
-            for (var i = 0; i < menu['item'].length; i++) {        
+         if (typeof menuObj['item'] != 'undefined' && menuObj['item'].length > 0) {
+            for (var i = 0; i < menuObj['item'].length; i++) {        
                if (itemGroup == 'itemGroup1') {
-                  var id = 'item_ig1_' + menu['item'][i];
+                  var id = 'item_ig1_' + menuObj['item'][i];
                }
                if (itemGroup == 'itemGroup2') {
-                  var id = 'item_' + menu['item'][i];
+                  var id = 'item_' + menuObj['item'][i];
                }
                if (event.target.checked) {
                   if (!document.getElementById(id).getAttribute('checked')) {

@@ -152,14 +152,6 @@ export class FrontendThankuPageComponent implements OnInit {
     ngOnInit() {
         this.activatedRoute.params.subscribe((params: Params) => {
             let id = params['id'];
-            this.orderPlaced(id);
-        });
-    }
-
-    private orderPlaced(id){
-        this.orderServices.getDetail(id).subscribe(data=>{
-            this.order = data.message;
-            this.restaurants = data.message.restaurantId;
             this.authenticate_loop(id);
         });
     }
@@ -168,40 +160,45 @@ export class FrontendThankuPageComponent implements OnInit {
         var count = 0;
         var loopCount = setInterval(() => {
             count++;
-            console.log("Count - " + count);
-            this.orderServices.getDetail(id).subscribe(data=>{
-                if (data.error == false) {
-                    console.log(data.message);
-                    if (data.message.status == 'Accepted') {
-                        $('.backend-loader-preloader-wrapper').hide();
-                        $('.continue').show();
-                        this.showFlag = false;
-                        clearInterval(loopCount);
-                        /*console.log("Accepted");*/
-                        /*$('.orderPlaced').show();*/
+            if(count < 6){
+                this.orderServices.getDetail(id).subscribe(data=>{
+                    this.order = data.message;
+                    this.restaurants = data.message.restaurantId;
+                    if (data.error == false) {
+                        if (this.order.status == 'Pending') {
+                            $('.backend-loader-preloader-wrapper').hide();
+                            $('.continue').show();
+                            this.showFlag = false;
+                            clearInterval(loopCount);
+                        }
+                        if (this.order.status == 'Rejected') {
+                            $('.backend-loader-preloader-wrapper').hide();
+                            $('.continue').show();
+                            this.showFlag = false;
+                            clearInterval(loopCount);
+                        }
+                        if (this.order.status == 'Received') {
+                            console.log("Still Received...");
+                        }
                     }
-                    if (data.message.status == 'Rejected') {
-                        $('.backend-loader-preloader-wrapper').hide();
-                        $('.continue').show();
-                        this.showFlag = false;
-                        clearInterval(loopCount);
-                        /*console.log("Not Accepted");*/
-                        /*$('.orderRejected').show();*/
-                    }
-                    if (data.message.status == 'Received') {
-                        console.log("Still Received...");
-                    }
-                }
-            });
+                });
+            }
 
-            if (count >= 3){
+            if (count >= 6){
                 clearInterval(loopCount);
                 $('.backend-loader-preloader-wrapper').hide();
                 $('.orderMissed').show();
                 $('.continue').show();
                 this.showFlag = false;
+                var obj = {}
+                obj['id'] = this.order._id;
+                obj['status'] = 'Missed';
+                this.orderServices.getUpdate(obj).subscribe(data=>{
+                    console.log("data");
+                    console.log(data);
+                });
             }
-        },60000)
+        },30000)
     }
 }
 
@@ -608,10 +605,17 @@ export class FrontendPromoDetailComponent implements OnInit {
         }
     }
 
-    private addToCart(type) {
+    private addToCart(id,type) {
         var discountOn = this.promotion.discountOn;
 
         if (type == 'itemG1') {
+
+            var id1 = 'Location_' + id + '_specialInstructionIG1';
+            var idG1 = <HTMLInputElement>document.getElementById(id1);
+
+            console.log("idG1"); 
+            console.log(idG1.value);
+            this.orderItem['itemInstruction'] = idG1.value;
 
             if (discountOn[1]['itemGroup2'].length == 0) {
                 var discountedPrice = ((100 - this.promotion.discountPercent)/100)*this.orderItem.totalPrice;
@@ -660,6 +664,15 @@ export class FrontendPromoDetailComponent implements OnInit {
         }
 
         if (type == 'itemG2') {
+
+            var id2 = 'Location_' + id + '_specialInstructionIG2';
+            var idG2 = <HTMLInputElement>document.getElementById(id2);
+
+            console.log("idG2"); 
+            console.log(idG2.value);
+            this.orderItem['itemInstruction'] = idG2.value;
+
+
             var discountedPrice = ((100 - this.promotion.discountPercent)/100)*this.orderItem.totalPrice;
             this.orderItem.totalPrice = discountedPrice;
             this.promotionItem['itemGroup2'] = this.orderItem;
@@ -2110,7 +2123,8 @@ export class FrontendCartComponent implements OnInit {
         
         this.cartDetail.orderTime = this.orderTime;
         this.cartDetail.orderPayment = this.orderPayment;
-        this.cartDetail.status = 'Pending';
+        this.cartDetail.orderMethod = this.orderMethod;
+        this.cartDetail.status = 'Received';
         if (typeof this.cartDetail['promotion'] != 'undefined') {
             this.cartDetail['isPromotion'] = true;
         }
@@ -2123,9 +2137,6 @@ export class FrontendCartComponent implements OnInit {
                 (<HTMLInputElement>document.getElementById("cartDetailDiv")).style.display = 'none';
                 (<HTMLInputElement>document.getElementById("paymentDiv")).style.display = 'block';
             }else{
-
-                console.log("this.cartDetail while placing order");
-                console.log(this.cartDetail);
                 this.customerService.addOrder(this.cartDetail).subscribe((data) => {
                     if (data.error == false) {
                         console.log("data.message");
