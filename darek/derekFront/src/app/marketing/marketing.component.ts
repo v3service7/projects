@@ -1997,7 +1997,6 @@ export class MarketingPromotionsTemplateComponent implements OnInit {
          if (type == 'menu' && obj == '') {
             if (event.target.checked) {
                var x = this.menu1.findIndex(mn => mn.id == event.target.value);
-               console.log("x - "+ x);
                if (x > -1) {
                   for (var i = 0; i < this.items.length; i++) {
                      if (this.items[i].menuId == event.target.value) {
@@ -2025,7 +2024,7 @@ export class MarketingPromotionsTemplateComponent implements OnInit {
                   for (var i = 0; i < this.menu1.length; i++) {
                      if (this.menu1[i]['id'] == event.target.value) {
                         this.markChecked(this.menu1[i],event,type,itemGroup);
-                        itemIdObj = [];
+                        //itemIdObj = [];
                         this.menu1.splice(i,1);
                      }
                   }
@@ -2034,7 +2033,7 @@ export class MarketingPromotionsTemplateComponent implements OnInit {
          }
 
          if (type == 'item' && obj != '') {
-            var id = 'item_' + event.target.value
+            var id = 'item_ig1_' + event.target.value
             var x = this.menu1.findIndex(mn => mn.id == obj.menuId);
             if (event.target.checked) {
                if (x == -1) {
@@ -2062,7 +2061,9 @@ export class MarketingPromotionsTemplateComponent implements OnInit {
                   if (menuObj['item'].indexOf(event.target.value) > -1) {
                      itemIdObj = menuObj['item'];
                      itemIdObj.splice(itemIdObj.indexOf(event.target.value),1);
-                     menuObj['item'] = itemIdObj; 
+                     menuObj['item'] = itemIdObj;
+
+                     this.menu1[x]['item'] = menuObj['item'];
                      document.getElementById(id).removeAttribute('checked');
                   }
                }
@@ -2164,14 +2165,14 @@ export class MarketingPromotionsTemplateComponent implements OnInit {
                   var id = 'item_' + menuObj['item'][i];
                }
                if (event.target.checked) {
-                  if (!document.getElementById(id).getAttribute('checked')) {
+                  /*if (!document.getElementById(id).getAttribute('checked')) {*/
                      document.getElementById(id).setAttribute('checked','true');
-                  }
+                  /*}*/
                }
                if (!event.target.checked) {
-                  if (document.getElementById(id).getAttribute('checked')) {
+                  /*if (document.getElementById(id).getAttribute('checked')) {*/
                      document.getElementById(id).removeAttribute('checked');
-                  }
+                  /*}*/
                }
             }
          }
@@ -2324,13 +2325,22 @@ export class MarketingPromotionsTemplateComponent implements OnInit {
 
    private loadAllUsers(id) {
       this.kitchenMenuService.getAll(id).subscribe(users => {       
-         this.menus = users.message;
+         var allMenu = [];
+         allMenu = users.message;
+
+         for (var i = 0; i < allMenu.length; i++) {
+            var index = this.items.findIndex(mn => mn.menuId == allMenu[i]._id);
+            if (index != -1) {
+               this.menus.push(allMenu[i]);
+            }
+         }
       });
    }
 
    private loadAllItem(id) {
       this.kitchenMenuItemService.getAllItems(id).subscribe(users => { 
          this.items = users.message;
+         this.loadAllUsers(id);
       });
    }
 
@@ -2338,13 +2348,15 @@ export class MarketingPromotionsTemplateComponent implements OnInit {
       this.promotionsService.getAll().subscribe(pro => {
          this.promotions = pro.message;
          this.index = pro.message.findIndex(mn => mn._id == id);
+         if (this.index == 0) {
+            this.promoDetailAddModel.controls['discountPercent'].setValue(100);
+         }
       });
    }
 
    private getRestaurants() {
       this.restaurantsService.getOwnerRestaurants(JSON.parse(localStorage.getItem('currentOwner'))._id).subscribe(users => {
          this.restaurants = users.message;
-
          for (var i in users.message.openinghours) {
             if (users.message.openinghours[i] == true) {
                this.days[i]=users.message.openinghours[i];
@@ -2352,14 +2364,10 @@ export class MarketingPromotionsTemplateComponent implements OnInit {
          }
          this.fulfillmentTimeObj['days'] = this.days;
          this.promoDetailAddModel.controls['restaurantId'].setValue(users.message._id);
-         this.loadAllUsers(users.message._id);
          this.loadAllItem(users.message._id);
-
          this.discountTiming.push(this.displayTimeObj);
          this.discountTiming.push(this.fulfillmentTimeObj);
          this.promoDetailAddModel.controls['discountTiming'].setValue(this.discountTiming);
-
-         console.log(this.promoDetailAddModel.value);
          this.checkFormValidation();
       });
    }

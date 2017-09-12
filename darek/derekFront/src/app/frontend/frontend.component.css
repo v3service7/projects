@@ -957,3 +957,10 @@ div.deal-list div.oddEven:nth-child(odd) {
     font-size: 10px;
     background: rgba(136, 134, 134, 0.15);
 }
+
+.countDown{
+    color: red;
+    font-weight: 600;
+    text-align: center;
+    padding: 20px;
+}

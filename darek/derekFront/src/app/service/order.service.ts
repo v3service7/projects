@@ -92,7 +92,7 @@ export class OrderService {
 	}
 
 	getItemCategoryChart(data) {
-  		return this.http.get(globalVariable.url+'reporting/item-category/'+data.id+'/'+data.menuid + '/' + data.days)
+  		return this.http.get(globalVariable.url+'reporting/item-category/'+data['id']+'/'+data['menuid'] + '/' + data['days'])
 		.map(
 			(response: Response) => response.json()
 		);

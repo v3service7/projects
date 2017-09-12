@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AlertService, RestaurantsService, UsersService,OrderService,KitchenMenuService} from '../service/index';
+import { AlertService, RestaurantsService, UsersService,OrderService,KitchenMenuService,KitchenItemService} from '../service/index';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 
 declare var google: any;
@@ -52,7 +52,7 @@ export class ReportingoverviewComponent implements OnInit {
 	restaurants:any ={};
 	overview:any = {};
 	acceptedOrderTotal : Number = 0;
-	avgAcceptedOrderTotal : Number;
+	avgAcceptedOrderTotal : Number = 0;
 	lastWeekOrderTotal : Number = 0;
 	avglastWeekOrderTotal : Number;
     constructor(
@@ -73,9 +73,9 @@ export class ReportingoverviewComponent implements OnInit {
     }
 
     private getOverview(id){
-        this.orderService.overview(id).subscribe(users => { 
+        this.orderService.overview(id).subscribe(users => {
             this.overview = users.data;
-            if (this.overview.totalAcceptedOrder) {
+            if (this.overview.totalAcceptedOrder && this.overview.totalAcceptedOrder.length > 0) {
                 for (var i = 0; i < this.overview.totalAcceptedOrder.length; i++) {
                     this.acceptedOrderTotal = this.acceptedOrderTotal + this.overview.totalAcceptedOrder[i].gTotal;
                 }
@@ -474,8 +474,10 @@ export class ReportingItemsComponent implements OnInit {
     }
 
     private getRestaurants() {
-        this.restaurantsService.getOwnerRestaurants(JSON.parse(localStorage.getItem('currentOwner'))._id).subscribe(users => {
+       this.restaurantsService.getOwnerRestaurants(JSON.parse(localStorage.getItem('currentOwner'))._id).subscribe(users => {
             this.restaurants = users.message;
+            console.log("users.message");
+            console.log(users.message);
             this.lineChartLabels = this.lastSevenDays(this.selectedTime);
             this.getItemData(this.restaurants._id, this.selectedTime);
         });
@@ -498,6 +500,7 @@ export class ReportingItemCategoriesComponent implements OnInit {
     timeValue = [{name: 7}, {name: 15}, {name: 30}, {name: 90}, {name: 180}];
     selectedTime = this.timeValue[0].name;
     menu = [];
+    items = [];
     menuId:string;
     menuName : string;
     public lineChartData:Array<any>=[{data: [], label: ''}];
@@ -516,10 +519,10 @@ export class ReportingItemCategoriesComponent implements OnInit {
     public lineChartLegend:boolean = true;
     public lineChartType:string = 'line';
     public isShow:boolean = false;
-
     constructor(
         private restaurantsService: RestaurantsService,
         private kitchenMenuService: KitchenMenuService,
+        private kitchenMenuItemService: KitchenItemService,
         private orderService: OrderService
         ) {}
 
@@ -527,22 +530,38 @@ export class ReportingItemCategoriesComponent implements OnInit {
         document.getElementById('noRecordClass').style.display = 'none';
         this.getRestaurants();
     }
+
     private changeMenu(id) {
         this.menuId = id;
+        this.menuName = id;
         this.getItemCategoryData(this.restaurants._id,this.menuId, this.selectedTime);
-        //console.log(this.menuId);
+    }
+
+    private loadAllItem(id) {
+        this.kitchenMenuItemService.getAllItems(id).subscribe(users => { 
+            this.items = users.message;
+            this.loadAllMenu();
+        });
     }
 
     private loadAllMenu() {
         this.kitchenMenuService.getAll(this.restaurants._id).subscribe(users => {             
-            this.menu = users.message;
-            this.menuId = this.menu[0]._id;
-            this.menuName = this.menu[0]._id;
-            this.lineChartLabels = this.lastSevenDays(this.selectedTime);
-            this.getItemCategoryData(this.restaurants._id,this.menuId, this.selectedTime);
+            var allMenu = [];
+            allMenu = users.message;
+
+            for (var i = 0; i < allMenu.length; i++) {
+                var index = this.items.findIndex(mn => mn.menuId == allMenu[i]._id);
+                if (index != -1) {
+                    this.menu.push(allMenu[i]);
+                    this.menuId = this.menu[0]._id;
+                    this.menuName = this.menu[0]._id;
+                    this.lineChartLabels = this.lastSevenDays(this.selectedTime);
+                    this.getItemCategoryData(this.restaurants._id,this.menuId, this.selectedTime);
+                }
+            }
         });
     }
-    
+
     private lastSevenDays(days){
         var array = [];
         for (var i = 0; i < days; i++) {
@@ -554,13 +573,15 @@ export class ReportingItemCategoriesComponent implements OnInit {
     }
 
     private getItemCategoryData(id,menuid,days) {
+        
         this.orderService.getItemCategoryChart({'id':id,'menuid':menuid, 'days':days}).subscribe(users => {
             console.log(users.message);
             console.log(users.message.length);
             if (users.message.length > 0) {
                 this.lineChartData = users.message;
+                console.log("this.lineChartData");
+                console.log(this.lineChartData);
                 this.isShow = true;
-
             }
 
             if (users.message.length == 0){
@@ -573,7 +594,7 @@ export class ReportingItemCategoriesComponent implements OnInit {
     private getRestaurants() {
         this.restaurantsService.getOwnerRestaurants(JSON.parse(localStorage.getItem('currentOwner'))._id).subscribe(users => {
             this.restaurants = users.message;
-            this. loadAllMenu();
+            this.loadAllItem(users.message._id);
         });
     }
     onChangeObj(newObj) {

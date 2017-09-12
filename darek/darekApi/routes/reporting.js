@@ -215,11 +215,17 @@ router.get('/items/:id/:days', function(req, res, next) {
     var days = req.params.days;
     Order.find({restaurantId:req.params.id/*,created_at:{'$gte':lastWeek}*/}).exec(function(err,orderList){
         var itemArray = []
-        for (var j = 0; j < orderList.length; j++) {
-            if (orderList[j].orders.length > 0) {
-                for (var k = 0; k < orderList[j].orders.length; k++) {
-                    if (menu.indexOf(orderList[j].orders[k].item.menuId) == -1) {
-                        menu.push(orderList[j].orders[k].item.menuId);
+
+        console.log("orderList");
+        console.log(orderList);
+
+        if (orderList) {
+            for (var j = 0; j < orderList.length; j++) {
+                if (orderList[j].orders && orderList[j].orders.length > 0) {
+                    for (var k = 0; k < orderList[j].orders.length; k++) {
+                        if (menu.indexOf(orderList[j].orders[k].item.menuId) == -1) {
+                            menu.push(orderList[j].orders[k].item.menuId);
+                        }
                     }
                 }
             }
@@ -229,30 +235,38 @@ router.get('/items/:id/:days', function(req, res, next) {
             var pickupCount = 0;
             var deliveryCount = 0;
             var db = []
-            for (var i = 0; i < maunCatList.length; i++) {
-                console.log(menu[i])
-                var menuDataLen = []
-                for (var p = 0; p < days; p++) {
-                    var date = new Date();
-                    date.setDate(date.getDate()-p);
-                    var menuData=[];
-                    for (var j = 0; j < orderList.length; j++) {
-                        if (date.toDateString() == orderList[j].created_at.toDateString()) {
-                            if (orderList[j].orders.length > 0) {
-                                for (var k = 0; k < orderList[j].orders.length; k++) {
-                                    if (orderList[j].orders[k].item.menuId == maunCatList[i]._id) {
-                                        menuData.push(orderList[j].orders[k].item.menuId);
+
+            console.log("maunCatList");
+            console.log(maunCatList);
+
+            if (maunCatList) {            
+                for (var i = 0; i < maunCatList.length; i++) {
+                    console.log(menu[i])
+                    var menuDataLen = []
+                    for (var p = 0; p < days; p++) {
+                        var date = new Date();
+                        date.setDate(date.getDate()-p);
+                        var menuData=[];
+                        if (orderList) {
+                            for (var j = 0; j < orderList.length; j++) {
+                                if (date.toDateString() == orderList[j].created_at.toDateString()) {
+                                    if (orderList[j].orders && orderList[j].orders.length > 0) {
+                                        for (var k = 0; k < orderList[j].orders.length; k++) {
+                                            if (orderList[j].orders[k].item.menuId == maunCatList[i]._id) {
+                                                menuData.push(orderList[j].orders[k].item.menuId);
+                                            }
+                                        }
                                     }
-                                }
+                                }    
                             }
-                        }    
+                        }
+                        menuDataLen.push(menuData.length);
                     }
-                    menuDataLen.push(menuData.length);
+                    var cDb = {}
+                    cDb.data = menuDataLen
+                    cDb.label = maunCatList[i].name
+                    db[i]=cDb;
                 }
-                var cDb = {}
-                cDb.data = menuDataLen
-                cDb.label = maunCatList[i].name
-                db[i]=cDb;
             }
             res.json({'status':true,'message':db});
         });
@@ -267,12 +281,18 @@ router.get('/item-category/:id/:menuId/:days', function(req, res, next) {
     var days = req.params.days;
     Order.find({restaurantId:req.params.id/*,created_at:{'$gte':lastWeek}*/}).exec(function(err,orderList){
         var itemArray = []
-        for (var j = 0; j < orderList.length; j++) {
-            if (orderList[j].orders.length > 0) {
-                for (var k = 0; k < orderList[j].orders.length; k++) {
-                    if ((items.indexOf(orderList[j].orders[k].item._id) == -1) && (orderList[j].orders[k].item.menuId == menuIdParam)) {
-                        items.push(orderList[j].orders[k].item._id);
-                        console.log(orderList[j].orders[k].item._id)
+        /*console.log("orderList");
+        console.log(orderList);*//**/
+        if (orderList && orderList.length > 0) {
+            for (var j = 0; j < orderList.length; j++) {
+                if (orderList[j].orders && orderList[j].orders.length > 0) {
+                    for (var k = 0; k < orderList[j].orders.length; k++) {
+                        if (orderList[j].orders[k].item) {
+                            if ((items.indexOf(orderList[j].orders[k].item._id) == -1) && (orderList[j].orders[k].item.menuId == menuIdParam)) {
+                                items.push(orderList[j].orders[k].item._id);
+                                console.log(orderList[j].orders[k].item._id)
+                            }
+                        }
                     }
                 }
             }
@@ -282,35 +302,42 @@ router.get('/item-category/:id/:menuId/:days', function(req, res, next) {
             var pickupCount = 0;
             var deliveryCount = 0;
             var db = []
-            for (var i = 0; i < itemCatList.length; i++) {
-                var menuDataLen = []
-                for (var p = 0; p < days; p++) {
-                    var date = new Date();
-                    date.setDate(date.getDate()-p);
-                    var menuData=[];
-                    for (var j = 0; j < orderList.length; j++) {
-                        if (date.toDateString() == orderList[j].created_at.toDateString()) {
-                            if (orderList[j].orders.length > 0) {
-                                for (var k = 0; k < orderList[j].orders.length; k++) {
-                                    if (orderList[j].orders[k].item._id == itemCatList[i]._id) {
-                                        menuData.push(orderList[j].orders[k].item._id);
+
+            console.log("itemCatList");
+            console.log(itemCatList);
+
+            if (itemCatList && itemCatList.length > 0) {
+                for (var i = 0; i < itemCatList.length; i++) {
+                    var menuDataLen = []
+                    for (var p = 0; p < days; p++) {
+                        var date = new Date();
+                        date.setDate(date.getDate()-p);
+                        var menuData=[];
+                        if (orderList && orderList.length > 0) {
+                            for (var j = 0; j < orderList.length; j++) {
+                                if (date.toDateString() == orderList[j].created_at.toDateString()) {
+                                    if (orderList[j].orders && orderList[j].orders.length > 0) {
+                                        for (var k = 0; k < orderList[j].orders.length; k++) {
+                                            if (orderList[j].orders[k].item._id == itemCatList[i]._id) {
+                                                menuData.push(orderList[j].orders[k].item._id);
+                                            }
+                                        }
                                     }
-                                }
+                                }    
                             }
-                        }    
+                        }
+                        menuDataLen.push(menuData.length);
                     }
-                    menuDataLen.push(menuData.length);
+                    var cDb = {}
+                    cDb['data'] = menuDataLen
+                    cDb['label'] = itemCatList[i].name
+                    db[i]=cDb;
                 }
-                var cDb = {}
-                cDb.data = menuDataLen
-                cDb.label = itemCatList[i].name
-                db[i]=cDb;
             }
             res.json({'status':true,'message':db});
         }); 
     });
 });
-
 
 router.get('/all-sale/:id/:days', function(req, res, next) {
     var lastWeek = new Date();
@@ -324,10 +351,16 @@ router.get('/all-sale/:id/:days', function(req, res, next) {
             var acptCount = 0;
             var date = new Date();
             date.setDate(date.getDate()-i);
-            for (var j = 0; j < orderList.length; j++) {
-                if (date.toDateString() == orderList[j].created_at.toDateString()) {
-                    if (orderList[j].status == 'Accepted') {
-                        acptCount = acptCount + orderList[j].gTotal;
+
+            console.log("orderList");
+            console.log(orderList);
+
+            if (orderList) {
+                for (var j = 0; j < orderList.length; j++) {
+                    if (date.toDateString() == orderList[j].created_at.toDateString()) {
+                        if (orderList[j].status == 'Accepted') {
+                            acptCount = acptCount + orderList[j].gTotal;
+                        }
                     }
                 }
             }

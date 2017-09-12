@@ -108,7 +108,7 @@ router.post('/add', function(req, res) {
 router.get('/:id',function(req,res){
     var response={};
     console.log(req.params.id);
-    Order.findById(req.params.id).populate('customerId').populate('restaurantId').exec(function(err,data){
+    Order.findById(req.params.id).populate('customerId').populate('restaurantId').populate('driverId').exec(function(err,data){
         if (err) {
             response = {"error" : true,"message" : "Error fetching data"};
         } else{

@@ -68,7 +68,7 @@ export class OwnerDriversComponent implements OnInit {
 })
 export class DriverOrdersComponent implements OnInit {
 
-  order= []; 
+  orders= []; 
   restaurants : any;
 
   constructor(
@@ -87,8 +87,13 @@ export class DriverOrdersComponent implements OnInit {
   }
 
   private loadDriver(driverId){
-    this.driversService.getDriverOrders(driverId).subscribe(users => {
-      this.order = users.message;
+    this.driversService.getDriverOrders(driverId).subscribe(data => {
+
+      console.log("data");
+      console.log(data);
+      this.orders = data.message;
+      console.log("this.orders");
+      console.log(this.orders);
     });
   }
 

@@ -154,6 +154,9 @@ export class FrontendThankuPageComponent implements OnInit {
             let id = params['id'];
             this.authenticate_loop(id);
         });
+        
+        $('#timer').html('03:00');
+        this.startTimer();
     }
 
     private authenticate_loop(id){
@@ -199,6 +202,27 @@ export class FrontendThankuPageComponent implements OnInit {
                 });
             }
         },30000)
+    }
+
+    private startTimer() {
+        var loopCount = setInterval(() => {
+            var presentTime = $('#timer').html();
+           var timeArray = presentTime.split(/[:]+/);
+           console.log(timeArray)
+           var m = timeArray[0];
+            var s = this.checkSecond((timeArray[1] - 1));
+            if(s==59){m=m-1}
+
+            let timeMMM = m + ":" + s;
+            $('#timer').html(timeMMM)
+        //setInterval(this.startTimer(), 1000);
+        },1000)
+    }
+
+    private checkSecond(sec) {
+        if (sec < 10 && sec >= 0) {sec = "0" + sec};
+        if (sec < 0) {sec = "59"};
+        return sec;
     }
 }
 
