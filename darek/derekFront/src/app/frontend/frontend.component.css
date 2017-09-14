@@ -911,7 +911,7 @@ div.deal-list div.oddEven:nth-child(odd) {
     height: 100px;
     border-radius: 50%;
     box-sizing: border-box;
-    border: solid 10px red;
+    border: solid 10px rgba(0, 0, 0, 0.46);
     border-top-color: #FFF;
     -webkit-animation: backend-loader-spin 1s infinite linear;
     animation: backend-loader-spin 1s infinite linear;
@@ -959,8 +959,12 @@ div.deal-list div.oddEven:nth-child(odd) {
 }
 
 .countDown{
-    color: red;
-    font-weight: 600;
+    color: rgba(0, 0, 0, 0.46);
+    margin-top: -80px;
     text-align: center;
     padding: 20px;
+}
+
+.countDown span{
+    font-weight: 800;
 }

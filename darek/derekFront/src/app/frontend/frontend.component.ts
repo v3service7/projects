@@ -21,6 +21,8 @@ export class FrontendHeaderComponent implements OnInit {
     restaurants: any = {};
     cartStorage : string;
     customerStorage : string;
+    orderMethodStorage : string;
+    orderPaymentStorage : string;
     cart:any =[];
     currentCustomer:any;
     currentCustomerId:any;
@@ -45,6 +47,8 @@ export class FrontendHeaderComponent implements OnInit {
             this.getRestaurants(id);
             this.cartStorage = 'cart'+id;
             this.customerStorage = 'currentCustomer'+id;
+            this.orderMethodStorage = 'orderMethod' + id;
+            this.orderPaymentStorage = 'orderPayment' + id;
             this.cart = JSON.parse(localStorage.getItem(this.cartStorage));
             if (JSON.parse(localStorage.getItem(this.customerStorage))) {
                 this.currentCustomer = {};
@@ -94,6 +98,12 @@ export class FrontendHeaderComponent implements OnInit {
         if (countObj['count'] == 0) {
             this.resTime = {};
             this.resTime['status'] = 'close';
+            if (localStorage.getItem(this.orderPaymentStorage)) {
+                localStorage.removeItem(this.orderPaymentStorage);
+            }
+            if (localStorage.getItem(this.orderMethodStorage)) {
+                localStorage.removeItem(this.orderMethodStorage);
+            }
         }
 
         if (countObj['count'] == 1) {
@@ -106,6 +116,12 @@ export class FrontendHeaderComponent implements OnInit {
                 this.resTime['status'] = 'open';
             }else{
                 this.resTime['status'] = 'close';
+                if (localStorage.getItem(this.orderPaymentStorage)) {
+                    localStorage.removeItem(this.orderPaymentStorage);
+                }
+                if (localStorage.getItem(this.orderMethodStorage)) {
+                    localStorage.removeItem(this.orderMethodStorage);
+                }
             }
         }
     }
@@ -186,7 +202,6 @@ export class FrontendThankuPageComponent implements OnInit {
                     }
                 });
             }
-
             if (count >= 6){
                 clearInterval(loopCount);
                 $('.backend-loader-preloader-wrapper').hide();
@@ -205,17 +220,22 @@ export class FrontendThankuPageComponent implements OnInit {
     }
 
     private startTimer() {
+        var count = 0;
         var loopCount = setInterval(() => {
+            count++;
             var presentTime = $('#timer').html();
-           var timeArray = presentTime.split(/[:]+/);
-           console.log(timeArray)
-           var m = timeArray[0];
+            var timeArray = presentTime.split(/[:]+/);
+            console.log(timeArray)
+            var m = timeArray[0];
             var s = this.checkSecond((timeArray[1] - 1));
-            if(s==59){m=m-1}
+            if((s==59) && (m > 0)){m=m-1}
 
             let timeMMM = m + ":" + s;
             $('#timer').html(timeMMM)
-        //setInterval(this.startTimer(), 1000);
+
+            if (count >= 180){
+                clearInterval(loopCount);
+            }
         },1000)
     }
 
@@ -432,15 +452,17 @@ export class FrontendPromoDetailComponent implements OnInit {
         if (menuIds.itemGroup1) {        
             menuIds.itemGroup1.forEach((menuObj) => {
                 var menuObjects = {}
-                var x = this.menus.findIndex(mn => mn._id == menuObj.id);
-                this.kitchenMenuItemService.promotionsItem(menuObj.item).subscribe(users => {
-                    if (x > -1) {
-                        menuObjects['menu'] = this.menus[x];
-                        menuObjects['items'] = users.message;
-                        menuObjectsArray.push(menuObjects);
-                        this.itemG1 = menuObjectsArray;
-                    }
-                });
+                var x = this.menus.findIndex(mn => mn._id == menuObj.id1);
+                if (menuObj.item1.length > 0) {
+                    this.kitchenMenuItemService.promotionsItem(menuObj.item1).subscribe(users => {
+                        if (x > -1) {
+                            menuObjects['menu'] = this.menus[x];
+                            menuObjects['items'] = users.message;
+                            menuObjectsArray.push(menuObjects);
+                            this.itemG1 = menuObjectsArray;
+                        }
+                    });
+                }
             });
             console.log("menuObjectsArray ig1");
             console.log(menuObjectsArray);
@@ -453,15 +475,17 @@ export class FrontendPromoDetailComponent implements OnInit {
         if (menuIds.itemGroup2) {        
             menuIds.itemGroup2.forEach((menuObj) => {
                 var menuObjects = {}
-                var x = this.menus.findIndex(mn => mn._id == menuObj.id);
-                this.kitchenMenuItemService.promotionsItem(menuObj.item).subscribe(users => {
-                    if (x > -1) {
-                        menuObjects['menu'] = this.menus[x];
-                        menuObjects['items'] = users.message;
-                        menuObjectsArray.push(menuObjects);
-                        this.itemG2 = menuObjectsArray;
-                    }
-                });
+                var x = this.menus.findIndex(mn => mn._id == menuObj.id2);
+                if (menuObj.item2.length > 0) {
+                    this.kitchenMenuItemService.promotionsItem(menuObj.item2).subscribe(users => {
+                        if (x > -1) {
+                            menuObjects['menu'] = this.menus[x];
+                            menuObjects['items'] = users.message;
+                            menuObjectsArray.push(menuObjects);
+                            this.itemG2 = menuObjectsArray;
+                        }
+                    });
+                }
             });
             console.log("menuObjectsArray ig2");
             console.log(menuObjectsArray);
@@ -739,6 +763,22 @@ export class FrontendPromoDetailComponent implements OnInit {
 
 
         this.hideDiv();
+    }
+
+    private showPos(id) {
+        if (this.detailShow == id) {
+            let divId = '#changeBg_'+id
+            let left = '';
+
+            var offset = $(divId).offset();
+            let offsetLeft = offset.left;
+            if (offsetLeft < 150) {
+                left = '106%';
+            }else{
+                left = '-106%';
+            }
+            return left;
+        }
     }
 }
 
@@ -1447,6 +1487,10 @@ export class FrontendCartComponent implements OnInit {
     deliveryFee : number = 0;
     discountAmount : number;
     cartTotal : number;
+
+    minCartAmount : number;
+    codeIndex : number;
+    
     amount : number;
     showHideContactDetail:boolean;
     showHideOrderingMethod:boolean;
@@ -2019,16 +2063,31 @@ export class FrontendCartComponent implements OnInit {
         this.cartDetail.orderMethod=this.orderMethod;
         this.saveInfo();
 
+        if (this.cartDetail['promotion'] && this.cartDetail.subTotal < this.minCartAmount) {
+            this.removeCoupon();
+        }
+
         console.log("this.cartDetail", this.cartDetail);
     }
 
     private deleteCart(index) {
-        if (confirm("Are you sure to delete ?")) {
-            this.cart.splice(index,1);
-            localStorage.setItem(this.cartStorage, JSON.stringify(this.cart));
-            this.update();
-            toastr.remove();
-            toastr.info('Item Deleted!',null, {'positionClass' : 'toast-top-full-width'});   
+        if (this.cartDetail['promotion'] && this.couponCodeApplied != 'undefined') {
+            if (confirm("Removing Item will remove your Coupon Applied! \n continue?")) {
+                this.cart.splice(index,1);
+                localStorage.setItem(this.cartStorage, JSON.stringify(this.cart));
+                this.update();
+                toastr.remove();
+                toastr.info('Item Deleted!',null, {'positionClass' : 'toast-top-full-width'});
+                this.removeCoupon();
+            }
+        }else{
+            if (confirm("Are you sure to delete ?")) {
+                this.cart.splice(index,1);
+                localStorage.setItem(this.cartStorage, JSON.stringify(this.cart));
+                this.update();
+                toastr.remove();
+                toastr.info('Item Deleted!',null, {'positionClass' : 'toast-top-full-width'});
+            }
         }
     }
 
@@ -2136,6 +2195,7 @@ export class FrontendCartComponent implements OnInit {
             }
         });
     }
+
     private saveComment(){
         var comment = <HTMLInputElement>document.getElementById('commentArea');
         this.commentMade = comment.value;
@@ -2144,7 +2204,7 @@ export class FrontendCartComponent implements OnInit {
     }
 
     private placeOrder(){
-        
+
         this.cartDetail.orderTime = this.orderTime;
         this.cartDetail.orderPayment = this.orderPayment;
         this.cartDetail.orderMethod = this.orderMethod;
@@ -2256,6 +2316,10 @@ export class FrontendCartComponent implements OnInit {
 
         this.cart = JSON.parse(localStorage.getItem(this.cartStorage));
         this.update();
+
+        if (this.cartDetail['promotion'] && this.couponCodeApplied != 'undefined') {
+            this.removeCoupon();
+        }
     }
 
     private quantityDecrement(index) {
@@ -2284,9 +2348,12 @@ export class FrontendCartComponent implements OnInit {
             toastr.warning('Atleast 1 Item is Mandatory',null, {'positionClass' : 'toast-top-full-width'});
         }
         localStorage.setItem(this.cartStorage,JSON.stringify(this.cartDetail.orders));
+        this.update();
 
         this.cart = JSON.parse(localStorage.getItem(this.cartStorage));
-        this.update();
+        if (this.cartDetail['promotion'] && this.couponCodeApplied != 'undefined') {
+            this.removeCoupon();
+        }
     }
 
     private showCouponField(type){
@@ -2298,40 +2365,53 @@ export class FrontendCartComponent implements OnInit {
         }
     }
 
+    private performCodeCalculation(index,value){
+        console.log("value");
+        console.log(value);
+        console.log(this.couponCodeApplied);
+        this.minCartAmount = this.restroPromotions[index].minCartAmount;
+        if (this.cartDetail.subTotal >= this.minCartAmount) {
+            if (typeof this.couponCodeApplied == 'undefined') {
+                this.couponCodeApplied = value;
+                console.log("this.couponCodeApplied");
+                console.log(this.couponCodeApplied);
+            }
+
+            localStorage.setItem(this.coupon,this.couponCodeApplied)
+            toastr.remove();
+            toastr.success('Coupon Code Applied');
+
+            $('.couponClass').hide();
+            $('.couponApplied').show();
+
+            this.cartDetail['promotion'] = {'promotion' : this.restroPromotions[index]};
+
+            let promoIndex = this.allPromotions.findIndex(abc=> abc._id == this.restroPromotions[index].promotionId[0]);
+            if (promoIndex == 4) {
+                if (typeof this.deliveryFee != 'undefined') {
+                    this.discountAmount = (this.restroPromotions[index].discountPercent/100)*this.deliveryFee;
+                    console.log(this.discountAmount);
+                }
+            }else if(promoIndex == 2){
+                this.discountAmount = this.restroPromotions[index].discountAmount;
+                this.cartTotal= this.cartDetail.subTotal - this.discountAmount;
+                this.update();
+            }else{
+                this.discountAmount = (this.restroPromotions[index].discountPercent/100)*this.cartDetail.subTotal;
+                this.cartTotal = this.cartDetail.subTotal - this.discountAmount;
+                this.update();
+            }
+        }else{
+            toastr.warning('To apply this coupon, Min order amount is ' + this.minCartAmount);
+        }
+    }
+
     private applyCouponCode(){
         let couponCode = (<HTMLInputElement>document.getElementById('couponCode'));
         
-        let codeIndex = this.restroPromotions.findIndex(mn=> mn.couponcode.code == couponCode.value);
-        if (codeIndex > -1) {
-            if (this.cartDetail.subTotal >= this.restroPromotions[codeIndex].minCartAmount) {
-                this.couponCodeApplied = couponCode.value;
-                localStorage.setItem(this.coupon,this.couponCodeApplied)
-                toastr.remove();
-                toastr.success('Coupon Code Applied');
-
-                $('.couponClass').hide();
-                $('.couponApplied').show();
-
-                this.cartDetail['promotion'] = this.restroPromotions[codeIndex];
-
-                let promoIndex = this.allPromotions.findIndex(abc=> abc._id == this.restroPromotions[codeIndex].promotionId[0]);
-                if (promoIndex == 4) {
-                    if (typeof this.deliveryFee != 'undefined') {
-                        this.discountAmount = (this.restroPromotions[codeIndex].discountPercent/100)*this.deliveryFee;
-                        console.log(this.discountAmount);
-                    }
-                }else if(promoIndex == 2){
-                    this.discountAmount = this.restroPromotions[codeIndex].discountAmount;
-                    this.cartTotal= this.cartDetail.subTotal - this.discountAmount;
-                    this.update();
-                }else{
-                    this.discountAmount = (this.restroPromotions[codeIndex].discountPercent/100)*this.cartDetail.subTotal;
-                    this.cartTotal = this.cartDetail.subTotal - this.discountAmount;
-                    this.update();
-                }
-            }else{
-                toastr.warning('To apply this coupon, Min order amount is ' + this.restroPromotions[codeIndex].minCartAmount);
-            }
+        this.codeIndex = this.restroPromotions.findIndex(mn=> mn.couponcode.code == couponCode.value);
+        if (this.codeIndex > -1) {
+            this.performCodeCalculation(this.codeIndex,couponCode.value);
         }else{
             toastr.remove();
             toastr.error('Invalid Coupon Code','Oops!', {'positionClass' : 'toast-top-full-width'});
@@ -2339,26 +2419,26 @@ export class FrontendCartComponent implements OnInit {
     }
 
     private applyCouponCodeonLoad(){
-        let codeIndex = this.restroPromotions.findIndex(mn=> mn.couponcode.code == this.couponCodeApplied);
-        if (codeIndex > -1) {
+        this.codeIndex = this.restroPromotions.findIndex(mn=> mn.couponcode.code == this.couponCodeApplied);
+        if (this.codeIndex > -1) {
 
             $('.couponClass').hide();
             $('.couponApplied').show();
 
-            this.cartDetail['promotion'] = this.restroPromotions[codeIndex];
+            this.cartDetail['promotion'] = {'promotion' : this.restroPromotions[this.codeIndex]};
 
-            let promoIndex = this.allPromotions.findIndex(abc=> abc._id == this.restroPromotions[codeIndex].promotionId[0]);
+            let promoIndex = this.allPromotions.findIndex(abc=> abc._id == this.restroPromotions[this.codeIndex].promotionId[0]);
             if (promoIndex == 4) {
                 if (typeof this.deliveryFee != 'undefined') {
-                    this.discountAmount = (this.restroPromotions[codeIndex].discountPercent/100)*this.deliveryFee;
+                    this.discountAmount = (this.restroPromotions[this.codeIndex].discountPercent/100)*this.deliveryFee;
                     console.log(this.discountAmount);
                 }
             }else if(promoIndex == 2){
-                this.discountAmount = this.restroPromotions[codeIndex].discountAmount;
+                this.discountAmount = this.restroPromotions[this.codeIndex].discountAmount;
                 this.cartTotal= this.cartDetail.subTotal - this.discountAmount;
                 this.update();
             }else{
-                this.discountAmount = (this.restroPromotions[codeIndex].discountPercent/100)*this.cartDetail.subTotal;
+                this.discountAmount = (this.restroPromotions[this.codeIndex].discountPercent/100)*this.cartDetail.subTotal;
                 this.cartTotal = this.cartDetail.subTotal - this.discountAmount;
                 this.update();
             }

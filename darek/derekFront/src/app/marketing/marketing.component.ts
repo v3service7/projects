@@ -225,7 +225,7 @@ export class MarketingPromotionsComponent implements OnInit {
          this.addClicked = true;
          this.orderNum = this.orderType[0].key;
       }
-      if (type == 'amount') {    
+      if (type == 'amount') {
          this.addClickedForAmount = true;
          this.orderAmt = this.orderAmount[0].key;
       }
@@ -339,7 +339,6 @@ export class MarketingPromotionsComponent implements OnInit {
       }else return false;
    }
 
-
    private getRestaurants() {
       this.restaurantsService.getOwnerRestaurants(JSON.parse(localStorage.getItem('currentOwner'))._id).subscribe(users => {
          this.restaurants = users.message;
@@ -423,6 +422,8 @@ export class MarketingEditPromotionComponent implements OnInit {
    discountTiming = [];
    menu1 = [];
    menu2 = [];
+   menu1Copy = [];
+   menu2Copy = [];
    restaurants:any ={};
    optionSet: any = {};
    preoptionSet: any = {};
@@ -552,16 +553,17 @@ export class MarketingEditPromotionComponent implements OnInit {
             if (this.discountOn != null) {
                this.menu1 = this.discountOn[0]['itemGroup1'];
                this.menu2 = this.discountOn[1]['itemGroup2'];
+
                if (this.menu1.length > 0) {
                   for (var i = 0; i < this.menu1.length; i++) {
-                     for (var j = 0; j < this.menu1[i]['item'].length; j++) {
+                     for (var j = 0; j < this.menu1[i]['item1'].length; j++) {
                         this.itemNo1++;
                      }
                   }
                }
                if (this.menu2.length > 0) {          
                   for (var m = 0; m < this.menu2.length; m++) {
-                     for (var n = 0; n < this.menu2[m]['item'].length; n++) {
+                     for (var n = 0; n < this.menu2[m]['item2'].length; n++) {
                         this.itemNo2++;
                      }
                   }
@@ -651,29 +653,6 @@ export class MarketingEditPromotionComponent implements OnInit {
          })
       });
 
-   }
-
-   private checkChecked(id,type){
-      if (this.discountOn != null) {
-         if (type == 'ig1') {
-            if (this.menu1.length > 0) {        
-               for (var m = 0; m < this.menu1.length; m++) {
-                  if (this.menu1[m]['item'].indexOf(id) > -1) {
-                     return true;
-                  }
-               }
-            }
-         }
-         if (type == 'ig2') {
-            if (this.menu2.length > 0) {
-               for (var n = 0; n < this.menu2.length; n++) {
-                  if (this.menu2[n]['item'].indexOf(id) > -1) {
-                     return true;
-                  }
-               }
-            }
-         }
-      }
    }
 
    public autoGenerate(){
@@ -1024,80 +1003,40 @@ export class MarketingEditPromotionComponent implements OnInit {
    }
 
    private selectCheck(event,obj,type,itemGroup){
-      var menuObj = {};
       var itemIdObj = [];
 
       if (itemGroup == 'itemGroup1') {
          if (type == 'menu' && obj == '') {
+            var x = this.menu1.findIndex(mn => mn.id1 == event.target.value);
             if (event.target.checked) {
-               var x = this.menu1.findIndex(mn => mn.id == event.target.value);
-
-               if (x > -1) {
-                  for (var i = 0; i < this.items.length; i++) {
-                     if (this.items[i].menuId == event.target.value) {
-                        itemIdObj.push(this.items[i]._id);
-                     }
+               for (var i = 0; i < this.items.length; i++) {
+                  if (this.items[i].menuId == event.target.value) {
+                     itemIdObj.push(this.items[i]._id);
                   }
-                  this.menu1[x]['item'] = itemIdObj;
-                  this.markChecked(this.menu1[x],event,type,itemGroup);
-               }
-
-               if (x == -1) {
-                  menuObj['id'] = event.target.value;
-                  for (var i = 0; i < this.items.length; i++) {
-                     if (this.items[i].menuId == event.target.value) {
-                        itemIdObj.push(this.items[i]._id);
-                        menuObj['item'] = itemIdObj;
-                     }
-                  }
-                  this.menu1.push(menuObj);
-                  this.markChecked(menuObj,event,type,itemGroup);
+                  this.menu1[x]['item1'] = itemIdObj;
                }
             }
+
             if (!event.target.checked) {
-               if (this.menu1.length > 0){
-                  for (var i = 0; i < this.menu1.length; i++) {
-                     if (this.menu1[i]['id'] == event.target.value) {
-                        this.markChecked(this.menu1[i],event,type,itemGroup);
-                        itemIdObj = [];
-                        this.menu1.splice(i,1);
-                     }
-                  }
-               }
+               this.menu1[x]['item1'] = [];
             }
          }
 
          if (type == 'item' && obj != '') {
-            var id = 'item_' + event.target.value
-            var x = this.menu1.findIndex(mn => mn.id == obj.menuId);
+            var x = this.menu1.findIndex(mn => mn.id1 == obj.menuId);
             if (event.target.checked) {
-               if (x == -1) {
-                  menuObj['id'] = obj.menuId;
+               itemIdObj = this.menu1[x]['item1'];
+               if (itemIdObj.indexOf(event.target.value) == -1) {
                   itemIdObj.push(event.target.value);
-                  menuObj['item'] = itemIdObj;
-                  this.menu1.push(menuObj);
-                  document.getElementById(id).setAttribute('checked','true');
-               }
-               if (x > -1) {
-                  menuObj = this.menu1[x];
-                  itemIdObj = menuObj['item'];
-                  if (itemIdObj.indexOf(event.target.value) == -1) {
-                     itemIdObj.push(event.target.value);
-                     menuObj['item'] = itemIdObj;
-                     this.menu1[x]['item'] = itemIdObj;
-                     document.getElementById(id).setAttribute('checked','true');            
-                  }
+                  this.menu1[x]['item1'] = itemIdObj;
                }
             }
+
             if (!event.target.checked) {
-               if (x > -1) {
-                  menuObj = this.menu1[x];
-                  if (menuObj['item'].indexOf(event.target.value) > -1) {
-                     itemIdObj = menuObj['item'];
-                     itemIdObj.splice(itemIdObj.indexOf(event.target.value),1);
-                     menuObj['item'] = itemIdObj; 
-                     document.getElementById(id).removeAttribute('checked');
-                  }
+               if (this.menu1[x]['item1'].indexOf(event.target.value) > -1) {
+                  itemIdObj = this.menu1[x]['item1'];
+                  itemIdObj.splice(itemIdObj.indexOf(event.target.value),1);
+                  this.menu1[x]['item1'] = itemIdObj;
                }
             }
          }
@@ -1105,116 +1044,53 @@ export class MarketingEditPromotionComponent implements OnInit {
 
       if (itemGroup == 'itemGroup2') {
          if (type == 'menu' && obj == '') {
+            var x = this.menu2.findIndex(mn => mn.id2 == event.target.value);
             if (event.target.checked) {
-               var x = this.menu2.findIndex(mn => mn.id == event.target.value);
-
-               if (x > -1) {
-                  for (var i = 0; i < this.items.length; i++) {
-                     if (this.items[i].menuId == event.target.value) {
-                        itemIdObj.push(this.items[i]._id);
-                     }
+               for (var i = 0; i < this.items.length; i++) {
+                  if (this.items[i].menuId == event.target.value) {
+                     itemIdObj.push(this.items[i]._id);
                   }
-                  this.menu2[x]['item'] = itemIdObj;
-                  this.markChecked(this.menu2[x],event,type,itemGroup);
-               }
-
-               if (x == -1) {
-                  menuObj['id'] = event.target.value;
-                  for (var i = 0; i < this.items.length; i++) {
-                     if (this.items[i].menuId == event.target.value) {
-                        itemIdObj.push(this.items[i]._id);
-                        menuObj['item'] = itemIdObj;
-                     }
-                  }
-                  this.menu2.push(menuObj);
-                  this.markChecked(menuObj,event,type,itemGroup);
+                  this.menu2[x]['item2'] = itemIdObj;
                }
             }
             if (!event.target.checked) {
-               if (this.menu2.length > 0){
-                  for (var i = 0; i < this.menu2.length; i++) {
-                     if (this.menu2[i]['id'] == event.target.value) {
-                        this.markChecked(this.menu2[i],event,type,itemGroup);
-                        itemIdObj = [];
-                        this.menu2.splice(i,1);
-                     }
-                  }
-               }
+               this.menu2[x]['item2'] = [];
             }
          }
 
          if (type == 'item' && obj != '') {
-            var id = 'item_' + event.target.value
-            var x = this.menu2.findIndex(mn => mn.id == obj.menuId);
+            var x = this.menu2.findIndex(mn => mn.id2 == obj.menuId);
             if (event.target.checked) {
-               if (x == -1) {
-                  menuObj['id'] = obj.menuId;
+               itemIdObj = this.menu2[x]['item2'];
+               if (itemIdObj.indexOf(event.target.value) == -1) {
                   itemIdObj.push(event.target.value);
-                  menuObj['item'] = itemIdObj;
-                  this.menu2.push(menuObj);
-                  document.getElementById(id).setAttribute('checked','true');
-               }
-               if (x > -1) {
-                  menuObj = this.menu2[x];
-                  itemIdObj = menuObj['item'];
-                  if (itemIdObj.indexOf(event.target.value) == -1) {
-                     itemIdObj.push(event.target.value);
-                     menuObj['item'] = itemIdObj;
-                     this.menu2[x]['item'] = itemIdObj;
-                     document.getElementById(id).setAttribute('checked','true');            
-                  }
+                  this.menu2[x]['item2'] = itemIdObj;
                }
             }
 
             if (!event.target.checked) {
-               if (x > -1) {
-                  menuObj = this.menu2[x];
-                  if (menuObj['item'].indexOf(event.target.value) > -1) {
-                     itemIdObj = menuObj['item'];
-                     itemIdObj.splice(itemIdObj.indexOf(event.target.value),1);
-                     menuObj['item'] = itemIdObj; 
-                     document.getElementById(id).removeAttribute('checked');
-                  }
+               if (this.menu2[x]['item2'].indexOf(event.target.value) > -1) {
+                  itemIdObj = this.menu2[x]['item2'];
+                  itemIdObj.splice(itemIdObj.indexOf(event.target.value),1);
+                  this.menu2[x]['item2'] = itemIdObj; 
                }
             }
          }
       }
-   }
 
-   private markChecked(menu,event,type,itemGroup){
-      if (type == 'menu') {
-         if (typeof menu['item'] != 'undefined' && menu['item'].length > 0) {
-            for (var i = 0; i < menu['item'].length; i++) {        
-               if (itemGroup == 'itemGroup1') {
-                  var id = 'item_ig1_' + menu['item'][i];
-               }
-               if (itemGroup == 'itemGroup2') {
-                  var id = 'item_' + menu['item'][i];
-               }
-               if (event.target.checked) {
-                  if (!document.getElementById(id).getAttribute('checked')) {
-                     document.getElementById(id).setAttribute('checked','true');
-                  }
-               }
-               if (!event.target.checked) {
-                  if (document.getElementById(id).getAttribute('checked')) {
-                     document.getElementById(id).removeAttribute('checked');
-                  }
-               }
-            }
-         }
-      }
+      console.log("this.menu1");
+      console.log(this.menu1);
+      console.log("this.menu2");
+      console.log(this.menu2);
    }
 
    private saveMenu(type){
-      /*var discountOnItem = {};*/
       this.itemIds = [];
       if (type == 'itemGroup1') {
          this.itemNo1 = 0;
-         /*discountOnItem['itemGroup1'] = this.menu1;*/
          for (var i = 0; i < this.menu1.length; i++) {
-            if (this.menu1[i].item.length > 0) {      
-               for (var j = 0; j < this.menu1[i].item.length; j++) {
+            if (this.menu1[i]['item1'].length > 0) {      
+               for (var j = 0; j < this.menu1[i]['item1'].length; j++) {
                   this.itemNo1++;
                }
             }
@@ -1235,10 +1111,9 @@ export class MarketingEditPromotionComponent implements OnInit {
 
       if (type == 'itemGroup2') {
          this.itemNo2 = 0;
-         /*discountOnItem['itemGroup2'] = this.menu2;*/
          for (var i = 0; i < this.menu2.length; i++) {
-            if (this.menu2[i].item.length > 0) {      
-               for (var j = 0; j < this.menu2[i].item.length; j++) {
+            if (this.menu2[i]['item2'].length > 0) {      
+               for (var j = 0; j < this.menu2[i]['item2'].length; j++) {
                   this.itemNo2++;
                }
             }
@@ -1246,7 +1121,7 @@ export class MarketingEditPromotionComponent implements OnInit {
          $("#itemGroup2").modal('hide');
          if (this.itemNo2 > 0) {
             var elementExists1 = document.getElementById("iG1");
-            if (typeof elementExists1 != 'undefined' && elementExists1 != null && this.itemNo1 ==0) {
+            if (typeof elementExists1 != 'undefined' && elementExists1 != null && this.itemNo1 == 0) {
                document.getElementById('saveButton').setAttribute('disabled','true');
             }
             else{
@@ -1257,12 +1132,15 @@ export class MarketingEditPromotionComponent implements OnInit {
          }
       }
 
-      var tempArr = [{'itemGroup1':this.menu1},{'itemGroup2':this.menu2}];
-
       this.checkFormValidation();
+
+      var tempArr = [{'itemGroup1':this.menu1},{'itemGroup2':this.menu2}];
 
       this.discountOn = tempArr;
       this.promoDetailUpdateModel.controls['discountOn'].setValue(this.discountOn);
+
+      console.log("this.promoDetailUpdateModel.value");
+      console.log(this.promoDetailUpdateModel.value);
    }
 
    private countCharacter(event:any,name,type){
@@ -1338,13 +1216,39 @@ export class MarketingEditPromotionComponent implements OnInit {
 
    private loadAllUsers(id) {
       this.kitchenMenuService.getAll(id).subscribe(users => {       
-         this.menus = users.message;
+         var allMenu = [];
+         allMenu = users.message;
+
+         for (var i = 0; i < allMenu.length; i++) {
+            var menuObj = {};
+            var itemObj = [];
+
+            var index = this.items.findIndex(mn => mn.menuId == allMenu[i]._id);
+
+            if (index != -1) {
+               this.menus.push(allMenu[i]);
+               menuObj['id'] = allMenu[i]._id;
+
+               for (var k = 0; k < this.items.length; k++) {
+                  if (this.items[k].menuId == allMenu[i]._id) {
+                     itemObj.push(this.items[k]._id);
+                  }
+
+                  menuObj['item'] = itemObj;
+               }
+               this.menu1Copy.push(menuObj);
+            }
+            console.log("this.menu1Copy");
+            console.log(this.menu1Copy);
+         }
+
       });
    }
 
    private loadAllItem(id) {
       this.kitchenMenuItemService.getAllItems(id).subscribe(users => { 
          this.items = users.message;
+         this.loadAllUsers(id);
       });
    }
 
@@ -1415,7 +1319,6 @@ export class MarketingEditPromotionComponent implements OnInit {
          }
 
          this.promoDetailUpdateModel.controls['restaurantId'].setValue(users.message._id);
-         this.loadAllUsers(users.message._id);
          this.loadAllItem(users.message._id);
          this.checkFormValidation();
       });
@@ -1527,6 +1430,7 @@ export class MarketingPromotionsTemplateComponent implements OnInit {
    discountTiming = [];
    menu1 : any = [];
    menu2 : any = [];
+   menu1Copy : any = [];
    restaurants:any ={};
    optionSet: any = {};
    preoptionSet: any = {};
@@ -1990,82 +1894,40 @@ export class MarketingPromotionsTemplateComponent implements OnInit {
    }
 
    private selectCheck(event,obj,type,itemGroup){
-      var menuObj = {};
       var itemIdObj = [];
 
       if (itemGroup == 'itemGroup1') {
          if (type == 'menu' && obj == '') {
+            var x = this.menu1.findIndex(mn => mn.id1 == event.target.value);
             if (event.target.checked) {
-               var x = this.menu1.findIndex(mn => mn.id == event.target.value);
-               if (x > -1) {
-                  for (var i = 0; i < this.items.length; i++) {
-                     if (this.items[i].menuId == event.target.value) {
-                        itemIdObj.push(this.items[i]._id);
-                     }
+               for (var i = 0; i < this.items.length; i++) {
+                  if (this.items[i].menuId == event.target.value) {
+                     itemIdObj.push(this.items[i]._id);
                   }
-                  this.menu1[x]['item'] = itemIdObj;
-                  this.markChecked(this.menu1[x],event,type,itemGroup);
-               }
-
-               if (x == -1) {
-                  menuObj['id'] = event.target.value;
-                  for (var i = 0; i < this.items.length; i++) {
-                     if (this.items[i].menuId == event.target.value) {
-                        itemIdObj.push(this.items[i]._id);
-                        menuObj['item'] = itemIdObj;
-                     }
-                  }
-                  this.menu1.push(menuObj);
-                  this.markChecked(menuObj,event,type,itemGroup);
+                  this.menu1[x]['item1'] = itemIdObj;
                }
             }
+
             if (!event.target.checked) {
-               if (this.menu1.length > 0){
-                  for (var i = 0; i < this.menu1.length; i++) {
-                     if (this.menu1[i]['id'] == event.target.value) {
-                        this.markChecked(this.menu1[i],event,type,itemGroup);
-                        //itemIdObj = [];
-                        this.menu1.splice(i,1);
-                     }
-                  }
-               }
+               this.menu1[x]['item1'] = [];
             }
          }
 
          if (type == 'item' && obj != '') {
-            var id = 'item_ig1_' + event.target.value
-            var x = this.menu1.findIndex(mn => mn.id == obj.menuId);
+            var x = this.menu1.findIndex(mn => mn.id1 == obj.menuId);
             if (event.target.checked) {
-               if (x == -1) {
-                  menuObj['id'] = obj.menuId;
+               itemIdObj = this.menu1[x]['item1'];
+               if (itemIdObj.indexOf(event.target.value) == -1) {
                   itemIdObj.push(event.target.value);
-                  menuObj['item'] = itemIdObj;
-                  this.menu1.push(menuObj);
-                  document.getElementById(id).setAttribute('checked','true');
-               }
-               if (x > -1) {
-                  menuObj = this.menu1[x];
-                  itemIdObj = menuObj['item'];
-                  if (itemIdObj.indexOf(event.target.value) == -1) {
-                     itemIdObj.push(event.target.value);
-                     menuObj['item'] = itemIdObj;
-                     this.menu1[x]['item'] = itemIdObj;
-                     document.getElementById(id).setAttribute('checked','true');            
-                  }
+                  this.menu1[x]['item1'] = itemIdObj;
                }
             }
 
             if (!event.target.checked) {
-               if (x > -1) {
-                  menuObj = this.menu1[x];
-                  if (menuObj['item'].indexOf(event.target.value) > -1) {
-                     itemIdObj = menuObj['item'];
-                     itemIdObj.splice(itemIdObj.indexOf(event.target.value),1);
-                     menuObj['item'] = itemIdObj;
-
-                     this.menu1[x]['item'] = menuObj['item'];
-                     document.getElementById(id).removeAttribute('checked');
-                  }
+               if (this.menu1[x]['item1'].indexOf(event.target.value) > -1) {
+                  itemIdObj = this.menu1[x]['item1'];
+                  itemIdObj.splice(itemIdObj.indexOf(event.target.value),1);
+                  this.menu1[x]['item1'] = itemIdObj;
                }
             }
          }
@@ -2073,76 +1935,35 @@ export class MarketingPromotionsTemplateComponent implements OnInit {
 
       if (itemGroup == 'itemGroup2') {
          if (type == 'menu' && obj == '') {
+            var x = this.menu2.findIndex(mn => mn.id2 == event.target.value);
             if (event.target.checked) {
-               var x = this.menu2.findIndex(mn => mn.id == event.target.value);
-               console.log("x - "+ x);
-               if (x > -1) {
-                  for (var i = 0; i < this.items.length; i++) {
-                     if (this.items[i].menuId == event.target.value) {
-                        itemIdObj.push(this.items[i]._id);
-                     }
+               for (var i = 0; i < this.items.length; i++) {
+                  if (this.items[i].menuId == event.target.value) {
+                     itemIdObj.push(this.items[i]._id);
                   }
-                  this.menu2[x]['item'] = itemIdObj;
-                  this.markChecked(this.menu2[x],event,type,itemGroup);
-               }
-
-               if (x == -1) {
-                  menuObj['id'] = event.target.value;
-                  for (var i = 0; i < this.items.length; i++) {
-                     if (this.items[i].menuId == event.target.value) {
-                        itemIdObj.push(this.items[i]._id);
-                        menuObj['item'] = itemIdObj;
-                     }
-                  }
-                  this.menu2.push(menuObj);
-                  this.markChecked(menuObj,event,type,itemGroup);
+                  this.menu2[x]['item2'] = itemIdObj;
                }
             }
             if (!event.target.checked) {
-               if (this.menu2.length > 0){
-                  for (var i = 0; i < this.menu2.length; i++) {
-                     if (this.menu2[i]['id'] == event.target.value) {
-                        this.markChecked(this.menu2[i],event,type,itemGroup);
-                        itemIdObj = [];
-                        this.menu2.splice(i,1);
-                     }
-                  }
-               }
+               this.menu2[x]['item2'] = [];
             }
          }
 
          if (type == 'item' && obj != '') {
-            var id = 'item_' + event.target.value
-            var x = this.menu2.findIndex(mn => mn.id == obj.menuId);
+            var x = this.menu2.findIndex(mn => mn.id2 == obj.menuId);
             if (event.target.checked) {
-               if (x == -1) {
-                  menuObj['id'] = obj.menuId;
+               itemIdObj = this.menu2[x]['item2'];
+               if (itemIdObj.indexOf(event.target.value) == -1) {
                   itemIdObj.push(event.target.value);
-                  menuObj['item'] = itemIdObj;
-                  this.menu2.push(menuObj);
-                  document.getElementById(id).setAttribute('checked','true');
-               }
-               if (x > -1) {
-                  menuObj = this.menu2[x];
-                  itemIdObj = menuObj['item'];
-                  if (itemIdObj.indexOf(event.target.value) == -1) {
-                     itemIdObj.push(event.target.value);
-                     menuObj['item'] = itemIdObj;
-                     this.menu2[x]['item'] = itemIdObj;
-                     document.getElementById(id).setAttribute('checked','true');            
-                  }
+                  this.menu2[x]['item2'] = itemIdObj;
                }
             }
 
             if (!event.target.checked) {
-               if (x > -1) {
-                  menuObj = this.menu2[x];
-                  if (menuObj['item'].indexOf(event.target.value) > -1) {
-                     itemIdObj = menuObj['item'];
-                     itemIdObj.splice(itemIdObj.indexOf(event.target.value),1);
-                     menuObj['item'] = itemIdObj; 
-                     document.getElementById(id).removeAttribute('checked');
-                  }
+               if (this.menu2[x]['item2'].indexOf(event.target.value) > -1) {
+                  itemIdObj = this.menu2[x]['item2'];
+                  itemIdObj.splice(itemIdObj.indexOf(event.target.value),1);
+                  this.menu2[x]['item2'] = itemIdObj; 
                }
             }
          }
@@ -2154,40 +1975,13 @@ export class MarketingPromotionsTemplateComponent implements OnInit {
       console.log(this.menu2);
    }
 
-   private markChecked(menuObj,event,type,itemGroup){
-      if (type == 'menu') {
-         if (typeof menuObj['item'] != 'undefined' && menuObj['item'].length > 0) {
-            for (var i = 0; i < menuObj['item'].length; i++) {        
-               if (itemGroup == 'itemGroup1') {
-                  var id = 'item_ig1_' + menuObj['item'][i];
-               }
-               if (itemGroup == 'itemGroup2') {
-                  var id = 'item_' + menuObj['item'][i];
-               }
-               if (event.target.checked) {
-                  /*if (!document.getElementById(id).getAttribute('checked')) {*/
-                     document.getElementById(id).setAttribute('checked','true');
-                  /*}*/
-               }
-               if (!event.target.checked) {
-                  /*if (document.getElementById(id).getAttribute('checked')) {*/
-                     document.getElementById(id).removeAttribute('checked');
-                  /*}*/
-               }
-            }
-         }
-      }
-   }
-
    private saveMenu(type){
-      /*var discountOnItem = {};*/
       this.itemIds = [];
       if (type == 'itemGroup1') {
          this.itemNo1 = 0;
-         /*discountOnItem['itemGroup1'] = this.menu1;*/
          for (var i = 0; i < this.menu1.length; i++) {
-            if (this.menu1[i].item.length > 0) {      
-               for (var j = 0; j < this.menu1[i].item.length; j++) {
+            if (this.menu1[i]['item1'].length > 0) {      
+               for (var j = 0; j < this.menu1[i]['item1'].length; j++) {
                   this.itemNo1++;
                }
             }
@@ -2208,10 +2002,9 @@ export class MarketingPromotionsTemplateComponent implements OnInit {
 
       if (type == 'itemGroup2') {
          this.itemNo2 = 0;
-         /*discountOnItem['itemGroup2'] = this.menu2;*/
          for (var i = 0; i < this.menu2.length; i++) {
-            if (this.menu2[i].item.length > 0) {      
-               for (var j = 0; j < this.menu2[i].item.length; j++) {
+            if (this.menu2[i]['item2'].length > 0) {      
+               for (var j = 0; j < this.menu2[i]['item2'].length; j++) {
                   this.itemNo2++;
                }
             }
@@ -2329,9 +2122,33 @@ export class MarketingPromotionsTemplateComponent implements OnInit {
          allMenu = users.message;
 
          for (var i = 0; i < allMenu.length; i++) {
+            var menuObj = {};
+            var itemObj = [];
+
+            var menuObj1 = {};
+            var menuObj2 = {};
             var index = this.items.findIndex(mn => mn.menuId == allMenu[i]._id);
             if (index != -1) {
                this.menus.push(allMenu[i]);
+
+               menuObj['id'] = allMenu[i]._id;
+
+               menuObj1['id1'] = allMenu[i]['_id'];
+               menuObj2['id2'] = allMenu[i]['_id'];
+               menuObj1['item1'] = [];
+               menuObj2['item2'] = [];
+
+               this.menu1.push(menuObj1);
+               this.menu2.push(menuObj2);
+
+               for (var k = 0; k < this.items.length; k++) {
+                  if (this.items[k].menuId == allMenu[i]._id) {
+                     itemObj.push(this.items[k]._id);
+                  }
+
+                  menuObj['item'] = itemObj;
+               }
+               this.menu1Copy.push(menuObj);
             }
          }
       });
@@ -2593,8 +2410,8 @@ export class MarketingPromotionsSubscriptionComponent implements OnInit {
 export class MarketingStatsComponent implements OnInit {
    promotions = [];
    restaurants:any ={};
-    timeValue = [{name: 7}, {name: 15}, {name: 30}, {name: 90}, {name: 180}];
-    selectedTime = this.timeValue[0].name;
+   timeValue = [{name: 7}, {name: 15}, {name: 30}, {name: 90}, {name: 180}];
+   selectedTime = this.timeValue[0].name;
 
     // lineChart
     public lineChartData:Array<any> = [
@@ -2630,6 +2447,8 @@ export class MarketingStatsComponent implements OnInit {
    private loadAllPromotions() {
       this.promotionsService.getAll().subscribe(promotions => {
          this.promotions = promotions.message;
+         console.log("this.promotions");
+         console.log(this.promotions);
       });
    }
 

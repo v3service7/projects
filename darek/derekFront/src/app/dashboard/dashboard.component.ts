@@ -55,25 +55,21 @@ export class DashboardComponent implements OnInit {
 
     private getAllSalesData( days) {
         this.orderService.getAllResSaleData(days).subscribe(users => {
+            var chartData = users.message.data.sort(function (a, b) {
+                return a.name.localeCompare( b.name );
+            });
             if (users.status) {
-                let arr = users.message.data;
+                let arr = chartData;
                 let lbl = [];
                 let data = [];
                 for (var i = 0; i < arr.length; i++) {
                     lbl.push(arr[i].name);
                     data.push(arr[i].amount);
                 }
-
-                console.log(users.message.data)
                 this.barChartLabels = lbl;
                 this.barChartData[0]['data'] = data;
-                console.log(this.barChartLabels)
-                console.log(this.barChartData)
-                //this.isShow = true;
             }
-
             if(!users.status){
-                //this.isShow = false;
                 document.getElementById('noRecordClass').style.display = 'block';
             }
         });

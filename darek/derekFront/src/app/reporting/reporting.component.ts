@@ -16,7 +16,6 @@ export class ReportingComponent implements OnInit {
 
     ngOnInit() {
     }
-
 }
 
 @Component({
@@ -422,8 +421,7 @@ export class ReportingItemsComponent implements OnInit {
     timeValue = [{name: 7}, {name: 15}, {name: 30}, {name: 90}, {name: 180}];
     selectedTime = this.timeValue[0].name;
     
-    public lineChartData:Array<any>=[{data: [], label: ''},
-    {data: [], label: ''}];
+    public lineChartData:Array<any>=[{data: [], label: ''}];
     public lineChartLabels:Array<any> = [];
     public lineChartOptions:any = {responsive: true};
     public lineChartColors:Array<any> = [
@@ -461,6 +459,8 @@ export class ReportingItemsComponent implements OnInit {
 
     private getItemData(id,days) {
         this.orderService.getItemChart(id,days).subscribe(users => {
+            console.log("users");
+            console.log(users);
             if (users.message.length > 0) {
                 this.lineChartData = users.message;
                 this.isShow = true;
@@ -678,7 +678,6 @@ export class ReportingSaleDetailComponent implements OnInit {
         this.getAllSaleData(this.restaurants._id , this.selectedTime);
     }
 }
-
 
 @Component({
     selector: 'app-reporting-client',
