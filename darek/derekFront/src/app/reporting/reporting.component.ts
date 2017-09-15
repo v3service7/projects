@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { AlertService, RestaurantsService, UsersService,OrderService,KitchenMenuService,KitchenItemService} from '../service/index';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 
@@ -80,9 +80,6 @@ export class ReportingoverviewComponent implements OnInit {
                 }
                 this.avgAcceptedOrderTotal = Number(this.acceptedOrderTotal) / Number(this.overview.totalAcceptedOrder.length);
             }
-            console.log("this.overview");
-            console.log(this.overview);
-
             if (this.overview.asPerDayOrder) {
                 for (var i = 0; i < this.overview.asPerDayOrder.length; i++) {
                     this.lastWeekOrderTotal = this.lastWeekOrderTotal + this.overview.asPerDayOrder[i].gTotal;
@@ -148,8 +145,6 @@ export class ReportingMethodComponent implements OnInit {
     }
     private getMethodData(id , days) {
         this.orderService.getMethodChart(id , days).subscribe(users => {
-            /*console.log("users.message");
-            console.log(users.message);*/
             if (users.message.length > 0) {
                 this.lineChartData = users.message;
                 this.isShow = true;
@@ -229,8 +224,6 @@ export class ReportingResultComponent implements OnInit {
     }
     private getResultData(id, days) {
         this.orderService.getResultChart(id,days).subscribe(users => {
-            /*console.log("users.message");
-            console.log(users.message);*/
             if (users.message.length > 0) {
                 this.lineChartData = users.message;
                 this.isShow = true;
@@ -459,8 +452,6 @@ export class ReportingItemsComponent implements OnInit {
 
     private getItemData(id,days) {
         this.orderService.getItemChart(id,days).subscribe(users => {
-            console.log("users");
-            console.log(users);
             if (users.message.length > 0) {
                 this.lineChartData = users.message;
                 this.isShow = true;
@@ -476,8 +467,6 @@ export class ReportingItemsComponent implements OnInit {
     private getRestaurants() {
        this.restaurantsService.getOwnerRestaurants(JSON.parse(localStorage.getItem('currentOwner'))._id).subscribe(users => {
             this.restaurants = users.message;
-            console.log("users.message");
-            console.log(users.message);
             this.lineChartLabels = this.lastSevenDays(this.selectedTime);
             this.getItemData(this.restaurants._id, this.selectedTime);
         });
@@ -495,6 +484,8 @@ export class ReportingItemsComponent implements OnInit {
     styleUrls: ['./reporting.component.css']
 })
 export class ReportingItemCategoriesComponent implements OnInit {
+    @ViewChild('testChart') testChart;
+
     currentOwner:any={};
     restaurants:any ={};
     timeValue = [{name: 7}, {name: 15}, {name: 30}, {name: 90}, {name: 180}];
@@ -544,21 +535,26 @@ export class ReportingItemCategoriesComponent implements OnInit {
         });
     }
 
+    private noItemMenu(allMenu){
+        var menu = [];
+        for (var i = 0; i < allMenu.length; i++) {
+            var index = this.items.findIndex(mn => mn.menuId == allMenu[i]._id);
+            if (index != -1) {
+                menu.push(allMenu[i]);
+            }
+        }
+        return menu;
+    }
+
     private loadAllMenu() {
         this.kitchenMenuService.getAll(this.restaurants._id).subscribe(users => {             
             var allMenu = [];
             allMenu = users.message;
-
-            for (var i = 0; i < allMenu.length; i++) {
-                var index = this.items.findIndex(mn => mn.menuId == allMenu[i]._id);
-                if (index != -1) {
-                    this.menu.push(allMenu[i]);
-                    this.menuId = this.menu[0]._id;
-                    this.menuName = this.menu[0]._id;
-                    this.lineChartLabels = this.lastSevenDays(this.selectedTime);
-                    this.getItemCategoryData(this.restaurants._id,this.menuId, this.selectedTime);
-                }
-            }
+            this.menu = this.noItemMenu(allMenu);
+            this.menuId = this.menu[0]._id;
+            this.menuName = this.menu[0]._id;
+            this.lineChartLabels = this.lastSevenDays(this.selectedTime);
+            this.getItemCategoryData(this.restaurants._id,this.menuId, this.selectedTime);
         });
     }
 
@@ -573,17 +569,14 @@ export class ReportingItemCategoriesComponent implements OnInit {
     }
 
     private getItemCategoryData(id,menuid,days) {
-        
         this.orderService.getItemCategoryChart({'id':id,'menuid':menuid, 'days':days}).subscribe(users => {
-            console.log(users.message);
-            console.log(users.message.length);
             if (users.message.length > 0) {
+                if (typeof this.testChart != 'undefined') {
+                    this.testChart.chart.config.data.datasets = users.message;
+                }
                 this.lineChartData = users.message;
-                console.log("this.lineChartData");
-                console.log(this.lineChartData);
                 this.isShow = true;
             }
-
             if (users.message.length == 0){
                 this.isShow = false;
                 document.getElementById('noRecordClass').style.display = 'block';
@@ -706,8 +699,6 @@ export class ReportingClientComponent implements OnInit {
     private getClient(id){
         this.orderService.client(id).subscribe(users => { 
             this.client = users.message;
-
-            console.log(this.client);
         });
     }
 }
@@ -742,8 +733,6 @@ export class ReportingOrderComponent implements OnInit {
     private getOrders(id){
         this.orderService.orders(id).subscribe(users => { 
             this.orders = users.message;
-            console.log("this.orders");
-            console.log(this.orders);
         });
     }
 
@@ -788,16 +777,12 @@ export class ReportingDetailComponent implements OnInit {
     private getCompleteDetail(id){
         this.orderService.getDetail(id).subscribe(users => { 
             this.detail = users.message;
-            console.log("this.detail");
-            console.log(this.detail);
             this.getRestaurants();
         });
     }
 
      private deleteOrder(id){
         this.orderService.deleteOneOrder(id).subscribe(data=>{
-            console.log("data");
-            console.log(data);
             this.router.navigate(['/owner/reports/orders']);
         });
     }

@@ -277,12 +277,15 @@ export class FrontendPromoDetailComponent implements OnInit {
     customerStorage : string;
     cartStorage : string;
     coupon : string;
+    cartSubTotal : string;
     price: number;
     finalPrice: number;
     addonPrice: number;
     promotionTotal: number = 0;
     multiSizePrice: number;
     quantity: number;
+    cartTotalAmount: number;
+    index: number;
     orderItem: any={};
     promotionItem: any={};
     promoGroup: any;
@@ -314,17 +317,21 @@ export class FrontendPromoDetailComponent implements OnInit {
             this.customerStorage = 'currentCustomer'+resId;
             this.cartStorage = 'cart'+resId;
             this.coupon = 'coupon_' + resId;
+            this.cartSubTotal = 'subTotal_' + resId;
 
             this.cart = JSON.parse(localStorage.getItem(this.cartStorage));
+            this.cartTotalAmount = JSON.parse(localStorage.getItem(this.cartSubTotal));
         });
+
+        if (JSON.parse(localStorage.getItem(this.promotionStorage))) {
+            toastr.remove();
+            toastr.info("You can add only 1 promotion at a time. Adding new Deal will remove deal added ",null, {'positionClass' : 'toast-top-full-width'});
+            this.promoGroup = JSON.parse(localStorage.getItem(this.promotionStorage));
+        }
 
         if (JSON.parse(localStorage.getItem(this.customerStorage))) {
             this.currentCustomerId = JSON.parse(localStorage.getItem(this.customerStorage));            
             this.getCurrentCustomer(this.currentCustomerId);
-        }
-
-        if (JSON.parse(localStorage.getItem(this.promotionStorage))) {
-            this.promoGroup = JSON.parse(localStorage.getItem(this.promotionStorage));
         }
 
         this.currentDate = new Date();
@@ -338,9 +345,6 @@ export class FrontendPromoDetailComponent implements OnInit {
 
         var days = ["sunday","monday","tuesday","wednesday","thursday","friday","saturday"];
         this.day = days[this.currentDate.getDay()];
-
-        toastr.remove();
-        toastr.warning("You can add only 1 promotion at a time",null, {'positionClass' : 'toast-top-full-width'});
     }
 
     private addZero(i) {
@@ -439,9 +443,27 @@ export class FrontendPromoDetailComponent implements OnInit {
             
             console.log("this.promotion");
             console.log(this.promotion);
+
+            this.loadAllPromotions(data.message.promotionId[0])
+
             this.itemGroup1(this.promotion.discountOn[0]);
-            if (this.promotion.discountOn[1]['itemGroup2'].length > 0) {
+            if (this.promotion.discountOn[1]) {
                 this.itemGroup2(this.promotion.discountOn[1]);
+            }
+        });
+    }
+
+    private loadAllPromotions(id) {
+        this.promotionsService.getAll().subscribe(pro => {
+            this.index = pro.message.findIndex(mn => mn._id == id);
+
+            console.log("this.index");
+            console.log(this.index);
+            if (this.index == 6) {
+                if (this.cartTotalAmount < this.promotion.minCartAmount) {
+                    toastr.remove();
+                    toastr.warning('Cant add this deal now \n Minimum Cart Amount should be ' + this.promotion.minCartAmount);
+                }
             }
         });
     }
@@ -464,8 +486,6 @@ export class FrontendPromoDetailComponent implements OnInit {
                     });
                 }
             });
-            console.log("menuObjectsArray ig1");
-            console.log(menuObjectsArray);
         }
     }
 
@@ -487,8 +507,6 @@ export class FrontendPromoDetailComponent implements OnInit {
                     });
                 }
             });
-            console.log("menuObjectsArray ig2");
-            console.log(menuObjectsArray);
         }
     }
 
@@ -654,6 +672,22 @@ export class FrontendPromoDetailComponent implements OnInit {
     }
 
     private addToCart(id,type) {
+
+        if (this.index == 6) {
+            if (this.cartTotalAmount < this.promotion.minCartAmount) {
+                toastr.remove();
+                toastr.warning('Cant add this deal now \n Minimum Cart Amount should be ' + this.promotion.minCartAmount);
+            }else{
+                this.addCart(id,type);
+            }
+        }
+
+        if (this.index != 6) {
+            this.addCart(id,type);
+        }
+    }
+
+    private addCart(id,type){
         var discountOn = this.promotion.discountOn;
 
         if (type == 'itemG1') {
@@ -665,12 +699,11 @@ export class FrontendPromoDetailComponent implements OnInit {
             console.log(idG1.value);
             this.orderItem['itemInstruction'] = idG1.value;
 
-            if (discountOn[1]['itemGroup2'].length == 0) {
+            if (typeof discountOn[1] == 'undefined') {
                 var discountedPrice = ((100 - this.promotion.discountPercent)/100)*this.orderItem.totalPrice;
                 this.orderItem.totalPrice = discountedPrice;
-                this.promotionTotal = this.promotionTotal + this.orderItem.totalPrice;
                 this.promotionItem['itemGroup1'] = this.orderItem;
-                this.promotionItem['total'] = this.promotionTotal;
+                this.promotionItem['total'] = this.orderItem.totalPrice;
                 this.promoGroup = this.promotionItem;
                 localStorage.setItem(this.promotionStorage, JSON.stringify(this.promoGroup));
                 localStorage.removeItem(this.coupon);
@@ -681,10 +714,8 @@ export class FrontendPromoDetailComponent implements OnInit {
                 this.hideDiv();
             }
             
-            if (discountOn[1]['itemGroup2'].length > 0 && (this.promotionItem['itemGroup2'] == null || typeof this.promotionItem['itemGroup2'] == 'undefined')) {
-                this.promotionTotal = this.promotionTotal + this.orderItem.totalPrice;
+            if (typeof discountOn[1] != 'undefined' && discountOn[1]['itemGroup2'].length > 0 && (this.promotionItem['itemGroup2'] == null || typeof this.promotionItem['itemGroup2'] == 'undefined')) {
                 this.promotionItem['itemGroup1'] = this.orderItem;
-
                 toastr.remove();
                 toastr.warning("Please select another item to get this deal",null, {'positionClass' : 'toast-top-full-width'});
                 this.orderItem = {}
@@ -693,10 +724,18 @@ export class FrontendPromoDetailComponent implements OnInit {
             }
 
 
-            if (discountOn[1]['itemGroup2'].length > 0 && (this.promotionItem['itemGroup2'] != null || typeof this.promotionItem['itemGroup2'] != 'undefined')) {
-                this.promotionTotal = this.promotionTotal + this.orderItem.totalPrice;
+            if (typeof discountOn[1] != 'undefined' && discountOn[1]['itemGroup2'].length > 0 && (this.promotionItem['itemGroup2'] != null || typeof this.promotionItem['itemGroup2'] != 'undefined')) {
                 this.promotionItem['itemGroup1'] = this.orderItem;
-                this.promotionItem['total'] = this.promotionTotal;
+                if (this.promotionItem['itemGroup1'].totalPrice <= this.promotionItem['itemGroup2'].totalPrice) {
+                    var discountedPrice = ((100 - this.promotion.discountPercent)/100)*this.promotionItem['itemGroup1'].totalPrice;
+                    this.promotionItem['itemGroup1'].totalPrice = discountedPrice;
+                    this.promotionItem['total'] = this.promotionItem['itemGroup1'].totalPrice + this.promotionItem['itemGroup2'].totalPrice;
+                }else{
+                    var discountedPrice = ((100 - this.promotion.discountPercent)/100)*this.promotionItem['itemGroup2'].totalPrice;
+                    this.promotionItem['itemGroup2'].totalPrice = discountedPrice;
+                    this.promotionItem['total'] = this.promotionItem['itemGroup1'].totalPrice + this.promotionItem['itemGroup2'].totalPrice;
+                }
+
                 this.promoGroup = this.promotionItem;
 
                 localStorage.setItem(this.promotionStorage, JSON.stringify(this.promoGroup));
@@ -715,29 +754,25 @@ export class FrontendPromoDetailComponent implements OnInit {
 
             var id2 = 'Location_' + id + '_specialInstructionIG2';
             var idG2 = <HTMLInputElement>document.getElementById(id2);
-
-            console.log("idG2"); 
-            console.log(idG2.value);
             this.orderItem['itemInstruction'] = idG2.value;
-
-
-            var discountedPrice = ((100 - this.promotion.discountPercent)/100)*this.orderItem.totalPrice;
-            this.orderItem.totalPrice = discountedPrice;
             this.promotionItem['itemGroup2'] = this.orderItem;
-
-            this.promotionTotal = this.promotionTotal + this.orderItem.totalPrice;
-            
-            if (discountOn[0]['itemGroup1'].length > 0 && (this.promotionItem['itemGroup1'] == null || typeof this.promotionItem['itemGroup1'] == 'undefined')) {
-
+            if (typeof discountOn[0] != 'undefined' && discountOn[0]['itemGroup1'].length > 0 && (this.promotionItem['itemGroup1'] == null || typeof this.promotionItem['itemGroup1'] == 'undefined')) {
                 toastr.remove();
                 toastr.warning("Please select another item to get this deal",null, {'positionClass' : 'toast-top-full-width'});
                 this.orderItem = {}
                 this.hideDiv();
                 this.selectItem(1);
             }
-
-            if (discountOn[0]['itemGroup1'].length > 0 && (this.promotionItem['itemGroup1'] != null || typeof this.promotionItem['itemGroup1'] != 'undefined')) {
-                this.promotionItem['total'] = this.promotionTotal;
+            if (typeof discountOn[0] != 'undefined' && discountOn[0]['itemGroup1'].length > 0 && (this.promotionItem['itemGroup1'] != null || typeof this.promotionItem['itemGroup1'] != 'undefined')) {
+                if (this.promotionItem['itemGroup1'].totalPrice <= this.promotionItem['itemGroup2'].totalPrice) {
+                    var discountedPrice = ((100 - this.promotion.discountPercent)/100)*this.promotionItem['itemGroup1'].totalPrice;
+                    this.promotionItem['itemGroup1'].totalPrice = discountedPrice;
+                    this.promotionItem['total'] = this.promotionItem['itemGroup1'].totalPrice + this.promotionItem['itemGroup2'].totalPrice;
+                }else{
+                    var discountedPrice = ((100 - this.promotion.discountPercent)/100)*this.promotionItem['itemGroup2'].totalPrice;
+                    this.promotionItem['itemGroup2'].totalPrice = discountedPrice;
+                    this.promotionItem['total'] = this.promotionItem['itemGroup1'].totalPrice + this.promotionItem['itemGroup2'].totalPrice;
+                }
                 this.promoGroup = this.promotionItem;
                 localStorage.setItem(this.promotionStorage, JSON.stringify(this.promoGroup));
                 localStorage.removeItem(this.coupon);
@@ -1474,6 +1509,7 @@ export class FrontendCartComponent implements OnInit {
     currentTime :string ;
     completeDate :string ;
     couponCodeApplied :string ;
+    cartSubTotal :string ;
     coupon :string ;
     order: any = {};
     cartDetail: any = {};
@@ -1513,6 +1549,9 @@ export class FrontendCartComponent implements OnInit {
     delLater:boolean;
     addressClicked:boolean;
     grandTotal:number;
+    indexPromotion:number;
+    promotionOrderMinAmount:number;
+    cartTotalAmount: number;
     grandTotalWithTax:number = 0;
     currentCustomer:any;
     currentCustomerId:any;
@@ -1580,6 +1619,8 @@ export class FrontendCartComponent implements OnInit {
             this.orderPaymentStorage = 'orderPayment' + id;
             this.customerStorage = 'currentCustomer' + id;
             this.coupon = 'coupon_' + id;
+            this.cartSubTotal = 'subTotal_' + id;
+            this.loadAllPromotions();
             this.getRestaurants(id);
             this.deliveryZone(id);
             this.locale(id);
@@ -1590,6 +1631,12 @@ export class FrontendCartComponent implements OnInit {
             year: ['', Validators.required],
             cvv: ['', Validators.required],
         });
+
+        if (localStorage.getItem(this.cartSubTotal)) {
+            this.cartTotalAmount = JSON.parse(localStorage.getItem(this.cartSubTotal));
+            console.log("this.cartTotalAmount");
+            console.log(this.cartTotalAmount);
+        }
 
         if (JSON.parse(localStorage.getItem(this.customerStorage))) {
             this.currentCustomer = {};
@@ -1621,13 +1668,6 @@ export class FrontendCartComponent implements OnInit {
             }
         }
 
-        if (JSON.parse(localStorage.getItem(this.promotionStorage))) {
-            this.promotionOrder = JSON.parse(localStorage.getItem(this.promotionStorage));
-            this.cartZero = true;
-            this.cartDetail.promotion = this.promotionOrder;
-            this.saveInfo();
-        }
-
         this.currentDate = new Date();
         this.date = this.currentDate.toLocaleDateString();
         var h = this.addZero(this.currentDate.getHours());
@@ -1653,14 +1693,36 @@ export class FrontendCartComponent implements OnInit {
         this.makePaymentModel.valueChanges.subscribe(data => this.onValueChanged(data));
         this.onValueChanged();
         this.yearAdd();
-        this.loadAllPromotions();
+    }
+
+    private fetchPromotion(id){
+        this.indexPromotion = this.allPromotions.findIndex(mn => mn._id == id);
+        if(this.indexPromotion == 6){
+            if(this.promotionOrder.promotion && this.promotionOrder.promotion['minCartAmount']){
+                this.promotionOrderMinAmount = this.promotionOrder.promotion['minCartAmount'];
+
+                this.update();
+
+                console.log("this.promotionOrderMinAmount");
+                console.log(this.promotionOrderMinAmount);
+            }
+        }
     }
 
     private loadAllPromotions() {
         this.promotionsService.getAll().subscribe(promotions => {
             this.allPromotions = promotions.message;
-            console.log("this.allPromotions");
-            console.log(this.allPromotions);
+
+            if (JSON.parse(localStorage.getItem(this.promotionStorage))) {
+                this.promotionOrder = JSON.parse(localStorage.getItem(this.promotionStorage));
+                if(this.promotionOrder.promotion && this.promotionOrder.promotion['promotionId']){
+                    this.fetchPromotion(this.promotionOrder.promotion['promotionId'][0]);
+                }
+                this.cartZero = true;
+                this.cartDetail['promotion'] = this.promotionOrder;
+                this.saveInfo();
+                this.update();
+            }
         });
     }
 
@@ -1774,9 +1836,6 @@ export class FrontendCartComponent implements OnInit {
         this.cartDetail.orderMethod=this.orderMethod;        
         this.orderType=true;
         this.saveInfo();
-
-        console.log("this.orderType");
-        console.log(this.orderType);
         this.showHideOrderingMethod =false;
         this.editOrderMethod = true;
         toastr.remove();
@@ -1847,8 +1906,6 @@ export class FrontendCartComponent implements OnInit {
                 map: map,
                 draggable: true
             });
-
-            console.log("marker", marker);
             let markerB =  new google.maps.Marker({
                 position: latLngDeliveryAddress,
                 title: 'Location',
@@ -2019,18 +2076,26 @@ export class FrontendCartComponent implements OnInit {
 
     private update(){
         let taxAmount : any;
+        if (typeof this.promotionOrder != 'undefined') {
+            this.cartDetail['promotion'] = this.promotionOrder;
+        }
+
         if (this.cart.length > 0 || typeof this.promotionOrder != 'undefined') {
             this.cartZero = true;
         }else{
             this.cartZero = false;
         }
 
-        this.grandTotal=0;
+        this.grandTotal = 0;
+        this.cartTotalAmount = 0;
         if(this.promotionOrder){
             this.grandTotal = this.grandTotal+this.promotionOrder.total;
         }
         for (var i = 0; i < this.cart.length; i++) {
             this.grandTotal = this.grandTotal+this.cart[i].totalPrice;
+
+            this.cartTotalAmount = this.cartTotalAmount + this.cart[i].totalPrice;
+
         }
 
         if (typeof this.restaurants.taxation != 'undefined') {
@@ -2067,11 +2132,19 @@ export class FrontendCartComponent implements OnInit {
             this.removeCoupon();
         }
 
+        localStorage.setItem(this.cartSubTotal,JSON.stringify(this.cartTotalAmount));
+
+        this.cartTotalAmount = JSON.parse(localStorage.getItem(this.cartSubTotal));
         console.log("this.cartDetail", this.cartDetail);
     }
 
     private deleteCart(index) {
-        if (this.cartDetail['promotion'] && this.couponCodeApplied != 'undefined') {
+
+        console.log("this.cart[index]");
+        console.log(this.cart[index]);
+
+
+        if (this.cartDetail['promotion'] && typeof this.couponCodeApplied != 'undefined') {
             if (confirm("Removing Item will remove your Coupon Applied! \n continue?")) {
                 this.cart.splice(index,1);
                 localStorage.setItem(this.cartStorage, JSON.stringify(this.cart));
@@ -2080,7 +2153,12 @@ export class FrontendCartComponent implements OnInit {
                 toastr.info('Item Deleted!',null, {'positionClass' : 'toast-top-full-width'});
                 this.removeCoupon();
             }
-        }else{
+        }/*else if(this.cartDetail['promotion'] && this.indexPromotion == 6 && this.promotionOrderMinAmount != 'undefined'){
+            if () {
+                // code...
+            }
+        }*/
+        else{
             if (confirm("Are you sure to delete ?")) {
                 this.cart.splice(index,1);
                 localStorage.setItem(this.cartStorage, JSON.stringify(this.cart));
@@ -2139,8 +2217,6 @@ export class FrontendCartComponent implements OnInit {
                     }
                 }
             }
-
-            console.log("this.restroPromotions",this.restroPromotions)
 
             if (localStorage.getItem(this.coupon) != 'undefined' && localStorage.getItem(this.coupon) != null) {
                 this.couponCodeApplied = localStorage.getItem(this.coupon);
@@ -2223,9 +2299,6 @@ export class FrontendCartComponent implements OnInit {
             }else{
                 this.customerService.addOrder(this.cartDetail).subscribe((data) => {
                     if (data.error == false) {
-                        console.log("data.message");
-                        console.log(data.message);
-
                         if (this.cartDetail.promotion) {
                             this.increaseCount(this.cartDetail.promotion);
                         }
@@ -2249,7 +2322,6 @@ export class FrontendCartComponent implements OnInit {
         if (promotion.promotion) {
             promotion.promotion.count = promotion.promotion.count + 1;
             this.promotionsService.updateRestroPromotion(promotion.promotion).subscribe(data =>{
-                console.log(data);
             });
         }
     }
@@ -2305,10 +2377,7 @@ export class FrontendCartComponent implements OnInit {
         if (this.cartDetail.orders[index].multisize) {
             multisizePrice = parseInt(this.cartDetail.orders[index].multisize.price);
         }
-
         totalprice = addonPrice + itemPrice + multisizePrice;
-
-        console.log(totalprice);
         this.cartDetail.orders[index].quantity = this.cartDetail.orders[index].quantity + 1;
         this.cartDetail.orders[index].totalPrice = totalprice * this.cartDetail.orders[index].quantity;
 
@@ -2316,8 +2385,8 @@ export class FrontendCartComponent implements OnInit {
 
         this.cart = JSON.parse(localStorage.getItem(this.cartStorage));
         this.update();
-
-        if (this.cartDetail['promotion'] && this.couponCodeApplied != 'undefined') {
+        
+        if (this.cartDetail['promotion'] && typeof this.couponCodeApplied != 'undefined') {
             this.removeCoupon();
         }
     }
@@ -2337,21 +2406,41 @@ export class FrontendCartComponent implements OnInit {
             if (this.cartDetail.orders[index].multisize) {
                 multisizePrice = parseInt(this.cartDetail.orders[index].multisize.price);
             }
-
             totalprice = addonPrice + itemPrice + multisizePrice;
-            
-            this.cartDetail.orders[index].quantity = this.cartDetail.orders[index].quantity - 1;
-            this.cartDetail.orders[index].totalPrice = totalprice * this.cartDetail.orders[index].quantity;
-        }
-        else{
+
+            var afterCartTotalAmount = this.cartTotalAmount - totalprice;
+
+            if (this.cartDetail['promotion'] && this.indexPromotion == 6 && typeof this.promotionOrderMinAmount != 'undefined') {
+                if (afterCartTotalAmount <= this.promotionOrderMinAmount) {
+                    if (confirm("Decreasing Quantity will remove your deal! \n continue?")) {
+                        this.cartDetail.orders[index].quantity = this.cartDetail.orders[index].quantity - 1;
+                        this.cartDetail.orders[index].totalPrice = totalprice * this.cartDetail.orders[index].quantity;
+                        delete this.promotionOrder;
+                        delete this.cartDetail['promotion'];
+                        localStorage.removeItem(this.promotionStorage);
+                    }
+                }
+
+                if (afterCartTotalAmount > this.promotionOrderMinAmount) {
+                    this.cartDetail.orders[index].quantity = this.cartDetail.orders[index].quantity - 1;
+                    this.cartDetail.orders[index].totalPrice = totalprice * this.cartDetail.orders[index].quantity;
+                }
+            }
+
+            if ((this.cartDetail['promotion'] && this.indexPromotion != 6) || typeof this.cartDetail['promotion'] == 'undefined') {
+                this.cartDetail.orders[index].quantity = this.cartDetail.orders[index].quantity - 1;
+                this.cartDetail.orders[index].totalPrice = totalprice * this.cartDetail.orders[index].quantity;
+            }
+        }else{
             toastr.remove();
             toastr.warning('Atleast 1 Item is Mandatory',null, {'positionClass' : 'toast-top-full-width'});
         }
-        localStorage.setItem(this.cartStorage,JSON.stringify(this.cartDetail.orders));
-        this.update();
 
+        localStorage.setItem(this.cartStorage,JSON.stringify(this.cartDetail.orders));
         this.cart = JSON.parse(localStorage.getItem(this.cartStorage));
-        if (this.cartDetail['promotion'] && this.couponCodeApplied != 'undefined') {
+        this.update();
+        
+        if (this.cartDetail['promotion'] && typeof this.couponCodeApplied != 'undefined') {
             this.removeCoupon();
         }
     }
@@ -2366,15 +2455,10 @@ export class FrontendCartComponent implements OnInit {
     }
 
     private performCodeCalculation(index,value){
-        console.log("value");
-        console.log(value);
-        console.log(this.couponCodeApplied);
         this.minCartAmount = this.restroPromotions[index].minCartAmount;
         if (this.cartDetail.subTotal >= this.minCartAmount) {
             if (typeof this.couponCodeApplied == 'undefined') {
                 this.couponCodeApplied = value;
-                console.log("this.couponCodeApplied");
-                console.log(this.couponCodeApplied);
             }
 
             localStorage.setItem(this.coupon,this.couponCodeApplied)
@@ -2390,7 +2474,6 @@ export class FrontendCartComponent implements OnInit {
             if (promoIndex == 4) {
                 if (typeof this.deliveryFee != 'undefined') {
                     this.discountAmount = (this.restroPromotions[index].discountPercent/100)*this.deliveryFee;
-                    console.log(this.discountAmount);
                 }
             }else if(promoIndex == 2){
                 this.discountAmount = this.restroPromotions[index].discountAmount;
@@ -2431,7 +2514,6 @@ export class FrontendCartComponent implements OnInit {
             if (promoIndex == 4) {
                 if (typeof this.deliveryFee != 'undefined') {
                     this.discountAmount = (this.restroPromotions[this.codeIndex].discountPercent/100)*this.deliveryFee;
-                    console.log(this.discountAmount);
                 }
             }else if(promoIndex == 2){
                 this.discountAmount = this.restroPromotions[this.codeIndex].discountAmount;

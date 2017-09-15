@@ -32,7 +32,6 @@ router.get('/promotion-stats/:id/:days', function(req, res, next) {
     });
 });
 
-
 router.get('/overview/:id', function(req, res, next) {
     var response={};
     console.log(req.params.id);
@@ -342,28 +341,47 @@ router.get('/all-sale/:id/:days', function(req, res, next) {
     var acceptData=[];
     var missedData = [];
     var rejectData = [];
+    var pendingData = [];
+    var receiveData = [];
     var days = req.params.days;
     Order.find({restaurantId:req.params.id/*,created_at:{'$gte':lastWeek}*/}).exec(function(err,orderList){
         for (var i = 0; i < days; i++) {
-            var acptCount = 0;
+            var receiveCount = 0;
+            var acceptCount = 0;
+            var missedCount = 0;
+            var pendingCount = 0;
+            var rejectedCount = 0;
             var date = new Date();
             date.setDate(date.getDate()-i);
-
-            console.log("orderList");
-            console.log(orderList);
 
             if (orderList) {
                 for (var j = 0; j < orderList.length; j++) {
                     if (date.toDateString() == orderList[j].created_at.toDateString()) {
                         if (orderList[j].status == 'Accepted') {
-                            acptCount = acptCount + orderList[j].gTotal;
+                            acceptCount = acceptCount + orderList[j].gTotal;
+                        }
+                    if (orderList[j].status == 'Rejected') {
+                            rejectedCount = rejectedCount + orderList[j].gTotal;
+                        }
+                    if (orderList[j].status == 'Missed') {
+                            missedCount = missedCount + orderList[j].gTotal;
+                        }
+                    if (orderList[j].status == 'Pending') {
+                            pendingCount = pendingCount + orderList[j].gTotal;
+                        }
+                    if (orderList[j].status == 'Received') {
+                            receiveCount = receiveCount + orderList[j].gTotal;
                         }
                     }
                 }
             }
-            acceptData.push(acptCount);
+            acceptData.push(acceptCount);
+            rejectData.push(rejectedCount);
+            missedData.push(missedCount);
+            receiveData.push(receiveCount);
+            pendingData.push(pendingCount);
         }
-        res.json({'status':true,'message':[{'data':acceptData,'label':'Accepted'}]});
+        res.json({'status':true,'message':[{'data':receiveData,'label':'Received'},{'data':acceptData,'label':'Accepted'},{'data':rejectData,'label':'Rejected'},{'data':missedData,'label':'Missed'},{'data':pendingData,'label':'Pending'}]});
     });
 });
 

@@ -1543,7 +1543,6 @@ export class MarketingPromotionsTemplateComponent implements OnInit {
       $("div[id^='show']").addClass('selected2');
       $("div[id='auto']").addClass('selected2');
       $("div[id='code']").addClass('selected2');
-      this.getRestaurants();
 
       this.orderType('any');
       this.orderTime('any');
@@ -2025,13 +2024,18 @@ export class MarketingPromotionsTemplateComponent implements OnInit {
 
       this.checkFormValidation();
 
-      var tempArr = [{'itemGroup1':this.menu1},{'itemGroup2':this.menu2}];
+      var tempArr : any = [];
+
+      if (this.index == 0 || this.index == 5 || this.index == 6) {
+         tempArr = [{'itemGroup1':this.menu1},{'itemGroup2':this.menu2}];
+      }
+
+      if (this.index == 1) {
+         tempArr = [{'itemGroup1':this.menu1}];
+      }
 
       this.discountOn = tempArr;
       this.promoDetailAddModel.controls['discountOn'].setValue(this.discountOn);
-
-      console.log("this.promoDetailAddModel.value");
-      console.log(this.promoDetailAddModel.value);
    }
 
    private countCharacter(event:any,name,type){
@@ -2141,6 +2145,10 @@ export class MarketingPromotionsTemplateComponent implements OnInit {
                this.menu1.push(menuObj1);
                this.menu2.push(menuObj2);
 
+               console.log("this.menu1");
+               console.log(this.menu1);
+               console.log(this.menu2);
+
                for (var k = 0; k < this.items.length; k++) {
                   if (this.items[k].menuId == allMenu[i]._id) {
                      itemObj.push(this.items[k]._id);
@@ -2165,10 +2173,15 @@ export class MarketingPromotionsTemplateComponent implements OnInit {
       this.promotionsService.getAll().subscribe(pro => {
          this.promotions = pro.message;
          this.index = pro.message.findIndex(mn => mn._id == id);
+
+         console.log("this.index");
+         console.log(this.index);
+
          if (this.index == 0) {
             this.promoDetailAddModel.controls['discountPercent'].setValue(100);
          }
       });
+      this.getRestaurants();
    }
 
    private getRestaurants() {

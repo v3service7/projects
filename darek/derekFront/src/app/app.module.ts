@@ -1,16 +1,13 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-//import { HttpModule } from '@angular/http';
 import {HttpModule, Http} from "@angular/http";
 import { RouterModule, Routes } from '@angular/router';
-//import { FlashMessagesModule } from 'angular2-flash-messages';
 import { FileSelectDirective, FileDropDirective } from 'ng2-file-upload';
-//import {TranslateModule} from 'ng2-translate';
 import {TranslateModule, TranslateLoader} from '@ngx-translate/core';
 import {TranslateHttpLoader} from "@ngx-translate/http-loader";
-import { ChartsModule } from 'ng2-charts';
-// import {ToastModule} from 'ng2-toastr/ng2-toastr';
+/*import { ChartsModule } from 'ng2-charts';*/
+import { ChartsModule } from 'ng2-charts/ng2-charts';
 
 import { AppComponent } from './app.component';
 import { routing } from './app.routing';
