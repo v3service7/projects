@@ -24,7 +24,7 @@ router.post('/register', function(req, res) {
 
 router.post('/login', function(req, res, next) {
     console.log(req.body);
-    User.find({username:req.body.username,password:req.body.password},function(err,user) {
+    User.find({username:{$regex : new RegExp(req.body.username,"i")},password:req.body.password},function(err,user) {
         if (user.length>0) {
             req.logIn(user[0], function(err) {
                 if (err) {

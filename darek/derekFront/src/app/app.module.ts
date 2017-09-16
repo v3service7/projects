@@ -1,16 +1,13 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-//import { HttpModule } from '@angular/http';
 import {HttpModule, Http} from "@angular/http";
 import { RouterModule, Routes } from '@angular/router';
-//import { FlashMessagesModule } from 'angular2-flash-messages';
 import { FileSelectDirective, FileDropDirective } from 'ng2-file-upload';
-//import {TranslateModule} from 'ng2-translate';
 import {TranslateModule, TranslateLoader} from '@ngx-translate/core';
 import {TranslateHttpLoader} from "@ngx-translate/http-loader";
-import { ChartsModule } from 'ng2-charts';
-// import {ToastModule} from 'ng2-toastr/ng2-toastr';
+/*import { ChartsModule } from 'ng2-charts';*/
+import { ChartsModule } from 'ng2-charts/ng2-charts';
 
 import { AppComponent } from './app.component';
 import { routing } from './app.routing';
@@ -35,7 +32,7 @@ import { PromotionsComponent, PromotionaddComponent, PromotionupdateComponent } 
 import { ForgetComponent,ResetPasswordAdminComponent } from './login/forgetPassword.component';
 import { OwnerComponent,OwnerloginComponent,OwnerAutologinComponent,OwnerregisterComponent,OwnerprofileComponent,OwnerchangepasswordComponent,ForgetOwnerComponent,ResetPasswordOwnerComponent } from './owner/owner.component';
 import { LanguageComponent,LanguagelistComponent, LanguageaddComponent, LanguageupdateComponent } from './language/language.component';
-import { FrontendHeaderComponent, FrontendComponent, FrontendDetailComponent, FrontendCartComponent, FrontendPromoDetailComponent, FrontendLoginComponent,FrontendForgetPasswordComponent,FrontendResetPasswordComponent,FrontendUserProfileComponent,FrontendChangePasswordComponent } from './frontend/frontend.component';
+import { FrontendHeaderComponent, FrontendComponent, FrontendDetailComponent, FrontendCartComponent, FrontendPromoDetailComponent, FrontendLoginComponent,FrontendForgetPasswordComponent,FrontendResetPasswordComponent,FrontendUserProfileComponent,FrontendChangePasswordComponent, FrontendThankuPageComponent } from './frontend/frontend.component';
 import { MarketingComponent,MarketingNavComponent,MarketingOverviewComponent,MarketingPromotionsComponent, MarketingEditPromotionComponent, MarketingPromotionsListComponent, MarketingPromotionsTemplateComponent, MarketingPromotionsSubscriptionComponent, MarketingStatsComponent } from './marketing/marketing.component';
 import { ReportingComponent,ReportingnavComponent,ReportingoverviewComponent,ReportingMethodComponent,ReportingResultComponent,ReportingTypeComponent,ReportingPaymentMethodComponent,ReportingItemsComponent,ReportingItemCategoriesComponent,ReportingClientComponent,ReportingOrderComponent,ReportingDetailComponent,ReportingSaleDetailComponent} from './reporting/reporting.component';
 
@@ -68,7 +65,7 @@ export function HttpLoaderFactory(http: Http) {
     ForgetComponent,ResetPasswordAdminComponent,
     OwnerComponent,OwnerloginComponent,OwnerprofileComponent,OwnerregisterComponent,OwnerchangepasswordComponent,OwnermailactivateComponent,ForgetOwnerComponent,ResetPasswordOwnerComponent,
     LanguageComponent,LanguagelistComponent, LanguageaddComponent, LanguageupdateComponent, 
-    FrontendHeaderComponent, FrontendComponent, FrontendDetailComponent, FrontendCartComponent,FrontendPromoDetailComponent, FrontendLoginComponent, FrontendForgetPasswordComponent, FrontendResetPasswordComponent,FrontendUserProfileComponent, FrontendChangePasswordComponent,
+    FrontendHeaderComponent, FrontendComponent, FrontendDetailComponent, FrontendCartComponent,FrontendPromoDetailComponent, FrontendLoginComponent, FrontendForgetPasswordComponent, FrontendResetPasswordComponent,FrontendUserProfileComponent, FrontendChangePasswordComponent,FrontendThankuPageComponent,
     MarketingComponent, MarketingNavComponent, MarketingOverviewComponent, MarketingPromotionsComponent, MarketingEditPromotionComponent, MarketingPromotionsListComponent, MarketingPromotionsTemplateComponent,MarketingPromotionsSubscriptionComponent, MarketingStatsComponent,
     ReportingComponent,ReportingnavComponent,ReportingoverviewComponent,ReportingMethodComponent,ReportingResultComponent,ReportingTypeComponent,ReportingPaymentMethodComponent,ReportingItemsComponent,ReportingItemCategoriesComponent,ReportingClientComponent,ReportingOrderComponent,ReportingDetailComponent,ReportingSaleDetailComponent
   ],

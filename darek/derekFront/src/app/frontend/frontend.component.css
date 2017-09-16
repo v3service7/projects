@@ -735,7 +735,7 @@ div.deal-list div.oddEven:nth-child(odd) {
     margin-top: 37px;
 }
 
-#base:before {
+/*#base:before {
     border-top: 15px solid rgba(0, 0, 0, 0.95);
     border-left: 20px solid transparent;
     border-right: 20px solid transparent;
@@ -757,7 +757,7 @@ div.deal-list div.oddEven:nth-child(odd) {
     border-top: 12px solid transparent;
     border-right: 12px solid #f7f7f7;
     border-bottom: 12px solid transparent;
-}
+}*/
 
 .textCenter{
     text-align: center;
@@ -883,4 +883,88 @@ div.deal-list div.oddEven:nth-child(odd) {
     width: 50%;
     margin-left: 25%;
     margin: 0% 25% 2% 25%;
+}
+
+.leftCartColumns{
+    background: white;
+    border: 1px solid #EEEEEE;
+}
+
+.padding15px{
+    padding: 15px;
+}
+
+.margin0{
+    margin: 0;
+}
+
+
+.backend-loader-preloader-wrapper {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%,-50%);
+    transform: translate(-50%,-50%);
+}
+.backend-loader-preloader {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    box-sizing: border-box;
+    border: solid 10px rgba(0, 0, 0, 0.46);
+    border-top-color: #FFF;
+    -webkit-animation: backend-loader-spin 1s infinite linear;
+    animation: backend-loader-spin 1s infinite linear;
+    -webkit-transform-origin: 50%;
+    transform-origin: 50%;}
+
+    @-webkit-keyframes backend-loader-spin {
+    0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes backend-loader-spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.orderPlaced , .orderRejected, .orderMissed {
+    font-size: 80px;
+    font-family: Freestyle Script;
+    text-align: center;
+    margin-top: 20%;
+    font-weight: 700;
+}
+
+.continue{
+    font-family: Freestyle Script;
+    text-align: center;
+    letter-spacing: 4px;
+    font-size: 30px;
+}
+
+.continue a{
+    text-decoration: underline !important;
+}
+
+.padding10px0px{
+    padding: 10px 0;
+}
+
+.promotionSpecialInstruction{
+    font-weight: 600;
+    padding: 0;
+    font-size: 10px;
+    background: rgba(136, 134, 134, 0.15);
+}
+
+.countDown{
+    color: rgba(0, 0, 0, 0.46);
+    margin-top: -80px;
+    text-align: center;
+    padding: 20px;
+}
+
+.countDown span{
+    font-weight: 800;
 }

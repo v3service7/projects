@@ -10,18 +10,17 @@
 			</div>
 			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 modal-body">
 				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 form-group">
-					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0" *ngFor="let menu of menus" style="border-left: 1px solid #d9d9d9;    border-right: 1px solid #d9d9d9;">
+					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0" *ngFor="let menu of menus; let i = index; " style="border-left: 1px solid #d9d9d9;border-right: 1px solid #d9d9d9;">
 						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding20 fontWeight600 borderTopBottom cursorPointer" style="display: -webkit-inline-box;">
-							<input type="checkbox" name="" value="{{menu._id}}" (change)="selectCheck($event,'','menu','itemGroup1')"> 
+							<input type="checkbox" name="" value="{{menu._id}}" (change)="selectCheck($event,'','menu','itemGroup1')" [checked] = "menu1Copy[i].item.length == menu1[i].item1.length"> 
 							<div class="paddingLeft10 width95" data-toggle="collapse" [attr.data-target]="'#ig1_' + menu._id">
 								{{menu.name}}
-								<!-- <span class="pull-right" style="font-weight: 100;color: #c5c5bf;">sdfg</span> -->
 							</div>
 						</div>
 						<div id="ig1_{{menu._id}}" class="collapse">
 							<div *ngFor="let item of items">
 								<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 bgLightGray itemName fontWeight600 cursorPointer" style="display: -webkit-inline-box;border-bottom: 1px solid #d9d9d9;" *ngIf="item.menuId == menu._id">
-									<input type="checkbox" name="" id="item_ig1_{{item._id}}" value="{{item._id}}" (change)="selectCheck($event, item,'item','itemGroup1')"> 
+									<input type="checkbox" name="" id="item_ig1_{{item._id}}" value="{{item._id}}" (change)="selectCheck($event, item,'item','itemGroup1')" [checked]="menu1[i].item1.indexOf(item._id) > -1"> 
 									<div class="paddingLeft10">{{item.name}}</div>
 								</div>
 							</div>
@@ -43,18 +42,17 @@
 			</div>
 			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 modal-body">
 				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 form-group">
-					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0" *ngFor="let menu of menus" style="border-left: 1px solid #d9d9d9;    border-right: 1px solid #d9d9d9;">
+					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0" *ngFor="let menu of menus; let i = index; " style="border-left: 1px solid #d9d9d9;border-right: 1px solid #d9d9d9;">
 						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding20 fontWeight600 borderTopBottom cursorPointer" style="display: -webkit-inline-box;">
-							<input type="checkbox" name="" value="{{menu._id}}" (change)="selectCheck($event,'','menu','itemGroup2')"> 
+							<input type="checkbox" name="" value="{{menu._id}}" (change)="selectCheck($event,'','menu','itemGroup2')" [checked] = "menu1Copy[i].item.length == menu2[i].item2.length"> 
 							<div class="paddingLeft10 width95" data-toggle="collapse" [attr.data-target]="'#' + menu._id">
 								{{menu.name}}
-								<!-- <span class="pull-right" style="font-weight: 100;color: #c5c5bf;">sdfg</span> -->
 							</div>
 						</div>
 						<div id="{{menu._id}}" class="collapse">
 							<div *ngFor="let item of items">
 								<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 bgLightGray itemName fontWeight600 cursorPointer" style="display: -webkit-inline-box;border-bottom: 1px solid #d9d9d9;" *ngIf="item.menuId == menu._id">
-									<input type="checkbox" name="" id="item_{{item._id}}" value="{{item._id}}" (change)="selectCheck($event, item,'item','itemGroup2')"> 
+									<input type="checkbox" name="" id="item_{{item._id}}" value="{{item._id}}" (change)="selectCheck($event, item,'item','itemGroup2')" [checked]="menu2[i].item2.indexOf(item._id) > -1"> 
 									<div class="paddingLeft10">{{item.name}}</div>
 								</div>
 							</div>
@@ -164,7 +162,7 @@
 					<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
 						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 marginBottom2 padding0" style="display: -webkit-inline-box;">
 							<div class="marginRight15">Discount : </div>
-							<input type="number" #disPrcnt class="form-control" placeholder="30" style="width: 50%;border-radius: 0;" (keyup)="countCharacter($event,disPrcnt,'discountPercent')">
+							<input type="number" value="100" #disPrcnt class="form-control" placeholder="30" style="width: 50%;border-radius: 0;" (keyup)="countCharacter($event,disPrcnt,'discountPercent')">
 							<label class="form-control color999" style="width: 10%;border-radius: 0;background-color: #ededed;">%</label>
 						</div>
 					</div>

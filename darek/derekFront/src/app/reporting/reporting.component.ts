@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { AlertService, RestaurantsService, UsersService,OrderService,KitchenMenuService} from '../service/index';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { AlertService, RestaurantsService, UsersService,OrderService,KitchenMenuService,KitchenItemService} from '../service/index';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 
 declare var google: any;
@@ -16,7 +16,6 @@ export class ReportingComponent implements OnInit {
 
     ngOnInit() {
     }
-
 }
 
 @Component({
@@ -52,7 +51,7 @@ export class ReportingoverviewComponent implements OnInit {
 	restaurants:any ={};
 	overview:any = {};
 	acceptedOrderTotal : Number = 0;
-	avgAcceptedOrderTotal : Number;
+	avgAcceptedOrderTotal : Number = 0;
 	lastWeekOrderTotal : Number = 0;
 	avglastWeekOrderTotal : Number;
     constructor(
@@ -73,17 +72,14 @@ export class ReportingoverviewComponent implements OnInit {
     }
 
     private getOverview(id){
-        this.orderService.overview(id).subscribe(users => { 
+        this.orderService.overview(id).subscribe(users => {
             this.overview = users.data;
-            if (this.overview.totalAcceptedOrder) {
+            if (this.overview.totalAcceptedOrder && this.overview.totalAcceptedOrder.length > 0) {
                 for (var i = 0; i < this.overview.totalAcceptedOrder.length; i++) {
                     this.acceptedOrderTotal = this.acceptedOrderTotal + this.overview.totalAcceptedOrder[i].gTotal;
                 }
                 this.avgAcceptedOrderTotal = Number(this.acceptedOrderTotal) / Number(this.overview.totalAcceptedOrder.length);
             }
-            console.log("this.overview");
-            console.log(this.overview);
-
             if (this.overview.asPerDayOrder) {
                 for (var i = 0; i < this.overview.asPerDayOrder.length; i++) {
                     this.lastWeekOrderTotal = this.lastWeekOrderTotal + this.overview.asPerDayOrder[i].gTotal;
@@ -149,8 +145,6 @@ export class ReportingMethodComponent implements OnInit {
     }
     private getMethodData(id , days) {
         this.orderService.getMethodChart(id , days).subscribe(users => {
-            /*console.log("users.message");
-            console.log(users.message);*/
             if (users.message.length > 0) {
                 this.lineChartData = users.message;
                 this.isShow = true;
@@ -230,8 +224,6 @@ export class ReportingResultComponent implements OnInit {
     }
     private getResultData(id, days) {
         this.orderService.getResultChart(id,days).subscribe(users => {
-            /*console.log("users.message");
-            console.log(users.message);*/
             if (users.message.length > 0) {
                 this.lineChartData = users.message;
                 this.isShow = true;
@@ -422,8 +414,7 @@ export class ReportingItemsComponent implements OnInit {
     timeValue = [{name: 7}, {name: 15}, {name: 30}, {name: 90}, {name: 180}];
     selectedTime = this.timeValue[0].name;
     
-    public lineChartData:Array<any>=[{data: [], label: ''},
-    {data: [], label: ''}];
+    public lineChartData:Array<any>=[{data: [], label: ''}];
     public lineChartLabels:Array<any> = [];
     public lineChartOptions:any = {responsive: true};
     public lineChartColors:Array<any> = [
@@ -474,7 +465,7 @@ export class ReportingItemsComponent implements OnInit {
     }
 
     private getRestaurants() {
-        this.restaurantsService.getOwnerRestaurants(JSON.parse(localStorage.getItem('currentOwner'))._id).subscribe(users => {
+       this.restaurantsService.getOwnerRestaurants(JSON.parse(localStorage.getItem('currentOwner'))._id).subscribe(users => {
             this.restaurants = users.message;
             this.lineChartLabels = this.lastSevenDays(this.selectedTime);
             this.getItemData(this.restaurants._id, this.selectedTime);
@@ -493,11 +484,14 @@ export class ReportingItemsComponent implements OnInit {
     styleUrls: ['./reporting.component.css']
 })
 export class ReportingItemCategoriesComponent implements OnInit {
+    @ViewChild('testChart') testChart;
+
     currentOwner:any={};
     restaurants:any ={};
     timeValue = [{name: 7}, {name: 15}, {name: 30}, {name: 90}, {name: 180}];
     selectedTime = this.timeValue[0].name;
     menu = [];
+    items = [];
     menuId:string;
     menuName : string;
     public lineChartData:Array<any>=[{data: [], label: ''}];
@@ -516,10 +510,10 @@ export class ReportingItemCategoriesComponent implements OnInit {
     public lineChartLegend:boolean = true;
     public lineChartType:string = 'line';
     public isShow:boolean = false;
-
     constructor(
         private restaurantsService: RestaurantsService,
         private kitchenMenuService: KitchenMenuService,
+        private kitchenMenuItemService: KitchenItemService,
         private orderService: OrderService
         ) {}
 
@@ -527,22 +521,43 @@ export class ReportingItemCategoriesComponent implements OnInit {
         document.getElementById('noRecordClass').style.display = 'none';
         this.getRestaurants();
     }
+
     private changeMenu(id) {
         this.menuId = id;
+        this.menuName = id;
         this.getItemCategoryData(this.restaurants._id,this.menuId, this.selectedTime);
-        //console.log(this.menuId);
+    }
+
+    private loadAllItem(id) {
+        this.kitchenMenuItemService.getAllItems(id).subscribe(users => { 
+            this.items = users.message;
+            this.loadAllMenu();
+        });
+    }
+
+    private noItemMenu(allMenu){
+        var menu = [];
+        for (var i = 0; i < allMenu.length; i++) {
+            var index = this.items.findIndex(mn => mn.menuId == allMenu[i]._id);
+            if (index != -1) {
+                menu.push(allMenu[i]);
+            }
+        }
+        return menu;
     }
 
     private loadAllMenu() {
         this.kitchenMenuService.getAll(this.restaurants._id).subscribe(users => {             
-            this.menu = users.message;
+            var allMenu = [];
+            allMenu = users.message;
+            this.menu = this.noItemMenu(allMenu);
             this.menuId = this.menu[0]._id;
             this.menuName = this.menu[0]._id;
             this.lineChartLabels = this.lastSevenDays(this.selectedTime);
             this.getItemCategoryData(this.restaurants._id,this.menuId, this.selectedTime);
         });
     }
-    
+
     private lastSevenDays(days){
         var array = [];
         for (var i = 0; i < days; i++) {
@@ -555,14 +570,13 @@ export class ReportingItemCategoriesComponent implements OnInit {
 
     private getItemCategoryData(id,menuid,days) {
         this.orderService.getItemCategoryChart({'id':id,'menuid':menuid, 'days':days}).subscribe(users => {
-            console.log(users.message);
-            console.log(users.message.length);
             if (users.message.length > 0) {
+                if (typeof this.testChart != 'undefined') {
+                    this.testChart.chart.config.data.datasets = users.message;
+                }
                 this.lineChartData = users.message;
                 this.isShow = true;
-
             }
-
             if (users.message.length == 0){
                 this.isShow = false;
                 document.getElementById('noRecordClass').style.display = 'block';
@@ -573,7 +587,7 @@ export class ReportingItemCategoriesComponent implements OnInit {
     private getRestaurants() {
         this.restaurantsService.getOwnerRestaurants(JSON.parse(localStorage.getItem('currentOwner'))._id).subscribe(users => {
             this.restaurants = users.message;
-            this. loadAllMenu();
+            this.loadAllItem(users.message._id);
         });
     }
     onChangeObj(newObj) {
@@ -658,7 +672,6 @@ export class ReportingSaleDetailComponent implements OnInit {
     }
 }
 
-
 @Component({
     selector: 'app-reporting-client',
     templateUrl: './reportingClient.component.html',
@@ -686,8 +699,6 @@ export class ReportingClientComponent implements OnInit {
     private getClient(id){
         this.orderService.client(id).subscribe(users => { 
             this.client = users.message;
-
-            console.log(this.client);
         });
     }
 }
@@ -722,8 +733,6 @@ export class ReportingOrderComponent implements OnInit {
     private getOrders(id){
         this.orderService.orders(id).subscribe(users => { 
             this.orders = users.message;
-            console.log("this.orders");
-            console.log(this.orders);
         });
     }
 
@@ -768,9 +777,13 @@ export class ReportingDetailComponent implements OnInit {
     private getCompleteDetail(id){
         this.orderService.getDetail(id).subscribe(users => { 
             this.detail = users.message;
-            console.log("this.detail");
-            console.log(this.detail);
             this.getRestaurants();
+        });
+    }
+
+     private deleteOrder(id){
+        this.orderService.deleteOneOrder(id).subscribe(data=>{
+            this.router.navigate(['/owner/reports/orders']);
         });
     }
 

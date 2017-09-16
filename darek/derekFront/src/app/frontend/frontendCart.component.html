@@ -33,7 +33,7 @@
 			</div>
 
 			<div class="pull-left col-lg-12 col-md-12 col-sm-12 col-xs-12 fillDetail" *ngIf="currentCustomer">
-				<div class="contactDetail col-lg-12 col-md-12 col-sm-12 col-xs-12" style=" background: white; border: 1px solid rgba(128, 128, 128, 0.39);">
+				<div class="contactDetail col-lg-12 col-md-12 col-sm-12 col-xs-12 leftCartColumns">
 					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 						<div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
 							<span>
@@ -75,7 +75,7 @@
 					</div>
 				</div>
 
-				<div class="orderingMethod col-lg-12 col-md-12 col-sm-12 col-xs-12" style=" background: white;border: 1px solid rgba(128, 128, 128, 0.39);">
+				<div class="orderingMethod col-lg-12 col-md-12 col-sm-12 col-xs-12 leftCartColumns">
 					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 						<div class="col-lg-10 col-md-10 col-sm-10 col-xs-12">
 							<span>
@@ -143,7 +143,7 @@
 					</div>
 				</div>
 
-				<div class="chooseTime col-lg-12 col-md-12 col-sm-12 col-xs-12" style=" background: white;border: 1px solid rgba(128, 128, 128, 0.39);">
+				<div class="chooseTime col-lg-12 col-md-12 col-sm-12 col-xs-12 leftCartColumns">
 					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 						<div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
 							<span>
@@ -201,7 +201,7 @@
 					</div>
 				</div>
 
-				<div class="paymentMethod col-lg-12 col-md-12 col-sm-12 col-xs-12" style=" background: white;border: 1px solid rgba(128, 128, 128, 0.39);">
+				<div class="paymentMethod col-lg-12 col-md-12 col-sm-12 col-xs-12 leftCartColumns">
 					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 						<div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
 							<span>
@@ -263,6 +263,54 @@
 						</div>
 					</div>
 				</div>
+
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 pull-left couponCodeForm leftCartColumns padding15px margin0" *ngIf = "!promotionOrder">
+
+					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0 couponClass" style="margin-bottom: 10px;" *ngIf = "!couponField">
+						<a href="javascript:void(0);" (click) = "showCouponField('add')">Add coupon code</a>
+					</div>
+
+					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0 couponClass" style="margin-bottom: 10px;display: flex;" *ngIf = "couponField">
+						<input class="marginRight12px" id="couponCode" value="{{couponCodeApplied}}" maxlength="10" minlength="5" type="text">
+						<button class="btn btn-success marginRight12px" style="padding: 1px 6px; font-size: 11px;" (click) = "applyCouponCode()" >Apply</button>
+						<button class="btn marginRight12px" style="padding: 1px 6px;font-size: 11px;color: #fff;background-color: #999;" (click)="showCouponField('cancel')">Cancel</button>
+					</div>
+
+					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0 couponApplied" [hidden]=true>
+						<label class="form-control fontWeight600 color999" style="width: 30%;border-radius: 0; text-align: center;">{{couponCodeApplied}}</label><span><a href="javascript:void(0);" (click)="removeCoupon()" style="font-size: 10px;">Remove</a></span>
+					</div>
+
+					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0">
+						By placing this order you expressly agree and accept the <a href="javascript:void(0);">restaurant terms</a> &amp; <a href="javascript:void(0);">ordering system provider EULA</a> including data processing terms.
+					</div>
+				</div>
+
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding10px0px" *ngIf = "commentNotMade">
+					<div class="cursorPointer" (click)="addOrderComment()" *ngIf="!addComment">
+						<span style="text-decoration: underline;">Comments</span><span>(Optional)</span>
+					</div>
+					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 leftCartColumns padding15px"  *ngIf="addComment">
+						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+							<div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
+								<span>
+									<strong><h5><i class="" aria-hidden="true"></i> &nbsp; COMMENTS </h5></strong>
+								</span>
+							</div>
+							<div class="cursorPointer" (click)="cancelComment()">
+								<span class="label label-default pointer">{{'Cancel' | translate}}</span>
+							</div>
+						</div>
+						<div>
+							<textarea id="commentArea" class="form-control"></textarea>
+						</div>
+						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0" style="margin-top: 10px;">
+							<button type="submit" class="btn saveButton" (click)="saveComment()">{{'Save' | translate}}</button>
+						</div>
+					</div>
+				</div>
+
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding10px0px" *ngIf = "!commentNotMade">Comment : {{commentMade}}</div>
+
 			</div>
 		</div>
 
@@ -314,6 +362,7 @@
 									<span class="glf-loader"><div class="glf-loader-circle"></div></span>
 								</div>
 								<br>
+								<div *ngIf="crt.itemInstruction" class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0">Instruction : {{crt.itemInstruction}}</div>
 							</div>
 						</div>
 
@@ -343,6 +392,9 @@
 									<div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 cart-price ng-binding padding0" style="text-align: right;">
 										{{promotionOrder.itemGroup1.totalPrice | number : '1.2-2'}}
 									</div>
+									<div *ngIf = "promotionOrder.itemGroup1.itemInstruction" class="col-lg-12 col-md-12 col-sm-12 col-xs-12 promotionSpecialInstruction">
+										Instruction : {{promotionOrder.itemGroup1.itemInstruction}}
+									</div>
 								</div>
 
 								<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding5px15px" *ngIf="promotionOrder.itemGroup2">
@@ -364,6 +416,9 @@
 									</div>
 									<div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 cart-price ng-binding padding0" style="text-align: right;">
 										{{promotionOrder.itemGroup2.totalPrice | number : '1.2-2'}}
+									</div>
+									<div *ngIf = "promotionOrder.itemGroup2.itemInstruction" class="col-lg-12 col-md-12 col-sm-12 col-xs-12 promotionSpecialInstruction">
+										Instruction : {{promotionOrder.itemGroup2.itemInstruction}}
 									</div>
 								</div>
 
@@ -419,29 +474,6 @@
 	</div>
 
 	<footer class="col-lg-12 col-md-12 col-sm-12 col-xs-12 footer container-fluid footer navbar-fixed-bottom">
-
-		<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pull-left couponCodeForm" *ngIf = "!promotionOrder">
-
-			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0 couponClass" style="margin-bottom: 10px;" *ngIf = "!couponField">
-				<a href="javascript:void(0);" (click) = "showCouponField('add')">Add coupon code</a>
-			</div>
-
-			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0 couponClass" style="margin-bottom: 10px;display: flex;" *ngIf = "couponField">
-				<input class="marginRight12px" id="couponCode" value="{{couponCodeApplied}}" maxlength="10" minlength="5" type="text">
-				<button class="btn btn-success marginRight12px" style="padding: 1px 6px; font-size: 11px;" (click) = "applyCouponCode()" >Apply</button>
-				<button class="btn marginRight12px" style="padding: 1px 6px;font-size: 11px;color: #fff;background-color: #999;" (click)="showCouponField('cancel')">Cancel</button>
-			</div>
-
-			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0 couponApplied" [hidden]=true>
-				<label class="form-control fontWeight600 color999" style="width: 30%;border-radius: 0; text-align: center;">{{couponCodeApplied}}</label><span><a href="javascript:void(0);" (click)="removeCoupon()" style="font-size: 10px;">Remove</a></span>
-			</div>
-
-			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0">
-				By placing this order you expressly agree and accept the <a href="javascript:void(0);">restaurant terms</a> &amp; <a href="javascript:void(0);">ordering system provider EULA</a> including data processing terms.
-			</div>
-			
-		</div>
-
 		<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pull-right footerButton">
 			<button class="btn saveButton" style="padding: 15px 20px;text-align: justify;" [disabled]="this.all==false" (click)="placeOrder()">
 				<div style="display: -webkit-inline-box;">
@@ -457,6 +489,7 @@
 			</button>
 		</div>
 	</footer>
+
 </div>
 
 <div class="profile col-lg-12 col-md-12 col-sm-12 col-xs-12" id="paymentDiv" style="background: rgba(255, 255, 255, 0.87);padding: 10% 20%;position: absolute;margin: 0;top: 0;">

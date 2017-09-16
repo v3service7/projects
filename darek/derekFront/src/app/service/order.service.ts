@@ -92,7 +92,7 @@ export class OrderService {
 	}
 
 	getItemCategoryChart(data) {
-  		return this.http.get(globalVariable.url+'reporting/item-category/'+data.id+'/'+data.menuid + '/' + data.days)
+  		return this.http.get(globalVariable.url+'reporting/item-category/'+data['id']+'/'+data['menuid'] + '/' + data['days'])
 		.map(
 			(response: Response) => response.json()
 		);
@@ -104,4 +104,11 @@ export class OrderService {
 			(response: Response) => response.json()
 		);
 	}
+
+	deleteOneOrder(id) {
+    return this.http.delete(globalVariable.url+'order/'+id)
+      .map(
+      (response: Response) => response.json()
+    );
+  }
 }

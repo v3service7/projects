@@ -98,7 +98,7 @@
 					<div class="menuImage" style="z-index: -1; background-image: url('../assets/images/menu.jpg');" *ngIf="!menu.image">
 					</div>
 				</div>
-				<div *ngFor="let item of items">
+				<div *ngFor="let item of items;">
 					<div *ngIf="item.menuId == menu._id && !item.isHidden" [style.display]="checkMenuItemShow(item)">
 					<div  class="col-lg-6 col-md-6 col-sm-6 col-xs-6"  style="height: 60px;">
 						<div class="itemDetailListDiv col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0">
@@ -117,7 +117,7 @@
 									</div>
 									<div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 padding0" style="height: inherit;text-align: -webkit-right;"><h5><strong>{{item.price}}</strong></h5></div>
 								</a>
-								<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 itemDetailDiv" [style.display]="showDiv(item._id)">
+								<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 itemDetailDiv"  [style.display]="showDiv(item._id)" [style.left]="showPos(item._id)">
 									<button class="hideDetailDiv" type="button"  (click) = "hideDiv()" >
 										<span aria-hidden="true">&times;</span>
 									</button>
@@ -196,7 +196,7 @@
 									<div class="pos-footer">
 										<div class="pos-footer-shadow"></div>
 										<div class="pos-footer-inner" >
-											<button class="btn saveButton" style="padding: 15px 20px;text-align: justify;" (click)="addToCart()" [disabled]="!mandCheckedCount">
+											<button class="btn saveButton" style="padding: 15px 20px;text-align: justify;" (click)="addToCart(item._id)" [disabled]="!mandCheckedCount">
 												<div class="col-lg-12  col-md-12 col-sm-12 col-xs-12 btn btn-action-primary checkout-button">
 													<div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
 														<div class="checkout-button">{{finalPrice}}</div>

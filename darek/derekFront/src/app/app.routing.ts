@@ -26,7 +26,7 @@ import { LanguageComponent,LanguagelistComponent, LanguageaddComponent, Language
 
 import { AuthGuard,OwnerAuthGuard} from './guards/index';
 
-import { FrontendHeaderComponent, FrontendComponent, FrontendDetailComponent, FrontendCartComponent, FrontendPromoDetailComponent, FrontendLoginComponent, FrontendForgetPasswordComponent,FrontendResetPasswordComponent,FrontendUserProfileComponent,FrontendChangePasswordComponent} from './frontend/frontend.component';
+import { FrontendHeaderComponent, FrontendComponent, FrontendDetailComponent, FrontendCartComponent, FrontendPromoDetailComponent, FrontendLoginComponent, FrontendForgetPasswordComponent,FrontendResetPasswordComponent,FrontendUserProfileComponent,FrontendChangePasswordComponent,FrontendThankuPageComponent} from './frontend/frontend.component';
 
 import { ReportingComponent,ReportingnavComponent,ReportingoverviewComponent,ReportingMethodComponent,ReportingResultComponent,ReportingTypeComponent,ReportingPaymentMethodComponent,ReportingItemsComponent,ReportingItemCategoriesComponent,ReportingClientComponent,ReportingOrderComponent,ReportingDetailComponent,ReportingSaleDetailComponent} from './reporting/reporting.component';
 
@@ -125,6 +125,7 @@ const appRoutes: Routes = [
   { path: 'resetpassword/:id', component: FrontendResetPasswordComponent },
   { path: 'profile/:id', component: FrontendUserProfileComponent },
   { path: 'change-password/:id', component: FrontendChangePasswordComponent },
+  { path: 'thanku/:id', component: FrontendThankuPageComponent },
 
   { path: '', component: LoginComponent },
   { path: '**', redirectTo: '' }
