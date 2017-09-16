@@ -24,18 +24,27 @@ import { OrderDetailPage } from './order-detail';
      tempOrdr: Array<{}>;
      loading:any;
 
-     constructor(public actionSheetCtrl: ActionSheetController,public navCtrl: NavController, public loadingCtrl: LoadingController, public navParams: NavParams,private restaurantsService: RestaurantsService,private orderService: OrderService) {
-         this.loading = this.loadingCtrl.create({
-             content: 'Please wait...'
-         });
-         this.loading.present();
-         this.currentOwner = JSON.parse(localStorage.getItem('currentOwner'));
-         this.getRestaurants();
-     }
+    constructor(
+        public actionSheetCtrl: ActionSheetController,
+        public navCtrl: NavController, 
+        public loadingCtrl: LoadingController, 
+        public navParams: NavParams,
+        public restaurantsService: RestaurantsService,
+        public orderService: OrderService
+    ){}
 
-     ionViewDidLoad() {
-         console.log('ionViewDidLoad MyCustomerPage');
-     }
+    ionViewDidEnter() {
+        this.loading = this.loadingCtrl.create({
+            content: 'Please wait...'
+        });
+        this.loading.present();
+        this.currentOwner = JSON.parse(localStorage.getItem('currentOwner'));
+        this.getRestaurants();
+    }
+
+    ionViewDidLoad() {
+        console.log('ionViewDidLoad MyCustomerPage');
+    }
 
      private getRestaurants() {
          this.restaurantsService.getOwnerRestaurants(JSON.parse(localStorage.getItem('currentOwner'))._id).subscribe(users => {

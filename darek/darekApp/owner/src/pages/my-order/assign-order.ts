@@ -4,6 +4,7 @@ import { ModalController,ToastController, LoadingController, Nav, IonicPage, Nav
 import { RestaurantsService, OrderService, DriversService } from '../../app/service/index';
 
 import { MyOrderPage } from './my-order';
+import { OrderDetailPage } from './order-detail';
 
 /**
  * Generated class for the MyDriverPage page.
@@ -68,11 +69,10 @@ import { MyOrderPage } from './my-order';
         this.orderService.getUpdate(objUpdate).subscribe(
             (data) => {
                 loading.dismiss();
-                this.navCtrl.setRoot(MyOrderPage);
+                 this.navCtrl.pop(OrderDetailPage);
                 this.getToast('Order Assigned to Driver successfully');
             }
         );
-
         console.log('Submitting form', objUpdate);
     }
 

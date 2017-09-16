@@ -22,7 +22,7 @@
         <ion-list radio-group formControlName="driverId">
             <ion-item *ngFor="let driver of drivers">
                 <ion-label>{{driver.firstname}} {{driver.lastname}}</ion-label>
-                <ion-radio [value]="driver._id"></ion-radio>
+                <ion-radio [checked]="'true'" [value]="driver._id"></ion-radio>
                 <!-- <h2>{{driver.firstname}} {{driver.lastname}}</h2>
 				<p>{{driver.phoneNo}}</p> -->
             </ion-item>

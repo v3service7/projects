@@ -64,10 +64,10 @@ export class DriverDetailPage {
                 {
                     text: 'oK',
                     handler: data => {
-                        //this.driverService.deleteOne(id).subscribe(data => {   
+                        this.driverService.deleteOne(id).subscribe(data => {   
                             this.navCtrl.setRoot(MyDriverPage);
                             this.getToast('Driver Deleted Successfully');
-                        //});
+                        });
                     }
                 }
             ]

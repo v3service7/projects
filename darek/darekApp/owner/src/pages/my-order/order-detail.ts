@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ModalController,ToastController, LoadingController, Nav, IonicPage, NavController, NavParams,ViewController,MenuController  } from 'ionic-angular';
+import { ModalController,ToastController, LoadingController,AlertController, Nav, IonicPage, NavController, NavParams,ViewController,MenuController  } from 'ionic-angular';
 import { RestaurantsService, OrderService } from '../../app/service/index';
 
 import { MyOrderPage } from './my-order';
 import { AssignOrderPage } from './assign-order';
+//import {  OrderDetailPage } from './order-detail';
 /**
  * Generated class for the MyOrderPage page.
  *
@@ -34,35 +35,108 @@ import { AssignOrderPage } from './assign-order';
     .label-md {
         margin: 0px !important;
     }
+    .wrap{
+        white-space: normal;
+    }
     `],
 })
 export class OrderDetailPage {
 
 	selectedOrder:any;
     
-    constructor(public toastCtrl: ToastController, public navCtrl: NavController, public loadingCtrl: LoadingController, public navParams: NavParams,private restaurantsService: RestaurantsService,private orderService: OrderService) {
-        this.selectedOrder = navParams.get('item')
+    constructor(public alertCtrl: AlertController, public toastCtrl: ToastController, public navCtrl: NavController, public loadingCtrl: LoadingController, public navParams: NavParams,private restaurantsService: RestaurantsService,private orderService: OrderService) {
+        this.selectedOrder = navParams.get('item')        
+    }
+    
+    ionViewDidEnter() {
+        console.log('ionViewDidEnter MyCustomerPage');
+        console.log(this.selectedOrder)
+        this.getOrderDetail(this.selectedOrder);
     }
 
 	ionViewDidLoad() {
-		console.log('ionViewDidLoad MyCustomerPage');
 	}
 
-	private updateStatus(event,obj,status){
-		let loading = this.loadingCtrl.create({
-            content: 'Please wait...'
+    private rejectPrompt(obj,status) {
+        let prompt = this.alertCtrl.create({
+            title: 'Oreder '+status,
+            message: "Enter a message ",
+            inputs: [
+                {
+                    name: 'Message',
+                    placeholder: 'Message'
+                },
+            ],
+            buttons: [
+                {
+                    text: 'Cancel',
+                    handler: data => {
+                        console.log('Cancel clicked');
+                    }
+                },
+                {
+                    text: 'Save',
+                    handler: data => {
+                        var objUpdate = {};
+                        objUpdate['_id'] = obj._id;
+                        objUpdate['status'] = status;
+                        objUpdate['custMessage'] = data.Message;
+                        this.updateStatus(objUpdate);
+                    }
+                }
+            ]
         });
-        loading.present();
-        var objUpdate = {};
-        objUpdate['_id'] = obj._id;
-        objUpdate['status'] = status;
-        this.orderService.getUpdate(objUpdate).subscribe(
+        prompt.present();
+    }
+
+    private acceptPrompt(obj,status) {
+        let prompt = this.alertCtrl.create({
+            title: 'Oreder '+status,
+            message: "Enter a Time ",
+            inputs: [
+                {
+                    name: 'Message',
+                    placeholder: 'Message',
+                    type:'time'
+                },
+            ],
+            buttons: [
+                {
+                    text: 'Cancel',
+                    handler: data => {
+                        console.log('Cancel clicked');
+                    }
+                },
+                {
+                    text: 'Save',
+                    handler: data => {
+                        var objUpdate = {};
+                        objUpdate['_id'] = obj._id;
+                        objUpdate['status'] = status;
+                        objUpdate['custTime'] = data.Message;
+                        this.updateStatus(objUpdate);
+                    }
+                }
+            ]
+        });
+        prompt.present();
+    }
+
+    private updateStatus(obj){
+        console.log(obj)
+        this.orderService.getUpdate(obj).subscribe(
             (data) => {
-                loading.dismiss();
-                this.navCtrl.setRoot(MyOrderPage);
+                this.getOrderDetail(data.message);
                 this.getToast('Order '+status+' successfully');
             }
         );
+    }
+
+	private getOrderDetail(obj){
+        this.orderService.getDetail(obj._id).subscribe(
+            (data) => {
+                this.selectedOrder = data.message;
+        });
 	}
 
 	private assignOrder(event,obj){

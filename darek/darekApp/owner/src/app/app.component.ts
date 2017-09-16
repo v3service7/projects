@@ -26,7 +26,7 @@ import { MyNotificationPage } from '../pages/my-notification/my-notification';
 export class MyApp {
     @ViewChild(Nav) nav: Nav;
 
-    //rootPage: any = HomePage;
+    //rootPage: any = MyOrderPage;
     rootPage: any = LoginPage;
     currentOwner:any;
     pages: Array<{title: string, icon:string, component: any}>;
