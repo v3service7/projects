@@ -113,6 +113,11 @@
 								</div>
 							</div>
 						</div>
+
+						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 commentInReport" *ngIf = "detail.promotion.itemGroup1.itemInstruction && detail.promotion.itemGroup1.itemInstruction != ''">
+							<strong>Special Instructions</strong> &nbsp;&nbsp;&nbsp;&nbsp;{{detail.promotion.itemGroup1.itemInstruction}}
+						</div>
+						
 					</div>
 					<div *ngIf = "detail.promotion.itemGroup2" class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0" style="border-top-style: dotted;border-color: white;">
 						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" *ngIf="detail.promotion.itemGroup2.item">
@@ -145,6 +150,10 @@
 										<span class="fontSize14px"> <b>(+{{addon.price}})</b></span>
 									</div>
 								</div>
+							</div>
+
+							<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 commentInReport" *ngIf = "detail.promotion.itemGroup2.itemInstruction && detail.promotion.itemGroup2.itemInstruction != ''">
+								<strong>Special Instructions</strong> &nbsp;&nbsp;&nbsp;&nbsp;{{detail.promotion.itemGroup2.itemInstruction}}
 							</div>
 						</div>
 					</div>
@@ -212,7 +221,7 @@
 				<!-- gTotal end -->
 
 				<!-- Comment -->
-				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0 commentInReport">
+				<div *ngIf = "detail.comment && detail.comment != ''" class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0 commentInReport">
 					<div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 fontSize14px">
 						<b>Comment : </b>
 					</div>

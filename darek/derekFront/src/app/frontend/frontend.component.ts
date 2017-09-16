@@ -168,6 +168,8 @@ export class FrontendThankuPageComponent implements OnInit {
     ngOnInit() {
         this.activatedRoute.params.subscribe((params: Params) => {
             let id = params['id'];
+            console.log("id of order");
+            console.log(id);
             this.authenticate_loop(id);
         });
         
@@ -184,7 +186,7 @@ export class FrontendThankuPageComponent implements OnInit {
                     this.order = data.message;
                     this.restaurants = data.message.restaurantId;
                     if (data.error == false) {
-                        if (this.order.status == 'Pending') {
+                        if (this.order.status == 'Accepted') {
                             $('.backend-loader-preloader-wrapper').hide();
                             $('.continue').show();
                             this.showFlag = false;
@@ -195,9 +197,6 @@ export class FrontendThankuPageComponent implements OnInit {
                             $('.continue').show();
                             this.showFlag = false;
                             clearInterval(loopCount);
-                        }
-                        if (this.order.status == 'Received') {
-                            console.log("Still Received...");
                         }
                     }
                 });
@@ -233,7 +232,7 @@ export class FrontendThankuPageComponent implements OnInit {
             let timeMMM = m + ":" + s;
             $('#timer').html(timeMMM)
 
-            if (count >= 180){
+            if (count >= 180 || this.order.status == 'Accepted' || this.order.status == 'Rejected'){
                 clearInterval(loopCount);
             }
         },1000)

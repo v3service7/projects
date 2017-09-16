@@ -5,7 +5,7 @@
 	<div class="countDown"><span id="timer"></span></div>
 </div>
 
-<div class="orderPlaced" *ngIf = "order && order.status == 'Pending'">THANK You :)<br>Order Placed Successfully
+<div class="orderPlaced" *ngIf = "order && order.status == 'Accepted'">THANK You :)<br>Order Placed Successfully
 	<div class="fontSize24" *ngIf="order.custTime">Your order will reach you at {{order.custTime}}</div>
 </div>
 

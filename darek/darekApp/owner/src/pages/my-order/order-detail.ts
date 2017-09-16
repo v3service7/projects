@@ -126,7 +126,8 @@ export class OrderDetailPage {
         console.log(obj)
         this.orderService.getUpdate(obj).subscribe(
             (data) => {
-                this.getOrderDetail(data.message);
+                console.log(data.message);
+                this.getOrderDetail(obj);
                 this.getToast('Order '+status+' successfully');
             }
         );
@@ -135,7 +136,9 @@ export class OrderDetailPage {
 	private getOrderDetail(obj){
         this.orderService.getDetail(obj._id).subscribe(
             (data) => {
+                console.log(data.message)
                 this.selectedOrder = data.message;
+                console.log(this.selectedOrder)
         });
 	}
 

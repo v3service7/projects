@@ -775,7 +775,9 @@ export class ReportingDetailComponent implements OnInit {
 
 
     private getCompleteDetail(id){
-        this.orderService.getDetail(id).subscribe(users => { 
+        this.orderService.getDetail(id).subscribe(users => {
+            console.log("users.message");
+            console.log(users.message);
             this.detail = users.message;
             this.getRestaurants();
         });

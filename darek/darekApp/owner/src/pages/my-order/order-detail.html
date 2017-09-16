@@ -1,11 +1,11 @@
 <ion-header>
     <ion-navbar color="secondary">
         <button ion-button menuToggle>
-			<ion-icon name="menu"></ion-icon>
-		</button>
+            <ion-icon name="menu"></ion-icon>
+        </button>
         <span class="white"># {{selectedOrder._id.substr(18,6)}}</span><br>
         <span class="white">{{selectedOrder.orderTime.time | date:'EEE dd MMM' }} - {{selectedOrder.orderTime.time | date:'shortTime' }}
-            </span>
+        </span>
     </ion-navbar>
 </ion-header>
 
@@ -17,21 +17,22 @@
         <ion-card-content>
             <h2>{{selectedOrder.status}}</h2>
             <div *ngIf="selectedOrder.status == 'Received'">
-            <!-- <div> -->
-                <button ion-button icon-only color="secondary" (click)="acceptPrompt(selectedOrder,'Pending')">
-					<ion-icon name="checkmark" ios="ios-checkmark" md="md-checkmark"> Accept</ion-icon>
-				</button>
-                <button ion-button icon-only color="danger" (click)="rejectPrompt(selectedOrder,'Rejected')">
-					<ion-icon name="close" ios="ios-close" md="md-close"> Reject</ion-icon>
-				</button>
-            </div>
-            <div *ngIf="!selectedOrder.driverId && selectedOrder.status != 'Rejected' && selectedOrder.status != 'Received' && selectedOrder.status != 'Missed' && selectedOrder.orderMethod.mType != 'Pickup'">
-                <button ion-button full (click)="assignOrder($event,selectedOrder)">
-					<ion-icon name="car" ios="ios-car" md="md-car"></ion-icon> &nbsp; Assign to Drivers
-				</button>
-            </div>
-        </ion-card-content>
+                <!-- <div> -->
+                    <button ion-button icon-only color="secondary" (click)="acceptPrompt(selectedOrder,'Accepted')">
+                        <ion-icon name="checkmark" ios="ios-checkmark" md="md-checkmark"> Accept</ion-icon>
+                    </button>
+                    <button ion-button icon-only color="danger" (click)="rejectPrompt(selectedOrder,'Rejected')">
+                        <ion-icon name="close" ios="ios-close" md="md-close"> Reject</ion-icon>
+                    </button>
+                </div>
+                <div *ngIf="!selectedOrder.driverId && selectedOrder.status != 'Rejected' && selectedOrder.status != 'Received' && selectedOrder.status != 'Missed' && selectedOrder.orderMethod.mType != 'Pickup'">
+                    <button ion-button full (click)="assignOrder($event,selectedOrder)">
+                        <ion-icon name="car" ios="ios-car" md="md-car"></ion-icon> &nbsp; Assign to Drivers
+                    </button>
+                </div>
+            </ion-card-content>
     </ion-card>
+        
     <ion-card>
         <ion-card-header>
             Customer Detail
@@ -48,16 +49,17 @@
             </p>
         </ion-card-content>
     </ion-card>
+
     <ion-card *ngIf="selectedOrder.driverId">
         <ion-card-header>
-       <ion-list>
-  <ion-item style="background: #e7e7e7;">
-      Driver Detail
-     <button  item-end  (click)="assignOrder($event,selectedOrder)">
-                <ion-icon name="create" ios="ios-create" md="md-create"></ion-icon>
-            </button>
-  </ion-item>
-</ion-list>
+            <ion-list>
+                <ion-item style="background: #e7e7e7;">
+                    Driver Detail
+                    <button  item-end  (click)="assignOrder($event,selectedOrder)">
+                        <ion-icon name="create" ios="ios-create" md="md-create"></ion-icon>
+                    </button>
+                </ion-item>
+            </ion-list>
 
         </ion-card-header>
         <ion-card-content>
@@ -78,15 +80,16 @@
             <p *ngIf="selectedOrder.orderMethod">
                 <ion-icon name="card" ios="ios-card" md="md-card"> Type: {{selectedOrder.orderMethod.mType}}
                     <span *ngIf="selectedOrder.orderPayment">
-				, <span *ngIf="selectedOrder.orderPayment.cash">Cash</span>
-                    <span *ngIf="selectedOrder.orderPayment.cardpickup">Card Pickup</span>
-                    <span *ngIf="selectedOrder.orderPayment.cardinternet">Card via Internet</span>
+                        , <span *ngIf="selectedOrder.orderPayment.cash">Cash</span>
+                        <span *ngIf="selectedOrder.orderPayment.cardpickup">Card Pickup</span>
+                        <span *ngIf="selectedOrder.orderPayment.cardinternet">Card via Internet</span>
                     </span>
                 </ion-icon>
             </p>
             <p *ngIf="selectedOrder.orderTime">
                 <ion-icon name="time">
-                    Fulfillment date & time : </ion-icon><br>{{selectedOrder.orderTime.time | date:'fullDate'}}</p>
+                Fulfillment date & time : </ion-icon><br>{{selectedOrder.orderTime.time | date:'fullDate'}}
+            </p>
         </ion-card-content>
     </ion-card>
 
@@ -98,8 +101,9 @@
             <p *ngIf="selectedOrder.restaurantId">
                 <ion-icon name="home"> {{selectedOrder.restaurantId.name}}</ion-icon>
                 <span *ngIf="selectedOrder.restaurantId">
-				 , {{selectedOrder.restaurantId.address}} {{selectedOrder.restaurantId.zipcode}} {{selectedOrder.restaurantId.city}}
-			</span></p>
+                    , {{selectedOrder.restaurantId.address}} {{selectedOrder.restaurantId.zipcode}} {{selectedOrder.restaurantId.city}}
+                </span>
+            </p>
         </ion-card-content>
     </ion-card>
 
@@ -143,26 +147,28 @@
 
                 <ion-row *ngIf="order.itemInstruction && order.itemInstruction != ''">
                     <ion-item>
-                     <ion-row >
-                        <ion-col col-12>
-                            <b>Special Instructions</b>
-                        </ion-col>
-                        <ion-col col-12>
-                            <p class="wrap">{{order.itemInstruction}}</p>
-                        </ion-col>
-                         </ion-row >
+                        <ion-row >
+                            <ion-col col-12>
+                                <b>Special Instructions</b>
+                            </ion-col>
+                            <ion-col col-12>
+                                <p class="wrap">{{order.itemInstruction}}</p>
+                            </ion-col>
+                        </ion-row >
                     </ion-item>
                 </ion-row>
 
             </ion-item>
 
             <hr>
+
             <ion-item *ngIf="selectedOrder.promotion">
                 <b>Promotion Item</b>
                 <ion-row *ngIf="selectedOrder.promotion.itemGroup1 && selectedOrder.promotion.itemGroup1.item">
                     <ion-col col-6>
                         <span style="font-size: 14px"> <b>{{selectedOrder.promotion.itemGroup1.quantity}} x </b></span>{{selectedOrder.promotion.itemGroup1.item.name}}
                     </ion-col>
+
                     <ion-col col-6>
                         <b>{{selectedOrder.promotion.itemGroup1.totalPrice}}</b>
                     </ion-col>
@@ -175,6 +181,7 @@
                             <b>{{selectedOrder.promotion.itemGroup1.multisize.price}}</b>
                         </ion-col>
                     </ion-row>
+                    
                     <ion-row *ngIf="selectedOrder.promotion.itemGroup1.addon.length > 0">
                         <ion-item *ngFor="let adn of selectedOrder.promotion.itemGroup1.addon">
                             <ion-row>
@@ -187,7 +194,21 @@
                             </ion-row>
                         </ion-item>
                     </ion-row>
+
+                    <ion-row *ngIf="selectedOrder.promotion.itemGroup1.itemInstruction && selectedOrder.promotion.itemGroup1.itemInstruction != ''">
+                        <ion-item>
+                            <ion-row >
+                                <ion-col col-12>
+                                    <b>Special Instructions</b>
+                                </ion-col>
+                                <ion-col col-12>
+                                    <p class="wrap">{{selectedOrder.promotion.itemGroup1.itemInstruction}}</p>
+                                </ion-col>
+                            </ion-row >
+                        </ion-item>
+                    </ion-row>
                 </ion-row>
+
                 <ion-row *ngIf="selectedOrder.promotion.itemGroup2 && selectedOrder.promotion.itemGroup2.item">
                     <ion-col col-6>
                         <span style="font-size: 14px"> <b>{{selectedOrder.promotion.itemGroup2.quantity}} x </b></span>{{selectedOrder.promotion.itemGroup2.item.name}}
@@ -217,9 +238,24 @@
                             </ion-row>
                         </ion-item>
                     </ion-row>
+
+                    <ion-row *ngIf="selectedOrder.promotion.itemGroup2.itemInstruction && selectedOrder.promotion.itemGroup2.itemInstruction != ''">
+                        <ion-item>
+                            <ion-row >
+                                <ion-col col-12>
+                                    <b>Special Instructions</b>
+                                </ion-col>
+                                <ion-col col-12>
+                                    <p class="wrap">{{selectedOrder.promotion.itemGroup2.itemInstruction}}</p>
+                                </ion-col>
+                            </ion-row >
+                        </ion-item>
+                    </ion-row>
                 </ion-row>
             </ion-item>
+            
             <hr>
+            
             <ion-item>
                 <ion-row>
                     <ion-col col-6>
@@ -254,17 +290,17 @@
                     </ion-col>
                 </ion-row>
             </ion-item>
+            
             <hr>
-            <ion-item *ngIf="selectedOrder.comment && selectedOrder.comment != ''">
+            
+            <ion-item *ngIf="selectedOrder.comment">
                 <ion-row>
-                   
-                        <ion-col col-12>
-                            <b>Comment</b>
-                        </ion-col>
-                        <ion-col col-12>
-                            <p  class="wrap">{{selectedOrder.comment}}</p>
-                        </ion-col>
-                   
+                    <ion-col col-12>
+                        <b>Comment</b>
+                    </ion-col>
+                    <ion-col col-12>
+                        <p  class="wrap">{{selectedOrder.comment}}</p>
+                    </ion-col>
                 </ion-row>
             </ion-item>
         </ion-card-content>
