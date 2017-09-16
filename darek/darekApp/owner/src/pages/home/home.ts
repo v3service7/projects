@@ -24,16 +24,15 @@ export class HomePage {
 	constructor(public navCtrl: NavController, public menuCtrl: MenuController, public viewCtrl: ViewController, public loadingCtrl: LoadingController, public navParams: NavParams,private restaurantsService: RestaurantsService,private orderService: OrderService) {
  		
 		this.menuCtrl.enable(true);
-		//console.log(this.currentOwner)
-        
-		
+        this.loading = this.loadingCtrl.create({
+            content: 'Please wait...'
+        });
+        this.loading.present();
+        this.getRestaurants();
+		//console.log(this.currentOwner)		
 	}
 
-    ionViewDidEnter() {
-        //this.isLogin();
-    }
-	ionViewWillEnter() {
-           
+	ionViewWillEnter() {           
 		this.viewCtrl.showBackButton(false);
 	}
 
@@ -53,6 +52,7 @@ export class HomePage {
 		this.currentOwner = JSON.parse(localStorage.getItem('currentOwner'));
         this.restaurantsService.getOwnerRestaurants(this.currentOwner._id).subscribe(users => {
             this.restaurants = users.message;
+            console.log(this.restaurants);
             this.getOverview(this.restaurants._id);
         });
     }
@@ -60,6 +60,8 @@ export class HomePage {
     private getOverview(id){
         this.orderService.overview(id).subscribe(users => { 
             this.overview = users.data;
+            console.log("this.overview");
+            console.log(this.overview);
             if (this.overview.totalAcceptedOrder) {
                 for (var i = 0; i < this.overview.totalAcceptedOrder.length; i++) {
                     this.acceptedOrderTotal = this.acceptedOrderTotal + this.overview.totalAcceptedOrder[i].gTotal;
