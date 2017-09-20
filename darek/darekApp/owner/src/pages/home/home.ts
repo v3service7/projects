@@ -29,7 +29,6 @@ export class HomePage {
         });
         this.loading.present();
         this.getRestaurants();
-		//console.log(this.currentOwner)		
 	}
 
 	ionViewWillEnter() {           

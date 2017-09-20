@@ -37,8 +37,8 @@ router.get('/overview/:id', function(req, res, next) {
     console.log(req.params.id);
     var lastWeek = new Date();
     lastWeek.setDate(lastWeek.getDate() -7);
-    Order.find({restaurantId:req.params.id,status:'accepted'},function(err,totalAcceptedOrder){
-        Order.find({restaurantId:req.params.id,created_at:{'$gte':lastWeek}},function(err,asPerDayOrder){
+    Order.find({restaurantId:req.params.id,status:'Accepted'},function(err,totalAcceptedOrder){
+        Order.find({restaurantId:req.params.id,status:'Accepted',created_at:{'$gte':lastWeek}},function(err,asPerDayOrder){
             Order.find({restaurantId:req.params.id}).distinct('customerId',function(err,totalClient){
                 Order.find({restaurantId:req.params.id,created_at:{'$gte':lastWeek}}).distinct('customerId',function(err,asPerDayClient){
                     res.json({'status':true,'data':{'totalAcceptedOrder':totalAcceptedOrder,'asPerDayOrder':asPerDayOrder,'totalClient':totalClient,'asPerDayClient':asPerDayClient}});

@@ -24,7 +24,9 @@
 						<span *ngIf="detail.orderPayment.cardpickup">Card Pickup</span>
 						<span *ngIf="detail.orderPayment.cardinternet">Card via Internet</span>
 					</div>
-					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" *ngIf="detail.orderTime">Fulfillment date & time : {{detail.orderTime.time}}
+					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" *ngIf="detail.orderTime && detail.orderTime.tType == 'Now'">Fulfillment date & time : {{detail.orderTime.time | date : "EEEE, MMMM d, y - h:mm a"}}
+					</div>
+					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" *ngIf="detail.orderTime && detail.orderTime.tType == 'Later'">Fulfillment date & time : {{detail.orderTime.day}}<br>{{detail.orderTime.time}}
 					</div>
 				</div>
 			</div>

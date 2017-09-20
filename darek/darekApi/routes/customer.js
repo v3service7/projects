@@ -167,7 +167,7 @@ router.post('/forget-pass',function(req,res,next){
                 /*var content = "Password reset Link <a href='http://34.209.114.118:3003/resetpassword/"+data[0]._id+"'>Click Here</a>"*/
                 console.log(content);
                 req.mail.sendMail({  //email options
-                   from: "Restaurant Team <logindharam@gmail.com>", // sender address.  Must be the same as authenticated user if using GMail.
+                   from: "Restaurant Team <derekitchen@gmail.com>", // sender address.  Must be the same as authenticated user if using GMail.
                    to: name, // receiver
                    subject: "Reset Password", // subject
                    //text: "Email Example with nodemailer" // body
@@ -179,11 +179,11 @@ router.post('/forget-pass',function(req,res,next){
                        console.log("Message sent: " + response.message);
                    }
                    req.mail.close(); // shut down the connection pool, no more messages.  Comment this line out to continue sending emails.
-                   res.json({error:false});
+                   res.json({error:false, data : data});
                 });
             }
             else{
-                res.json({error:true, data:"data empty"});
+                res.json({error:true, data:"Email Doesn't Exist"});
             }
         };
     }); 

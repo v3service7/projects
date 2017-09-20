@@ -10,7 +10,7 @@ var restaurantModel = require('../model/Restaurant.js');
 
 function sendOrderMail(req,name,subject,content){
     req.mail.sendMail({  //email options
-       from: "Restaurant Team <logindharam@gmail.com>", // sender address.  Must be the same as authenticated user if using GMail.
+       from: "Restaurant Team <derekitchen@gmail.com>", // sender address.  Must be the same as authenticated user if using GMail.
        to: name, // receiver
        subject: subject, // subject
        //text: "Email Example with nodemailer" // body

@@ -165,19 +165,26 @@
 								<input type="radio" name="time" value="" id="now" (click)="setTime('now')" [checked]="this.orderTime.tType == 'Now'">{{'Now' | translate}}
 							</div>
 							<div class="checkbox1 col-lg-12 col-md-12 col-sm-12 col-xs-12 laterSelect pointer">
-								<input type="radio" name="time" value="" id="later"  (click)="setTime('later')" [checked]="this.orderTime.tType == 'Later'">Later
+								<input type="radio" name="time" value="" id="later" (click)="setTime('later')" [checked]="this.orderTime.tType == 'Later'">Later
 								<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" *ngIf="delLater">
-									<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 select-container">
-										<select [(ngModel)]="day" class="order-later-day form-control"  style="width: 100%;"> 
-											<!-- <option [ngValue]="-1">Select</option> -->
+									<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 select-container" style="display: inline-table;">
+										<!-- <select [(ngModel)]="day" class="order-later-day form-control"  style="width: 100%;"> 
 											<option *ngFor="let n of days" [ngValue]="n.day">{{n.day}}</option>
-										</select>
+										</select> -->
+										<input type='text' class="form-control" id='datetimepicker1' value="{{laterDay}}" (click)="showDatePicker('Day')" (blur)="getValue('datetimepicker1')" style="border-radius: 0;" />
+										<span class="input-group-addon" (click)="showDatePicker('Day')">
+							                <span class="glyphicon glyphicon-calendar"></span>
+							            </span>
 									</div>
-									<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 select-container">
-										<select [(ngModel)]="time" class="order-later-time form-control" name="latertime" style="width: 100%;">
-											<!-- <option [ngValue]="-1">Select</option> -->
+									<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 select-container" style="display: inline-table;">
+										<!-- <select [(ngModel)]="time" class="order-later-time form-control" name="latertime" style="width: 100%;">
 											<option *ngFor="let n of times" [ngValue]="n.time">{{n.time}}</option>
-										</select>
+										</select> -->
+										<input type='text' class="form-control" id='datetimepicker2' value="{{laterTime}}" (click)="showDatePicker('Time')" (blur)="getValue('datetimepicker2')" style="border-radius: 0;" />
+										<span class="input-group-addon" (click)="showDatePicker('Time')">
+						                    <span class="glyphicon glyphicon-time"></span>
+						                </span>
+										<!-- <input type="text" id="datePicker1" placeholder="Select Time" (click)="showDatePicker('displayTime')" (blur)="getValue('datePicker1')" class="form-control"> -->
 									</div>
 								</div>
 							</div>
@@ -189,10 +196,10 @@
 					<div class="editTimeMethod" *ngIf = "editTimeMethod">
 						<div class="col-lg-8 col-md-8 col-sm-8 col-xs-8 orderTimeDetail">
 							<div *ngIf="orderTime.tType == 'Now'">
-								{{orderTime.tType}}
+								{{orderTime.tType}}<br>{{orderTime.time | date : "EEEE, h:mm a"}}
 							</div>
 							<div *ngIf="orderTime.tType == 'Later'">
-								{{orderTime.day}} {{orderTime.time}}
+								{{orderTime.tType}}<br>{{orderTime.day}}<br>{{orderTime.time}}
 							</div>
 						</div>
 						<div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 editButton" (click)="editTime()">

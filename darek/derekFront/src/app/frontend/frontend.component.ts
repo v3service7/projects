@@ -1515,6 +1515,8 @@ export class FrontendCartComponent implements OnInit {
     objForUpdate: any = {};
     cart:any=[];
     promotionOrder:any;
+    laterDay:any;
+    laterTime:any;
     user = [];
     allPromotions = [];
     restroPromotions = [];
@@ -1566,10 +1568,10 @@ export class FrontendCartComponent implements OnInit {
     date : any;
     timeO : any;
     dayO : any;
-    day :any = 'today';
+    /*day :any = 'today';
     days:any = [{day : "today"}, {day: "tomorrow"}];
     time:any = '8:00';
-    times:any = [{time:"8:00"},{time:"9:00"},{time:"10:00"},{time:"11:00"},{time:"12:00"},{time:"13:00"},{time:"14:00"},{time:"15:00"},{time:"16:00"},{time:"17:00"},{time:"18:00"},{time:"19:00"},{time:"20:00"}]
+    times:any = [{time:"8:00"},{time:"9:00"},{time:"10:00"},{time:"11:00"},{time:"12:00"},{time:"13:00"},{time:"14:00"},{time:"15:00"},{time:"16:00"},{time:"17:00"},{time:"18:00"},{time:"19:00"},{time:"20:00"}]*/
     months:any = ['01','02','03','04','05','06','07','08','09','10','11','12'];
     years:any=[];
 
@@ -1596,6 +1598,10 @@ export class FrontendCartComponent implements OnInit {
     }
 
     ngOnInit() {
+
+        this.loadScript('/assets/js/bootstrap-datetimepicker.min.js','js');
+        this.loadScript('/assets/css/bootstrap-datetimepicker.css','css');
+
         this.addressForm = this.lf.group({
             streetName: ['', Validators.required],
             city: ['', Validators.required],
@@ -1684,6 +1690,7 @@ export class FrontendCartComponent implements OnInit {
 
         this.timeO = h+':'+m +':'+ s;
 
+
         var days = ["sunday","monday","tuesday","wednesday","thursday","friday","saturday"];
         this.dayO = days[this.currentDate.getDay()];
 
@@ -1692,6 +1699,23 @@ export class FrontendCartComponent implements OnInit {
         this.makePaymentModel.valueChanges.subscribe(data => this.onValueChanged(data));
         this.onValueChanged();
         this.yearAdd();
+
+        this.laterTime = this.currentDate.toLocaleTimeString();
+        this.laterDay =  this.dayO + ', ' + this.completeDate;
+    }
+
+    public loadScript(url,type) {
+        if (type == 'js') {
+            let node = document.createElement('script');
+            node.src = url;
+            node.type = 'text/javascript';
+            document.getElementsByTagName('body')[0].appendChild(node);
+        }else{
+            let node = document.createElement('link');
+            node.href = url;
+            node.rel = 'stylesheet';
+            document.getElementsByTagName('head')[0].appendChild(node);
+        }
     }
 
     private fetchPromotion(id){
@@ -1973,7 +1997,9 @@ export class FrontendCartComponent implements OnInit {
             this.orderTime.tType = 'Now';
             this.flagForTime=true;
         }
-        else if (id=="later") {            
+        else if (id=="later") {
+            $('#datetimepicker1').datetimepicker({format : 'dddd, DD-MM-YYYY'});
+            $('#datetimepicker2').datetimepicker({format:'LT'});
             this.delLater=true;
             this.orderTime = {};
             this.orderTime.tType = 'Later';
@@ -1981,13 +2007,28 @@ export class FrontendCartComponent implements OnInit {
         }
     }
 
+    private showDatePicker(type){
+        $('#datetimepicker1').datetimepicker({format : 'dddd, DD-MM-YYYY'});
+        $('#datetimepicker2').datetimepicker({format:'LT'});
+     }
+
+    private getValue(type){
+        let eleObj = (<HTMLInputElement>document.getElementById(type));
+        if (type == 'datetimepicker1') {
+            this.laterDay = eleObj.value;
+        }
+        if (type == 'datetimepicker2') {
+            this.laterTime = eleObj.value;
+        }
+    }
+
     private saveTimeInfo(){
         if (this.orderTime.tType == 'Later') {
-            this.orderTime = {"day":this.day, "time":this.time, "tType": 'Later'}
+            this.orderTime = {"tType": 'Later',"day":this.laterDay,"time":this.laterTime}
         }
         if (this.orderTime.tType == 'Now') {
             var date = Date();
-            this.orderTime = {"time":date,  "tType": 'Now'}
+            this.orderTime = {"tType": 'Now',"time":date}
         }
         localStorage.setItem(this.orderTimeStorage, JSON.stringify(this.orderTime));
         this.orderTime = JSON.parse(localStorage.getItem(this.orderTimeStorage));
@@ -2138,32 +2179,51 @@ export class FrontendCartComponent implements OnInit {
     }
 
     private deleteCart(index) {
-
-        console.log("this.cart[index]");
-        console.log(this.cart[index]);
-
-
-        if (this.cartDetail['promotion'] && typeof this.couponCodeApplied != 'undefined') {
-            if (confirm("Removing Item will remove your Coupon Applied! \n continue?")) {
-                this.cart.splice(index,1);
-                localStorage.setItem(this.cartStorage, JSON.stringify(this.cart));
-                this.update();
-                toastr.remove();
-                toastr.info('Item Deleted!',null, {'positionClass' : 'toast-top-full-width'});
-                this.removeCoupon();
-            }
-        }/*else if(this.cartDetail['promotion'] && this.indexPromotion == 6 && this.promotionOrderMinAmount != 'undefined'){
-            if () {
-                // code...
-            }
-        }*/
-        else{
+        if ((this.cartDetail['promotion'] && typeof this.couponCodeApplied == 'undefined' && this.indexPromotion != 6 ) || typeof this.cartDetail['promotion'] == 'undefined') {
             if (confirm("Are you sure to delete ?")) {
                 this.cart.splice(index,1);
                 localStorage.setItem(this.cartStorage, JSON.stringify(this.cart));
                 this.update();
                 toastr.remove();
                 toastr.info('Item Deleted!',null, {'positionClass' : 'toast-top-full-width'});
+            }
+        }
+
+        if (this.cartDetail['promotion'] && typeof this.couponCodeApplied != 'undefined') {
+            if (confirm("Removing Item will remove your Coupon Applied! \n continue?")) {
+                this.cart.splice(index,1);
+                delete this.cartDetail['promotion'];
+                localStorage.setItem(this.cartStorage, JSON.stringify(this.cart));
+                this.update();
+                toastr.remove();
+                toastr.info('Item Deleted!',null, {'positionClass' : 'toast-top-full-width'});
+                this.removeCoupon();
+            }
+        }
+
+        if(this.cartDetail['promotion'] && this.indexPromotion == 6 && typeof this.promotionOrderMinAmount != 'undefined'){
+            var afterCartTotalAmount = this.cartTotalAmount - this.cart[index]['totalPrice'];
+            if (afterCartTotalAmount < this.promotionOrderMinAmount) {
+                if (confirm("Removing item will remove your deal! \n continue?")) {
+                    this.cart.splice(index,1);
+                    localStorage.setItem(this.cartStorage, JSON.stringify(this.cart));
+                    delete this.promotionOrder;
+                    delete this.cartDetail['promotion'];
+                    localStorage.removeItem(this.promotionStorage);
+                    this.update();
+                    toastr.remove();
+                    toastr.info('Item Deleted!',null, {'positionClass' : 'toast-top-full-width'});
+                }
+            }
+
+            if (afterCartTotalAmount >= this.promotionOrderMinAmount) {
+                if (confirm("Are you sure to delete ?")) {
+                    this.cart.splice(index,1);
+                    localStorage.setItem(this.cartStorage, JSON.stringify(this.cart));
+                    this.update();
+                    toastr.remove();
+                    toastr.info('Item Deleted!',null, {'positionClass' : 'toast-top-full-width'});
+                }
             }
         }
     }
@@ -2279,7 +2339,6 @@ export class FrontendCartComponent implements OnInit {
     }
 
     private placeOrder(){
-
         this.cartDetail.orderTime = this.orderTime;
         this.cartDetail.orderPayment = this.orderPayment;
         this.cartDetail.orderMethod = this.orderMethod;
@@ -2303,6 +2362,7 @@ export class FrontendCartComponent implements OnInit {
                         }
 
                         localStorage.setItem(this.cartStorage,'[]');
+                        localStorage.removeItem(this.orderTimeStorage);
                         if (localStorage.getItem(this.coupon) != 'undefined' && localStorage.getItem(this.coupon) != 'null') {
                             localStorage.removeItem(this.coupon);
                         }
@@ -2337,6 +2397,7 @@ export class FrontendCartComponent implements OnInit {
                 }
 
                 localStorage.setItem(this.cartStorage,'[]');
+                localStorage.removeItem(this.orderTimeStorage);
                 if (localStorage.getItem(this.coupon) != 'undefined' && localStorage.getItem(this.coupon) != 'null') {
                     localStorage.remove(this.coupon);
                 }
@@ -2402,15 +2463,17 @@ export class FrontendCartComponent implements OnInit {
                     addonPrice = parseInt(this.cartDetail.orders[index].addon[i].price) + addonPrice;
                 }
             }
+
             if (this.cartDetail.orders[index].multisize) {
                 multisizePrice = parseInt(this.cartDetail.orders[index].multisize.price);
             }
+
             totalprice = addonPrice + itemPrice + multisizePrice;
 
             var afterCartTotalAmount = this.cartTotalAmount - totalprice;
 
             if (this.cartDetail['promotion'] && this.indexPromotion == 6 && typeof this.promotionOrderMinAmount != 'undefined') {
-                if (afterCartTotalAmount <= this.promotionOrderMinAmount) {
+                if (afterCartTotalAmount < this.promotionOrderMinAmount) {
                     if (confirm("Decreasing Quantity will remove your deal! \n continue?")) {
                         this.cartDetail.orders[index].quantity = this.cartDetail.orders[index].quantity - 1;
                         this.cartDetail.orders[index].totalPrice = totalprice * this.cartDetail.orders[index].quantity;
@@ -2420,7 +2483,7 @@ export class FrontendCartComponent implements OnInit {
                     }
                 }
 
-                if (afterCartTotalAmount > this.promotionOrderMinAmount) {
+                if (afterCartTotalAmount >= this.promotionOrderMinAmount) {
                     this.cartDetail.orders[index].quantity = this.cartDetail.orders[index].quantity - 1;
                     this.cartDetail.orders[index].totalPrice = totalprice * this.cartDetail.orders[index].quantity;
                 }
@@ -2430,6 +2493,8 @@ export class FrontendCartComponent implements OnInit {
                 this.cartDetail.orders[index].quantity = this.cartDetail.orders[index].quantity - 1;
                 this.cartDetail.orders[index].totalPrice = totalprice * this.cartDetail.orders[index].quantity;
             }
+
+
         }else{
             toastr.remove();
             toastr.warning('Atleast 1 Item is Mandatory',null, {'positionClass' : 'toast-top-full-width'});
@@ -2535,7 +2600,9 @@ export class FrontendCartComponent implements OnInit {
         delete this.couponCodeApplied;
         delete this.cartTotal;
         delete this.discountAmount;
-        delete this.cartDetail['promotion'];
+        if (typeof this.cartDetail['promotion'] != "undefined") {
+            delete this.cartDetail['promotion'];
+        }
 
         $('.couponApplied').hide();
         $('.couponClass').show();
