@@ -1,0 +1,18 @@
+
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>menu</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content *ngIf = "menus">
+	<ion-content class="card-background-page">
+		<ion-card *ngFor = "let menu of menus">
+			<img src="{{imageURL}}{{menu.image}}"/>
+			<div class="card-title">{{menu.name}}</div>
+		</ion-card>
+	</ion-content>
+</ion-content>

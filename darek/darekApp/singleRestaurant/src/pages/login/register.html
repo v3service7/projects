@@ -1,0 +1,38 @@
+
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Sign Up</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+<ion-content padding>
+	<form role="form" [formGroup]="signUpForm" (ngSubmit)="register()" >
+		<ion-item class="topRadius">
+			<ion-label> <ion-icon name="person" ios="ios-person" md="md-person"></ion-icon> </ion-label>
+			<ion-input formControlName="firstname" class="form-control" placeholder="firstname" type="text" autofocus></ion-input>
+		</ion-item>
+		<ion-item class="topRadius">
+			<ion-label> <ion-icon name="person" ios="ios-person" md="md-person"></ion-icon> </ion-label>
+			<ion-input formControlName="lastname" class="form-control" placeholder="lastname" type="text"></ion-input>
+		</ion-item>
+		<ion-item class="topRadius">
+			<ion-label> <ion-icon name="person" ios="ios-person" md="md-person"></ion-icon> </ion-label>
+			<ion-input formControlName="phonenumber" class="form-control" placeholder="Telephone *" type="number"></ion-input>
+		</ion-item>
+		<ion-item class="topRadius">
+			<ion-label> <ion-icon name="person" ios="ios-person" md="md-person"></ion-icon> </ion-label>
+			<ion-input formControlName="username" class="form-control" placeholder="Choose your Username" type="text"></ion-input>
+		</ion-item>
+		<ion-item class="topRadius">
+			<ion-label> <ion-icon name="person" ios="ios-person" md="md-person"></ion-icon> </ion-label>
+			<ion-input formControlName="email" class="form-control" placeholder="E-mail"  type="email"></ion-input>
+		</ion-item>
+		<ion-item class="topRadius">
+			<ion-label> <ion-icon name="person" ios="ios-person" md="md-person"></ion-icon> </ion-label>
+			<ion-input formControlName="password" class="form-control" placeholder="Password" type="password" value=""></ion-input>
+		</ion-item>
+		<button ion-button full color="secondary" [disabled]="!signUpForm.valid">Submit</button>
+	</form>
+</ion-content>

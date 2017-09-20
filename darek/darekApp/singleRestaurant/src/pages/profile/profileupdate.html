@@ -1,0 +1,48 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>profile</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+<ion-content padding>
+    <ion-list>
+        <form role="form" [formGroup]="profileForm" (ngSubmit)="update()">
+            <ion-item>
+                <ion-label>
+                    <ion-icon name="mail" ios="ios-mail" md="md-mail"></ion-icon>
+                </ion-label>
+                <ion-input formControlName="email" type="text" disabled="true" placeholder="Email"></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-label>
+                    <ion-icon name="person" ios="ios-person" md="md-person"></ion-icon>
+                </ion-label>
+                <ion-input formControlName="username" type="text" disabled="true" placeholder="Username"></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-label>
+                    <ion-icon name="person" ios="ios-person" md="md-person"></ion-icon>
+                </ion-label>
+                <ion-input formControlName="firstname" type="text" placeholder="First Name"></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-label>
+                    <ion-icon name="person" ios="ios-person" md="md-person"></ion-icon>
+                </ion-label>
+                <ion-input formControlName="lastname" type="text" placeholder="Last Name"></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-label>
+                    <ion-icon name="call" ios="ios-call" md="md-call"></ion-icon>
+                </ion-label>
+                <ion-input formControlName="phonenumber" type="text" placeholder="Phone no."></ion-input>
+            </ion-item>
+
+            <button ion-button full [disabled]="!profileForm.valid">Submit</button>
+
+        </form>
+        <!-- <button ion-button clear (click)="goToChangePassword()">Change Password</button> -->
+    </ion-list>
+</ion-content>
