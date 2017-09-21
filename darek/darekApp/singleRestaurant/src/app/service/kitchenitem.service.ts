@@ -26,7 +26,6 @@ export class KitchenItemService {
         );
     }
 
-    
     getAll() {
       return this.http.get(globalVariable.url+'item/')
         .map(
@@ -34,8 +33,15 @@ export class KitchenItemService {
         );
     }
 
-  	getAllItems(id) {
-  		return this.http.get(globalVariable.url+'item-list/'+ id)
+    getAllItems(id) {
+      return this.http.get(globalVariable.url+'item-list/'+ id)
+        .map(
+          (response: Response) => response.json()
+        );
+    }
+
+  	getMenuItem(id) {
+  		return this.http.get(globalVariable.url+'menuitem-list/'+ id)
   			.map(
   				(response: Response) => response.json()
   			);

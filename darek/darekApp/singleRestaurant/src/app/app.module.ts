@@ -21,6 +21,8 @@ import { ChangePasswordPage } from '../pages/profile/changepassword';
 
 import { MenuPage } from '../pages/menu/menu';
 
+import { ItemPage } from '../pages/item/item';
+
 /*Services*/
 import {  CustomersService, KitchenMenuService, KitchenItemService, RestaurantsService } from './service/index';
 
@@ -31,7 +33,8 @@ import {  CustomersService, KitchenMenuService, KitchenItemService, RestaurantsS
     HomePage,
     LoginPage,ForgetPasswordPage,RegisterPage,
     ProfilePage,ProfileUpdatePage,ChangePasswordPage,
-    MenuPage
+    MenuPage,
+    ItemPage
   ],
   imports: [
     BrowserModule,
@@ -46,7 +49,8 @@ import {  CustomersService, KitchenMenuService, KitchenItemService, RestaurantsS
     HomePage,
     LoginPage,ForgetPasswordPage,RegisterPage,
     ProfilePage,ProfileUpdatePage,ChangePasswordPage,
-    MenuPage
+    MenuPage,
+    ItemPage
   ],
   providers: [
     CustomersService,KitchenMenuService, KitchenItemService, RestaurantsService,

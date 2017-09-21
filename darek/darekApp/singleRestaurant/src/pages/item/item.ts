@@ -1,20 +1,22 @@
 import { Component } from '@angular/core';
 import { ToastController, LoadingController, Nav, NavController, NavParams ,ViewController,MenuController} from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { KitchenMenuService,RestaurantsService } from '../../app/service/index';
+import { KitchenItemService } from '../../app/service/index';
 import * as globalVariable from "../../app/global";
 
-import { ItemPage } from "../item/item"
+import { MenuPage } from '../menu/menu';
+
 
 @Component({
-  selector: 'page-menu',
-  templateUrl: 'menu.html',
+  selector: 'page-item',
+  templateUrl: 'item.html',
 })
-export class MenuPage {
 
-	menus : any = [];
+export class ItemPage {
+
+	menu : any = {};
+	items : any = [];
 	currentDate:any;
-	restaurants:any;
     date : any;
     time : any;
     day : any;
@@ -24,20 +26,24 @@ export class MenuPage {
     loading: any;
 
 	constructor(
-		public loadingCtrl: LoadingController,
+  		public loadingCtrl: LoadingController,
     	public menuCtrl: MenuController,
     	private viewCtrl: ViewController,
 	    public toastCtrl: ToastController,
-		public navCtrl: NavController,
-		private kitchenMenuService: KitchenMenuService,
-		private restaurantsService: RestaurantsService,
-		public navParams: NavParams
-	) {
-		this.loadRestaurant('595172e2421a472120e0db5e')
-	}
+      public navCtrl: NavController,
+  		public nav: Nav,
+  		private kitchenItemService: KitchenItemService,
+  		public navParams: NavParams
+  	) {
+  		this.menu = navParams.get('menu');
+  		console.log("this.menu");
+  		console.log(this.menu);
+
+  		this.getItems(this.menu._id);
+  	}
 
 	ionViewDidLoad() {
-        this.loading = this.loadingCtrl.create({
+		this.loading = this.loadingCtrl.create({
             content: 'Please wait...'
         });
         this.loading.present();
@@ -47,7 +53,6 @@ export class MenuPage {
         var h = this.addZero(this.currentDate.getHours());
         var m = this.addZero(this.currentDate.getMinutes());
         var s = this.addZero(this.currentDate.getSeconds());
-
 
         var date = this.addZero(this.currentDate.getDate());
         var month = this.addZero(this.currentDate.getMonth()+1);
@@ -64,13 +69,6 @@ export class MenuPage {
         this.day = days[this.currentDate.getDay()];
 	}
 
-    doRefresh(refresher) {
-        setTimeout(() => {
-            this.loadAllMenu(this.restaurants._id);
-            refresher.complete();
-        }, 2000);
-    }
-
 	private addZero(i) {
         if (i < 10) {
             i = "0" + i;
@@ -78,11 +76,22 @@ export class MenuPage {
         return i;
     }
 
-    private loadRestaurant(id){
-    	this.restaurantsService.getOne(id).subscribe(users => {
-            this.restaurants = users.message;
-            this.loadAllMenu(id);
-        });
+   private itemImage(img){
+    	if (img != null) {
+           var imgPath = this.imageURL + img;
+       	}
+       	if (img == null) {
+           var imgPath = "../assets/img/itemimage.gif";
+       	}
+       	return imgPath;
+   }
+
+
+    doRefresh(refresher) {
+        setTimeout(() => {
+            this.getItems(this.menu._id);
+            refresher.complete();
+        }, 2000);
     }
 
 	private checkMenuItemShow(obj){
@@ -113,28 +122,30 @@ export class MenuPage {
         }
     }
 
-	private loadAllMenu(id){
-        this.menus = [];
-		this.kitchenMenuService.getAll(id).subscribe(users => {       
+  	private getItems(id){
+		this.kitchenItemService.getMenuItem(id).subscribe(users => {       
 			if(!users.error){
+
+				
 				if (users.message.length > 0) {
-					this.loading.dismiss();
+					this.items = [];
 					for(var i = 0; i < users.message.length; i++) {
-						if (users.message[i]['isHidden'] == false ) {
-							var display = this.checkMenuItemShow(users.message[i]);
-							if (display == 'block') {
-			            		this.menus.push(users.message[i]);
-							}
+						var display = this.checkMenuItemShow(users.message[i]);
+						if (display == 'block') {
+		            		this.items.push(users.message[i]);
 						}
-						console.log("this.menus");
-						console.log(this.menus);
+						console.log("this.items");
+						console.log(this.items);
 					}
+					this.loading.dismiss();
 				}else{
 					this.loading.dismiss();
-					this.getToast('No Menu Availavle Now!');
+          this.nav.pop(MenuPage);
+					this.getToast('No Item Availavle Now!');
 				}
 			}else{
 				this.loading.dismiss();
+        this.nav.pop(MenuPage);
 				this.getToast('Something Went Wrong!');
 			}
         });
@@ -147,22 +158,5 @@ export class MenuPage {
 	        position:'top' //top,middle,bottom
 	    });
 	    toast.present();
-   }
-
-   private menuImage(img){
-       if (img != null) {
-           var imgPath = this.imageURL + img;
-       }
-       if (img == null) {
-           var imgPath = "../assets/img/menu.jpg";
-       }
-       return imgPath;
-   }
-
-   private showItems(menu){
-        this.navCtrl.push(ItemPage, {
-            menu : menu
-        });
-   }
-
+	}
 }

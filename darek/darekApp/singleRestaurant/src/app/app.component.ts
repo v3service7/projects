@@ -15,9 +15,9 @@ import { MenuPage } from '../pages/menu/menu';
 export class MyApp {
    @ViewChild(Nav) nav: Nav;
 
-   rootPage: any = MenuPage;
+   rootPage: any = LoginPage;
    currentCustomer : any;
-   pages: Array<{title: string, component: any}>;
+   pages: Array<{iconA: string, iconI : string, iconW : string ,title: string, component: any}>;
 
    constructor(
       public platform: Platform,
@@ -29,9 +29,9 @@ export class MyApp {
 
       // used for an example of ngFor and navigation
       this.pages = [
-      { title: 'Home', component: HomePage },
-      { title: 'My Profile', component: ProfilePage },
-      { title: 'Menu', component: MenuPage }
+      { iconA : 'home' , iconI : 'ios-home' , iconW : 'md-home' , title: 'Home', component: HomePage },
+      { iconA : 'person' , iconI : 'ios-person' , iconW : 'md-person' , title: 'My Profile', component: ProfilePage },
+      { iconA : 'clipboard' , iconI : 'ios-clipboard' , iconW : 'md-clipboard' , title: 'Menu', component: MenuPage }
       ];
 
       this.currentCustomer = JSON.parse(localStorage.getItem('currentCustomer')); 

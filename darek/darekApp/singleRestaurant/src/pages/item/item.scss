@@ -1,0 +1,38 @@
+page-item {
+
+ion-content{
+	background: #EEEEEE !important;
+}
+
+ion-content ion-card {
+	width:100% !important;
+	margin:0 0 2% 0 !important;
+	height: 15%;
+	box-shadow : none !important;
+}
+
+.itemDetail{
+	height : 100%;
+}
+
+.itemDetail ion-col{
+	padding: 2.5%;
+}
+
+.itemImage img{
+	height: 100%;
+    width: auto;
+}
+
+.itemName{
+	height : 65%;
+	font-size: 16px;
+    font-weight: 500;
+}
+
+.itemPrice{
+	color : #8DD15D;
+	font-size: 14px;
+    font-weight: 500;
+}
+}
