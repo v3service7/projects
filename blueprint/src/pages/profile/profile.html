@@ -1,0 +1,43 @@
+<ion-header>
+  <ion-navbar>
+  	<button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>profile</ion-title>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content padding>
+    <ion-grid>
+        <ion-row *ngIf = "currentCustomer">
+            <ion-col col-1>
+                <ion-icon name="person" item-start></ion-icon>
+            </ion-col>
+            <ion-col col-4>Username:</ion-col>
+            <ion-col col-7>{{currentCustomer.username}}</ion-col>
+            <ion-col col-1>
+                <ion-icon name="mail" item-start></ion-icon>
+            </ion-col>
+            <ion-col col-4>Email:</ion-col>
+            <ion-col col-7>{{currentCustomer.email}}</ion-col>
+            <ion-col col-1>
+                <ion-icon name="person" item-start></ion-icon>
+            </ion-col>
+            <ion-col col-4>Name:</ion-col>
+            <ion-col col-7> {{currentCustomer.firstname}} {{currentCustomer.lastname}}</ion-col>
+            <ion-col col-1>
+                <ion-icon name="call" item-start></ion-icon>
+            </ion-col>
+            <ion-col col-4>Contact:</ion-col>
+            <ion-col col-7> {{currentCustomer.phonenumber}} </ion-col>
+        </ion-row>
+
+    </ion-grid>
+    <hr>
+    <ion-list>
+        <button ion-button icon-only (click)="goToChangePassword()"><ion-icon name="key" item-start></ion-icon></button>
+        <button ion-button icon-only item-end (click)="goToUpdateProfile()"><ion-icon name="create" ></ion-icon></button>
+
+    </ion-list>
+</ion-content>
