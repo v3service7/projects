@@ -1,19 +1,19 @@
 <ion-menu [content]="content">
-  <ion-content class="leftNav">
-    <ion-list class="restaurantLogo">
-      <div>LOGO</div>
+    <ion-content class="leftNav">
+        <ion-list class="restaurantLogo">
+            <div>LOGO</div>
 
-    </ion-list>
+        </ion-list>
 
-    <ion-list class="leftNavHeading">
-      <button menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)">
-        <ion-icon name="{{p.iconA}}" ios="{{p.iconI}}" md="{{p.iconW}}" item-start></ion-icon> {{p.title}}
-      </button>
-      <button menuClose ion-item (click)="logout()">
-        <ion-icon name="power" ios="ios-power" md="md-power" item-start></ion-icon> Logout
-      </button>
-    </ion-list>
-  </ion-content>
+        <ion-list class="leftNavHeading">
+            <button menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)">
+                <ion-icon name="{{p.iconA}}" ios="{{p.iconI}}" md="{{p.iconW}}" item-start></ion-icon> {{p.title}}
+            </button>
+            <button menuClose ion-item (click)="logout()">
+                <ion-icon name="power" ios="ios-power" md="md-power" item-start></ion-icon> Logout
+            </button>
+        </ion-list>
+    </ion-content>
 </ion-menu>
 
 <!-- Disable swipe-to-go-back because it's poor UX to combine STGB with side menus -->

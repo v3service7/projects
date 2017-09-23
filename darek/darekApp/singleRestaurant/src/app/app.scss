@@ -22,7 +22,7 @@
 
 .leftNav .leftNavHeading button {
 	border : none !important;
-		background : #EEEEEE;
+	background : #EEEEEE;
 }
 
 .leftNav{
@@ -41,4 +41,32 @@
     letter-spacing: 3px;
     font-family: Freestyle Script;
     font-size: x-large;
+}
+
+.width100{
+    width : 100%;
+}
+
+.colorWhite{
+    color : white;
+}
+
+.colorGreen{
+    color : #8DD15D;
+}
+
+.fontWeight600{
+    font-weight : 600;
+}
+
+.positionAbsolute{
+    position: absolute;
+}
+
+.padding0px15px{
+    padding : 0 15px;
+}
+
+.floatRight{
+    float : right;
 }

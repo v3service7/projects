@@ -1,0 +1,63 @@
+
+<ion-header>
+
+	<ion-navbar>
+		<ion-title>{{item.name}}</ion-title>
+	</ion-navbar>
+
+</ion-header>
+
+<ion-content *ngIf = "item">
+	<ion-refresher (ionRefresh)="doRefresh($event)">
+		<ion-refresher-content></ion-refresher-content>
+	</ion-refresher>
+	
+	<ion-row class= "topRow">
+		<ion-col col-12 class="itemImage" [ngStyle]="{'background-image': 'url(' + itemImage(item.image) + ')'}">		
+			<ion-row class="itemInfo positionAbsolute padding0px15px">
+				<ion-col col-12 class="itemName colorWhite">{{item.name | uppercase}}</ion-col>
+				<ion-col col-12 class="itemPrice colorGreen">${{item.price}}</ion-col>
+			</ion-row>
+		</ion-col>
+	</ion-row>
+
+	<ion-row class="imageDescription width100 padding0px15px">
+		<ion-col>{{item.description}}</ion-col>
+	</ion-row>
+
+	<ion-row *ngIf ="item.multisize && item.multisize.length > 0" class="imageDescription width100 padding0px15px">
+		<ion-label>Size</ion-label>
+		<ion-select  interface="popover">
+			<div *ngFor="let multisize of item.multisize; let i = index; ">
+				<ion-option [selected] = "index(i)">
+					<ion-row>
+						<ion-col col-8>{{multisize.size}}</ion-col>
+						<ion-badge item-end>{{multisize.price}}</ion-badge>
+						<!-- <ion-col col-4>{{multisize.price}}</ion-col> -->
+					</ion-row>
+				</ion-option>
+			</div>
+		</ion-select>
+	</ion-row>
+
+	<ion-row *ngIf = "item.options && item.options.length > 0" class="width100 padding0px15px">
+		<ion-label>Add-ons</ion-label>
+		<ion-row *ngFor = "let group of item.options" class="width100" (click)="showAddon(group)">
+			<ion-col col-12>{{group.name}}
+				<span *ngIf="group.groupType">({{group.groupType.gType | uppercase}})
+				</span>
+			</ion-col>
+			<!-- <ion-col *ngIf = "group.subaddon && group.subaddon.length > 0 " col-12>
+				<ion-select class="maxWidth100" multiple="true" cancelText="Cancel" okText="Add" [attr.id]="'Location_' + group._id">
+					<ion-option *ngFor = "let addon of group.subaddon; let i = index; " value="addon">
+						{{addon.name}} +{{addon.price}}
+					</ion-option>
+				</ion-select>				
+			</ion-col> -->
+
+		</ion-row>
+	</ion-row>
+
+
+
+</ion-content>

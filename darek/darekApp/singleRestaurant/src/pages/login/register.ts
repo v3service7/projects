@@ -3,7 +3,7 @@ import { ToastController, LoadingController, Nav, NavController, NavParams ,View
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CustomersService } from '../../app/service/customer.service';
 
-import { LoginPage } from '../login/login';
+import { LoginPage } from './login';
 
 @Component({
   selector: 'page-register',

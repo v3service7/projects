@@ -22,41 +22,42 @@ import { ChangePasswordPage } from '../pages/profile/changepassword';
 import { MenuPage } from '../pages/menu/menu';
 
 import { ItemPage } from '../pages/item/item';
+import { ItemDetailPage } from '../pages/item/itemDetail';
 
 /*Services*/
 import {  CustomersService, KitchenMenuService, KitchenItemService, RestaurantsService } from './service/index';
 
 
 @NgModule({
-  declarations: [
+    declarations: [
     MyApp,
     HomePage,
     LoginPage,ForgetPasswordPage,RegisterPage,
     ProfilePage,ProfileUpdatePage,ChangePasswordPage,
     MenuPage,
-    ItemPage
-  ],
-  imports: [
+    ItemPage,ItemDetailPage
+    ],
+    imports: [
     BrowserModule,
     FormsModule,
     HttpModule,
     ReactiveFormsModule,
     IonicModule.forRoot(MyApp),
-  ],
-  bootstrap: [IonicApp],
-  entryComponents: [
+    ],
+    bootstrap: [IonicApp],
+    entryComponents: [
     MyApp,
     HomePage,
     LoginPage,ForgetPasswordPage,RegisterPage,
     ProfilePage,ProfileUpdatePage,ChangePasswordPage,
     MenuPage,
-    ItemPage
-  ],
-  providers: [
+    ItemPage,ItemDetailPage
+    ],
+    providers: [
     CustomersService,KitchenMenuService, KitchenItemService, RestaurantsService,
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
-  ]
+    ]
 })
 export class AppModule {}

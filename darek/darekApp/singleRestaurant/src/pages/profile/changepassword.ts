@@ -3,7 +3,7 @@ import { ToastController, NavController} from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CustomersService } from '../../app/service/customer.service';
 
-import { ProfilePage } from '../profile/profile';
+import { ProfilePage } from './profile';
 
 @Component({
   selector: 'page-change-password',

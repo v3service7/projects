@@ -1,0 +1,49 @@
+page-itemDetail {
+
+	.topRow{
+		height: 50%;
+		margin-bottom: 4%;
+	}
+
+	.itemImage{
+		background-size: 100% 100%;
+	}
+
+	.itemImage:before{
+		content: '';
+	    position: absolute;
+	    top: 0;
+	    right: 0;
+	    bottom: 0;
+	    left: 0;
+	    background-image: linear-gradient(to bottom left, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.75));
+	    opacity: .6; 
+	}
+
+	.itemInfo{
+	    bottom: 4%;
+	    width: 100%;
+	    left: 0;
+	}
+
+	.itemName {
+		font-size : 22px;
+	}
+
+	.itemPrice {
+		font-size: 16px;
+	    font-weight: 600;
+	}
+	.itemSize span.floatRight{
+		    float : right;
+		}
+
+	.maxWidth100{
+		max-width : 100% !important;
+	}
+
+
+
+
+
+}

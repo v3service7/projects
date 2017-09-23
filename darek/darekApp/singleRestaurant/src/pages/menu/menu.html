@@ -1,20 +1,20 @@
 
 <ion-header>
-  <ion-navbar>
-  	<button ion-button menuToggle>
-      <ion-icon name="menu"></ion-icon>
-    </button>
-    <ion-title>menu</ion-title>
-  </ion-navbar>
+    <ion-navbar>
+        <button ion-button menuToggle>
+            <ion-icon name="menu"></ion-icon>
+        </button>
+        <ion-title>menu</ion-title>
+    </ion-navbar>
 </ion-header>
 
 <ion-content  *ngIf = "menus" class="card-background-page">
-	<ion-refresher (ionRefresh)="doRefresh($event)">
+    <ion-refresher (ionRefresh)="doRefresh($event)">
         <ion-refresher-content></ion-refresher-content>
     </ion-refresher>
 
-	<ion-list *ngFor = "let menu of menus" (click)="showItems(menu)" [ngStyle]="{'background-image': 'url(' + menuImage(menu.image) + ')'}">
-		<div class="card-title">{{menu.name}}</div>
-	</ion-list>
+    <ion-list *ngFor = "let menu of menus" (click)="showItems(menu)" [ngStyle]="{'background-image': 'url(' + menuImage(menu.image) + ')'}">
+        <div class="card-title positionAbsolute">{{menu.name}}</div>
+    </ion-list>
 
 </ion-content>
