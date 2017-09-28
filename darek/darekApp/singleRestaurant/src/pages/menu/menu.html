@@ -1,10 +1,21 @@
-
 <ion-header>
     <ion-navbar>
         <button ion-button menuToggle>
-            <ion-icon name="menu"></ion-icon>
+            <ion-icon name="menu" ios="ios-menu" md="md-menu"></ion-icon>
         </button>
         <ion-title>menu</ion-title>
+        <!-- <ion-buttons end>
+            <button ion-button icon-only (click)="restroInfo()">
+                <ion-icon name="information-circle" ios="ios-information-circle" md="md-information-circle"></ion-icon>
+            </button>
+        </ion-buttons>
+        <ion-buttons end>
+            <button ion-button icon-only (click)="goToCart()">
+                <ion-icon name="cart" ios="ios-cart" md="md-cart">
+                    <ion-badge id="cart-badge" color="danger">{{tempCart.length}}</ion-badge>
+                </ion-icon>
+            </button>
+        </ion-buttons> -->
     </ion-navbar>
 </ion-header>
 
@@ -14,7 +25,7 @@
     </ion-refresher>
 
     <ion-list *ngFor = "let menu of menus" (click)="showItems(menu)" [ngStyle]="{'background-image': 'url(' + menuImage(menu.image) + ')'}">
-        <div class="card-title positionAbsolute">{{menu.name}}</div>
+        <div class="card-title positionAbsolute fontWeight500">{{menu.name}}</div>
     </ion-list>
 
 </ion-content>

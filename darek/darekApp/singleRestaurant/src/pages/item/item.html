@@ -16,8 +16,8 @@
 		<ion-row class="itemDetail">
 			<ion-col col-3 class="itemImage"><img [src]="itemImage(item.image)"/></ion-col>
 			<ion-col col-9>
-				<ion-row class="itemName fontWeight600">
-					{{item.name | uppercase}}
+				<ion-row text-uppercase class="itemName fontWeight600">
+					{{item.name}}
 				</ion-row>
 				<ion-row class="itemPrice fontWeight600 colorGreen">
 					${{item.price}}

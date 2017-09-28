@@ -1,0 +1,104 @@
+<!--
+Generated template for the CheckoutPage page.
+
+See http://ionicframework.com/docs/components/#navigation for more info on
+Ionic pages and navigation.
+-->
+<ion-header>
+	<ion-navbar>
+		<ion-title>Order Detail</ion-title>
+	</ion-navbar>
+</ion-header>
+
+<ion-content padding>
+
+	<ion-row *ngIf = "currentCustomer">
+		<ion-item>
+			<ion-avatar item-start>
+				<img [src]="customerImage(currentCustomer.image)">
+			</ion-avatar>
+			<h2 text-uppercase>{{currentCustomer.firstname}} {{currentCustomer.lastname}}</h2>
+			<p>{{currentCustomer.phonenumber}}</p>
+		</ion-item>
+	</ion-row>
+
+	<ion-row class="marginTop10">
+		<ion-label class="fontWeight600">Choose Method</ion-label>
+		<ion-select [(ngModel)]="orderMethodSelect" submitText="Ok" cancelText="Cancel" (ionChange)="orderMethodFunction()">
+			<ion-option *ngIf="restaurants.pickup" value="pickup">Pickup</ion-option>
+			<ion-option *ngIf="restaurants.delivery" value="delivery">Delivery</ion-option>
+		</ion-select>
+	</ion-row>
+
+	<ion-row *ngIf= "del">
+		<ion-row class="width100"><ion-label class="fontWeight600">Address : <ion-icon *ngIf = "!enterAddress"  name="create" ios="ios-create" md="md-create" float-right (click)="editAddress()"></ion-icon></ion-label></ion-row>
+		<ion-row *ngIf="enterAddress" class="width100">
+			<form role="form" [formGroup]="addressForm" (ngSubmit)="saveAddressInfo()" class="width100">
+				<ion-item no-padding>
+					<ion-label floating no-margin class="siLabel">Street Name & Number *</ion-label>	<!-- Flushing, Queens -->
+					<ion-input type="text" class="siText" formControlName="streetName"></ion-input>
+				</ion-item>
+				<ion-item no-padding>
+					<ion-label floating no-margin class="siLabel">Town or City Area *</ion-label>	<!-- NY , USA -->
+					<ion-input type="text" class="siText" formControlName="city"></ion-input>
+				</ion-item>
+				<ion-item no-padding>
+					<ion-label floating no-margin class="siLabel">Postalcode *</ion-label>
+					<ion-input type="number" class="siText" formControlName="postcode"></ion-input>		<!-- 11355 -->
+				</ion-item>
+				<button type="submit" class="width100 orderButton padding3 marginTop5" [disabled]="!addressForm.valid">Save</button>
+			</form>
+		</ion-row>
+		<ion-row *ngIf = "!enterAddress && this.orderMethod.mType == 'Delivery'" class="width100">
+			{{this.orderMethod.streetName}}, {{this.orderMethod.city}}<br>{{this.orderMethod.postcode}}
+		</ion-row>
+	</ion-row>
+
+	<ion-row>
+		<ion-label class="fontWeight600">Choose Order Time</ion-label>
+		<ion-select [(ngModel)]="orderTimeSelect" submitText="Ok" cancelText="Cancel" (ionChange)="orderTimeFunction()">
+			<ion-option value="now">Now</ion-option>
+			<ion-option value="later">Later</ion-option>
+		</ion-select>
+	</ion-row>
+	<ion-row *ngIf = "showLater" class="padding010 timeBg">
+		<ion-row class="width100">
+			<ion-label class="fontWeight600">Date</ion-label>
+			<ion-datetime displayFormat="DDDD, DD-MM-YYYY" min="2017" max="2027" id="laterDate1" [(ngModel)]="laterDate" (ionChange)="laterDateFunction()"></ion-datetime>
+		</ion-row>
+		<ion-row class="width100">
+			<ion-label class="fontWeight600">Time</ion-label>
+			<ion-datetime displayFormat="hh:mm A" pickerFormat="hh mm A" id="laterTime1" [(ngModel)]="laterTime" (ionChange)="laterTimeFunction()"></ion-datetime>
+		</ion-row>
+	</ion-row>
+
+	<ion-row *ngIf = "orderMethod.mType">
+		<ion-label class="fontWeight600">Choose Payment Method</ion-label>
+		<ion-select *ngIf = "orderMethod.mType == 'Pickup'" [(ngModel)]="orderPaymentSelect" submitText="Ok" cancelText="Cancel" (ionChange)="orderPaymentFunction()">
+			<ion-option *ngIf = "restaurants.paymentpickup.cash" value="cash">Cash</ion-option>
+			<ion-option *ngIf = "restaurants.paymentpickup.cardinternet" value="cardPickup">Card at Pickup</ion-option>
+			<ion-option *ngIf = "restaurants.paymentpickup.cardpickup" value="cardInternet">Card via Internet</ion-option>
+		</ion-select>
+		<ion-select *ngIf = "orderMethod.mType == 'Delivery'" [(ngModel)]="orderPaymentSelect" submitText="Ok" cancelText="Cancel" (ionChange)="orderPaymentFunction()">
+			<ion-option *ngIf = "restaurants.paymentdelivery.cash" value="cash">Cash</ion-option>
+			<ion-option *ngIf = "restaurants.paymentdelivery.cardinternet" value="cardPickup">Card at Pickup</ion-option>
+			<ion-option *ngIf = "restaurants.paymentdelivery.cardpickup" value="cardInternet">Card via Internet</ion-option>
+		</ion-select>
+	</ion-row>
+
+	<ion-row class="width100 marginTop5">
+		<button class="width100 orderButton padding3" [disabled]="checkDisabled()" (click)="placeOrder()">
+			<ion-row class="width100">
+				<ion-col col-3 text-left class="priceBorder">
+					{{this.totalAmount | number : '1.2-2'}}
+				</ion-col>
+				<ion-col col-9>
+					Place Order
+				</ion-col>
+			</ion-row>
+		</button>
+	</ion-row>
+
+	<div id="gmap" style="display: none;"></div>
+
+</ion-content>

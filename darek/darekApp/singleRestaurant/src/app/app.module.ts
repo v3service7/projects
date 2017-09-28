@@ -23,6 +23,13 @@ import { MenuPage } from '../pages/menu/menu';
 
 import { ItemPage } from '../pages/item/item';
 import { ItemDetailPage } from '../pages/item/itemDetail';
+import { IconTextPage } from '../pages/item/iconText';
+
+import { RestroinfoPage } from '../pages/restroinfo/restroinfo';
+
+import { CartPage } from '../pages/cart/cart';
+
+import { CheckoutPage } from '../pages/cart/checkout';
 
 /*Services*/
 import {  CustomersService, KitchenMenuService, KitchenItemService, RestaurantsService } from './service/index';
@@ -35,7 +42,10 @@ import {  CustomersService, KitchenMenuService, KitchenItemService, RestaurantsS
     LoginPage,ForgetPasswordPage,RegisterPage,
     ProfilePage,ProfileUpdatePage,ChangePasswordPage,
     MenuPage,
-    ItemPage,ItemDetailPage
+    ItemPage,ItemDetailPage,IconTextPage,
+    RestroinfoPage,
+    CartPage,
+    CheckoutPage
     ],
     imports: [
     BrowserModule,
@@ -51,7 +61,10 @@ import {  CustomersService, KitchenMenuService, KitchenItemService, RestaurantsS
     LoginPage,ForgetPasswordPage,RegisterPage,
     ProfilePage,ProfileUpdatePage,ChangePasswordPage,
     MenuPage,
-    ItemPage,ItemDetailPage
+    ItemPage,ItemDetailPage,IconTextPage,
+    RestroinfoPage,
+    CartPage,
+    CheckoutPage
     ],
     providers: [
     CustomersService,KitchenMenuService, KitchenItemService, RestaurantsService,

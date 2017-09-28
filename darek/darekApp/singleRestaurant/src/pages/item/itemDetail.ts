@@ -17,7 +17,13 @@ export class ItemDetailPage {
     item : any = {};
     imageURL: string = globalVariable.imageUrl;
     loading: any;
-    orderItem : any = []
+    orderItem : any = {};
+    multisizeSelected : any = {};
+    mandCount : number = 0;
+    mandOptionId : any = [];
+    tempCart : any;
+    totalAmount : number = 0;
+    cart : string;
 
     constructor(
         public loadingCtrl: LoadingController,
@@ -31,18 +37,30 @@ export class ItemDetailPage {
         public navParams: NavParams
         ) {
         this.item = navParams.get('item');
-        /*this.getItems(this.menu._id);*/
+        this.orderItem['item'] = this.item;
+
+        this.cart = 'cart_' + this.item.kitchenId;
     }
 
     ionViewDidLoad() {
-        /*this.loading = this.loadingCtrl.create({
-            content: 'Please wait...'
-        });
-        this.loading.present();*/
-
+        if (typeof this.item.options != 'undefined' && this.item.options.length >0) {
+            for (var i = 0; i < this.item.options.length; i++) {
+                if (typeof this.item.options[i].groupType != 'undefined' && this.item.options[i].groupType.gType == 'mandatory') {
+                    this.mandOptionId.push(this.item.options[i]._id)
+                }
+            }
+        }
+        if (typeof this.item.multisize != 'undefined' && this.item.multisize.length > 0) {
+            this.multisizeSelected = this.item.multisize[0];
+            this.orderItem['multisize'] = this.multisizeSelected;
+        }
         this.orderItem['addon'] = [];
+        this.orderItem['quantity'] = 1;
 
-
+        if (localStorage.getItem(this.cart)) {
+            this.tempCart = JSON.parse(localStorage.getItem(this.cart));
+        }
+        this.totalPrice();
     }
 
     private itemImage(img){
@@ -55,12 +73,23 @@ export class ItemDetailPage {
         return imgPath;
     }
 
-    /*doRefresh(refresher) {
+    doRefresh(refresher) {
         setTimeout(() => {
-            this.getItems(this.menu._id);
+            this.getItems(this.item._id);
             refresher.complete();
         }, 2000);
-    }*/
+    }
+
+    private getItems(id){
+        this.kitchenItemService.getOne(id).subscribe(data=> {
+            if (!data.error) {
+                this.item = data.message;
+                this.orderItem['item'] = this.item;
+            }else{
+                this.getToast('Something Went Wrong!');
+            }
+        })
+    }
 
     private getToast(msg){
         let toast = this.toastCtrl.create({
@@ -72,11 +101,6 @@ export class ItemDetailPage {
     }
 
     private showAddon(group){
-        console.log("group");
-        console.log(group);
-        console.log("this.orderItem['addon']");
-        console.log(this.orderItem['addon']);
-
         let alert = this.alertCtrl.create();
         
         if (typeof group.groupType != 'undefined' && group.groupType.gType == 'mandatory') {
@@ -89,7 +113,7 @@ export class ItemDetailPage {
         for (var i = 0; i < group.subaddon.length; i++) {
             alert.addInput({
                 type: 'checkbox',
-                label: group.subaddon[i].name + group.subaddon[i].price,
+                label: '$'+group.subaddon[i].price + ' - ' + group.subaddon[i].name,
                 checked : this.checkChecked(group.subaddon[i]),
                 value : group.subaddon[i],
             });
@@ -99,36 +123,8 @@ export class ItemDetailPage {
         alert.addButton({
             text: 'Okay',
             handler: data => {
-                
                 var data1 = this.addGroupId(data,group);
-
                 this.spliceAddon(data1,group)
-
-                //this.addItem(data1);
-
-                /*if (value == 1 || value == 0) {
-                    if (data1.length > 0) {
-                        if (typeof group.groupType != 'undefined' && group.groupType.gType == 'mandatory') {
-                            if (data1.length >= min && data1.length <= max) {
-                                for (var i = 0; i < data1.length; i++) {
-                                    this.orderItem['addon'].push(data1[i]);
-                                }
-                            }else{
-                                this.getToast('Can\'t add \n Please ensure Minimum and Maximum you can order');
-                            }
-                        }
-
-                        if (typeof group.groupType != 'undefined' && group.groupType.gType == 'optional') {
-                            for (var i = 0; i < data1.length; i++) {
-                                this.orderItem['addon'].push(data1[i]);
-                            }
-                        }
-                    }
-
-                    if (data1.length == 0) {
-                        this.getToast('No Item Selected');
-                    }
-                }*/
             }
         });
         alert.present();
@@ -150,7 +146,7 @@ export class ItemDetailPage {
         console.log(length);
 
         if (length == 0) {
-            this.addItem(data1,group);
+            this.addAddon(data1,group);
         }
 
         if (length > 0) {
@@ -164,19 +160,19 @@ export class ItemDetailPage {
                 }
 
                 if(index == -1 || (i == length-1)){
-                    this.addItem(data1,group);
+                    console.log("-----------");
+                    this.addAddon(data1,group);
+                    break;
                 }
             }
         }
     }
 
-    private addItem(data1,group){
+    private addAddon(data1,group){
         let max : number;
         let min : number;
 
-        console.log(group);
-
-         if (typeof group.groupType != 'undefined' && group.groupType.gType == 'mandatory') {
+        if (typeof group.groupType != 'undefined' && group.groupType.gType == 'mandatory') {
             min = group.groupType.min;
             max = group.groupType.max;
 
@@ -190,6 +186,8 @@ export class ItemDetailPage {
             }else{
                 this.getToast('Can\'t add \n Please ensure Minimum and Maximum you can order');
             }
+            this.checkAddons();
+            this.totalPrice();
         }
 
         if (typeof group.groupType != 'undefined' && group.groupType.gType == 'optional') {
@@ -199,15 +197,25 @@ export class ItemDetailPage {
                     this.orderItem['addon'].push(data1[i]);
                 }
             }
+            this.totalPrice();
         }
-        console.log(this.orderItem['addon']);
     }
 
-    private index(i){
-        if (i == 0) {
-            return true;
-        }else{
+    private checkAddons(){
+        this.mandCount = 0;
+        for (var i = 0; i < this.mandOptionId.length; i++) {
+            var x = this.orderItem['addon'].findIndex(mn=> this.mandOptionId[i] == mn.groupId)
+            if(x > -1){
+                this.mandCount++;
+            }
+        }
+    }
+
+    private checkDisabled(){
+        if (this.mandOptionId.length == 0 || this.mandCount == this.mandOptionId.length) {
             return false;
+        }else{
+            return true;
         }
     }
 
@@ -217,4 +225,76 @@ export class ItemDetailPage {
             return true;
         }
     }
+
+    private decreaseQuantity(){
+        var x = document.getElementsByClassName('quantity');
+        var y = parseInt(x[0].innerHTML);
+        var z : Number;
+        if (y > 1) {
+            z = y - 1;
+            this.orderItem['quantity'] = z;
+            this.totalPrice();
+            var p = z.toString()
+            x[0].innerHTML = p;
+        }else{
+            this.getToast('Choose Atleast 1');
+        }
+    }
+
+    private increaseQuantity(){
+        var x = document.getElementsByClassName('quantity');
+        var y = parseInt(x[0].innerHTML);
+        var z : Number;
+        if (y < 10) {
+            z = y + 1;
+            this.orderItem['quantity'] = z;
+            this.totalPrice();
+            var p = z.toString();
+            x[0].innerHTML = p;
+        }else{
+            this.getToast('You Added Maximum Quantity')
+        }
+    }
+
+    private countCharacter(event){
+        this.orderItem['itemInstruction'] = event.target.value;
+        console.log("this.orderItem");
+        console.log(this.orderItem);
+    }
+
+    private optionsFn(){
+        this.orderItem['multisize'] = this.multisizeSelected;
+        this.totalPrice();
+    }
+
+    private totalPrice(){
+        let addonPrice = 0;
+        let multisizePrice = 0;
+        let total = 0;
+        if (typeof this.orderItem['addon'] != 'undefined' && this.orderItem['addon'].length > 0) {
+            for (let i = 0; i < this.orderItem['addon'].length; i++) {
+                addonPrice = addonPrice + parseInt(this.orderItem['addon'][i].price);
+            }
+        }
+        if (typeof this.orderItem['multisize'] != 'undefined') {
+            multisizePrice = parseInt(this.orderItem['multisize'].price);
+        }
+
+        total = (this.item.price + multisizePrice + addonPrice)*this.orderItem['quantity'];
+
+        this.totalAmount = total;
+
+        this.orderItem['totalPrice'] = this.totalAmount;
+
+        console.log("this.orderItem");
+        console.log(this.orderItem);
+    }
+
+    private addToCart(){
+        this.tempCart.push(this.orderItem);
+        localStorage.setItem(this.cart,JSON.stringify(this.tempCart));
+        this.navCtrl.pop(ItemPage);
+        this.getToast('Item Added');
+    }
+
 }

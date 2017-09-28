@@ -3,9 +3,12 @@ import { ToastController, LoadingController, Nav, NavController, NavParams ,View
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CustomersService } from '../../app/service/customer.service';
 
-import { HomePage } from '../home/home';
+import { MenuPage } from '../menu/menu';
 import { ForgetPasswordPage } from './forgetpassword';
 import { RegisterPage } from './register';
+
+
+import { IconTextPage } from '../item/iconText';
 
 @Component({
    selector: 'page-login',
@@ -57,7 +60,7 @@ export class LoginPage {
             if (data.status) {
                localStorage.setItem('currentCustomer', JSON.stringify(data.data));
                this.menuCtrl.enable(true);
-               this.nav.setRoot(HomePage);
+               this.nav.setRoot(MenuPage);
             }else{
                this.getToast('Bad Credential');
                this.loginForm.reset();
@@ -68,7 +71,7 @@ export class LoginPage {
             this.getToast('Bad Credential');
             this.loginForm.reset();
          }
-         );
+      );
    }
 
    private getToast(msg){

@@ -5,6 +5,8 @@ import { KitchenMenuService,RestaurantsService } from '../../app/service/index';
 import * as globalVariable from "../../app/global";
 
 import { ItemPage } from "../item/item"
+import { RestroinfoPage } from '../restroinfo/restroinfo';
+import { CartPage } from '../cart/cart';
 
 @Component({
   selector: 'page-menu',
@@ -12,7 +14,8 @@ import { ItemPage } from "../item/item"
 })
 export class MenuPage {
 
-	menus : any = [];
+    menus : any = [];
+	tempCart : any = [];
 	currentDate:any;
 	restaurants:any;
     date : any;
@@ -22,8 +25,10 @@ export class MenuPage {
     currentTime : string;
     imageURL: string = globalVariable.imageUrl;
     loading: any;
+    cart : string;
 
 	constructor(
+        public nav: Nav,
 		public loadingCtrl: LoadingController,
     	public menuCtrl: MenuController,
     	private viewCtrl: ViewController,
@@ -32,8 +37,8 @@ export class MenuPage {
 		private kitchenMenuService: KitchenMenuService,
 		private restaurantsService: RestaurantsService,
 		public navParams: NavParams
-	) {
-		this.loadRestaurant('595172e2421a472120e0db5e')
+	){
+		this.loadRestaurant('595172e2421a472120e0db5e');
 	}
 
 	ionViewDidLoad() {
@@ -81,6 +86,7 @@ export class MenuPage {
     private loadRestaurant(id){
     	this.restaurantsService.getOne(id).subscribe(users => {
             this.restaurants = users.message;
+            this.cart = 'cart_' + id;
             this.loadAllMenu(id);
         });
     }
@@ -126,8 +132,6 @@ export class MenuPage {
 			            		this.menus.push(users.message[i]);
 							}
 						}
-						console.log("this.menus");
-						console.log(this.menus);
 					}
 				}else{
 					this.loading.dismiss();
@@ -138,6 +142,12 @@ export class MenuPage {
 				this.getToast('Something Went Wrong!');
 			}
         });
+
+        if (localStorage.getItem(this.cart)) {
+            this.tempCart = JSON.parse(localStorage.getItem(this.cart));
+        }else{
+            localStorage.setItem(this.cart,'[]');
+        }
 	}
 
 	private getToast(msg){
@@ -163,6 +173,14 @@ export class MenuPage {
         this.navCtrl.push(ItemPage, {
             menu : menu
         });
+   }
+
+   private restroInfo(){
+       this.nav.setRoot(RestroinfoPage);
+   }
+
+   private goToCart(){
+       this.nav.setRoot(CartPage, {id : this.restaurants._id});
    }
 
 }

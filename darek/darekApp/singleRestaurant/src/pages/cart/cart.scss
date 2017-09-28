@@ -1,0 +1,44 @@
+page-cart {
+
+	.cartDiv{
+		text-align: center;
+	    background: rgba(128, 128, 128, 0.28);
+	    background: #dedede;
+	    font-size: 20px;
+	    padding: 10%;
+	    color: #2d2d2d;
+	}
+
+	.quantity{
+		border-top: 1px solid #dedede;
+	    border-bottom: 1px solid #dedede;
+	    text-align: center;
+	    font-size : 14.5px;
+	}
+
+	.qtyButton{
+	    font-weight: 600;
+	    font-size: 20px;
+	}
+
+	.itemInstruction{
+	    background: #252525;
+	    font-size: 12px;
+	    font-weight: 500;
+	    border-radius: 5%;
+	    color: white;
+	}
+
+	.cartPage{
+		background : #e4e4e4;
+	}
+
+	.cartPage ion-card{
+		box-shadow : none !important;
+	}
+
+	.checkout{
+		margin: 15% 0 10% 0 !important;
+	}
+
+}

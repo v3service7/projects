@@ -131,8 +131,6 @@ export class ItemPage {
                         if (display == 'block') {
                             this.items.push(users.message[i]);
                         }
-                        console.log("this.items");
-                        console.log(this.items);
                     }
                     this.loading.dismiss();
                 }else{
@@ -158,8 +156,6 @@ export class ItemPage {
     }
 
     private tapEvent($event,item){
-        console.log(event);
-        console.log(item);
         this.navCtrl.push(ItemDetailPage, {
             item : item
         });

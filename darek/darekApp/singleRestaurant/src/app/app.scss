@@ -17,25 +17,21 @@
 
 .leftNav .leftNavHeading button .item-inner{
 	margin-left: 12px !important;
-	border : none !important;
+	font-size : 14px;
+    font-weight : 500;
 }
 
 .leftNav .leftNavHeading button {
 	border : none !important;
-	background : #EEEEEE;
-}
 
-.leftNav{
-	background : #EEEEEE;
 }
 
 .restaurantLogo{
-	padding : 20% 25% 10% 25%;
     text-align: -webkit-center;
 }
 
 .restaurantLogo div{
-    border: 4px solid black;
+    
     padding: 10%;
     font-weight: 600;
     letter-spacing: 3px;
@@ -43,8 +39,35 @@
     font-size: x-large;
 }
 
+.leftNav ion-list{
+    border-bottom: 1px solid rgba(128, 128, 128, 0.46) !important;
+    border-top: 1px solid rgba(128, 128, 128, 0.46) !important;
+}
+
+
+
 .width100{
     width : 100%;
+}
+
+.width40{
+    width : 40% !important;
+}
+
+.height100{
+    height : 100%;
+}
+
+.padding4{
+    padding : 4%;
+}
+
+.padding3{
+    padding : 3%;
+}
+
+.padding6{
+    padding : 6%;
 }
 
 .colorWhite{
@@ -52,11 +75,15 @@
 }
 
 .colorGreen{
-    color : #8DD15D;
+    color : #32DB64;
 }
 
 .fontWeight600{
     font-weight : 600;
+}
+
+.fontWeight500{
+    font-weight : 500;
 }
 
 .positionAbsolute{
@@ -69,4 +96,30 @@
 
 .floatRight{
     float : right;
+}
+
+.orderButton{
+    width: 100%;
+    background: #32DB64;
+    color: white;
+    border-radius: 5px;
+    font-weight: 500;
+    font-size: 16px;
+    margin: 0 0 5% 0;
+}
+
+.displayInherit{
+    display: inherit;
+}
+
+.inlineFlex{
+    display: inline-flex;
+}
+
+.displayFlex{
+    display: flex;
+}
+
+.marginBottom4{
+    margin-bottom : 4% !important;
 }

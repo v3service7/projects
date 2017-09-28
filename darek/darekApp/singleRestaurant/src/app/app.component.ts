@@ -8,6 +8,10 @@ import { HomePage } from '../pages/home/home';
 import { ProfilePage } from '../pages/profile/profile';
 import { MenuPage } from '../pages/menu/menu';
 
+import { IconTextPage } from '../pages/item/iconText';
+
+import { CartPage } from '../pages/cart/cart';
+
 
 @Component({
     templateUrl: 'app.html'
@@ -29,9 +33,9 @@ export class MyApp {
 
         // used for an example of ngFor and navigation
         this.pages = [
-        { iconA : 'home' , iconI : 'ios-home' , iconW : 'md-home' , title: 'Home', component: HomePage },
+        { iconA : 'clipboard' , iconI : 'ios-clipboard' , iconW : 'md-clipboard' , title: 'Menu', component: MenuPage },
+        { iconA : 'cart' , iconI : 'ios-cart' , iconW : 'md-cart' , title: 'Shopping Cart', component: CartPage },
         { iconA : 'person' , iconI : 'ios-person' , iconW : 'md-person' , title: 'My Profile', component: ProfilePage },
-        { iconA : 'clipboard' , iconI : 'ios-clipboard' , iconW : 'md-clipboard' , title: 'Menu', component: MenuPage }
         ];
 
         this.currentCustomer = JSON.parse(localStorage.getItem('currentCustomer')); 

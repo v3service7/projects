@@ -42,8 +42,34 @@ page-itemDetail {
 		max-width : 100% !important;
 	}
 
+	.quantity{
+		border-top: 1px solid #dedede;
+	    border-bottom: 1px solid #dedede;
+	    text-align: center;
+	    font-size : 20px;
+	}
 
+	.qtyButton{
+	    font-weight: 600;
+	    font-size: 20px;
+	}
 
+	.specialInstruction .item-inner{
+		border : none !important;
+	}
 
+	.siLabel{
+		color : gray;
+		font-size: initial !important;
+	    font-weight: 500;
+	}
+
+	.siText{
+		font-size: initial !important;
+	}
+
+	.priceBorder{
+		border-right: 1px solid rgba(80, 56, 12, 0.21);
+	}
 
 }
