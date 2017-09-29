@@ -1,10 +1,7 @@
-
 <ion-header>
-
 	<ion-navbar>
 		<ion-title>{{menu.name}}</ion-title>
 	</ion-navbar>
-
 </ion-header>
 
 <ion-content padding>
@@ -14,9 +11,9 @@
 
 	<ion-card *ngFor = "let item of items" (tap)="tapEvent($event,item)" class="width100">
 		<ion-row class="itemDetail">
-			<ion-col col-3 class="itemImage"><img [src]="itemImage(item.image)"/></ion-col>
-			<ion-col col-9>
-				<ion-row text-uppercase class="itemName fontWeight600">
+			<ion-col col-4 class="itemImage"><img [src]="itemImage(item.image)"/></ion-col>
+			<ion-col col-8>
+				<ion-row text-uppercase class="itemName">
 					{{item.name}}
 				</ion-row>
 				<ion-row class="itemPrice fontWeight600 colorGreen">

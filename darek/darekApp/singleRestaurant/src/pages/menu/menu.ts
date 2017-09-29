@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { ToastController, LoadingController, Nav, NavController, NavParams ,ViewController,MenuController} from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { KitchenMenuService,RestaurantsService } from '../../app/service/index';
+import { KitchenMenuService,RestaurantsService, PromotionsService } from '../../app/service/index';
 import * as globalVariable from "../../app/global";
 
 import { ItemPage } from "../item/item"
@@ -15,17 +15,17 @@ import { CartPage } from '../cart/cart';
 export class MenuPage {
 
     menus : any = [];
-	tempCart : any = [];
-	currentDate:any;
-	restaurants:any;
+    tempCart : any = [];
+    restaurants:any;
+    imageURL: string = globalVariable.imageUrl;
+    cart : string;
+    loading: any;
+    currentDate:any;
     date : any;
     time : any;
     day : any;
     completeDate : string;
     currentTime : string;
-    imageURL: string = globalVariable.imageUrl;
-    loading: any;
-    cart : string;
 
 	constructor(
         public nav: Nav,
@@ -36,18 +36,15 @@ export class MenuPage {
 		public navCtrl: NavController,
 		private kitchenMenuService: KitchenMenuService,
 		private restaurantsService: RestaurantsService,
+        private promotionsService: PromotionsService,
 		public navParams: NavParams
-	){
-		this.loadRestaurant('595172e2421a472120e0db5e');
-	}
+	){}
 
 	ionViewDidLoad() {
         this.loading = this.loadingCtrl.create({
             content: 'Please wait...'
         });
-        this.loading.present();
-
-		this.currentDate = new Date();
+        this.currentDate = new Date();
         this.date = this.currentDate.toLocaleDateString();
         var h = this.addZero(this.currentDate.getHours());
         var m = this.addZero(this.currentDate.getMinutes());
@@ -67,6 +64,8 @@ export class MenuPage {
 
         var days = ["sunday","monday","tuesday","wednesday","thursday","friday","saturday"];
         this.day = days[this.currentDate.getDay()];
+        this.loading.present();
+        this.loadRestaurant('595172e2421a472120e0db5e');
 	}
 
     doRefresh(refresher) {
@@ -86,6 +85,7 @@ export class MenuPage {
     private loadRestaurant(id){
     	this.restaurantsService.getOne(id).subscribe(users => {
             this.restaurants = users.message;
+            localStorage.setItem('restaurant',JSON.stringify(this.restaurants));
             this.cart = 'cart_' + id;
             this.loadAllMenu(id);
         });

@@ -21,7 +21,7 @@ export class ItemDetailPage {
     multisizeSelected : any = {};
     mandCount : number = 0;
     mandOptionId : any = [];
-    tempCart : any;
+    tempCart : any = [];
     totalAmount : number = 0;
     cart : string;
 

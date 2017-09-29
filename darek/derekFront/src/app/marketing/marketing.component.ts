@@ -409,21 +409,21 @@ export class MarketingPromotionsComponent implements OnInit {
 })
 export class MarketingEditPromotionComponent implements OnInit {
 
-   promotion = [];
-   promotions = [];
-   promotionEdit = [];
-   promotionTemplate = [];
+   promotion : any = [];
+   promotions : any = [];
+   promotionEdit : any = [];
+   promotionTemplate : any = [];
    menus: any = [];
    items: any = [];
-   ids = [];
-   itemIds = [];
-   menuIds = [];
-   discountOn = [];
-   discountTiming = [];
-   menu1 = [];
-   menu2 = [];
-   menu1Copy = [];
-   menu2Copy = [];
+   ids : any = [];
+   itemIds : any = [];
+   menuIds : any = [];
+   discountOn : any = [];
+   discountTiming : any = [];
+   menu1 : any = [];
+   menu2 : any = [];
+   menu1Copy : any = [];
+   menu2Copy : any = [];
    restaurants:any ={};
    optionSet: any = {};
    preoptionSet: any = {};
@@ -548,11 +548,17 @@ export class MarketingEditPromotionComponent implements OnInit {
             this.promoDesc = data.message.description;
             this.promoName = data.message.promoname;
             this.discountOn = data.message.discountOn;
+
+            console.log("this.discountOn");
+            console.log(this.discountOn);
+
             this.discountTiming = data.message.discountTiming;
 
-            if (this.discountOn != null) {
+            if (this.discountOn != null || this.discountOn.length > 0) {
                this.menu1 = this.discountOn[0]['itemGroup1'];
-               this.menu2 = this.discountOn[1]['itemGroup2'];
+               if (this.discountOn[1]) {
+                  this.menu2 = this.discountOn[1]['itemGroup2'];
+               }
 
                if (this.menu1.length > 0) {
                   for (var i = 0; i < this.menu1.length; i++) {
@@ -1134,7 +1140,16 @@ export class MarketingEditPromotionComponent implements OnInit {
 
       this.checkFormValidation();
 
-      var tempArr = [{'itemGroup1':this.menu1},{'itemGroup2':this.menu2}];
+      //var tempArr = [{'itemGroup1':this.menu1},{'itemGroup2':this.menu2}];
+      var tempArr : any = [];
+
+      if (this.index == 0 || this.index == 5 || this.index == 6) {
+         tempArr = [{'itemGroup1':this.menu1},{'itemGroup2':this.menu2}];
+      }
+
+      if (this.index == 1) {
+         tempArr = [{'itemGroup1':this.menu1}];
+      }
 
       this.discountOn = tempArr;
       this.promoDetailUpdateModel.controls['discountOn'].setValue(this.discountOn);

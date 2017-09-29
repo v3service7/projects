@@ -43,4 +43,11 @@ export class PromotionsService {
       (response: Response) => response.json()
     );
   }
+
+  getRestroPromotions(id) {
+    return this.http.get(globalVariable.url+'restaurantpromo-list/'+id)
+      .map(
+      (response: Response) => response.json()
+    );
+  }
 }

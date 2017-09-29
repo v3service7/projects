@@ -1,6 +1,6 @@
 <ion-header>
     <ion-navbar>
-        <button ion-button menuToggle>
+        <button ion-button menuToggle class="colorWhite">
             <ion-icon name="menu" ios="ios-menu" md="md-menu"></ion-icon>
         </button>
         <ion-title>Cart</ion-title>
@@ -8,15 +8,27 @@
 </ion-header>
 
 <ion-content padding class="cartPage">
+	
 	<ion-row *ngIf = "cart && cart.length == 0" class="cartDiv">
 		<ion-card-header text-center class="width100">
 			No Item!
 		</ion-card-header>
 	</ion-row>
+
 	<ion-row *ngIf = "cart && cart.length > 0">
 		<ion-card *ngFor = "let crt of cart; let i= index; " class="width100 padding3 marginBottom4" no-margin>
 			<ion-card-header *ngIf = "crt.item" no-padding>
-				{{crt.item.name}}<ion-icon float-right name="trash" ios="ios-trash" md="md-trash" class="delItem" (click)="deleteItem(i)"></ion-icon>
+				<ion-row>
+					<ion-col col-4><img [src]="itemImage(crt.item.image)" height="50px;" /></ion-col>
+					<ion-col col-8>
+						<ion-row>
+							<ion-col no-padding>{{crt.item.name}}<ion-icon float-right name="trash" ios="ios-trash" md="md-trash" class="delItem" (click)="deleteItem(i)"></ion-icon></ion-col>
+						</ion-row>
+						<ion-row>
+							<ion-col col-4 class="fontWeight600 cartItemPrice">${{crt.totalPrice}}</ion-col>
+						</ion-row>
+					</ion-col>
+				</ion-row>
 			</ion-card-header>
 			<ion-card-content no-padding>
 				<ion-row *ngIf="crt.multisize" class="width100">
@@ -52,7 +64,7 @@
 							</button>
 						</ion-col>
 					</ion-col>
-					<ion-col col-4 class="fontWeight600" text-right>${{crt.totalPrice}}</ion-col>
+					<!-- <ion-col col-4 class="fontWeight600" text-right>${{crt.totalPrice}}</ion-col> -->
 				</ion-row>
 
 				<ion-row *ngIf = "crt.itemInstruction" class="width100 itemInstruction">
@@ -65,17 +77,17 @@
 	<ion-row>
 		<ion-card no-margin class="width100 marginBottom4 padding3">
 			<ion-row>
-				<ion-col col-12 class="fontWeight600">Sub-Total : <span float-right>${{subTotal | number : '1.2-2'}}</span></ion-col>
+				<ion-col col-12>Sub-Total : <span class="fontWeight600" float-right>${{subTotal | number : '1.2-2'}}</span></ion-col>
 			</ion-row>
 		</ion-card>
 		<ion-card no-margin class="width100 marginBottom4 padding3">
 			<ion-row>
-				<ion-col col-12  class="fontWeight600" *ngIf="restaurants.taxation">{{restaurants.taxation.name}} : <span float-right>{{restaurants.taxation.taxpercent}}</span></ion-col>
+				<ion-col col-12  *ngIf="restaurants.taxation">{{restaurants.taxation.name}} : <span class="fontWeight600" float-right>{{restaurants.taxation.taxpercent}} %</span></ion-col>
 			</ion-row>
 		</ion-card>
 		<ion-card no-margin class="width100 marginBottom4 padding3">
 			<ion-row>
-				<ion-col col-12  class="fontWeight600">Total : <span float-right>${{totalWithTax | number : '1.2-2'}}</span></ion-col>
+				<ion-col col-12 >Total : <span class="fontWeight600" float-right>${{totalWithTax | number : '1.2-2'}}</span></ion-col>
 			</ion-row>
 		</ion-card>
 	</ion-row>
@@ -83,4 +95,5 @@
 	<ion-row float-right class="width100">
 		<button class="orderButton padding3 checkout" (click)="checkout()"><ion-icon name="cart" ios="ios-cart" md="md-cart"></ion-icon> Checkout</button>
 	</ion-row>
+
 </ion-content>

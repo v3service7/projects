@@ -1,17 +1,17 @@
 <ion-menu [content]="content">
     <ion-content class="leftNav">
-        <ion-list class="restaurantLogo" no-margin>
-            <div>LOGO</div>
-        </ion-list>
+        <ion-row class="restaurantLogo">
+            <ion-col col-12 text-center>{{restaurant.name}}</ion-col>
+        </ion-row>
 
-        <ion-list class="leftNavHeading">
+        <ion-row class="leftNavHeading">
             <button menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)">
                 <ion-icon name="{{p.iconA}}" ios="{{p.iconI}}" md="{{p.iconW}}" item-start></ion-icon> {{p.title}}
             </button>
-            <!-- <button menuClose ion-item (click)="logout()">
+            <button menuClose ion-item (click)="logout()">
                 <ion-icon name="power" ios="ios-power" md="md-power" item-start></ion-icon> Logout
-            </button> -->
-        </ion-list>
+            </button>
+        </ion-row>
     </ion-content>
 </ion-menu>
 

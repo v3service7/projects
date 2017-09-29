@@ -1,21 +1,9 @@
 <ion-header>
     <ion-navbar>
-        <button ion-button menuToggle>
+        <button ion-button menuToggle class="colorWhite">
             <ion-icon name="menu" ios="ios-menu" md="md-menu"></ion-icon>
         </button>
-        <ion-title>menu</ion-title>
-        <!-- <ion-buttons end>
-            <button ion-button icon-only (click)="restroInfo()">
-                <ion-icon name="information-circle" ios="ios-information-circle" md="md-information-circle"></ion-icon>
-            </button>
-        </ion-buttons>
-        <ion-buttons end>
-            <button ion-button icon-only (click)="goToCart()">
-                <ion-icon name="cart" ios="ios-cart" md="md-cart">
-                    <ion-badge id="cart-badge" color="danger">{{tempCart.length}}</ion-badge>
-                </ion-icon>
-            </button>
-        </ion-buttons> -->
+        <ion-title *ngIf = "restaurants">{{restaurants.name}}</ion-title>
     </ion-navbar>
 </ion-header>
 

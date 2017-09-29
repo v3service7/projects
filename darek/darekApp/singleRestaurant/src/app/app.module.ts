@@ -13,7 +13,7 @@ import { LoginPage } from '../pages/login/login';
 import { ForgetPasswordPage } from '../pages/login/forgetpassword';
 import { RegisterPage } from '../pages/login/register';
 
-import { HomePage } from '../pages/home/home';
+import { PromotionPage } from '../pages/promotion/promotion';
 
 import { ProfilePage } from '../pages/profile/profile';
 import { ProfileUpdatePage } from '../pages/profile/profileupdate';
@@ -32,13 +32,13 @@ import { CartPage } from '../pages/cart/cart';
 import { CheckoutPage } from '../pages/cart/checkout';
 
 /*Services*/
-import {  CustomersService, KitchenMenuService, KitchenItemService, RestaurantsService } from './service/index';
+import {  CustomersService, KitchenMenuService, KitchenItemService, RestaurantsService, PromotionsService } from './service/index';
 
 
 @NgModule({
     declarations: [
     MyApp,
-    HomePage,
+    PromotionPage,
     LoginPage,ForgetPasswordPage,RegisterPage,
     ProfilePage,ProfileUpdatePage,ChangePasswordPage,
     MenuPage,
@@ -57,7 +57,7 @@ import {  CustomersService, KitchenMenuService, KitchenItemService, RestaurantsS
     bootstrap: [IonicApp],
     entryComponents: [
     MyApp,
-    HomePage,
+    PromotionPage,
     LoginPage,ForgetPasswordPage,RegisterPage,
     ProfilePage,ProfileUpdatePage,ChangePasswordPage,
     MenuPage,
@@ -67,7 +67,7 @@ import {  CustomersService, KitchenMenuService, KitchenItemService, RestaurantsS
     CheckoutPage
     ],
     providers: [
-    CustomersService,KitchenMenuService, KitchenItemService, RestaurantsService,
+    CustomersService,KitchenMenuService, KitchenItemService, RestaurantsService,PromotionsService,
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler}

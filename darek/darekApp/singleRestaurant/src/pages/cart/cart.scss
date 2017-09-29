@@ -22,15 +22,14 @@ page-cart {
 	}
 
 	.itemInstruction{
-	    background: #252525;
+	    background: #e0e0e0;
 	    font-size: 12px;
 	    font-weight: 500;
 	    border-radius: 5%;
-	    color: white;
 	}
 
 	.cartPage{
-		background : #e4e4e4;
+		background : #e0e0e0;
 	}
 
 	.cartPage ion-card{
@@ -38,7 +37,15 @@ page-cart {
 	}
 
 	.checkout{
-		margin: 15% 0 10% 0 !important;
+		margin: 10% 0 10% 0 !important;
+	}
+	
+	.cartItemPrice{
+		font-size : 12px;
+	}
+
+	.delItem{
+	    color: rgba(128, 128, 128, 0.68);
 	}
 
 }

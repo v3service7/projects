@@ -1,6 +1,6 @@
 <app-marketingnav></app-marketingnav>
 
-<div class="modal fade" id="itemGroup1" role="dialog">
+<div class="modal fade" id="itemGroup1" role="dialog" *ngIf="discountOn[0]">
 	<div class="modal-dialog"> 
 		<div class="modal-content borderRadius0">
 			<div class="modal-header padding1" style="display: flex;">
@@ -32,7 +32,7 @@
 	</div>
 </div>
 
-<div class="modal fade" id="itemGroup2" role="dialog">
+<div class="modal fade" id="itemGroup2" role="dialog" *ngIf="discountOn[1]">
 	<div class="modal-dialog"> 
 		<div class="modal-content borderRadius0">
 			<div class="modal-header padding1" style="display: flex;">

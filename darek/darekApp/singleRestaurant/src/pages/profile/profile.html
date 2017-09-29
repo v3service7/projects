@@ -1,6 +1,6 @@
 <ion-header>
   <ion-navbar>
-  	<button ion-button menuToggle>
+  	<button ion-button menuToggle class="colorWhite">
       <ion-icon name="menu"></ion-icon>
     </button>
     <ion-title>profile</ion-title>
@@ -8,8 +8,42 @@
 </ion-header>
 
 
-<ion-content padding>
-    <ion-grid>
+<ion-content padding *ngIf="restaurant" [ngStyle]="{'background-image': 'url(' + restroImage(restaurant.image) + ')'}">
+    <ion-row *ngIf = "currentCustomer"  class="colorWhite">
+        <ion-item no-padding class="colorWhite">
+            <ion-avatar class="marginBottom4">
+                <img [src]="customerImage(currentCustomer.image)">
+            </ion-avatar>
+            <h2 class="fontWeight600">{{currentCustomer.username}}</h2>
+            <p class="colorWhite">{{currentCustomer.email}}</p>
+            <span class="editProfile" (click)="goToUpdateProfile()"><ion-icon name="create" ios="ios-create" md="md-create"></ion-icon></span>
+        </ion-item>
+
+        <ion-row class="font14 width100">
+            <ion-col col-1>
+                <ion-icon name="person" ios="ios-person" md="md-person" item-start></ion-icon>
+            </ion-col>
+            <ion-col col-4 class="fontWeight600">Name:</ion-col>
+            <ion-col col-7 text-capitalize>{{currentCustomer.firstname}} {{currentCustomer.lastname}}</ion-col>
+        </ion-row>
+        <ion-row class="font14 width100">
+            <ion-col col-1>
+                <ion-icon name="call" ios="ios-call" md="md-call" item-start></ion-icon>
+            </ion-col>
+            <ion-col col-4 class="fontWeight600">Contact:</ion-col>
+            <ion-col col-7>{{currentCustomer.phonenumber}}</ion-col>
+        </ion-row>
+        
+        <!-- <ion-row class="width100 marginTop4 changePass" (click)="goToChangePassword()">
+            <ion-col text-right>change password?</ion-col>
+        </ion-row> -->
+        <ion-label text-right>
+            <span class="changePass" (click)="goToChangePassword()">change password?</span>
+        </ion-label>
+
+    </ion-row>
+
+    <!-- <ion-grid>
         <ion-row *ngIf = "currentCustomer">
             <ion-col col-1>
                 <ion-icon name="person" item-start></ion-icon>
@@ -34,10 +68,8 @@
         </ion-row>
 
     </ion-grid>
-    <hr>
     <ion-list>
         <button ion-button icon-only (click)="goToChangePassword()"><ion-icon name="key" item-start></ion-icon></button>
         <button ion-button icon-only item-end (click)="goToUpdateProfile()"><ion-icon name="create" ></ion-icon></button>
-
-    </ion-list>
+    </ion-list> -->
 </ion-content>

@@ -335,7 +335,7 @@
 						</div>
 
 						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0" *ngIf="cart.length > 0">
-							<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0 cartItemList" *ngFor="let crt of cart; let i = index">
+							<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0 cartItemList" *ngFor="let crt of cart; let i = index ">
 								<div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 cart-price cnt-input-buttons" style="position: inherit;padding-left: 0;padding-right: 0;">
 									<div class="padding0" style="display: flex;border-top: 1px solid #ccc;border-bottom: 1px solid #ccc;">
 										<button class="cnt-input-decrease col-lg-4 col-md-4 col-sm-4 col-xs-4" id="minus" style="margin: 0;" (click)="quantityDecrement(i)">

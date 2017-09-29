@@ -4,7 +4,7 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { LoginPage } from '../pages/login/login';
-import { HomePage } from '../pages/home/home';
+import { PromotionPage } from '../pages/promotion/promotion';
 import { ProfilePage } from '../pages/profile/profile';
 import { MenuPage } from '../pages/menu/menu';
 
@@ -19,8 +19,9 @@ import { CartPage } from '../pages/cart/cart';
 export class MyApp {
     @ViewChild(Nav) nav: Nav;
 
-    rootPage: any = MenuPage;
+    rootPage: any = PromotionPage;
     currentCustomer : any;
+    restaurant : any = {};
     pages: Array<{iconA: string, iconI : string, iconW : string ,title: string, component: any}>;
 
     constructor(
@@ -33,12 +34,11 @@ export class MyApp {
 
         // used for an example of ngFor and navigation
         this.pages = [
+        { iconA : 'flame' , iconI : 'ios-flame' , iconW : 'md-flame' , title: 'Hot Deals', component: PromotionPage },
         { iconA : 'clipboard' , iconI : 'ios-clipboard' , iconW : 'md-clipboard' , title: 'Menu', component: MenuPage },
         { iconA : 'cart' , iconI : 'ios-cart' , iconW : 'md-cart' , title: 'Shopping Cart', component: CartPage },
         { iconA : 'person' , iconI : 'ios-person' , iconW : 'md-person' , title: 'My Profile', component: ProfilePage },
         ];
-
-        this.currentCustomer = JSON.parse(localStorage.getItem('currentCustomer')); 
     }
 
     logout(){
@@ -68,6 +68,8 @@ export class MyApp {
         this.platform.ready().then(() => {
             // Okay, so the platform is ready and our plugins are available.
             // Here you can do any higher level native things you might need.
+            this.currentCustomer = JSON.parse(localStorage.getItem('currentCustomer')); 
+            this.restaurant = JSON.parse(localStorage.getItem('restaurant')); 
             this.statusBar.styleDefault();
             this.splashScreen.hide();
         });

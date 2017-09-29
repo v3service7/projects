@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { ToastController, LoadingController, Nav, NavController, NavParams ,ViewController,MenuController,AlertController} from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { RestaurantsService } from '../../app/service/index';
+import * as globalVariable from "../../app/global";
 
 import { CheckoutPage } from './checkout';
 
@@ -17,6 +18,7 @@ export class CartPage {
 	totalWithTax : number = 0;
 	restaurants : any = {};
 	cartStorage : any = {};
+	imageURL: string = globalVariable.imageUrl;
 
 	constructor(
 		public navCtrl: NavController,
@@ -61,6 +63,16 @@ export class CartPage {
 	    });
 	    toast.present();
 	}
+    
+    private itemImage(img){
+        if (img != null) {
+            var imgPath = this.imageURL + img;
+        }
+        if (img == null) {
+            var imgPath = "../assets/img/itemimage.gif";
+        }
+        return imgPath;
+    }
 
 	private decreaseQuantity(i){
     	let singleItemPrice = this.cart[i].totalPrice/this.cart[i].quantity;

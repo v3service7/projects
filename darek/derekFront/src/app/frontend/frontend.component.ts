@@ -2016,9 +2016,12 @@ export class FrontendCartComponent implements OnInit {
         let eleObj = (<HTMLInputElement>document.getElementById(type));
         if (type == 'datetimepicker1') {
             this.laterDay = eleObj.value;
+
+            console.log(this.laterDay);
         }
         if (type == 'datetimepicker2') {
             this.laterTime = eleObj.value;
+            console.log(this.laterTime);
         }
     }
 
