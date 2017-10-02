@@ -1,0 +1,20 @@
+<ion-header>
+    <ion-navbar>
+        <ion-title>
+            Setting
+        </ion-title>
+    </ion-navbar>
+</ion-header>
+
+<ion-content>
+    <ion-list>
+        <button  ion-item ion-item *ngFor="let p of pages" (click)="openPage(p)">
+        <ion-icon name="{{p.icon}}" item-start></ion-icon> {{p.title}}
+      </button>
+      
+    
+        <button  ion-item (click)="logout()">
+            <ion-icon name="power" item-start></ion-icon> Logout
+        </button>
+    </ion-list>
+</ion-content>
