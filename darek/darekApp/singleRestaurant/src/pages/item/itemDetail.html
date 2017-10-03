@@ -27,7 +27,7 @@
 		</ion-row>
 
 		<ion-row *ngIf ="item.multisize && item.multisize.length > 0" class="imageDescription width100 padding0px15px">
-			<ion-col col-12>
+			<!-- <ion-col col-12> -->
 				<ion-label class="fontWeight600">Size</ion-label>
 				<ion-select interface="popover" [(ngModel)]="multisizeSelected" (ionChange)="optionsFn()">
 					<!-- <div *ngFor="let multisizes of item.multisize; let i = index; "> -->
@@ -39,7 +39,7 @@
 						</ion-option>
 					<!-- </div> -->
 				</ion-select>
-			</ion-col>
+			<!-- </ion-col> -->
 		</ion-row>
 
 		<ion-row *ngIf = "item.options && item.options.length > 0" class="width100 padding0px15px">

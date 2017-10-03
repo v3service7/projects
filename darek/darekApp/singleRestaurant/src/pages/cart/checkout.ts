@@ -1,11 +1,13 @@
 import { Component } from '@angular/core';
-import { ToastController, NavController, NavParams, LoadingController } from 'ionic-angular';
+import { ToastController, NavController, NavParams, LoadingController, Nav } from 'ionic-angular';
 import {Validators, FormBuilder, FormGroup } from '@angular/forms';
 import * as globalVariable from "../../app/global";
 
 import { CustomersService,RestaurantsService } from '../../app/service/index';
 
 import { LoginPage } from '../login/login';
+
+import { AwaitPage } from './await';
 
 declare var google: any;
 
@@ -48,6 +50,7 @@ export class CheckoutPage {
 
 	constructor(
 		public navCtrl: NavController,
+        public nav: Nav,
 		public loadingCtrl: LoadingController,
 		public navParams: NavParams,
 		private restaurantsService: RestaurantsService,
@@ -66,8 +69,8 @@ export class CheckoutPage {
 			this.loading.dismiss();
 			this.currentCustomer = JSON.parse(localStorage.getItem('currentCustomer'));
 
-			this.cartStorage = navParams.get('cart');
-			//this.cartStorage = JSON.parse(localStorage.getItem('abc'))
+			/*this.cartStorage = navParams.get('cart');*/
+			this.cartStorage = JSON.parse(localStorage.getItem('cartStorage_595172e2421a472120e0db5e'))
 
 			this.totalAmount = this.cartStorage.gTotal;
 
@@ -76,7 +79,7 @@ export class CheckoutPage {
 			this.deliveryZone(this.cartStorage.restaurantId);
 		}else{
 			this.loading.dismiss();
-			this.navCtrl.push(LoginPage);
+			this.nav.setRoot(LoginPage);
 		}
 	}
 
@@ -348,8 +351,20 @@ export class CheckoutPage {
     }
 
     private placeOrder(){
-    	this.cartStorage['status'] = 'Received';
-    	console.log("this.cartStorage");
-    	console.log(this.cartStorage);
+        this.cartStorage['status'] = 'Received';
+        if (this.cartStorage['orderPayment']['cardinternet']) {
+            console.log("this.cartStorage");
+            console.log(this.cartStorage);
+        }else{
+            this.customerService.addOrder(this.cartStorage).subscribe((data) => {
+                if (data.error == false) {
+                    localStorage.removeItem('cart_595172e2421a472120e0db5e');
+                    localStorage.removeItem('cartStorage_595172e2421a472120e0db5e');
+                    this.nav.setRoot(AwaitPage, {
+                        order : data.message
+                    })
+                }
+            });
+        }
     }
 }

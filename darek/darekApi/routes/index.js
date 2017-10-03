@@ -503,7 +503,7 @@ router.delete('/city/:id',function(req,res){
 
 /*-------------------------------END CITY--------------------------------------------------------*/
 
-/*-------------------------------START CITY--------------------------------------------------------*/
+/*-------------------------------START OWNER--------------------------------------------------------*/
 router.get('/owner', function(req, res, next) {
 	if (!req.isAuthenticated()) {
         return res.status(200).json({
@@ -597,7 +597,7 @@ router.delete('/owner/:id',function(req,res){
 	});	
 });
 
-/*-------------------------------END CITY--------------------------------------------------------*/
+/*-------------------------------END OWNER--------------------------------------------------------*/
 
 
 /*-------------------------------START MENU--------------------------------------------------------*/
@@ -819,6 +819,18 @@ router.put('/itemaddonedit/:id',function(req, res){
 router.get('/item-list/:id', function(req, res, next) {
 	var response={};
 	itemModel.find({kitchenId : req.params.id}, null, {sort: {created_at: 1}}).populate('options').exec(function(err,data){
+		if (err) {
+			response = {"error" : true,"message" : "Error fetching data"};
+		} else{
+			response = {"error" : false,"message" : data};
+		};
+		res.json(response);
+	});	
+});
+
+router.get('/menuitem-list/:id', function(req, res, next) {
+	var response={};
+	itemModel.find({menuId : req.params.id, isHidden : false}, null, {sort: {created_at: 1}}).populate('options').exec(function(err,data){
 		if (err) {
 			response = {"error" : true,"message" : "Error fetching data"};
 		} else{

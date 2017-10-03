@@ -13,6 +13,7 @@ import { CheckoutPage } from './checkout';
 export class CartPage {
 	cart : any;
 	cartString : any = String;
+	cartStorageString : any = String;
 	resId : any = String;
 	subTotal : number = 0;
 	totalWithTax : number = 0;
@@ -31,13 +32,13 @@ export class CartPage {
 	    private restaurantsService: RestaurantsService,
 	    public alertCtrl: AlertController
 		) {
-		//this.resId = navParams.get('id');
 		this.resId = '595172e2421a472120e0db5e';
 		this.getRestaurants(this.resId);
 	}
 
 	ionViewDidLoad() {
 		this.cartString = 'cart_' + this.resId;
+		this.cartStorageString = 'cartStorage_' + this.resId;
 		if (localStorage.getItem(this.cartString)) {
 			this.cart = JSON.parse(localStorage.getItem(this.cartString));
 		}else{
@@ -139,10 +140,8 @@ export class CartPage {
     }
 
     private checkout(){
-    	//localStorage.setItem('abc',JSON.stringify(this.cartStorage));
-    	this.nav.push(CheckoutPage,{
-    		cart : this.cartStorage
-    	})
+    	localStorage.setItem(this.cartStorageString,JSON.stringify(this.cartStorage));
+    	this.nav.push(CheckoutPage)
     }
 
 }

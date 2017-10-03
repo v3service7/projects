@@ -127,4 +127,9 @@ export class PromotionPage {
         }, 2000);
     }
 
+    private getDeal(promo){
+        console.log("promo");
+        console.log(promo);
+    }
+
 }

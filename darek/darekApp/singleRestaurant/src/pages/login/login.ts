@@ -3,7 +3,6 @@ import { ToastController, LoadingController, Nav, NavController, NavParams ,View
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CustomersService } from '../../app/service/customer.service';
 
-import { MenuPage } from '../menu/menu';
 import { ForgetPasswordPage } from './forgetpassword';
 import { RegisterPage } from './register';
 
@@ -17,6 +16,7 @@ import { IconTextPage } from '../item/iconText';
 export class LoginPage {
    loginForm: FormGroup;
    rootPage: any;
+   previousPage: any;
 
    formErrors = {
       'password'  : ''   
@@ -45,6 +45,9 @@ export class LoginPage {
          password: ['', [Validators.required]],
       });
       this.menuCtrl.enable(false);
+
+      var val=this.navCtrl.last();
+      this.previousPage = val.component
    }
 
    ionViewDidLoad() {}
@@ -60,7 +63,7 @@ export class LoginPage {
             if (data.status) {
                localStorage.setItem('currentCustomer', JSON.stringify(data.data));
                this.menuCtrl.enable(true);
-               this.nav.setRoot(MenuPage);
+               this.nav.setRoot(this.previousPage);
             }else{
                this.getToast('Bad Credential');
                this.loginForm.reset();

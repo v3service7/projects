@@ -14,6 +14,7 @@ import { ForgetPasswordPage } from '../pages/login/forgetpassword';
 import { RegisterPage } from '../pages/login/register';
 
 import { PromotionPage } from '../pages/promotion/promotion';
+import { PromotionDetailPage } from '../pages/promotion/promotiondetail';
 
 import { ProfilePage } from '../pages/profile/profile';
 import { ProfileUpdatePage } from '../pages/profile/profileupdate';
@@ -28,24 +29,23 @@ import { IconTextPage } from '../pages/item/iconText';
 import { RestroinfoPage } from '../pages/restroinfo/restroinfo';
 
 import { CartPage } from '../pages/cart/cart';
-
 import { CheckoutPage } from '../pages/cart/checkout';
+import { AwaitPage } from '../pages/cart/await';
 
 /*Services*/
-import {  CustomersService, KitchenMenuService, KitchenItemService, RestaurantsService, PromotionsService } from './service/index';
+import {  CustomersService, KitchenMenuService, KitchenItemService, RestaurantsService, PromotionsService, OrderService } from './service/index';
 
 
 @NgModule({
     declarations: [
     MyApp,
-    PromotionPage,
+    PromotionPage, PromotionDetailPage,
     LoginPage,ForgetPasswordPage,RegisterPage,
     ProfilePage,ProfileUpdatePage,ChangePasswordPage,
     MenuPage,
     ItemPage,ItemDetailPage,IconTextPage,
     RestroinfoPage,
-    CartPage,
-    CheckoutPage
+    CartPage,CheckoutPage,AwaitPage
     ],
     imports: [
     BrowserModule,
@@ -57,17 +57,16 @@ import {  CustomersService, KitchenMenuService, KitchenItemService, RestaurantsS
     bootstrap: [IonicApp],
     entryComponents: [
     MyApp,
-    PromotionPage,
+    PromotionPage, PromotionDetailPage,
     LoginPage,ForgetPasswordPage,RegisterPage,
     ProfilePage,ProfileUpdatePage,ChangePasswordPage,
     MenuPage,
     ItemPage,ItemDetailPage,IconTextPage,
     RestroinfoPage,
-    CartPage,
-    CheckoutPage
+    CartPage,CheckoutPage,AwaitPage
     ],
     providers: [
-    CustomersService,KitchenMenuService, KitchenItemService, RestaurantsService,PromotionsService,
+    CustomersService,KitchenMenuService, KitchenItemService, RestaurantsService,PromotionsService,OrderService,
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler}

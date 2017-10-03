@@ -11,6 +11,7 @@ import { MenuPage } from '../pages/menu/menu';
 import { IconTextPage } from '../pages/item/iconText';
 
 import { CartPage } from '../pages/cart/cart';
+import { CheckoutPage } from '../pages/cart/checkout';
 
 
 @Component({
@@ -19,7 +20,7 @@ import { CartPage } from '../pages/cart/cart';
 export class MyApp {
     @ViewChild(Nav) nav: Nav;
 
-    rootPage: any = PromotionPage;
+    rootPage: any = CheckoutPage;
     currentCustomer : any;
     restaurant : any = {};
     pages: Array<{iconA: string, iconI : string, iconW : string ,title: string, component: any}>;
@@ -36,8 +37,7 @@ export class MyApp {
         this.pages = [
         { iconA : 'flame' , iconI : 'ios-flame' , iconW : 'md-flame' , title: 'Hot Deals', component: PromotionPage },
         { iconA : 'clipboard' , iconI : 'ios-clipboard' , iconW : 'md-clipboard' , title: 'Menu', component: MenuPage },
-        { iconA : 'cart' , iconI : 'ios-cart' , iconW : 'md-cart' , title: 'Shopping Cart', component: CartPage },
-        { iconA : 'person' , iconI : 'ios-person' , iconW : 'md-person' , title: 'My Profile', component: ProfilePage },
+        { iconA : 'cart' , iconI : 'ios-cart' , iconW : 'md-cart' , title: 'Shopping Cart', component: CartPage }
         ];
     }
 
@@ -69,6 +69,9 @@ export class MyApp {
             // Okay, so the platform is ready and our plugins are available.
             // Here you can do any higher level native things you might need.
             this.currentCustomer = JSON.parse(localStorage.getItem('currentCustomer')); 
+            if (this.currentCustomer) {
+                this.pages.push({ iconA : 'person' , iconI : 'ios-person' , iconW : 'md-person' , title: 'My Profile', component: ProfilePage })
+            }
             this.restaurant = JSON.parse(localStorage.getItem('restaurant')); 
             this.statusBar.styleDefault();
             this.splashScreen.hide();
