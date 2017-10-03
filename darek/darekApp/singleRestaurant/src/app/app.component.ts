@@ -4,7 +4,10 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { LoginPage } from '../pages/login/login';
+
 import { PromotionPage } from '../pages/promotion/promotion';
+import { PromotionDetailPage } from '../pages/promotion/promotiondetail';
+
 import { ProfilePage } from '../pages/profile/profile';
 import { MenuPage } from '../pages/menu/menu';
 
@@ -20,7 +23,7 @@ import { CheckoutPage } from '../pages/cart/checkout';
 export class MyApp {
     @ViewChild(Nav) nav: Nav;
 
-    rootPage: any = CheckoutPage;
+    rootPage: any = PromotionDetailPage;
     currentCustomer : any;
     restaurant : any = {};
     pages: Array<{iconA: string, iconI : string, iconW : string ,title: string, component: any}>;

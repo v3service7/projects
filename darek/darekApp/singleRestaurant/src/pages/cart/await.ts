@@ -63,7 +63,9 @@ export class AwaitPage {
                 obj['id'] = this.order._id;
                 obj['status'] = 'Missed';
                 this.orderMissed = true;
-                this.orderServices.getUpdate(obj);
+                this.orderServices.getUpdate(obj).subscribe(data=>{
+                    console.log('order Missed');
+                });
             }
         },30000)
 	}

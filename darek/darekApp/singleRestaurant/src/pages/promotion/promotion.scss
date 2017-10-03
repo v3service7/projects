@@ -48,4 +48,14 @@ page-promotion {
 	.card-promoCode{
 		background-image: linear-gradient(to bottom right, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5));
 	}
+
+	.segment-button.segment-activated {
+	    background-color: green !important;
+	    color : white !important;
+    }
+
+    .segment-button{
+    	border-color : green !important;
+    	color : black !important;
+    }
 }

@@ -1,23 +1,37 @@
-<!-- <ion-header>
+<ion-header>
 	<ion-navbar>
-	  	<button ion-button menuToggle class="colorWhite">
-	        <ion-icon name="menu" ios="ios-menu" md="md-menu"></ion-icon>
-	    </button>
-	    <ion-title>Hot Deals</ion-title>
+        <button ion-button menuToggle class="colorWhite">
+            <ion-icon name="menu" ios="ios-menu" md="md-menu"></ion-icon>
+        </button>
+        <ion-title>Deal</ion-title>
 	</ion-navbar>
 </ion-header>
 
 
-<ion-content  *ngIf = "restroPromotions" class="card-background-page">
+<ion-content class="card-background-page" *ngIf = "itemGroup">
     <ion-refresher (ionRefresh)="doRefresh($event)">
         <ion-refresher-content></ion-refresher-content>
     </ion-refresher>
 
-    <ion-list *ngFor = "let promo of restroPromotions" [ngStyle]="{'background-image': 'url(' + imageURL + promo.image + ')'}">
+    <ion-list [ngStyle]="{'background-image': 'url(' + imageURL + promo.image + ')'}">
         <div class="card-title positionAbsolute fontWeight500">{{promo.promoname}}</div>
         <div class="card-description positionAbsolute">{{promo.description}}</div>
-        <div class="card-getNow positionAbsolute" *ngIf="promo.discountOn != null" (click)="getDeal(promo)">Get it now</div>
-        <div class="card-promoCode positionAbsolute" *ngIf="promo.discountOn == null">{{promo.couponcode.code}}</div>
     </ion-list>
 
-</ion-content> -->
+    <ion-segment [(ngModel)]="selectedSegment" (ionChange)="onSegmentChanged($event)">
+        <ion-segment-button value="IG1">
+            Item Group 1
+        </ion-segment-button>
+        <ion-segment-button *ngIf="promo && promo.discountOn && promo.discountOn.length == 2 " value="IG2">
+            Item Group 2
+        </ion-segment-button>
+    </ion-segment>
+
+    <ion-list *ngFor = "let ig of itemGroup" (click) = "showItems(ig)">
+        <div  *ngIf = "ig.menu" class="card-title positionAbsolute fontWeight500">{{ig.menu.name}}</div>
+    </ion-list>
+
+
+    <button [disabled]="checkPromoItems()">Add Deal</button>
+
+</ion-content>

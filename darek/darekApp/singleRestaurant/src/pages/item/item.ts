@@ -157,7 +157,7 @@ export class ItemPage {
 
     private tapEvent($event,item){
         this.navCtrl.push(ItemDetailPage, {
-            item : item
+            item : item, type : 'cartItem', iG : null
         });
     }
 }

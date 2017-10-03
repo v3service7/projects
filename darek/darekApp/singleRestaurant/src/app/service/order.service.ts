@@ -100,7 +100,7 @@ export class OrderService {
 	}
 
 	getUpdate(data) {
-  		return this.http.put(globalVariable.url+'order/update/'+data._id, data)
+  		return this.http.put(globalVariable.url+'order/update/'+data.id, data)
 		.map(
 			(response: Response) => response.json()
 		);

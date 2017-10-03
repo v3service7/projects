@@ -4,7 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { KitchenItemService } from '../../app/service/index';
 import * as globalVariable from "../../app/global";
 
-import { ItemPage } from './item';
+/*import { ItemPage } from './item';*/
 
 
 @Component({
@@ -22,8 +22,13 @@ export class ItemDetailPage {
     mandCount : number = 0;
     mandOptionId : any = [];
     tempCart : any = [];
+    promotionItems : any = {};
     totalAmount : number = 0;
     cart : string;
+    proId : string;
+    itemType : string;
+    itemGroup : string;
+    previousPage: any;
 
     constructor(
         public loadingCtrl: LoadingController,
@@ -37,9 +42,26 @@ export class ItemDetailPage {
         public navParams: NavParams
         ) {
         this.item = navParams.get('item');
+        this.itemType = navParams.get('type');
+        this.itemGroup = navParams.get('iG');
+
         this.orderItem['item'] = this.item;
 
         this.cart = 'cart_' + this.item.kitchenId;
+
+        if (this.itemType == 'promotionItem') {
+            this.proId = 'promotion_' + this.item.kitchenId;
+
+            if (localStorage.getItem(this.proId)) {
+                this.promotionItems = JSON.parse(localStorage.getItem(this.proId));
+            }
+        }
+
+        var val=this.navCtrl.last();
+
+        console.log("val");
+        console.log(val);
+        this.previousPage = val.component
     }
 
     ionViewDidLoad() {
@@ -291,9 +313,22 @@ export class ItemDetailPage {
     }
 
     private addToCart(){
-        this.tempCart.push(this.orderItem);
-        localStorage.setItem(this.cart,JSON.stringify(this.tempCart));
-        this.navCtrl.pop(ItemPage);
+        if (this.itemType == 'cartItem') {
+            this.tempCart.push(this.orderItem);
+            localStorage.setItem(this.cart,JSON.stringify(this.tempCart));
+        }
+        if (this.itemType == 'promotionItem') {
+            if (this.itemGroup == 'IG1') {            
+                this.promotionItems['itemGroup1'] = this.orderItem;
+                localStorage.setItem(this.proId,JSON.stringify(this.promotionItems));
+            }
+
+            if (this.itemGroup == 'IG2') {
+                this.promotionItems['itemGroup2'] = this.orderItem;
+                localStorage.setItem(this.proId,JSON.stringify(this.promotionItems));
+            }
+        }
+        this.navCtrl.pop(this.previousPage);
         this.getToast('Item Added');
     }
 

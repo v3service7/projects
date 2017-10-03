@@ -5,6 +5,8 @@ import * as globalVariable from "../../app/global";
 
 import { MenuPage } from '../menu/menu';
 
+import { PromotionDetailPage } from './promotiondetail';
+
 @Component({
   selector: 'page-promotion',
   templateUrl: 'promotion.html',
@@ -130,6 +132,12 @@ export class PromotionPage {
     private getDeal(promo){
         console.log("promo");
         console.log(promo);
+
+        localStorage.setItem('promo',JSON.stringify(promo))
+
+        this.navCtrl.push(PromotionDetailPage,{
+            promo : promo
+        });
     }
 
 }
