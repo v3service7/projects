@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { AlertController , ToastController, LoadingController, Nav, NavController, NavParams ,ViewController,MenuController} from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { KitchenItemService } from '../../app/service/index';
+import { KitchenItemService,CustomersService } from '../../app/service/index';
 import * as globalVariable from "../../app/global";
 
 /*import { ItemPage } from './item';*/
@@ -15,6 +15,7 @@ import * as globalVariable from "../../app/global";
 export class ItemDetailPage {
 
     item : any = {};
+    currentCustomer : any;
     imageURL: string = globalVariable.imageUrl;
     loading: any;
     orderItem : any = {};
@@ -39,6 +40,7 @@ export class ItemDetailPage {
         public nav: Nav,
         private kitchenItemService: KitchenItemService,
         public alertCtrl: AlertController,
+        public customerService: CustomersService,
         public navParams: NavParams
         ) {
         this.item = navParams.get('item');
@@ -67,6 +69,9 @@ export class ItemDetailPage {
         this.previousPage = val.component
     }
 
+    ionViewDidEnter() {
+        this.getCustomer()
+    }
     ionViewDidLoad() {
         if (typeof this.item.options != 'undefined' && this.item.options.length >0) {
             for (var i = 0; i < this.item.options.length; i++) {
@@ -86,6 +91,39 @@ export class ItemDetailPage {
             this.tempCart = JSON.parse(localStorage.getItem(this.cart));
         }
         this.totalPrice();
+    }
+
+    private getCustomer(){
+        var tempCurrentCustomer = JSON.parse(localStorage.getItem('currentCustomer'));
+        this.customerService.getOneCustomer(tempCurrentCustomer['_id']).subscribe(cust=>{
+            this.currentCustomer = cust.message;
+        });
+    }
+
+    private isFavOrNot(id){
+        if (this.currentCustomer) {
+            let wIndex = this.currentCustomer.wishlist.indexOf(id);
+            if (wIndex == -1) {
+                return {'color':'#999'};
+            }else{
+                return {'color':'red'};
+            }
+        }
+    }
+
+    private makeFav(id){
+        let wIndex = this.currentCustomer.wishlist.indexOf(id);
+        if (wIndex == -1) {
+            this.currentCustomer.wishlist.push(id);
+            this.getItems(this.item._id);
+            this.customerService.updateCustomer(this.currentCustomer).subscribe(cust=>{
+            });
+        }else{
+            this.currentCustomer.wishlist.splice(wIndex,1);
+            this.getItems(this.item._id);
+            this.customerService.updateCustomer(this.currentCustomer).subscribe(cust=>{
+            });
+        }
     }
 
     private itemImage(img){

@@ -15,7 +15,10 @@
 	<ion-row class= "topRow">
 		<ion-col col-12 class="itemImage" [ngStyle]="{'background-image': 'url(' + itemImage(item.image) + ')'}">		
 			<ion-row class="itemInfo positionAbsolute padding0px15px">
-				<ion-col col-12 class="itemName colorWhite" text-uppercase>{{item.name}}</ion-col>
+				<ion-col col-12 class="itemName colorWhite" text-uppercase>
+					<ion-col col-10>{{item.name}}</ion-col>
+					<ion-col col-2><ion-icon (click)="makeFav(item._id)" float-right name="heart" ios="ios-heart" md="md-heart" [ngStyle]="isFavOrNot(item._id)"></ion-icon></ion-col>
+				</ion-col>
 				<ion-col col-12 class="itemPrice colorGreen">${{item.price}}</ion-col>
 			</ion-row>
 		</ion-col>

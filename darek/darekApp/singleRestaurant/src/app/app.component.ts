@@ -9,7 +9,9 @@ import { PromotionPage } from '../pages/promotion/promotion';
 import { PromotionDetailPage } from '../pages/promotion/promotiondetail';
 
 import { ProfilePage } from '../pages/profile/profile';
+import { WishlistPage } from '../pages/profile/wishlist';
 import { MenuPage } from '../pages/menu/menu';
+import { MyOrderPage } from '../pages/my-order/my-order';
 
 import { IconTextPage } from '../pages/item/iconText';
 
@@ -23,7 +25,7 @@ import { CheckoutPage } from '../pages/cart/checkout';
 export class MyApp {
     @ViewChild(Nav) nav: Nav;
 
-    rootPage: any = CartPage;
+    rootPage: any = MenuPage;
     currentCustomer : any;
     restaurant : any = {};
     pages: Array<{iconA: string, iconI : string, iconW : string ,title: string, component: any}>;
@@ -73,7 +75,11 @@ export class MyApp {
             // Here you can do any higher level native things you might need.
             this.currentCustomer = JSON.parse(localStorage.getItem('currentCustomer')); 
             if (this.currentCustomer) {
-                this.pages.push({ iconA : 'person' , iconI : 'ios-person' , iconW : 'md-person' , title: 'My Profile', component: ProfilePage })
+                this.pages.push(
+                    { iconA : 'book' , iconI : 'ios-book' , iconW : 'md-book' , title: 'My Orders', component: MyOrderPage },
+                    { iconA : 'heart' , iconI : 'ios-heart' , iconW : 'md-heart' , title: 'My WishList', component: WishlistPage },
+                    { iconA : 'person' , iconI : 'ios-person' , iconW : 'md-person' , title: 'My Profile', component: ProfilePage }
+                )
             }
             this.restaurant = JSON.parse(localStorage.getItem('restaurant')); 
             this.statusBar.styleDefault();

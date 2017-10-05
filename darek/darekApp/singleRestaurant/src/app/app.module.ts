@@ -16,9 +16,13 @@ import { RegisterPage } from '../pages/login/register';
 import { PromotionPage } from '../pages/promotion/promotion';
 import { PromotionDetailPage } from '../pages/promotion/promotiondetail';
 
+import { MyOrderPage } from '../pages/my-order/my-order';
+import { OrderDetailPage } from '../pages/my-order/order-detail';
+
 import { ProfilePage } from '../pages/profile/profile';
 import { ProfileUpdatePage } from '../pages/profile/profileupdate';
 import { ChangePasswordPage } from '../pages/profile/changepassword';
+import { WishlistPage } from '../pages/profile/wishlist';
 
 import { MenuPage } from '../pages/menu/menu';
 
@@ -38,38 +42,40 @@ import {  CustomersService, KitchenMenuService, KitchenItemService, RestaurantsS
 
 @NgModule({
     declarations: [
-    MyApp,
-    PromotionPage, PromotionDetailPage,
-    LoginPage,ForgetPasswordPage,RegisterPage,
-    ProfilePage,ProfileUpdatePage,ChangePasswordPage,
-    MenuPage,
-    ItemPage,ItemDetailPage,IconTextPage,
-    RestroinfoPage,
-    CartPage,CheckoutPage,AwaitPage
+        MyApp,
+        PromotionPage, PromotionDetailPage,
+        LoginPage,ForgetPasswordPage,RegisterPage,
+        ProfilePage,ProfileUpdatePage,ChangePasswordPage,WishlistPage,
+        MenuPage,
+        ItemPage,ItemDetailPage,IconTextPage,
+        RestroinfoPage,
+        CartPage,CheckoutPage,AwaitPage,
+        MyOrderPage,OrderDetailPage
     ],
     imports: [
-    BrowserModule,
-    FormsModule,
-    HttpModule,
-    ReactiveFormsModule,
-    IonicModule.forRoot(MyApp),
+        BrowserModule,
+        FormsModule,
+        HttpModule,
+        ReactiveFormsModule,
+        IonicModule.forRoot(MyApp),
     ],
     bootstrap: [IonicApp],
     entryComponents: [
-    MyApp,
-    PromotionPage, PromotionDetailPage,
-    LoginPage,ForgetPasswordPage,RegisterPage,
-    ProfilePage,ProfileUpdatePage,ChangePasswordPage,
-    MenuPage,
-    ItemPage,ItemDetailPage,IconTextPage,
-    RestroinfoPage,
-    CartPage,CheckoutPage,AwaitPage
+        MyApp,
+        PromotionPage, PromotionDetailPage,
+        LoginPage,ForgetPasswordPage,RegisterPage,
+        ProfilePage,ProfileUpdatePage,ChangePasswordPage,WishlistPage,
+        MenuPage,
+        ItemPage,ItemDetailPage,IconTextPage,
+        RestroinfoPage,
+        CartPage,CheckoutPage,AwaitPage,
+        MyOrderPage,OrderDetailPage
     ],
     providers: [
-    CustomersService,KitchenMenuService, KitchenItemService, RestaurantsService,PromotionsService,OrderService,
-    StatusBar,
-    SplashScreen,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+        CustomersService,KitchenMenuService, KitchenItemService, RestaurantsService,PromotionsService,OrderService,
+        StatusBar,
+        SplashScreen,
+        {provide: ErrorHandler, useClass: IonicErrorHandler}
     ]
 })
 export class AppModule {}

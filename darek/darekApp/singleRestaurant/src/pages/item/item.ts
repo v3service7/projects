@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { ToastController, LoadingController, Nav, NavController, NavParams ,ViewController,MenuController} from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { KitchenItemService } from '../../app/service/index';
+import { KitchenItemService,CustomersService } from '../../app/service/index';
 import * as globalVariable from "../../app/global";
 
 import { MenuPage } from '../menu/menu';
@@ -15,6 +15,7 @@ import { ItemDetailPage } from './itemDetail';
 
 export class ItemPage {
 
+    currentCustomer : any;
     menu : any = {};
     items : any = [];
     currentDate:any;
@@ -32,11 +33,16 @@ export class ItemPage {
         private viewCtrl: ViewController,
         public toastCtrl: ToastController,
         public navCtrl: NavController,
+        public customerService: CustomersService,
         public nav: Nav,
         private kitchenItemService: KitchenItemService,
         public navParams: NavParams
         ) {
         this.menu = navParams.get('menu');
+    }
+
+    ionViewDidEnter() {
+        this.getCustomer();
         this.getItems(this.menu._id);
     }
 
@@ -65,6 +71,42 @@ export class ItemPage {
 
         var days = ["sunday","monday","tuesday","wednesday","thursday","friday","saturday"];
         this.day = days[this.currentDate.getDay()];
+    }
+
+    private getCustomer(){
+        var tempCurrentCustomer = JSON.parse(localStorage.getItem('currentCustomer'));
+        this.customerService.getOneCustomer(tempCurrentCustomer['_id']).subscribe(cust=>{
+            this.currentCustomer = cust.message;
+            console.log(this.currentCustomer)
+        });
+    }
+
+    private isFavOrNot(id){
+        if (this.currentCustomer) {
+            let wIndex = this.currentCustomer.wishlist.indexOf(id);
+            if (wIndex == -1) {
+                return {'color':'#999'};
+            }else{
+                return {'color':'red'};
+            }
+        }
+    }
+
+    private makeFav(id){
+        let wIndex = this.currentCustomer.wishlist.indexOf(id);
+        if (wIndex == -1) {
+            this.currentCustomer.wishlist.push(id);
+            this.getItems(this.menu._id);
+            this.customerService.updateCustomer(this.currentCustomer).subscribe(cust=>{
+                console.log(cust)
+            });
+        }else{
+            this.currentCustomer.wishlist.splice(wIndex,1);
+            this.getItems(this.menu._id);
+            console.log(this.currentCustomer)
+            this.customerService.updateCustomer(this.currentCustomer).subscribe(cust=>{
+            });
+        }
     }
 
     private addZero(i) {

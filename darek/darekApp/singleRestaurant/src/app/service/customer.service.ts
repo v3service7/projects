@@ -71,4 +71,11 @@ export class CustomersService {
     return this.http.put(globalVariable.url+'customer/change-password/'+data._id,data)
         .map((response: Response) => response.json());
     }
+
+    getOneCustomerWishlist(id){
+    return this.http.get(globalVariable.url+'customer/wishlist/'+id)
+        .map(
+            (response: Response) => response.json()
+        );
+    }
 }

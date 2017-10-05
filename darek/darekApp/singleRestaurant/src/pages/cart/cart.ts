@@ -124,14 +124,15 @@ export class CartPage {
         return i;
     }
 
-    private customerImage(img){
-    	if (typeof img != 'undefined' && img != null) {
-            var imgPath = this.imageURL + img;
-        }
-        if (typeof img == 'undefined' || img == null) {
-            var imgPath = "../assets/img/profile.png";
-        }
-        return imgPath;
+    private checkDisablePlaceOrderBtn(){
+    	if (this.cart.length == 0 && typeof this.promotion == 'undefined' && this.cartStorage && typeof this.cartStorage['orderPayment'] == 'undefined') {
+    		console.log(this.cart.length)
+    		console.log(this.promotion)
+    		console.log(this.cartStorage['orderPayment'])
+    		return true;
+    	}else{
+    		return false;
+    	}
     }
 
     private loadAllPromotions() {
@@ -142,9 +143,6 @@ export class CartPage {
 	        if (this.promotion) {
 	        	if (this.promotion.promotion && this.promotion.promotion['promotionId']) {
 	            	this.index = this.allPromotions.findIndex(mn => mn._id == this.promotion.promotion['promotionId'][0]);
-	        	}
-	        	if (this.promotion.promotion && typeof this.promotion.promotion['promotionId'] == 'undefined') {
-	            	this.index = this.allPromotions.findIndex(mn => mn._id == this.promotion.promotion._id);
 	        	}
 	        }
         });
@@ -222,6 +220,8 @@ export class CartPage {
 	private decreaseQuantity(i){
     	let singleItemPrice = this.cart[i].totalPrice/this.cart[i].quantity;
     	var tempCartPrice = this.cartTotal - singleItemPrice;
+    	console.log("tempCartPrice");
+    	console.log(tempCartPrice);
     	if (this.promotion){
     		if(this.index == 6) {
 	            if (tempCartPrice >= this.promotion['promotion']['minCartAmount']) {
@@ -247,9 +247,33 @@ export class CartPage {
 		    	});
 		    	alert.present();
 	            }
+	        }else{
+	    		this.decrease(i,singleItemPrice)
 	        }
-	    }else{
-	    	this.decrease(i,singleItemPrice)
+	    }
+
+	    if(typeof this.cartStorage['promotion'] != 'undefined' && typeof this.appliedCode != 'undefined' && typeof this.promotion == 'undefined'){
+	    	let alert = this.alertCtrl.create({
+		    		title: 'Alert!',
+		    		message: 'Decreasing Quantity will remove ur deal!',
+		    		buttons: [
+			    		{
+			    			text: 'Cancel'
+			    		},
+			    		{
+			    			text: 'Confirm',
+			    			handler: () => {
+			    				this.removeCode();
+			    				this.decrease(i,singleItemPrice);
+			    			}
+			    		}
+		    		]
+		    	});
+		    	alert.present();
+	    }
+
+	    if(typeof this.cartStorage['promotion'] == 'undefined' && typeof this.promotion == 'undefined' && typeof this.appliedCode == 'undefined'){
+	    	this.decrease(i,singleItemPrice);
 	    }
     }
 
@@ -274,6 +298,9 @@ export class CartPage {
 	    }else{
 	    	this.getToast('Maximum quantity to buy this item');
 	    }
+	    if (this.cartStorage['promotion'] && typeof this.appliedCode != 'undefined') {
+            this.removeCode();
+        }
     }
 
     private deleteItem(index){
@@ -454,7 +481,6 @@ export class CartPage {
     	this.typeCode = false;
     	this.haveCode = false;
     	delete this.appliedCode;
-    	delete this.promotion;
     	delete this.cartStorage['promotion'];
     	delete this.cartStorage['discountAmount'];
     	delete this.cartTotalAfterDiscount;
@@ -467,6 +493,10 @@ export class CartPage {
     private countCharacter(event){
     	this.appliedCode = event.target.value;
     	console.log(this.appliedCode)
+    }
+
+    private comment(event){
+    	this.cartStorage['comment'] = event.target.value;
     }
 
     private addDetail(){

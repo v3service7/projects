@@ -275,6 +275,13 @@
 			<ion-col *ngIf = "cartStorage.orderPayment.cardinternet">: Card via Internet</ion-col>
 		</ion-row>
 	</ion-row>
+
+	<ion-row class="width100">
+		<ion-item no-padding class="comment">
+			<ion-label no-margin floating class="siLabel">Leave a comment...</ion-label>
+			<ion-input type="text" class="siText" maxlength="100" value="" (keyup)="comment($event)"></ion-input>
+		</ion-item>
+	</ion-row>
 	
 	<ion-row class="couponCode" *ngIf = "promotion == undefined && cart && cart.length > 0">
 		<ion-row class="width100" *ngIf = "noCode">
@@ -293,7 +300,7 @@
 	<ion-row class="width100 checkout" *ngIf = "cart || promotion">
 		<button class="orderButton padding3" [disabled]="cart.length == 0 && promotion == undefined" (click)="addDetail()"><ion-icon name="arrow-dropright-circle" ios="ios-arrow-dropright-circle" md="md-arrow-dropright-circle"></ion-icon>   Add Detail </button>
 
-		<button class="orderButton padding3" [disabled]="cartStorage && cartStorage.customerId == undefined" (click)="placeOrder()"><ion-icon name="arrow-dropright-circle" ios="ios-arrow-dropright-circle" md="md-arrow-dropright-circle"></ion-icon> Place Order </button>
+		<button class="orderButton padding3" [disabled]="checkDisablePlaceOrderBtn()" (click)="placeOrder()"><ion-icon name="arrow-dropright-circle" ios="ios-arrow-dropright-circle" md="md-arrow-dropright-circle"></ion-icon> Place Order </button>
 	</ion-row>
 
 </ion-content>

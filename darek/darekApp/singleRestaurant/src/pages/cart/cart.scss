@@ -48,7 +48,7 @@ page-cart {
 	    color: rgba(128, 128, 128, 0.68);
 	}
 
-	.contactInfo .item-inner{
+	ion-item .item-inner{
 		border-bottom : none !important;
 	}
 
@@ -63,6 +63,14 @@ page-cart {
 
 	.couponCode{
 		margin: 5% 0;
+	}
+
+	.comment{
+		background : transparent !important;
+	}
+
+	.siText{
+		font-size: 12px !important;
 	}
 
 }

@@ -1,6 +1,9 @@
 <ion-header>
 	<ion-navbar>
-		<ion-title>{{menu.name}}</ion-title>
+		<button ion-button menuToggle class="colorWhite">
+            <ion-icon name="menu" ios="ios-menu" md="md-menu"></ion-icon>
+        </button>
+		<ion-title>WishList</ion-title>
 	</ion-navbar>
 </ion-header>
 
@@ -21,7 +24,7 @@
 				</ion-row>
 			</ion-col>
 			<ion-col col-1>
-				<ion-icon (click)="makeFav(item._id)" float-right name="heart" ios="ios-heart" md="md-heart" [ngStyle]="isFavOrNot(item._id)"></ion-icon>
+				<ion-icon  float-right name="heart" ios="ios-heart" md="md-heart" [ngStyle]="{'color':'red'}"></ion-icon>
 			</ion-col>
 		</ion-row>
 	</ion-card>
