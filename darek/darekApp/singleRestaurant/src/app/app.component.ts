@@ -23,7 +23,7 @@ import { CheckoutPage } from '../pages/cart/checkout';
 export class MyApp {
     @ViewChild(Nav) nav: Nav;
 
-    rootPage: any = PromotionDetailPage;
+    rootPage: any = CartPage;
     currentCustomer : any;
     restaurant : any = {};
     pages: Array<{iconA: string, iconI : string, iconW : string ,title: string, component: any}>;

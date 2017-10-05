@@ -54,6 +54,9 @@ export class ItemDetailPage {
 
             if (localStorage.getItem(this.proId)) {
                 this.promotionItems = JSON.parse(localStorage.getItem(this.proId));
+
+                /*console.log("this.promotionItems");
+                console.log(this.promotionItems);*/
             }
         }
 
@@ -316,6 +319,13 @@ export class ItemDetailPage {
         if (this.itemType == 'cartItem') {
             this.tempCart.push(this.orderItem);
             localStorage.setItem(this.cart,JSON.stringify(this.tempCart));
+
+            let cartTotalAmount = 0;
+
+            for (var i = 0; i < this.tempCart.length; i++) {
+                cartTotalAmount = cartTotalAmount + this.tempCart[i].totalPrice;
+                localStorage.setItem('subTotal_595172e2421a472120e0db5e',JSON.stringify(cartTotalAmount))
+            }
         }
         if (this.itemType == 'promotionItem') {
             if (this.itemGroup == 'IG1') {            

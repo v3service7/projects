@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ToastController, LoadingController, Nav, NavController, NavParams ,ViewController,MenuController} from 'ionic-angular';
+import { ToastController, LoadingController, Nav, NavController, NavParams ,ViewController,MenuController,AlertController } from 'ionic-angular';
 import { PromotionsService } from '../../app/service/index';
 import * as globalVariable from "../../app/global";
 
@@ -30,7 +30,8 @@ export class PromotionPage {
 	    public toastCtrl: ToastController,
 		public navCtrl: NavController,
         private promotionsService: PromotionsService,
-		public navParams: NavParams
+		public navParams: NavParams,
+        public alertCtrl: AlertController
 		) {
   	}
 
@@ -112,7 +113,6 @@ export class PromotionPage {
         }
     }
 
-
 	private getToast(msg){
     	let toast = this.toastCtrl.create({
 	        message: msg,
@@ -120,7 +120,7 @@ export class PromotionPage {
 	        position:'top' //top,middle,bottom
 	    });
 	    toast.present();
-   }
+    }
 
     doRefresh(refresher) {
         setTimeout(() => {
@@ -130,14 +130,38 @@ export class PromotionPage {
     }
 
     private getDeal(promo){
-        console.log("promo");
-        console.log(promo);
-
-        localStorage.setItem('promo',JSON.stringify(promo))
-
-        this.navCtrl.push(PromotionDetailPage,{
-            promo : promo
-        });
+        if (localStorage.getItem('promotion_595172e2421a472120e0db5e') || localStorage.getItem('coupon_595172e2421a472120e0db5e')) {
+            var alert = this.alertCtrl.create({
+                title: 'Remainder',
+                message: 'Adding Another Deal will remove previous deals added',
+                buttons: [
+                    {
+                        text: 'Cancel',
+                        role: 'cancel',
+                        handler: () => {
+                            console.log('Cancel clicked');
+                        }
+                    },
+                    {
+                        text: 'Ok',
+                        handler: () => {
+                            localStorage.removeItem('promotion_595172e2421a472120e0db5e');
+                            localStorage.removeItem('coupon_595172e2421a472120e0db5e');
+                            localStorage.setItem('promo',JSON.stringify(promo));
+                            this.navCtrl.push(PromotionDetailPage,{
+                                promo : promo
+                            });
+                        }
+                    }
+                ]
+            });
+            alert.present();
+        }else{
+            localStorage.setItem('promo',JSON.stringify(promo));
+            this.navCtrl.push(PromotionDetailPage,{
+                promo : promo
+            });
+        }
     }
 
 }

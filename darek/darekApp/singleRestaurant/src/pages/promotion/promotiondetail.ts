@@ -5,6 +5,7 @@ import { PromotionsService, KitchenMenuService, KitchenItemService } from '../..
 import * as globalVariable from "../../app/global";
 
 import { ItemDetailPage } from '../item/itemDetail';
+import { MenuPage } from '../menu/menu';
 
 @Component({
   selector: 'page-promotion',
@@ -32,6 +33,8 @@ export class PromotionDetailPage {
     currentTime : string;
     promotionItems : any = {};
     proId : string;
+    cartSubTotal : string;
+    cartTotalAmount : number;
 
 	constructor(
         public nav: Nav,
@@ -53,24 +56,11 @@ export class PromotionDetailPage {
 
 		//this.promo = navParams.get('promo')
 		this.promo = JSON.parse(localStorage.getItem('promo'));
-		
-		/*this.promotionItem['itemGroup1'] = this.promo;
-		this.promotionItem['itemGroup2'] = this.promo;
-		this.promotionItem['total'] = this.promo;*/
-
-
-		/*if (this.itemType == 'promotionItem') {
-            this.proId = 'promotion_' + this.item.kitchenId;
-
-            if (localStorage.getItem(this.proId)) {
-                this.promotionItems = JSON.parse(localStorage.getItem(this.proId));
-            }else{
-                localStorage.setItem(this.proId, '[]');
-            }
-        }*/
+        this.loadAllPromotions(this.promo['promotionId'][0]);
   	}
 
-	ionViewDidLoad() {
+	ionViewDidEnter() {
+		this.loadAllUsers(this.promo['restaurantId'][0]);
 		this.currentDate = new Date();
         this.date = this.currentDate.toLocaleDateString();
         var h = this.addZero(this.currentDate.getHours());
@@ -95,21 +85,20 @@ export class PromotionDetailPage {
         this.proId = 'promotion_' + this.promo['restaurantId'][0];
         if (localStorage.getItem(this.proId)) {
             this.promotionItem = JSON.parse(localStorage.getItem(this.proId));
-            this.promotionItem['promotion'] = this.promo;
-        }else{
-            localStorage.setItem(this.proId, '{}');
         }
 
+        this.cartSubTotal = 'subTotal_' + this.promo['restaurantId'][0];
 
-        this.loadAllUsers(this.promo['restaurantId'][0]);
-		this.loadAllPromotions(this.promo['promotionId'][0]);
+        if (localStorage.getItem(this.cartSubTotal)) {
+        	this.cartTotalAmount = JSON.parse(localStorage.getItem(this.cartSubTotal));
+        }
 	}
 
-	private checkPromoItems(){
+	private checkDisabled(){
 		if (this.promo && this.promo.discountOn){
-			if (this.promo.discountOn.length == 1 && typeof this.promotionItem['itemGroup1'] != undefined) {
+			if (this.promo.discountOn.length == 1 && typeof this.promotionItem['itemGroup1'] != 'undefined') {
 				return false;
-			}else if (this.promo.discountOn.length == 2 && typeof this.promotionItem['itemGroup1'] != undefined && typeof this.promotionItem['itemGroup2'] != undefined) {
+			}else if (this.promo.discountOn.length == 2 && typeof this.promotionItem['itemGroup1'] != 'undefined' && typeof this.promotionItem['itemGroup2'] != 'undefined') {
 				return false;
 			}else{
 				return true;
@@ -142,7 +131,7 @@ export class PromotionDetailPage {
 	        position:'top' //top,middle,bottom
 	    });
 	    toast.present();
-   }
+	}
 
 	private checkMenuItemShow(obj){
         if (obj.isSpecific) {
@@ -218,6 +207,12 @@ export class PromotionDetailPage {
     private loadAllPromotions(id) {
         this.promotionsService.getAll().subscribe(pro => {
             this.index = pro.message.findIndex(mn => mn._id == id);
+            if (this.index == 6) {
+                if (this.cartTotalAmount < this.promo.minCartAmount) {
+                    this.getToast('Cant add this deal now \n Minimum Cart Amount should be ' + this.promo.minCartAmount);
+                    this.nav.setRoot(MenuPage);
+                }
+            }
         });
     }
 
@@ -236,9 +231,6 @@ export class PromotionDetailPage {
                             this.itemG1 = menuObjectsArray;
 
                             this.itemGroup = this.itemG1;
-
-                            console.log("this.itemGroup");
-                            console.log(this.itemGroup);
                         }
                     });
                 }
@@ -294,4 +286,33 @@ export class PromotionDetailPage {
     	alert.present();
     }
 
+    private addDeal(){
+    	var discountOn = this.promo.discountOn;
+        this.promotionItem['promotion'] = this.promo;
+
+    	if (typeof discountOn[1] == 'undefined') {
+    		var discountedPrice = ((100 - this.promo['discountPercent'])/100)*this.promotionItem['itemGroup1']['totalPrice'];
+    		this.promotionItem['itemGroup1']['totalPrice'] = discountedPrice;
+    		this.promotionItem['total'] = this.promotionItem['itemGroup1']['totalPrice'];
+    	}
+
+    	if (typeof discountOn[1] != 'undefined') {
+    		if (this.promotionItem['itemGroup1']['totalPrice'] <= this.promotionItem['itemGroup2']['totalPrice']) {
+                var discountedPrice = ((100 - this.promo.discountPercent)/100)*this.promotionItem['itemGroup1']['totalPrice'];
+                this.promotionItem['itemGroup1']['totalPrice'] = discountedPrice;
+                this.promotionItem['total'] = this.promotionItem['itemGroup1']['totalPrice'] + this.promotionItem['itemGroup2']['totalPrice'];
+            }else{
+                var discountedPrice = ((100 - this.promo.discountPercent)/100)*this.promotionItem['itemGroup2']['totalPrice'];
+                this.promotionItem['itemGroup2']['totalPrice'] = discountedPrice;
+                this.promotionItem['total'] = this.promotionItem['itemGroup1']['totalPrice'] + this.promotionItem['itemGroup2']['totalPrice'];
+            }
+    	}
+
+    	console.log("this.promotionItem");
+    	console.log(this.promotionItem);
+
+    	localStorage.setItem(this.proId,JSON.stringify(this.promotionItem));
+    	localStorage.removeItem('promo');
+    	this.nav.setRoot(MenuPage);
+    }
 }

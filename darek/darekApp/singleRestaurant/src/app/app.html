@@ -1,10 +1,10 @@
 <ion-menu [content]="content">
     <ion-content class="leftNav">
-        <ion-row class="restaurantLogo">
+        <ion-row *ngIf="restaurant" class="restaurantLogo">
             <ion-col col-12 text-center>{{restaurant.name}}</ion-col>
         </ion-row>
 
-        <ion-row class="leftNavHeading">
+        <ion-row *ngIf = "pages" class="leftNavHeading">
             <button menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)">
                 <ion-icon name="{{p.iconA}}" ios="{{p.iconI}}" md="{{p.iconW}}" item-start></ion-icon> {{p.title}}
             </button>

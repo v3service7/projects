@@ -1,10 +1,13 @@
 <ion-header>
 	<ion-navbar>
+		<button ion-button menuToggle class="colorWhite">
+            <ion-icon name="menu" ios="ios-menu" md="md-menu"></ion-icon>
+        </button>
 		<ion-title>Order Detail</ion-title>
 	</ion-navbar>
 </ion-header>
 
-<ion-content padding>
+<ion-content padding *ngIf = "restaurants">
 
 	<ion-row *ngIf = "currentCustomer">
 		<ion-item>
@@ -69,25 +72,22 @@
 	<ion-row *ngIf = "orderMethod.mType">
 		<ion-label class="fontWeight600">Choose Payment Method</ion-label>
 		<ion-select *ngIf = "orderMethod.mType == 'Pickup'" [(ngModel)]="orderPaymentSelect" submitText="Ok" cancelText="Cancel" (ionChange)="orderPaymentFunction()">
-			<ion-option *ngIf = "restaurants.paymentpickup.cash" value="cash">Cash</ion-option>
-			<ion-option *ngIf = "restaurants.paymentpickup.cardinternet" value="cardPickup">Card at Pickup</ion-option>
-			<ion-option *ngIf = "restaurants.paymentpickup.cardpickup" value="cardInternet">Card via Internet</ion-option>
+			<ion-option *ngIf = "restaurants.paymentpickup && restaurants.paymentpickup.cash" value="cash">Cash</ion-option>
+			<ion-option *ngIf = "restaurants.paymentpickup && restaurants.paymentpickup.cardpickup" value="cardPickup">Card at Pickup</ion-option>
+			<ion-option *ngIf = "restaurants.paymentpickup && restaurants.paymentpickup.cardinternet" value="cardInternet">Card via Internet</ion-option>
 		</ion-select>
 		<ion-select *ngIf = "orderMethod.mType == 'Delivery'" [(ngModel)]="orderPaymentSelect" submitText="Ok" cancelText="Cancel" (ionChange)="orderPaymentFunction()">
-			<ion-option *ngIf = "restaurants.paymentdelivery.cash" value="cash">Cash</ion-option>
-			<ion-option *ngIf = "restaurants.paymentdelivery.cardinternet" value="cardPickup">Card at Pickup</ion-option>
-			<ion-option *ngIf = "restaurants.paymentdelivery.cardpickup" value="cardInternet">Card via Internet</ion-option>
+			<ion-option *ngIf = "restaurants.paymentpickup && restaurants.paymentdelivery.cash" value="cash">Cash</ion-option>
+			<ion-option *ngIf = "restaurants.paymentpickup && restaurants.paymentdelivery.cardpickup" value="cardPickup">Card at Pickup</ion-option>
+			<ion-option *ngIf = "restaurants.paymentpickup && restaurants.paymentdelivery.cardinternet" value="cardInternet">Card via Internet</ion-option>
 		</ion-select>
 	</ion-row>
 
 	<ion-row class="width100 marginTop5">
-		<button class="width100 orderButton padding3" [disabled]="checkDisabled()" (click)="placeOrder()">
+		<button class="width100 orderButton padding3" [disabled]="checkDisabled()" (click)="updateInfo()">
 			<ion-row class="width100">
-				<ion-col col-3 text-left class="priceBorder">
-					{{this.totalAmount | number : '1.2-2'}}
-				</ion-col>
-				<ion-col col-9>
-					Place Order
+				<ion-col text-center>
+					<ion-icon name="arrow-dropleft-circle" ios="ios-arrow-dropleft-circle" md="md-arrow-dropleft-circle"></ion-icon>   Update
 				</ion-col>
 			</ion-row>
 		</button>

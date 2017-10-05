@@ -48,4 +48,21 @@ page-cart {
 	    color: rgba(128, 128, 128, 0.68);
 	}
 
+	.contactInfo .item-inner{
+		border-bottom : none !important;
+	}
+
+	ion-input{
+		background : white !important;
+	}
+
+	ion-input .text-input{
+		margin : 0 !important;
+		padding : 3% !important;
+	}
+
+	.couponCode{
+		margin: 5% 0;
+	}
+
 }

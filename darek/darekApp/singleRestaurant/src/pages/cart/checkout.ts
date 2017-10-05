@@ -7,7 +7,7 @@ import { CustomersService,RestaurantsService } from '../../app/service/index';
 
 import { LoginPage } from '../login/login';
 
-import { AwaitPage } from './await';
+import { CartPage } from './cart';
 
 declare var google: any;
 
@@ -21,17 +21,20 @@ export class CheckoutPage {
 	loading : any;
 	laterDate : any;
 	laterTime : any;
-	orderMethodSelect : any;
+	
+    orderMethodSelect : any;
 	orderTimeSelect : any;
 	orderPaymentSelect : any;
-	restaurants : any = {};
+	
+    restaurants : any = {};
 	currentCustomer : any = {};
 	orderMethod : any = {};
 	orderTime : any = {};
 	orderPayment : any;
 	delivery : any = {};
 	zoneObject : any = [];
-	imageURL: string = globalVariable.imageUrl;
+    imageURL: string = globalVariable.imageUrl;
+	cartStorageString: string;
 
 
 	deliveryFee : number;
@@ -69,8 +72,62 @@ export class CheckoutPage {
 			this.loading.dismiss();
 			this.currentCustomer = JSON.parse(localStorage.getItem('currentCustomer'));
 
-			/*this.cartStorage = navParams.get('cart');*/
-			this.cartStorage = JSON.parse(localStorage.getItem('cartStorage_595172e2421a472120e0db5e'))
+            this.cartStorageString = 'cartStorage_595172e2421a472120e0db5e';
+
+			//this.cartStorage = navParams.get('cart');
+			this.cartStorage = JSON.parse(localStorage.getItem(this.cartStorageString))
+
+            if (this.cartStorage['orderMethod']) {
+                if(this.cartStorage['orderMethod']['mType'] == 'Pickup'){
+                    this.orderMethodSelect = 'pickup';
+                    this.orderMethod = this.cartStorage['orderMethod'];
+                }
+                if(this.cartStorage['orderMethod']['mType'] == 'Delivery'){
+                    this.orderMethodSelect = 'delivery';
+                    this.del = true;
+                    this.oMethod = true;
+                    this.enterAddress = false;
+                    this.orderMethod = this.cartStorage['orderMethod'];
+                }
+            }
+
+            if (this.cartStorage['orderPayment']) {
+                if(this.cartStorage['orderPayment']['cardinternet'] == true){
+                    this.orderPaymentSelect = 'cardInternet';
+                }
+                if(this.cartStorage['orderPayment']['cardpickup'] == true){
+                    this.orderPaymentSelect = 'cardPickup';
+                }
+                if(this.cartStorage['orderPayment']['cash'] == true){
+                    this.orderPaymentSelect = 'cash';
+                }
+                this.orderPaymentFunction();
+            }
+
+            if (this.cartStorage['orderTime']) {
+                if(this.cartStorage['orderTime']['tType'] == 'Now'){
+                    this.orderTimeSelect = 'now';
+                    this.orderTimeFunction();
+                }
+                if(this.cartStorage['orderTime']['tType'] == 'Later'){
+                    this.orderTimeSelect = 'later';
+                    this.showLater = true;
+                    this.tMethod = false;
+                    this.orderTime = this.cartStorage['orderTime'];
+                    this.laterDate = this.cartStorage['orderTime']['day'];
+                    this.laterTime = this.cartStorage['orderTime']['time'];
+                    setTimeout(()=>{
+                        var x = document.getElementsByTagName('ion-datetime');
+                        var day = x[0].getElementsByClassName('datetime-text');
+                        var time = x[1].getElementsByClassName('datetime-text');
+                        day[0].innerHTML = this.cartStorage['orderTime']['day'];
+                        time[0].innerHTML = this.cartStorage['orderTime']['time'];
+                        this.tMethod = true;
+
+
+                    },500)
+                }
+            }
 
 			this.totalAmount = this.cartStorage.gTotal;
 
@@ -152,15 +209,14 @@ export class CheckoutPage {
     		this.orderMethod['mType'] = 'Pickup';
     		this.cartStorage['orderMethod'] = this.orderMethod;
     		if (this.cartStorage['deliveryfee']) {
-    			delete this.cartStorage['deliveryfee'];
+                this.cartStorage['gTotal'] = this.cartStorage['gTotal'] - this.cartStorage['deliveryfee'];
+                delete this.cartStorage['deliveryfee'];
     		}
     		if (this.cartStorage['orderPayment']) {
     			delete this.cartStorage['orderPayment'];
     			this.orderPaymentSelect = '';
     			this.orderPaymentFunction();
     		}
-
-    		this.cartStorage['deliveryfee'];
             this.cartStorage['gTotal'] = this.totalAmount;
     	}
     }
@@ -211,8 +267,14 @@ export class CheckoutPage {
         setTimeout(()=>{
 			var dayId = document.getElementById('laterDate1');
 			var day = dayId.getElementsByClassName('datetime-text');
-			this.orderTime['day'] = day;
+
+            console.log("day");
+            console.log(day[0].innerHTML);
+
+
+			this.orderTime['day'] = day[0].innerHTML;
 			if (typeof this.orderTime['time'] != 'undefined') {
+                this.cartStorage['orderTime'] = this.orderTime;
 				this.tMethod = true;
 			}
         },500);
@@ -222,8 +284,13 @@ export class CheckoutPage {
 		setTimeout(()=>{
 			var timeId = document.getElementById('laterTime1');
 			var time = timeId.getElementsByClassName('datetime-text');
-			this.orderTime['time'] = time;
+
+            console.log("time");
+            console.log(time[0].innerHTML);
+
+			this.orderTime['time'] = time[0].innerHTML;
 			if (typeof this.orderTime['day'] != 'undefined') {
+                this.cartStorage['orderTime'] = this.orderTime;
 				this.tMethod = true;
 			}
 	    },500);
@@ -350,21 +417,8 @@ export class CheckoutPage {
     	}
     }
 
-    private placeOrder(){
-        this.cartStorage['status'] = 'Received';
-        if (this.cartStorage['orderPayment']['cardinternet']) {
-            console.log("this.cartStorage");
-            console.log(this.cartStorage);
-        }else{
-            this.customerService.addOrder(this.cartStorage).subscribe((data) => {
-                if (data.error == false) {
-                    localStorage.removeItem('cart_595172e2421a472120e0db5e');
-                    localStorage.removeItem('cartStorage_595172e2421a472120e0db5e');
-                    this.nav.setRoot(AwaitPage, {
-                        order : data.message
-                    })
-                }
-            });
-        }
+    private updateInfo(){
+        localStorage.setItem(this.cartStorageString,JSON.stringify(this.cartStorage));
+        this.navCtrl.pop(CartPage)
     }
 }

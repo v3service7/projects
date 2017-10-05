@@ -43,19 +43,19 @@ page-promotion {
 
 	.card-getNow{
 		background: #32DB64;
-		    border-radius: 4%;
+		border-radius: 4%;
 	}
 	.card-promoCode{
 		background-image: linear-gradient(to bottom right, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5));
 	}
 
 	.segment-button.segment-activated {
-	    background-color: green !important;
+	    background-color: #32DB64 !important;
 	    color : white !important;
     }
 
     .segment-button{
-    	border-color : green !important;
+    	border-color : #32DB64 !important;
     	color : black !important;
     }
 }

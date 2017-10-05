@@ -8,10 +8,10 @@
 </ion-header>
 
 
-<ion-content class="card-background-page" *ngIf = "itemGroup">
-    <ion-refresher (ionRefresh)="doRefresh($event)">
+<ion-content class="card-background-page" *ngIf = "itemGroup || promo">
+    <!-- <ion-refresher (ionRefresh)="doRefresh($event)">
         <ion-refresher-content></ion-refresher-content>
-    </ion-refresher>
+    </ion-refresher> -->
 
     <ion-list [ngStyle]="{'background-image': 'url(' + imageURL + promo.image + ')'}">
         <div class="card-title positionAbsolute fontWeight500">{{promo.promoname}}</div>
@@ -32,6 +32,14 @@
     </ion-list>
 
 
-    <button [disabled]="checkPromoItems()">Add Deal</button>
+    <ion-row class="padding0px15px margin20-3">
+        <button class="width100 orderButton padding3" [disabled]="checkDisabled()" (click)="addDeal()">
+            <ion-row class="width100">
+                <ion-col col-12 text-center>
+                    <ion-icon name="cart" ios="ios-cart" md="md-cart"></ion-icon> &nbsp;&nbsp; Add Deal
+                </ion-col>
+            </ion-row>
+        </button>
+    </ion-row>
 
 </ion-content>
