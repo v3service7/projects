@@ -183,7 +183,7 @@ export class CheckoutPage {
             var imgPath = this.imageURL + img;
         }
         if (typeof img == 'undefined' || img == null) {
-            var imgPath = "../assets/img/profile.png";
+            var imgPath = "assets/img/profile.png";
         }
         return imgPath;
     }

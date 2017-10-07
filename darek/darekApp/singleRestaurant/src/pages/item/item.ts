@@ -75,10 +75,11 @@ export class ItemPage {
 
     private getCustomer(){
         var tempCurrentCustomer = JSON.parse(localStorage.getItem('currentCustomer'));
-        this.customerService.getOneCustomer(tempCurrentCustomer['_id']).subscribe(cust=>{
-            this.currentCustomer = cust.message;
-            console.log(this.currentCustomer)
-        });
+        if (tempCurrentCustomer) {
+            this.customerService.getOneCustomer(tempCurrentCustomer['_id']).subscribe(cust=>{
+                this.currentCustomer = cust.message;
+            });
+        }
     }
 
     private isFavOrNot(id){

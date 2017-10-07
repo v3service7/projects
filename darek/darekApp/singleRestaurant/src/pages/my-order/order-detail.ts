@@ -4,7 +4,6 @@ import { ModalController,ToastController, LoadingController,AlertController, Nav
 import { RestaurantsService, OrderService } from '../../app/service/index';
 
 import { MyOrderPage } from './my-order';
-import { AssignOrderPage } from './assign-order';
 //import {  OrderDetailPage } from './order-detail';
 /**
  * Generated class for the MyOrderPage page.

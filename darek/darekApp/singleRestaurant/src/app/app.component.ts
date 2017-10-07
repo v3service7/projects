@@ -39,11 +39,11 @@ export class MyApp {
         this.initializeApp();
 
         // used for an example of ngFor and navigation
-        this.pages = [
-        { iconA : 'flame' , iconI : 'ios-flame' , iconW : 'md-flame' , title: 'Hot Deals', component: PromotionPage },
-        { iconA : 'clipboard' , iconI : 'ios-clipboard' , iconW : 'md-clipboard' , title: 'Menu', component: MenuPage },
-        { iconA : 'cart' , iconI : 'ios-cart' , iconW : 'md-cart' , title: 'Shopping Cart', component: CartPage }
-        ];
+    }
+
+    ionViewDidEnter() {
+        this.restaurant = JSON.parse(localStorage.getItem('restaurant')); 
+        this.initializeApp();
     }
 
     logout(){
@@ -70,18 +70,28 @@ export class MyApp {
     }
 
     initializeApp() {
+        this.pages = [
+            { iconA : 'flame' , iconI : 'ios-flame' , iconW : 'md-flame' , title: 'Hot Deals', component: PromotionPage },
+            { iconA : 'clipboard' , iconI : 'ios-clipboard' , iconW : 'md-clipboard' , title: 'Menu', component: MenuPage },
+            { iconA : 'cart' , iconI : 'ios-cart' , iconW : 'md-cart' , title: 'Shopping Cart', component: CartPage }
+        ];
+        this.currentCustomer = JSON.parse(localStorage.getItem('currentCustomer')); 
+        if (this.currentCustomer) {
+            this.pages.push(
+                { iconA : 'book' , iconI : 'ios-book' , iconW : 'md-book' , title: 'My Orders', component: MyOrderPage },
+                { iconA : 'heart' , iconI : 'ios-heart' , iconW : 'md-heart' , title: 'My WishList', component: WishlistPage },
+                { iconA : 'person' , iconI : 'ios-person' , iconW : 'md-person' , title: 'My Profile', component: ProfilePage }
+            )
+        }else{
+             this.pages.push(
+                { iconA : 'person' , iconI : 'ios-person' , iconW : 'md-person' , title: 'My Profile', component: LoginPage }
+            )   
+        }
+        this.restaurant = JSON.parse(localStorage.getItem('restaurant')); 
+        
         this.platform.ready().then(() => {
-            // Okay, so the platform is ready and our plugins are available.
             // Here you can do any higher level native things you might need.
-            this.currentCustomer = JSON.parse(localStorage.getItem('currentCustomer')); 
-            if (this.currentCustomer) {
-                this.pages.push(
-                    { iconA : 'book' , iconI : 'ios-book' , iconW : 'md-book' , title: 'My Orders', component: MyOrderPage },
-                    { iconA : 'heart' , iconI : 'ios-heart' , iconW : 'md-heart' , title: 'My WishList', component: WishlistPage },
-                    { iconA : 'person' , iconI : 'ios-person' , iconW : 'md-person' , title: 'My Profile', component: ProfilePage }
-                )
-            }
-            this.restaurant = JSON.parse(localStorage.getItem('restaurant')); 
+            // Okay, so the platform is ready and our plugins are available.
             this.statusBar.styleDefault();
             this.splashScreen.hide();
         });

@@ -6,7 +6,6 @@ import * as globalVariable from "../../app/global";
 
 /*import { ItemPage } from './item';*/
 
-
 @Component({
     selector: 'page-itemdetail',
     templateUrl: 'itemDetail.html',
@@ -46,9 +45,7 @@ export class ItemDetailPage {
         this.item = navParams.get('item');
         this.itemType = navParams.get('type');
         this.itemGroup = navParams.get('iG');
-
         this.orderItem['item'] = this.item;
-
         this.cart = 'cart_' + this.item.kitchenId;
 
         if (this.itemType == 'promotionItem') {
@@ -56,22 +53,16 @@ export class ItemDetailPage {
 
             if (localStorage.getItem(this.proId)) {
                 this.promotionItems = JSON.parse(localStorage.getItem(this.proId));
-
-                /*console.log("this.promotionItems");
-                console.log(this.promotionItems);*/
             }
         }
-
-        var val=this.navCtrl.last();
-
-        console.log("val");
-        console.log(val);
+        var val=this.navCtrl.last();        
         this.previousPage = val.component
     }
 
     ionViewDidEnter() {
         this.getCustomer()
     }
+
     ionViewDidLoad() {
         if (typeof this.item.options != 'undefined' && this.item.options.length >0) {
             for (var i = 0; i < this.item.options.length; i++) {
@@ -80,24 +71,29 @@ export class ItemDetailPage {
                 }
             }
         }
+
         if (typeof this.item.multisize != 'undefined' && this.item.multisize.length > 0) {
             this.multisizeSelected = this.item.multisize[0];
             this.orderItem['multisize'] = this.multisizeSelected;
         }
+
         this.orderItem['addon'] = [];
         this.orderItem['quantity'] = 1;
 
         if (localStorage.getItem(this.cart)) {
             this.tempCart = JSON.parse(localStorage.getItem(this.cart));
         }
+
         this.totalPrice();
     }
 
     private getCustomer(){
         var tempCurrentCustomer = JSON.parse(localStorage.getItem('currentCustomer'));
-        this.customerService.getOneCustomer(tempCurrentCustomer['_id']).subscribe(cust=>{
-            this.currentCustomer = cust.message;
-        });
+        if (tempCurrentCustomer) {
+            this.customerService.getOneCustomer(tempCurrentCustomer['_id']).subscribe(cust=>{
+                this.currentCustomer = cust.message;
+            });
+        }
     }
 
     private isFavOrNot(id){
@@ -112,15 +108,17 @@ export class ItemDetailPage {
     }
 
     private makeFav(id){
+        console.log(this.multisizeSelected)
+        console.log(this.item.multisize)
         let wIndex = this.currentCustomer.wishlist.indexOf(id);
         if (wIndex == -1) {
             this.currentCustomer.wishlist.push(id);
-            this.getItems(this.item._id);
+            //this.getItems(this.item._id);
             this.customerService.updateCustomer(this.currentCustomer).subscribe(cust=>{
             });
         }else{
             this.currentCustomer.wishlist.splice(wIndex,1);
-            this.getItems(this.item._id);
+            //this.getItems(this.item._id);
             this.customerService.updateCustomer(this.currentCustomer).subscribe(cust=>{
             });
         }
@@ -169,6 +167,7 @@ export class ItemDetailPage {
         if (typeof group.groupType != 'undefined' && group.groupType.gType == 'mandatory') {
             alert.setTitle('Min Addon : ' + group.groupType.min +' ,Max Addon : ' + group.groupType.max);
         }
+
         if (typeof group.groupType != 'undefined' && group.groupType.gType == 'optional') {
             alert.setTitle(group.groupType.gType);
         }
@@ -183,6 +182,7 @@ export class ItemDetailPage {
         }
 
         alert.addButton('Cancel');
+
         alert.addButton({
             text: 'Okay',
             handler: data => {
@@ -190,6 +190,7 @@ export class ItemDetailPage {
                 this.spliceAddon(data1,group)
             }
         });
+
         alert.present();
     }
 
@@ -203,10 +204,7 @@ export class ItemDetailPage {
 
     private spliceAddon(data1,group){
         let groupId = group._id;
-
         let length = this.orderItem['addon'].length;
-        console.log("length");
-        console.log(length);
 
         if (length == 0) {
             this.addAddon(data1,group);
@@ -216,14 +214,12 @@ export class ItemDetailPage {
             for (var i = 0; i < length; i++) {
                 var index = this.orderItem['addon'].findIndex(mn=> mn.groupId == groupId)
 
-                console.log(index);
-
                 if (index > -1) {
                     this.orderItem['addon'].splice(index , 1);
                 }
 
                 if(index == -1 || (i == length-1)){
-                    console.log("-----------");
+                    
                     this.addAddon(data1,group);
                     break;
                 }
@@ -249,6 +245,7 @@ export class ItemDetailPage {
             }else{
                 this.getToast('Can\'t add \n Please ensure Minimum and Maximum you can order');
             }
+
             this.checkAddons();
             this.totalPrice();
         }
@@ -321,11 +318,10 @@ export class ItemDetailPage {
 
     private countCharacter(event){
         this.orderItem['itemInstruction'] = event.target.value;
-        console.log("this.orderItem");
-        console.log(this.orderItem);
     }
 
     private optionsFn(){
+        console.log('isChange')
         this.orderItem['multisize'] = this.multisizeSelected;
         this.totalPrice();
     }
@@ -344,20 +340,14 @@ export class ItemDetailPage {
         }
 
         total = (this.item.price + multisizePrice + addonPrice)*this.orderItem['quantity'];
-
         this.totalAmount = total;
-
         this.orderItem['totalPrice'] = this.totalAmount;
-
-        console.log("this.orderItem");
-        console.log(this.orderItem);
     }
 
     private addToCart(){
         if (this.itemType == 'cartItem') {
             this.tempCart.push(this.orderItem);
             localStorage.setItem(this.cart,JSON.stringify(this.tempCart));
-
             let cartTotalAmount = 0;
 
             for (var i = 0; i < this.tempCart.length; i++) {
@@ -365,6 +355,7 @@ export class ItemDetailPage {
                 localStorage.setItem('subTotal_595172e2421a472120e0db5e',JSON.stringify(cartTotalAmount))
             }
         }
+
         if (this.itemType == 'promotionItem') {
             if (this.itemGroup == 'IG1') {            
                 this.promotionItems['itemGroup1'] = this.orderItem;
@@ -376,8 +367,8 @@ export class ItemDetailPage {
                 localStorage.setItem(this.proId,JSON.stringify(this.promotionItems));
             }
         }
+
         this.navCtrl.pop(this.previousPage);
         this.getToast('Item Added');
     }
-
 }
