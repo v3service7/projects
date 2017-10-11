@@ -19,7 +19,7 @@ $('iframe').css({'min-width':'100%','box-shadow': '0 2px 10px rgba(0,0,0,.5)', '
 $('#myModal').css({'height':'90%','margin': '2% auto', 'width':'800px'});
 var closeBtn  = $('<a class ="closeBtn" href="javascript:void(0)">Close</a>');
 $('#myModal').append(closeBtn);
-$('.closeBtn').css({'text-decoration-line:':'unset','padding':'10px','border-radius':'3px','background-color':'rgba(0,0,0,.6)','position':'absolute','margin': '0 15px','top':'4%','color':'#fff','box-shadow':'0 2px 10px rgba(0,0,0,.5)'});
+$('.closeBtn').css({'text-decoration-line:':'unset','padding':'10px','border-radius':'3px','background-color':'rgba(0,0,0,.6)','position':'absolute','margin-left': '815px','top':'4%','color':'#fff','box-shadow':'0 2px 10px rgba(0,0,0,.5)'});
 $('a.closeBtn').on('click', function(e) {
 	$('#myModal').hide();
 	$('a.resbtn').css({'z-index':'0'});
