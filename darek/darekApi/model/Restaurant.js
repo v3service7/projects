@@ -21,6 +21,7 @@ var RestaurantSchema = new Schema({
     billingaddress:{},
     paymentcredential:{},
     emailstatus: { type: Boolean, default: false },
+    deliveryoutside: { type: Boolean, default: false },
     pickup: { type: Boolean, default: true },
     onlinepayment: { type: Boolean, default: false },
     delivery: { type: Boolean, default: false},
@@ -31,7 +32,6 @@ var RestaurantSchema = new Schema({
     paymentpickup: { cash: Boolean, cardpickup: Boolean, cardinternet: Boolean},
     paymentdelivery: { cash: Boolean, cardpickup: Boolean, cardinternet: Boolean},
     notification: [],
-    //languages: [],
     languages: [{ type: Schema.Types.ObjectId, ref:'Language', required: true}],
     
     openinghours : { monday: {type: Boolean},  mondaytime: {opentime : String, closetime : String}, 

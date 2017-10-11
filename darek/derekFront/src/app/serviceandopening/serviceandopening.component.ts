@@ -2453,6 +2453,70 @@ export class OnlinePaymentComponent implements OnInit {
 		});
 		
 	}
-
 }
+
+@Component({
+  selector: 'app-delivery-outside',
+  templateUrl: './deliveryoutside.component.html',
+  styleUrls: ['./deliveryoutside.component.css']
+})
+export class DeliveryOutsideComponent implements OnInit {
+    restaurants:any={};
+
+    selected1 = 'green';
+    selected2 = 'white';
+    outsideDelivery : boolean = true;
+
+  	constructor(
+  		private masterService: MasterService,
+  		private restaurantsService: RestaurantsService,
+  		private router: Router,
+  		private alertService: AlertService,
+  		private lf: FormBuilder
+  		) { }
+
+  	ngOnInit() {
+		this.getRestaurants();
+	}
+
+	private getRestaurants() {
+		this.restaurantsService.getOwnerRestaurants(JSON.parse(localStorage.getItem('currentOwner'))._id).subscribe(users => {
+			this.restaurants = users.message;
+			console.log("this.restaurants");
+			console.log(this.restaurants);
+			if (!this.restaurants.deliveryoutside) {
+				this.selected2 = 'green';
+				this.selected1 = 'white';
+				this.outsideDelivery = false;
+			}
+		});
+	}
+
+	private deliveryOutside(type){
+		if (type == false) {
+			this.outsideDelivery = false;
+			if (this.selected2 != 'green') {
+				this.selected2 = 'green';
+				this.selected1 = 'white';
+			}
+		}else{
+			this.outsideDelivery = true;
+			if (this.selected1 != 'green') {
+				this.selected1 = 'green';
+				this.selected2 = 'white';
+			}
+		}
+
+	}
+
+	private saveDeliveryOutside(){
+		var obj = {}; 
+		obj['_id'] = this.restaurants._id
+		obj['deliveryoutside'] = this.outsideDelivery;
+		this.restaurantsService.updateRestaurant(obj).subscribe((data)=>{
+			console.log(data);
+		});
+	}
+}
+
 

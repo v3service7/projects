@@ -64,6 +64,8 @@ export class PromotionaddComponent implements OnInit {
   promotionAddModel: FormGroup;
   restaurants = [];
 
+  restaurantOption : any = [];
+
   imageUrl: string = globalVariable.url+'uploads/';
 
   public uploader: FileUploader = new FileUploader({ url: globalVariable.url+'upload' });
@@ -93,11 +95,20 @@ export class PromotionaddComponent implements OnInit {
       });
     }
 
+  private onClicked(event){
+    if (!event.target.checked) {
+      this.restaurantOption.splice(this.restaurantOption.indexOf(event.target.value),1);
+    }
+    if ((event.target.checked) && (this.restaurantOption.indexOf(event.target.value) == -1)) {
+      this.restaurantOption.push(event.target.value);
+    }
+  }
+
   private promotionAdd() {
+    this.promotionAddModel.controls['restaurantOptions'].setValue(this.restaurantOption);
     this.promotionsService.addPromotion(this.promotionAddModel.value).subscribe(
       (data) => {
         toastr.success('Promotion Add successful');
-        //this.alertService.success('Promotion Add successful', true);
         this.router.navigate(['/admin/promotions']);
       }
     );
@@ -125,6 +136,8 @@ export class PromotionupdateComponent implements OnInit {
   promotionAddModel: FormGroup;
   err:any;
   restaurants = [];
+
+  restaurantOption : any = [];
 
   imageUrl: string = globalVariable.url+'uploads/';
 
@@ -156,12 +169,11 @@ export class PromotionupdateComponent implements OnInit {
     this.loadAllRestaurants();
   }
 
-    private loadAllRestaurants() {
-      this.restaurantsService.getAll().subscribe(
-        restaurants => { this.restaurants = restaurants.message;
-      });
-    }
-
+  private loadAllRestaurants() {
+    this.restaurantsService.getAll().subscribe(
+      restaurants => { this.restaurants = restaurants.message;
+    });
+  }
 
   private onChange(event) {
     var files = event.srcElement.files;
@@ -173,15 +185,33 @@ export class PromotionupdateComponent implements OnInit {
     };
   }
 
+
+  private onClicked(event){
+    if (!event.target.checked) {
+      this.restaurantOption.splice(this.restaurantOption.indexOf(event.target.value),1);
+    }
+    if ((event.target.checked) && (this.restaurantOption.indexOf(event.target.value) == -1)) {
+      this.restaurantOption.push(event.target.value);
+    }
+  }
+
   private getPromotions(id) {
     this.promotionsService.getOne(id).subscribe(users => {
       this.promotions = users.message;
       this.promotionAddModel.patchValue(this.promotions);
+      this.restaurantOption = users.message['restaurantOptions'];
       // this.userAddModel.controls['firstname'].setValue(this.users.firstname);
     });
   }
 
+  private checkChecked(id){
+    if (this.restaurantOption.indexOf(id) > -1) {
+      return true;
+    }
+  }
+
   private promotionUpdate() {
+    this.promotionAddModel.controls['restaurantOptions'].setValue(this.restaurantOption);
     console.log(this.promotionAddModel.value);
     this.promotionsService.updatePromotion(this.promotionAddModel.value).subscribe(
       (data) => {

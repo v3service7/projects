@@ -9,17 +9,17 @@ $('a.resbtn').on('click', function(e) {
 	var gfid = $(this).attr('data-gfid');
     var baseUrl = $(this).attr('data-baseurl');
     var src = baseUrl+'frontend/'+gfid;
-    var height = '600px';
+    var height = '100%';
     $("#myModal iframe").attr({'src':src,'height': height});
 	$('#myModal').show();
 });
 
 $('a.resbtn').css({'padding': '6px 12px','color': '#fff','background-color': '#337ab7','border': '1px solid #2e6da4','border-radius': '4px','text-decoration': 'none', 'cursor':'pointer','position' : 'absolute','margin':'1%'});
 $('iframe').css({'min-width':'100%','box-shadow': '0 2px 10px rgba(0,0,0,.5)', 'border-radius': '4px'});
-$('#myModal').css({'height':'90%','padding': '2% 20%'});
+$('#myModal').css({'height':'90%','margin': '2% auto', 'width':'800px'});
 var closeBtn  = $('<a class ="closeBtn" href="javascript:void(0)">Close</a>');
 $('#myModal').append(closeBtn);
-$('.closeBtn').css({'text-decoration-line:':'unset','padding':'10px','border-radius':'3px','background-color':'rgba(0,0,0,.6)','position':'absolute','right':'15%','top':'4%','color':'#fff','box-shadow':'0 2px 10px rgba(0,0,0,.5)'});
+$('.closeBtn').css({'text-decoration-line:':'unset','padding':'10px','border-radius':'3px','background-color':'rgba(0,0,0,.6)','position':'absolute','margin': '0 15px','top':'4%','color':'#fff','box-shadow':'0 2px 10px rgba(0,0,0,.5)'});
 $('a.closeBtn').on('click', function(e) {
 	$('#myModal').hide();
 	$('a.resbtn').css({'z-index':'0'});

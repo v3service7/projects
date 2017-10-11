@@ -25,7 +25,7 @@ import {OrderPipe} from "./order.pipe"
 import {FilterPipe} from "./filter.pipe";
 
 import { RestaurantsComponent , RestaurantaddComponent , RestaurantupdateComponent,RestaurantupdateownerComponent,RestaurantlocationComponent, RestaurantconfirmationComponent,OwnermailactivateComponent} from './restaurants/index';
-import { RestaurantOwnerPickupComponent, RestaurantOwnerOrderForLaterComponent, RestaurantOwnerTaxationComponent, RestaurantOwnerPaymentOptionComponent, RestaurantOwnerOpeningHoursComponent, RestaurantOwnerDeliveryZoneComponent, KitchenMenuListComponent,LegacyComponent,LegacycodeComponent, NotificationComponent, SupportedLanguagesComponent,OnlinePaymentComponent} from './serviceandopening/index';
+import { RestaurantOwnerPickupComponent, RestaurantOwnerOrderForLaterComponent, RestaurantOwnerTaxationComponent, RestaurantOwnerPaymentOptionComponent, RestaurantOwnerOpeningHoursComponent, RestaurantOwnerDeliveryZoneComponent, KitchenMenuListComponent,LegacyComponent,LegacycodeComponent, NotificationComponent, SupportedLanguagesComponent, DeliveryOutsideComponent, OnlinePaymentComponent} from './serviceandopening/index';
 import { OwnerDriversComponent, DriverOrdersComponent, OwnerDriversupdateComponent,OwnerDriversaddComponent} from './ownerdrivers/index';
 import { DriversComponent,DriveraddComponent, DriverupdateComponent} from './drivers/index';
 import { PromotionsComponent, PromotionaddComponent, PromotionupdateComponent } from './promotions/promotions.component';
@@ -53,7 +53,7 @@ export function HttpLoaderFactory(http: Http) {
     OwnerAutologinComponent,
     FilterPipe,
     DriversComponent,
-    RestaurantOwnerOrderForLaterComponent,RestaurantOwnerPaymentOptionComponent,RestaurantOwnerDeliveryZoneComponent, KitchenMenuListComponent,LegacyComponent,LegacycodeComponent, NotificationComponent, SupportedLanguagesComponent,OnlinePaymentComponent,
+    RestaurantOwnerOrderForLaterComponent,RestaurantOwnerPaymentOptionComponent,RestaurantOwnerDeliveryZoneComponent, KitchenMenuListComponent,LegacyComponent,LegacycodeComponent, NotificationComponent, SupportedLanguagesComponent, DeliveryOutsideComponent, OnlinePaymentComponent,
     DriveraddComponent,
     DriverupdateComponent,
     OwnerDriversComponent, DriverOrdersComponent, OwnerDriversupdateComponent,OwnerDriversaddComponent,

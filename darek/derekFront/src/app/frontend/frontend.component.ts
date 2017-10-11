@@ -803,13 +803,16 @@ export class FrontendPromoDetailComponent implements OnInit {
         if (this.detailShow == id) {
             let divId = '#changeBg_'+id
             let left = '';
+            let itemP = '#itemPop_'+id;
+
+            $(itemP).attr("tabindex",1).focus();
 
             var offset = $(divId).offset();
             let offsetLeft = offset.left;
             if (offsetLeft < 150) {
-                left = '106%';
+                left = '102%';
             }else{
-                left = '-106%';
+                left = '-102%';
             }
             return left;
         }
@@ -1004,13 +1007,19 @@ export class FrontendComponent implements OnInit {
         if (this.detailShow == id) {
             let divId = '#changeBg_'+id
             let left = '';
+            let itemP = '#itemPop_'+id;
 
+            $(itemP).attr("tabindex",1).focus();
+            //$('html, body').animate({ scrollTop: $(itemP).offset().top }, 'slow');
             var offset = $(divId).offset();
+
+            console.log(itemP);
+            console.log(offset);
             let offsetLeft = offset.left;
             if (offsetLeft < 150) {
-                left = '106%';
+                left = '102%';
             }else{
-                left = '-106%';
+                left = '-102%';
             }
             return left;
         }
@@ -1842,8 +1851,12 @@ export class FrontendCartComponent implements OnInit {
         if (id=="pickup") {
             this.orderMethod = {};
             this.orderMethod.mType ='Pickup';
-            this.deliveryAddress = true; 
+            this.deliveryAddress = true;
             this.del=false;
+            this.deliveryFee = 0;
+            delete this.amount;
+            delete this.cartDetail.deliveryfee;
+            this.update();
         }
         else if (id=="delivery") {
             this.del=true;
@@ -1961,13 +1974,23 @@ export class FrontendCartComponent implements OnInit {
                 this.update();
             }
             if (this.zoneObject.length == 0) {
-                this.deliveryFee = 0;
-                this.amount = 0;
-                this.orderType = false;
-                this.cartDetail.deliveryfee = this.deliveryFee;
-                this.update();
-                toastr.remove();
-                toastr.warning('No delivery Available on this address','Try Again',{'positionClass' : 'toast-top-full-width'});
+                if (this.restaurants['deliveryoutside']) {
+                    this.deliveryFee = 50;
+                    this.amount = 0;
+                    this.orderType = true;
+                    this.cartDetail.deliveryfee = this.deliveryFee;
+                    this.update();
+                    toastr.remove();
+                    toastr.warning('A delivery fee of $50 is added at your location ','Outside our delivery zones',{'positionClass' : 'toast-top-full-width'});
+                }else{
+                    this.deliveryFee = 0;
+                    this.amount = 0;
+                    this.orderType = false;
+                    this.cartDetail.deliveryfee = this.deliveryFee;
+                    this.update();
+                    toastr.remove();
+                    toastr.warning('No delivery Available on this address','Try Again',{'positionClass' : 'toast-top-full-width'});
+                }
             }
         });
     }

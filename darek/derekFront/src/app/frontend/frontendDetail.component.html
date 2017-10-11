@@ -183,13 +183,13 @@
 						<div *ngIf = "!restaurants.paymentpickup.cardinternet && restaurants.paymentdelivery.cardinternet">
 							<i class="fa fa-long-arrow-right" aria-hidden="true"></i> &nbsp; {{'Card' | translate}} {{'online' | translate}} {{'via' | translate}} {{'internet' | translate}} ({{'Delivery' | translate}} {{'Only' | translate}})
 						</div>
-						<div *ngIf = "restaurants.paymentpickup.cardpickup && restaurants.paymentdelivery.cardinternet">
+						<div *ngIf = "restaurants.paymentpickup.cardpickup && restaurants.paymentdelivery.cardpickup">
 							<i class="fa fa-long-arrow-right" aria-hidden="true"></i> &nbsp; {{'Card' | translate}} {{'at' | translate}} {{'pickup' | translate}} {{'counter' | translate}} ({{'Both' | translate}} {{'Pickup' | translate}} {{'and' | translate}} {{'Delivery' | translate}})
 						</div>
-						<div *ngIf = "restaurants.paymentpickup.cardpickup && !restaurants.paymentdelivery.cardinternet">
+						<div *ngIf = "restaurants.paymentpickup.cardpickup && !restaurants.paymentdelivery.cardpickup">
 							<i class="fa fa-long-arrow-right" aria-hidden="true"></i> &nbsp; {{'Card' | translate}} {{'at' | translate}} {{'pickup' | translate}} {{'counter' | translate}} ({{'Pickup' | translate}} {{'Only' | translate}})
 						</div>
-						<div *ngIf = "!restaurants.paymentpickup.cardpickup && restaurants.paymentdelivery.cardinternet">
+						<div *ngIf = "!restaurants.paymentpickup.cardpickup && restaurants.paymentdelivery.cardpickup">
 							<i class="fa fa-long-arrow-right" aria-hidden="true"></i> &nbsp; {{'Card' | translate}} {{'at' | translate}} {{'pickup' | translate}} {{'counter' | translate}} ({{'Delivery' | translate}} {{'Only' | translate}})
 						</div>
 					</div>
@@ -206,7 +206,7 @@
 				</div>
 				<div class="info-hours-container col-lg-12 col-md-12 col-sm-12 col-xs-12">
 					<div class="">
-						<div>{{restaurants.name}}</div>
+						<div>{{restaurants.address}}</div>
 						<div>
 							<span>{{restaurants.city}}</span>, <span>{{restaurants.zipcode}}
 							</span>

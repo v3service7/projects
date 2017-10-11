@@ -85,7 +85,7 @@
 												</div>
 												<div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 padding0" style="height: inherit;text-align: -webkit-right;"><h5><strong>{{item.price}}</strong></h5></div>
 											</a>
-											<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 itemDetailDiv" [style.display]="showDiv(item._id)" [style.left]="showPos(item._id)">
+											<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 itemDetailDiv" id="itemPop_{{item._id}}" [style.display]="showDiv(item._id)" [style.left]="showPos(item._id)">
 												<button class="hideDetailDiv" type="button"  (click) = "hideDiv()" >
 													<span aria-hidden="true">&times;</span>
 												</button>
@@ -220,7 +220,7 @@
 												</div>
 												<div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 padding0" style="height: inherit;text-align: -webkit-right;"><h5><strong>{{item.price}}</strong></h5></div>
 											</a>
-											<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 itemDetailDiv" [style.display]="showDiv(item._id)" [style.left]="showPos(item._id)">
+											<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 itemDetailDiv" id="itemPop_{{item._id}}" [style.display]="showDiv(item._id)" [style.left]="showPos(item._id)">
 												<button class="hideDetailDiv" type="button"  (click) = "hideDiv()" >
 													<span aria-hidden="true">&times;</span>
 												</button>
