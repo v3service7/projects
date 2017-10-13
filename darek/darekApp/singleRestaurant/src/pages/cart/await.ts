@@ -48,10 +48,18 @@ export class AwaitPage {
                         if (this.order.status == 'Accepted') {
                         	this.loading.dismiss();
                             clearInterval(loopCount);
+                            this.orderServices.shootMailToCustomer(this.order._id).subscribe((data)=>{
+                                console.log("data.message");
+                                console.log(data.message);
+                            })
                         }
                         if (this.order.status == 'Rejected') {
                             this.loading.dismiss();
                             clearInterval(loopCount);
+                            this.orderServices.shootMailToCustomer(this.order._id).subscribe((data)=>{
+                                console.log("data.message");
+                                console.log(data.message);
+                            })
                         }
                     }
                 });
@@ -64,7 +72,12 @@ export class AwaitPage {
                 obj['status'] = 'Missed';
                 this.orderMissed = true;
                 this.orderServices.getUpdate(obj).subscribe(data=>{
-                    console.log('order Missed');
+                    if (!data.error) {
+                        this.orderServices.shootMailToCustomer(this.order._id).subscribe((data)=>{
+                            console.log("data.message");
+                            console.log(data.message);
+                        })
+                    }
                 });
             }
         },30000)

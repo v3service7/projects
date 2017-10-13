@@ -65,7 +65,7 @@ export class CheckoutPage {
 		this.loading = this.loadingCtrl.create({
             content: 'Please wait...'
         });
-        this.loadScript('http://maps.googleapis.com/maps/api/js?key=AIzaSyAYQoBlDYqxMVhiiZFTzWljTUi84ZwoA6g&libraries=places,geometry','js');
+        //this.loadScript('http://maps.googleapis.com/maps/api/js?key=AIzaSyAYQoBlDYqxMVhiiZFTzWljTUi84ZwoA6g&libraries=places,geometry','js');
         this.loading.present();
 
 		if (localStorage.getItem('currentCustomer')) {
@@ -140,10 +140,45 @@ export class CheckoutPage {
 		}
 	}
 
+    private initMap() {
+        var input = <HTMLInputElement>document.getElementById('pac-input');
+        var options = {types: ['(cities)']};
+        var autocomplete = new google.maps.places.Autocomplete(input,options);
+
+        autocomplete.addListener('place_changed', ()=> {
+            var place = autocomplete.getPlace();
+            if (!place.geometry) {
+                window.alert("No details available for input: '" + place.name + "'");
+                return;
+            }
+
+            if (place.address_components) {
+                let city,state,country;
+                
+                /*if (place.address_components.length >= 4) {
+                    city = place.address_components[place.address_components.length-3].long_name;
+                }else{
+                    city = place.address_components[place.address_components.length-3].long_name;
+                }*/
+                if (place.address_components.length >= 4) {
+                    city = place.address_components[0].long_name;
+                    state = place.address_components[place.address_components.length-2].long_name;
+                    country = place.address_components[place.address_components.length-1].long_name;
+                }
+
+                this.addressForm.controls['city'].setValue(city);
+                this.addressForm.controls['state'].setValue(state);
+                this.addressForm.controls['country'].setValue(country);
+            }
+        });
+    }
+
 	ionViewDidLoad() {
 		this.addressForm = this.lf.group({
             streetName: ['', Validators.required],
             city: ['', Validators.required],
+            state: ['', Validators.required],
+            country: ['', Validators.required],
             postcode: ['', Validators.required],
         });
 	}
@@ -196,6 +231,10 @@ export class CheckoutPage {
     		this.enterAddress = true;
     		this.orderMethod = {};
     		this.orderMethod['mType'] = 'Delivery';
+            
+            setTimeout(()=>{
+                this.initMap();
+            },2000)
     		if (this.cartStorage['orderPayment']) {
     			delete this.cartStorage['orderPayment'];
     			this.orderPaymentSelect = '';
@@ -298,14 +337,14 @@ export class CheckoutPage {
 
     private saveAddressInfo(){
         this.zoneObject=[];
-        this.orderMethod = {"streetName": this.addressForm.value.streetName, "city": this.addressForm.value.city, "postcode": this.addressForm.value.postcode,"mType":'Delivery'};
+        this.orderMethod = {"streetName": this.addressForm.value.streetName, "city": this.addressForm.value.city, "state": this.addressForm.value.state, "country": this.addressForm.value.country, "postcode": this.addressForm.value.postcode,"mType":'Delivery'};
         this.zoneCalculate(this.orderMethod);
     }
 
     private zoneCalculate(method){
         this.customerService.getLatLng(method).subscribe(data => {
 
-            this.orderMethod = {"streetName": this.addressForm.value.streetName, "city": this.addressForm.value.city, "postcode": this.addressForm.value.postcode,"lat": data.message.lat,"lng": data.message.lng,"mType":'Delivery'};
+            this.orderMethod = {"streetName": this.addressForm.value.streetName, "city": this.addressForm.value.city, "state": this.addressForm.value.state, "country": this.addressForm.value.country, "postcode": this.addressForm.value.postcode,"lat": data.message.lat,"lng": data.message.lng,"mType":'Delivery'};
             /*localStorage.setItem(this.orderMethodStorage, JSON.stringify(this.orderMethod));*/
             /*this.orderMethod = JSON.parse(localStorage.getItem(this.orderMethodStorage));*/
             

@@ -22,6 +22,13 @@ export class OrderService {
 		);
 	}
 
+	shootMailToCustomer(id){
+		return this.http.get(globalVariable.url+'order/shoot-mail/'+id)
+		.map(
+			(response: Response) => response.json()
+		);
+	}
+
 	client(id) {
   		return this.http.get(globalVariable.url+'reporting/client/'+id)
 		.map(
