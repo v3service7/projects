@@ -1,6 +1,8 @@
 var express = require('express');
 var router = express.Router();
 var passport = require('passport');
+var ejs = require('ejs');
+var templateDir = './email';
 
 //var cryptoD = require('crypto');
 
@@ -9,20 +11,27 @@ var customerModel = require('../model/Customer.js');
 var restaurantModel = require('../model/Restaurant.js');
 
 function sendOrderMail(req,name,subject,content){
+    console.log('template done')
+    var html = ejs.renderFile(templateDir + '/orders/index.ejs', { order: content },
+    function(err, data) {
+        if (err) {
+            console.log(err);
+        }
+        return data;
+    });
+
     req.mail.sendMail({  //email options
-       from: "Restaurant Team <derekitchen@gmail.com>", // sender address.  Must be the same as authenticated user if using GMail.
+       from: "Restaurant Team <noreply@abcpos.com>", // sender address.  Must be the same as authenticated user if using GMail.
        to: name, // receiver
        subject: subject, // subject
-       //text: "Email Example with nodemailer" // body
-       html: content
+       html: html
     }, function(error, response){  //callback
        if(error){
            console.log(error);
        }else{
            console.log("Message sent: " + response.message);
        }
-       req.mail.close(); // shut down the connection pool, no more messages.  Comment this line out to continue sending emails.
-       //res.json({error:false});
+       req.mail.close();
     });
 }
 
@@ -93,14 +102,24 @@ router.post('/add', function(req, res) {
         } else {
             restaurantModel.findById(req.body.restaurantId).populate('ownerId').exec(function(err,resData){
                 var name = resData.ownerId.firstname+" <"+resData.ownerId.email+" >";
-                sendOrderMail(req,name,'Order Notification','Order Receive Successfully');
-            });
-            customerModel.findById(req.body.customerId,function(err,cusData){
-                var name = cusData.firstname+" <"+cusData.email+" >";
-                sendOrderMail(req,name,'Order Notification','Order Accepted Successfully');
+                sendOrderMail(req,name,'Order Notification',data);
             });
             response = {"error" : false,"message" : data};
         }
+        res.json(response);
+    });
+});
+
+router.get('/shoot-mail/:id',function(req,res){
+    var response={};
+    Order.findById(req.params.id).populate('customerId').populate('restaurantId').populate('driverId').exec(function(err,data){
+        if (err) {
+            response = {"error" : true,"message" : "Unable to send Mail"};
+        } else{
+            var name = data.customerId.firstname +" <"+ data.customerId.email+" >";
+            sendOrderMail(req,name,'Order Notification',data);
+            response = {"error" : false,"message" : "Mail Sent Successfully"};
+        };
         res.json(response);
     });
 });

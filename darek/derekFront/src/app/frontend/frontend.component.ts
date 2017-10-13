@@ -187,12 +187,26 @@ export class FrontendThankuPageComponent implements OnInit {
                     this.restaurants = data.message.restaurantId;
                     if (data.error == false) {
                         if (this.order.status == 'Accepted') {
+
+                            this.orderServices.shootMailToCustomer(this.order._id).subscribe((data)=>{
+                                console.log("data.message");
+                                console.log(data.message);
+                            })
+
+
                             $('.backend-loader-preloader-wrapper').hide();
                             $('.continue').show();
                             this.showFlag = false;
                             clearInterval(loopCount);
                         }
                         if (this.order.status == 'Rejected') {
+
+                            this.orderServices.shootMailToCustomer(this.order._id).subscribe((data)=>{
+                                console.log("data.message");
+                                console.log(data.message);
+                            })
+
+
                             $('.backend-loader-preloader-wrapper').hide();
                             $('.continue').show();
                             this.showFlag = false;
@@ -211,8 +225,12 @@ export class FrontendThankuPageComponent implements OnInit {
                 obj['id'] = this.order._id;
                 obj['status'] = 'Missed';
                 this.orderServices.getUpdate(obj).subscribe(data=>{
-                    console.log("data");
-                    console.log(data);
+                    if (!data.error) {
+                        this.orderServices.shootMailToCustomer(this.order._id).subscribe((data)=>{
+                            console.log("data.message");
+                            console.log(data.message);
+                        })
+                    }
                 });
             }
         },30000)
@@ -808,7 +826,13 @@ export class FrontendPromoDetailComponent implements OnInit {
             $(itemP).attr("tabindex",1).focus();
 
             var offset = $(divId).offset();
+            
+            console.log("offset");
+            console.log(offset);
+
             let offsetLeft = offset.left;
+            
+            
             if (offsetLeft < 150) {
                 left = '102%';
             }else{
@@ -1013,8 +1037,9 @@ export class FrontendComponent implements OnInit {
             //$('html, body').animate({ scrollTop: $(itemP).offset().top }, 'slow');
             var offset = $(divId).offset();
 
-            console.log(itemP);
+            console.log("offset in main menu");
             console.log(offset);
+
             let offsetLeft = offset.left;
             if (offsetLeft < 150) {
                 left = '102%';
@@ -1614,6 +1639,8 @@ export class FrontendCartComponent implements OnInit {
         this.addressForm = this.lf.group({
             streetName: ['', Validators.required],
             city: ['', Validators.required],
+            state: ['', Validators.required],
+            country: ['', Validators.required],
             postcode: ['', Validators.required],
         });
         this.detailForm = this.lf.group({
@@ -1924,7 +1951,7 @@ export class FrontendCartComponent implements OnInit {
     private zoneCalculate(method){
         this.customerService.getLatLng(method).subscribe(data => {
 
-            this.orderMethod = {"streetName": this.addressForm.value.streetName, "city": this.addressForm.value.city, "postcode": this.addressForm.value.postcode,"lat": data.message.lat,"lng": data.message.lng,"mType":'Delivery'};
+            this.orderMethod = {"streetName": this.addressForm.value.streetName, "city": this.addressForm.value.city, "state": this.addressForm.value.state, "country": this.addressForm.value.country, "postcode": this.addressForm.value.postcode,"lat": data.message.lat,"lng": data.message.lng,"mType":'Delivery'};
             localStorage.setItem(this.orderMethodStorage, JSON.stringify(this.orderMethod));
             this.orderMethod = JSON.parse(localStorage.getItem(this.orderMethodStorage));
             
@@ -1996,8 +2023,11 @@ export class FrontendCartComponent implements OnInit {
     }
 
     private saveAddressInfo(){
+
+        console.log("this.addressForm.value");
+        console.log(this.addressForm.value);
         this.zoneObject=[];
-        this.orderMethod = {"streetName": this.addressForm.value.streetName, "city": this.addressForm.value.city, "postcode": this.addressForm.value.postcode,"mType":'Delivery'};
+        this.orderMethod = {"streetName": this.addressForm.value.streetName, "city": this.addressForm.value.city, "state": this.addressForm.value.state, "country": this.addressForm.value.country, "postcode": this.addressForm.value.postcode,"mType":'Delivery'};
         this.zoneCalculate(this.orderMethod);
         this.cartDetail.orderMethod = this.orderMethod;
         this.editOrderMethod = true;
@@ -2005,6 +2035,39 @@ export class FrontendCartComponent implements OnInit {
         this.changeShowOrderingStatus();
         localStorage.removeItem(this.orderPaymentStorage);
         this.orderPayment={};
+    }
+
+    private initMap() {
+        var input = <HTMLInputElement>document.getElementById('pac-input');
+        var options = {types: ['(cities)']};
+        var autocomplete = new google.maps.places.Autocomplete(input,options);
+
+        autocomplete.addListener('place_changed', ()=> {
+            var place = autocomplete.getPlace();
+            if (!place.geometry) {
+                window.alert("No details available for input: '" + place.name + "'");
+                return;
+            }
+
+            if (place.address_components) {
+                let city,state,country;
+                
+                /*if (place.address_components.length >= 4) {
+                    city = place.address_components[place.address_components.length-3].long_name;
+                }else{
+                    city = place.address_components[place.address_components.length-3].long_name;
+                }*/
+                if (place.address_components.length >= 4) {
+                    city = place.address_components[0].long_name;
+                    state = place.address_components[place.address_components.length-2].long_name;
+                    country = place.address_components[place.address_components.length-1].long_name;
+                }
+
+                this.addressForm.controls['city'].setValue(city);
+                this.addressForm.controls['state'].setValue(state);
+                this.addressForm.controls['country'].setValue(country);
+            }
+        });
     }
 
     private editOrder(){
@@ -2138,6 +2201,9 @@ export class FrontendCartComponent implements OnInit {
 
     private addressInfo(){
         this.addressClicked = !this.addressClicked;
+         setTimeout(()=>{
+            this.initMap();
+        },2000)
     }
 
     private update(){

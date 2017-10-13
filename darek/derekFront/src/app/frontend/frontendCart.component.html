@@ -116,7 +116,7 @@
 										<input type="text" name="" formControlName="streetName" class="form-control" placeholder="Street Name & Number *">
 									</div>
 									<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 form-group">
-										<input type="text" name="" formControlName="city" class="form-control" placeholder="Town or City Area *">
+										<input id="pac-input" type="text" name="" formControlName="city" class="form-control" placeholder="Enter City Name *">
 									</div>
 									<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 form-group">
 										<input type="text" name="" formControlName="postcode" class="form-control" placeholder="Postcode *">
@@ -133,8 +133,8 @@
 							<div *ngIf="orderMethod.mType == 'Pickup'">{{orderMethod.mType}}</div>
 							<div *ngIf="orderMethod.mType == 'Delivery'">
 								{{orderMethod.mType}}<br>
-								{{orderMethod.streetName}} ,{{orderMethod.city}}<br>
-								{{orderMethod.postcode}}
+								{{orderMethod.streetName}} ,{{orderMethod.city}} ,{{orderMethod.postcode}}<br>
+								{{orderMethod.state}}, {{orderMethod.country}}
 							</div>
 						</div>
 						<div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 editButton" (click)="editOrder()">

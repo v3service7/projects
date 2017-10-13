@@ -332,7 +332,7 @@ router.post('/forget-password',function(req,res,next){
                 /*var content = "Password reset Link <a href='http://localhost:4200/admin/resetpassword/"+data[0]._id+"'>Click Here</a>"*/
                 console.log(content);
                 req.mail.sendMail({  //email options
-                   from: "Restaurant Team <derekitchen@gmail.com>", // sender address.  Must be the same as authenticated user if using GMail.
+                   from: "Restaurant Team <noreply@abcpos.com>", // sender address.  Must be the same as authenticated user if using GMail.
                    to: name, // receiver
                    subject: "Reset Password", // subject
                    //text: "Email Example with nodemailer" // body

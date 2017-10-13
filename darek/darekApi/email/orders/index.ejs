@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body style="color: #4c4c4c">
+	<div style="font-size: larger;text-align: center; padding: 3%;    border-bottom: 3px solid #08d008;"><%= order.restaurantId.name %></b></div>
+	<div>
+		<div style="background: #f2f0ed;padding: 15px;">
+			
+			<% if(order.status =='Missed') { %>
+
+				<div style="background: #ef4e4b;padding: 24px;text-align: center;color: white;margin-bottom: 30px;">
+					<div style="font-size: 24px;"><b>Order Missed</b></div>
+				</div>
+			<% } %>
+
+			<% if(order.status =='Received') { %>
+				<div style="background: #40b5f7;padding: 24px;text-align: center;color: white;margin-bottom: 30px;">
+					<div style="font-size: 24px;"><b>Order Received</b></div>
+				</div>
+			<% } %>
+			
+			<% if(order.status =='Accepted') { %>
+
+				<div style="background: green;padding: 24px;text-align: center;color: white;margin-bottom: 30px;">
+					<div style="font-size: 24px;"><b>Order Accepted</b></div>
+				</div>
+			<% } %>
+
+			<% if(order.status =='Rejected') { %>
+
+				<div style="background: yellow;padding: 24px;text-align: center;color: white;margin-bottom: 30px;">
+					<div style="font-size: 24px;"><b>Order Rejected</b></div>
+				</div>
+			<% } %>
+
+			<div style="background: #fff;padding: 14px;">
+				<p>Dear <%= order.customerId.firstname%>,</p>
+				
+				<% if(order.status =='Missed') {%>	
+					<p>
+						Unfortunately your online order to <%= order.restaurantId.name %> was not confirmed in a timely manner, so you're getting this status update.
+					</p>
+					<p>
+						This unlikely situation happens if:
+					</p>
+					<ul>
+						<li style="margin-bottom: 10px;"><b>the restaurant staff is super busy and unable to handle your order fast enough</b></li>
+						<li style="margin-bottom: 10px;"><b>the restaurant experiences severe connectivity issues</b></li>
+						<li style="margin-bottom: 10px;"><b>there are other technical difficulties (e.g. power blackout)</b></li>
+					</ul>
+				<% } %>
+
+				<% if(order.status =='Accepted') {%>
+					<p>
+						Your online order to <%= order.restaurantId.name %> is Accepted in a timely manner, so you're getting this status update.
+					</p>
+
+				<% } %>
+
+				<% if(order.status =='Rejected') {%>
+					<p>
+						Unfortunately your online order to <%= order.restaurantId.name %> is Rejected in a timely manner, so you're getting this status update.
+					</p>
+				<% } %>
+
+				<p>Your Order is made for <%= order.orderMethod.mType %> with following details :
+					<% if(order.orderMethod.mType == 'Delivery') { %>
+						<p>Location : <%= order.orderMethod.streetName %>, <%= order.orderMethod.city %>, <%= order.orderMethod.postcode %>
+						</p>
+					<% } %>
+
+					<p>Time : <%= order.orderTime.time %></p>
+
+					<% if(order.orderTime.tType == 'Later') { %>
+						<p>Day : <%= order.orderTime.day %></p>
+					<% } %>
+
+					<p>Payment Method :
+						<% if(order.orderPayment.cash) { %> Cash <% } %>
+						<% if(order.orderPayment.cardpickup) { %> Card Pickup <% } %>
+						<% if(order.orderPayment.cardinternet) { %> Card via Internet <% } %>
+					</p>
+				</p>
+
+				<% if(order.status =='Accepted'){ %>
+					<p>
+						Your order will reach you at <%= order.custTime %>
+					</p>
+				<% } %>
+
+				<% if(order.status =='Rejected'){ %>
+					<p>
+						Your order was rejected due to <%= order.custMessage %>
+					</p>
+				<% } %>
+
+
+
+				<table cellspacing="0" style="width: 100%">
+					<tbody>
+						<tr>
+							<td colspan="2" style="border : none;border-bottom: solid white 1.5pt;background: #EBE8E4;padding: 15px 10px;">For reference, your Order Detail:</td>
+						</tr>
+						<% for(var i = 0; i<order.orders.length; i++ ){ %>
+							<tr>
+								<td style="border : none;background: #EBE8E4;padding: 5px 10px;">
+									<b> <%= order.orders[i].quantity %> x </b> <%= order.orders[i].item.name %>
+								</td>
+								<td style="border : none;background: #EBE8E4;padding: 5px 10px; text-align: right;">
+									<b><%= order.orders[i].totalPrice %></b>
+								</td>
+							</tr>
+							
+							<% if(order.orders[i].multisize || order.orders[i].addon) { %>
+								<tr>
+									<td colspan="2" style="padding: 10px 25px;border : none;background: #EBE8E4;border-bottom: solid white 1.5pt;">
+										<table cellspacing="0" style="width: 100%">
+											<tbody>
+												<% if(order.orders[i].multisize){ %>
+													<tr colspan="2">
+														<td><b>Size</b></td>
+													</tr>
+													<tr>
+														<td style="padding: 0 20px;"><%= order.orders[i].multisize.size %></td>
+														<td style="padding: 0 20px;text-align: right;">
+															<b>(+<%= order.orders[i].multisize.price %>)</b>
+														</td>
+													</tr>
+												<% } %>
+												
+												<% if(order.orders[i].addon){ %>
+													<tr colspan="2">
+														<td><b>Addon</b></td>
+													</tr>
+													<% for(var j = 0; j< order.orders[i].addon.length; j++) {%>
+														<tr>
+															<td style="padding: 0 20px;"><%= order.orders[i].addon[j].name %></td>
+															<td style="padding: 0 20px;text-align: right;"><b>(+<%= order.orders[i].addon[j].price %>)</b></td>
+														</tr>
+													<% } %>
+												<% } %>
+											</tbody>
+										</table>
+									</td>
+								</tr>
+							<% } %>
+							<% if(order.orders[i].itemInstruction){ %>
+								<tr>
+									<td colspan="2">
+										<b>Item Instruction : </b><%= order.orders[i].itemInstruction%>
+									</td>
+								</tr>
+							<%}%>
+						<% } %>
+
+						<% if(order.promotion && order.promotion.itemGroup1){%>
+							<tr>
+								<td colspan="2" style="background: rgba(128, 128, 128, 0.38);">
+									Promotion Item
+								</td>
+							</tr>
+							<tr>
+								<td style="border : none;background: rgba(128, 128, 128, 0.38);padding: 5px 10px;">
+									<b> <%= order.promotion.itemGroup1.quantity %> x </b> <%= order.promotion.itemGroup1.item.name %>
+								</td>
+								<td style="border : none;background: rgba(128, 128, 128, 0.38);padding: 5px 10px; text-align: right;">
+									<b><%= order.promotion.itemGroup1.totalPrice %></b>
+								</td>
+							</tr>
+							<% if(order.promotion.itemGroup1.multisize || order.promotion.itemGroup1.addon) { %>
+								<tr>
+									<td colspan="2" style="padding: 10px 25px;border : none;background: rgba(128, 128, 128, 0.38);border-bottom: solid white 1.5pt;">
+										<table cellspacing="0" style="width: 100%">
+											<tbody>
+												<% if(order.promotion.itemGroup1.multisize) { %>
+													<tr colspan="2">
+														<td><b>Size</b></td>
+													</tr>
+													<tr>
+														<td style="padding: 0 20px;"><%= order.promotion.itemGroup1.multisize.size %></td>
+														<td style="padding: 0 20px;text-align: right;"><b>(+ <%= order.promotion.itemGroup1.multisize.price %>)</b></td>
+													</tr>
+												<% } %>
+
+												<% if(order.promotion.itemGroup1.addon) { %>
+													<tr colspan="2">
+														<td><b>Addon</b></td>
+													</tr>
+													<% for(var k = 0; k < order.promotion.itemGroup1.addon.length; k++) {%>
+														<tr>
+															<td style="padding: 0 20px;"><%= order.promotion.itemGroup1.addon[k].name %></td>
+															<td style="padding: 0 20px;text-align: right;"><b>(+<%= order.promotion.itemGroup1.addon[k].name %>)</b></td>
+														</tr>
+													<% } %>
+												<% } %>
+											</tbody>
+										</table>
+									</td>
+								</tr>
+							<% } %>
+							<% if(order.promotion.itemGroup1.itemInstruction){%>
+								<tr>
+									<td colspan="2">
+										<b>Comment : </b><%= order.promotion.itemGroup1.itemInstruction%>
+									</td>
+								</tr>
+							<% } %>
+
+							<% if(order.promotion && order.promotion.itemGroup2){%>
+								<tr>
+									<td style="border : none;background: rgba(128, 128, 128, 0.38);padding: 5px 10px;">
+										<b> <%= order.promotion.itemGroup2.quantity %> x </b> <%= order.promotion.itemGroup2.item.name %>
+									</td>
+									<td style="border : none;background: rgba(128, 128, 128, 0.38);padding: 5px 10px; text-align: right;">
+										<b><%= order.promotion.itemGroup2.totalPrice %></b>
+									</td>
+								</tr>
+								<% if(order.promotion.itemGroup2.multisize || order.promotion.itemGroup2.addon) { %>
+									<tr>
+										<td colspan="2" style="padding: 10px 25px;border : none;background: rgba(128, 128, 128, 0.38);border-bottom: solid white 1.5pt;">
+											<table cellspacing="0" style="width: 100%">
+												<tbody>
+													<% if(order.promotion.itemGroup2.multisize) { %>
+														<tr colspan="2">
+															<td><b>Size</b></td>
+														</tr>
+														<tr>
+															<td style="padding: 0 20px;"><%= order.promotion.itemGroup2.multisize.size %></td>
+															<td style="padding: 0 20px;text-align: right;"><b>(+ <%= order.promotion.itemGroup2.multisize.price %>)</b></td>
+														</tr>
+													<% } %>
+
+													<% if(order.promotion.itemGroup2.addon) { %>
+														<tr colspan="2">
+															<td><b>Addon</b></td>
+														</tr>
+														<% for(var k = 0; k < order.promotion.itemGroup2.addon.length; k++) {%>
+															<tr>
+																<td style="padding: 0 20px;"><%= order.promotion.itemGroup2.addon[k].name %></td>
+																<td style="padding: 0 20px;text-align: right;"><b>(+<%= order.promotion.itemGroup2.addon[k].name %>)</b></td>
+															</tr>
+														<% } %>
+													<% } %>
+												</tbody>
+											</table>
+										</td>
+									</tr>
+								<% } %>
+
+								<% if(order.promotion.itemGroup2.itemInstruction){%>
+									<tr>
+										<td colspan="2">
+											<b>Comment : </b><%= order.promotion.itemGroup2.itemInstruction%>
+										</td>
+									</tr>
+								<% } %>
+							<% } %>
+						<% }%>
+
+						<tr>
+							<td style="background: #EBE8E4;padding: 5px 10px;">
+								<b>Sub-total</b>
+							</td>
+							<td style="background: #EBE8E4;padding: 5px 10px;text-align: right;">
+								<b><%= order.subTotal.toFixed(2)%></b>
+							</td>
+						</tr>
+						<% if(order.discountAmount && order.discountAmount > 0){ %>
+							<tr>
+								<td style="padding: 5px 10px;background: #EBE8E4;">
+									<b>Discount</b>
+								</td>
+								<td style="padding: 5px 10px;text-align: right;background: #EBE8E4;">
+									<b>$<%= order.discountAmount%></b>
+								</td>
+							</tr>
+						<% } %>
+						<% if(order.tax){ %>
+							<tr>
+								<td style="padding: 5px 10px;background: #EBE8E4;">
+									<b>Tax</b>
+								</td>
+								<td style="padding: 5px 10px;text-align: right;background: #EBE8E4;">
+									<b>$<%= order.tax.toFixed(2)%></b>
+								</td>
+							</tr>
+						<% } %>
+						<% if(order.deliveryFee) {%>
+							<tr>
+								<td style="padding: 5px 10px;background: #EBE8E4;">
+									<b>Delivery Charges</b>
+								</td>
+								<td style="padding: 5px 10px;text-align: right;background: #EBE8E4;">
+									<b>$<%= order.deliveryFee.toFixed(2) %></b>
+								</td>
+							</tr>
+						<% } %>
+						<tr>
+							<td style="padding: 5px 10px;background: #EBE8E4;">
+								<b>Total</b>
+							</td>
+							<td style="padding: 5px 10px;text-align: right;background: #EBE8E4;">
+								<b>$ <%= order.gTotal.toFixed(2)%></b>
+							</td>
+						</tr>
+
+						<% if(order.comment){%>
+							<tr>
+								<td colspan="2">
+									<b>Comment : </b><%= order.comment%>
+								</td>
+							</tr>
+						<% } %>
+					</tbody>
+				</table>
+
+				<% if(order.status =='Missed') {%>
+					<p>
+						We suggest you call <%= order.restaurantId.name %> to see what happened with your order.<br><br>
+
+						<span style="border: 1px solid gray;padding: 10px;"><%= order.restaurantId.phoneNo%></span>
+					</p>
+					<p>On behalf of FairPizza, we apologize for any inconvenience this might have caused you.</p>
+					<p>Thank you for your understanding, <%= order.customerId.firstname%>!</p>
+				<% } %>
+
+			</div>
+
+			<p style="text-align: center">
+				<b>This ordering experience is brought to you by <br><br> <%= order.restaurantId.name %> </b>
+			</p>
+		</div>
+	</div>
+</body>
+</html>

@@ -19,8 +19,16 @@ export class OrderService {
 		return this.http.put(globalVariable.url+'order/update/'+data.id, data)
 		.map(
 			(response: Response) => response.json()
-			);
+		);
 	}
+
+	shootMailToCustomer(id){
+		return this.http.get(globalVariable.url+'order/shoot-mail/'+id)
+		.map(
+			(response: Response) => response.json()
+		);
+	}
+
   	overview(id) {
 		return this.http.get(globalVariable.url+'reporting/overview/'+id)
 		.map(
