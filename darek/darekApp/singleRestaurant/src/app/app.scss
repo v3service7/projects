@@ -158,3 +158,19 @@ ion-card-header{
 .textUnderline{
     text-decoration : underline;
 }
+
+@media (max-width: 767px){
+    .alert-md .alert-radio-group, .alert-md .alert-checkbox-group {
+    position: relative;
+    overflow: auto;
+    max-height: 160px;
+    border-top: 1px solid #dedede;
+    border-bottom: 1px solid #dedede;
+}
+.alert-ios .alert-radio-group, .alert-ios .alert-checkbox-group {
+    overflow: scroll;
+    max-height: 160px;
+    border-top: 0.55px solid #dbdbdf;
+    -webkit-overflow-scrolling: touch;
+}
+}

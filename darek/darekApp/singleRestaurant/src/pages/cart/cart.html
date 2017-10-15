@@ -19,7 +19,7 @@
 		<ion-card *ngFor = "let crt of cart; let i= index; " class="width100 padding3 marginBottom4" no-margin>
 			<ion-card-header *ngIf = "crt.item" no-padding>
 				<ion-row>
-					<ion-col col-4><img [src]="itemImage(crt.item.image)" height="50px;" /></ion-col>
+					<ion-col col-4><img [src]="itemImage(crt.item.image)" class="card-img" /></ion-col>
 					<ion-col col-8>
 						<ion-row>
 							<ion-col no-padding>{{crt.item.name}}<ion-icon float-right name="trash" ios="ios-trash" md="md-trash" class="delItem" (click)="deleteItem(i)"></ion-icon></ion-col>
@@ -88,7 +88,7 @@
 
 				<ion-row class="width100">
 					<ion-row *ngIf="promotion.itemGroup1.item" class="width100">
-						<ion-col col-4><img [src]="itemImage(promotion.itemGroup1.item.image)" height="50px;" /></ion-col>
+						<ion-col col-4><img [src]="itemImage(promotion.itemGroup1.item.image)"  class="card-img" /></ion-col>
 						<ion-col col-8>
 							<ion-row>
 								<ion-col no-padding>{{promotion.itemGroup1.item.name}}</ion-col>
@@ -141,7 +141,7 @@
 
 				<ion-row *ngIf = "promotion.itemGroup2" class="width100">
 					<ion-row *ngIf="promotion.itemGroup2.item" class="width100">
-						<ion-col col-4><img [src]="itemImage(promotion.itemGroup2.item.image)" height="50px;" /></ion-col>
+						<ion-col col-4><img [src]="itemImage(promotion.itemGroup2.item.image)" class="cart-img" /></ion-col>
 						<ion-col col-8>
 							<ion-row>
 								<ion-col no-padding>{{promotion.itemGroup2.item.name}}</ion-col>

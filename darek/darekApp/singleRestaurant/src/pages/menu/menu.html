@@ -12,8 +12,9 @@
         <ion-refresher-content></ion-refresher-content>
     </ion-refresher>
 
-    <ion-list *ngFor = "let menu of menus" (click)="showItems(menu)" [ngStyle]="{'background-image': 'url(' + menuImage(menu.image) + ')'}">
+<ion-row>
+    <ion-col col-12 *ngFor = "let menu of menus" (click)="showItems(menu)" [ngStyle]="{'background-image': 'url(' + menuImage(menu.image) + ')'}">
         <div class="card-title positionAbsolute fontWeight500">{{menu.name}}</div>
-    </ion-list>
-
+    </ion-col>
+</ion-row>
 </ion-content>

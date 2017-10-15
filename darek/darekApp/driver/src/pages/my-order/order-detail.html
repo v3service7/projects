@@ -109,7 +109,7 @@
                         <span style="font-size: 14px"> <b>{{order.quantity}} x </b></span>{{order.item.name}}
 
                     </ion-col>
-                    <ion-col col-6>
+                    <ion-col col-6 text-right>
                         <b>{{order.totalPrice}}</b>
                     </ion-col>
                 </ion-row>
@@ -118,56 +118,56 @@
                     <ion-col col-6>
                         {{order.multisize.size}}
                     </ion-col>
-                    <ion-col col-6>
+                    <ion-col col-6 text-right>
                         <b>{{order.multisize.price}}</b>
                     </ion-col>
                 </ion-row>
 
                 <ion-row *ngIf="order.addon.length > 0">
-                    <ion-item *ngFor="let adn of order.addon">
-                        <ion-row>
+                   
+                        <ion-row *ngFor="let adn of order.addon" class="width100" padding-horizontal >
                             <ion-col col-6>
                                 {{adn.name}}
                             </ion-col>
-                            <ion-col col-6>
+                            <ion-col col-6 text-right>
                                 <b>{{adn.price}}</b>
                             </ion-col>
                         </ion-row>
-                    </ion-item>
+               
                 </ion-row>
             </ion-item>
             <hr>
             <ion-item>
                 <ion-row>
                     <ion-col col-6>
-                        Sub-Total
+                        <b>Sub-Total</b>
                     </ion-col>
-                    <ion-col col-6>
-                        <b>{{selectedOrder.subTotal}}</b>
-                    </ion-col>
-                </ion-row>
-                <ion-row *ngIf="selectedOrder.orderMethod && selectedOrder.orderMethod.mType == 'Delivery'">
-                    <ion-col col-6>
-                        Delivery Fee
-                    </ion-col>
-                    <ion-col col-6>
-                        <b>{{selectedOrder.deliveryfee}}</b>
+                    <ion-col col-6 text-right>
+                        <b>$ {{selectedOrder.subTotal}}</b>
                     </ion-col>
                 </ion-row>
-                <ion-row *ngIf="selectedOrder.orders && selectedOrder.orders.length > 0">
+                <ion-row *ngIf="selectedOrder.deliveryfee">
                     <ion-col col-6>
-                        Tax
+                        <b>Delivery Fee</b>
                     </ion-col>
-                    <ion-col col-6>
-                        <b>{{selectedOrder.tax}}%</b>
+                    <ion-col col-6 text-right>
+                        <b>$ {{selectedOrder.deliveryfee}}</b>
                     </ion-col>
                 </ion-row>
-                <ion-row *ngIf="selectedOrder.orders && selectedOrder.orders.length > 0">
+                <ion-row *ngIf="selectedOrder.tax">
                     <ion-col col-6>
-                        Total
+                        <b>Tax</b>
                     </ion-col>
+                    <ion-col col-6 text-right>
+                        <b>$ {{selectedOrder.tax}}</b>
+                    </ion-col>
+                </ion-row>
+                <ion-row *ngIf="selectedOrder.gTotal">
                     <ion-col col-6>
-                        <b>{{selectedOrder.gTotal | number : '1.2-2'}}%</b>
+                        <b>Total</b>
+                    </ion-col>
+                    <ion-col col-6 text-right>
+                        <b>$ {{selectedOrder.gTotal | number : '1.2-2'}}</b>
                     </ion-col>
                 </ion-row>
             </ion-item>

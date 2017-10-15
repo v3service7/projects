@@ -1,3 +1,42 @@
 page-home {
+/* Large desktops and laptops */
+@media (min-width: 1200px) {
 
+}
+
+/* Landscape tablets and medium desktops */
+@media (min-width: 992px) and (max-width: 1199px) {
+
+}
+
+/* Portrait tablets and small desktops */
+@media (min-width: 768px) and (max-width: 991px) {
+	.card-md {
+    margin: 0 0 10px 0 !important;
+    border-radius: 2px;
+    width: 50% !important;
+    float: right;
+}
+
+}
+
+/* Landscape phones and portrait tablets */
+@media (max-width: 767px) {
+.card-md {
+   margin: 0 0 10px 0 !important;
+    border-radius: 2px;
+    width: 50% !important;
+    float: right;
+}
+}
+
+/* Portrait phones and smaller */
+@media (max-width: 480px) {
+.card-md {
+   margin: 0 0 10px 0 !important;
+    border-radius: 2px;
+    width: 100% !important;
+    float: unset;
+}
+}
 }

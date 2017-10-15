@@ -3,6 +3,7 @@ import { ErrorHandler, NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { IonicApp, IonicErrorHandler, IonicModule, Nav, Platform, NavController,ViewController,AlertController } from 'ionic-angular';
+import { CloudSettings, CloudModule } from '@ionic/cloud-angular';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -39,6 +40,11 @@ import { AwaitPage } from '../pages/cart/await';
 /*Services*/
 import {  CustomersService, KitchenMenuService, KitchenItemService, RestaurantsService, PromotionsService, OrderService } from './service/index';
 
+const cloudSettings: CloudSettings = {
+  'core': {
+    'app_id': '6a60f968'
+  }
+};
 
 @NgModule({
     declarations: [
@@ -58,6 +64,7 @@ import {  CustomersService, KitchenMenuService, KitchenItemService, RestaurantsS
         HttpModule,
         ReactiveFormsModule,
         IonicModule.forRoot(MyApp),
+         CloudModule.forRoot(cloudSettings),
     ],
     bootstrap: [IonicApp],
     entryComponents: [
