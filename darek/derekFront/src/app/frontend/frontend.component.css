@@ -974,3 +974,7 @@ div.deal-list div.oddEven:nth-child(odd) {
 div:focus{
    outline:none !important;
   }
+
+.displayFlex{
+    display: flex;
+}

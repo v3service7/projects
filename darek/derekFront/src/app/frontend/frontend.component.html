@@ -104,7 +104,7 @@
 						<div class="itemDetailListDiv col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0">
 							<div class="subMenuItem col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0">
 								<a class="col-lg-12 col-md-12 col-sm-12 col-xs-12 itemDetailList" href="javascript:void(0)" (click)="showDetail(item,item.multisize[0] )" id="changeBg_{{item._id}}">
-									<div class="col-lg-10 col-md-10 col-sm-10 col-xs-10 padding0" style="height: inherit;">
+									<div class="col-lg-10 col-md-10 col-sm-10 col-xs-10" style="height: inherit;">
 										<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0"><h5><strong>{{item.name}}</strong></h5></div>
 										<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0">
 										<div *ngIf="item.description.length >= 40">
@@ -115,7 +115,7 @@
 										</div>
 										</div>
 									</div>
-									<div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 padding0" style="height: inherit;text-align: -webkit-right;"><h5><strong>{{item.price}}</strong></h5></div>
+									<div class="col-lg-2 col-md-2 col-sm-2 col-xs-2" style="height: inherit;text-align: -webkit-right;"><h5><strong>{{item.price}}</strong></h5></div>
 								</a>
 								<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 itemDetailDiv" id="itemPop_{{item._id}}" [style.display]="showDiv(item._id)" [style.left]="showPos(item._id)">
 									<button class="hideDetailDiv" type="button"  (click) = "hideDiv()" >

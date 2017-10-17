@@ -22,7 +22,7 @@
 	</div>
 
 	<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 container-fluid padding0">
-		<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 leftCartDetail padding0">
+		<div class="col-lg-5 col-md-5 col-sm-5 col-xs-5 leftCartDetail padding0">
 			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 pull-left" *ngIf="!currentCustomer">
 				<div class="col-lg-12 col-md-12 col-sm-12 padding0"> 
 					<div class="btn saveButton" [routerLink]="['/login', restaurants._id]" >{{'Login' | translate}}/{{'Signup' | translate}}</div>
@@ -34,8 +34,8 @@
 
 			<div class="pull-left col-lg-12 col-md-12 col-sm-12 col-xs-12 fillDetail" *ngIf="currentCustomer">
 				<div class="contactDetail col-lg-12 col-md-12 col-sm-12 col-xs-12 leftCartColumns">
-					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-						<div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
+					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 displayFlex">
+						<div class="col-lg-10 col-md-10 col-sm-10 col-xs-10 padding0">
 							<span>
 								<strong><h5><i class="fa fa-user" aria-hidden="true"></i> &nbsp; {{'CONTACT ' | translate}}</h5></strong>
 							</span>
@@ -76,8 +76,8 @@
 				</div>
 
 				<div class="orderingMethod col-lg-12 col-md-12 col-sm-12 col-xs-12 leftCartColumns">
-					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-						<div class="col-lg-10 col-md-10 col-sm-10 col-xs-12">
+					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 displayFlex">
+						<div class="col-lg-10 col-md-10 col-sm-10 col-xs-12 padding0">
 							<span>
 								<strong><h5><i class="fa fa-truck" aria-hidden="true"></i> &nbsp; {{'ORDERING' | translate}} {{'METHOD' | translate}}</h5></strong>
 							</span>
@@ -144,8 +144,8 @@
 				</div>
 
 				<div class="chooseTime col-lg-12 col-md-12 col-sm-12 col-xs-12 leftCartColumns">
-					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-						<div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
+					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 displayFlex">
+						<div class="col-lg-10 col-md-10 col-sm-10 col-xs-10 padding0">
 							<span>
 								<strong><h5><i class="fa fa-truck" aria-hidden="true"></i> &nbsp; {{'CHOOSE' | translate}} A {{'TIME' | translate}}</h5></strong>
 							</span>
@@ -167,7 +167,7 @@
 							<div class="checkbox1 col-lg-12 col-md-12 col-sm-12 col-xs-12 laterSelect pointer">
 								<input type="radio" name="time" value="" id="later" (click)="setTime('later')" [checked]="this.orderTime.tType == 'Later'">Later
 								<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" *ngIf="delLater">
-									<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 select-container" style="display: inline-table;">
+									<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 select-container padding0" style="display: inline-table;">
 										<!-- <select [(ngModel)]="day" class="order-later-day form-control"  style="width: 100%;"> 
 											<option *ngFor="let n of days" [ngValue]="n.day">{{n.day}}</option>
 										</select> -->
@@ -176,7 +176,7 @@
 							                <span class="glyphicon glyphicon-calendar"></span>
 							            </span>
 									</div>
-									<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 select-container" style="display: inline-table;">
+									<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 select-container padding0" style="display: inline-table;">
 										<!-- <select [(ngModel)]="time" class="order-later-time form-control" name="latertime" style="width: 100%;">
 											<option *ngFor="let n of times" [ngValue]="n.time">{{n.time}}</option>
 										</select> -->
@@ -209,8 +209,8 @@
 				</div>
 
 				<div class="paymentMethod col-lg-12 col-md-12 col-sm-12 col-xs-12 leftCartColumns">
-					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-						<div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
+					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 displayFlex">
+						<div class="col-lg-10 col-md-10 col-sm-10 col-xs-10 padding0">
 							<span>
 								<strong><h5><i class="fa fa-truck" aria-hidden="true"></i> &nbsp; {{'PAYMENT' | translate}} {{'METHOD' | translate}} </h5></strong>
 							</span>
@@ -297,8 +297,8 @@
 						<span style="text-decoration: underline;">Comments</span><span>(Optional)</span>
 					</div>
 					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 leftCartColumns padding15px"  *ngIf="addComment">
-						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-							<div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
+						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 displayFlex">
+							<div class="col-lg-10 col-md-10 col-sm-10 col-xs-10 padding0">
 								<span>
 									<strong><h5><i class="" aria-hidden="true"></i> &nbsp; COMMENTS </h5></strong>
 								</span>
@@ -321,11 +321,11 @@
 			</div>
 		</div>
 
-		<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 rightCartDetail padding0">
+		<div class="col-lg-7 col-md-7 col-sm-7 col-xs-7 rightCartDetail padding0">
 			<div class="pull-right col-lg-12 col-md-12 col-sm-12 col-xs-12">
 				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 cart-header well well-sm">
-					<div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 cart-header-quantity">{{'Quantity' | translate}}</div>
-					<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 cart-header-name">{{'Item' | translate}}</div>
+					<div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 cart-header-quantity">{{'Quantity' | translate}}</div>
+					<div class="col-lg-7 col-md-7 col-sm-7 col-xs-7 cart-header-name">{{'Item' | translate}}</div>
 					<div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 cart-header-price">{{'Price' | translate}}</div>
 				</div>
 				
@@ -336,34 +336,34 @@
 
 						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0" *ngIf="cart.length > 0">
 							<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0 cartItemList" *ngFor="let crt of cart; let i = index ">
-								<div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 cart-price cnt-input-buttons" style="position: inherit;padding-left: 0;padding-right: 0;">
+								<div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 cart-price cnt-input-buttons" style="position: inherit;padding-left: 0;padding-right: 0;">
 									<div class="padding0" style="display: flex;border-top: 1px solid #ccc;border-bottom: 1px solid #ccc;">
-										<button class="cnt-input-decrease col-lg-4 col-md-4 col-sm-4 col-xs-4" id="minus" style="margin: 0;" (click)="quantityDecrement(i)">
+										<button class="cnt-input-decrease col-lg-4 col-md-4 col-sm-4 col-xs-4" id="minus" style="margin: 0;padding: 1%;" (click)="quantityDecrement(i)">
 											<i class=" fa fa-minus" ></i>
 										</button>
-										<label class="col-lg-4 col-md-4 col-sm-4 col-xs-4 textCenter" style="padding: 4% 8%;margin: 0;">{{crt.quantity}}</label>
-										<button class="cnt-input-increase col-lg-4 col-md-4 col-sm-4 col-xs-4"  id="plus" style="margin: 0;" (click)="quantityIncrement(i)">
+										<label class="col-lg-4 col-md-4 col-sm-4 col-xs-4 textCenter" style="padding: 1%;;margin: 0;">{{crt.quantity}}</label>
+										<button class="cnt-input-increase col-lg-4 col-md-4 col-sm-4 col-xs-4"  id="plus" style="margin: 0;padding: 1%;" (click)="quantityIncrement(i)">
 											<i class=" fa fa-plus"></i>
 										</button>
 									</div>
 								</div>
-								<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 padding0">
-									<div class="col-lg-12 col-md-12 col-sm-12 col-xs-2 cart-item-name">{{crt.item.name}}</div>
-									<div class="col-lg-12 col-md-12 col-sm-12 col-xs-2 cart-item-option">
+								<div class="col-lg-7 col-md-7 col-sm-7 col-xs-7 padding0">
+									<div class="col-lg-12 col-md-12 col-sm-12 col-xs-2 cart-item-name fontWeight700">{{crt.item.name}}</div>
+									<div class="col-lg-12 col-md-12 col-sm-12 col-xs-2 cart-item-option" style="font-size: 12px;">
 										<div *ngIf="crt.multisize">
-											<div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">{{crt.multisize.size}}</div>
-											<div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">(+{{crt.multisize.price}})</div>
+											<div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">{{crt.multisize.size}}</div>
+											<div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 padding0" style="text-align: right;">(+{{crt.multisize.price}})</div>
 										</div>
 										<div *ngIf="crt.addon">
 											<div *ngFor="let adn of crt.addon">
-												<div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">{{adn.name}}</div>
-												<div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">(+{{adn.price}})</div>
+												<div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">{{adn.name}}</div>
+												<div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 padding0" style="text-align: right;">(+{{adn.price}})</div>
 											</div>
 										</div>
 									</div>
 									<div class="cart-item-instructions"></div>
 								</div>
-								<div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 cart-price ng-binding">{{crt.totalPrice}}</div>
+								<div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 cart-price ng-binding fontWeight700" style="text-align: right;">{{crt.totalPrice}}</div>
 								<div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 label cart-item-remove padding0" style="position: absolute;">
 									<a href="javascript:void(0)" (click)="deleteCart(i)"><i class="fa fa-trash"></i></a>
 									<span class="glf-loader"><div class="glf-loader-circle"></div></span>
@@ -381,22 +381,22 @@
 
 								<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding5px15px" *ngIf="promotionOrder.itemGroup1">
 									<div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 padding0">
-										<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 cart-item-name padding0">{{promotionOrder.itemGroup1.item.name}}</div>
-										<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 cart-item-option">
+										<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 cart-item-name padding0 fontWeight700">{{promotionOrder.itemGroup1.item.name}}</div>
+										<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 cart-item-option" style="font-size: 12px;">
 											<div *ngIf="promotionOrder.itemGroup1.multisize">
-												<div class="col-lg-8 col-md-8 col-sm-8 col-xs-8 padding0">{{promotionOrder.itemGroup1.multisize.size}}</div>
-												<div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 padding0" style="text-align: right;">(+{{promotionOrder.itemGroup1.multisize.price}})</div>
+												<div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 padding0">{{promotionOrder.itemGroup1.multisize.size}}</div>
+												<div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 padding0" style="text-align: right;">(+{{promotionOrder.itemGroup1.multisize.price}})</div>
 											</div>
 											<div *ngIf="promotionOrder.itemGroup1.addon">
 												<div *ngFor="let adn of promotionOrder.itemGroup1.addon">
-													<div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">{{adn.name}}</div>
-													<div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">(+{{adn.price}})</div>
+													<div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">{{adn.name}}</div>
+													<div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">(+{{adn.price}})</div>
 												</div>
 											</div>
 										</div>
 										<div class="cart-item-instructions"></div>
 									</div>
-									<div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 cart-price ng-binding padding0" style="text-align: right;">
+									<div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 cart-price ng-binding padding0 fontWeight700" style="text-align: right;">
 										{{promotionOrder.itemGroup1.totalPrice | number : '1.2-2'}}
 									</div>
 									<div *ngIf = "promotionOrder.itemGroup1.itemInstruction" class="col-lg-12 col-md-12 col-sm-12 col-xs-12 promotionSpecialInstruction">
@@ -407,15 +407,15 @@
 								<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding5px15px" *ngIf="promotionOrder.itemGroup2">
 									<div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 padding0">
 										<div class="col-lg-12 col-md-12 col-sm-12 col-xs-2 cart-item-name padding0">{{promotionOrder.itemGroup2.item.name}}</div>
-										<div class="col-lg-12 col-md-12 col-sm-12 col-xs-2 cart-item-option">
+										<div class="col-lg-12 col-md-12 col-sm-12 col-xs-2 cart-item-option" style="font-size: 12px;">
 											<div *ngIf="promotionOrder.itemGroup2.multisize">
-												<div class="col-lg-8 col-md-8 col-sm-8 col-xs-8 padding0">{{promotionOrder.itemGroup2.multisize.size}}</div>
-												<div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 padding0" style="text-align: right;">(+{{promotionOrder.itemGroup2.multisize.price}})</div>
+												<div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 padding0">{{promotionOrder.itemGroup2.multisize.size}}</div>
+												<div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 padding0" style="text-align: right;">(+{{promotionOrder.itemGroup2.multisize.price}})</div>
 											</div>
 											<div *ngIf="promotionOrder.itemGroup2.addon">
 												<div *ngFor="let adn of promotionOrder.itemGroup2.addon">
-													<div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">{{adn.name}}</div>
-													<div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">(+{{adn.price}})</div>
+													<div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">{{adn.name}}</div>
+													<div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">(+{{adn.price}})</div>
 												</div>
 											</div>
 										</div>
