@@ -914,7 +914,7 @@ div.deal-list div.oddEven:nth-child(odd) {
     border-radius: 50%;
     box-sizing: border-box;
     border: solid 10px rgba(0, 0, 0, 0.46);
-    border-top-color: #FFF;
+    border-top-color: transparent;
     -webkit-animation: backend-loader-spin 1s infinite linear;
     animation: backend-loader-spin 1s infinite linear;
     -webkit-transform-origin: 50%;
@@ -934,7 +934,7 @@ div.deal-list div.oddEven:nth-child(odd) {
     font-size: 80px;
     font-family: Freestyle Script;
     text-align: center;
-    margin-top: 20%;
+    margin-top: 10%;
     font-weight: 700;
 }
 
@@ -943,6 +943,9 @@ div.deal-list div.oddEven:nth-child(odd) {
     text-align: center;
     letter-spacing: 4px;
     font-size: 30px;
+    position: absolute;
+    right: 10%;
+    bottom: 20%;
 }
 
 .continue a{

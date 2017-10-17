@@ -156,110 +156,17 @@ export class FrontendHeaderComponent implements OnInit {
     encapsulation: ViewEncapsulation.None
 })
 export class FrontendThankuPageComponent implements OnInit {
-    order : any = {};
-    restaurants : any = {};
 
-    showFlag : boolean = true;
-
+    resId : any;
     constructor(
         private activatedRoute : ActivatedRoute,
         private orderServices : OrderService
         ) { }
+
     ngOnInit() {
         this.activatedRoute.params.subscribe((params: Params) => {
-            let id = params['id'];
-            console.log("id of order");
-            console.log(id);
-            this.authenticate_loop(id);
+            this.resId = params['id'];
         });
-        
-        $('#timer').html('03:00');
-        this.startTimer();
-    }
-
-    private authenticate_loop(id){
-        var count = 0;
-        var loopCount = setInterval(() => {
-            count++;
-            if(count < 6){
-                this.orderServices.getDetail(id).subscribe(data=>{
-                    this.order = data.message;
-                    this.restaurants = data.message.restaurantId;
-                    if (data.error == false) {
-                        if (this.order.status == 'Accepted') {
-
-                            this.orderServices.shootMailToCustomer(this.order._id).subscribe((data)=>{
-                                console.log("data.message");
-                                console.log(data.message);
-                            })
-
-
-                            $('.backend-loader-preloader-wrapper').hide();
-                            $('.continue').show();
-                            this.showFlag = false;
-                            clearInterval(loopCount);
-                        }
-                        if (this.order.status == 'Rejected') {
-
-                            this.orderServices.shootMailToCustomer(this.order._id).subscribe((data)=>{
-                                console.log("data.message");
-                                console.log(data.message);
-                            })
-
-
-                            $('.backend-loader-preloader-wrapper').hide();
-                            $('.continue').show();
-                            this.showFlag = false;
-                            clearInterval(loopCount);
-                        }
-                    }
-                });
-            }
-            if (count >= 6){
-                clearInterval(loopCount);
-                $('.backend-loader-preloader-wrapper').hide();
-                $('.orderMissed').show();
-                $('.continue').show();
-                this.showFlag = false;
-                var obj = {}
-                obj['id'] = this.order._id;
-                obj['status'] = 'Missed';
-                this.orderServices.getUpdate(obj).subscribe(data=>{
-                    if (!data.error) {
-                        this.orderServices.shootMailToCustomer(this.order._id).subscribe((data)=>{
-                            console.log("data.message");
-                            console.log(data.message);
-                        })
-                    }
-                });
-            }
-        },30000)
-    }
-
-    private startTimer() {
-        var count = 0;
-        var loopCount = setInterval(() => {
-            count++;
-            var presentTime = $('#timer').html();
-            var timeArray = presentTime.split(/[:]+/);
-            console.log(timeArray)
-            var m = timeArray[0];
-            var s = this.checkSecond((timeArray[1] - 1));
-            if((s==59) && (m > 0)){m=m-1}
-
-            let timeMMM = m + ":" + s;
-            $('#timer').html(timeMMM)
-
-            if (count >= 180 || this.order.status == 'Accepted' || this.order.status == 'Rejected'){
-                clearInterval(loopCount);
-            }
-        },1000)
-    }
-
-    private checkSecond(sec) {
-        if (sec < 10 && sec >= 0) {sec = "0" + sec};
-        if (sec < 0) {sec = "59"};
-        return sec;
     }
 }
 
@@ -2462,7 +2369,7 @@ export class FrontendCartComponent implements OnInit {
                             localStorage.removeItem(this.promotionStorage);
                         }
                         /*toastr.success('Your Order is Placed!','Thank You!!', {'positionClass' : 'toast-top-full-width'});*/
-                        this.router.navigate(['/thanku',data.message._id]);
+                        this.router.navigate(['/thanku',this.restaurants._id]);
                     }
                 });
             }
@@ -2498,7 +2405,7 @@ export class FrontendCartComponent implements OnInit {
                 }
                 /*toastr.remove();
                 toastr.success('Your Order is Placed!','Thank You!!', {'positionClass' : 'toast-top-full-width'});*/
-                this.router.navigate(['/thanku',data.message._id]);
+                this.router.navigate(['/thanku',this.restaurants._id]);
             }
         });
     }

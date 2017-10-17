@@ -505,6 +505,10 @@ export class CartPage {
     }
 
     private placeOrder(){
+        let loading = this.loadingCtrl.create({
+            content: 'Please wait...'
+        });
+        loading.present();
         this.cartStorage['status'] = 'Received';
         if (this.cartStorage['promotion']) {
         	this.cartStorage['isPromotion'] = true;
@@ -523,9 +527,8 @@ export class CartPage {
                     localStorage.removeItem('subTotal_595172e2421a472120e0db5e');
                     localStorage.removeItem('promotion_595172e2421a472120e0db5e');
                     localStorage.removeItem('coupon_595172e2421a472120e0db5e');
-                    this.nav.setRoot(AwaitPage, {
-                        order : data.message
-                    })
+                    this.nav.setRoot(AwaitPage);
+                    loading.dismiss();
                 }
             });
         }

@@ -104,6 +104,46 @@ router.post('/add', function(req, res) {
                 var name = resData.ownerId.firstname+" <"+resData.ownerId.email+" >";
                 sendOrderMail(req,name,'Order Notification',data);
             });
+
+            var count = 0;
+            var loopCount = setInterval(() => {
+                count++;
+                if(count < 6){
+                    Order.findById(data._id).populate('customerId').populate('restaurantId').populate('driverId').exec(function(err,data1){
+                        if (err) {
+                            response = {"error" : true,"message" : "Error fetching data"};
+                        } else{
+                            if (data1.status == 'Accepted' || data1.status == 'Rejected') {
+                                var name = data1.customerId.firstname +" <"+ data1.customerId.email+" >";
+                                sendOrderMail(req,name,'Order Notification',data1);
+                                clearInterval(loopCount);
+                            }
+                        }
+                    });
+                }
+
+                if (count >= 6){
+                    var obj = {};
+                    obj['status'] = 'Missed'
+                    obj['id'] = data._id;
+                    Order.findByIdAndUpdate(obj.id, obj, function(err, orderUpdated) {
+                        if(err) {
+                            response = {"error" : true,"message" : err};
+                        } else {
+                            response = {"error" : false,"message" : "Data Update"};
+                            Order.findById(obj.id).populate('customerId').populate('restaurantId').populate('driverId').exec(function(err,data2){
+                                if (err) {
+                                    response = {"error" : true,"message" : "Error fetching data"};
+                                } else{
+                                    var name = data2.customerId.firstname +" <"+ data2.customerId.email+" >";
+                                    sendOrderMail(req,name,'Order Notification',data2);
+                                    clearInterval(loopCount);
+                                }
+                            });
+                        }
+                    });
+                }
+            },30000)
             response = {"error" : false,"message" : data};
         }
         res.json(response);
@@ -140,13 +180,13 @@ router.get('/:id',function(req,res){
 router.put('/update/:id',function(req, res){
     var response={};
     Order.findByIdAndUpdate(req.params.id, req.body, function(err, order) {
-            if(err) {
-                response = {"error" : true,"message" : err};
-            } else {
-                response = {"error" : false,"message" : "Data Update"};
-            }
-            res.json(response);
-        });
+        if(err) {
+            response = {"error" : true,"message" : err};
+        } else {
+            response = {"error" : false,"message" : "Data Update"};
+        }
+        res.json(response);
+    });
 });
 
 router.delete('/:id',function(req,res){

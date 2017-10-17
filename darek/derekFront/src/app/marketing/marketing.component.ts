@@ -1239,8 +1239,6 @@ export class MarketingEditPromotionComponent implements OnInit {
             var itemObj = [];
 
             var index = this.items.findIndex(mn => mn.menuId == allMenu[i]._id);
-            var indexMenu1 = this.menu1.findIndex(mn => mn.id1 == allMenu[i]._id);
-            //var indexMenu2 = this.menu2.findIndex(mn => mn.id2 == allMenu[i]._id);
 
             if (index != -1) {
                this.menus.push(allMenu[i]);
@@ -1255,12 +1253,6 @@ export class MarketingEditPromotionComponent implements OnInit {
                }
                this.menu1Copy.push(menuObj);
             }
-
-            if (indexMenu1 == -1) {
-               this.menu1.push({'id1' : allMenu[i]._id , 'item1' : []})
-               this.menu2.push({'id2' : allMenu[i]._id , 'item2' : []})
-            }
-
             console.log("this.menu1Copy");
             console.log(this.menu1Copy);
          }

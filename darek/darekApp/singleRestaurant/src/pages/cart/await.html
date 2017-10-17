@@ -1,19 +1,9 @@
 
 <ion-content padding>
-	<ion-row class="orderPlaced" *ngIf = "order && order.status == 'Accepted'">
-		<ion-col col-12 text-center class="font40">THANK You <ion-icon name="happy" ios="ios-happy" md="md-happy"></ion-icon><br>Order Placed Successfully</ion-col>
-		<ion-col col-12 *ngIf="order.custTime" text-center class="font20">Your order will reach you at {{order.custTime}}</ion-col>
+	<ion-row class="orderPlaced">
+		<ion-col col-12 text-center class="font40">THANK You <ion-icon name="happy" ios="ios-happy" md="md-happy"></ion-icon></ion-col>
+		<ion-col col-12 text-center class="font20">We'll notify you via Email shortly</ion-col>
 	</ion-row>
-
-	<ion-row class="orderRejected" *ngIf = "order && order.status == 'Rejected'">
-		<ion-col col-12 text-center class="font40">Sorry <ion-icon name="sad" ios="ios-sad" md="md-sad"></ion-icon> <br>Order Rejected</ion-col>
-		<ion-col col-12 text-center class="font20" *ngIf="order.custMessage">Your order is rejected due to {{order.custMessage}}</ion-col>
-	</ion-row>
-
-	<ion-row class="orderMissed" *ngIf = "orderMissed">
-		<ion-col col-12 text-center class="font40">Sorry <ion-icon name="sad" ios="ios-sad" md="md-sad"></ion-icon> <br>Order Missed</ion-col>
-		<ion-col col-12 text-center class="font20">Please try again</ion-col>
-	</ion-row>
-
+	
 	<ion-row class="continue font20" (click) = "goToMenuPage()"> Continue... </ion-row>
 </ion-content>

@@ -26,18 +26,21 @@ export class AwaitPage {
 		) {
 
 		this.loading = this.loadingCtrl.create({
-            content: 'Please dont refresh or press back button...'
+            content: 'Please wait...'
         });
         this.loading.present();
-		this.order = navParams.get('order');
+        setTimeout(()=>{
+            this.loading.dismiss();
+        },500)
+		/*this.order = navParams.get('order');
 
-		this.getUpdatedOrder(this.order._id);
+		this.getUpdatedOrder(this.order._id);*/
 	}
 
 	ionViewDidLoad() {
 	}
 
-	private getUpdatedOrder(id){
+	/*private getUpdatedOrder(id){
 		var count = 0;
         var loopCount = setInterval(() => {
             count++;
@@ -81,7 +84,7 @@ export class AwaitPage {
                 });
             }
         },30000)
-	}
+	}*/
 
 	private goToMenuPage(){
 		this.nav.setRoot(MenuPage);

@@ -6,6 +6,7 @@ import { CustomersService } from '../../app/service/customer.service';
 import { ForgetPasswordPage } from './forgetpassword';
 import { RegisterPage } from './register';
 
+import { MyApp } from '../../app/app.component'
 
 import { IconTextPage } from '../item/iconText';
 
@@ -46,8 +47,8 @@ export class LoginPage {
       });
       this.menuCtrl.enable(false);
 
-      var val=this.navCtrl.last();
-      this.previousPage = val.component
+      /*var val=this.navCtrl.last();
+      this.previousPage = val.component*/
    }
 
    ionViewDidLoad() {}
@@ -63,7 +64,8 @@ export class LoginPage {
             if (data.status) {
                localStorage.setItem('currentCustomer', JSON.stringify(data.data));
                this.menuCtrl.enable(true);
-               this.nav.setRoot(this.previousPage);
+               //this.nav.setRoot(this.previousPage);
+               this.nav.setRoot(MyApp);
             }else{
                this.getToast('Bad Credential');
                this.loginForm.reset();
