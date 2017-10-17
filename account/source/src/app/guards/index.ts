@@ -1,2 +1,2 @@
 ﻿export * from './auth.guard';
-export * from './ownerauth.guard';
+export * from './customerauth.guard';

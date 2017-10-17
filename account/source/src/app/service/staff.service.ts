@@ -11,10 +11,10 @@ export class StaffService {
     constructor(private http: Http) { }
 
     public staffList(){
-        let admin = JSON.parse(localStorage.getItem('currentAdmin'))
+        /*let admin = JSON.parse(localStorage.getItem('currentAdmin'))
         let headers = new Headers();
-        headers.append('x-access-token', admin['custoken']);
-        return this.http.get(globalVariable.url+'api/staff', {headers: headers})
+        headers.append('x-access-token', admin['custoken']);*/
+        return this.http.get(globalVariable.url+'api/staff')
         .map((response: Response) => {
             let user = response.json();
             return user;
@@ -22,10 +22,10 @@ export class StaffService {
     }
 
     public staff(id){
-        let admin = JSON.parse(localStorage.getItem('currentAdmin'))
+        /*let admin = JSON.parse(localStorage.getItem('currentAdmin'))
         let headers = new Headers();
-        headers.append('x-access-token', admin['custoken']);
-        return this.http.get(globalVariable.url+'api/staff/'+id, {headers: headers})
+        headers.append('x-access-token', admin['custoken']);*/
+        return this.http.get(globalVariable.url+'api/staff/'+id)
         .map((response: Response) => {
             let user = response.json();
             return user;
@@ -33,10 +33,10 @@ export class StaffService {
     }
 
     public staffAdd(data){
-        let admin = JSON.parse(localStorage.getItem('currentAdmin'))
+        /*let admin = JSON.parse(localStorage.getItem('currentAdmin'))
         let headers = new Headers();
-        headers.append('x-access-token', admin['custoken']);
-        return this.http.post(globalVariable.url+'api/staff',data, {headers: headers})
+        headers.append('x-access-token', admin['custoken']);*/
+        return this.http.post(globalVariable.url+'api/staff',data)
         .map((response: Response) => {
             let user = response.json();
             return user;
@@ -44,10 +44,10 @@ export class StaffService {
     }
 
     public staffUpdate(data){
-        let admin = JSON.parse(localStorage.getItem('currentAdmin'))
+        /*let admin = JSON.parse(localStorage.getItem('currentAdmin'))
         let headers = new Headers();
-        headers.append('x-access-token', admin['custoken']);
-        return this.http.put(globalVariable.url+'api/staff/'+data._id,data, {headers: headers})
+        headers.append('x-access-token', admin['custoken']);*/
+        return this.http.put(globalVariable.url+'api/staff/'+data._id,data)
         .map((response: Response) => {
             let user = response.json();
             return user;
@@ -55,10 +55,10 @@ export class StaffService {
     }
     
     public staffDelete(id){
-        let admin = JSON.parse(localStorage.getItem('currentAdmin'))
+        /*let admin = JSON.parse(localStorage.getItem('currentAdmin'))
         let headers = new Headers();
-        headers.append('x-access-token', admin['custoken']);
-        return this.http.delete(globalVariable.url+'api/staff/'+id, {headers: headers})
+        headers.append('x-access-token', admin['custoken']);*/
+        return this.http.delete(globalVariable.url+'api/staff/'+id)
         .map((response: Response) => {
             let user = response.json();
             return user;

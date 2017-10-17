@@ -1,5 +1,5 @@
 {
-  "name": "accounts",
+  "name": "source-w",
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
@@ -21,15 +21,9 @@
     "@angular/platform-browser": "^4.2.4",
     "@angular/platform-browser-dynamic": "^4.2.4",
     "@angular/router": "^4.2.4",
-    "body-parser": "^1.18.2",
     "core-js": "^2.4.1",
-    "express": "^4.16.1",
-    "express-session": "^1.15.6",
-    "jsonwebtoken": "^8.0.1",
-    "mongoose": "^4.12.1",
-    "morgan": "^1.9.0",
+    "ng2-file-upload": "^1.2.1",
     "rxjs": "^5.4.2",
-    "serve-favicon": "^2.4.5",
     "zone.js": "^0.8.14"
   },
   "devDependencies": {

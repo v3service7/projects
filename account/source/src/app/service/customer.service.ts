@@ -10,11 +10,28 @@ export class CustomerService {
     
     constructor(private http: Http) { }
 
+    public customerLogin(data){
+        return this.http.post(globalVariable.url+'customer-login', data)
+        .map((response: Response) => {
+            let user = response.json();
+            return user;
+        });
+    }
+
+    public customerForgetPassword(data){
+        return this.http.post(globalVariable.url+'customer-forget-password', data)
+        .map((response: Response) => {
+            let user = response.json();
+            return user;
+        });
+    }
+
     public customerList(){
-        let admin = JSON.parse(localStorage.getItem('currentAdmin'))
+        /*let customer = JSON.parse(localStorage.getItem('currentCustomer'))
         let headers = new Headers();
-        headers.append('x-access-token', admin['custoken']);
-        return this.http.get(globalVariable.url+'api/customer', {headers: headers})
+        headers.append('x-access-token', customer['custoken']);
+        , {headers: headers}*/
+        return this.http.get(globalVariable.url+'api/customer')
         .map((response: Response) => {
             let user = response.json();
             return user;
@@ -22,10 +39,10 @@ export class CustomerService {
     }
 
     public customer(id){
-        let admin = JSON.parse(localStorage.getItem('currentAdmin'))
+        /*let customer = JSON.parse(localStorage.getItem('currentCustomer'))
         let headers = new Headers();
-        headers.append('x-access-token', admin['custoken']);
-        return this.http.get(globalVariable.url+'api/customer/'+id, {headers: headers})
+        headers.append('x-access-token', customer['custoken']);, {headers: headers}*/
+        return this.http.get(globalVariable.url+'api/customer/'+id)
         .map((response: Response) => {
             let user = response.json();
             return user;
@@ -33,10 +50,11 @@ export class CustomerService {
     }
 
     public customerAdd(data){
-        let admin = JSON.parse(localStorage.getItem('currentAdmin'))
+        /*let customer = JSON.parse(localStorage.getItem('currentCustomer'))
         let headers = new Headers();
-        headers.append('x-access-token', admin['custoken']);
-        return this.http.post(globalVariable.url+'api/customer',data, {headers: headers})
+        headers.append('x-access-token', customer['custoken']);
+        , {headers: headers}*/
+        return this.http.post(globalVariable.url+'api/customer',data)
         .map((response: Response) => {
             let user = response.json();
             return user;
@@ -44,10 +62,10 @@ export class CustomerService {
     }
 
     public customerUpdate(data){
-        let admin = JSON.parse(localStorage.getItem('currentAdmin'))
+        /*let customer = JSON.parse(localStorage.getItem('currentCustomer'))
         let headers = new Headers();
-        headers.append('x-access-token', admin['custoken']);
-        return this.http.put(globalVariable.url+'api/customer/'+data._id,data, {headers: headers})
+        headers.append('x-access-token', customer['custoken']);, {headers: headers}*/
+        return this.http.put(globalVariable.url+'api/customer/'+data._id,data)
         .map((response: Response) => {
             let user = response.json();
             return user;
@@ -55,10 +73,31 @@ export class CustomerService {
     }
     
     public customerDelete(id){
-        let admin = JSON.parse(localStorage.getItem('currentAdmin'))
+        /*let customer = JSON.parse(localStorage.getItem('currentCustomer'))
+        let headers = new Headers();
+        headers.append('x-access-token', customer['custoken']);, {headers: headers}*/
+        return this.http.delete(globalVariable.url+'api/customer/'+id)
+        .map((response: Response) => {
+            let user = response.json();
+            return user;
+        });
+    }
+
+    public customerChangePassword(data){
+        return this.http.put(globalVariable.url+'customer-change-password/'+data._id,data)
+        .map((response: Response) => {
+            let user = response.json();
+            return user;
+        });
+    }
+
+    public customerLogout(){
+       /* let admin = JSON.parse(localStorage.getItem('currentAdmin'))
         let headers = new Headers();
         headers.append('x-access-token', admin['custoken']);
-        return this.http.delete(globalVariable.url+'api/customer/'+id, {headers: headers})
+        , {headers: headers}*/
+
+        return this.http.get(globalVariable.url+'customer-logout')
         .map((response: Response) => {
             let user = response.json();
             return user;

@@ -27,12 +27,11 @@ export class AdminService {
         });
     }
 
-
     public admin(id){
-        let admin = JSON.parse(localStorage.getItem('currentAdmin'))
+        /*let admin = JSON.parse(localStorage.getItem('currentAdmin'))
         let headers = new Headers();
-        headers.append('x-access-token', admin['custoken']);
-        return this.http.get(globalVariable.url+'admin-get/'+id, {headers: headers})
+        headers.append('x-access-token', admin['custoken']);, {headers: headers}*/
+        return this.http.get(globalVariable.url+'admin-get/'+id)
         .map((response: Response) => {
             let user = response.json();
             return user;
@@ -40,10 +39,21 @@ export class AdminService {
     }
 
     public adminUpdate(data){
-        let admin = JSON.parse(localStorage.getItem('currentAdmin'))
+        /*let admin = JSON.parse(localStorage.getItem('currentAdmin'))
         let headers = new Headers();
-        headers.append('x-access-token', admin['custoken']);
-        return this.http.put(globalVariable.url+'admin-update/'+data._id,data, {headers: headers})
+        headers.append('x-access-token', admin['custoken']);, {headers: headers}*/
+        return this.http.put(globalVariable.url+'admin-update/'+data._id,data)
+        .map((response: Response) => {
+            let user = response.json();
+            return user;
+        });
+    }
+
+    public adminChangePassword(data){
+        /*let admin = JSON.parse(localStorage.getItem('currentAdmin'))
+        let headers = new Headers();
+        headers.append('x-access-token', admin['custoken']);, {headers: headers}*/
+        return this.http.put(globalVariable.url+'admin-change-password/'+data._id,data)
         .map((response: Response) => {
             let user = response.json();
             return user;
@@ -51,11 +61,11 @@ export class AdminService {
     }
 
     public adminLogout(){
-        let admin = JSON.parse(localStorage.getItem('currentAdmin'))
+        /*let admin = JSON.parse(localStorage.getItem('currentAdmin'))
         let headers = new Headers();
-        headers.append('x-access-token', admin['custoken']);
+        headers.append('x-access-token', admin['custoken']);, {headers: headers}*/
 
-        return this.http.get(globalVariable.url+'admin-logout', {headers: headers})
+        return this.http.get(globalVariable.url+'admin-logout')
         .map((response: Response) => {
             let user = response.json();
             return user;
