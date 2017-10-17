@@ -26,6 +26,9 @@
                     <td class="padding0">{{customer.firstname}} {{customer.lastname}}</td>
                     <td class="padding0">{{customer.phonenumber}}</td>
                     <td class="padding0 td-actions text-right">
+                        <a [routerLink]="['/admin/business/',customer._id]" rel="tooltip" title="Business Detail" class="btn btn-primary btn-simple btn-xs">
+                            <i class="material-icons">business</i>
+                        </a>
                         <a [routerLink]="['/admin/customer/',customer._id]" rel="tooltip" title="Edit Task" class="btn btn-primary btn-simple btn-xs">
                             <i class="material-icons">edit</i>
                         </a>

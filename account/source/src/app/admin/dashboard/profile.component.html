@@ -54,23 +54,48 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <div class="form-group ">
-                                                    <label class="control-label">Password</label>
-                                                    <input formControlName="password" type="password" class="form-control" (keyup)="matchpasswordreg()">
-                                                </div>
-                                                <div *ngIf="formErrors.password" class="alert alert-danger">
-                                                    {{ formErrors.password }}
-                                                </div>
-                                            </div>
-                                        </div>
                                         <button type="submit" class="btn btn-warning pull-right" [disabled]="!customerAddForm.valid">Save Customer</button>
                                         <div class="clearfix"></div>
                                     </form>
                                 </div>
                             </div>
                         </div>
+
+                        <div class="col-md-4">
+                            <div class="card card-profile">
+                                <div class="content">
+                                    <h6 class="category text-gray">Change Password</h6>
+                                    <form [formGroup]="cpForm" (ngSubmit)="adminChangePassword()">
+                                        <div class="card-content">
+                                            <div *ngIf="err !=''" class="alert alert-danger">
+                                                {{err}}
+                                            </div>
+                                            <div class="row">
+                                                <div class="form-group label-floating">
+                                                    <label class="control-label">Password</label>
+                                                    <input formControlName="password" type="password" class="form-control">
+                                                </div>
+                                                <div *ngIf="formErrors.password" class="alert alert-danger">
+                                                    {{ formErrors.password }}
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="form-group label-floating">
+                                                    <label class="control-label">New Password</label>
+                                                    <input formControlName="newpassword" type="password" class="form-control">
+                                                </div>
+                                                <div *ngIf="formErrors.newpassword" class="alert alert-danger">
+                                                    {{ formErrors.newpassword }}
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <button type="submit" class="btn btn-warning btn-round" [disabled]="!cpForm.valid">Change Password</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+
+
                     </div>
                 </div>
             </div>

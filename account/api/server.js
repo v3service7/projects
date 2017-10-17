@@ -6,6 +6,8 @@ const mongoose = require('mongoose');
 const jwt = require('jsonwebtoken');
 const app = express();
 
+const multer = require('multer');
+
 // API file for interacting with MongoDB
 const index = require('./server/routes/index');
 const api = require('./server/routes/api');
@@ -25,13 +27,11 @@ app.use(bodyParser.urlencoded({ extended: false}));
 
 app.use(express.static(path.join(__dirname, 'dist')));
 
-
 allowCrossDomain = function(req, res, next) {
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'POST, GET, PUT, DELETE, OPTIONS');
-  res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type, Authorization,x-access-token');
-  res.setHeader('Access-Control-Allow-Credentials', 'true');
-  res.header('Content-Type', 'application/json');
+  res.header('Access-Control-Allow-Credentials', true);
+  res.header('Access-Control-Allow-Origin', req.headers.origin);
+  res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
+  res.header('Access-Control-Allow-Headers', 'X-Requested-With, X-HTTP-Method-Override, Content-Type, Accept,x-access-token');
   if ('OPTIONS' === req.method) {
     res.sendStatus(200);
   } else {
@@ -41,6 +41,33 @@ allowCrossDomain = function(req, res, next) {
 
 app.use(allowCrossDomain);
 
+var storage = multer.diskStorage({ //multers disk storage settings
+    destination: function (req, file, cb) {
+        //cb(null, '/kitchen/ms-2/public/uploads/');
+        cb(null, './dist/uploads/');
+    },
+    filename: function (req, file, cb) {
+        var datetimestamp = Date.now();
+        cb(null, file.fieldname + '-' + datetimestamp + '.' + file.originalname.split('.')[file.originalname.split('.').length -1]);
+    }
+});
+
+var upload = multer({ //multer settings
+    storage: storage
+}).single('file');
+
+
+/** API path that will upload the files */
+app.post('/upload', function(req, res) {
+    upload(req,res,function(err){
+        console.log(req.file);
+        if(err){
+             res.json({error_code:1,err_desc:err});
+             return;
+        }
+         res.json({error_code:0,err_desc:null,filename:req.file.filename});
+    });
+});
 
 // API location
 app.use('/', index);

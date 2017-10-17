@@ -7,6 +7,8 @@ module.exports = (function() {
 	let adminModel  =  require("../model/admin.js");
 	let customerModel  =  require("../model/customer.js");
 	let staffModel  =  require("../model/staff.js");
+	let businessModel  =  require("../model/business.js");
+	let planModel  =  require("../model/plan.js");
 
 	/*-------------------------------START CUSTOMER--------------------------------------------------------*/
 
@@ -73,6 +75,71 @@ module.exports = (function() {
 	
 	/*-------------------------------END CUSTOMER--------------------------------------------------------*/
 
+	/*-------------------------------START BUSINESS--------------------------------------------------------*/
+
+	router.get('/business-list/:id', function(req, res, next) {
+		var response={};
+		businessModel.find({ownerId:req.params.id}, null, {sort: {created_at: 1}},function(err,businesses){
+			if (err) {
+				response = {"error" : true,"message" : err};
+			} else{
+				response = {"error" : false,"message" : businesses};
+			};
+			res.json(response);
+		});	
+	});
+
+	router.post('/business',function(req, res){
+		var response={};
+	    var business = new businessModel(req.body);
+	    business.save(function(err, business){
+	    	if(err) {
+	            response = {"error" : true,"message" : err};
+	        } else {
+	            response = {"error" : false,"message" : business};
+	        }
+	        res.json(response);
+	    });
+	});
+
+	router.put('/business/:id',function(req, res){
+		var response={};
+		businessModel.findByIdAndUpdate(req.params.id, req.body, function(err, business) {
+		    	if(err) {
+		            response = {"error" : true,"message" : err};
+		        } else {
+		            response = {"error" : false,"message" : business};
+		        }
+		        res.json(response);
+	        });
+	});
+
+	router.get('/business/:id',function(req,res){
+		var response={};
+		businessModel.findById(req.params.id,function(err,business){
+			if (err) {
+				response = {"error" : true,"message" : err};
+			} else{
+				response = {"error" : false,"message" : business};
+			};
+			res.json(response);
+		});	
+	});
+
+	router.delete('/business/:id',function(req,res){
+		var response={};
+		businessModel.remove({_id:req.params.id},function(err,business){
+			if (err) {
+				response = {"error" : true,"message" : err};
+			} else{
+				response = {"error" : false,"message" : business};
+			};
+			res.json(response);
+		});	
+	});
+	
+	/*-------------------------------END BUSINESS--------------------------------------------------------*/
+
 	/*-------------------------------START STAFF--------------------------------------------------------*/
 
 	router.get('/staff', function(req, res, next) {
@@ -138,6 +205,72 @@ module.exports = (function() {
 	});
 	
 	/*-------------------------------END STAFF--------------------------------------------------------*/
+
+	/*-------------------------------START PLAN--------------------------------------------------------*/
+
+	router.get('/plan', function(req, res, next) {
+		var response={};
+		planModel.find({}, null, {sort: {created_at: 1}},function(err,plans){
+			if (err) {
+				response = {"error" : true,"message" : err};
+			} else{
+				response = {"error" : false,"message" : plans};
+			};
+			res.json(response);
+		});	
+	});
+
+	router.post('/plan',function(req, res){
+		var response={};
+	    var plan = new planModel(req.body);
+	    plan.save(function(err, plan){
+	    	if(err) {
+	            response = {"error" : true,"message" : err};
+	        } else {
+	            response = {"error" : false,"message" : plan};
+	        }
+	        res.json(response);
+	    });
+	});
+
+	router.put('/plan/:id',function(req, res){
+		var response={};
+		planModel.findByIdAndUpdate(req.params.id, req.body, function(err, plan) {
+		    	if(err) {
+		            response = {"error" : true,"message" : err};
+		        } else {
+		            response = {"error" : false,"message" : plan};
+		        }
+		        res.json(response);
+	        });
+	});
+
+	router.get('/plan/:id',function(req,res){
+		var response={};
+		console.log(req.params.id);
+		planModel.findById(req.params.id,function(err,plan){
+			if (err) {
+				response = {"error" : true,"message" : err};
+			} else{
+				response = {"error" : false,"message" : plan};
+			};
+			res.json(response);
+		});	
+	});
+
+	router.delete('/plan/:id',function(req,res){
+		var response={};
+		planModel.remove({_id:req.params.id},function(err,plan){
+			if (err) {
+				response = {"error" : true,"message" : err};
+			} else{
+				response = {"error" : false,"message" : plan};
+			};
+			res.json(response);
+		});	
+	});
+	
+	/*-------------------------------END PLAN--------------------------------------------------------*/
 
     return router;    
 })();

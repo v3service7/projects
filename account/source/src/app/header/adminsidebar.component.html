@@ -1,5 +1,5 @@
 <div class="sidebar" data-color="orange" data-image="../assets/img/sidebar-1.jpg">
-    <div class="logo"><a href="http://www.creative-tim.com" class="simple-text">Account Admin</a></div>
+    <div class="logo"><a [routerLink]="['/admin/dashboard']" class="simple-text">Account Admin</a></div>
     <div class="sidebar-wrapper">
         <ul class="nav">
             <li [routerLinkActive]="['active']">
@@ -24,6 +24,12 @@
                 <a [routerLink]="['/admin/staff/']">
                     <i class="material-icons">supervisor_account</i>
                     <p>Staff</p>
+                </a>
+            </li>
+            <li [routerLinkActive]="['active']">
+                <a [routerLink]="['/admin/plan/']">
+                    <i class="material-icons">business_center</i>
+                    <p>Plan</p>
                 </a>
             </li>
             <li class="active active-pro">
