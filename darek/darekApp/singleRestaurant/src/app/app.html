@@ -8,9 +8,6 @@
             <button menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)">
                 <ion-icon name="{{p.iconA}}" ios="{{p.iconI}}" md="{{p.iconW}}" item-start></ion-icon> {{p.title}}
             </button>
-            <button *ngIf="currentCustomer" menuClose ion-item (click)="logout()">
-                <ion-icon name="power" ios="ios-power" md="md-power" item-start></ion-icon> Logout
-            </button>
         </ion-row>
     </ion-content>
 </ion-menu>

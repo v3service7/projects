@@ -7,8 +7,15 @@ import * as globalVariable from "../global";
 
 @Injectable()
 export class CustomerService {
-    
     constructor(private http: Http) { }
+
+    public customerVerify(data) {
+        return this.http.post(globalVariable.url+'customer-verify', {'token':data})
+        .map((response: Response) => {
+            const user = response.json();
+            return user;
+        });
+    }
 
     public customerLogin(data){
         return this.http.post(globalVariable.url+'customer-login', data)
@@ -65,6 +72,7 @@ export class CustomerService {
         /*let customer = JSON.parse(localStorage.getItem('currentCustomer'))
         let headers = new Headers();
         headers.append('x-access-token', customer['custoken']);, {headers: headers}*/
+
         return this.http.put(globalVariable.url+'api/customer/'+data._id,data)
         .map((response: Response) => {
             let user = response.json();

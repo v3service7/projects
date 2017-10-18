@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
-import { ToastController, LoadingController, Nav, NavController, NavParams ,ViewController,MenuController} from 'ionic-angular';
+import { ToastController, LoadingController, Nav, NavController, NavParams ,ViewController,MenuController, Events } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CustomersService } from '../../app/service/customer.service';
 
 import { ForgetPasswordPage } from './forgetpassword';
 import { RegisterPage } from './register';
 
+import { MyApp } from '../../app/app.component'
 
 import { IconTextPage } from '../item/iconText';
 
@@ -31,6 +32,7 @@ export class LoginPage {
 
    constructor(
       public nav: Nav,
+      public events: Events,
       public loadingCtrl: LoadingController,
       public menuCtrl: MenuController,
       private lf: FormBuilder,
@@ -46,11 +48,16 @@ export class LoginPage {
       });
       this.menuCtrl.enable(false);
 
-      var val=this.navCtrl.last();
-      this.previousPage = val.component
+      /*var val=this.navCtrl.last();
+      this.previousPage = val.component*/
    }
 
    ionViewDidLoad() {}
+
+   createUser(user) {
+      console.log('User created!')
+      this.events.publish('user:created', user, Date.now());
+   }
 
    private login(){
       let loading = this.loadingCtrl.create({
@@ -61,9 +68,11 @@ export class LoginPage {
          (data) => {
             loading.dismiss();
             if (data.status) {
+               this.createUser(data.data.email)
                localStorage.setItem('currentCustomer', JSON.stringify(data.data));
                this.menuCtrl.enable(true);
-               this.nav.setRoot(this.previousPage);
+               //this.nav.setRoot(this.previousPage);
+               this.nav.setRoot(MyApp);
             }else{
                this.getToast('Bad Credential');
                this.loginForm.reset();

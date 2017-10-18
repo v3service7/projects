@@ -11,6 +11,7 @@ import { AdminBusinessComponent,BusinessListComponent,BusinessEditComponent } fr
 import { CustomerComponent } from './customer/customer.component';
 import { CustomerLoginComponent, CustomerRegisterComponent, CustomerForgetPasswordComponent } from './customer/login/customerlogin.component';
 import { CustomerDashboardComponent, CustomerProfileComponent } from './customer/dashboard/dashboard.component';
+import { AccountActiveComponent } from './account-active/account-active.component';
 import { CustomerBusinessComponent, CustomerBusinessAddComponent, CustomerBusinessDocumentComponent, CustomerBusinessEditComponent,CustomerBusinessListComponent } from './customer/business/business.component';
 
 import { AuthGuard , CustomerAuthGuard} from './guards/index';
@@ -41,7 +42,8 @@ const appRoutes: Routes = [
             { path: '', component: BusinessListComponent, },
             { path: 'view', component: BusinessEditComponent, },
         ]},
-   	]},
+       ]},
+       
   	{ path: 'customer', component: CustomerComponent, children :[
     	{ path: '', component: CustomerLoginComponent },
         { path: 'login', component: CustomerLoginComponent },
@@ -57,7 +59,8 @@ const appRoutes: Routes = [
         ]},
    	]},
   	{ path: '', component: CustomerLoginComponent },
-  	{ path: '**', redirectTo: '' }
+  	{ path: 'account-active/:token', component: AccountActiveComponent },
+  	{ path: '**', redirectTo: '' },
 ];
 
 export const routing = RouterModule.forRoot(appRoutes);
