@@ -1,0 +1,25 @@
+
+    
+        <div class="livebtncls">
+            <!-- *ngIf="showb == false" -->
+        <a  class="btn btnname newbutton-desine pull-right" (click)="findGlobalUsers()" style="margin-left: 10px;"> Global Users </a>
+        
+        <a class="btn btnname newbutton-desine pull-right newbuttoncolor1" (click)="findUsers()"> Local Users </a>
+
+         <a  *ngIf="showb != false" class="btn btnname newbutton-desine pull-right newbuttoncolor1" [routerLink]="['/customer/profile']"> DashBoard </a>
+
+        <span *ngIf="((profile) && (showb == false))">
+        <button *ngIf="!profile.isprivate" class="btn newbutton-desine btnname" (click)="makeprivate('true')">Enable Private</button>
+
+        <button *ngIf="profile.isprivate" class="btn newbutton-desine btnname" (click)="makeprivate('false')">Disable Private</button>
+        </span>
+
+        <!-- <button style="margin-left: 10px;" class="btn btnname btn-info pull-right" (click)="livenow()" [ngClass]="this.livenowg == false ? 'btn-info' : 'btn-success'">Go Live</button> -->
+
+        <!-- <a style="margin-left: 15px;"  class="btn btnname btn-warning pull-right" [routerLink]="['/customer/live-now-list']" > Live Cams</a> -->
+
+        
+         <a class="btn btnname newbutton-desine pull-right" style="margin-left: 10px;" [routerLink]="['/customer/speeddating']">Speed Dating</a>
+
+        </div>
+  

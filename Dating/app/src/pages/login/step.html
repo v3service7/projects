@@ -1,0 +1,613 @@
+
+<ion-content padding [style.background-image] = "backgroundImage()">
+	<div>
+	    <ion-row class="progress">
+		    <ion-row class="progress-bar" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" [style.width] = "profileCompletePercent + '%'">
+		    	<span text-center>{{profileCompletePercent}}%</span>
+		    </ion-row>
+	    </ion-row>
+	</div>
+
+	<div class="stepsDiv">
+		<div id="step1" class="colorWhite hideStep">
+			<h3 text-center class="labelColorOrange margin8">How tall You Are?</h3>
+			<ion-row *ngIf="user.gender == 'male'" class="heightIcon">
+				<img class="ruler" src="assets/images/ruler.png">
+				<ion-icon name="man" ios="ios-man" md="md-man" class="tallHeight"></ion-icon>
+			</ion-row>
+			<ion-row *ngIf="user.gender == 'female'" class="heightIcon">
+				<img class="ruler" src="assets/images/ruler.png">
+				<ion-icon name="woman" ios="ios-woman" md="md-woman" class="tallHeight"></ion-icon>
+			</ion-row>
+
+			<ion-row>
+				<ion-item no-padding>
+					<ion-label floating>Height</ion-label>
+					<ion-input id="heightField" class="form-control" type="text" (keyup)="height($event)" autofocus></ion-input>
+				</ion-item>
+			</ion-row>
+
+			<ion-row>
+				<button margin-top ion-button full class="bcColor" (click)="addData('height')">Continue</button>
+			</ion-row>
+
+			<span class="skipStep" (click)="skipStep('height')">Skip</span>
+		</div>
+
+		<div id="step2" class=" colorWhite hideStep">
+			<h3 text-center class="labelColorOrange margin8">What is Your hair Color?</h3>
+			<ion-row *ngIf="user.gender == 'male'" class="heightIcon">
+				<img src="assets/images/boy-hair.svg">
+			</ion-row>
+			<ion-row *ngIf="user.gender == 'female'" class="heightIcon">
+				<img src="assets/images/girl-hair.svg">
+			</ion-row>
+
+			<ion-row class="colorWhite">
+				<ion-label>Choose Color</ion-label>
+				<ion-select [(ngModel)]="colorSelect" submitText="Ok" cancelText="Cancel" (ionChange)="hairColorFunction()">
+					<ion-option value="Black">Black</ion-option>
+					<ion-option value="Light Brown">Light Brown</ion-option>
+					<ion-option value="Brunette/Brown">Brunette/Brown</ion-option>
+					<ion-option value="Red">Red</ion-option>
+					<ion-option value="Blonde">Blonde</ion-option>
+					<ion-option value="Bald/Shaven">Bald/Shaven</ion-option>
+					<ion-option value="Other">Other</ion-option>
+				</ion-select>
+			</ion-row>
+
+			<ion-row>
+				<button margin-top ion-button full class="bcColor" (click)="addData('haircolor')">Continue</button>
+			</ion-row>
+
+			<span class="skipStep" (click)="skipStep('haircolor')">Skip</span>
+		</div>
+
+		<div id="step3" class=" colorWhite hideStep">
+			<h3 text-center class="labelColorOrange margin8">What is your body type?</h3>
+			<ion-row *ngIf="user.gender == 'male'" class="heightIcon">
+				<img src="assets/images/male-body.svg">
+			</ion-row>
+			<ion-row *ngIf="user.gender == 'female'" class="heightIcon">
+				<img src="assets/images/female-body.svg">
+			</ion-row>
+
+			<ion-row class="colorWhite">
+				<ion-label>Choose Color</ion-label>
+				<ion-select [(ngModel)]="bodySelect" submitText="Ok" cancelText="Cancel" (ionChange)="bodyFunction()">
+					<ion-option value="Petite">Petite</ion-option>
+					<ion-option value="Slender">Slender</ion-option>
+					<ion-option value="Medium">Medium</ion-option>
+					<ion-option value="Few Extra Pounds">Few Extra Pounds</ion-option>
+					<ion-option value="Well Built">Well Built</ion-option>
+					<ion-option value="Overweight">Overweight</ion-option>
+				</ion-select>
+			</ion-row>
+
+			<ion-row>
+				<button margin-top ion-button full class="bcColor" (click)="addData('bodyshape')">Continue</button>
+			</ion-row>
+
+			<span class="skipStep" (click)="skipStep('bodyshape')">Skip</span>
+		</div>
+
+		<div id="step4" class=" colorWhite hideStep">
+			<h3 text-center class="labelColorOrange margin8">Choose your Marital Status</h3>
+			<ion-row class="heightIcon">
+				<ion-col text-center *ngIf="user.gender == 'male'" (click)="maritalS(false)">
+					<!-- <img class="maleBody" src="assets/images/male-body.svg"> -->
+					<ion-icon class="font100" name="man" ios="ios-man" md="md-man"></ion-icon>
+					<ion-row text-center>
+						<ion-col>Single</ion-col>
+					</ion-row>
+				</ion-col>
+				<ion-col text-center *ngIf="user.gender == 'female'" (click)="maritalS(false)">
+					<!-- <img src="assets/images/female-body.svg"> -->
+					<ion-icon class="font100" name="woman" ios="ios-woman" md="md-woman"></ion-icon>
+					<ion-row text-center>
+						<ion-col>Single</ion-col>
+					</ion-row>
+				</ion-col>
+				<ion-col (click)="maritalS(true)">
+					<img src="assets/images/marriage-couple.svg" class="height100">
+					<ion-row text-center>
+						<ion-col>Married</ion-col>
+					</ion-row>
+				</ion-col>
+			</ion-row>
+
+			<ion-row *ngIf = "married">
+				<ion-label>Have Children</ion-label>
+				<ion-select [(ngModel)]="children" (ionChange)="haveChildren()">
+					<ion-option value=true>Yes</ion-option>
+					<ion-option value=false>No</ion-option>
+				</ion-select>
+			</ion-row>
+
+			<ion-row>
+				<button margin-top ion-button full class="bcColor" (click)="addData('maritalStatus')">Continue</button>
+			</ion-row>
+
+			<span class="skipStep" (click)="skipStep('maritalStatus')">Skip</span>
+		</div>
+
+		<div id="step5" class=" colorWhite hideStep">
+			<h3 text-center class="labelColorOrange margin8">Do You Smoke?</h3>
+			<ion-row class="heightIcon">
+				<ion-col *ngIf="smoke == 'false'">
+					<img src="assets/images/no-smoking.svg">
+				</ion-col>
+				<ion-col *ngIf="smoke == 'true'">
+					<img src="assets/images/smoking.svg">
+				</ion-col>
+			</ion-row>
+
+			<ion-row>
+				<ion-label>Choose</ion-label>
+				<ion-select [(ngModel)]="smoke" (ionChange)="smoker()">
+					<ion-option value = false>No</ion-option>
+					<ion-option value = true>Yes</ion-option>
+				</ion-select>
+			</ion-row>
+
+			<ion-row>
+				<button margin-top ion-button full class="bcColor" (click)="addData('smoke')">Continue</button>
+			</ion-row>
+
+			<span class="skipStep" (click)="skipStep('smoke')">Skip</span>
+		</div>
+
+		<div id="step6" class=" colorWhite hideStep">
+			<h3 text-center class="labelColorOrange margin8">Do You Drink?</h3>
+			<ion-row class="heightIcon">
+				<ion-col *ngIf="drink == 'false'">
+					<img src="assets/images/no-drinking.svg">
+				</ion-col>
+				<ion-col *ngIf="drink == 'true'">
+					<img src="assets/images/drinking.svg">
+				</ion-col>
+			</ion-row>
+
+			<ion-row>
+				<ion-label>Choose</ion-label>
+				<ion-select [(ngModel)]="drink" (ionChange)="drinker()">
+					<ion-option value = false>No</ion-option>
+					<ion-option value = true>Yes</ion-option>
+				</ion-select>
+			</ion-row>
+
+			<ion-row>
+				<button margin-top ion-button full class="bcColor" (click)="addData('drink')">Continue</button>
+			</ion-row>
+
+			<span class="skipStep" (click)="skipStep('drink')">Skip</span>
+		</div>
+
+		<div id="step7" class=" colorWhite hideStep">
+			<h3 text-center class="labelColorOrange margin8">What is Your Qualification?</h3>
+			<ion-row class="heightIcon">
+				<ion-col>
+					<img src="assets/images/education.svg">
+				</ion-col>
+			</ion-row>
+
+			<ion-row>
+				<ion-label>Qualification</ion-label>
+				<ion-select [(ngModel)]="education" (ionChange)="qualification()">
+					<ion-option value = "Student">Student</ion-option>
+					<ion-option value = "High School">High School</ion-option>
+					<ion-option value = "Some College">Some College</ion-option>
+					<ion-option value = "College Graduate">College Graduate</ion-option>
+					<ion-option value = "Some Post-College">Some Post-College</ion-option>
+					<ion-option value = "Master’s">Master’s</ion-option>
+					<ion-option value = "Professional Qualification">Professional Qualification</ion-option>
+				</ion-select>
+			</ion-row>
+
+			<ion-row>
+				<button margin-top ion-button full class="bcColor" (click)="addData('edu')">Continue</button>
+			</ion-row>
+
+			<span class="skipStep" (click)="skipStep('edu')">Skip</span>
+		</div>
+
+		<div id="step8" class=" colorWhite hideStep">
+			<h3 text-center class="labelColorOrange margin8">What is You ProFession?</h3>
+			<ion-row class="heightIcon">
+				<ion-col *ngIf="user.gender == 'male'">
+					<img src="assets/images/businessman.svg">
+				</ion-col>
+				<ion-col *ngIf="user.gender == 'female'">
+					<img src="assets/images/businesswoman.svg">
+				</ion-col>
+			</ion-row>
+
+			<ion-row>
+				<ion-label>Profession</ion-label>
+				<ion-select [(ngModel)]="typeOfWork" (ionChange)="profession()">
+					<ion-option value = "Aircraft Dispatcher">Aircraft Dispatcher</ion-option>
+					<ion-option value = "Aircraft Mechanic">Aircraft Mechanic</ion-option>
+					<ion-option value = "Airline Pilot">Airline Pilot</ion-option>
+					<ion-option value = "Flight Attendant">Flight Attendant</ion-option>
+					<ion-option value = "Arts">Arts</ion-option>
+					<ion-option value = "Actor">Actor</ion-option>
+					<ion-option value = "Architecture">Architecture</ion-option>
+					<ion-option value = "Art Appraiser">Art Appraiser</ion-option>
+					<ion-option value = "Art Auctioneer">Art Auctioneer</ion-option>
+					<ion-option value = "Artist">Artist</ion-option>
+					<ion-option value = "Museum Jobs">Museum Jobs</ion-option>
+					<ion-option value = "Music Conductor">Music Conductor</ion-option>
+					<ion-option value = "Business">Business</ion-option>
+					<ion-option value = "Accountant">Accountant</ion-option>
+					<ion-option value = "Administrative Assistant/Secretary">Administrative Assistant/Secretary</ion-option>
+					<ion-option value = "Advertising">Advertising</ion-option>
+					<ion-option value = "Consultant">Consultant</ion-option>
+					<ion-option value = "Financial Advisor">Financial Advisor</ion-option>
+					<ion-option value = "Fundraiser">Fundraiser</ion-option>
+					<ion-option value = "Government Jobs">Government Jobs</ion-option>
+					<ion-option value = "Human Resources">Human Resources</ion-option>
+					<ion-option value = "Insurance Agent">Insurance Agent</ion-option>
+					<ion-option value = "Investment Banker">Investment Banker</ion-option>
+					<ion-option value = "Lawyer">Lawyer</ion-option>
+					<ion-option value = "Management">Management</ion-option>
+					<ion-option value = "Market Research Analyst">Market Research Analyst</ion-option>
+					<ion-option value = "Nonprofit Job">Nonprofit Job</ion-option>
+					<ion-option value = "Law Enforcement">Law Enforcement</ion-option>
+					<ion-option value = "Criminal Justice">Criminal Justice</ion-option>
+					<ion-option value = "Federal Law Enforcement">Federal Law Enforcement</ion-option>
+					<ion-option value = "Police Officer">Police Officer</ion-option>
+					<ion-option value = "Media">Media</ion-option>
+					<ion-option value = "Book Publishing">Book Publishing</ion-option>
+					<ion-option value = "Freelance Editor">Freelance Editor</ion-option>
+					<ion-option value = "Freelance Writer">Freelance Writer</ion-option>
+					<ion-option value = "Public Relations">Public Relations</ion-option>
+					<ion-option value = "Web Developer">Web Developer</ion-option>
+					<ion-option value = "Writer/Editor">Writer/Editor</ion-option>
+					<ion-option value = "Medical">Medical</ion-option>
+					<ion-option value = "Doctor">Doctor</ion-option>
+					<ion-option value = "Nurse">Nurse</ion-option>
+					<ion-option value = "Paramedic">Paramedic</ion-option>
+					<ion-option value = "Psychologist">Psychologist</ion-option>
+					<ion-option value = "Social Worker">Social Worker</ion-option>
+					<ion-option value = "Veterinarian">Veterinarian</ion-option>
+					<ion-option value = "Service Industry">Service Industry</ion-option>
+					<ion-option value = "Bank Teller">Bank Teller</ion-option>
+					<ion-option value = "Call Center">Call Center</ion-option>
+					<ion-option value = "Funeral Director">Funeral Director</ion-option>
+					<ion-option value = "Hair Stylist">Hair Stylist</ion-option>
+					<ion-option value = "Personal Fitness Trainer">Personal Fitness Trainer</ion-option>
+					<ion-option value = "Retail">Retail</ion-option>
+					<ion-option value = "Sales">Sales</ion-option>
+					<ion-option value = "Ski Instructor">Ski Instructor</ion-option>
+					<ion-option value = "Waiter">Waiter</ion-option>
+					<ion-option value = "Wedding Planner">Wedding Planner</ion-option>
+					<ion-option value = "Teaching">Teaching</ion-option>
+					<ion-option value = "Career Counselor">Career Counselor</ion-option>
+					<ion-option value = "School Jobs">School Jobs</ion-option>
+					<ion-option value = "Substitute Teacher">Substitute Teacher</ion-option>
+					<ion-option value = "Teacher">Teacher</ion-option>
+					<ion-option value = "Teaching Abroad">Teaching Abroad</ion-option>
+					<ion-option value = "Teaching Online">Teaching Online</ion-option>
+					<ion-option value = "Technology">Technology</ion-option>
+					<ion-option value = "App Developer">App Developer</ion-option>
+					<ion-option value = "Computer Programmer">Computer Programmer</ion-option>
+					<ion-option value = "Database Administrator">Database Administrator</ion-option>
+					<ion-option value = "Programmer">Programmer</ion-option>
+					<ion-option value = "Software Developer">Software Developer</ion-option>
+					<ion-option value = "Web Developer">Web Developer</ion-option>
+					<ion-option value = "Other">Other</ion-option>
+				</ion-select>
+			</ion-row>
+
+			<ion-row>
+				<button margin-top ion-button full class="bcColor" (click)="addData('prof')">Continue</button>
+			</ion-row>
+
+			<span class="skipStep" (click)="skipStep('prof')">Skip</span>
+		</div>
+
+
+
+
+		<div id="step9" class="colorWhite hideStep">
+			<h3 text-center class="labelColorOrange margin8">What’s his/her height?</h3>
+			<ion-row *ngIf="user.interestedin == 'male'" class="heightIcon">
+				<img class="ruler" src="assets/images/ruler.png">
+				<ion-icon name="man" ios="ios-man" md="md-man" class="tallHeight"></ion-icon>
+			</ion-row>
+			<ion-row *ngIf="user.interestedin == 'female'" class="heightIcon">
+				<img class="ruler" src="assets/images/ruler.png">
+				<ion-icon name="woman" ios="ios-woman" md="md-woman" class="tallHeight"></ion-icon>
+			</ion-row>
+
+			<ion-row>
+				<ion-item no-padding>
+					<ion-label floating>Height</ion-label>
+					<ion-input id="heightField" class="form-control" type="text" (keyup)="heightPref($event)" autofocus></ion-input>
+				</ion-item>
+			</ion-row>
+
+			<ion-row>
+				<button margin-top ion-button full class="bcColor" (click)="addDataPref('height')">Continue</button>
+			</ion-row>
+
+			<span class="skipStep" (click)="skipStepPref('height')">Skip</span>
+		</div>
+
+		<div id="step10" class=" colorWhite hideStep">
+			<h3 text-center class="labelColorOrange margin8">What’s his/her hair color?</h3>
+			<ion-row *ngIf="user.interestedin == 'male'" class="heightIcon">
+				<img src="assets/images/boy-hair.svg">
+			</ion-row>
+			<ion-row *ngIf="user.interestedin == 'female'" class="heightIcon">
+				<img src="assets/images/girl-hair.svg">
+			</ion-row>
+
+			<ion-row class="colorWhite">
+				<ion-label>Choose Color</ion-label>
+				<ion-select [(ngModel)]="colorSelectPref" submitText="Ok" cancelText="Cancel" (ionChange)="hairColorFunctionPref()">
+					<ion-option value="Black">Black</ion-option>
+					<ion-option value="Light Brown">Light Brown</ion-option>
+					<ion-option value="Brunette/Brown">Brunette/Brown</ion-option>
+					<ion-option value="Red">Red</ion-option>
+					<ion-option value="Blonde">Blonde</ion-option>
+					<ion-option value="Bald/Shaven">Bald/Shaven</ion-option>
+					<ion-option value="Other">Other</ion-option>
+				</ion-select>
+			</ion-row>
+
+			<ion-row>
+				<button margin-top ion-button full class="bcColor" (click)="addDataPref('haircolor')">Continue</button>
+			</ion-row>
+
+			<span class="skipStep" (click)="skipStepPref('haircolor')">Skip</span>
+		</div>
+
+		<div id="step11" class=" colorWhite hideStep">
+			<h3 text-center class="labelColorOrange margin8">What’s his/her body type?</h3>
+			<ion-row *ngIf="user.interestedin == 'male'" class="heightIcon">
+				<img src="assets/images/male-body.svg">
+			</ion-row>
+			<ion-row *ngIf="user.interestedin == 'female'" class="heightIcon">
+				<img src="assets/images/female-body.svg">
+			</ion-row>
+
+			<ion-row class="colorWhite">
+				<ion-label>Choose Color</ion-label>
+				<ion-select [(ngModel)]="bodySelectPref" submitText="Ok" cancelText="Cancel" (ionChange)="bodyFunctionPref()">
+					<ion-option value="Petite">Petite</ion-option>
+					<ion-option value="Slender">Slender</ion-option>
+					<ion-option value="Medium">Medium</ion-option>
+					<ion-option value="Few Extra Pounds">Few Extra Pounds</ion-option>
+					<ion-option value="Well Built">Well Built</ion-option>
+					<ion-option value="Overweight">Overweight</ion-option>
+				</ion-select>
+			</ion-row>
+
+			<ion-row>
+				<button margin-top ion-button full class="bcColor" (click)="addDataPref('bodyshape')">Continue</button>
+			</ion-row>
+
+			<span class="skipStep" (click)="skipStepPref('bodyshape')">Skip</span>
+		</div>
+
+		<div id="step12" class=" colorWhite hideStep">
+			<h3 text-center class="labelColorOrange margin8">Choose his/her Marital Status</h3>
+			<ion-row class="heightIcon">
+				<ion-col text-center *ngIf="user.interestedin == 'male'" (click)="maritalSPref(false)">
+					<!-- <img class="maleBody" src="assets/images/male-body.svg"> -->
+					<ion-icon class="font100" name="man" ios="ios-man" md="md-man"></ion-icon>
+					<ion-row text-center>
+						<ion-col>Single</ion-col>
+					</ion-row>
+				</ion-col>
+				<ion-col text-center *ngIf="user.interestedin == 'female'" (click)="maritalSPref(false)">
+					<ion-icon class="font100" name="woman" ios="ios-woman" md="md-woman"></ion-icon>
+					<ion-row text-center>
+						<ion-col>Single</ion-col>
+					</ion-row>
+				</ion-col>
+				<ion-col (click)="maritalSPref(true)">
+					<img src="assets/images/marriage-couple.svg">
+					<ion-row text-center>
+						<ion-col>Married</ion-col>
+					</ion-row>
+				</ion-col>
+			</ion-row>
+
+			<ion-row *ngIf = "marriedPref">
+				<ion-label>Have Children</ion-label>
+				<ion-select [(ngModel)]="childrenPref" (ionChange)="haveChildrenPref()">
+					<ion-option value=true>Yes</ion-option>
+					<ion-option value=false>No</ion-option>
+				</ion-select>
+			</ion-row>
+
+			<ion-row>
+				<button margin-top ion-button full class="bcColor" (click)="addDataPref('maritalStatus')">Continue</button>
+			</ion-row>
+
+			<span class="skipStep" (click)="skipStepPref('maritalStatus')">Skip</span>
+		</div>
+
+		<div id="step13" class=" colorWhite hideStep">
+			<h3 text-center class="labelColorOrange margin8">Should he/she Smoke?</h3>
+			<ion-row class="heightIcon">
+				<ion-col *ngIf="smokePref == 'false'">
+					<img src="assets/images/no-smoking.svg">
+				</ion-col>
+				<ion-col *ngIf="smokePref == 'true'">
+					<img src="assets/images/smoking.svg">
+				</ion-col>
+			</ion-row>
+
+			<ion-row>
+				<ion-label>Choose</ion-label>
+				<ion-select [(ngModel)]="smokePref" (ionChange)="smokerPref()">
+					<ion-option value = false>No</ion-option>
+					<ion-option value = true>Yes</ion-option>
+				</ion-select>
+			</ion-row>
+
+			<ion-row>
+				<button margin-top ion-button full class="bcColor" (click)="addDataPref('smoke')">Continue</button>
+			</ion-row>
+
+			<span class="skipStep" (click)="skipStepPref('smoke')">Skip</span>
+		</div>
+
+		<div id="step14" class=" colorWhite hideStep">
+			<h3 text-center class="labelColorOrange margin8">Should he/she Drink?</h3>
+			<ion-row class="heightIcon">
+				<ion-col *ngIf="drinkPref == 'false'">
+					<img src="assets/images/no-drinking.svg">
+				</ion-col>
+				<ion-col *ngIf="drinkPref == 'true'">
+					<img src="assets/images/drinking.svg">
+				</ion-col>
+			</ion-row>
+
+			<ion-row>
+				<ion-label>Choose</ion-label>
+				<ion-select [(ngModel)]="drinkPref" (ionChange)="drinkerPref()">
+					<ion-option value = false>No</ion-option>
+					<ion-option value = true>Yes</ion-option>
+				</ion-select>
+			</ion-row>
+
+			<ion-row>
+				<button margin-top ion-button full class="bcColor" (click)="addDataPref('drink')">Continue</button>
+			</ion-row>
+
+			<span class="skipStep" (click)="skipStepPref('drink')">Skip</span>
+		</div>
+
+		<div id="step15" class=" colorWhite hideStep">
+			<h3 text-center class="labelColorOrange margin8">Choose his/her Qualification?</h3>
+			<ion-row class="heightIcon">
+				<ion-col>
+					<img src="assets/images/education.svg">
+				</ion-col>
+			</ion-row>
+
+			<ion-row>
+				<ion-label>Qualification</ion-label>
+				<ion-select [(ngModel)]="educationPref" (ionChange)="qualificationPref()">
+					<ion-option value = "Student">Student</ion-option>
+					<ion-option value = "High School">High School</ion-option>
+					<ion-option value = "Some College">Some College</ion-option>
+					<ion-option value = "College Graduate">College Graduate</ion-option>
+					<ion-option value = "Some Post-College">Some Post-College</ion-option>
+					<ion-option value = "Master’s">Master’s</ion-option>
+					<ion-option value = "Professional Qualification">Professional Qualification</ion-option>
+				</ion-select>
+			</ion-row>
+
+			<ion-row>
+				<button margin-top ion-button full class="bcColor" (click)="addDataPref('edu')">Continue</button>
+			</ion-row>
+
+			<span class="skipStep" (click)="skipStepPref('edu')">Skip</span>
+		</div>
+
+		<div id="step16" class=" colorWhite hideStep">
+			<h3 text-center class="labelColorOrange margin8">Choose his/her Profession?</h3>
+			<ion-row class="heightIcon">
+				<ion-col *ngIf="user.interestedin == 'male'">
+					<img src="assets/images/businessman.svg">
+				</ion-col>
+				<ion-col *ngIf="user.interestedin == 'female'">
+					<img src="assets/images/businesswoman.svg">
+				</ion-col>
+			</ion-row>
+
+			<ion-row>
+				<ion-label>Profession</ion-label>
+				<ion-select [(ngModel)]="typeOfWorkPref" (ionChange)="professionPref()">
+					<ion-option value = "Aircraft Dispatcher">Aircraft Dispatcher</ion-option>
+					<ion-option value = "Aircraft Mechanic">Aircraft Mechanic</ion-option>
+					<ion-option value = "Airline Pilot">Airline Pilot</ion-option>
+					<ion-option value = "Flight Attendant">Flight Attendant</ion-option>
+					<ion-option value = "Arts">Arts</ion-option>
+					<ion-option value = "Actor">Actor</ion-option>
+					<ion-option value = "Architecture">Architecture</ion-option>
+					<ion-option value = "Art Appraiser">Art Appraiser</ion-option>
+					<ion-option value = "Art Auctioneer">Art Auctioneer</ion-option>
+					<ion-option value = "Artist">Artist</ion-option>
+					<ion-option value = "Museum Jobs">Museum Jobs</ion-option>
+					<ion-option value = "Music Conductor">Music Conductor</ion-option>
+					<ion-option value = "Business">Business</ion-option>
+					<ion-option value = "Accountant">Accountant</ion-option>
+					<ion-option value = "Administrative Assistant/Secretary">Administrative Assistant/Secretary</ion-option>
+					<ion-option value = "Advertising">Advertising</ion-option>
+					<ion-option value = "Consultant">Consultant</ion-option>
+					<ion-option value = "Financial Advisor">Financial Advisor</ion-option>
+					<ion-option value = "Fundraiser">Fundraiser</ion-option>
+					<ion-option value = "Government Jobs">Government Jobs</ion-option>
+					<ion-option value = "Human Resources">Human Resources</ion-option>
+					<ion-option value = "Insurance Agent">Insurance Agent</ion-option>
+					<ion-option value = "Investment Banker">Investment Banker</ion-option>
+					<ion-option value = "Lawyer">Lawyer</ion-option>
+					<ion-option value = "Management">Management</ion-option>
+					<ion-option value = "Market Research Analyst">Market Research Analyst</ion-option>
+					<ion-option value = "Nonprofit Job">Nonprofit Job</ion-option>
+					<ion-option value = "Law Enforcement">Law Enforcement</ion-option>
+					<ion-option value = "Criminal Justice">Criminal Justice</ion-option>
+					<ion-option value = "Federal Law Enforcement">Federal Law Enforcement</ion-option>
+					<ion-option value = "Police Officer">Police Officer</ion-option>
+					<ion-option value = "Media">Media</ion-option>
+					<ion-option value = "Book Publishing">Book Publishing</ion-option>
+					<ion-option value = "Freelance Editor">Freelance Editor</ion-option>
+					<ion-option value = "Freelance Writer">Freelance Writer</ion-option>
+					<ion-option value = "Public Relations">Public Relations</ion-option>
+					<ion-option value = "Web Developer">Web Developer</ion-option>
+					<ion-option value = "Writer/Editor">Writer/Editor</ion-option>
+					<ion-option value = "Medical">Medical</ion-option>
+					<ion-option value = "Doctor">Doctor</ion-option>
+					<ion-option value = "Nurse">Nurse</ion-option>
+					<ion-option value = "Paramedic">Paramedic</ion-option>
+					<ion-option value = "Psychologist">Psychologist</ion-option>
+					<ion-option value = "Social Worker">Social Worker</ion-option>
+					<ion-option value = "Veterinarian">Veterinarian</ion-option>
+					<ion-option value = "Service Industry">Service Industry</ion-option>
+					<ion-option value = "Bank Teller">Bank Teller</ion-option>
+					<ion-option value = "Call Center">Call Center</ion-option>
+					<ion-option value = "Funeral Director">Funeral Director</ion-option>
+					<ion-option value = "Hair Stylist">Hair Stylist</ion-option>
+					<ion-option value = "Personal Fitness Trainer">Personal Fitness Trainer</ion-option>
+					<ion-option value = "Retail">Retail</ion-option>
+					<ion-option value = "Sales">Sales</ion-option>
+					<ion-option value = "Ski Instructor">Ski Instructor</ion-option>
+					<ion-option value = "Waiter">Waiter</ion-option>
+					<ion-option value = "Wedding Planner">Wedding Planner</ion-option>
+					<ion-option value = "Teaching">Teaching</ion-option>
+					<ion-option value = "Career Counselor">Career Counselor</ion-option>
+					<ion-option value = "School Jobs">School Jobs</ion-option>
+					<ion-option value = "Substitute Teacher">Substitute Teacher</ion-option>
+					<ion-option value = "Teacher">Teacher</ion-option>
+					<ion-option value = "Teaching Abroad">Teaching Abroad</ion-option>
+					<ion-option value = "Teaching Online">Teaching Online</ion-option>
+					<ion-option value = "Technology">Technology</ion-option>
+					<ion-option value = "App Developer">App Developer</ion-option>
+					<ion-option value = "Computer Programmer">Computer Programmer</ion-option>
+					<ion-option value = "Database Administrator">Database Administrator</ion-option>
+					<ion-option value = "Programmer">Programmer</ion-option>
+					<ion-option value = "Software Developer">Software Developer</ion-option>
+					<ion-option value = "Web Developer">Web Developer</ion-option>
+					<ion-option value = "Other">Other</ion-option>
+				</ion-select>
+			</ion-row>
+
+			<ion-row>
+				<button margin-top ion-button full class="bcColor" (click)="addDataPref('prof')">Continue</button>
+			</ion-row>
+
+			<span class="skipStep" (click)="skipStepPref('prof')">Skip</span>
+		</div>
+
+		<div id="step17" class=" colorWhite hideStep">
+			<h3 text-center class="labelColorOrange margin60-8">Check your mail to Activate your Account</h3>
+			<span class="finishStep"> > Finish</span>
+		</div>
+	</div>
+</ion-content>

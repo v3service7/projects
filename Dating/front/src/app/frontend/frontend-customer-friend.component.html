@@ -1,0 +1,328 @@
+<style>
+ .myPanelHeading{
+ padding:0px !important;
+ }
+ ul#menu {
+ margin-bottom: 0px !important;
+ padding-left: 0px !important;
+ }
+ ul#menu li {
+ display:inline;
+ padding: 8px; 
+ }
+ .myPanelBody{
+  padding:5px !important;
+ }
+
+ .panel-body.myPanelBody.myBoxHeading {
+  background: rgba(0, 0, 0, 0.41);
+  position: absolute;
+  bottom: 52px;
+  color: #fff;
+  width: 139px; 
+ }
+
+ .panel-body.myPanelBody.myBoxHeading > p
+ {
+ margin-bottom:0px !important;}
+ .text-online {
+ color: #8cde8e;
+ }
+ .img-responsivenot
+ {
+    width: 139px;
+    height: 141px;
+
+ }
+</style>
+
+<app-customer-header></app-customer-header>
+<div class="container mainContainer" >
+ <div class="container restroNamel livenow"> 
+    <app-frontend-live-button></app-frontend-live-button>
+</div>
+
+  <div class="container kitchenDetail" style="min-height: 585px;">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+      <div class="restroImage1 col-lg-3 col-md-3 col-sm-4 col-xs-4">
+       <!--  <span >        
+        <div class="restroImage" >
+          <img class="group list-group-image img-responsive" [src]="profile.profilePic" alt="" width="100px;" />
+        </div>
+
+        <div class="restroImage" *ngIf="profile.profilePic">
+          <img src="{{url}}{{profile.profilePic}}" class="group list-group-image img-responsive" alt="" width="100px;" />
+        </div>
+
+        </span> -->
+
+        
+               <span *ngIf="profile">
+                <div class="restroImage">
+                    <img [src]="setimage(profile.profilePic)" class="group list-group-image img-responsive" alt="" width="100px;" />
+                </div>
+               <!--  <div class="restroImage" *ngIf="!profile.profilePic">
+                    <img class="group list-group-image img-responsive" src="/assets/images/face.png" alt="" width="100px;" />
+                </div> -->
+                </span>
+
+                
+                   <ul class="list-group list-change1">
+                    <li class="list-group-item">
+                        <a [routerLink]="['/customer/profile']"><i class="icon ion-person ionicicon-size"></i> &nbsp;&nbsp; Profile</a>
+                    </li>
+                    <li class="list-group-item">
+                        <a [routerLink]="['/customer/my-account']"><i class="icon ion-card ionicicon-size"></i> &nbsp;&nbsp; Account</a>
+                    </li>
+                    <li class="list-group-item">
+                        <a [routerLink]="['/customer/my-views']"><i class="icon ion-eye ionicicon-size"></i> &nbsp;&nbsp; Views</a>
+                    </li>
+                    <li class="list-group-item panelselected">
+                        <a [routerLink]="['/customer/friend']"><i class="icon ion-person-stalker ionicicon-size"></i> &nbsp;&nbsp; Friend</a>
+                    </li>
+                    <li class="list-group-item">
+                        <a [routerLink]="['/customer/message']"><i class="icon ion-ios-chatboxes ionicicon-size"></i> &nbsp;&nbsp; Message</a>
+                    </li>
+                    <li class="list-group-item">
+                        <a [routerLink]="['/customer/notifications']"><i class="icon ion-android-notifications-none ionicicon-size"></i> &nbsp;&nbsp; Notifications</a>
+                    </li>
+                </ul>
+      </div>
+      <div class="col-lg-9 col-md-9 col-sm-8 col-xs-8 leftSectionBorder">                
+        <div class="threeTabs">
+
+          <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 paddingm1" role="presentation" (click)="allrequests()" href="javascript:void(0)" aria-controls="myPayment" role="tab" data-toggle="tab" data-target="#myPayment">
+            <a href="javascript:void(0)" aria-controls="myPayment" role="tab" data-toggle="tab" data-target="#myPayment"><h4 ><i class="icon ion-person-stalker" aria-hidden="true"></i> &nbsp;&nbsp; Friends </h4></a>
+          </div>
+          <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 paddingm1" role="presentation" (click)="allrequests()"  data-toggle="tab" href="javascript:void(0)" aria-controls="pending" role="tab" data-target="#pending">
+            <a  data-toggle="tab" href="javascript:void(0)" aria-controls="pending" role="tab" data-target="#pending"><h4 ><i class="icon ion-reply" aria-hidden="true"></i>&nbsp;&nbsp; Pending Requests </h4></a>
+          </div>
+          <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 paddingm1" role="presentation" (click)="allrequests()" data-toggle="tab" href="javascript:void(0)" aria-controls="blockuser" role="tab" data-target="#blockuser">
+            <a  data-toggle="tab" href="javascript:void(0)" aria-controls="blockuser" role="tab" data-target="#blockuser"><h4 ><i class="icon ion-ios-unlocked" aria-hidden="true"></i>&nbsp;&nbsp; Blocked Users </h4></a>
+          </div>
+
+        </div>
+
+        <div class="tab-content">
+
+          <div role="tabpanel active" class="tab-pane active" id="myPayment">
+           <!-- <h3 class="panel-title"><i class="fa fa-users"></i> Friends </h3> -->
+                <div class="row panel-heading"> 
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style=" padding-left: 0px; padding-right: 0px;">
+                <span *ngFor="let friend of acceptrequiestfriendlst">
+
+                   <div *ngIf="cid != friend.FromId._id" class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+
+                    <!-- <div class="divf">
+                    <div class="restroImage" *ngIf="!friend.profilePic">
+                    <a target="_black" [routerLink]="['/customer/publicprofile/', friend.FromId._id]">
+                    <img *ngIf="friend.FromId.profilePic" src="{{url}}{{friend.FromId.profilePic}}" class="group list-group-image img-responsive" alt="" width="50px;" width="70px;" />
+                    <img *ngIf="!friend.FromId.profilePic" class="group list-group-image img-responsive" src="/assets/images/face.png" alt="" width="50px;" width="70px;" />
+                    </a>
+                    </div>                   
+                    <div class="emaildetail"> 
+
+                     <div class="namecls">{{friend.FromId.email}}</div>               
+                    </div>                
+                    </div> -->
+
+                            <div class="panel panel-default">
+                            <a [routerLink]="['/customer/publicprofile/', friend.FromId._id]" >
+                            <div class="panel-heading myPanelHeading" *ngIf="friend.FromId.profilePic">
+                            <img src="{{url}}{{friend.FromId.profilePic}}" class="img-responsivenot" >
+                            </div>
+
+                            <div class="panel-heading myPanelHeading" *ngIf="!friend.FromId.profilePic" style="bottom: 21px;">
+                            <img src="/assets/images/face.png" class="img-responsivenot" >
+                            </div>
+                            </a>
+                            <div class="panel-body myPanelBody myBoxHeading">
+                            <p>
+                             {{friend.FromId.firstname}} {{friend.FromId.lastname}}                                       
+                            </p>
+                            </div>
+                             <div class="panel-body myPanelBody">
+                            <ul id="menu">
+                            <li (click)="deleteBlockfrind(friend._id)"> 
+                            <a title="Unfriend" href="javascript:void(0)"> 
+                            <i class="fa fa-times-circle text-danger" aria-hidden="true"></i></a>
+                            </li>
+                            </ul></div>
+                            </div>
+
+                         </div>
+
+
+                  <div *ngIf="cid != friend.ToId._id" class="col-sm-3 col-xs-3 col-lg-3 col-md-3">
+
+                  <!--  <div class="divf">
+                    <div class="restroImage" *ngIf="!friend.profilePic">
+                    <a target="_black" [routerLink]="['/customer/publicprofile/', friend.FromId._id]">
+                    <img *ngIf="friend.ToId.profilePic" src="{{url}}{{friend.FromId.profilePic}}" class="group list-group-image img-responsive" alt="" width="50px;" width="70px;" />
+                    <img *ngIf="!friend.ToId.profilePic" class="group list-group-image img-responsive" src="/assets/images/face.png" alt="" width="50px;" width="70px;" />
+                    </a>
+                    </div>
+                    <div class="emaildetail">
+                    <div class="namecls">{{friend.ToId.email}}</div>                                   
+                    </div>
+                  </div>  -->
+
+                            <div class="panel panel-default">
+                            <a [routerLink]="['/customer/publicprofile/', friend.FromId._id]" >
+                            <div class="panel-heading myPanelHeading" *ngIf="friend.ToId.profilePic">
+                            <img src="{{url}}{{friend.FromId.profilePic}}" class="img-responsivenot" >
+                            </div>
+
+                            <div class="panel-heading myPanelHeading" *ngIf="!friend.ToId.profilePic" >
+                            <img src="/assets/images/face.png" class="img-responsivenot" >
+                            </div>
+                            </a>
+                            <div class="panel-body myPanelBody myBoxHeading">
+                            <p>
+                             {{friend.ToId.firstname}} {{friend.ToId.lastname}} 
+                            <a title="Video Call"></a>          
+                            </p>
+                            </div>
+                            <div class="panel-body myPanelBody">
+                            <ul id="menu">
+
+                            <li (click)="deleteBlockfrind(friend._id)"> 
+                            <a title="Unfriend" href="javascript:void(0)"> 
+                            <i class="fa fa-times-circle text-danger" aria-hidden="true"></i></a>
+                            </li>
+
+                                        
+                            <li *ngIf="checkforinvite(profile._id)" (click)="sendRequest(profile._id)">
+                            <a title="Add Friend" href="javascript:void(0)">
+                            <i class="fa fa-user-plus text-warning" aria-hidden="true"></i>
+                            </a>
+                            </li>
+
+                            </ul></div>
+                            </div>
+
+                <!--   <button (click)="deleteBlockfrind(friend._id)" class="btn btn-danger btnname">Unfriend</button> -->
+
+                   </div>
+
+
+
+                </span>
+                </div>
+              </div>    
+             </div> 
+
+
+
+            <div role="tabpanel" class="tab-pane" id="pending">
+           <!--  <h3 class="panel-title"><i class="fa fa-users"></i> Pending Requests </h3> -->
+            <br>
+         <div class="row panel-heading">
+                    <!-- <form [formGroup]="friendModel"(ngSubmit)="sendRequiest()"> -->
+         <div class="col-xs-6 col-sm-3 col-md-3 col-lg-3 placeholder"
+          *ngFor="let friend of friendacceptlst" >
+          <div class="panel panel-default">  
+          <a [routerLink]="['/customer/publicprofile/', friend._id]">
+
+          <div class="panel-heading myPanelHeading"*ngIf="friend.profilePic">
+          <img  src="{{url}}{{friend.profilePic}}"  class="img-responsivenot" >
+          </div>
+
+          <div class="panel-heading myPanelHeading" *ngIf="!friend.profilePic">
+          <img src="/assets/images/face.png" class="img-responsivenot" >
+          </div>
+        <div class="panel-body myPanelBody myBoxHeading">
+        <p> {{friend.firstname}} {{friend.lastname}}</p>
+        </div>
+
+
+                          <!-- <img *ngIf="friend.profilePic" src="{{url}}{{friend.profilePic}}" width="200" height="200" class="img-responsive" alt="Generic placeholder thumbnail" data-square="40000">
+                          <img *ngIf="!friend.profilePic" src="/assets/images/face.png" width="200" height="200" class="img-responsive" alt="Generic placeholder thumbnail" data-square="40000"> 
+                          <div class="namecls"> {{friend.email}}</div> -->
+
+                          </a>
+
+
+                          <!-- <span class="text-muted" *ngIf="friend.firstname">{{ friend.firstname }}</span> -->
+                          <!-- <span class="text-muted" *ngIf="friend.lastname">{{ friend.lastname }}</span> -->
+
+           <div class="panel-body myPanelBody">
+          <ul id="menu">
+           <span >
+
+                <li (click)="acceptRequiest(friend._id)"><a title="Accept" href="javascript:void(0)"> <i class="fa fa-check-circle text-warning" aria-hidden="true"></i> </a></li>
+
+                <li (click)="deleteBlock(friend._id)"> 
+                <a title="Cancel" href="javascript:void(0)"> <i class="fa fa-times-circle text-danger" aria-hidden="true"></i> </a>
+                </li>
+                </span></ul></div>
+                
+                        </div>
+                        </div>
+
+                    <!-- </form> -->
+
+                    </div>
+               </div>
+
+               <div role="tabpanel" class="tab-pane " id="blockuser" >
+               <!-- <h3 class="panel-title"><i class="fa fa-users"></i> Blocked Users </h3> -->
+               <br>
+                 <div class="col-xs-6 col-sm-3 col-md-3 col-lg-3 placeholder"
+                          *ngFor="let friend of blockrequiestfriendlst">
+
+                           <div class="panel panel-default">
+                             <a [routerLink]="['/customer/publicprofile/', friend.ToId._id]">
+                            <div class="panel-heading myPanelHeading" *ngIf="friend.ToId.profilePic">
+                            <img src="{{url}}{{friend.ToId.profilePic}}" class="img-responsivenot" >
+                            </div>
+
+                            <div class="panel-heading myPanelHeading" *ngIf="!friend.ToId.profilePic"  style="bottom: 21px;">
+                            <img src="/assets/images/face.png" class="img-responsivenot" >
+                            </div>
+                            </a>
+                            <div class="panel-body myPanelBody myBoxHeading">
+                            <p>
+                             {{ friend.ToId.firstname }} {{friend.ToId.lastname}}                                       
+                            </p>
+                            </div>
+
+                            <div class="panel-body myPanelBody">
+                            <ul id="menu">       
+                              <li (click)="deleteBlockfrind(friend._id)"> <a title="Unblock" href="javascript:void(0)"> <i class="fa fa-times-circle text-warning" aria-hidden="true"></i> </a></li>               
+                            </ul>
+                            </div>
+
+                            </div>
+
+
+
+                           <!-- <div style="border: 1px solid lightgrey;">
+                           <a target="_black" [routerLink]="['/customer/publicprofile/', friend.ToId._id]">
+                           <img *ngIf="!friend.ToId.profilePic" src="/assets/images/face.png" width="200" style="height: 100px" class="img-responsive" alt="Generic placeholder thumbnail" data-square="40000"> 
+
+                           <img *ngIf="friend.ToId.profilePic" src="{{url}}{{friend.ToId.profilePic}}" width="200" style="height: 100px" class="img-responsive" alt="Generic placeholder thumbnail" data-square="40000">
+                           </a>
+                          <div class="namecls"><span class="text-muted" *ngIf="friend.ToId.firstname">{{ friend.ToId.firstname }}</span>
+                          <span class="text-muted" *ngIf="friend.ToId.lastname">{{ friend.ToId.lastname }}</span></div> -->
+                          
+                         <!--  <div>
+                           <button (click)="deleteBlockfrind(friend._id)" class="btn btn-danger btnname">Unblock</button>
+                          </div> -->
+
+              
+
+
+                        <!-- </div> -->
+
+
+                </div>
+            </div>            
+    </div>
+  </div>
+</div>
+</div>
+</div>
+
+
+<app-customer-footer></app-customer-footer>

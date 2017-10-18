@@ -1,0 +1,64 @@
+<app-marketingnav></app-marketingnav>
+
+<div class="col-lg-9 col-md-9 col-sm-9 col-xs-9" style="background-color: #E9E9E8;min-height: 585px;">
+	<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 profile" id="firstDiv" style="">
+		<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 promotionHeading">
+			Make promo deals <br>and clients will:
+		</div>
+		<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6" style="text-align: -webkit-center;">
+			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 view">
+				Spend more per order
+			</div>
+			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+				<img src="./assets/images/promo_bag1.png">
+			</div>
+		</div>
+		<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6" style="text-align: -webkit-center;">
+			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 view">
+				Order more often
+			</div>
+			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+				<img src="./assets/images/promo_bar1.png">
+			</div>
+		</div>
+		<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="text-align: -webkit-center;padding: 10% 4% 4% 4%;">
+			<button class="btn btn-success" (click)="showDiv('secondDiv')">Show me how</button>
+		</div>
+	</div>
+
+	<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 profile" id="secondDiv" style="">
+		<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 promotionHeading">
+			How clients see <br> promo deals on mobile
+		</div>
+		<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="text-align: -webkit-center;">
+			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+				<img src="./assets/images/promo_display1.png">
+			</div>
+		</div>
+		<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6" style="padding:4%;">
+			<button type="button" class="btn" style="color: #fff;background-color: #999;"  (click)="showDiv('firstDiv')">Previous</button>
+		</div>
+		<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6" style="padding:4%;">
+			<button class="btn btn-success" (click)="showDiv('thirdDiv')" style="float: right;">Next</button>
+		</div>
+	</div>
+
+	<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 profile" id="thirdDiv" style="">
+		<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 promotionHeading">
+			How clients see <br> promo deals on desktop
+		</div>
+		<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="text-align: -webkit-center;">
+			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+				<img src="./assets/images/promo_displayOnDesktop.png">
+			</div>
+		</div>
+		<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6" style="padding:4%;">
+			<button type="button" class="btn" style="color: #fff;background-color: #999;"  (click)="showDiv('secondDiv')">Previous</button>
+		</div>
+		<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6" style="padding:4%;">
+			<a [routerLink]="['/owner/marketing/promotions']">
+				<button class="btn btn-success" style="float: right;">Get started</button>
+			</a>
+		</div>
+	</div>
+</div>

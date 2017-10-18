@@ -1,0 +1,79 @@
+<div id="wrapper">
+  <app-header></app-header>
+  <div id="page-wrapper">
+    <router-outlet>
+      <div class="container-fluid">
+        <div class="row page-header">
+          <div class="col-lg-6">
+            <h1 class="">
+              Promotions
+            </h1>
+          </div>
+          <div class="col-lg-6" style="padding: 18px 15px;" *ngIf="promotions.length < 7">
+            <a class="btn btn-primary pull-right" [routerLink]="['/admin/promotion/add']">Add Promotion</a>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-12">
+            <!-- <alert></alert> -->
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-lg-3 col-sm-4 form-group pull-right">
+            <input type="text" [(ngModel)]="userFilter.name" placeholder="Name" class="form-control">
+          </div>
+          <div class="col-lg-12">
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <div class="row">
+                  <h3 class="panel-title pull-left"><i class="fa fa-life-saver" style="padding-left: 15px;"></i> Promotion List</h3>
+                </div>
+              </div>
+              <div class="panel-body">
+                <div class="table-responsive">
+                  <table class="table table-bordered table-hover table-striped">
+                    <thead>
+                      <tr>
+                        <th><a (click)="sortBy('name')" href="javascript:void(0)">Name</a></th>
+                        <!--<th><a (click)="sortBy('ownerId')" href="javascript:void(0)">Owner Id</a></th>-->
+                        <th>Action</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let promotion of promotions|orderBy:order : reverse| filterBy: userFilter">
+                        <td>
+                          <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 promotionIcon" style="text-align: -webkit-center;font-size: x-large;">
+                            <!-- <span><i class="fa fa-{{promotion.image}}"></i></span> -->
+                            <img src="{{imageUrl}}{{promotion.image}}" class="img-responsive">
+                          </div>
+                          <div class="col-lg-11 col-md-11 col-sm-11 col-xs-11" style="padding: 0;">
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="padding: 0;font-size: larger;">
+                              <b>{{promotion.name}}</b>
+                            </div>
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="padding: 0;font-size: smaller;">
+                              {{promotion.desc}}
+                            </div>
+                          </div>
+                        </td>
+                        <!--<td>{{restaurant.ownerId}}</td>-->
+                        <td style="text-align: -webkit-center;font-size: large;">
+                          <a  [routerLink]="['/admin/promotions/',promotion._id]"><i class="fa fa-pencil"></i></a>
+                          <a  (click)="deletePromotions(promotion._id)" href="javascript:void(0)"><i class="fa fa-trash"></i></a>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <div class="text-right">
+                  <!-- <a href="#">View All Transactions <i class="fa fa-arrow-circle-right"></i></a> -->
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </router-outlet>
+  </div>
+</div>
+

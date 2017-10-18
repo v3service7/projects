@@ -1,0 +1,57 @@
+<div id="wrapper">
+  	<app-header></app-header>
+  	<div id="page-wrapper">
+    	<router-outlet>
+    		<div class="container-fluid">
+    			<div class="row newmargin11">
+                    <div class="col-lg-12">
+                        <h1 >
+                            Users <small> View</small>
+                        </h1>
+                        <ol class="breadcrumb">
+                            <li class="active">
+                                <i class="fa fa-users"></i> Users Abused Report
+                            </li>
+                            <a [routerLink]="['/admin/customer/list']" class="pull-right"> Back </a>
+                        </ol>
+                    </div>
+                </div>              
+
+                <div class="row">                   
+                    <div class="col-lg-12">
+                    	<div class="panel panel-default">                            
+                            <div class="panel-body" *ngIf="this.details">
+                                <div class="table-responsive" *ngIf="this.details.length > 0">
+                                    <table class="table table-bordered table-hover table-striped">
+                                       <thead>
+                                       <tr>
+                                          
+                                           <th>Abuse Reported By</th>
+                                           <th>Abused Reported For</th>
+                                           <th>Description</th>      
+
+                                       </tr>
+                                       </thead>
+                                       <tbody>
+                                            <tr *ngFor="let user of details">
+                                                
+                                                 <td>{{user.FromId.firstname}} {{user.FromId.lastname}} </td>
+
+                                                  <td>{{user.ForId.firstname}} {{user.ForId.lastname}} ({{user.ForId.email}}) </td>
+                                                <td>{{user.description}}</td>
+                                                
+                                                         
+                                            </tr>
+                                       </tbody>
+                                    </table>
+                                </div>
+                                <div class="text-right">                                   
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+    		</div>
+		</router-outlet>
+  	</div>
+</div>

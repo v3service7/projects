@@ -1,0 +1,74 @@
+page-customer{
+	.displayBlock{
+		display : block !important;
+	}
+	
+	.customerName{
+		font-size : 18px;
+		font-weight : 500;
+		padding-left : 2%;
+	}
+
+	.card-subtitle{
+		padding-top : 10px;
+		padding-bottom : 10px;
+	}
+
+	.font20{
+		font-size : 20px !important;
+	}
+
+	.customerImage{
+		height: 140px;
+	}
+
+	.bottomIcon img{
+		width : 15px !important;
+	    margin-left: 12px;
+	}
+
+	ion-card{
+		box-shadow: 0 2px 2px 0 #888888, 0 3px 1px -2px #888888, 0 1px 5px 0 #888888 !important;
+	}
+
+	.custDetail{
+		width: 93%;
+	    position: absolute;
+	    bottom: 20%;
+        background: rgba(0, 0, 0, 0.5);
+	}
+
+	.padding2-0{
+		padding : 2% 0;
+	}
+
+	.onlineMark{
+		font-size : 12px;
+	}
+
+	.white{
+		color : white !important;
+	}
+
+	.width25{
+		width : 25% !important;
+	}
+
+	.ulIcon{
+        margin: 6px;
+	    list-style: none;
+	    display: inline-flex;
+	    padding : 0 !important;
+	}
+
+	.ulIcon li ion-icon{
+		font-size: 30px;
+	    padding: 0 10px;
+	}
+
+	.ulIcon span{
+        display: inline-flex;
+	}
+
+
+}

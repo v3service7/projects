@@ -1,0 +1,35 @@
+<app-headerowner></app-headerowner>
+
+<div class="rightMenu col-lg-9 col-md-9 col-sm-9 custom_chng_menu clsforDriver" style="background-color: #E9E9E8;height: 585px;">
+  <!-- <alert></alert> -->
+  <div class="menuSetup clsforDrivermenu" id="Menu11" style="background-color: #E9E9E8;">
+    <div class="row">
+    
+  <div>
+    <a [routerLink]="['/owner/driver-add']" title="Add Item" class="btn btn-success"><i class="fa fa-plus" aria-hidden="true"></i> Add Driver</a>
+  </div>
+
+   <div *ngFor="let driver of drivers" class="col-lg-9 col-md-9 col-sm-9 col-xs-9">
+    <div class="mainMenuItem" >
+      <div class="itemImage col-lg-2 col-md-2 col-sm-2 col-xs-2">
+      <code>{{driver.vehicleType}}</code> 
+     </div>
+
+      <div class="itemDesc col-lg-8 col-md-8 col-sm-8 col-xs-8 custom_menu_color">
+       {{driver.firstname}} {{driver.lastname}}
+       <div class="fontcst">
+       <i>{{driver.vehicleNo}}</i>
+       </div>
+      </div>
+
+      <div class="icons col-lg-2 col-md-2 col-sm-2 col-xs-2" style="">                    
+        <a title = "Edit" [routerLink]="['/owner/drivers',driver._id]"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+        <a title = "Delete" (click)="deleteDrivers(driver._id)" href="javascript:void(0);"><i class="fa fa-trash" aria-hidden="true"></i></a>            
+        <a title = "View Report" [routerLink] = "['/owner/driver-orders',driver._id]"><i class="fa fa-eye" aria-hidden="true"></i></a>            
+      </div>
+
+    </div>
+  </div>
+   </div>
+</div>
+</div>

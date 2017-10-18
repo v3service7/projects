@@ -1,0 +1,27 @@
+page-friend {
+
+	ion-navbar .toolbar-background{
+		border : none !important;
+	}
+	
+	ion-content { 
+		padding : 5px;
+	}
+
+	.bcColor ion-col{
+		color : white !important;
+	}
+
+	.bcColor{
+		padding : 5px 0;
+	}
+
+	.activeTab1{
+		font-weight : 600;
+	}
+
+	.activeTab2 , .activeTab3{
+		font-weight : 300;
+	}
+
+}

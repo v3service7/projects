@@ -1,0 +1,26 @@
+<app-reporting-nav></app-reporting-nav>
+
+<div  class="col-lg-9 col-md-9 col-sm-9 col-xs-9 minheight585">
+	<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding3">
+		<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 minHeight20px padding19px colorWhite fontWeight700 fontSmall" style="background-color:#737373;">
+			<div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">Id</div>
+			<div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">Fulfillment Time</div>
+			<div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">Type</div>
+			<div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">Client</div>
+			<div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">Total</div>
+			<div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">Status</div>
+		</div>
+		<div  *ngFor="let order of orders" class="col-lg-12 col-md-12 col-sm-12 col-xs-12 cursorPointer minHeight20px padding15px19px alternateColor" (click) = "showOrderDetail(order._id)">
+			<div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">{{order._id.substr(18,6)}}</div>
+			<div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+				<span class="color666 fontWeight700">{{order.created_at | date : "shortTime"}}</span><br>
+				<span>{{order.created_at | date : format :"MMM d, y"}}</span>
+			</div>
+			<div class="col-lg-2 col-md-2 col-sm-2 col-xs-2"> <div *ngIf="order.orderMethod">{{order.orderMethod.mType}}</div></div>
+			<div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">{{order.customerId.firstname}} {{order.customerId.lastname}}</div>
+			<div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 fontWeight700 color666">{{order.gTotal.toFixed(2)}}</div>
+			<div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 padding0">{{order.status}}</div>
+		</div>
+	</div>
+
+</div>

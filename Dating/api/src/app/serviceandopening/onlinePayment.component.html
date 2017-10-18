@@ -1,0 +1,359 @@
+<app-headerowner></app-headerowner>
+
+<div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 minheight585"  id="firstSection">
+	<div id="Menu18" class="profile col-lg-12 col-md-12 col-sm-12 col-xs-12 formatingProfile">
+		<form [formGroup]="paymentConfirmModel" (ngSubmit)="acceptOnlinePayment()">
+			<div class="firstDiv col-lg-12 col-md-12 col-sm-12 col-xs-12" style="box-shadow: 0 -1px 0 #d5d5d3, inset 0 1px 0 rgba(0, 0, 0, .04);">  
+				<span class="">Online Payment</span>
+				<input type="submit" class="btn btn-next" id="submitButton" value="Next" style="float: right;" [disabled]="!paymentConfirmModel.valid" />
+			</div>
+			<div class="secondDiv col-lg-12 col-md-12 col-sm-12 col-xs-12" style="box-shadow: 0 -1px 0 #d5d5d3, inset 0 1px 0 rgba(0, 0, 0, .04); border-bottom: 1px solid #d5d5d3;">   
+				<div class="col-sm-8 payment_text"> Accept online / credit card payments? </div>
+				<div class="col-sm-4">
+					<div class="input-group">
+						<span class="input-group-addon" class="btn pickupindegate1" [ngClass]="btn_class1" (click)="onlineYesUpdate()" >Yes</span>
+						<span class="input-group-addon" class="btn pickupindegate2" [ngClass]="btn_class2" (click)="onlineNoUpdate()" >No</span>
+					</div>
+				</div>
+			</div> 
+			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 settings-content" id="showCards">
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 fontWeight" >
+					Allow my clients to pay with:
+				</div>
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="padding: inherit;">
+					<div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+						<i class="fa fa-cc-visa" aria-hidden="true" style="font-size: xx-large;"></i>
+					</div>
+					<div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+						<i class="fa fa-cc-mastercard" aria-hidden="true" style="font-size: xx-large;"></i>
+					</div>
+					<div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+						<i class="fa fa-cc-amex" aria-hidden="true" style="font-size: xx-large;"></i>
+					</div>
+					<div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+						<i class="fa fa-cc-discover" aria-hidden="true" style="font-size: xx-large;"></i>
+					</div>
+				</div>
+			</div> 
+		</form>
+	</div>
+</div>
+
+<div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 minheight585" id="secondSection">
+	<div id="" class="profile col-lg-12 col-md-12 col-sm-12 col-xs-12 formatingProfile">
+		<form>
+			<div class="firstDiv col-lg-12 col-md-12 col-sm-12 col-xs-12" style="box-shadow: 0 -1px 0 #d5d5d3, inset 0 1px 0 rgba(0, 0, 0, .04);">  
+				<input type="button" class="btn" id="backButton" value="Back" style="float: left;" (click)="goFurther('firstSection')">
+				<span class="" style="padding: inherit;">Online Payments</span>
+			</div>
+			<div class="secondDiv col-lg-12 col-md-12 col-sm-12 col-xs-12" style="box-shadow: 0 -1px 0 #d5d5d3, inset 0 1px 0 rgba(0, 0, 0, .04); border-bottom: 1px solid #d5d5d3;">
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 fontWeight" style="padding: 15px 15px 30px 15px;">
+					To receive online credit card payments each restaurant needs it own:
+				</div>
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="border: 1px solid #d6d6d4;">
+					<div class="col-lg-8 col-md-8 col-sm-8 col-xs-8" style="border-right: 1px solid #d6d6d4;padding: 20px 0 20px 0;">
+						<div class="col-lg-1 col-md-1 col-sm-1 col-xs-1" style="padding: 0;">
+							<span class="numberingInCircle"> 1.</span>
+						</div>
+						<div class="col-lg-11 col-md-11 col-sm-11 col-xs-11" style="padding: 0;"> 
+							<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 fontWeight" > Payment Gateway </div>
+							<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">Like a bank that holds the account where client payments accumulate.</div> 
+						</div>
+					</div>
+					<div class="col-lg-4 col-md-4 col-sm-4 col-xs-4" style="padding: 20px 0 20px 0;" >
+						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+							They charge their fees directly
+						</div>
+					</div>
+				</div>
+				
+
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="background-color: white;text-align: center; cursor: pointer;border: 1px solid #d6d6d4;" (click)="showDetail()">
+					<a href="javascript:void(0)" style="color: #70c973; "><i class="fa fa-chevron-down" aria-hidden="true"></i> About: Activation / Cancellation / Refund <i class="fa fa-chevron-down" aria-hidden="true"></i></a>
+				</div>
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 activationDetail" *ngIf="show">
+					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="background-color: white;padding: 15px;border: 1px solid #d6d6d4;">
+						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="padding: 15px;border-bottom: 1px solid #d6d6d4;">
+							<div class=" fontWeight" style="font-size: smaller;">ACTIVATION</div>
+							<div class="">Depending on the payment gateway this may take a few hours or a few days.</div>
+						</div>
+						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="padding: 15px;border-bottom: 1px solid #d6d6d4;">
+							<div class=" fontWeight" style="font-size: smaller;">CANCELLATION</div>
+							<div class="">The cancellation process is up to your chosen payment gateway.</div>
+						</div>
+						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="padding: 15px;">
+							<div class=" fontWeight" style="font-size: smaller;">REFUND</div>
+							<div class="">Refunds are not handled by the ordering system. The payment gateway dashboard can be used to initiate refunds to food clients.</div>
+						</div>
+					</div>
+				</div>
+
+
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="border: 1px solid #d6d6d4;">
+					<div class="col-lg-8 col-md-8 col-sm-8 col-xs-8" style="border-right: 1px solid #d6d6d4;padding: 20px 0 20px 0;">
+						<div class="col-lg-1 col-md-1 col-sm-1 col-xs-1" style="padding: 0;">
+							<span class="numberingInCircle"> 2.</span>
+						</div>
+						<div class="col-lg-11 col-md-11 col-sm-11 col-xs-11" style="padding: 0;"> 
+							<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 fontWeight" > Online / Credit Card payment service </div>
+							<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">Connects the online ordering system with the payment gateway. Money does not pass through us.</div> 
+						</div>
+					</div>
+					<div class="col-lg-4 col-md-4 col-sm-4 col-xs-4" style="padding: 50px 0 50px 0;" >
+						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" (click)="goFurther('thirdSection')">
+							<input type="button" class="btn btn-next" value="Activate Now" style="width: 100%;" >
+						</div>
+					</div>
+				</div>
+			</div>
+		</form>
+	</div>
+</div>
+
+<div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 minheight585" id="thirdSection">
+	<div id="" class="profile col-lg-12 col-md-12 col-sm-12 col-xs-12 formatingProfile">
+		<form>
+			<div class="firstDiv col-lg-12 col-md-12 col-sm-12 col-xs-12" style="box-shadow: 0 -1px 0 #d5d5d3, inset 0 1px 0 rgba(0, 0, 0, .04);">  
+				<input type="button" class="btn" id="backButton" value="Back" style="float: left;" (click)="goFurther('secondSection')">
+				<span class="" style="padding: inherit;">Confirm your purchase</span>
+				<input type="button" class="btn btn-next" value="Subscribe" style="float: right;" (click)="goFurther('forthSection')">
+			</div>
+			<div class="secondDiv col-lg-12 col-md-12 col-sm-12 col-xs-12" style="box-shadow: 0 -1px 0 #d5d5d3, inset 0 1px 0 rgba(0, 0, 0, .04); border-bottom: 1px solid #d5d5d3;">
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="border: 1px solid #d6d6d4;">
+					<div class="col-lg-8 col-md-8 col-sm-8 col-xs-8" style="border-right: 1px solid #d6d6d4;padding: 20px 0 20px 0;">
+						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="padding: 0;"> 
+							<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" > Online / Credit card payment services </div>
+							<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">Connects this online ordering system with a payment gateway. Money does not pass through us.</div> 
+						</div>
+					</div>
+					<div class="col-lg-4 col-md-4 col-sm-4 col-xs-4" style="padding: 20px 0 20px 0;" >
+						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 fontWeight">
+							$30.00 / month
+						</div>
+					</div>
+				</div>
+				
+
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="background-color: white;text-align: center; cursor: pointer;border: 1px solid #d6d6d4;" (click)="showDetail()">
+					<a href="javascript:void(0)" style="color: #70c973; "><i class="fa fa-chevron-down" aria-hidden="true"></i> About: Activation / Cancellation / Refund <i class="fa fa-chevron-down" aria-hidden="true"></i></a>
+				</div>
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 activationDetail" *ngIf="show">
+					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="background-color: white;padding: 15px;border: 1px solid #d6d6d4;">
+						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="padding: 15px;border-bottom: 1px solid #d6d6d4;">
+							<div class=" fontWeight" style="font-size: smaller;">ACTIVATION</div>
+							<div class="">Depending on the payment gateway this may take a few hours or a few days.</div>
+						</div>
+						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="padding: 15px;border-bottom: 1px solid #d6d6d4;">
+							<div class=" fontWeight" style="font-size: smaller;">CANCELLATION</div>
+							<div class="">The cancellation process is up to your chosen payment gateway.</div>
+						</div>
+						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="padding: 15px;">
+							<div class=" fontWeight" style="font-size: smaller;">REFUND</div>
+							<div class="">Refunds are not handled by the ordering system. The payment gateway dashboard can be used to initiate refunds to food clients.</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</form>
+	</div>
+</div>
+
+<div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 minheight585" id="forthSection">
+	<div class="profile col-lg-12 col-md-12 col-sm-12 col-xs-12 formatingProfile">
+		
+		<form [formGroup]="billingDetailModel" (ngSubmit)="goFurther('fifthSection')">
+		
+			<div class="firstDiv col-lg-12 col-md-12 col-sm-12 col-xs-12" style="box-shadow: 0 -1px 0 #d5d5d3, inset 0 1px 0 rgba(0, 0, 0, .04);">
+				<input type="button" class="btn" id="backButton" value="Back" style="float: left;" (click)="goFurther('thirdSection')">
+				<span class="" style="padding: inherit;"> Billing settings </span>
+				<input type="submit" class="btn btn-next" id="submitButton" value="Next" style="float: right;" [disabled]="!billingDetailModel.valid" />
+			</div>
+			<div class="secondDiv col-lg-12 col-md-12 col-sm-12 col-xs-12" style="box-shadow: 0 -1px 0 #d5d5d3, inset 0 1px 0 rgba(0, 0, 0, .04); border-bottom: 1px solid #d5d5d3;">
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 fontWeight formField">
+					Business type:
+				</div>
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+					<select class="form-control" formControlName="businessType">
+                        <option>Purchase as business/ company</option>
+                        <option>Purchase as person/ individual</option>
+                    </select>
+				</div>
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 fontWeight">
+					Billing address (appears on invoice):
+				</div>
+
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 formField">
+					<div class="input-group gfe-input">
+                        <span class="input-group-addon">
+                           <i class="fa fa-university" aria-hidden="true"></i>
+                        </span>
+                        <input type="text" class="form-control" placeholder="Company Name (legal entity)*" formControlName="companyName">
+                    </div>
+				</div>
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 formField">
+					<div class="input-group gfe-input">
+                        <span class="input-group-addon">
+                           <i class="fa fa-user" aria-hidden="true"></i>
+                        </span>
+                        <input type="text" class="form-control" placeholder="First Name *" formControlName="fName" style="width: 50%;">
+                        <input type="text" class="form-control" placeholder="Last Name *" formControlName="lName" style="width: 50%;">
+                    </div>
+				</div>
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 formField">
+					<div class="input-group gfe-input">
+                        <span class="input-group-addon">
+                           <i class="fa fa-map-marker" aria-hidden="true"></i>
+                        </span>
+                        <input type="text" class="form-control" placeholder="Address *" formControlName="address">
+                    </div>
+				</div>
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 formField">
+					<div class="input-group gfe-input">
+                        <span class="input-group-addon">
+                           <i class="fa fa-map" aria-hidden="true"></i>
+                        </span>
+                        <input type="text" class="form-control" placeholder="City *" formControlName="city" style="width: 50%;">
+                        <input type="text" class="form-control" placeholder="Zipcode *" formControlName="zipcode" style="width: 50%;">
+                    </div>
+				</div>
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 formField">
+					<input type="text" class="form-control" placeholder="Enter your Country *" formControlName="country">
+				</div>
+			</div> 
+		</form>
+	</div>
+</div>
+
+<div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 minheight585" id="fifthSection">
+	<div class="profile col-lg-12 col-md-12 col-sm-12 col-xs-12 formatingProfile">
+		
+		<form [formGroup]="cardDetailModel" (ngSubmit)="cardDetailSubmit('sixthSection')">
+		
+			<div class="firstDiv col-lg-12 col-md-12 col-sm-12 col-xs-12" style="box-shadow: 0 -1px 0 #d5d5d3, inset 0 1px 0 rgba(0, 0, 0, .04);">
+				<input type="button" class="btn" id="backButton" value="Back" style="float: left;" (click)="goFurther('forthSection')">
+				<span class="" style="padding: inherit;"> Card details </span>
+				<input type="submit" class="btn btn-next" value="Next" style="float: right;" [disabled]="!cardDetailModel.valid" />
+			</div>
+			<div class="secondDiv col-lg-12 col-md-12 col-sm-12 col-xs-12" style="box-shadow: 0 -1px 0 #d5d5d3, inset 0 1px 0 rgba(0, 0, 0, .04); border-bottom: 1px solid #d5d5d3;">
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 fontWeight formField">
+					Your credit card details:
+				</div>
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 formField">
+					<div class="input-group gfe-input" style="width: 100%;">
+                        <input type="text" class="form-control" placeholder="First Name *" formControlName="fName" style="width: 50%;">
+                        <input type="text" class="form-control" placeholder="Last Name *" formControlName="lName" style="width: 50%;">
+                    </div>
+				</div>
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 formField">
+					<div class="input-group gfe-input" style="width: 100%;">
+                        <input type="text" class="form-control" placeholder="Card Number *" formControlName="cardNumber">
+                    </div>
+                    <div *ngIf="formErrors.cardNumber" class="alert alert-danger">
+                       {{ formErrors.cardNumber }}
+                    </div>
+				</div>
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 formField">
+					<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6" style="padding: 0;">
+						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="padding: 0;">Expiry Month</div>
+						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="padding: 0;">
+							<select class="form-control" formControlName = "month">
+								<option *ngFor="let month of months">{{month}}</option>
+							</select>
+						</div>
+					</div>
+					<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6" style="padding: 0;">
+						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="padding: 0;">Expiry Year</div>
+						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="padding: 0;">
+							<select class="form-control" formControlName = "year">
+								<option *ngFor="let year of years">{{year}}</option>
+							</select>
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+					<input type="text" name="" class="form-control" formControlName = "cvv" placeholder="CVV">
+				</div>
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 fontWeight formField">
+					Card holder mobile number:
+				</div>
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 formField">
+					<div class="input-group gfe-input" style="width: 100%;">
+                        <input type="text" class="form-control" placeholder="Phone Number *" formControlName="phoneNumber">
+                    </div>
+				</div>
+			</div> 
+		</form>
+	</div>
+</div>
+
+<div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 minheight585" id="sixthSection">
+	<div class="profile col-lg-12 col-md-12 col-sm-12 col-xs-12 formatingProfile">
+		
+		<form [formGroup]="providerModel" (ngSubmit)="providerSetting()">
+		
+			<div class="firstDiv col-lg-12 col-md-12 col-sm-12 col-xs-12" style="box-shadow: 0 -1px 0 #d5d5d3, inset 0 1px 0 rgba(0, 0, 0, .04);">
+				<!-- <input type="button" class="btn" id="backButton" value="Back" style="float: left;" (click)="goBackonFifthSection()"> -->
+				<span class="" style="padding: inherit;"> Provider Settings </span>
+				<input type="submit" class="btn btn-next" value="Connect" style="float: right;" [disabled]="!providerModel.valid" />
+			</div>
+			<div class="secondDiv col-lg-12 col-md-12 col-sm-12 col-xs-12" style="box-shadow: 0 -1px 0 #d5d5d3, inset 0 1px 0 rgba(0, 0, 0, .04); border-bottom: 1px solid #d5d5d3;">
+				
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 formField">
+					Insert your merchant account access details. This way you trigger your payment processor to charge your client's credit card into the account you mention here.
+				</div>
+
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 formField">
+					<div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+						<label>Gateway ID</label>
+					</div>
+					<div class="col-lg-8 col-md-8 col-sm-8 col-xs-8 input-group gfe-input">
+                        <input type="text" class="form-control" placeholder="Gateway ID *" formControlName="gatewayId" style="width: 100%;">
+                    </div>
+				</div>
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 formField">
+					<div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+						<label>Terminal Password</label>
+					</div>
+					<div class="col-lg-8 col-md-8 col-sm-8 col-xs-8 input-group gfe-input">
+                        <input type="text" class="form-control" placeholder="Terminal Password *" formControlName="terminalPass" style="width: 100%;">
+                    </div>
+				</div>
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 formField">
+                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+	                    <label>API Key</label>
+					</div>
+					<div class="col-lg-8 col-md-8 col-sm-8 col-xs-8 input-group gfe-input">
+                        <input type="text" class="form-control" placeholder="API Key *" formControlName="apiKey" style="width: 100%;">
+                    </div>
+				</div>
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 formField">
+                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                    	<label>Secret Key</label>
+                    </div>
+					<div class="col-lg-8 col-md-8 col-sm-8 col-xs-8 input-group gfe-input">
+                        <input type="text" class="form-control" placeholder="Secret Key *" formControlName="secretKey" style="width: 100%;">
+                    </div>
+				</div>
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="border: 1px solid #d6d6d4; padding: 15px;">
+						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 fontWeight">
+							Good to know when connecting with First Data/ Payeezy
+						</div>
+						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+							Please make sure that you are using the <strong>First Data Global Gateway E4 also known as Payeeze</strong>
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 formField">
+	                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+	                	<label style="padding: 6px 12px; width: 100%;">Currency</label>
+	                </div>
+					<div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
+	                    <label style="padding: 6px 12px; width: 100%;"> USD (US Dollar)</label>
+	                </div>
+				</div>
+			</div>
+		</form>
+	</div>
+</div>
+

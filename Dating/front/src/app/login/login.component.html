@@ -1,0 +1,419 @@
+<header> 
+    <div class="overlay">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-2 logo">
+                    <img src="assets/images/logo.png" alt="" />
+                </div>
+                <div class="col-md-4" id="hometop">
+                    <div class="bannerText">
+                        <h1>Meet New People  Online</h1>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="loginForm1 pull-right">
+                        <form [formGroup]="loginForm" (ngSubmit)="loginCustomer()">                          
+                            <input type="email" name="email" formControlName="email" placeholder="Email Address" >
+                            <input type="password" name="password" formControlName="password" placeholder="Enter Password" >
+                            <button class="btn-danger" [disabled]="!loginForm.valid">Login</button>
+                        </form>
+                    </div>
+                    <div class="forgotPassLink pull-ridht">
+                        <a data-toggle="modal" data-target="#myModal">Forgot Password?</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-7 " style="text-align:center" >
+                    <div class="videoUiWrapper thumbnail" style="margin-top: 30px;">
+                        <video width="370" height="214" id="demo1">
+                            <source src="assets/images/170426testVideo.mp4" type="video/ogg"> 
+                                <source src="assets/images/170426testVideo.mp4" type="video/mp4">
+                                </video>
+                            </div>
+                            <div class="bannerText">
+                                <h2>Video chat, Meet, Make New Friends</h2>
+                            </div>
+                        </div>
+                        <div class="col-md-5">
+                            <div class="registerForm">
+                                <form role="form" [formGroup]="userRegistrationForm" (ngSubmit)="userRegistration()">
+                                    <div class="formRow">
+                                        <label for="firstname">First Name</label>
+                                        <input  type="text" formControlName="firstname" id="firstname" placeholder="First Name" required>
+                                    </div>
+                                    <div class="formRow">
+                                        <label for="lastname">Last Name</label>
+                                        <input  type="text"  formControlName="lastname" id="lastname" placeholder="Last Name"  required>
+                                    </div>
+                                    <div class="formRow">
+                                        <label for="email">Email Address</label>
+                                        <input  type="email"  formControlName="email" id="email" placeholder="email"  required>
+                                    </div>
+                                    <div class="formRow">
+                                        <label for="password">Password</label>
+                                        <input type="password" formControlName="password"  placeholder="Password" />
+                                    </div>
+                                    <div class="formRow">
+                                        <label for="">Gender</label>
+                                        <ul>
+                                            <li style="width: 100%;">
+                                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="text-align: center;">
+                                                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6"><input type="radio" formControlName="gender" name="gender" value="male"> Male</div>
+                                                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6"><input type="radio" formControlName="gender" name="gender" value="female"> Female</div>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="formRow text-center">
+                                        <!-- <button >Register</button> -->
+                                        <button class="btn-danger" [disabled]="!userRegistrationForm.valid">Register</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <section class="content2">
+            <div class="overlay2">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-4 col-md-offset-8">
+                            <ul class="pull-right content2ul">
+                                <li>
+                                    <i class="fa fa-circle-o"></i>
+                                    <span>REGISTER NOW</span>
+                                </li>
+                                <li>
+                                    <i class="fa fa-circle-o"></i>
+                                    <span>COMPLETE YOUR PROFILE</span>
+                                </li>
+                                <li>
+                                    <i class="fa fa-circle-o"></i>
+                                    <span>ANALYZE MEMBERS</span>
+                                </li>
+                                <li>
+                                    <i class="fa fa-circle-o"></i>
+                                    <span>START TEXT/VIDEO CHAT</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="content3">
+            <!-- Head tags to include FontAwesome -->
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12 text-center">
+                        <!--<h2>Responsive Quote Carousel BS3</h2>-->
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="carousel slide" data-ride="carousel" id="quote-carousel">
+                            <!-- Bottom Carousel Indicators -->
+                            <ol class="carousel-indicators">
+                                <li data-target="#quote-carousel" data-slide-to="0" class="active"></li>
+                                <li data-target="#quote-carousel" data-slide-to="1"></li>
+                                <li data-target="#quote-carousel" data-slide-to="2"></li>
+                            </ol>
+
+                            <!-- Carousel Slides / Quotes -->
+                            <div class="carousel-inner">
+
+                                <!-- Quote 1 -->
+                                <div class="item active">
+                                    <blockquote>
+                                        <div class="row">
+                                            <div class="col-sm-3 text-center">
+                                                <img class="img-circle" src="http://www.reactiongifs.com/r/overbite.gif">
+                                                <!--<img class="img-circle" src="https://s3.amazonaws.com/uifaces/faces/twitter/kolage/128.jpg" style="width: 100px;height:100px;">-->
+                                            </div>
+                                            <div class="col-sm-9">
+                                                <p class="tesimonial-right-margin">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but als.</p>
+                                                <small>Someone famous</small>
+                                            </div>
+                                        </div>
+                                    </blockquote>
+                                </div>
+                                <!-- Quote 2 -->
+                                <div class="item">
+                                    <blockquote>
+                                        <div class="row">
+                                            <div class="col-sm-3 text-center">
+                                                <img class="img-circle" src="https://s3.amazonaws.com/uifaces/faces/twitter/mijustin/128.jpg" >
+                                            </div>
+                                            <div class="col-sm-9">
+                                                <p class="tesimonial-right-margin">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also</p>
+                                                <small>Someone famous</small>
+                                            </div>
+                                        </div>
+                                    </blockquote>
+                                </div>
+                                <!-- Quote 3 -->
+                                <div class="item">
+                                    <blockquote>
+                                        <div class="row">
+                                            <div class="col-sm-3 text-center">
+                                                <img class="img-circle" src="https://s3.amazonaws.com/uifaces/faces/twitter/keizgoesboom/128.jpg" >
+                                            </div>
+                                            <div class="col-sm-9">
+                                                <p class="tesimonial-right-margin">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also </p>
+                                                <small>Someone famous</small>
+                                            </div>
+                                        </div>
+                                    </blockquote>
+                                </div>
+                            </div>
+
+                            <!-- Carousel Buttons Next/Prev -->
+                            <a data-slide="prev" href="#quote-carousel" class="left carousel-control">
+                            <i class="fa fa-chevron-left"></i></a>
+                            <a data-slide="next" href="#quote-carousel" class="right carousel-control"><i class="fa fa-chevron-right"></i></a>
+                        </div>                          
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="content4">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-4 content4Div colorOne">
+                        <div>
+                            <i class="fa fa-file-text-o"></i>
+                            <p>
+                                <a href="#hometop">Register Now</a>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-md-4 content4Div colorTwo">
+                        <div>
+                            <i class="fa fa-user"></i>
+                            <p>
+                                <a href="#hometop">Create a profile</a>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-md-4 content4Div colorThree">
+                        <div>
+                            <i class="fa fa-heart-o"></i>
+                            <p>
+                                <a href="#hometop">Find true love</a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="content3">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h3>Latest Added Profiles</h3>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                       <ul class="addedProfiles" *ngIf="profiles.length > 0">
+                            <li *ngFor="let profile of profiles">
+                                <a href="javascript:void(0)">
+
+                                    <img *ngIf="profile.profilePic" src="{{url}}{{profile.profilePic}}" alt="" class="img-responsive" style="width: 170px; height: 170px;">
+
+                                    <img *ngIf="!profile.profilePic" src="/assets/images/img_avatar2.png" alt="" class="img-responsive" style="width: 170px; height: 170px;">
+
+                                    <p *ngIf="profile.firstname">{{profile.firstname}} {{profile.lastname}}</p>
+
+                                    <p *ngIf="!profile.firstname">  ----- </p> 
+                                    <span>
+                                    <span *ngIf="profile.age">Age {{profile.age}} , </span>  <span *ngIf="!profile.age">Age - </span>
+                                    <span *ngIf="profile.country">{{profile.country.name}}</span>
+                                    <span *ngIf="!profile.country"> </span>
+                                    </span>
+                                </a>
+                            </li>
+                       </ul>
+                        <!-- <ul class="addedProfiles" *ngIf="profiles.length != 6">
+                            <li>
+                                <a href="javascript:void(0)">
+                                    <img src="assets/images/user1.png" alt="" class="img-responsive">
+                                    <p>Monica</p>
+                                    <span>Age 20, London</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="javascript:void(0)">
+                                    <img src="assets/images/user2.png" alt="" class="img-responsive">
+                                    <p>Lisa</p>
+                                    <span>Age 25, New York</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="javascript:void(0)">
+                                    <img src="assets/images/user3.png" alt="" class="img-responsive">
+                                    <p>Mike</p>
+                                    <span>Age 28, Washington</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="javascript:void(0)">
+                                    <img src="assets/images/user4.png" alt="" class="img-responsive">
+                                    <p>Natali</p>
+                                    <span>Age 19, Lynchberg</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="javascript:void(0)">
+                                    <img src="assets/images/user5.png" alt="" class="img-responsive">
+                                    <p>Jessica</p>
+                                    <span>Age 18, London</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="javascript:void(0)">
+                                    <img src="assets/images/user6.png" alt="" class="img-responsive">
+                                    <p>Andrew</p>
+                                    <span>Age 30, Moscow</span>
+                                </a>
+                            </li>
+                        </ul> -->
+
+                    </div>
+                </div>
+            </div>
+
+
+        </section>
+
+
+        <section class="advertise">
+            <div class="overlay">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12 advertiseInfo">
+                            <h2>Available Now!</h2>
+                            <h3>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna.</h3>
+                            <ul>
+                                <li>
+                                    <a href="javascript:void(0)">
+                                        <i class="fa fa-apple"></i>
+                                        <p>Available on the</p>
+                                        <span>AppStore</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="javascript:void(0)">
+                                        <i class="fa fa-play"></i>
+                                        <p>Get it on</p>
+                                        <span>Google Play</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <footer>
+            <div class="container">
+                <div class="row footerSection1">
+                    <div class="col-md-8">
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
+                            aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                        </p>
+                    </div>
+                    <div class="col-md-4">
+                        <h4><a href="javascript:void(0)" class="activeGreen">Take the Tour</a><a href="javascript:void(0)">Get Started</a></h4>
+                    </div>
+                </div>
+                <div class="row footerSection2">
+                    <div class="col-md-9">
+                        <div class="col-md-4">
+                            <h3>About Us</h3>
+                            <ul>
+                            <li>
+                                <a href="/customer/page/about-us">About Us</a>
+                            </li>
+                            <li>
+                                <a href="/customer/page/dating-tips">Dating Tips</a>
+                            </li>
+                            <li>
+                                <a href="/customer/page/disclaimer">Disclaimer</a>
+                            </li>                             
+                            </ul>
+                        </div>
+                        <div class="col-md-4">
+                            <h3>Features</h3>
+                            <ul>
+                            <li>
+                                <a href="/customer/page/take-the-tour">Take the Tour</a>
+                            </li>
+                            <li>
+                                <a href="/customer/page/plans-pricing">Plans &amp; Pricing</a>
+                            </li>                         
+                            </ul>
+                        </div>
+                        <div class="col-md-4">
+                            <h3>Need Help</h3>
+                            <ul>
+                            <li>
+                                <a [routerLink]="['/customer/contactus']">Contact Us</a>
+                            </li>
+                            <li><a href="/customer/page/faq">FAQs</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <h3>Newsletter</h3>
+                        <p>Don't miss to subscribe to our news feeds, kindly fill the form below.</p>
+                        <div class="newsletter">
+                            <form>
+                                <input type="text" placeholder="Enter your email">
+                                <button><i class="glyphicon glyphicon-arrow-right"></i></button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="row footerSection3">
+                    <div class="col-md-6 col-md-offset-1 ">
+                        <p>&copy; 2017, All Rights Reserved</p>
+                        <!-- <p>Designed By <a href="javascript:void(0)">...</a></p> -->
+                    </div>
+                </div>
+            </div>
+        </footer>
+
+    <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Forgot your password?</h4>
+        </div>
+        <div class="modal-body">
+          <p>Enter the email address that you registered with and we’ll send you instructions on how to reset your password.</p>
+      <form role="form" [formGroup]="forgetForm" (ngSubmit)="forgetPass()">
+      <div class="form-group">
+      <input type="email" formControlName="email" class="form-control" id="email" placeholder="Enter email" name="email">
+    </div>
+    <div class="form-group">
+      
+      <button class="btn btn-lg btn-success btn-block" [disabled]="!forgetForm.valid">Submit</button>
+    </div>
+    </form>
+    </div>       
+      </div>
+      
+    </div>
+  </div>
+  

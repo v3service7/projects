@@ -1,0 +1,682 @@
+
+nav.navbar-default, nav.navbar-default div.container div.navbar-header button{
+    background : #31373D;
+    margin: 0;
+    border: 0;
+    border-radius: 0;
+    }
+
+    nav.navbar-default div.container #collapse_1 ul li a, nav.navbar-default div.container div.navbar-header button span,.navbar .container .tabs li a {
+        color: white;
+    }
+
+    .mainContainer{
+        box-shadow: 0 0 5px 0 #aba9ab;
+        padding-top: 0%;
+        padding-left: 0 !important;
+    }
+
+
+    .container{
+        width: 970px !important;
+    }
+
+/*    div.section2{
+        background-image: url('../../assets/images/a.jpg');
+        background-repeat: no-repeat;
+        background-size: 100% 100%;
+        margin: 0;
+        color: white;
+        text-align: center;
+        padding:5% 5% 5% 0;
+        line-height: 2;
+        }
+*/
+
+
+    div.section2 .inputField{
+        padding-top:6%;
+        padding-bottom: 3%;  
+    }
+
+    div.section2 .inputField input{
+        width: 50%;
+        border-radius: 8px;
+        padding:0.5% 0.5% 0.5% 2%;
+    }
+
+    .section3{
+        background: #EDEDED;
+        padding:2%;
+    }
+
+    .section3 center div{
+        font-size: large;
+    }
+
+    .section3 center div.orderFlow{
+        padding:5%; 
+    }
+
+    .section3 center div.orderFlow div img{
+        width: 35%;
+    }
+
+    .section3 center div.orderFlow div div.step{
+        margin-top: 10%;
+    }
+
+    .section4{
+        padding: 3%;
+    }
+
+    .section5{
+        background: #EDEDED;
+        padding:5%;
+        color: #31373D;
+    }
+
+    .section5 center div div img{
+        width: 20%;
+    }
+
+    .footer{
+        background: #31373D;
+        color: white;
+        padding:1%; 
+    }
+
+    .forArrow{
+        padding:0;
+    }
+
+    .forArrow img{
+        width: initial !important;
+        top: 15px;
+    }
+
+
+
+
+
+/*----------Browse restraurant------------*/
+
+.mainBody{
+    padding-left: 8%;
+    padding-right: 8%;
+    box-shadow: 0 0 5px 0 #aba9ab;
+}
+
+
+.asideMenu .filterBy, .asideMenu .cuisines{
+    border: 1px solid #ddd;
+    padding-left: 8%;
+    padding-bottom: 8%;
+}
+
+.offers{
+    float: right;
+}
+.leftSectionBorder{
+    border: 1px solid rgba(49, 55, 61, 0.25);
+}
+.restroImage img{
+    width: 100% ;
+}
+.restroImage{
+    margin: auto;
+    text-align: center;
+}
+
+.starRating , .basicInfo{
+    padding: inherit;
+}
+
+.offer{
+    padding-right: inherit;
+}
+.viewMenu
+{
+    text-transform: uppercase;
+
+}
+
+.restroImage1{
+    padding-left: initial;
+}
+
+.restroImage1 img{
+border: 1px solid rgba(49, 55, 61, 0.25);
+background-color: rgba(241, 241, 241, 0.39);
+}
+
+
+.stylish-input-group .input-group-addon{
+background: white !important; 
+}
+.stylish-input-group .form-control{
+border-right:0; 
+box-shadow:0 0 0; 
+border-color:#ccc;
+}
+.stylish-input-group button{
+border:0;
+background:transparent;
+}
+
+.thumbnail .caption {
+padding: 0px !important;
+color: #333;
+}
+
+.thumbnail
+{
+    padding: 10px;
+    margin-bottom: 20px;
+    -webkit-border-radius: 0px;
+    -moz-border-radius: 0px;
+    border-radius: 0px;
+}
+
+.item.list-group-item
+{
+    float: none;
+    width: 100%;
+    background-color: #fff;
+    border: 0px;
+}
+
+.item.list-group-item .list-group-image
+{
+    margin-right: 10px;
+}
+
+.item.list-group-item .caption
+{
+    padding: 1%;
+}
+
+.item.list-group-item:before, .item.list-group-item:after
+{
+    display: table;
+    content: " ";
+}
+
+.item.list-group-item img
+{
+    float: left;
+}
+.item.list-group-item:after
+{
+    clear: both;
+}
+.list-group-item-text
+{
+    margin: 0 0 11px;
+}
+
+@media (max-width: 991px) & (max-width: 767px){
+    .restroImage1 .restroImage img{
+        width: 80%;
+    }
+}
+.kitchenDetail{
+    padding:10px 0 10px 0;
+}
+
+.restroName{
+	padding: 2% 0 2% 3%;
+    display: flex;
+}
+
+.threeTabs > div{ 
+    margin: 2% 0 2% 0;    
+    text-align: center;
+}
+
+.threeTabs1 > div{
+    margin: 2% 0 2% 0;
+}
+/*
+.threeTabs h4:after {
+    display:block;
+    content: '';
+    border-bottom: solid 3px black;  
+    transform: scaleX(0);  
+    transition: transform 250ms ease-in-out;
+}
+.threeTabs h4:hover:after {
+    transform: scaleX(1); 
+}
+*/
+.threeTabs div a{
+    text-decoration: none;
+    color: black;
+    width: 100%;
+}
+/*
+.threeTabs h4{
+    margin: 0;
+
+}*/
+
+/*.threeTabs1 h4:after {
+    display:block;
+    content: '';
+    border-bottom: solid 3px black;  
+    transform: scaleX(0);  
+    transition: transform 250ms ease-in-out;
+}
+.threeTabs1 h4:hover:after {
+    transform: scaleX(1); 
+}
+
+.threeTabs1 > div > a{
+    text-decoration: none;
+    color: black;
+    width: 100%;
+}
+
+.threeTabs1 h4{
+    margin: 0;
+
+}*/
+
+.searchBox #imaginary_container div input{
+    height: 42px !important;
+}
+
+i.fa-book , i.fa-comments-o ,i.fa-info-circle , i.fa-star, i.fa-edit{
+    color: black;
+}
+
+i.fa-plus-circle{
+    color: #2d9847;
+    font-size: x-large;
+}
+
+/* div.row{
+    padding: 1% 0 1% 0;
+    border-bottom: 1px solid #F0F0F0;
+    }*/
+
+div.categories div{
+    font-size: medium;
+    padding: 4% 0 4% 1%;
+}
+
+div.reviewDetails div.rating{
+    padding: 1% 0 1% 0;
+    text-align: -webkit-center;
+    border-right: 1px solid #DCDCDC;
+}
+
+div.reviewDetails div.reviewRestaurant{
+    padding: 1% 0 1% 0;
+    text-align: -webkit-center;
+}
+
+div.infoDetails div.listing{
+    border-top: 1px solid #DCDCDC;
+    padding: 1%;
+    margin: 0;
+}
+
+div#collapsedays div.row{
+    border-top: 1px solid #DCDCDC;
+    padding: 1% 5% 1% 5%;
+    margin: 0;
+}
+
+div.categories div{
+    cursor:pointer;
+}
+
+.categoryActive{
+    border-left: 3px solid #F68B2D;
+}
+
+.tabActive{
+    border-bottom: solid 3px #F68B2D;
+}
+
+.buttoni{
+    
+    padding:2px;
+    padding: 1px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+.divf
+{
+    border:1px solid lightgrey;
+}
+.divmg{
+   border:1px dotted lightgrey;
+   padding: 5px;
+ }
+
+ .lbuttoni{
+   margin-left:0px;
+ }
+ .rbuttoni{
+margin-right:0px;
+ }
+
+ #subscriberContainer{ position: absolute; height: 100%; padding: 0px 0px; } 
+ #subscriberContainer.large { width: 640px; height: 480px; }
+ #subscriberContainer.small{ width:100px; height: 100px; }
+ @media screen and (max-width: 650px) 
+ {
+  #subscriberContainer{
+   width: 89px; height: 50px; 
+  }
+
+  }
+
+
+/* Live List*/
+
+  #msgviewport{
+    height: 300px;
+    background: transparent;
+    position: absolute;
+    bottom: -27px;
+    padding-left: 0px;
+    padding-right: 0px;
+    }   
+    .inputsi 
+    {
+           padding: 3px;
+    }   
+    #btn-chat{
+        padding: 11px;
+    }
+    .disbtn{
+       text-align: right;
+       margin-bottom: 5px;
+    }
+
+
+/* The Modal (background) */
+.modalb {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    padding-top: 52px; /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+        border-radius: 0px;
+}
+
+/* Modal Content */
+.modalb-content {
+    position: relative;
+    background-color: transparent;
+    margin: auto;
+    padding: 0;   
+    width: 97%;
+    height: calc(100% - (67px));
+    box-shadow: 0 7px 9px -4px rgba(0,0,0,.2), 0 14px 21px 2px rgba(0,0,0,.14), 0 5px 26px 4px rgba(0,0,0,.12);
+    -webkit-animation-name: animatetop;
+    -webkit-animation-duration: 0.4s;
+    animation-name: animatetop;
+    animation-duration: 0.4s
+}
+
+/* Add Animation */
+@-webkit-keyframes animatetop {
+    from {top:-300px; opacity:0} 
+    to {top:0; opacity:1}
+}
+
+@keyframes animatetop {
+    from {top:-300px; opacity:0}
+    to {top:0; opacity:1}
+}
+
+/* The Close Button */
+.closeb {
+    color: white;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.closeb:hover,
+.closeb:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.modalb-header {
+    padding: 2px 16px;
+    background-color: white;
+    color: black;
+}
+
+.modalb-body {padding: 2px 16px;}
+
+.modalb-footer {
+    padding: 2px 16px;
+    background-color: #5cb85c;
+    color: white;
+}
+.mybv{
+  padding-left: 20px;
+  padding-right: 10px;
+}
+.pull-rightr{
+  text-align: right;
+}
+.myconnect{
+  padding: 30px;
+}
+.new_process{
+  text-align: center;
+}
+
+.new_processv{
+margin-right: 10px;
+}
+.contain-list{
+  min-height: 500px;margin-right: 0px; margin-left: 0px;
+}
+.input-grop{
+  margin-left: -15px; padding-bottom: 10px;
+}
+
+
+/*All Profile*/
+
+.newmainconainer {min-height: 700px;}
+
+.mypackw{
+    color:#4285f4; 
+    background: white; 
+    border: 1px solid #4285f4;
+    }
+
+
+
+/*Live Now*/
+
+  #msgviewport{
+    height: 300px;
+    background: transparent;
+    position: absolute;
+    bottom: -27px;
+    padding-left: 14px;
+    padding-right: 14px;
+    }   
+    .inputsi 
+    {
+           padding: 3px;
+    }   
+    #btn-chat{
+        padding: 11px;
+    }
+    .disbtn{
+       text-align: right;
+       margin-bottom: 5px;
+    }
+
+
+    /*Video Call*/
+
+
+      #msgviewportv{
+    height: 500px;
+    background: transparent;
+    position: absolute;
+    bottom: -27px;
+    padding-left: 14px;
+    padding-right: 14px;
+    }   
+    .inputsi 
+    {
+           padding: 3px;
+    }   
+    #btn-chat{
+        padding: 11px;
+    }
+    .disbtn{
+       text-align: right;
+       margin-bottom: 5px;
+    }
+
+
+    /*Page show*/
+
+    .title-show1 {padding-bottom: 10px; border-bottom: 1px solid lightgrey; text-transform: capitalize;    }
+
+    .namecls{
+        font-size: 12px;
+    }
+
+
+   
+[class*='closep-'] {
+  color: #777;
+  font: 14px/100% arial, sans-serif;
+  position: absolute;
+  right: 5px;
+  text-decoration: none;
+  text-shadow: 0 1px 0 #fff;
+  top: 5px;
+}
+
+
+.closep-thik:after {
+  content: '✖'; /* UTF-8 symbol */
+}
+
+/* Dialog */
+
+.dialogg {
+  background: #ddd;
+  
+  border-radius: 5px;
+  float: right;
+  width: 411px;
+  height: 100px;
+  margin: 20px;
+  position: relative;
+  
+  
+}
+
+/* Container */
+
+
+.containerad:after {
+  content: '';
+  display: block;
+  clear: both;
+}
+.imgadv{
+ width: 411px;
+ height: 100px;
+}
+
+.modalb-content11{
+    width:500px;
+    height: 300px;
+}
+
+.msgHistory_msglive{
+    min-height: 220px; max-height: 221px; overflow-y: hidden; font-size: 16px; color:white;
+}
+
+.msgHistory_msgvideo{
+    min-height: 220px; max-height: 221px; overflow-y: scroll; font-size: 16px; color:white;
+}
+.panelselected{
+    background-color: rgba(221, 221, 221, 0.59);
+}
+.navbar{
+    margin-bottom: 0px !important;
+}
+
+.myPanelHeading{
+ padding:0px !important;
+ }
+ ul#menu {
+ margin-bottom: 0px !important;
+ padding-left: 0px !important;
+ }
+ ul#menu li {
+ display:inline;
+ padding: 8px; 
+ }
+ .myPanelBody{
+  padding:5px !important;
+ }
+
+ .panel-body.myPanelBody.myBoxHeading {
+  background: rgba(0, 0, 0, 0.41);
+  position: absolute;
+  bottom: 52px;
+  color: #fff;
+  width: 139px; 
+ }
+
+ .panel-body.myPanelBody.myBoxHeading > p
+ {
+ margin-bottom:0px !important;}
+ .text-online {
+ color: #8cde8e;
+ }
+ .img-responsivenot
+ {
+    width: 139px;
+    height: 141px;
+
+ }
+ .newvideocls{
+    text-align: center;
+ }
+ div#subscriberContainer> div.OT_subscriber {
+    height: 100% !important;
+}
+.OT_publisher, .OT_subscriber {
+    position: absolute !important;
+}
+.OT_publisher{
+    z-index: 1;
+}
+#publisherContainer{
+    position: absolute;
+    z-index: 10;
+}
+#subscriberContainer {
+    padding-top: 0px !important;
+}
+
+

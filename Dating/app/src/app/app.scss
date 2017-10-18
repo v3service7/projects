@@ -1,0 +1,111 @@
+// http://ionicframework.com/docs/theming/
+
+
+// App Global Sass
+// --------------------------------------------------
+// Put style rules here that you want to apply globally. These
+// styles are for the entire app and not just one component.
+// Additionally, this file can be also used as an entry point
+// to import other Sass files to be included in the output CSS.
+//
+// Shared Sass variables, which can be used to adjust Ionic's
+// default Sass variables, belong in "theme/variables.scss".
+//
+// To declare rules for a specific mode, create a child rule
+// for the .md, .ios, or .wp mode classes. The mode class is
+// automatically applied to the <body> element in the app.
+
+button.activated{
+    background-color: rgb(220, 99, 34) !important;
+}
+
+.bcColor , ion-tabs .tabbar , ion-navbar .toolbar-background{
+	background-color:#E65100 !important;
+}
+
+ ion-navbar .toolbar-background{
+ 	border : none !important;
+ }
+
+ion-navbar button.back-button{
+	color : white !important;
+}
+
+ion-navbar button.back-button span.button-inner span.back-button-text{
+	display : none !important;
+}
+
+
+
+ion-tabs .tabbar a span , ion-tabs .tabbar a ion-icon, ion-navbar .toolbar-content .toolbar-title{
+	color : white !important;
+}
+
+ion-tabs .tab-button-icon{
+	font-size : 24px !important;
+}
+
+.labelColorOrange{
+	color:#E65100
+}
+
+.margin8{
+	margin : 8% !important;
+}
+
+.inlineFlex{
+    display: inline-flex;
+}
+
+.purple{
+	color : #745A98;
+}
+
+.blue{
+	color : #5187D9;
+}
+
+.green{
+	color : #3F9D2F;
+}
+
+.width100{
+	width : 100% !important;
+}
+
+.padding5px0px{
+    padding: 5px 0;
+}
+
+.marginBottom4{
+	margin-bottom: 4%;
+}
+
+.paddingRight5px{
+	padding : 1px;
+}
+
+
+.segment-button{
+	border-color : #E65100 !important;
+	color : #E65100 !important;
+}
+
+.segment-button.segment-activated{
+    color: #fff !important;
+    background-color: #E65100 !important;
+}
+
+ion-segment{
+    width: 90%;
+    margin: auto;
+}
+
+.tab-badge{
+    padding: 1px 3px !important;	
+}
+
+.badge{
+    color: #e65100 !important;
+    background-color: #ffffff !important;
+}

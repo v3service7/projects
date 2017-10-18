@@ -1,0 +1,40 @@
+.green i{
+	color: green;
+}
+.white i{
+	color: white;
+}
+
+.white span, .green span{
+	color: #777 !important;
+	font-size: 15px;
+}
+
+.green span{
+	font-weight: 600;
+}
+
+.padding0{
+	padding: 0 !important;
+}
+.width60{
+	width: 60%;
+}
+.marginTop8{
+	margin-top: 8%;
+}
+.width950{
+	width: 90%;
+}
+.margin3{
+	margin: 3%;
+}
+.padding3{
+	padding: 3%;
+}
+.detail{
+	width: 93%;
+    border: 1px solid #c5c5c5;
+    padding: 3%;
+    margin: 3% 0 3% 6%;
+}

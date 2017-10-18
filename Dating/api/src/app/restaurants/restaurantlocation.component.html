@@ -1,0 +1,21 @@
+<app-headerowner></app-headerowner>
+
+<div class="rightMenu1 col-lg-9 col-md-9 col-sm-9 col-xs-9">
+	<!-- <alert></alert> -->
+	<div class="profile" id="Menu18" style="z-index: 1;position: absolute;width: 70%;">
+		<form [formGroup]="restaurantAddModel" (ngSubmit)="restaurantUpdate()">
+			<div class="firstDiv">
+				<span class="">Let your customers know your exact location</span>
+				<input type="submit" class="btn btn-next" id="submitButton" value="Next" style="float: right;" [disabled]="!restaurantAddModel.valid">
+			</div>
+		<div class="secondDiv" style="min-height: 0;">
+		<div id="addressId"></div>
+			<a [routerLink]="['/owner/basic-detail']" style="float: right; color: rgb(0, 173, 0);text-decoration: underline !important;">Do you want to change your restaurant address?</a>
+		</div>
+		</form>
+	</div>
+	<div id="gmap"></div>
+	<!-- <sebm-google-map [latitude]="lat" [longitude]="lng">
+		<sebm-google-map-marker [latitude]="latt" [longitude]="lngg" [markerDraggable]="true" (dragEnd)="markerDragEnd( $event)"></sebm-google-map-marker>
+	</sebm-google-map> -->
+</div>

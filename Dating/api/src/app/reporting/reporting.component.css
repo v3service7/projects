@@ -1,0 +1,106 @@
+.noRecordClass{
+	background: white;
+	text-align: center;
+	padding: 10%;
+	font-size: large;
+}
+
+#noRecordClass{
+	background: white;
+	text-align: center;
+	padding: 10%;
+	font-size: large;
+}
+
+.padding0{
+	padding: 0;
+}
+
+.minheight585 {
+	background-color: #E9E9E8;
+	min-height: 585px;
+}
+
+.padding3{
+	padding: 3%;
+}
+
+.padding2{
+	padding: 2%;
+}
+
+.cursorPointer{
+	cursor: pointer;
+}
+
+.minHeight20px{
+	min-height: 20px
+}
+
+.padding19px{
+	padding: 19px;
+}
+
+.padding15px19px{
+	padding: 15px 19px;
+}
+
+.colorWhite{
+	color: white;
+}
+
+.fontWeight700{
+	font-weight: 700;
+}
+
+.fontSmall{
+	font-size: small;
+}
+
+.fontSize14px{
+	font-size: 14px;
+}
+
+div.alternateColor:nth-child(odd) {
+	color: #999;
+    background-color: #f5f4f2;
+}
+
+div.alternateColor:nth-child(even) {
+	color: #999;
+    background-color: #fff;
+}
+
+div.alternateColor:hover {
+    color: #5ac15e !important;
+}
+
+div.alternateColor:hover .color666{
+    color: #5ac15e !important;
+}
+
+.color666{
+	color: #666;
+}
+
+.textAlignRight{
+	text-align: right;
+}
+
+.textAlignCenter{
+	text-align: center;
+}
+
+.marginBottom2px{
+	margin-bottom: 2px;
+}
+
+.marginBottom10px{
+	margin-bottom: 10px;
+}
+
+.commentInReport{
+	border-top: 2px solid #d8d7d5;
+    margin-top: 10px;
+    padding: 6px;
+}

@@ -1,0 +1,263 @@
+<ion-header>
+    <ion-navbar>
+        <ion-title>Filter</ion-title>
+    </ion-navbar>
+</ion-header>
+
+<ion-content>
+
+<ion-list>
+
+
+
+    <ion-item>
+        <ion-label text-right><span float-right class="resetButton" (click)="resetFilter()"> Reset </span></ion-label>
+    </ion-item>
+
+
+    <ion-item>
+        <ion-label>Hair Color</ion-label>
+        <ion-select [(ngModel)]="colorselect" multiple="true" submitText="Ok" cancelText="Cancel" (ionChange)="selectOption('colorselect')">
+            <ion-option value="Black">Black</ion-option>
+            <ion-option value="Light Brown">Light Brown</ion-option>
+            <ion-option value="Brunette/Brown">Brunette/Brown</ion-option>
+            <ion-option value="Red">Red</ion-option>
+            <ion-option value="Blonde">Blonde</ion-option>
+            <ion-option value="Bald/Shaven">Bald/Shaven</ion-option>
+            <ion-option value="Other">Other</ion-option>
+        </ion-select>
+    </ion-item>
+
+    <ion-item>
+        <ion-label>Body Type</ion-label>
+        <ion-select [(ngModel)]="bodyselect" multiple="true" submitText="Ok" cancelText="Cancel" (ionChange)="selectOption('bodyselect')">
+            <ion-option value="Petite">Petite</ion-option>
+            <ion-option value="Slender">Slender</ion-option>
+            <ion-option value="Medium">Medium</ion-option>
+            <ion-option value="Few Extra Pounds">Few Extra Pounds</ion-option>
+            <ion-option value="Well Built">Well Built</ion-option>
+            <ion-option value="Overweight">Overweight</ion-option>
+        </ion-select>
+    </ion-item>
+
+    <ion-item>
+        <ion-label>Smoke</ion-label>
+        <ion-select [(ngModel)]="smoke" multiple="true" submitText="Ok" cancelText="Cancel" (ionChange)="selectOption('smoke')">
+            <ion-option value=true>true</ion-option>
+            <ion-option value=false>false</ion-option>
+        </ion-select>
+    </ion-item>
+
+    <ion-item>
+        <ion-label>Drink</ion-label>
+        <ion-select [(ngModel)]="drink" multiple="true" submitText="Ok" cancelText="Cancel" (ionChange)="selectOption('drink')">
+            <ion-option value=true>true</ion-option>
+            <ion-option value=false>false</ion-option>
+        </ion-select>
+    </ion-item>
+
+    <ion-item>
+        <ion-label>Qualification</ion-label>
+        <ion-select [(ngModel)]="qualification" multiple="true" submitText="Ok" cancelText="Cancel" (ionChange)="selectOption('qualification')">
+            <ion-option value = "Student">Student</ion-option>
+            <ion-option value = "High School">High School</ion-option>
+            <ion-option value = "Some College">Some College</ion-option>
+            <ion-option value = "College Graduate">College Graduate</ion-option>
+            <ion-option value = "Some Post-College">Some Post-College</ion-option>
+            <ion-option value = "Master’s">Master’s</ion-option>
+            <ion-option value = "Professional Qualification">Professional Qualification</ion-option>
+        </ion-select>
+    </ion-item>
+
+    <ion-item>
+        <ion-label>Profession</ion-label>
+        <ion-select [(ngModel)]="profession" multiple="true" submitText="Ok" cancelText="Cancel" (ionChange)="selectOption('profession')">
+            <ion-option value = "Aircraft Dispatcher">Aircraft Dispatcher</ion-option>
+            <ion-option value = "Aircraft Mechanic">Aircraft Mechanic</ion-option>
+            <ion-option value = "Airline Pilot">Airline Pilot</ion-option>
+            <ion-option value = "Flight Attendant">Flight Attendant</ion-option>
+            <ion-option value = "Arts">Arts</ion-option>
+            <ion-option value = "Actor">Actor</ion-option>
+            <ion-option value = "Architecture">Architecture</ion-option>
+            <ion-option value = "Art Appraiser">Art Appraiser</ion-option>
+            <ion-option value = "Art Auctioneer">Art Auctioneer</ion-option>
+            <ion-option value = "Artist">Artist</ion-option>
+            <ion-option value = "Museum Jobs">Museum Jobs</ion-option>
+            <ion-option value = "Music Conductor">Music Conductor</ion-option>
+            <ion-option value = "Business">Business</ion-option>
+            <ion-option value = "Accountant">Accountant</ion-option>
+            <ion-option value = "Administrative Assistant/Secretary">Administrative Assistant/Secretary</ion-option>
+            <ion-option value = "Advertising">Advertising</ion-option>
+            <ion-option value = "Consultant">Consultant</ion-option>
+            <ion-option value = "Financial Advisor">Financial Advisor</ion-option>
+            <ion-option value = "Fundraiser">Fundraiser</ion-option>
+            <ion-option value = "Government Jobs">Government Jobs</ion-option>
+            <ion-option value = "Human Resources">Human Resources</ion-option>
+            <ion-option value = "Insurance Agent">Insurance Agent</ion-option>
+            <ion-option value = "Investment Banker">Investment Banker</ion-option>
+            <ion-option value = "Lawyer">Lawyer</ion-option>
+            <ion-option value = "Management">Management</ion-option>
+            <ion-option value = "Market Research Analyst">Market Research Analyst</ion-option>
+            <ion-option value = "Nonprofit Job">Nonprofit Job</ion-option>
+            <ion-option value = "Law Enforcement">Law Enforcement</ion-option>
+            <ion-option value = "Criminal Justice">Criminal Justice</ion-option>
+            <ion-option value = "Federal Law Enforcement">Federal Law Enforcement</ion-option>
+            <ion-option value = "Police Officer">Police Officer</ion-option>
+            <ion-option value = "Media">Media</ion-option>
+            <ion-option value = "Book Publishing">Book Publishing</ion-option>
+            <ion-option value = "Freelance Editor">Freelance Editor</ion-option>
+            <ion-option value = "Freelance Writer">Freelance Writer</ion-option>
+            <ion-option value = "Public Relations">Public Relations</ion-option>
+            <ion-option value = "Web Developer">Web Developer</ion-option>
+            <ion-option value = "Writer/Editor">Writer/Editor</ion-option>
+            <ion-option value = "Medical">Medical</ion-option>
+            <ion-option value = "Doctor">Doctor</ion-option>
+            <ion-option value = "Nurse">Nurse</ion-option>
+            <ion-option value = "Paramedic">Paramedic</ion-option>
+            <ion-option value = "Psychologist">Psychologist</ion-option>
+            <ion-option value = "Social Worker">Social Worker</ion-option>
+            <ion-option value = "Veterinarian">Veterinarian</ion-option>
+            <ion-option value = "Service Industry">Service Industry</ion-option>
+            <ion-option value = "Bank Teller">Bank Teller</ion-option>
+            <ion-option value = "Call Center">Call Center</ion-option>
+            <ion-option value = "Funeral Director">Funeral Director</ion-option>
+            <ion-option value = "Hair Stylist">Hair Stylist</ion-option>
+            <ion-option value = "Personal Fitness Trainer">Personal Fitness Trainer</ion-option>
+            <ion-option value = "Retail">Retail</ion-option>
+            <ion-option value = "Sales">Sales</ion-option>
+            <ion-option value = "Ski Instructor">Ski Instructor</ion-option>
+            <ion-option value = "Waiter">Waiter</ion-option>
+            <ion-option value = "Wedding Planner">Wedding Planner</ion-option>
+            <ion-option value = "Teaching">Teaching</ion-option>
+            <ion-option value = "Career Counselor">Career Counselor</ion-option>
+            <ion-option value = "School Jobs">School Jobs</ion-option>
+            <ion-option value = "Substitute Teacher">Substitute Teacher</ion-option>
+            <ion-option value = "Teacher">Teacher</ion-option>
+            <ion-option value = "Teaching Abroad">Teaching Abroad</ion-option>
+            <ion-option value = "Teaching Online">Teaching Online</ion-option>
+            <ion-option value = "Technology">Technology</ion-option>
+            <ion-option value = "App Developer">App Developer</ion-option>
+            <ion-option value = "Computer Programmer">Computer Programmer</ion-option>
+            <ion-option value = "Database Administrator">Database Administrator</ion-option>
+            <ion-option value = "Programmer">Programmer</ion-option>
+            <ion-option value = "Software Developer">Software Developer</ion-option>
+            <ion-option value = "Web Developer">Web Developer</ion-option>
+            <ion-option value = "Other">Other</ion-option>
+        </ion-select>
+    </ion-item>
+
+    <ion-item>
+        <ion-label>Marital Status</ion-label>
+        <ion-select [(ngModel)]="maritalstatus" multiple="true" cancelText="Cancel" okText="Ok" (ionChange)="selectOption('maritalstatus')">
+            <ion-option value = true>Yes</ion-option>
+            <ion-option value = false>No</ion-option>
+        </ion-select>
+    </ion-item>
+
+    <ion-item>
+        <ion-label>Sex Orientation</ion-label>
+        <ion-select [(ngModel)]="sexorientation" multiple="true" cancelText="Cancel" okText="Ok" (ionChange)="selectOption('sexorientation')">
+            <ion-option value = "Straight">Straight</ion-option>
+            <ion-option value = "Bisexual">Bisexual</ion-option>
+            <ion-option value = "Lesbian">Lesbian</ion-option>
+            <ion-option value = "Gay">Gay</ion-option>
+            <ion-option value = "Other">Other</ion-option>
+        </ion-select>
+    </ion-item>
+
+    <ion-item>
+        <ion-label>Gender</ion-label>
+        <ion-select [(ngModel)]="gender" multiple="true" cancelText="Cancel" okText="Ok" (ionChange)="selectOption('gender')">
+            <ion-option value = "male">Male</ion-option>
+            <ion-option value = "female">Female</ion-option>
+        </ion-select>
+    </ion-item>
+
+    <ion-item>
+        <ion-label>Country</ion-label>
+        <ion-select [(ngModel)]="country" multiple="true" cancelText="Cancel" okText="Ok" (ionChange)="selectOption('country')">
+            <ion-option *ngFor="let cntry of countries" value = {{cntry}}>{{cntry}}</ion-option>
+        </ion-select>
+    </ion-item>
+
+    <ion-item class="age">
+        <ion-row>
+            <ion-col col-2>
+                Age
+            </ion-col>
+            <ion-col>
+                <input id="minAge" type="number" name="" placeholder="Min Age" (keyup)="age($event,'min')">
+            </ion-col>
+            <ion-col>
+                <input id="maxAge" type="number" name="" placeholder="Max Age" (keyup)="age($event,'max')">
+            </ion-col>
+        </ion-row>
+    </ion-item>
+
+    <ion-item class="heightSelect">
+        <ion-label>
+            Min Height:
+        </ion-label>
+        <ion-label>
+            <ion-select [(ngModel)]="minfeet" cancelText="Cancel" okText="Ok" (ionChange)="selectOption('minfeet')">
+                <ion-option value = "4">4ft</ion-option>
+                <ion-option value = "5">5ft</ion-option>
+                <ion-option value = "6">6ft</ion-option>
+                <ion-option value = "7">7ft</ion-option>
+                <ion-option value = "8">8ft</ion-option>
+            </ion-select>
+        </ion-label>
+        <ion-label>
+            <ion-select [(ngModel)]="mininch" cancelText="Cancel" okText="Ok" (ionChange)="selectOption('mininch')">
+                <ion-option value = "1">1"</ion-option>
+                <ion-option value = "2">2"</ion-option>
+                <ion-option value = "3">3"</ion-option>
+                <ion-option value = "4">4"</ion-option>
+                <ion-option value = "5">5"</ion-option>
+                <ion-option value = "6">6"</ion-option>
+                <ion-option value = "7">7"</ion-option>
+                <ion-option value = "8">8"</ion-option>
+                <ion-option value = "9">9"</ion-option>
+                <ion-option value = "10">10"</ion-option>
+                <ion-option value = "11">11"</ion-option>
+            </ion-select>                
+        </ion-label>
+    </ion-item>
+
+    <ion-item class="heightSelect">
+        <ion-label>
+            Max Height:
+        </ion-label>
+        <ion-label>
+            <ion-select [(ngModel)]="maxfeet" cancelText="Cancel" okText="Ok" (ionChange)="selectOption('maxfeet')">
+                <ion-option value = "4">4ft</ion-option>
+                <ion-option value = "5">5ft</ion-option>
+                <ion-option value = "6">6ft</ion-option>
+                <ion-option value = "7">7ft</ion-option>
+                <ion-option value = "8">8ft</ion-option>
+            </ion-select>
+        </ion-label>
+        <ion-label>
+            <ion-select [(ngModel)]="maxinch" cancelText="Cancel" okText="Ok" (ionChange)="selectOption('maxinch')">
+                <ion-option value = "1">1"</ion-option>
+                <ion-option value = "2">2"</ion-option>
+                <ion-option value = "3">3"</ion-option>
+                <ion-option value = "4">4"</ion-option>
+                <ion-option value = "5">5"</ion-option>
+                <ion-option value = "6">6"</ion-option>
+                <ion-option value = "7">7"</ion-option>
+                <ion-option value = "8">8"</ion-option>
+                <ion-option value = "9">9"</ion-option>
+                <ion-option value = "10">10"</ion-option>
+                <ion-option value = "11">11"</ion-option>
+            </ion-select>                
+        </ion-label>
+    </ion-item>
+
+    <ion-item>
+        <ion-label text-center><button class="bcColor" (click) = "showAfterFilter()">Search</button></ion-label>
+    </ion-item>
+
+</ion-list>
+
+</ion-content>

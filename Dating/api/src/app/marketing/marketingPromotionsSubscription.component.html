@@ -1,0 +1,309 @@
+<app-marketingnav></app-marketingnav>
+
+<div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 minheight585 padding3" id="section1">
+	<div class="profile col-lg-12 col-md-12 col-sm-12 col-xs-12 formatingProfile">
+		<div class="firstDiv col-lg-12 col-md-12 col-sm-12 col-xs-12" style="box-shadow: 0 -1px 0 #d5d5d3, inset 0 1px 0 rgba(0, 0, 0, .04);">  
+			<span class="" style="border: 1px solid #d6d6d4;padding: 7px 14px;">
+				<a [routerLink]="['/owner/marketing/promotions']">
+					<i class="fa fa-chevron-left" aria-hidden="true"></i>
+				</a>
+			</span>
+			<span class="fontWeight600" style="padding: inherit;">Choose your plan</span>
+		</div>
+		<div class="secondDiv col-lg-12 col-md-12 col-sm-12 col-xs-12" style="box-shadow: 0 -1px 0 #d5d5d3, inset 0 1px 0 rgba(0, 0, 0, .04); border-bottom: 1px solid #d5d5d3;">
+			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0 bgWhite marginBottom20" style="border: 1px solid #d6d6d4;">
+				<div class="col-lg-8 col-md-8 col-sm-8 col-xs-8" style="border-right: 1px solid #d6d6d4;padding: 20px 0 20px 0;">
+					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 fontWeight600">
+						Promo Deal Free Plan
+					</div>
+					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12"> 
+						<ul>
+							<li>Access to basic promotions</li>
+							<li>1 active promotions at a time</li>
+						</ul>
+					</div>
+				</div>
+				<div class="col-lg-4 col-md-4 col-sm-4 col-xs-4" style="padding: 46px 0 46px 0;" >
+					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0 alignCenter">
+						<a [routerLink]="['/owner/marketing/promotions/select-template']" class="colorGreen fontWeight600" style="text-decoration: underline !important;">Go back to free plan</a>
+					</div>
+				</div>
+			</div>
+			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0 bgWhite" style="border: 1px solid #d6d6d4;">
+				<div class="col-lg-8 col-md-8 col-sm-8 col-xs-8" style="border-right: 1px solid #d6d6d4;padding: 20px 0 20px 0;">
+					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 fontWeight600">
+						Promo Deal Paid Plan
+					</div>
+					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12"> 
+						<ul>
+							<li>Access to all promotions</li>
+							<li>Unlimited active promotions simultaneously</li>
+						</ul>
+					</div>
+				</div>
+				<div class="col-lg-4 col-md-4 col-sm-4 col-xs-4" style="padding: 46px 0 46px 0;" >
+					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 alignCenter">
+						<input type="button" class="btn btn-next" value="Activate Now" (click)="goFurther('section2')" style="width: 100%;" >
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 minheight585 padding3" id="section2">
+	<div class="profile col-lg-12 col-md-12 col-sm-12 col-xs-12 formatingProfile">
+		<div class="firstDiv col-lg-12 col-md-12 col-sm-12 col-xs-12" style="box-shadow: 0 -1px 0 #d5d5d3, inset 0 1px 0 rgba(0, 0, 0, .04);">  
+			<span class="" style="border: 1px solid #d6d6d4;padding: 7px 14px;" (click)="goFurther('section1')">
+				<i class="fa fa-chevron-left" aria-hidden="true"></i>
+			</span>
+			<span class="fontWeight600" style="padding: inherit;">Confirm your purchase</span>
+			<span class="pull-right">
+				<input type="button" class="btn btn-next" value="Subscribe" (click)="goFurther('section3')">
+			</span>
+		</div>
+		<div class="secondDiv col-lg-12 col-md-12 col-sm-12 col-xs-12" style="box-shadow: 0 -1px 0 #d5d5d3, inset 0 1px 0 rgba(0, 0, 0, .04); border-bottom: 1px solid #d5d5d3;">
+			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0 bgWhite marginBottom20" style="border: 1px solid #d6d6d4;">
+				<div class="col-lg-8 col-md-8 col-sm-8 col-xs-8" style="border-right: 1px solid #d6d6d4;padding: 20px 0 20px 0;">
+					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+						Advanced Promo Marketing
+					</div>
+					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 fontSmaller"> 
+						Run multiple promos like a pro. This paid plan allows precision selling through client segmentation and target profiling, in order to achieve and track multiple marketing goals.
+					</div>
+				</div>
+				<div class="col-lg-4 col-md-4 col-sm-4 col-xs-4" style="padding: 20px 0 20px 0;" >
+					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0 alignCenter fontWeight600">
+						$38.00 / month
+					</div>
+				</div>
+			</div>
+
+			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="background-color: white;text-align: center; cursor: pointer;border: 1px solid #d6d6d4;" (click)="showDetail('price')">
+				<a href="javascript:void(0)" class="fontWeight600" style="color: #70c973; "><i class="fa fa-chevron-down" aria-hidden="true"></i> Pricing details <i class="fa fa-chevron-down" aria-hidden="true"></i></a>
+			</div>
+			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 activationDetail" *ngIf="showPricingDetail">
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="background-color: white;padding: 15px;border: 1px solid #d6d6d4;">
+					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+						Base price 1 locations per month : <span class="pull-right">$38.00</span>
+					</div>
+					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+						Monthly amount (1 locations) : <span class="pull-right fontWeight600">$38.00</span>
+					</div>
+				</div>
+			</div>
+
+			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 marginTop20" style="background-color: white;text-align: center; cursor: pointer;border: 1px solid #d6d6d4;" (click)="showDetail('activation')">
+				<a href="javascript:void(0)" class="fontWeight600" style="color: #70c973; "><i class="fa fa-chevron-down" aria-hidden="true"></i> About: Activation / Cancellation / Refund <i class="fa fa-chevron-down" aria-hidden="true"></i></a>
+			</div>
+			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 activationDetail" *ngIf="show">
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="background-color: white;padding: 15px;border: 1px solid #d6d6d4;">
+					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="padding: 15px;border-bottom: 1px solid #d6d6d4;">
+						<div class="fontWeight600" style="font-size: smaller;">ACTIVATION</div>
+						<div class="">Depending on the payment gateway this may take a few hours or a few days.</div>
+					</div>
+					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="padding: 15px;border-bottom: 1px solid #d6d6d4;">
+						<div class="fontWeight600" style="font-size: smaller;">CANCELLATION</div>
+						<div class="">The cancellation process is up to your chosen payment gateway.</div>
+					</div>
+					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="padding: 15px;">
+						<div class="fontWeight600" style="font-size: smaller;">REFUND</div>
+						<div class="">Refunds are not handled by the ordering system. The payment gateway dashboard can be used to initiate refunds to food clients.</div>
+					</div>
+				</div>
+			</div>
+
+		</div>
+	</div>
+</div>
+
+<div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 minheight585" id="section3">
+	<div class="profile col-lg-12 col-md-12 col-sm-12 col-xs-12 formatingProfile">
+		<form [formGroup]="billingDetailModel" (ngSubmit)="goFurther('section4')">
+			<div class="firstDiv col-lg-12 col-md-12 col-sm-12 col-xs-12" style="box-shadow: 0 -1px 0 #d5d5d3, inset 0 1px 0 rgba(0, 0, 0, .04);">
+				<input type="button" class="btn" id="backButton" value="Back" style="float: left;" (click)="goFurther('section2')">
+				<span class="" style="padding: inherit;"> Billing settings </span>
+				<input type="submit" class="btn btn-next" id="submitButton" value="Next" style="float: right;" [disabled]="!billingDetailModel.valid" />
+			</div>
+			<div class="secondDiv col-lg-12 col-md-12 col-sm-12 col-xs-12" style="box-shadow: 0 -1px 0 #d5d5d3, inset 0 1px 0 rgba(0, 0, 0, .04); border-bottom: 1px solid #d5d5d3;">
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 fontWeight600 formField">
+					Business type:
+				</div>
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+					<select class="form-control" formControlName="businessType">
+                        <option>Purchase as business/ company</option>
+                        <option>Purchase as person/ individual</option>
+                    </select>
+				</div>
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 fontWeight">
+					Billing address (appears on invoice):
+				</div>
+
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 formField">
+					<div class="input-group gfe-input">
+                        <span class="input-group-addon">
+                           <i class="fa fa-university" aria-hidden="true"></i>
+                        </span>
+                        <input type="text" class="form-control" placeholder="Company Name (legal entity)*" formControlName="companyName">
+                    </div>
+				</div>
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 formField">
+					<div class="input-group gfe-input">
+                        <span class="input-group-addon">
+                           <i class="fa fa-user" aria-hidden="true"></i>
+                        </span>
+                        <input type="text" class="form-control" placeholder="First Name *" formControlName="fName" style="width: 50%;">
+                        <input type="text" class="form-control" placeholder="Last Name *" formControlName="lName" style="width: 50%;">
+                    </div>
+				</div>
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 formField">
+					<div class="input-group gfe-input">
+                        <span class="input-group-addon">
+                           <i class="fa fa-map-marker" aria-hidden="true"></i>
+                        </span>
+                        <input type="text" class="form-control" placeholder="Address *" formControlName="address">
+                    </div>
+				</div>
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 formField">
+					<div class="input-group gfe-input">
+                        <span class="input-group-addon">
+                           <i class="fa fa-map" aria-hidden="true"></i>
+                        </span>
+                        <input type="text" class="form-control" placeholder="City *" formControlName="city" style="width: 50%;">
+                        <input type="text" class="form-control" placeholder="Zipcode *" formControlName="zipcode" style="width: 50%;">
+                    </div>
+				</div>
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 formField">
+					<input type="text" class="form-control" placeholder="Enter your Country *" formControlName="country">
+				</div>
+			</div> 
+		</form>
+	</div>
+</div>
+
+<div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 minheight585" id="section4">
+	<div class="profile col-lg-12 col-md-12 col-sm-12 col-xs-12 formatingProfile">
+		<form [formGroup]="cardDetailModel" (ngSubmit)="cardDetailSubmit('section5')">
+			<div class="firstDiv col-lg-12 col-md-12 col-sm-12 col-xs-12" style="box-shadow: 0 -1px 0 #d5d5d3, inset 0 1px 0 rgba(0, 0, 0, .04);">
+				<input type="button" class="btn" id="backButton" value="Back" style="float: left;" (click)="goFurther('section3')">
+				<span class="" style="padding: inherit;"> Card details </span>
+				<input type="submit" class="btn btn-next" value="Next" style="float: right;" [disabled]="!cardDetailModel.valid" />
+			</div>
+			<div class="secondDiv col-lg-12 col-md-12 col-sm-12 col-xs-12" style="box-shadow: 0 -1px 0 #d5d5d3, inset 0 1px 0 rgba(0, 0, 0, .04); border-bottom: 1px solid #d5d5d3;">
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 fontWeight600 formField">
+					Your credit card details:
+				</div>
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 formField">
+					<div class="input-group gfe-input" style="width: 100%;">
+                        <input type="text" class="form-control" placeholder="First Name *" formControlName="fName" style="width: 50%;">
+                        <input type="text" class="form-control" placeholder="Last Name *" formControlName="lName" style="width: 50%;">
+                    </div>
+				</div>
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 formField">
+					<div class="input-group gfe-input" style="width: 100%;">
+                        <input type="text" class="form-control" placeholder="Card Number *" formControlName="cardNumber">
+                    </div>
+                    <div *ngIf="formErrors.cardNumber" class="alert alert-danger">
+                       {{ formErrors.cardNumber }}
+                    </div>
+				</div>
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 formField">
+					<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6" style="padding: 0;">
+						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="padding: 0;">Expiry Month</div>
+						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="padding: 0;">
+							<select class="form-control" formControlName = "month">
+								<option *ngFor="let month of months">{{month}}</option>
+							</select>
+						</div>
+					</div>
+					<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6" style="padding: 0;">
+						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="padding: 0;">Expiry Year</div>
+						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="padding: 0;">
+							<select class="form-control" formControlName = "year">
+								<option *ngFor="let year of years">{{year}}</option>
+							</select>
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+					<input type="text" name="" class="form-control" formControlName = "cvv" placeholder="CVV">
+				</div>
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 fontWeight600 formField">
+					Card holder mobile number:
+				</div>
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 formField">
+					<div class="input-group gfe-input" style="width: 100%;">
+                        <input type="text" class="form-control" placeholder="Phone Number *" formControlName="phoneNumber">
+                    </div>
+				</div>
+			</div> 
+		</form>
+	</div>
+</div>
+
+<div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 minheight585" id="section5">
+	<div class="profile col-lg-12 col-md-12 col-sm-12 col-xs-12 formatingProfile">
+		<form [formGroup]="providerModel" (ngSubmit)="providerSetting()">
+			<div class="firstDiv col-lg-12 col-md-12 col-sm-12 col-xs-12" style="box-shadow: 0 -1px 0 #d5d5d3, inset 0 1px 0 rgba(0, 0, 0, .04);">
+				<span class="" style="padding: inherit;"> Provider Settings </span>
+				<input type="submit" class="btn btn-next" value="Connect" style="float: right;" [disabled]="!providerModel.valid" />
+			</div>
+			<div class="secondDiv col-lg-12 col-md-12 col-sm-12 col-xs-12" style="box-shadow: 0 -1px 0 #d5d5d3, inset 0 1px 0 rgba(0, 0, 0, .04); border-bottom: 1px solid #d5d5d3;">
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 formField">
+					Insert your merchant account access details. This way you trigger your payment processor to charge your client's credit card into the account you mention here.
+				</div>
+
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 formField">
+					<div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+						<label>Gateway ID</label>
+					</div>
+					<div class="col-lg-8 col-md-8 col-sm-8 col-xs-8 input-group gfe-input">
+                        <input type="text" class="form-control" placeholder="Gateway ID *" formControlName="gatewayId" style="width: 100%;">
+                    </div>
+				</div>
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 formField">
+					<div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+						<label>Terminal Password</label>
+					</div>
+					<div class="col-lg-8 col-md-8 col-sm-8 col-xs-8 input-group gfe-input">
+                        <input type="text" class="form-control" placeholder="Terminal Password *" formControlName="terminalPass" style="width: 100%;">
+                    </div>
+				</div>
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 formField">
+                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+	                    <label>API Key</label>
+					</div>
+					<div class="col-lg-8 col-md-8 col-sm-8 col-xs-8 input-group gfe-input">
+                        <input type="text" class="form-control" placeholder="API Key *" formControlName="apiKey" style="width: 100%;">
+                    </div>
+				</div>
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 formField">
+                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                    	<label>Secret Key</label>
+                    </div>
+					<div class="col-lg-8 col-md-8 col-sm-8 col-xs-8 input-group gfe-input">
+                        <input type="text" class="form-control" placeholder="Secret Key *" formControlName="secretKey" style="width: 100%;">
+                    </div>
+				</div>
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="border: 1px solid #d6d6d4; padding: 15px;">
+						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 fontWeight">
+							Good to know when connecting with First Data/ Payeezy
+						</div>
+						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+							Please make sure that you are using the <strong>First Data Global Gateway E4 also known as Payeeze</strong>
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 formField">
+	                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+	                	<label style="padding: 6px 12px; width: 100%;">Currency</label>
+	                </div>
+					<div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
+	                    <label style="padding: 6px 12px; width: 100%;"> USD (US Dollar)</label>
+	                </div>
+				</div>
+			</div>
+		</form>
+	</div>
+</div>

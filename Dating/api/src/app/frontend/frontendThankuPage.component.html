@@ -1,0 +1,18 @@
+<div class="continue" *ngIf = "showFlag">Please wait and don't refresh the page</div>
+
+<div class="backend-loader-preloader-wrapper">
+	<div class="backend-loader-preloader"></div>
+	<div class="countDown"><span id="timer"></span></div>
+</div>
+
+<div class="orderPlaced" *ngIf = "order && order.status == 'Accepted'">THANK You :)<br>Order Placed Successfully
+	<div class="fontSize24" *ngIf="order.custTime">Your order will reach you at {{order.custTime}}</div>
+</div>
+
+<div class="orderRejected" *ngIf = "order && order.status == 'Rejected'">Sorry :( <br>Order Rejected
+	<div class="fontSize24" *ngIf="order.custMessage">Your order is rejected due to {{order.custMessage}}</div>
+</div>
+
+<div class="orderMissed" style="display: none;">Sorry :( <br>Order Missed <span class="fontSize24">Please try again</span></div>
+
+<div class="continue cursorPointer" style="display: none;"><a [routerLink]="['/frontend', restaurants._id]">Continue...</a> </div>

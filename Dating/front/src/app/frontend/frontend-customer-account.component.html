@@ -1,0 +1,150 @@
+<app-customer-header></app-customer-header>
+<div class="container mainContainer" >
+    <div class="container restroNamel livenow"> 
+    <app-frontend-live-button></app-frontend-live-button>
+</div>
+
+    <div class="container kitchenDetail" style="min-height: 585px;">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="restroImage1 col-lg-3 col-md-3 col-sm-4 col-xs-4">
+
+               <span *ngIf="profile">
+                <div class="restroImage">
+                    <img [src]="setimage(profile.profilePic)" class="group list-group-image img-responsive" alt="" width="100px;" />
+                </div>
+               <!--  <div class="restroImage" *ngIf="!profile.profilePic">
+                    <img class="group list-group-image img-responsive" src="/assets/images/face.png" alt="" width="100px;" />
+                </div> -->
+              </span>
+
+                <ul class="list-group list-change1">
+                    <li class="list-group-item">
+                        <a [routerLink]="['/customer/profile']"><i class="icon ion-person ionicicon-size"></i> &nbsp;&nbsp; Profile</a>
+                    </li>
+                    <li class="list-group-item panelselected">
+                        <a [routerLink]="['/customer/my-account']"><i class="icon ion-card ionicicon-size"></i> &nbsp;&nbsp; Account</a>
+                    </li>
+                    <li class="list-group-item">
+                        <a [routerLink]="['/customer/my-views']"><i class="icon ion-eye ionicicon-size"></i> &nbsp;&nbsp; Views</a>
+                    </li>
+                    <li class="list-group-item">
+                        <a [routerLink]="['/customer/friend']"><i class="icon ion-person-stalker ionicicon-size"></i> &nbsp;&nbsp; Friend</a>
+                    </li>
+                    <li class="list-group-item">
+                        <a [routerLink]="['/customer/message']"><i class="icon ion-ios-chatboxes ionicicon-size"></i> &nbsp;&nbsp; Message</a>
+                    </li>
+                    <li class="list-group-item">
+                        <a [routerLink]="['/customer/notifications']"><i class="icon ion-android-notifications-none ionicicon-size"></i> &nbsp;&nbsp; Notifications</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-lg-9 col-md-9 col-sm-8 col-xs-8 leftSectionBorder">                
+                <div class="threeTabs">
+                  
+                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 paddingm1" href="javascript:void(0)" aria-controls="myPayment" role="tab" data-toggle="tab" data-target="#myPayment">
+                      <a href="javascript:void(0)" aria-controls="myPayment" role="tab" data-toggle="tab" data-target="#myPayment">
+                        <h4><i class="fa fa-money" aria-hidden="true"></i>  My Package</h4>
+                        </a>
+                    </div>
+                    
+                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 paddingm1" data-toggle="tab" href="javascript:void(0)" aria-controls="myPackage" role="tab" data-target="#myPackage">
+                        <a  data-toggle="tab" href="javascript:void(0)" aria-controls="myPackage" role="tab" data-target="#myPackage"><h4><i class="icon ion-pricetags"></i>  Purchase Package</h4></a>
+                    </div>
+                </div>
+
+
+                <div class="modal fade" id="packageDetail" role="dialog">
+                    <div class="modal-dialog modal-lg">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">{{packageDetail.name}}</h4>
+                      </div>
+                      <div class="modal-body">
+                        <div class="row">
+                    <div class="col-sm-6 col-lg-6 col-md-6 col-xs-6">
+                    <h3> calls : {{packageDetail.noofcalls}} </h3></div>
+                    <div class="col-sm-6 col-lg-6 col-md-6 col-xs-6">
+                       <h3> Price : {{packageDetail.price}}</h3>
+                    </div>
+                        </div>
+                          <div style="margin-top: 15px; padding-left: 10px;" [innerHTML]="packageDetail.description"></div>
+                          &nbsp;
+                          &nbsp;
+                           <!-- <div><a class="btn btn-success" href="javascript:void(0)" (click)="choosePackage(packageDetail._id)"> Choose</a></div> -->
+                      </div>
+                      <div class="modal-footer" style="background: white;">
+                          <button type="button" class="btn btn-success" data-dismiss="modal">Close</button>
+                      </div>
+                  </div>
+              </div>
+          </div>
+
+
+          <div class="tab-content">
+
+            <div role="tabpanel" class="tab-pane active" id="myPayment">
+     <div class="col-sm-9  col-md-12 main">
+               <div *ngIf="profile.mypackage">
+
+                  <div class="row " style="padding-bottom: 16px;" *ngIf="!profile.mypackage._id">No Package</div>
+
+                  <div class="row " *ngIf="profile.mypackage._id">
+                       
+                        <div class="panel panel-info">
+      <div class="panel-heading"> <h4>{{profile.mypackage.name}}</h4></div>
+      <div class="panel-body"><div class="mypack col-lg-12 col-xs-12 col-sm-12 col-md-12" style="    font-size: 17px;">
+                          <div class="col-lg-4 col-xs-4 col-sm-4 col-md-4">
+                              <b>Calls :</b> &nbsp; {{profile.mypackage.noofcalls}}
+                          </div>
+                          <div class="col-lg-4 col-xs-4 col-sm-4 col-md-4">
+                              <b>Price :</b> &nbsp; {{profile.mypackage.price}}
+                          </div>
+                          <div class="col-lg-4 col-xs-4 col-sm-4 col-md-4">
+                              <b>Remain Calls :</b> &nbsp; {{profile.mypackage.remaincalls}}
+                          </div>
+                      </div></div>
+    </div>
+
+                     <!--  <div class="mypack">
+                          
+                      </div> -->
+                      
+                  </div>   
+              </div>
+              </div>
+          </div>
+
+            <div role="tabpanel" class="tab-pane " id="myPackage">
+                <table class="table ">
+                      <thead>
+                      <tr>
+                      <th>Name</th>
+                      <th>Calls</th>
+                      <th>Price</th>
+                      <th *ngIf="profile.mypackage">Status</th>
+                      <th>#</th>
+                      <th>#</th>
+                      </tr>
+                      </thead>
+                      <tbody>           
+                      <tr class="info" *ngFor="let package of packages">            
+                      <td> {{package.name}}</td>
+                      <td> {{package.noofcalls}}</td>
+                      <td> {{package.price}} </td>
+                      <td *ngIf="profile.mypackage"> <span *ngIf="package._id == profile.mypackage._id"> Current </span></td>
+                      <td> <a href="javascript:void(0)" (click)="choosePackage(package)"> Purchase</a></td>
+                      <td> <a href data-toggle="modal" data-target="#packageDetail" (click)="getOnePackageDetail(package._id)"> View Detail</a> </td>                
+                      </tr>      
+                      </tbody>
+                </table>
+            </div>
+
+
+</div>     
+</div>
+</div>
+</div>
+
+</div>
+<app-customer-footer></app-customer-footer>

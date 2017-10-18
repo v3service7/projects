@@ -1,0 +1,86 @@
+<div class="headerDiv">
+	<div class="container-fluid topNav1">
+		<div class="kitchenName col-lg-7 col-md-7 col-sm-7 col-xs-7">
+			<h3><strong>{{restaurants.name}}</strong></h3>
+		</div>
+		<div class="sideMenu col-lg-5 col-md-5 col-sm-5 col-xs-5" *ngIf="!currentCustomer">
+			<a class="col-lg-3 col-md-3 col-sm-3 col-xs-3 links" [routerLink]="['/frontend', ids]" routerLinkActive="selected" [routerLinkActiveOptions]="{id: ids}"><i class="fa fa-cutlery" aria-hidden="true"></i></a>
+
+			<a class="col-lg-3 col-md-3 col-sm-3 col-xs-3 links"  [routerLink]="['/frontend-detail', ids]" routerLinkActive="selected" [routerLinkActiveOptions]="{id: ids}"><i class="fa fa-info-circle" aria-hidden="true"></i></a>
+			
+			<a class="col-lg-3 col-md-3 col-sm-3 col-xs-3 links"  [routerLink]="['/frontend-cart', ids]" routerLinkActive="selected" [routerLinkActiveOptions]="{id: ids}"><i class="fa fa-shopping-cart" aria-hidden="true"></i></a>
+			
+			<a class="col-lg-3 col-md-3 col-sm-3 col-xs-3 links" [routerLink]="['/login', ids]" routerLinkActive="selected" [routerLinkActiveOptions]="{id: ids}" ><i class="fa fa-user" aria-hidden="true"></i></a>
+		</div>
+
+		<div class="sideMenu col-lg-5 col-md-5 col-sm-5 col-xs-5"  *ngIf='currentCustomer'>
+			<a class="col-lg-2 col-md-2 col-sm-2 col-xs-2 links" [routerLink]="['/frontend', ids]" routerLinkActive="selected" [routerLinkActiveOptions]="{id: ids}"><i class="fa fa-cutlery" aria-hidden="true"></i></a>
+
+			<a class="col-lg-2 col-md-2 col-sm-2 col-xs-2 links"  [routerLink]="['/frontend-detail', ids]" routerLinkActive="selected" [routerLinkActiveOptions]="{id: ids}"><i class="fa fa-info-circle" aria-hidden="true"></i></a>
+			
+			<a class="col-lg-2 col-md-2 col-sm-2 col-xs-2 links"  [routerLink]="['/frontend-cart', ids]" routerLinkActive="selected" [routerLinkActiveOptions]="{id: ids}"><i class="fa fa-shopping-cart" aria-hidden="true"></i></a>
+
+			<a class="col-lg-4 col-md-4 col-sm-4 col-xs-4 links" [routerLink]="['/profile', ids]" style="padding-left:1%;"><h5>{{currentCustomer.firstname}}<span></span></h5></a>
+	        
+	        <a class="col-lg-2 col-md-2 col-sm-2 col-xs-2 links" [routerLink]="['/frontend', ids]" (click)="logout()" style="padding-left:1%;"><h5><span><i class="fa fa-power-off"></i></span></h5></a>
+		</div>
+	</div>
+
+	<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 closeNotification" id="closeNotification" *ngIf="resTime && resTime.status == 'close'">
+		<div class="col-lg-11 col-md-11 col-sm-11 col-xs-11 paddingBottom">You can place online order at these pickup hours.</div>
+		<div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 paddingBottom">
+			<button class="hideDiv" type="button" (click) = "hideDiv()" >
+				<span aria-hidden="true">&times;</span>
+			</button>
+		</div>
+
+		<div class="seeTimings btn" (click)="showOpeningHours()">
+			See Pickup Hours
+		</div>
+		<div class="info-hours-container" *ngIf="showOpeningHour && restaurants.openinghours" style="padding: 3%;">
+			<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+				<div *ngIf="restaurants.openinghours.monday">{{'Monday'|translate}} </div>
+				<div *ngIf="restaurants.openinghours.tuesday">{{'Tuesday'|translate}} </div>
+				<div *ngIf="restaurants.openinghours.wednesday">{{'Wednesday'|translate}} </div>
+				<div *ngIf="restaurants.openinghours.thursday">{{'Thursday'|translate}} </div>
+				<div *ngIf="restaurants.openinghours.friday">{{'Friday'|translate}} </div>
+				<div *ngIf="restaurants.openinghours.saturday">{{'Saturday'|translate}} </div>
+				<div *ngIf="restaurants.openinghours.sunday">{{'Sunday'|translate}} </div>
+			</div>
+			<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12" style="padding: 0;">
+				<strong>
+					<span class="" >
+						<div class="" *ngIf="restaurants.openinghours.monday">
+							{{restaurants.openinghours.mondaytime.opentime}}&nbsp; - &nbsp;
+							{{restaurants.openinghours.mondaytime.closetime}}
+						</div>
+						<div class="" *ngIf="restaurants.openinghours.tuesday">
+							{{restaurants.openinghours.tuesdaytime.opentime}}&nbsp; - &nbsp;
+							{{restaurants.openinghours.tuesdaytime.closetime}}
+						</div>
+						<div class="" *ngIf="restaurants.openinghours.wednesday">
+							{{restaurants.openinghours.wednesdaytime.opentime}}&nbsp; - &nbsp;
+							{{restaurants.openinghours.wednesdaytime.closetime}}
+						</div>
+						<div class="" *ngIf="restaurants.openinghours.thursday">
+							{{restaurants.openinghours.thursdaytime.opentime}}&nbsp; - &nbsp;
+							{{restaurants.openinghours.thursdaytime.closetime}}
+						</div>
+						<div class="" *ngIf="restaurants.openinghours.friday">
+							{{restaurants.openinghours.fridaytime.opentime}}&nbsp; - &nbsp;
+							{{restaurants.openinghours.fridaytime.closetime}}
+						</div>
+						<div class="" *ngIf="restaurants.openinghours.saturday">
+							{{restaurants.openinghours.saturdaytime.opentime}}&nbsp; - &nbsp;
+							{{restaurants.openinghours.saturdaytime.closetime}}
+						</div>
+						<div class="" *ngIf="restaurants.openinghours.sunday">
+							{{restaurants.openinghours.sundaytime.opentime}}&nbsp; - &nbsp;
+							{{restaurants.openinghours.sundaytime.closetime}}
+						</div>
+					</span>
+				</strong>
+			</div>
+		</div>
+	</div>
+</div>

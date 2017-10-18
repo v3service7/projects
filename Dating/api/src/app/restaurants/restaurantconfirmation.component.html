@@ -1,0 +1,38 @@
+<app-headerowner></app-headerowner>
+
+<div class="rightMenu1 col-lg-9 col-md-9 col-sm-9 col-xs-9" style="background-color: #E9E9E8;height: 585px;">
+	<!-- <alert></alert> -->
+	
+	<div class="profile col-lg-12 col-md-12 col-sm-12 col-xs-12" id="rightMenu1" style="z-index: 1;position: absolute;width: 70%;padding: 0;">
+		<form>
+			<div class="settings-heading col-lg-12 col-md-12 col-sm-12 col-xs-12" style="box-shadow: 0 -1px 0 #d5d5d3, inset 0 1px 0 rgba(0, 0, 0, .04);">
+				<span class="settings-title ng-binding">Please validate your email address </span>
+				<a class="btn btn-next pull-right" id="submitButton" [routerLink]="['/owner/basic-detail']">Next</a>
+			</div>
+			<div class="secondDiv  col-lg-12 col-md-12 col-sm-12 col-xs-12" style="box-shadow: 0 -1px 0 #d5d5d3, inset 0 1px 0 rgba(0, 0, 0, .04);">
+				<div class="settings-content col-lg-12 col-md-12 col-sm-12 col-xs-12" style="padding: 0;">
+					<div class="settings-content-left settings-content-left-email col-lg-8 col-md-8 col-sm-8 col-xs-8">
+						<div>A moment ago we have sent you an email to <strong class="user-email">{{user.email}}</strong>.<br><br>Please click on the link in order to validate your email address.
+						</div>
+						<div class="resend-email">
+							<a class="btn btn-primary btn-resend-email ng-binding" (click)="accountConfirm()">Resend activation email</a>
+							<span class="icon-checkmark js-checkmark"></span>
+						</div>
+					</div>
+					<div class="settings-content-right col-lg-4 col-md-4 col-sm-4 col-xs-4">
+						<div class="email-status status-box status-happy col-lg-12 col-md-12 col-sm-12 col-xs-12" style="text-align: -webkit-center;">
+							<div class="status-heading ng-binding col-lg-12 col-md-12 col-sm-12 col-xs-12">Status</div>
+							<div id="MyElement" class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="padding: 50%;"></div>
+							<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" *ngIf="user.emailstatus">
+								<div class="status-info ng-binding">Valid</div>
+							</div>
+							<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" *ngIf="!user.emailstatus">
+								<div class="status-info ng-binding">Invalid</div>
+							</div>
+						</div>
+					</div>
+					<div class="clearfix"></div>
+				</div>
+			</div>
+	</form>
+</div>

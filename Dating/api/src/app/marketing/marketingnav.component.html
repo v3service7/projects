@@ -1,0 +1,47 @@
+<div class="topNav container-fluid">
+	<div class="restaurant-name col-lg-2 col-md-2 col-sm-2 col-xs-2" style="float: left;">
+		<h1><b>LOGO</b></h1>
+	</div>
+	<div class="col-lg-7 col-md-7 col-sm-7 col-xs-7">
+		<ul class="topLinks">
+			<li><a [routerLink]="['/owner/basic-detail']">SETUP</a></li>
+			<li><a [routerLink]="['/owner/reports/overview']">REPORTS</a></li>
+			<li><a [routerLink]="['/owner/marketing/promotions']">MARKETING</a></li>
+		</ul>
+	</div>
+	<div class="dropdown col-lg-2 col-md-2 col-sm-2 col-xs-2">
+	  	<button class="dropbtn">{{currentOwner.username}} <i class="fa fa-caret-down"></i></button>
+	  	<div class="dropdown-content" style="z-index: 4;">
+	    	<a [routerLink]="['/owner/profile']" ><i class="fa fa-user" aria-hidden="true"></i>&nbsp;&nbsp;My Profile</a>
+	    	<a [routerLink]="['/owner/change-password']"><i class="fa fa-key" aria-hidden="true"></i>&nbsp;&nbsp;Password Change</a>
+	    	<a [routerLink]="['/owner/login/']"><i class="fa  fa-power-off"></i>&nbsp;&nbsp;Sign Out</a>
+	  	</div>
+	</div>
+</div>
+
+<div class="leftMenu col-lg-3 col-md-3 col-sm-3 col-xs-3" style="vertical-align: middle;">
+	<ul class="list-group list-group-flush leftMenuUl">
+		<li class="list-group-item">
+			{{restaurants.name}} ({{restaurants.resCode}})
+		</li>
+		<li class="list-group-item" data-toggle="collapse" data-target="#promotions">
+			<span class="fa fa-cutlery"></span>&nbsp;&nbsp;&nbsp;&nbsp;Promotions
+		</li>
+		<div id="promotions" class="collapse" [routerLinkActive]="['in']">
+			<ul class="option-menu">
+				<li class="list-group-item" [routerLink]="['/owner/marketing/overview']" [routerLinkActive]="['selected']">
+					<a>&#x27A5;&nbsp;&nbsp;&nbsp;&nbsp;Overview</a>
+					<i class="fa fa-check" aria-hidden="true" style="float: right;	color:#5AC15E;"></i>
+				</li>
+				<li class="list-group-item" [routerLink]="['/owner/marketing/promotions']" [routerLinkActive]="['selected']">
+					<a>&#x27A5;&nbsp;&nbsp;&nbsp;&nbsp;Your Promotions</a>
+					<i class="fa fa-check" aria-hidden="true"></i>
+				</li>
+				<li class="list-group-item" [routerLink]="['/owner/marketing/stats']" [routerLinkActive]="['selected']">
+					<a>&#x27A5;&nbsp;&nbsp;&nbsp;&nbsp;Stats</a>
+					<i class="fa fa-check" aria-hidden="true"></i>
+				</li>
+			</ul>
+		</div>
+	</ul>
+</div>
