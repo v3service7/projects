@@ -27,12 +27,17 @@ import { StaffComponent,StaffListComponent,StaffAddComponent,StaffEditComponent 
 import { AdminPlanComponent, PlanListComponent, PlanAddComponent, PlanEditComponent } from './admin/plan/plan.component';
 import { AdminCustomerComponent,CustomerListComponent,CustomerAddComponent,CustomerEditComponent } from './admin/customer/customer.component';
 import { AdminBusinessComponent,BusinessListComponent,BusinessEditComponent } from './admin/business/business.component';
+import { FlashMessagesModule } from 'angular2-flash-messages';
+import { ReCaptchaModule } from 'angular2-recaptcha';
 
 import {OrderPipe} from "./order.pipe"
 import {FilterPipe} from "./filter.pipe";
+import { AccountActiveComponent } from './account-active/account-active.component';
+
 
 @NgModule({
   declarations: [
+   
     AppComponent,FileSelectDirective,
     AdminComponent,
     AdminLoginComponent,AdminForgetPasswordComponent,
@@ -42,21 +47,21 @@ import {FilterPipe} from "./filter.pipe";
     AdminPlanComponent, PlanListComponent, PlanAddComponent, PlanEditComponent,
     AdminCustomerComponent,CustomerListComponent,CustomerAddComponent,CustomerEditComponent,
     AdminBusinessComponent,BusinessListComponent,BusinessEditComponent,
-
     CustomerComponent,
     CustomerLoginComponent, CustomerRegisterComponent, CustomerForgetPasswordComponent,
     CustomerDashboardComponent, CustomerProfileComponent,
     CustomerHeaderComponent,CustomerSidebarComponent,
-    CustomerBusinessComponent, CustomerBusinessListComponent, CustomerBusinessAddComponent, CustomerBusinessDocumentComponent, CustomerBusinessEditComponent
-
-
+    CustomerBusinessComponent, CustomerBusinessListComponent, CustomerBusinessAddComponent, CustomerBusinessDocumentComponent, CustomerBusinessEditComponent, AccountActiveComponent,
+   
   ],
   imports: [
+    ReCaptchaModule,
     BrowserModule,
     FormsModule,
     HttpModule,
     routing,
     ReactiveFormsModule,
+    FlashMessagesModule,
   ],
   providers: [AuthGuard, CustomerAuthGuard, AdminService, CustomerService, StaffService, BusinessService, PlanService],
   bootstrap: [AppComponent]

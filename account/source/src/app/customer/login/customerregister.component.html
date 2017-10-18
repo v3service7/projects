@@ -65,11 +65,14 @@
                                             {{ formErrors.newpassword }}
                                         </div>
                                         <div class="alert alert-danger" *ngIf="MutchPassword">Password not match</div>
-                                    
+
+                                    </div>
+                                    <div class="input-group">
+                                        <re-captcha (captchaResponse)="handleCorrectCaptcha($event)" site_key='6Ldg1SUUAAAAADvTCAxce8bTGFCK9TSw1ExOT7_I' formControlName="captcha"></re-captcha>
                                     </div>
                                 </div>
                                 <div class="footer text-center">
-                                    <button class="btn btn-success btn-wd btn-lg progress-button" id="submitButton" [disabled]="!registerForm.valid">Let's go</button>
+                                    <button class="btn btn-success btn-wd btn-lg progress-button" id="submitButton" [disabled]="!registerForm.valid">Submit</button>
                                     <a class="btn btn-success btn-simple btn-wd btn-lg" [routerLink]="['/customer/login']">Login</a>
                                     <a class="btn btn-success btn-simple btn-wd btn-lg" [routerLink]="['/customer/forget-password']">Forget Password ?</a>
                                 </div>
