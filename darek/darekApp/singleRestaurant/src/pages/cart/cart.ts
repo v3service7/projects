@@ -126,9 +126,6 @@ export class CartPage {
 
     private checkDisablePlaceOrderBtn(){
     	if (this.cart.length == 0 && typeof this.promotion == 'undefined' && this.cartStorage && typeof this.cartStorage['orderPayment'] == 'undefined') {
-    		console.log(this.cart.length)
-    		console.log(this.promotion)
-    		console.log(this.cartStorage['orderPayment'])
     		return true;
     	}else{
     		return false;

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ToastController, LoadingController, Nav, NavController, NavParams ,ViewController,MenuController} from 'ionic-angular';
+import { ToastController, LoadingController, Nav, NavController, NavParams ,ViewController,MenuController, AlertController} from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { KitchenMenuService,RestaurantsService, PromotionsService } from '../../app/service/index';
 import * as globalVariable from "../../app/global";
@@ -7,6 +7,8 @@ import * as globalVariable from "../../app/global";
 import { ItemPage } from "../item/item"
 import { RestroinfoPage } from '../restroinfo/restroinfo';
 import { CartPage } from '../cart/cart';
+import { MyOrderPage } from '../my-order/my-order';
+import { LoginPage } from '../login/login';
 
 @Component({
   selector: 'page-menu',
@@ -17,6 +19,7 @@ export class MenuPage {
     menus : any = [];
     tempCart : any = [];
     restaurants:any;
+    currentCustomer:any;
     imageURL: string = globalVariable.imageUrl;
     cart : string;
     loading: any;
@@ -34,6 +37,7 @@ export class MenuPage {
     	private viewCtrl: ViewController,
 	    public toastCtrl: ToastController,
 		public navCtrl: NavController,
+        public alertCtrl: AlertController,
 		private kitchenMenuService: KitchenMenuService,
 		private restaurantsService: RestaurantsService,
         private promotionsService: PromotionsService,
@@ -67,6 +71,12 @@ export class MenuPage {
         this.loading.present();
         this.loadRestaurant('595172e2421a472120e0db5e');
 	}
+
+    ionViewDidEnter(){
+        if(localStorage.getItem('currentCustomer')){
+            this.currentCustomer = JSON.parse(localStorage.getItem('currentCustomer'));
+        }
+    }
 
     doRefresh(refresher) {
         setTimeout(() => {
@@ -179,8 +189,51 @@ export class MenuPage {
        this.nav.setRoot(RestroinfoPage);
    }
 
-   private goToCart(){
+   /*private goToCart(){
        this.nav.setRoot(CartPage, {id : this.restaurants._id});
-   }
+   }*/
+
+    private goToCart(){
+        this.nav.setRoot(CartPage);
+    }
+
+    private goToMyOrder(){
+        this.nav.setRoot(MyOrderPage);
+    }
+
+    private logout(){
+        let prompt = this.alertCtrl.create({
+            title: 'Logout',
+            message: "Are you sure ?",
+            buttons: [
+            {
+                text: 'Cancel',
+                handler: data => {
+                    console.log('Cancel clicked');
+                }
+            },
+            {
+                text: 'oK',
+                handler: data => {
+                    let loading = this.loadingCtrl.create({
+                        content : 'Please Wait...'
+                    }); 
+                    loading.present();
+                    localStorage.removeItem('currentCustomer');
+                    delete this.currentCustomer;
+                    location.reload();
+                    setTimeout(()=>{
+                        loading.dismiss();
+                    },500)
+                }
+            }
+            ]
+        });
+        prompt.present();
+    }
+
+    private login(){
+        this.navCtrl.push(LoginPage);
+    }
 
 }

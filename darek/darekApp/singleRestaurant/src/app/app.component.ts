@@ -46,7 +46,7 @@ export class MyApp {
                 { iconA : 'book' , iconI : 'ios-book' , iconW : 'md-book' , title: 'My Orders', component: MyOrderPage },
                 { iconA : 'heart' , iconI : 'ios-heart' , iconW : 'md-heart' , title: 'My WishList', component: WishlistPage },
                 { iconA : 'person' , iconI : 'ios-person' , iconW : 'md-person' , title: 'My Profile', component: ProfilePage },
-                { iconA : 'power' , iconI : 'ios-power' , iconW : 'md-power' , title: 'Logout', component: 'logout' }
+                { iconA : 'log-out' , iconI : 'ios-log-out' , iconW : 'md-log-out' , title: 'Logout', component: 'logout' }
             )
             // user and time are the same arguments passed in `events.publish(user, time)`
             console.log('Welcome', user, 'at', time);
@@ -92,7 +92,7 @@ export class MyApp {
             { iconA : 'person' , iconI : 'ios-person' , iconW : 'md-person' , title: 'My Profile', component: LoginPage }
         ];
         this.currentCustomer = JSON.parse(localStorage.getItem('currentCustomer')); 
-        this.restaurant = JSON.parse(localStorage.getItem('restaurant')); 
+        this.restaurant = JSON.parse(localStorage.getItem('restaurant'));
         
         this.platform.ready().then(() => {
             // Here you can do any higher level native things you might need.

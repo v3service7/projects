@@ -173,4 +173,24 @@ ion-card-header{
     border-top: 0.55px solid #dbdbdf;
     -webkit-overflow-scrolling: touch;
 }
+
+.fab , ion-fab-list button.fab{
+    background-color: rgba(0, 0, 0, 0.81);
+    color : white;
+}
+
+button.fab.activated , ion-fab-list button.fab.activated{
+    background-color: rgba(0, 0, 0, 0.81);
+}
+
+ion-fab-list button.fab-in-list{
+    height : 45px !important;
+    width : 45px !important;
+}
+
+.numberClass{
+    position : absolute;
+    top : -20px;
+}
+
 }
