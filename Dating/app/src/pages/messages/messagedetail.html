@@ -3,7 +3,7 @@
         <ion-title>
             <ion-row>
                 <ion-col col-3 text-right><img [src]="senderPic(message.id.profilePic)"></ion-col>
-                <ion-col class="senderName">{{message.id.firstname}}</ion-col>
+                <ion-col class="senderName" text-capitalize>{{message.id.firstname}}</ion-col>
             </ion-row>
         </ion-title>
     </ion-navbar>
@@ -21,7 +21,7 @@
             </ion-col>
         </ion-row>
 
-        <div id="focusRow" tabindex="0"></div>
+        <div id="focusRow" tabindex="-1"></div>
 
         <!-- <ion-input #input type="text" placeholder="..." autofocus></ion-input> -->
 

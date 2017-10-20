@@ -32,8 +32,6 @@ export class MessageDetailPage {
         setTimeout(()=>{
             var x = document.getElementById('focusRow');
             x.focus();
-            console.log("x");
-            console.log(x);
         },1000)
 
     }
@@ -43,10 +41,15 @@ export class MessageDetailPage {
             this.customerInfo = JSON.parse(localStorage.getItem("currentCustomer"));
         }
 
-        this.events.subscribe('messages:receivedmsg', (msg,time) => {  
+        this.events.subscribe('messages:receivedmsg', (msg,time) => {
             var toCustomer = JSON.parse(localStorage.getItem('currentChat'));
             if(msg.fromCustId == toCustomer._id){
                 this.message.messages.push(msg);
+                setTimeout(()=>{
+                    this.currentMsg = "";
+                    var x = document.getElementById('focusRow');
+                    x.focus();
+                },500);
             }
         });
     }
@@ -62,14 +65,13 @@ export class MessageDetailPage {
         }else{
             imagePath =  this.url + pic;
         }
-
         return imagePath;
     }
 
 
     private senderORreceiver(msg){
         if (this.customerInfo) {
-            if (msg.fromCustId._id == this.customerInfo._id) {
+            if (msg.fromCustId == this.customerInfo._id) {
                 return {'background' : '#c7eafc', 'left':'25%', 'color':'#45829b'};
             }else{
                 return {'background' : '#ffe6cb', 'left':'0', 'color':'#c48843'};
@@ -92,17 +94,9 @@ export class MessageDetailPage {
                     toSocketId : toCustomer.socketId
                 };
 
-                const dataCopy = {
-                    fromCustId : fromCustomer,
-                    fromSocketId : fromCustomer.socketId,
-                    message : this.currentMsg.trim(),
-                    toCustId : toCustomer,
-                    toSocketId : toCustomer.socketId
-                };
-
                 this.socketService.sendMessage(data);
 
-                this.message.messages.push(dataCopy);
+                this.message.messages.push(data);
                 setTimeout(()=>{
                     this.currentMsg = "";
                     var x = document.getElementById('focusRow');
@@ -112,8 +106,4 @@ export class MessageDetailPage {
             });
         }
     }
-
-
-
-
 }

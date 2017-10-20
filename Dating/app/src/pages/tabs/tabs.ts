@@ -25,10 +25,14 @@ export class TabsPage {
 	tab4Root = FriendPage;
 	tab5Root = ProfilePage;
 
-	constructor(private socketService : SocketService, private customerService : CustomersService,  public events: Events) {
-     if(localStorage.getItem("currentCustomer")){
-     	this.customerInfo = JSON.parse(localStorage.getItem("currentCustomer"));
-     }
+	constructor(
+		private socketService : SocketService,
+		private customerService : CustomersService,
+		public events: Events
+	) {
+		if(localStorage.getItem("currentCustomer")){
+			this.customerInfo = JSON.parse(localStorage.getItem("currentCustomer"));
+		}
 	}
 
 	ionViewDidLoad() {}

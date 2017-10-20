@@ -36,41 +36,40 @@
 				<span *ngFor="let friend of friends" class="spanIcon">
 					
 					<li *ngIf="(customer._id == friend.FromId._id) && friend.status == 0">
-						<ion-icon class="font20 purple" name="code-download" (click)="acceptrequest(friend._id, customer._id)">
+						<ion-icon class="font20 fontWeight600 purple" name="code-download" ios="ios-code-download" md="md-code-download" (click)="acceptrequest(friend._id, customer._id)">
 						</ion-icon>
 					</li>
 
 
 					<li *ngIf="(customer._id == friend.FromId._id)  && friend.status == 0" >
-						<ion-icon class="font20 purple" name="close" (click)="deleteBlock(friend._id)">
+						<ion-icon class="font20 fontWeight600 red" name="close" ios="ios-close" md="md-close" (click)="deleteBlock(friend._id)">
 						</ion-icon>
 					</li>
 
 					<li *ngIf="(customer._id == friend.FromId._id || customer._id == friend.ToId._id) && friend.status == 1">
-						<ion-icon class="font20 purple" name="code-download" (click)="deleteBlock(friend._id)">
+						<ion-icon class="font20 orange" name="contacts" ios="ios-contacts" md="md-contacts" (click)="deleteBlock(friend._id)">
 						</ion-icon>
 					</li>
 
 
 					<li *ngIf="(this.customerInfo._id == friend.FromId._id && customer._id == friend.ToId._id) && friend.status == 0">
-						<ion-icon class="font20 purple" name="send">
-						</ion-icon>
+						<ion-icon class="font20 green" name="send" ios="ios-send" md="md-send"></ion-icon>
 					</li>
 
 
 					<li *ngIf="(this.customerInfo._id == friend.FromId._id && customer._id == friend.ToId._id) && friend.status == 0">
-						<ion-icon class="font20 purple" name="remove-circle" (click)="deleteBlock(friend._id)">
+						<ion-icon class="font20 purple" name="trash" ios="ios-trash" md="md-trash" (click)="deleteBlock(friend._id)">
 						</ion-icon>
 					</li>
 
 
 					<li  *ngIf="(this.customerInfo._id == friend.FromId._id && customer._id == friend.ToId._id) && friend.status == 2">
-						<ion-icon class="font20 purple" name="trash" (click)="unblockrequest(friend, 2)">
+						<ion-icon class="font20 red" name="remove-circle" ios="ios-remove-circle" md="md-remove-circle" (click)="unblockrequest(friend, 2)">
 						</ion-icon>
 					</li>
 
 					<li  *ngIf="(this.customerInfo._id == friend.FromId._id && customer._id == friend.ToId._id) && friend.status == 4">
-						<ion-icon class="font20 purple" name="unlock" (click)="unblockrequest(friend, 4)">
+						<ion-icon class="font20 purple" name="unlock" ios="ios-unlock" md="md-unlock" (click)="unblockrequest(friend, 4)">
 						</ion-icon>
 					</li>
 
@@ -78,23 +77,23 @@
 
 
 				<li *ngIf="checkforinvite(customer._id)">
-					<ion-icon class="font20 purple" name="person-add" (click)="sendRequest(customer._id)">
+					<ion-icon class="font20 purple" name="person-add" ios="ios-person-add" md="md-person-add" (click)="sendRequest(customer._id)">
 					</ion-icon>
 				</li>
 
 
 				<li *ngIf="checkforinvite(customer._id)" >
-					<ion-icon class="font20 purple" name="trash" (click)="anyBlockRequest(customer._id)">
+					<ion-icon class="font20 red" name="remove-circle" ios="ios-remove-circle" md="md-remove-circle" (click)="anyBlockRequest(customer._id)">
 					</ion-icon>
 				</li>
 
 				<li>
-					<ion-icon class="font20 purple" name="chatboxes" (click)="selectNewChat(customer._id);">
+					<ion-icon class="font20 blue"  name="chatbubbles" ios="ios-chatbubbles" md="md-chatbubbles" (click)="selectNewChat(customer._id);">
 					</ion-icon>
 				</li>
 				
 				<li *ngIf="customerInfo.mypackage && (customerInfo.mypackage.remaincalls > 0) && (myonline.indexOf(customer._id) != -1)">
-					<ion-icon class="font20 purple" name="videocam" (click)="vediocall(customer._id,customerInfo._id)">
+					<ion-icon class="font20 green" name="videocam" ios="ios-videocam" md="md-videocam" (click)="vediocall(customer._id,customerInfo._id)">
 					</ion-icon >
 				</li>
 			</ul>

@@ -62,7 +62,15 @@ ion-tabs .tab-button-icon{
 }
 
 .blue{
-	color : #5187D9;
+	color : rgb(0, 166, 251);
+}
+
+.orange{
+	color : #E65100;
+}
+
+.red{
+	color : red;
 }
 
 .green{
@@ -83,6 +91,10 @@ ion-tabs .tab-button-icon{
 
 .paddingRight5px{
 	padding : 1px;
+}
+
+.fontWeight600{
+	font-weight : 600;
 }
 
 

@@ -87,30 +87,26 @@ export class MessagesPage {
     }
 
     private selectChat(message){
+        let messageObj = {};
+        this.customerService.getOneCustomer(message.id._id).subscribe((data) => {
 
-        console.log("message");
-        console.log(message);
-         
-         this.customerService.getOneCustomer(message.id._id).subscribe((data) => {
-             
-         console.log("customer k");
-         console.log(data);
+            messageObj['id'] = data.message;
 
-         localStorage.setItem("currentChat", JSON.stringify(data.message));
+            localStorage.setItem("currentChat", JSON.stringify(data.message));
+    
+            this.events.publish('messages:badgecounter', Date.now());
 
-         });
+            var obj = {fromCustId: data.message, toCustId: this.customerInfo._id};
 
-        this.events.publish('messages:badgecounter', Date.now());
+            this.customerService.getmessage(obj).subscribe((data1) => {
+                messageObj['messages'] = data1.message
 
-        var obj = {fromCustId: message.id, toCustId: this.customerInfo._id};
-
-        this.customerService.getmessage(obj).subscribe((data) => {
-            console.log("Update");
+                this.navCtrl.push(MessageDetailPage, {
+                    message : messageObj
+                });
+            });
         });
 
-        this.navCtrl.push(MessageDetailPage, {
-            message : message
-        });
 
         
     }

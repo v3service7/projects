@@ -1,9 +1,10 @@
-import { Component, Input,OnInit } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { Component, Input,OnInit, Output, EventEmitter } from '@angular/core';
+import { NavController, NavParams, Events, LoadingController } from 'ionic-angular';
 import * as globalVariable from "../../app/global";
 import { CustomersService, FriendService, SocketService } from '../../app/service/index';
 
 import { CustomerPage } from './customer';
+import { MessageDetailPage } from '../messages/messagedetail'
 
 @Component({
 	selector: 'page-customerdetail',
@@ -18,12 +19,16 @@ export class CustomerDetailPage  implements OnInit{
 	url= globalVariable;
 	myonline : any = [];
 
+	@Output() changeSomething : EventEmitter<string> = new EventEmitter();
+
 	constructor(
 		public navCtrl: NavController,
 		public customerService: CustomersService,
 		private friendService : FriendService,
 		public navParams: NavParams,
-		private socketService : SocketService
+		private socketService : SocketService,
+        public events: Events,
+        public loadingCtrl: LoadingController
 		) {
 		this.id = navParams.get('id');
 		/*this.id = localStorage.getItem('id');*/
@@ -118,5 +123,102 @@ export class CustomerDetailPage  implements OnInit{
 	private hideMoreDetail(){
 		this.showBasic = false;
 	}
+
+
+
+
+
+    private SomeEvent(){
+        this.getAllAllow();
+        this.changeSomething.emit('complete');  
+    }
+
+    private acceptrequest(id, pid) {
+        var friendobj={_id: id, status:1};
+        this.friendService.updateFriend(friendobj).subscribe((data) => {
+            this.SomeEvent();
+        });
+    }
+
+    private deleteBlock(id){        
+        this.friendService.deleteOne(id).subscribe((data) => {
+            this.SomeEvent();
+        });
+    }
+
+    private unblockrequest(data, type) {
+        if(type == 2){
+            var friendobj ={_id:data._id, FromId: data.ToId._id, ToId: data.FromId._id, status:0};
+            this.friendService.updateFriend(friendobj).subscribe(
+                (data) => {
+                    this.SomeEvent();
+                });
+        }else{
+            this.SomeEvent();
+            this.deleteBlock(data._id);
+        }
+    }
+
+
+    private selectNewChat(id){
+        let loading = this.loadingCtrl.create({
+            content : 'Loading your messages...'
+        });
+
+        loading.present();
+        let messageObj = {};
+        this.customerService.getOneCustomer(id).subscribe((data) => {
+            messageObj['id'] = data.message;
+
+            localStorage.setItem("currentChat", JSON.stringify(data.message));
+
+            this.events.publish('messages:badgecounter', Date.now());
+
+            var obj = {fromCustId: data.message, toCustId: this.customerInfo._id};
+
+            this.customerService.getmessage(obj).subscribe((data1) => {
+                messageObj['messages'] = data1.message;
+                loading.dismiss();
+                this.navCtrl.push(MessageDetailPage, {
+                    message : messageObj
+                });
+            });
+
+        });
+    }
+
+    private requestFromTo(from, to, type){
+        var obj = {FromId : from, ToId: to, title: type}; 
+        this.SomeEvent();
+    }
+
+
+    private sendRequest(id) {
+        var friendobj={FromId: this.customerInfo._id, ToId:id, status:0}
+        this.friendService.addFriend(friendobj).subscribe((data) => {
+            this.SomeEvent();
+        });
+    }
+
+    private checkblock(id){
+        var index1 = this.friends.findIndex(item => {
+            return item.ToId._id == id && item.status == 4 
+        });
+        var index2 = this.friends.findIndex(item => {
+            return item.FromId._id == id && item.status == 4 
+        });
+        if(index1 != -1 || index2 != -1){
+            return false;
+        } else{
+            return true;
+        }
+    }
+
+    private anyBlockRequest(id) {
+        var friendobj={ FromId:this.customerInfo._id, ToId:id, status:4}
+        this.friendService.addFriend(friendobj).subscribe((data) => {
+            this.SomeEvent();
+        });
+    }
 
 }
