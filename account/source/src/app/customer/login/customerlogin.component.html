@@ -19,12 +19,15 @@
                                         </span>
                                         <div class="form-group label-floating is-empty">
                                             <label class="control-label">Email</label>
-                                            <input type="text" class="form-control" formControlName="email">
+                                            <input type="text" class="form-control" formControlName="email" validateOnBlur [validateFormControl]="loginForm.controls['email']">
                                             <span class="material-input"></span>
                                         </div>
-                                        <div *ngIf="formErrors.email" class="alert alert-danger">
+                                        <div *ngIf="loginForm.controls['email'].touched && loginForm.controls['email'].dirty && loginForm.controls['email'].invalid  " class="alert alert-danger">
                                             {{ formErrors.email }}
                                         </div>
+                                        <!-- <div *ngIf="formErrors.email" class="alert alert-danger">
+                                            {{ formErrors.email }}
+                                        </div> -->
                                     </div>
                                     <div class="input-group">
                                         <span class="input-group-addon">
