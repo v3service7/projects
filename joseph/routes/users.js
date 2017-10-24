@@ -4,6 +4,7 @@ const passport = require('passport');
 const jwt = require('jsonwebtoken');
 const User = require('../models/user.js');
 const config = require('../config/database');
+const emails = require('../mail/emailConfig.js');
 
 
 // User Login
@@ -125,25 +126,35 @@ router.put('/changePassword/:id', passport.authenticate('jwt', {session:false}),
     });
 });
 
-router.put('/customer-change-password/:id', function(req, res) {
-        var response = {};
-        customerModel.findById(req.params.id, function(err, admin) {
-            if (admin.password == req.body.password) {
-                var newObject = {};
-                newObject.password = req.body.newpassword;
-                customerModel.findByIdAndUpdate(req.params.id, newObject, function(err, customer) {
-                    if (err) {
-                        response = { "error": true, "message": err };
-                    } else {
-                        response = { "error": false, "message": "Password changed Successfully " };
-                    }
-                    res.json(response);
-                });
+
+router.post('/forget-password', function(req, res, next) {
+    var response = {};
+    User.find({ email: req.body.email }, function(err, data) {
+        if (err) {
+            req.flash('error', 'something went wrong!');
+        } else {
+            if (data.length > 0) {
+                emails.forgetEmailShoot(data[0],'admin');
+                res.json({ error: false, message: 'Email sent Successfully' });
             } else {
-                response = { "error": true, "message": "Password Incorect" };
-                res.json(response);
-            };
+                res.json({ error: true, message: 'Email id does not exist' });
+            }
+        };
+    });
+});
+
+router.put('/customer-change-password/:id', function(req, res) {
+        var response = {};        
+        
+        User.findByIdAndUpdate(req.params.id, req.body, function(err, customer) {
+            if (err) {
+                response = { "error": true, "message": err };
+            } else {
+                response = { "error": false, "message": "Password changed Successfully " };
+            }
+            res.json(response);
         });
+
     });
 
 // Get User Profile by id

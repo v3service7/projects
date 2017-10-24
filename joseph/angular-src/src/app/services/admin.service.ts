@@ -51,8 +51,13 @@ export class AdminService {
     this.loadToken();
     headers.append('Authorization', this.authToken);
     headers.append('Content-Type','application/json'); 
-    return this.http.put(globalVariable.url+'users/changePassword/'+user._id, user, {headers: headers})
+    return this.http.put(globalVariable.url+'users/customer-change-password/'+user._id, user, {headers: headers})
       .map(res => res.json());
+    }
+
+    public adminForgetPassword(data){
+        return this.http.post(globalVariable.url+'users/forget-password', data)
+        .map(res =>  res.json());
     }
 
   storeUserData(token, user){

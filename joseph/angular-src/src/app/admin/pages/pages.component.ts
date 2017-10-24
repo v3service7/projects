@@ -3,14 +3,14 @@ import { Router,ActivatedRoute,Params  } from '@angular/router';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 
 /*service*/
-import { PlanService} from '../../services/plan.service';
+import { PagesService} from '../../services/pages.service';
 
 @Component({
-  selector: 'app-admin-plan',
-  templateUrl: './plan.component.html',
-  styleUrls: ['./plan.component.css'],
+  selector: 'app-admin-pages',
+  templateUrl: './pages.component.html',
+  styleUrls: ['./pages.component.css'],
 })
-export class AdminPlanComponent implements OnInit {
+export class AdminPagesComponent implements OnInit {
     currentAdmin: any = {};
     loginForm: FormGroup;
     returnUrl: string;
@@ -29,11 +29,11 @@ export class AdminPlanComponent implements OnInit {
 }
 
 @Component({
-  selector: 'app-admin-plan-list',
-  templateUrl: './planlist.component.html',
-  styleUrls: ['./plan.component.css'],
+  selector: 'app-admin-pages-list',
+  templateUrl: './pageslist.component.html',
+  styleUrls: ['./pages.component.css'],
 })
-export class PlanListComponent implements OnInit {
+export class PagesListComponent implements OnInit {
     currentAdmin: any = {};
     plans: any=[];
     returnUrl: string;
@@ -41,7 +41,7 @@ export class PlanListComponent implements OnInit {
 
       constructor(
         private lf: FormBuilder, 
-        private planService: PlanService,
+        private pagesService: PagesService,
         private router: Router,
         private route: ActivatedRoute
     ){ 
@@ -53,7 +53,7 @@ export class PlanListComponent implements OnInit {
     }
 
     getList(){
-        this.planService.planList().subscribe(
+        this.pagesService.pageList().subscribe(
             (data) => {
               if (!data.error) {
                      this.plans = data.message
@@ -67,7 +67,7 @@ export class PlanListComponent implements OnInit {
 
     private deletePlan(id) {
         if(confirm("Are you sure to delete ?")) {
-            this.planService.planDelete(id).subscribe(data => {
+            this.pagesService.pageDelete(id).subscribe(data => {
                 this.getList();
             });
         }
@@ -75,31 +75,31 @@ export class PlanListComponent implements OnInit {
 }
 
 @Component({
-  selector: 'app-admin-plan-add',
-  templateUrl: './planadd.component.html',
-  styleUrls: ['./plan.component.css'],
+  selector: 'app-admin-pages-add',
+  templateUrl: './pagesadd.component.html',
+  styleUrls: ['./pages.component.css'],
 })
-export class PlanAddComponent implements OnInit {
+export class PagesAddComponent implements OnInit {
     currentAdmin: any = {};
     planAddForm: FormGroup;
 
     formErrors = {
-        'name': '',
-        'amount': '',
+        'title': '',
+        'url': '',
     };
 
     validationMessages = {
-        'name': {
+        'title': {
             'required':      'Name is required.',
         },
-        'amount': {
+        'url': {
             'required':      'Amount is required.',
         },
     };
 
     constructor(
         private lf: FormBuilder, 
-        private planService: PlanService,
+        private pagesService: PagesService,
         private router: Router,
         private route: ActivatedRoute
     ){ 
@@ -108,9 +108,9 @@ export class PlanAddComponent implements OnInit {
 
     ngOnInit() {
         this.planAddForm = this.lf.group({
-            name: ['', Validators.required],
-            amount: ['', Validators.required],
-            desc: [''],
+            title: ['', Validators.required],
+            url: ['', Validators.required],
+            description: [''],
         });
         this.planAddForm.valueChanges
             .subscribe(data => this.onValueChanged(data));
@@ -118,10 +118,10 @@ export class PlanAddComponent implements OnInit {
     }
 
     planAdd(){
-        this.planService.planAdd(this.planAddForm.value).subscribe(
+        this.pagesService.pageAdd(this.planAddForm.value).subscribe(
             (data) => {
               if (!data.error) {
-                  this.router.navigate(['admin/plan']);
+                  this.router.navigate(['admin/pages']);
                 }
             },
             (err)=>{
@@ -149,32 +149,32 @@ export class PlanAddComponent implements OnInit {
 }
 
 @Component({
-  selector: 'app-admin-plan-edit',
-  templateUrl: './planedit.component.html',
-  styleUrls: ['./plan.component.css'],
+  selector: 'app-admin-pages-edit',
+  templateUrl: './pagesedit.component.html',
+  styleUrls: ['./pages.component.css'],
 })
-export class PlanEditComponent implements OnInit {
+export class PagesEditComponent implements OnInit {
     currentAdmin: any = {};
 	currentCustomer: any = {};
     planAddForm: FormGroup;
 
     formErrors = {
-        'name': '',
-        'amount': '', 
+        'title': '',
+        'url': '', 
     };
 
     validationMessages = {
-        'name': {
+        'title': {
             'required':      'Name is required.',
         },
-        'amount': {
+        'url': {
             'required':      'Amount is required.',
         },
     };
 
     constructor(
         private lf: FormBuilder, 
-        private planService: PlanService,
+        private pagesService: PagesService,
         private router: Router,
         private route: ActivatedRoute
     ){ 
@@ -184,9 +184,9 @@ export class PlanEditComponent implements OnInit {
     ngOnInit() {
         this.planAddForm = this.lf.group({
             _id: ['', Validators.required],
-            name: ['', Validators.required],
-            amount: ['', Validators.required],
-            desc: [''],
+            title: ['', Validators.required],
+            url: ['', Validators.required],
+            description: [''],
         });
 
         this.route.params.subscribe((params: Params) => {
@@ -200,10 +200,10 @@ export class PlanEditComponent implements OnInit {
     }
 
     planUpdate(){
-        this.planService.planUpdate(this.planAddForm.value).subscribe(
+        this.pagesService.pageUpdate(this.planAddForm.value).subscribe(
             (data) => {
               if (!data.error) {
-                  this.router.navigate(['admin/plan']);
+                  this.router.navigate(['admin/pages']);
                 }
             },
             (err)=>{
@@ -213,7 +213,7 @@ export class PlanEditComponent implements OnInit {
     }
 
     plan(id){
-        this.planService.plan(id).subscribe(
+        this.pagesService.page(id).subscribe(
             (data) => {
               if (!data.error) {
                   this.currentCustomer = data.message;

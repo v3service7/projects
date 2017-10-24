@@ -7,15 +7,19 @@
     "start": "node app"
   },
   "dependencies": {
+    "bcryptjs": "*",
     "body-parser": "*",
     "cookie-parser": "*",
+    "cors": "*",
+    "ejs": "^2.5.7",
     "express": "*",
-    "serve-favicon": "*",
-	"mongoose": "*",
-	"bcryptjs": "*",
-	"cors": "*",
-	"jsonwebtoken": "*",
-	"passport": "*",
-	"passport-jwt": "*"	
+    "jsonwebtoken": "*",
+    "moment": "^2.19.1",
+    "mongoose": "*",
+    "nodemailer": "^4.3.0",
+    "passport": "*",
+    "passport-jwt": "*",
+    "randomstring": "^1.1.5",
+    "serve-favicon": "*"
   }
 }

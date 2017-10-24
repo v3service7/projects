@@ -12,18 +12,23 @@ import { HeaderComponent } from './admin/header/header.component';
 import { LoginComponent } from './admin/login/login.component';
 import { DashboardComponent } from './admin/dashboard/dashboard.component';
 import { ProfileComponent } from './admin/profile/profile.component';
-import { ForgotPasswordComponent } from './admin/forgot-password/forgot-password.component';
+import { ForgotPasswordComponent,AdminResetPasswordComponent } from './admin/forgot-password/forgot-password.component';
 import { UserComponent, UserListComponent, UserAddComponent, UserEditComponent} from './admin/user/user.component';
-import { PlanComponent, PlanListComponent, PlanAddComponent, PlanEditComponent } from './admin/plan/plan.component';
+import { AdminPlanComponent, PlanListComponent, PlanAddComponent, PlanEditComponent } from './admin/plan/plan.component';
+
+import { AdminPagesComponent, PagesListComponent , PagesAddComponent, PagesEditComponent } from './admin/pages/pages.component';
+
 import { ExchangeComponent, ExchangeListComponent, ExchangeAddComponent, ExchangeEditComponent } from './admin/exchange/exchange.component';
 
 import {ValidateService} from './services/validate.service';
 import {AdminService} from './services/admin.service';
 import {UserService} from './services/user.service';
+import {PlanService} from './services/plan.service';
+import { PagesService} from './services/pages.service';
 import {FlashMessagesModule} from 'angular2-flash-messages';
 import {AuthGuard} from './guards/auth.guard';
 import { SidebarComponent } from './admin/sidebar/sidebar.component';
-
+import { AdminCustomerComponent,CustomerListComponent,CustomerAddComponent,CustomerEditComponent } from './admin/customer/customer.component';
 
 
 
@@ -33,14 +38,20 @@ const appRoutes: Routes =  [
         { path: '', component: LoginComponent },     
         { path: 'login', component: LoginComponent },
         { path: 'forgotpassword', component: ForgotPasswordComponent },
+        { path: 'resetpassword/:id', component: AdminResetPasswordComponent },
         { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] },
         { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] },
-        { path: 'user', component: UserComponent, canActivate: [AuthGuard], children :[
-            { path: '', component: UserListComponent, },
-            { path: 'add', component: UserAddComponent, },
-            { path: ':id', component: UserEditComponent, },
+        { path: 'pages', component: AdminPagesComponent, canActivate: [AuthGuard], children :[
+            { path: '', component: PagesListComponent, },
+            { path: 'add', component: PagesAddComponent, },
+            { path: ':id', component: PagesEditComponent, },
         ]},
-        { path: 'plan', component: PlanComponent, canActivate: [AuthGuard], children :[
+        { path: 'user', component: AdminCustomerComponent, canActivate: [AuthGuard], children :[
+            { path: '', component: CustomerListComponent, },
+            { path: 'add', component: CustomerAddComponent, },
+            { path: ':id', component: CustomerEditComponent, },
+        ]},
+        { path: 'plan', component: AdminPlanComponent, canActivate: [AuthGuard], children :[
             { path: '', component: PlanListComponent, },
             { path: 'add', component: PlanAddComponent, },
             { path: ':id', component: PlanEditComponent, },
@@ -62,10 +73,12 @@ const appRoutes: Routes =  [
     LoginComponent,
     DashboardComponent,
     ProfileComponent,
+    AdminCustomerComponent,CustomerListComponent,CustomerAddComponent,CustomerEditComponent,
     UserComponent, UserListComponent, UserAddComponent, UserEditComponent,
-    ForgotPasswordComponent,
+    ForgotPasswordComponent,AdminResetPasswordComponent,
     SidebarComponent,
-    PlanComponent, PlanListComponent, PlanAddComponent, PlanEditComponent,
+    AdminPlanComponent, PlanListComponent, PlanAddComponent, PlanEditComponent,
+     AdminPagesComponent, PagesListComponent , PagesAddComponent, PagesEditComponent,
     ExchangeComponent, ExchangeListComponent, ExchangeAddComponent, ExchangeEditComponent
   ],
   imports: [
@@ -76,7 +89,7 @@ const appRoutes: Routes =  [
     RouterModule.forRoot(appRoutes),
     FlashMessagesModule, 
   ],
-  providers: [ValidateService, AdminService, AuthGuard, UserService],
+  providers: [ValidateService, AdminService, AuthGuard, UserService, PlanService, PagesService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

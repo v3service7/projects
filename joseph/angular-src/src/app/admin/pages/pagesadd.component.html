@@ -2,28 +2,28 @@
 	<div class="col-md-8">
         <div class="card">
             <div class="card-header" data-background-color="green">
-                <h4 class="title">Add Plan</h4>
-                <p class="category">Create plan for user</p>
+                <h4 class="title">Add Pages</h4>
+                <p class="category">Create Page for user</p>
             </div>
             <div class="card-content">
                 <form [formGroup]="planAddForm" (ngSubmit)="planAdd()">
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group label-floating">
-                                <label class="control-label">Name <span>*</span></label>
-                                <input formControlName="name" type="text" class="form-control" autofocus>
+                                <label class="control-label">Title <span>*</span></label>
+                                <input formControlName="title" type="text" class="form-control" autofocus>
                             </div>
-                            <div *ngIf="formErrors.name" class="alert alert-danger">
-                                {{ formErrors.name }}
+                            <div *ngIf="formErrors.title" class="alert alert-danger">
+                                {{ formErrors.title }}
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group label-floating">
-                                <label class="control-label">Amount</label>
-                                <input formControlName="amount" type="text" class="form-control">
+                                <label class="control-label">URL</label>
+                                <input formControlName="url" type="text" class="form-control">
                             </div>
-                            <div *ngIf="formErrors.amount" class="alert alert-danger">
-                                {{ formErrors.amount }}
+                            <div *ngIf="formErrors.url" class="alert alert-danger">
+                                {{ formErrors.url }}
                             </div>
                         </div>
                     </div>
@@ -31,13 +31,13 @@
                         <div class="col-md-12">
                             <div class="form-group">
                                 <div class="form-group label-floating">
-                                    <label class="control-label"> Describe about this plan</label>
-                                    <textarea class="form-control" formControlName="desc" rows="5"></textarea>
+                                    <label class="control-label"> Content of this page</label>
+                                    <textarea class="form-control" formControlName="description" rows="5"></textarea>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <button type="submit" class="btn btn-success pull-right" [disabled]="!planAddForm.valid">Add Plan</button>
+                    <button type="submit" class="btn btn-success pull-right" [disabled]="!planAddForm.valid">Add Page</button>
                     <div class="clearfix"></div>
                 </form>
             </div>

@@ -69,14 +69,6 @@ export class ProfileComponent implements OnInit {
 
   ngOnInit() {
 
-    this.adminService.getProfile().subscribe(profile => {
-      console.log(profile);
-      this.user = profile.user;
-    },
-    err => {
-      console.log(err);
-      return false;
-    });
 
     this.customerAddForm = this.lf.group({
         _id: ['', Validators.required],
@@ -93,12 +85,24 @@ export class ProfileComponent implements OnInit {
         newpassword: ['', [Validators.required, Validators.minLength(6), Validators.pattern(this.passwordRegex)]]
     });
 
-    this.customerAddForm.patchValue(this.user);
+    
     
     this.cpForm.valueChanges
         .subscribe(data => this.onValueChanged(data));
-    this.onValueChanged();
-    this.cpForm.controls["_id"].setValue(this.user._id);
+    
+
+    this.adminService.getProfile().subscribe(profile => {
+      console.log(profile);
+      this.user = profile.user;
+      this.customerAddForm.patchValue(this.user);
+      this.onValueChanged();
+      this.cpForm.controls["_id"].setValue(this.user._id);
+    },
+    err => {
+      console.log(err);
+      return false;
+    });
+
     
   }
 
