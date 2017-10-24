@@ -1,4 +1,3 @@
-
 page-menu {
 .card-background-page  ion-col {
     position: relative;
@@ -9,6 +8,11 @@ page-menu {
     background-size: 100% 100%;
     max-width : 94%;
   }
+
+
+.toolbar-content-md, .toolbar-content-wp{
+    display: flex;
+}
 
 /*@media (min-width:592px){
     .card-background-page  ion-col {

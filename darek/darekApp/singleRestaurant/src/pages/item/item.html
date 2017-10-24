@@ -1,6 +1,10 @@
 <ion-header>
 	<ion-navbar>
 		<ion-title>{{menu.name}}</ion-title>
+		<button ion-button class="colorWhite bgTransparent" float-right  (click)="goToCart()">
+            <ion-icon name="cart" ios="ios-cart" md="md-cart"></ion-icon>
+            <span class="numberClass">{{tempCart.length}}</span>
+        </button>
 	</ion-navbar>
 </ion-header>
 
@@ -9,7 +13,7 @@
         <ion-refresher-content></ion-refresher-content>
     </ion-refresher>
 
-	<ion-fab right bottom>
+	<!-- <ion-fab right bottom>
 	    <button ion-fab><ion-icon name="arrow-dropup"></ion-icon></button>
 	    <ion-fab-list side="top">
 			<button ion-fab (click)="goToCart()"><ion-icon name="cart" ios="ios-cart" md="md-cart"></ion-icon> <span class="numberClass">{{tempCart.length}}</span></button>
@@ -17,7 +21,7 @@
 			<button *ngIf = "currentCustomer" ion-fab (click)="logout()"><ion-icon name="log-out" ios="ios-log-out" md="md-log-out"></ion-icon></button>
 			<button *ngIf = "!currentCustomer" ion-fab (click)="login()"><ion-icon name="log-in" ios="ios-log-in" md="md-log-in"></ion-icon></button>
 	    </ion-fab-list>
-  </ion-fab>
+  </ion-fab> -->
 
 
 	<ion-card *ngFor = "let item of items" class="width100">

@@ -6,6 +6,7 @@ import * as globalVariable from "../../app/global";
 
 import { CheckoutPage } from './checkout';
 import { AwaitPage } from './await';
+import { PaymentinfoPage } from '../paymentinfo/paymentinfo';
 
 @Component({
 	selector: 'page-cart',
@@ -125,11 +126,12 @@ export class CartPage {
     }
 
     private checkDisablePlaceOrderBtn(){
-    	if (this.cart.length == 0 && typeof this.promotion == 'undefined' && this.cartStorage && typeof this.cartStorage['orderPayment'] == 'undefined') {
-    		return true;
-    	}else{
-    		return false;
-    	}
+        if (this.cartStorage['subTotal'] != 0 && typeof this.cartStorage['orderPayment'] != 'undefined') {
+            return false;
+        }else{
+            return true;
+        }
+
     }
 
     private loadAllPromotions() {
@@ -514,8 +516,12 @@ export class CartPage {
         }
 
         if (this.cartStorage['orderPayment']['cardinternet']) {
+            this.nav.setRoot(PaymentinfoPage,{
+                cart : this.cartStorage
+            })
             console.log("this.cartStorage");
             console.log(this.cartStorage);
+            loading.dismiss();
         }else{
             this.customerService.addOrder(this.cartStorage).subscribe((data) => {
                 if (data.error == false) {

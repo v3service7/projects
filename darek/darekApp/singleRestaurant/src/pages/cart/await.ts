@@ -12,9 +12,11 @@ import { OrderService } from '../../app/service/index';
 	templateUrl: 'await.html',
 })
 export class AwaitPage {
-	order : any = {};
+    order : any = {};
+	restaurant : any = {};
 	loading: any;
 	orderMissed: boolean = false;
+    imageURL: string = globalVariable.imageUrl;
 
 	constructor(
 		public navCtrl: NavController,
@@ -32,6 +34,7 @@ export class AwaitPage {
         setTimeout(()=>{
             this.loading.dismiss();
         },500)
+        this.restaurant = JSON.parse(localStorage.getItem('restaurant'));
 		/*this.order = navParams.get('order');
 
 		this.getUpdatedOrder(this.order._id);*/
@@ -39,6 +42,16 @@ export class AwaitPage {
 
 	ionViewDidLoad() {
 	}
+
+    private restroImage(img){
+        if (img != null) {
+            var imgPath = this.imageURL + img;
+        }
+        if (img == null) {
+            var imgPath = "../assets/img/itemimage.gif";
+        }
+        return imgPath;
+    }
 
 	/*private getUpdatedOrder(id){
 		var count = 0;

@@ -6,8 +6,6 @@ import * as globalVariable from "../../app/global";
 
 import { MenuPage } from '../menu/menu';
 import { CartPage } from '../cart/cart';
-import { MyOrderPage } from '../my-order/my-order';
-import { LoginPage } from '../login/login';
 
 @Component({
     selector: 'page-itemdetail',
@@ -378,45 +376,4 @@ export class ItemDetailPage {
     private goToCart(){
         this.nav.setRoot(CartPage);
     }
-
-    private goToMyOrder(){
-        this.nav.setRoot(MyOrderPage);
-    }
-
-    private logout(){
-        let prompt = this.alertCtrl.create({
-            title: 'Logout',
-            message: "Are you sure ?",
-            buttons: [
-            {
-                text: 'Cancel',
-                handler: data => {
-                    console.log('Cancel clicked');
-                }
-            },
-            {
-                text: 'oK',
-                handler: data => {
-                    let loading = this.loadingCtrl.create({
-                        content : 'Please Wait...'
-                    }); 
-                    loading.present();
-                    localStorage.removeItem('currentCustomer');
-                    delete this.currentCustomer;
-                    location.reload();
-                    setTimeout(()=>{
-                        loading.dismiss();
-                    },500)
-                }
-            }
-            ]
-        });
-        prompt.present();
-    }
-
-    
-    private login(){
-        this.navCtrl.push(LoginPage);
-    }
-
 }

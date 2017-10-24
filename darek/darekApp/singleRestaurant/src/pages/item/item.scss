@@ -4,6 +4,10 @@ ion-content{
 	background: #EEEEEE !important;
 }
 
+.toolbar-content-md, .toolbar-content-wp{
+    display: flex;
+}
+
 ion-content ion-card {
 	margin:0 0 2% 0 !important;
 	height: 15%;

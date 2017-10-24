@@ -80,6 +80,7 @@ export class CheckoutPage {
             if (this.cartStorage['orderMethod']) {
                 if(this.cartStorage['orderMethod']['mType'] == 'Pickup'){
                     this.orderMethodSelect = 'pickup';
+                    this.oMethod = true;
                     this.orderMethod = this.cartStorage['orderMethod'];
                 }
                 if(this.cartStorage['orderMethod']['mType'] == 'Delivery'){
@@ -123,8 +124,6 @@ export class CheckoutPage {
                         day[0].innerHTML = this.cartStorage['orderTime']['day'];
                         time[0].innerHTML = this.cartStorage['orderTime']['time'];
                         this.tMethod = true;
-
-
                     },500)
                 }
             }
@@ -449,7 +448,7 @@ export class CheckoutPage {
     }
 
     private checkDisabled(){
-    	if (this.oMethod && this.tMethod && this.pMethod) {
+    	if ((this.oMethod ==true) && (this.tMethod==true) && (this.pMethod==true)) {
     	 	return false;
     	}else{
     		return true;

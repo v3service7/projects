@@ -7,8 +7,6 @@ import * as globalVariable from "../../app/global";
 import { MenuPage } from '../menu/menu';
 import { ItemDetailPage } from './itemDetail';
 import { CartPage } from '../cart/cart';
-import { MyOrderPage } from '../my-order/my-order';
-import { LoginPage } from '../login/login';
 
 @Component({
     selector: 'page-item',
@@ -48,12 +46,9 @@ export class ItemPage {
 
     ionViewDidEnter() {
         this.cart = 'cart_595172e2421a472120e0db5e';
-
         if (localStorage.getItem(this.cart)) {
             this.tempCart = JSON.parse(localStorage.getItem(this.cart));
         }
-
-
         this.getCustomer();
         this.getItems(this.menu._id);
     }
@@ -219,45 +214,4 @@ export class ItemPage {
     private goToCart(){
         this.nav.setRoot(CartPage);
     }
-
-    private goToMyOrder(){
-        this.nav.setRoot(MyOrderPage);
-    }
-
-    private logout(){
-        let prompt = this.alertCtrl.create({
-            title: 'Logout',
-            message: "Are you sure ?",
-            buttons: [
-            {
-                text: 'Cancel',
-                handler: data => {
-                    console.log('Cancel clicked');
-                }
-            },
-            {
-                text: 'oK',
-                handler: data => {
-                    let loading = this.loadingCtrl.create({
-                        content : 'Please Wait...'
-                    }); 
-                    loading.present();
-                    localStorage.removeItem('currentCustomer');
-                    delete this.currentCustomer;
-                    location.reload();
-                    setTimeout(()=>{
-                        loading.dismiss();
-                    },500)
-                }
-            }
-            ]
-        });
-        prompt.present();
-    }
-
-    
-    private login(){
-        this.navCtrl.push(LoginPage);
-    }
-
 }

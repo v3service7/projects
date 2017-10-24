@@ -15,10 +15,17 @@ page-await {
 	}
 
 	.font20{
-		font-size : 20px;
+		font-size : 32px;
 	}
 
 	.font40{
-		font-size : 40px;
+		font-size : 50px;
+	}
+
+	ion-content{
+		background-position: center;
+	    background-size: cover;
+	    font-weight: 600;
+	    color: white !important;
 	}
 }

@@ -18,6 +18,7 @@ import { IconTextPage } from '../pages/item/iconText';
 import { CartPage } from '../pages/cart/cart';
 import { CheckoutPage } from '../pages/cart/checkout';
 
+import { PaymentinfoPage } from '../pages/paymentinfo/paymentinfo';
 
 @Component({
     templateUrl: 'app.html'

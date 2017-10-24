@@ -4,7 +4,11 @@ page-itemDetail {
 		height: 30%;
 		margin-bottom: 4%;
 	}
-
+	
+	.toolbar-content-md, .toolbar-content-wp{
+	    display: flex;
+	}
+	
 	ion-card{
 		margin-bottom : 20% !important;
 	}

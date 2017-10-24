@@ -4,11 +4,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { KitchenMenuService,RestaurantsService, PromotionsService } from '../../app/service/index';
 import * as globalVariable from "../../app/global";
 
-import { ItemPage } from "../item/item"
-import { RestroinfoPage } from '../restroinfo/restroinfo';
+import { ItemPage } from "../item/item";
 import { CartPage } from '../cart/cart';
-import { MyOrderPage } from '../my-order/my-order';
-import { LoginPage } from '../login/login';
 
 @Component({
   selector: 'page-menu',
@@ -76,6 +73,11 @@ export class MenuPage {
         if(localStorage.getItem('currentCustomer')){
             this.currentCustomer = JSON.parse(localStorage.getItem('currentCustomer'));
         }
+        if (localStorage.getItem(this.cart)) {
+            this.tempCart = JSON.parse(localStorage.getItem(this.cart));
+        }else{
+            localStorage.setItem(this.cart,'[]');
+        }
     }
 
     doRefresh(refresher) {
@@ -98,6 +100,12 @@ export class MenuPage {
             localStorage.setItem('restaurant',JSON.stringify(this.restaurants));
             this.cart = 'cart_' + id;
             this.loadAllMenu(id);
+
+            if (localStorage.getItem(this.cart)) {
+                this.tempCart = JSON.parse(localStorage.getItem(this.cart));
+            }else{
+                localStorage.setItem(this.cart,'[]');
+            }
         });
     }
 
@@ -152,24 +160,18 @@ export class MenuPage {
 				this.getToast('Something Went Wrong!');
 			}
         });
-
-        if (localStorage.getItem(this.cart)) {
-            this.tempCart = JSON.parse(localStorage.getItem(this.cart));
-        }else{
-            localStorage.setItem(this.cart,'[]');
-        }
 	}
 
-	private getToast(msg){
+    private getToast(msg){
     	let toast = this.toastCtrl.create({
 	        message: msg,
 	        duration: 3000,
 	        position:'top' //top,middle,bottom
 	    });
 	    toast.present();
-   }
+    }
 
-   private menuImage(img){
+    private menuImage(img){
        if (img != null) {
            var imgPath = this.imageURL + img;
        }
@@ -177,63 +179,14 @@ export class MenuPage {
            var imgPath = "../assets/img/menu.jpg";
        }
        return imgPath;
-   }
+    }
 
-   private showItems(menu){
+    private showItems(menu){
         this.navCtrl.push(ItemPage, {
             menu : menu
         });
-   }
-
-   private restroInfo(){
-       this.nav.setRoot(RestroinfoPage);
-   }
-
-   /*private goToCart(){
-       this.nav.setRoot(CartPage, {id : this.restaurants._id});
-   }*/
-
+    }
     private goToCart(){
         this.nav.setRoot(CartPage);
     }
-
-    private goToMyOrder(){
-        this.nav.setRoot(MyOrderPage);
-    }
-
-    private logout(){
-        let prompt = this.alertCtrl.create({
-            title: 'Logout',
-            message: "Are you sure ?",
-            buttons: [
-            {
-                text: 'Cancel',
-                handler: data => {
-                    console.log('Cancel clicked');
-                }
-            },
-            {
-                text: 'oK',
-                handler: data => {
-                    let loading = this.loadingCtrl.create({
-                        content : 'Please Wait...'
-                    }); 
-                    loading.present();
-                    localStorage.removeItem('currentCustomer');
-                    delete this.currentCustomer;
-                    location.reload();
-                    setTimeout(()=>{
-                        loading.dismiss();
-                    },500)
-                }
-            }
-            ]
-        });
-        prompt.present();
-    }
-
-    private login(){
-        this.navCtrl.push(LoginPage);
-    }
-
 }

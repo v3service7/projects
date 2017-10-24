@@ -27,11 +27,11 @@ import { WishlistPage } from '../pages/profile/wishlist';
 
 import { MenuPage } from '../pages/menu/menu';
 
+import { PaymentinfoPage } from '../pages/paymentinfo/paymentinfo';
+
 import { ItemPage } from '../pages/item/item';
 import { ItemDetailPage } from '../pages/item/itemDetail';
 import { IconTextPage } from '../pages/item/iconText';
-
-import { RestroinfoPage } from '../pages/restroinfo/restroinfo';
 
 import { CartPage } from '../pages/cart/cart';
 import { CheckoutPage } from '../pages/cart/checkout';
@@ -52,9 +52,8 @@ const cloudSettings: CloudSettings = {
         PromotionPage, PromotionDetailPage,
         LoginPage,ForgetPasswordPage,RegisterPage,
         ProfilePage,ProfileUpdatePage,ChangePasswordPage,WishlistPage,
-        MenuPage,
+        MenuPage,PaymentinfoPage,
         ItemPage,ItemDetailPage,IconTextPage,
-        RestroinfoPage,
         CartPage,CheckoutPage,AwaitPage,
         MyOrderPage,OrderDetailPage
     ],
@@ -72,9 +71,8 @@ const cloudSettings: CloudSettings = {
         PromotionPage, PromotionDetailPage,
         LoginPage,ForgetPasswordPage,RegisterPage,
         ProfilePage,ProfileUpdatePage,ChangePasswordPage,WishlistPage,
-        MenuPage,
+        MenuPage,PaymentinfoPage,
         ItemPage,ItemDetailPage,IconTextPage,
-        RestroinfoPage,
         CartPage,CheckoutPage,AwaitPage,
         MyOrderPage,OrderDetailPage
     ],

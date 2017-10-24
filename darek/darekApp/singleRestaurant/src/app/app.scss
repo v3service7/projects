@@ -190,7 +190,15 @@ ion-fab-list button.fab-in-list{
 
 .numberClass{
     position : absolute;
-    top : -20px;
+    top : 0;
+}
+
+.bgTransparent{
+    background: transparent !important;
+}
+
+.button-wp span.numberClass{
+    top : -2px;
 }
 
 }
