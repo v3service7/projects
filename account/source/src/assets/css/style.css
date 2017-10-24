@@ -280,7 +280,11 @@ footer #tzine-actions iframe{
     left: 25%;
 }
 
-.alert-danger{
+.danger-alert{
+	background-color: #f55a4e;
+    color: #ffffff;
+    border-radius: 3px;
+    box-shadow: 0 12px 20px -10px rgba(244, 67, 54, 0.28), 0 4px 20px 0px rgba(0, 0, 0, 0.12), 0 7px 8px -5px rgba(244, 67, 54, 0.2);
 	width: 50%;
     left: 25%;
 }

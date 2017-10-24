@@ -5,7 +5,7 @@
                 <h4 class="title">Edit Customer</h4>
                 <p class="category">Complete your profile</p>
             </div>
-            <div class="card-content">
+            <div class="card-content" *ngIf = "currentCustomer">
                 <form [formGroup]="customerAddForm" (ngSubmit)="customerUpdate()">
                     <div class="row">
                         <div class="col-md-6">

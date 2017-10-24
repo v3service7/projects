@@ -45,18 +45,6 @@ module.exports = (function() {
         return res.status(200).json({ status: true });
     });
 
-    router.get('/admin', function(req, res, next) {
-        var response = {};
-        adminModel.find({}, null, { sort: { created_at: 1 } }, function(err, admins) {
-            if (err) {
-                response = { "error": true, "message": err };
-            } else {
-                response = { "error": false, "message": admins };
-            };
-            res.json(response);
-        });
-    });
-
     router.post('/admin-register', function(req, res) {
         let response = {};
         let adminObj = new adminModel(req.body);
