@@ -1,0 +1,21 @@
+{
+  "name": "MEANAuthAPP",
+  "version": "0.0.0",
+  "private": true,
+  "main": "app.js",
+  "scripts": {
+    "start": "node app"
+  },
+  "dependencies": {
+    "body-parser": "*",
+    "cookie-parser": "*",
+    "express": "*",
+    "serve-favicon": "*",
+	"mongoose": "*",
+	"bcryptjs": "*",
+	"cors": "*",
+	"jsonwebtoken": "*",
+	"passport": "*",
+	"passport-jwt": "*"	
+  }
+}
