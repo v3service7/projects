@@ -12,6 +12,26 @@
                                 <div class="card-content">
                                     <div class="input-group">
                                         <span class="input-group-addon">
+                                            <i class="material-icons">account_circle</i>
+                                        </span>
+                                        <div class="form-group label-floating is-empty">
+                                            <label class="control-label">First Name</label>
+                                            <input type="text" class="form-control" formControlName="firstname">
+                                            <span class="material-input"></span>
+                                        </div>
+                                    </div>
+                                    <div class="input-group">
+                                        <span class="input-group-addon">
+                                            <i class="material-icons">account_circle</i>
+                                        </span>
+                                        <div class="form-group label-floating is-empty">
+                                            <label class="control-label">Last Name</label>
+                                            <input type="text" class="form-control" formControlName="lastname">
+                                            <span class="material-input"></span>
+                                        </div>
+                                    </div>
+                                    <div class="input-group">
+                                        <span class="input-group-addon">
                                             <i class="material-icons">email</i>
                                         </span>
                                         <div class="form-group label-floating is-empty">
@@ -30,9 +50,9 @@
                                         <span class="input-group-addon">
                                             <i class="material-icons">phone</i>
                                         </span>
-                                        <div class="form-group label-floating is-empty">
+                                        <div class="form-group label-floating is-empty mobileNumberLabel">
                                             <label class="control-label">Mobile Number</label>
-                                            <input type="text" class="form-control" formControlName="phonenumber">
+                                            <input type="text" class="form-control" formControlName="phonenumber" [value]='+971'>
                                             <span class="material-input"></span>
                                         </div>
                                         <div *ngIf="formErrors.phonenumber" class="alert alert-danger">
@@ -72,7 +92,7 @@
                                     </div>
                                 </div>
                                 <div class="footer text-center">
-                                    <button class="btn btn-success btn-wd btn-lg progress-button" id="submitButton" [disabled]="!registerForm.valid">Submit</button>
+                                    <button class="btn btn-success btn-wd btn-lg" id="submitButton" [disabled]="!registerForm.valid">Submit</button>
                                     <a class="btn btn-success btn-simple btn-wd btn-lg" [routerLink]="['/customer/login']">Login</a>
                                     <a class="btn btn-success btn-simple btn-wd btn-lg" [routerLink]="['/customer/forget-password']">Forget Password ?</a>
                                 </div>

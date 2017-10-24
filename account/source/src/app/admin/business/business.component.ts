@@ -57,13 +57,23 @@ export class BusinessListComponent implements OnInit {
             this.customer(id);
         }); 
     }
-
+    
+    private deleteBusiness(id) {
+        if(confirm("Are you sure to delete ?")) {
+            this.businessService.businessDelete(id).subscribe(data => {
+                this.getList(this.currentCustomer._id);
+            });
+        }
+    }
 
     customer(id){
         this.customerService.customer(id).subscribe(
             (data) => {
               if (!data.error) {
                   this.currentCustomer = data.message;
+
+                  console.log("this.currentCustomer");
+                  console.log(this.currentCustomer);
                 }
             },
             (err)=>{
@@ -76,7 +86,9 @@ export class BusinessListComponent implements OnInit {
         this.businessService.businessList(id).subscribe(
             (data) => {
               if (!data.error) {
-                     this.businesses = data.message
+                     this.businesses = data.message;
+                     console.log("this.businesses");
+                     console.log(this.businesses);
                 }
             },
             (err)=>{

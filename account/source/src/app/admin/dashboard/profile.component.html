@@ -75,8 +75,11 @@
                                                     <label class="control-label">Password</label>
                                                     <input formControlName="password" type="password" class="form-control">
                                                 </div>
-                                                <div *ngIf="formErrors.password" class="alert alert-danger">
-                                                    {{ formErrors.password }}
+                                                <div *ngIf="cpFormErrors.password" class="alert alert-danger">
+                                                    {{ cpFormErrors.password }}
+                                                </div>
+                                                <div *ngIf="err != ''" class="alert alert-danger">
+                                                    {{ err }}
                                                 </div>
                                             </div>
                                             <div class="row">
@@ -84,8 +87,11 @@
                                                     <label class="control-label">New Password</label>
                                                     <input formControlName="newpassword" type="password" class="form-control">
                                                 </div>
-                                                <div *ngIf="formErrors.newpassword" class="alert alert-danger">
-                                                    {{ formErrors.newpassword }}
+                                                <div *ngIf="cpFormErrors.newpassword" class="alert alert-danger">
+                                                    {{ cpFormErrors.newpassword }}
+                                                </div>
+                                                <div *ngIf="err != ''" class="alert alert-danger">
+                                                    {{ err }}
                                                 </div>
                                             </div>
                                         </div>

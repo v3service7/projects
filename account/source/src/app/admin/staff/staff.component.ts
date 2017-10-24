@@ -16,13 +16,13 @@ export class StaffComponent implements OnInit {
     returnUrl: string;
     err:any;
 
-      constructor(
+    constructor(
         private lf: FormBuilder, 
         private adminService: AdminService,
         private router: Router,
         private route: ActivatedRoute
     ){ 
-          this.currentAdmin = JSON.parse(localStorage.getItem('currentAdmin'));
+        this.currentAdmin = JSON.parse(localStorage.getItem('currentAdmin'));
       }
 
       ngOnInit() {
@@ -48,7 +48,7 @@ export class StaffListComponent implements OnInit {
     returnUrl: string;
     err:any;
 
-      constructor(
+    constructor(
         private lf: FormBuilder, 
         private staffService: StaffService,
         private router: Router,

@@ -1,7 +1,7 @@
 ﻿import { Routes, RouterModule } from '@angular/router';
 
 import { AdminComponent } from './admin/admin.component';
-import { AdminLoginComponent,AdminForgetPasswordComponent } from './admin/login/adminlogin.component';
+import { AdminLoginComponent,AdminForgetPasswordComponent, AdminResetPasswordComponent } from './admin/login/adminlogin.component';
 import { DashboardComponent,AdminProfileComponent } from './admin/dashboard/dashboard.component';
 import { StaffComponent,StaffListComponent,StaffAddComponent,StaffEditComponent } from './admin/staff/staff.component';
 import { AdminPlanComponent, PlanListComponent, PlanAddComponent, PlanEditComponent } from './admin/plan/plan.component';
@@ -9,7 +9,7 @@ import { AdminCustomerComponent,CustomerListComponent,CustomerAddComponent,Custo
 import { AdminBusinessComponent,BusinessListComponent,BusinessEditComponent } from './admin/business/business.component';
 
 import { CustomerComponent } from './customer/customer.component';
-import { CustomerLoginComponent, CustomerRegisterComponent, CustomerForgetPasswordComponent } from './customer/login/customerlogin.component';
+import { CustomerLoginComponent, CustomerRegisterComponent, CustomerForgetPasswordComponent, CustomerResetPasswordComponent } from './customer/login/customerlogin.component';
 import { CustomerDashboardComponent, CustomerProfileComponent } from './customer/dashboard/dashboard.component';
 import { AccountActiveComponent } from './account-active/account-active.component';
 import { CustomerBusinessComponent, CustomerBusinessAddComponent, CustomerBusinessDocumentComponent, CustomerBusinessEditComponent,CustomerBusinessListComponent } from './customer/business/business.component';
@@ -21,6 +21,7 @@ const appRoutes: Routes = [
     	{ path: '', component: AdminLoginComponent },
         { path: 'login', component: AdminLoginComponent },
         { path: 'forget-password', component: AdminForgetPasswordComponent },
+        { path: 'resetpassword/:id', component: AdminResetPasswordComponent },
         { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] },
         { path: 'profile', component: AdminProfileComponent, canActivate: [AuthGuard] },
         { path: 'staff', component: StaffComponent, canActivate: [AuthGuard], children :[
@@ -48,7 +49,8 @@ const appRoutes: Routes = [
     	{ path: '', component: CustomerLoginComponent },
         { path: 'login', component: CustomerLoginComponent },
         { path: 'register', component: CustomerRegisterComponent },
-    	{ path: 'forget-password', component: CustomerForgetPasswordComponent },
+        { path: 'forget-password', component: CustomerForgetPasswordComponent },
+    	{ path: 'resetpassword/:id', component: CustomerResetPasswordComponent },
         { path: 'dashboard', component: CustomerDashboardComponent, canActivate: [CustomerAuthGuard] },
         { path: 'profile', component: CustomerProfileComponent, canActivate: [CustomerAuthGuard] },
         { path: 'business', component: CustomerBusinessComponent, canActivate: [CustomerAuthGuard], children :[

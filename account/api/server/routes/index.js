@@ -11,6 +11,7 @@ module.exports = (function() {
     /*load Model*/
     let adminModel = require("../model/admin.js");
     let customerModel = require("../model/customer.js");
+    var emails = require('../mail/emailConfig.js');
 
 
     router.post('/customer-verify', function(req, res) {
@@ -38,9 +39,22 @@ module.exports = (function() {
             };
         });
     });
+
     router.get('/test', function(req, res) {
         let response = {};
         return res.status(200).json({ status: true });
+    });
+
+    router.get('/admin', function(req, res, next) {
+        var response = {};
+        adminModel.find({}, null, { sort: { created_at: 1 } }, function(err, admins) {
+            if (err) {
+                response = { "error": true, "message": err };
+            } else {
+                response = { "error": false, "message": admins };
+            };
+            res.json(response);
+        });
     });
 
     router.post('/admin-register', function(req, res) {
@@ -129,7 +143,7 @@ module.exports = (function() {
     });
 
 
-    router.post('/admin-forget-password', function(req, res, next) {
+    /*router.post('/admin-forget-password', function(req, res, next) {
         var response = {};
         adminModel.find({ email: req.body.email }, function(err, data) {
             if (err) {
@@ -159,8 +173,23 @@ module.exports = (function() {
                 }
             };
         });
-    });
+    });*/
 
+    router.post('/admin-forget-password', function(req, res, next) {
+        var response = {};
+        adminModel.find({ email: req.body.email }, function(err, data) {
+            if (err) {
+                req.flash('error', 'something went wrong!');
+            } else {
+                if (data.length > 0) {
+                    emails.forgetEmailShoot(data[0],'admin');
+                    res.json({ error: false, message: 'Email sent Successfully' });
+                } else {
+                    res.json({ error: true, message: 'Email id does not exist' });
+                }
+            };
+        });
+    });
 
     router.get('/admin-logout', function(req, res) {
         var response = {};
@@ -261,6 +290,23 @@ module.exports = (function() {
             } else {
                 response = { "error": true, "message": "Password Incorect" };
                 res.json(response);
+            };
+        });
+    });
+
+
+    router.post('/customer-forget-password', function(req, res, next) {
+        var response = {};
+        customerModel.find({ email: req.body.email }, function(err, data) {
+            if (err) {
+                req.flash('error', 'something went wrong!');
+            } else {
+                if (data.length > 0) {
+                    emails.forgetEmailShoot(data[0],'cust');
+                    res.json({ error: false, message: 'Email sent Successfully' });
+                } else {
+                    res.json({ error: true, message: 'Email id does not exist' });
+                }
             };
         });
     });

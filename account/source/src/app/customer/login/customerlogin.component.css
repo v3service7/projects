@@ -45,3 +45,8 @@
 .login-page .card-login .card-header .title {
     margin-top: 10px;
 }
+
+
+.mobileNumberLabel label{
+    left : 10%;
+}

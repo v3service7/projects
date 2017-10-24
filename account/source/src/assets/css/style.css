@@ -274,3 +274,13 @@ footer #tzine-actions iframe{
 	float: left;
 	margin-top: 11px;
 }
+
+.alert-success{
+	width: 50%;
+    left: 25%;
+}
+
+.alert-danger{
+	width: 50%;
+    left: 25%;
+}

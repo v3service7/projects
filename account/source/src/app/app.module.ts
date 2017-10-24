@@ -13,14 +13,14 @@ import { AdminService, CustomerService, StaffService, BusinessService, PlanServi
 
 /*Customer*/
 import { CustomerComponent } from './customer/customer.component';
-import { CustomerLoginComponent,CustomerForgetPasswordComponent, CustomerRegisterComponent } from './customer/login/customerlogin.component';
+import { CustomerLoginComponent,CustomerForgetPasswordComponent, CustomerRegisterComponent, CustomerResetPasswordComponent } from './customer/login/customerlogin.component';
 import { CustomerDashboardComponent, CustomerProfileComponent } from './customer/dashboard/dashboard.component';
 import { CustomerHeaderComponent,CustomerSidebarComponent } from './header/customerheader.component';
 import { CustomerBusinessComponent, CustomerBusinessListComponent, CustomerBusinessAddComponent, CustomerBusinessDocumentComponent, CustomerBusinessEditComponent } from './customer/business/business.component';
 
 /*Admin*/
 import { AdminComponent } from './admin/admin.component';
-import { AdminLoginComponent,AdminForgetPasswordComponent } from './admin/login/adminlogin.component';
+import { AdminLoginComponent,AdminForgetPasswordComponent, AdminResetPasswordComponent } from './admin/login/adminlogin.component';
 import { DashboardComponent,AdminProfileComponent } from './admin/dashboard/dashboard.component';
 import { AdminHeaderComponent,AdminSidebarComponent } from './header/adminheader.component';
 import { StaffComponent,StaffListComponent,StaffAddComponent,StaffEditComponent } from './admin/staff/staff.component';
@@ -40,7 +40,7 @@ import { AccountActiveComponent } from './account-active/account-active.componen
    
     AppComponent,FileSelectDirective,
     AdminComponent,
-    AdminLoginComponent,AdminForgetPasswordComponent,
+    AdminLoginComponent,AdminForgetPasswordComponent,AdminResetPasswordComponent,
     AdminHeaderComponent,AdminSidebarComponent,
     DashboardComponent,AdminProfileComponent,
     StaffComponent,StaffListComponent,StaffAddComponent,StaffEditComponent,
@@ -48,7 +48,7 @@ import { AccountActiveComponent } from './account-active/account-active.componen
     AdminCustomerComponent,CustomerListComponent,CustomerAddComponent,CustomerEditComponent,
     AdminBusinessComponent,BusinessListComponent,BusinessEditComponent,
     CustomerComponent,
-    CustomerLoginComponent, CustomerRegisterComponent, CustomerForgetPasswordComponent,
+    CustomerLoginComponent, CustomerRegisterComponent, CustomerForgetPasswordComponent,CustomerResetPasswordComponent,
     CustomerDashboardComponent, CustomerProfileComponent,
     CustomerHeaderComponent,CustomerSidebarComponent,
     CustomerBusinessComponent, CustomerBusinessListComponent, CustomerBusinessAddComponent, CustomerBusinessDocumentComponent, CustomerBusinessEditComponent, AccountActiveComponent,
