@@ -18,7 +18,7 @@ router.post('/', function(req, res) {
 
   var response={};
   var customer = new Customer(req.body);
-  Customer.find({email:req.body.email, username: req.body.username}, function(err, emailmatch){
+  Customer.find({email:req.body.email}, function(err, emailmatch){
   if(emailmatch.length > 0){
       response = {"error" : true,"message" : "Already exist"};
        res.json(response);
@@ -34,7 +34,6 @@ router.post('/', function(req, res) {
   }  
   });
 });
-
 
 router.get('/featured', function(req, res, next) { 
     //console.log("dfdsh");  
@@ -273,8 +272,10 @@ var condition2 = {
     response = {"error" : false,"message" : data};
      }
 };
-res.status(200).json(response);   
+res.status(200).json(response);
+   
 });
+
 });
 
 
@@ -676,13 +677,13 @@ router.post('/filters', function(req, res, next) {
        reqcondition["sexualorient"] = {$in : req.body.sexualorient};    
    }
 
-   if(req.body.minage != '' && req.body.maxage != '')
+   if(req.body.age.min != '' && req.body.age.max != '')
    {
        reqcondition.age = {
-        $gte: req.body.minage,
-        $lte: req.body.maxage
+        $gte: req.body.age.min,
+        $lte: req.body.age.max
        };   
-   }
+    }
 
   if(req.body.online == 'Y')
   {
@@ -801,7 +802,7 @@ router.post('/account-confirms',function(req, res){
         } else {            
             var loggedUser = dataq;
             var name = loggedUser.firstname+" <"+loggedUser.email+" >";            
-            var content = "Hi,<br><br>Please activate your account with below link:<br><br> <a href='http://34.209.114.118:3005/frontend/activate-account/"+loggedUser._id+"'>Email Activation Link</a><br><br>Speed Dating Team";
+            var content = "Hi,<br><br>Please activate your account with below link:<br><br> <a href='http://34.209.114.118:3005/customer/mailactivate/"+loggedUser._id+"'>Email Activation Link</a><br><br>Speed Dating Team";
             req.mail.sendMail({  //email options
                from: "Speed Dating Team <logindharam@gmail.com>", // sender address.  Must be the same as authenticated user if using GMail.
                to: name, // receiver

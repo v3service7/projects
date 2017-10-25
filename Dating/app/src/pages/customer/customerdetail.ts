@@ -11,7 +11,8 @@ import { MessageDetailPage } from '../messages/messagedetail'
 	templateUrl: 'customerdetail.html'
 })
 export class CustomerDetailPage  implements OnInit{
-	id : string;
+	
+    id : string;
 	customer:any;
 	customerInfo:any;
 	friends:any = [];
@@ -20,6 +21,8 @@ export class CustomerDetailPage  implements OnInit{
 	myonline : any = [];
 
 	@Output() changeSomething : EventEmitter<string> = new EventEmitter();
+
+
 
 	constructor(
 		public navCtrl: NavController,
@@ -220,5 +223,6 @@ export class CustomerDetailPage  implements OnInit{
             this.SomeEvent();
         });
     }
+
 
 }

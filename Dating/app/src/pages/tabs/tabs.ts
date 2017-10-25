@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component,OnInit } from '@angular/core';
 import { HomePage } from '../home/home';
 import { Events } from 'ionic-angular';
 import { AboutPage } from '../about/about';
@@ -6,8 +6,9 @@ import { SettingPage } from '../setting/setting';
 import { FriendPage } from '../friend/friend';
 import { MessagesPage } from '../messages/messages';
 import { ProfilePage } from '../profile/profile';
+import { VideoCallIncomingPage } from './videocallincoming';
+import { ModalController, NavParams ,NavController, Nav} from 'ionic-angular';
 import { SocketService, CustomersService} from '../../app/service/index';
-
 
 @Component({
 	templateUrl: 'tabs.html'
@@ -18,22 +19,25 @@ export class TabsPage {
     messagesCount : any;
     unreadMessages : any = [];
     unreadMessagesCount : any = 0;
+    call_resp : any;
+    callingto: any;
 
 	tab1Root = HomePage;
 	tab2Root = AboutPage;
 	tab3Root = MessagesPage;
 	tab4Root = FriendPage;
 	tab5Root = ProfilePage;
-
+ 
 	constructor(
 		private socketService : SocketService,
 		private customerService : CustomersService,
-		public events: Events
+		public events: Events,
+		public navCtrl: NavController
 	) {
 		if(localStorage.getItem("currentCustomer")){
 			this.customerInfo = JSON.parse(localStorage.getItem("currentCustomer"));
 		}
-	}
+	  }
 
 	ionViewDidLoad() {}
 
@@ -46,15 +50,14 @@ export class TabsPage {
         this.initfuntion();
     	}, 3000);
      });
-
 	}
 
 	initfuntion(){
     this.myMessage();
     this.messageReceived();
+    this.tokboxNewReqReceive();
 	}
-
-
+ 
 	private myMessage(){  
 	this.unreadMessagesCount = 0;   
 	this.unreadMessages = [];
@@ -88,5 +91,14 @@ export class TabsPage {
         });
        }
 
+
+    private tokboxNewReqReceive(){
+        this.socketService.vedioResponse().subscribe(response =>{ 
+            console.log('New Video Call');
+            this.call_resp = response;  
+            this.navCtrl.push(VideoCallIncomingPage, { callingto : this.call_resp});
+        });
+      }
+      
 
 }

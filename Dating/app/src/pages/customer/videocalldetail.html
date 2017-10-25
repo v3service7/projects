@@ -1,0 +1,30 @@
+<ion-header>
+  <ion-navbar>
+  	<ion-buttons end>
+      <button ion-button icon-only>
+        <ion-icon class="whiteButton" name="more" ios="ios-more" md="md-more"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content>
+	<ion-row *ngIf="customer" no-margin class="width100">
+		<ion-row class="width100">
+			<ion-row class="width100">
+				<img class="customerImage width100" [src]="customerImage(customer.profilePic)"/>
+			</ion-row>
+			<ion-row text-capitalize class="custDetail white padding5px0px width100">
+				<ion-col col-12 no-padding padding-horizontal>{{customer.firstname}} {{customer.lastname}} 				
+				</ion-col>
+				<ion-col col-12 no-padding padding-horizontal>
+					<span>{{customer.age}}, </span><span>{{customer.countryName}}</span>
+				</ion-col>
+			</ion-row>
+		</ion-row>
+		<ion-row>
+			<button ion-button color="Cancel" outline (click)="videocallcancel()">Cancel</button>
+		</ion-row>
+	</ion-row>
+</ion-content>

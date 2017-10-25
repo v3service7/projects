@@ -1,10 +1,11 @@
 import { Component, Input,OnInit , Output,EventEmitter } from '@angular/core';
-import { NavController, Events, LoadingController } from 'ionic-angular';
+import { NavController, Events, LoadingController, Nav , AlertController } from 'ionic-angular';
 import * as globalVariable from "../../app/global";
 import { CustomersService, FriendService, SocketService } from '../../app/service/index';
 import { CustomerDetailPage } from './customerdetail';
+import { VideoCallOutgoingPage } from './videocalldetail';
+import { MessageDetailPage } from '../messages/messagedetail';
 
-import { MessageDetailPage } from '../messages/messagedetail'
 
 
 @Component({
@@ -17,10 +18,11 @@ export class CustomerPage  implements OnInit{
     url= globalVariable;
     friends : any = [];
     customersL : any = [];
-
     @Input() customers = [];
     @Output() changeSomething : EventEmitter<string> = new EventEmitter();
     myonline : any = [];
+    currentcall : any;
+    callingto: any;
 
     constructor(
         public navCtrl: NavController,
@@ -28,7 +30,9 @@ export class CustomerPage  implements OnInit{
         private friendService : FriendService,
         private socketService : SocketService,
         public events: Events,
-        public loadingCtrl: LoadingController
+        public nav: Nav,
+        public loadingCtrl: LoadingController,
+        public alertCtrl: AlertController
         ) {
         if(localStorage.getItem("currentCustomer")){
             this.customerInfo = JSON.parse(localStorage.getItem("currentCustomer"));      
@@ -232,4 +236,42 @@ private customerImage(img){
     }
     return imgPath;
 }
+
+
+
+public videoCallConfirmbox(id){
+
+let prompt = this.alertCtrl.create({
+      title: 'Video Call',
+      message: "Are you agree to make Video call?",
+      buttons: [
+        {
+          text: 'Cancel',
+          handler: data => {
+            console.log('Cancel clicked');
+          }
+        },
+        {
+          text: 'Ok',
+          handler: data => {
+            this.vediocall(id);
+          }
+        }
+      ]
+    });
+    prompt.present();
+  }
+
+            /* Video call */
+
+            private vediocall(id){
+            console.log("vediocall send")
+            this.currentcall = {_id :  id, cid : this.customerInfo._id};
+            this.socketService.video(this.currentcall);
+            this.navCtrl.push(VideoCallOutgoingPage, {
+                    callingto :  this.currentcall
+            });
+            }
+
+          
 }

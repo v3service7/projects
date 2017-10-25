@@ -27,6 +27,7 @@ export class CustomersService {
         });
     }
 
+
     unreadMessage(id){
         var obj = {id : id};
         return this.http.post(globalVariable.url+'customer/unreadmessage',obj)
@@ -108,4 +109,11 @@ export class CustomersService {
             (response: Response) => response.json()
         );
     }
+
+       changeTokboxToken(id){
+            return this.http.get(globalVariable.url+'customer/change-tokbox-token/'+id)
+            .map(
+              (response: Response) => response.json()
+              );
+          }  
 }

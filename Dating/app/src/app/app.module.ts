@@ -7,6 +7,7 @@ import { SocketIoModule, SocketIoConfig } from 'ng-socket-io';
 import { MyApp } from './app.component';
 import { FileSelectDirective, FileDropDirective } from 'ng2-file-upload';
 
+
 import { AboutPage } from '../pages/about/about';
 
 import { SettingPage } from '../pages/setting/setting';
@@ -21,7 +22,8 @@ import { PlanPage } from '../pages/setting/plan';
 import { HomePage } from '../pages/home/home';
 import { FilterPage } from '../pages/home/filter';
 
-import { TabsPage } from '../pages/tabs/tabs';
+import { TabsPage} from '../pages/tabs/tabs';
+import { VideoCallIncomingPage} from '../pages/tabs/videocallincoming';
 
 import { LoginPage } from '../pages/login/login';
 import { ForgetPasswordPage } from '../pages/login/forgetpassword';
@@ -33,12 +35,18 @@ import { ProfileUpdatePage } from '../pages/profile/profileupdate';
 
 import { CustomerPage } from '../pages/customer/customer';
 import { CustomerDetailPage } from '../pages/customer/customerdetail';
+import { VideoCallOutgoingPage } from '../pages/customer/videocalldetail';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
-import {  CustomersService, PackageService, SocketService,FriendService } from './service/index';
+import { VideocallPage } from '../pages/videocall/videocall';
+
+import {  CustomersService, PackageService, SocketService,FriendService, BannerService } from './service/index';
 import * as globalVariable from "./global";
+
+
+
 
 const config: SocketIoConfig = { url: globalVariable.url, options: {} };
 
@@ -50,8 +58,8 @@ const config: SocketIoConfig = { url: globalVariable.url, options: {} };
     HomePage,FilterPage,FriendPage,MessagesPage,MessageDetailPage,
     TabsPage,
     LoginPage,ForgetPasswordPage,RegisterPage,StepPage,
-    ProfilePage,
-    ProfileUpdatePage,CustomerPage, CustomerDetailPage
+    ProfilePage, 
+    ProfileUpdatePage,CustomerPage, CustomerDetailPage, VideoCallOutgoingPage, VideoCallIncomingPage, VideocallPage
   ],
   imports: [
     BrowserModule,
@@ -67,14 +75,14 @@ const config: SocketIoConfig = { url: globalVariable.url, options: {} };
     AboutPage,
     SettingPage,ChangePasswordPage,PlanPage,
     HomePage,FilterPage,FriendPage,MessagesPage,MessageDetailPage,
-    TabsPage,CustomerPage, CustomerDetailPage,
+    TabsPage,CustomerPage, CustomerDetailPage, VideoCallOutgoingPage, VideoCallIncomingPage,VideocallPage,
     LoginPage,ForgetPasswordPage,RegisterPage,StepPage,
     ProfilePage,
     ProfileUpdatePage
   ],
   providers: [
     StatusBar,
-    CustomersService, PackageService, SocketService ,FriendService,
+    CustomersService, PackageService, SocketService ,FriendService,BannerService,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
