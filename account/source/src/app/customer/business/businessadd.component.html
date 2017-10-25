@@ -123,7 +123,7 @@
                         </div>
                         <div class="col-md-4">
                             <div class="form-group label-floating">
-                                <label class="control-label">Emirates ID Number*</label>
+                                <label class="control-label">Emi rates ID Number*</label>
                                 <input formControlName="emiRateIdNumber" type="text" class="form-control">
                             </div>
                             <div *ngIf="formErrors.emiRateIdNumber" class="alert alert-danger">
@@ -147,7 +147,7 @@
                         <div class="col-md-4">
                             <div class="form-group label-floating">
                                 <label class="control-label">Account Number</label>
-                                <input formControlName="bankAccountNumber" type="text" class="form-control">
+                                <input formControlName="bankAccountNumber" type="number" class="form-control">
                             </div>
                         </div>
                     </div>
@@ -188,7 +188,7 @@
                         <div class="col-md-6" *ngIf="isVisit">
                             <div class="form-group label-floating" >
                                 <label class="control-label">Number of days required</label>
-                                <input formControlName="noDaysRequired" type="text" class="form-control">
+                                <input formControlName="noDaysRequired" type="number" class="form-control">
                             </div>
                         </div>
                     </div>

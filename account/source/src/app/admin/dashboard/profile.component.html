@@ -38,23 +38,23 @@
                                             <div class="col-md-6">
                                                 <div class="form-group ">
                                                     <label class="control-label">Email address</label>
-                                                    <input formControlName="email" type="email" class="form-control">
+                                                    <input formControlName="email" type="email" class="form-control" disabled>
                                                 </div>
-                                                <div *ngIf="formErrors.email" class="alert alert-danger">
+                                                <!-- <div *ngIf="formErrors.email" class="alert alert-danger">
                                                     {{ formErrors.email }}
-                                                </div>
+                                                </div> -->
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-group ">
                                                     <label class="control-label">Username</label>
-                                                    <input formControlName="username" type="text" class="form-control">
+                                                    <input formControlName="username" type="text" class="form-control" disabled>
                                                 </div>
-                                                <div *ngIf="formErrors.username" class="alert alert-danger">
+                                                <!-- <div *ngIf="formErrors.username" class="alert alert-danger">
                                                     {{ formErrors.username }}
-                                                </div>
+                                                </div> -->
                                             </div>
                                         </div>
-                                        <button type="submit" class="btn btn-warning pull-right" [disabled]="!customerAddForm.valid">Save Customer</button>
+                                        <button type="submit" class="btn btn-warning pull-right" [disabled]="!customerAddForm.valid">Save</button>
                                         <div class="clearfix"></div>
                                     </form>
                                 </div>
@@ -70,7 +70,7 @@
                                             <div *ngIf="err !=''" class="alert alert-danger">
                                                 {{err}}
                                             </div>
-                                            <div class="row">
+                                            <div class="">
                                                 <div class="form-group label-floating">
                                                     <label class="control-label">Password</label>
                                                     <input formControlName="password" type="password" class="form-control">
@@ -82,7 +82,7 @@
                                                     {{ err }}
                                                 </div>
                                             </div>
-                                            <div class="row">
+                                            <div class="">
                                                 <div class="form-group label-floating">
                                                     <label class="control-label">New Password</label>
                                                     <input formControlName="newpassword" type="password" class="form-control">

@@ -3,3 +3,7 @@
 .staffClass{
 	height: 100%;
 }
+
+.dobLabel label{
+	left : 30%;
+}

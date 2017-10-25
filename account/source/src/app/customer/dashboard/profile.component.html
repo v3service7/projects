@@ -13,7 +13,7 @@
                                     <p class="category">Complete your profile</p>
                                 </div>
                                 <div class="card-content">
-                                    <form [formGroup]="customerAddForm" (ngSubmit)="adminUpdate()">
+                                    <form [formGroup]="customerAddForm" (ngSubmit)="customerUpdate()">
                                         <div class="row">
                                             <div class="col-md-6">
                                                 <div class="form-group ">
@@ -38,11 +38,11 @@
                                             <div class="col-md-6">
                                                 <div class="form-group ">
                                                     <label class="control-label">Email address</label>
-                                                    <input formControlName="email" type="email" class="form-control">
+                                                    <input formControlName="email" type="email" class="form-control" disabled>
                                                 </div>
-                                                <div *ngIf="formErrors.email" class="alert alert-danger">
+                                                <!-- <div *ngIf="formErrors.email" class="alert alert-danger">
                                                     {{ formErrors.email }}
-                                                </div>
+                                                </div> -->
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-group ">
@@ -76,9 +76,9 @@
                             <div class="card card-profile">
                                 <div class="content">
                                     <h6 class="category text-gray">Change Password</h6>
-                                    <form [formGroup]="cpForm" (ngSubmit)="adminChangePassword()">
+                                    <form [formGroup]="cpForm" (ngSubmit)="customerChangePassword()">
                                         <div class="card-content">
-                                            <div class="row">
+                                            <div class="">
                                                 <div class="form-group label-floating">
                                                     <label class="control-label">Current Password</label>
                                                     <input formControlName="password" type="password" class="form-control">
@@ -90,7 +90,7 @@
                                                     {{ err }}
                                                 </div>
                                             </div>
-                                            <div class="row">
+                                            <div class="">
                                                 <div class="form-group label-floating">
                                                     <label class="control-label">New Password</label>
                                                     <input formControlName="newpassword" type="password" class="form-control">

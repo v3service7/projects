@@ -26,10 +26,10 @@
                     <td class="padding0">{{staff.firstname}} {{staff.lastname}}</td>
                     <td class="padding0">{{staff.phonenumber}}</td>
                     <td class="padding0 td-actions text-right">
-                        <a [routerLink]="['/admin/staff/',staff._id]" rel="tooltip" title="Edit Task" class="btn btn-primary btn-simple btn-xs">
+                        <a [routerLink]="['/admin/staff/',staff._id]" rel="tooltip" title="Edit Staff" class="btn btn-primary btn-simple btn-xs">
                             <i class="material-icons">edit</i>
                         </a>
-                        <a rel="tooltip" title="Remove" class="btn btn-danger btn-simple btn-xs" (click)="deleteStaff(staff._id)">
+                        <a href="javascript:void(0)" rel="tooltip" title="Remove" class="btn btn-danger btn-simple btn-xs" (click)="deleteStaff(staff._id)">
                             <i class="material-icons">close</i>
                         </a>
                     </td>
@@ -38,7 +38,7 @@
         </table>
         <div class="alert alert-primary" *ngIf="staffs.length == 0">
             <button type="button" aria-hidden="true" class="close">×</button>
-            <span> <b> No Data - </b> Staff Empty Kindly create One"</span>
+            <span> <strong> No Data - </strong> Staff Empty Kindly create One"</span>
         </div>
     </div>
 </div>

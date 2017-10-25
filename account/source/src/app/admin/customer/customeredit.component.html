@@ -1,5 +1,5 @@
 <div class="row">
-    <div class="col-md-8">
+    <div class="">
         <div class="card">
             <div class="card-header" data-background-color="orange">
                 <h4 class="title">Edit Customer</h4>
@@ -31,11 +31,11 @@
                         <div class="col-md-6">
                             <div class="form-group ">
                                 <label class="control-label">Email address</label>
-                                <input formControlName="email" type="email" class="form-control">
+                                <input formControlName="email" type="email" class="form-control" disabled>
                             </div>
-                            <div *ngIf="formErrors.email" class="alert alert-danger">
+                            <!-- <div *ngIf="formErrors.email" class="alert alert-danger">
                                 {{ formErrors.email }}
-                            </div>
+                            </div> -->
                         </div>
                         <div class="col-md-6">
                             <div class="form-group ">

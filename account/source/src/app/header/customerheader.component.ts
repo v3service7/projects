@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router,ActivatedRoute } from '@angular/router';
+import { FlashMessagesService } from 'angular2-flash-messages';
 
 /*service*/
 import { CustomerService} from '../service/index';
@@ -14,17 +15,22 @@ export class CustomerSidebarComponent implements OnInit {
   	constructor(
         private customerService: CustomerService,
         private router: Router,
-        ) { 
+        private _flashMessagesService: FlashMessagesService,
+        ) {
   		this.currentCustomer = JSON.parse(localStorage.getItem('currentCustomer'));
   	}
 
   	ngOnInit() {}
 
     customerLogout(){
-        this.customerService.customerLogout().subscribe(
+      this._flashMessagesService.show('Logout Successfully', { cssClass: 'alert-success', timeout: 5000 });
+      localStorage.removeItem('currentCustomer');
+      this.router.navigate(['customer/login']);
+        /*this.customerService.customerLogout().subscribe(
             (data) => {
               if (!data.error) {
-                    localStorage.removeItem('currentCustomer')
+                    this._flashMessagesService.show('Logout Successfull', { cssClass: 'alert-success', timeout: 5000 });
+                    localStorage.removeItem('currentCustomer');
                     this.router.navigate(['customer/login']);
                 }else{
 
@@ -33,7 +39,7 @@ export class CustomerSidebarComponent implements OnInit {
             (err)=>{
                 this.router.navigate(['customer/login']);
             }
-        );
+        );*/
     }
 }
 

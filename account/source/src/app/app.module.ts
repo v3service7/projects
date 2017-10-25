@@ -5,6 +5,7 @@ import {HttpModule, Http} from "@angular/http";
 import { RouterModule, Routes } from '@angular/router';
 import { FileSelectDirective, FileDropDirective } from 'ng2-file-upload';
 
+import { MyDirective } from './directive';
 import { AppComponent } from './app.component';
 import { routing } from './app.routing';
 import { AuthGuard , CustomerAuthGuard} from './guards/index';
@@ -38,7 +39,7 @@ import { AccountActiveComponent } from './account-active/account-active.componen
 @NgModule({
   declarations: [
    
-    AppComponent,FileSelectDirective,
+    AppComponent,MyDirective,FileSelectDirective,
     AdminComponent,
     AdminLoginComponent,AdminForgetPasswordComponent,AdminResetPasswordComponent,
     AdminHeaderComponent,AdminSidebarComponent,

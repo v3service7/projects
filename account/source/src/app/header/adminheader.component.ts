@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router,ActivatedRoute } from '@angular/router';
+import { FlashMessagesService } from 'angular2-flash-messages';
 
 /*service*/
 import { AdminService} from '../service/index';
@@ -14,6 +15,7 @@ export class AdminSidebarComponent implements OnInit {
   	constructor(
         private adminService: AdminService,
         private router: Router,
+        private _flashMessagesService: FlashMessagesService,
         ) { 
   		this.currentAdmin = JSON.parse(localStorage.getItem('currentAdmin'));
   	}
@@ -21,7 +23,10 @@ export class AdminSidebarComponent implements OnInit {
   	ngOnInit() {}
 
     adminLogout(){
-        this.adminService.adminLogout().subscribe(
+      this._flashMessagesService.show('Logout Successfully', { cssClass: 'alert-success', timeout: 5000 });
+      localStorage.removeItem('currentAdmin');
+      this.router.navigate(['admin/login']);
+        /*this.adminService.adminLogout().subscribe(
             (data) => {
               if (!data.error) {
                     localStorage.removeItem('currentAdmin')
@@ -33,7 +38,7 @@ export class AdminSidebarComponent implements OnInit {
             (err)=>{
                 this.router.navigate(['admin/login']);
             }
-        );
+        );*/
     }
 }
 

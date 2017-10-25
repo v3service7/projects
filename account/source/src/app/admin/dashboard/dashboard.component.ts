@@ -17,7 +17,7 @@ export class DashboardComponent implements OnInit {
     plans: any = [];
     customers: any = [];
     loginForm: FormGroup;
-      returnUrl: string;
+    returnUrl: string;
     err:any;
 
       constructor(
@@ -29,7 +29,7 @@ export class DashboardComponent implements OnInit {
         private router: Router,
         private route: ActivatedRoute
     ){ 
-          this.currentAdmin = JSON.parse(localStorage.getItem('currentAdmin'));
+        //this.currentAdmin = JSON.parse(localStorage.getItem('currentAdmin'));
       }
 
     ngOnInit() {
@@ -41,11 +41,10 @@ export class DashboardComponent implements OnInit {
     getCustomerList(){
         this.customerService.customerList().subscribe(
             (data) => {
-              if (!data.error) {
-                     this.customers = data.message
+                if (!data.error) {
+                    this.customers = data.message
                 }
-            },
-            (err)=>{
+            },(err)=>{
                 console.log('kfgbhj')
             }
         );
@@ -54,8 +53,8 @@ export class DashboardComponent implements OnInit {
     getStaffList(){
         this.staffService.staffList().subscribe(
             (data) => {
-              if (!data.error) {
-                     this.staffs = data.message
+                if (!data.error) {
+                    this.staffs = data.message
                 }
             },
             (err)=>{
@@ -67,8 +66,8 @@ export class DashboardComponent implements OnInit {
     getPlanList(){
         this.planService.planList().subscribe(
             (data) => {
-              if (!data.error) {
-                     this.plans = data.message
+                if (!data.error) {
+                    this.plans = data.message
                 }
             },
             (err)=>{
@@ -89,18 +88,13 @@ export class AdminProfileComponent implements OnInit {
     customerAddForm: FormGroup;
 	cpForm: FormGroup;
     passwordRegex = /^([0-9]+[a-zA-Z]+|[a-zA-Z]+[0-9]+)[0-9a-zA-Z]*$/;
-    emailp : any = /^([a-z\d!#$%&'*+\-\/=?^_`{|}~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+(\.[a-z\d!#$%&'*+\-\/=?^_`{|}~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+)*|"((([ \t]*\r\n)?[ \t]+)?([\x01-\x08\x0b\x0c\x0e-\x1f\x7f\x21\x23-\x5b\x5d-\x7e\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|\\[\x01-\x09\x0b\x0c\x0d-\x7f\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]))*(([ \t]*\r\n)?[ \t]+)?")@(([a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|[a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF][a-z\d\-._~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]*[a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])\.)+([a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|[a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF][a-z\d\-._~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]*[a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])\.?$/i;
     passwordp : any = '';
     newo : any = false;
     MutchPassword : any = false;
 
     formErrors = {
         'firstname': '',
-        'lastname': '',
-        'email' : '',
-        'username' : '',
-        'password' : '',
-        'newpassword' : ''     
+        'lastname': ''
     };
 
     validationMessages = {
@@ -109,37 +103,18 @@ export class AdminProfileComponent implements OnInit {
         },
         'lastname': {
             'required':      'Last Name is required.',
-        },
-        'username': {
-            'required':      'Username is required.',
-        },
-        'email' : {
-            'required':      'Email is required.',
-            'pattern'   :    'Email not in well format.'
-        }, 
-        'password' : {
-            'required':      'Password is required.'
-        },
-        'newpassword' : {
-            'required':      'Password is required.'
-        }            
+        }
     };
 
     cpFormErrors = {
-        'password' : '',
         'newpassword' : ''     
     };
 
     cpValidationMessages = {
-        'password' : {
-            'required':      'Password is required.',
-            'pattern' :    'Please Enter at least one letter and number',
-            'minlength':   'Password should contain 6 characters',
-        },
         'newpassword' : {
-            'required':      'Password is required.',
+            'required':    'Password is required.',
             'pattern' :    'Please Enter at least one letter and number',
-            'minlength':   'Password should contain 6 characters',
+            'minlength':    'Password should contain 6 characters',
         }  
     }
 
@@ -159,19 +134,20 @@ export class AdminProfileComponent implements OnInit {
             firstname: ['', Validators.required],
             lastname: ['', Validators.required],
             username: ['', Validators.required],
-            email: ['', [Validators.required, Validators.pattern(this.emailp)]],
-            password: ['', Validators.required]
+            email: ['', Validators.required],
         });
 
         this.cpForm = this.lf.group({
             _id: ['', Validators.required],
-            password: ['', [Validators.required, Validators.minLength(6), Validators.pattern(this.passwordRegex)]],
+            password: ['', Validators.required],
             newpassword: ['', [Validators.required, Validators.minLength(6), Validators.pattern(this.passwordRegex)]]
         });
 
+        this.customerAddForm.valueChanges.subscribe(data => this.onValueChangedForm(data));
+        this.onValueChangedForm();
+
         this.customerAddForm.patchValue(this.currentAdmin);
-        this.cpForm.valueChanges
-            .subscribe(data => this.onValueChanged(data));
+        this.cpForm.valueChanges.subscribe(data => this.onValueChanged(data));
         this.onValueChanged();
         this.cpForm.controls["_id"].setValue(this.currentAdmin._id);
   	}
@@ -179,7 +155,8 @@ export class AdminProfileComponent implements OnInit {
     admin(id){
         this.adminService.admin(id).subscribe(
             (data) => {
-              if (!data.error) {
+                if (!data.error) {
+                    this.currentAdmin = data.message;
                     localStorage.removeItem('currentAdmin');
                     localStorage.setItem('currentAdmin', JSON.stringify(data.message));
                 }
@@ -191,13 +168,15 @@ export class AdminProfileComponent implements OnInit {
     }
 
     private matchpasswordreg(){
-        if(this.cpForm.value.password == this.cpForm.value.newpassword){
-            this.cpForm.controls["matchpass"].setValue(true);
-            this.MutchPassword = false;   
-        }else{
-            this.cpForm.controls["matchpass"].setValue("");
-            this.MutchPassword = true;
-        }
+        if (this.cpForm.value.newpassword != "") {
+            if(this.cpForm.value.password == this.cpForm.value.newpassword){
+                this.cpForm.controls["matchpass"].setValue(true);
+                this.MutchPassword = false;   
+            }else{
+                this.cpForm.controls["matchpass"].setValue("");
+                this.MutchPassword = true;
+            }
+        }    
     }
 
     onValueChanged(data?: any) {
@@ -217,19 +196,34 @@ export class AdminProfileComponent implements OnInit {
         }
     }
 
+    onValueChangedForm(data?: any) {
+        if (!this.customerAddForm) {return;  }
+        const form = this.customerAddForm;
+
+        for (const field in this.formErrors) {
+            // clear previous error message (if any)
+            this.formErrors[field] = '';
+            const control = form.get(field);      
+            if (control && control.dirty && !control.valid) {
+                const messages = this.validationMessages[field];
+                for (const key in control.errors) {
+                    this.formErrors[field] += messages[key] + ' ';          
+                }
+            }
+        }
+    }
+
     adminUpdate(){
         this.adminService.adminUpdate(this.customerAddForm.value).subscribe(
             (data) => {
-                console.log("data");
-                console.log(data);
-              if (!data.error) {
-                  this.admin(this.customerAddForm.value._id);
-                  this._flashMessagesService.show('Updated Successfully', { cssClass: 'alert-success', timeout: 5000 });
-                  this.router.navigate(['admin/dashboard']);
+                if (!data.error) {
+                    this.admin(this.customerAddForm.value._id);
+                    this._flashMessagesService.show('Details Updated Successfully', { cssClass: 'alert-success', timeout: 5000 });
+                    this.router.navigate(['admin/dashboard']);
                 }
             },
             (err)=>{
-                this._flashMessagesService.show('Something went wrong', { cssClass: 'alert-success', timeout: 5000 });
+                this._flashMessagesService.show('Something went wrong', { cssClass: 'danger-alert', timeout: 5000 });
             }
         );
     }
@@ -237,16 +231,16 @@ export class AdminProfileComponent implements OnInit {
     adminChangePassword(){
         this.adminService.adminChangePassword(this.cpForm.value).subscribe(
             (data) => {
-              if (!data.error) {
-                  this.admin(this.cpForm.value._id);
-                  this._flashMessagesService.show(data.message, { cssClass: 'alert-success', timeout: 5000 });
-                  this.router.navigate(['admin/dashboard']);
-                }else{
+                if (!data.error) {
+                    this.admin(this.cpForm.value._id);
                     this._flashMessagesService.show(data.message, { cssClass: 'alert-success', timeout: 5000 });
+                    this.router.navigate(['admin/dashboard']);
+                }else{
+                    this.cpForm.reset();
+                    this._flashMessagesService.show(data.message, { cssClass: 'danger-alert', timeout: 5000 });
                 }
-            },
-            (err)=>{
-                this._flashMessagesService.show('Something went wrong', { cssClass: 'alert-success', timeout: 5000 });
+            },(err)=>{
+                this._flashMessagesService.show('Something went wrong', { cssClass: 'danger-alert', timeout: 5000 });
                 console.log('kfgbhj')
             }
         );

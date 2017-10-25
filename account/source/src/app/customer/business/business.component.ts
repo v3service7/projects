@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Router,ActivatedRoute,Params  } from '@angular/router';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { FileUploader } from 'ng2-file-upload';
+import { FlashMessagesService } from 'angular2-flash-messages';
+
 import * as globalVariable from "../../global";
 
 /*service*/
@@ -45,7 +47,8 @@ export class CustomerBusinessListComponent implements OnInit {
         private businessService: BusinessService,
         private customerService: CustomerService,
         private router: Router,
-        private route: ActivatedRoute
+        private route: ActivatedRoute,
+        private _flashMessagesService: FlashMessagesService,
     ){ 
           this.currentCustomer = JSON.parse(localStorage.getItem('currentCustomer'));
       }
@@ -86,6 +89,7 @@ export class CustomerBusinessListComponent implements OnInit {
     private deleteBusiness(id) {
         if(confirm("Are you sure to delete ?")) {
             this.businessService.businessDelete(id).subscribe(data => {
+                this._flashMessagesService.show('Business deleted Successfully', { cssClass: 'alert-success', timeout: 5000 });
                 this.getList(this.currentCustomer._id);
             });
         }
@@ -102,7 +106,9 @@ export class CustomerBusinessAddComponent implements OnInit {
     plans: any = [];
     isVisit = false;
     businessAddForm: FormGroup;
-    
+    phoneRegex = /^[(]{0,1}[2-9]{1}[0-9]{1,2}[)]{0,1}[-\s\.]{0,1}[0-9]{3}[-\s\.]{0,1}[0-9]{7}$/;
+    passportRegex = /^[A-Z0-9<]{9}[0-9]{1}[A-Z]{3}[0-9]{7}[A-Z]{1}[0-9]{7}[A-Z0-9<]{14}[0-9]{2}$/;
+
     formErrors = {
         'businessName': '',
         'tradeLicenseNumber': '',
@@ -130,16 +136,23 @@ export class CustomerBusinessAddComponent implements OnInit {
             'required':      'Trade License Expiry is required.',
         }, 
         'phoneNumber' : {
-            'required':      'Phone Number is required.'
+            'required':      'Phone Number is required.',
+            'minlength':     'Enter 10 digit phone number (with operator code) along with country code.',
+            'maxlength':     'Enter 10 digit phone number (with operator code) along with country code.',
+            'pattern'   :    "eg : (971)-055-1234567 including or excluding '(', ')' or '-'. "
         },
         'ownerName' : {
             'required':      'Owner Name is required.'
         },
         'mobileNumber' : {
-            'required':      'Mobile Number is required.'
+            'required':      'Phone Number is required.',
+            'minlength':     'Enter 10 digit mobile number along with country code.',
+            'maxlength':     'Enter 10 digit mobile number along with country code.',
+            'pattern'   :    "eg : (971)-055-1234567 including or excluding '(', ')' or '-'. "
         },   
         'passportNumber' : {
-            'required':      'Passport Number is required.'
+            'required':    'Passport Number is required.',
+            'pattern' :    'eg : G0308084<1ITY9999999Q0410056<<<<<<<<<<<<<<39'
         },   
         'nationality' : {
             'required':      'Nationality is required.'
@@ -155,7 +168,8 @@ export class CustomerBusinessAddComponent implements OnInit {
         private customerService: CustomerService,
         private planService: PlanService,
         private router: Router,
-        private route: ActivatedRoute
+        private route: ActivatedRoute,
+        private _flashMessagesService: FlashMessagesService,
     ){ 
           this.currentCustomer = JSON.parse(localStorage.getItem('currentCustomer'));
     }
@@ -168,10 +182,10 @@ export class CustomerBusinessAddComponent implements OnInit {
             issuingAuthority: [''],
             tradeLicenseExpiry: ['', Validators.required],
             emiRate: ['', Validators.required],
-            phoneNumber: ['', Validators.required],
+            phoneNumber: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(15), Validators.pattern(this.phoneRegex)]],
             ownerName: ['', Validators.required],
-            mobileNumber: ['', Validators.required],
-            passportNumber: ['', Validators.required],
+            mobileNumber: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(15), Validators.pattern(this.phoneRegex)]],
+            passportNumber: ['', [Validators.required,Validators.pattern(this.passportRegex)]],
             nationality: ['', Validators.required],
             emiRateIdNumber: ['', Validators.required],
             ownerId: ['', Validators.required],
@@ -220,15 +234,16 @@ export class CustomerBusinessAddComponent implements OnInit {
         );
     }
 
-
     businessAdd(){
         this.businessService.businessAdd(this.businessAddForm.value).subscribe(
             (data) => {
-              if (!data.error) {
-                  this.router.navigate(['customer/business/document-update',data.message._id]);
+                if (!data.error) {
+                    this._flashMessagesService.show('Business Added Successfully', { cssClass: 'alert-success', timeout: 5000 });
+                    this.router.navigate(['customer/business/document-update',data.message._id]);
                 }
             },
             (err)=>{
+                this._flashMessagesService.show('Something went wrong', { cssClass: 'danger-alert', timeout: 5000 });
                 console.log('kfgbhj')
             }
         );
@@ -289,15 +304,15 @@ export class CustomerBusinessDocumentComponent implements OnInit {
         private businessService: BusinessService,
         private customerService: CustomerService,
         private router: Router,
-        private route: ActivatedRoute
+        private route: ActivatedRoute,
+        private _flashMessagesService: FlashMessagesService,
     ){ 
-          this.currentCustomer = JSON.parse(localStorage.getItem('currentCustomer'));
+        this.currentCustomer = JSON.parse(localStorage.getItem('currentCustomer'));
       }
 
     ngOnInit() {
         this.businessAddForm = this.lf.group({
             _id: ['', Validators.required],
-            
             passportFile: [''],
             visaFile: [''],
             emiRatesIdFile: [''],
@@ -310,6 +325,7 @@ export class CustomerBusinessDocumentComponent implements OnInit {
             let id = params['id'];  
             this.business(id);
         });
+        this._flashMessagesService.show('Upload Documents', { cssClass: 'alert-info', timeout: 3000 });
     }
 
     onChange(event,fileType) {
@@ -338,11 +354,11 @@ export class CustomerBusinessDocumentComponent implements OnInit {
     business(id){
         this.businessService.business(id).subscribe(
             (data) => {
-            if (!data.error) {
-                this.businessAddForm.patchValue(data.message);
-                this.businesses = data.message;
-                //console.log(this.businesses)
-            }
+                if (!data.error) {
+                    this.businessAddForm.patchValue(data.message);
+                    this.businesses = data.message;
+                    //console.log(this.businesses)
+                }
             },
             (err)=>{
                 console.log('kfgbhj')
@@ -350,16 +366,16 @@ export class CustomerBusinessDocumentComponent implements OnInit {
         );
     }
 
-
     businessDocument(){
-        console.log(this.businessAddForm.value)
         this.businessService.businessUpdate(this.businessAddForm.value).subscribe(
             (data) => {
-              if (!data.error) {
-                  this.router.navigate(['customer/business']);
+                if (!data.error) {
+                    this._flashMessagesService.show('Documents Uploaded Successfully', { cssClass: 'alert-success', timeout: 5000 });
+                    this.router.navigate(['customer/business']);
                 }
             },
             (err)=>{
+                this._flashMessagesService.show('Something went wrong', { cssClass: 'danger-alert', timeout: 5000 });
                 console.log('kfgbhj')
             }
         );
@@ -369,7 +385,7 @@ export class CustomerBusinessDocumentComponent implements OnInit {
         this.businessService.businessList(id).subscribe(
             (data) => {
               if (!data.error) {
-                     this.businesses = data.message
+                    this.businesses = data.message
                 }
             },
             (err)=>{
@@ -389,7 +405,9 @@ export class CustomerBusinessEditComponent implements OnInit {
     plans: any = [];
     isVisit = false;
     businessAddForm: FormGroup;
-    
+    phoneRegex = /^[(]{0,1}[2-9]{1}[0-9]{1,2}[)]{0,1}[-\s\.]{0,1}[0-9]{3}[-\s\.]{0,1}[0-9]{7}$/;
+    passportRegex = /^[A-Z0-9<]{9}[0-9]{1}[A-Z]{3}[0-9]{7}[A-Z]{1}[0-9]{7}[A-Z0-9<]{14}[0-9]{2}$/;
+
     formErrors = {
         'businessName': '',
         'tradeLicenseNumber': '',
@@ -417,16 +435,23 @@ export class CustomerBusinessEditComponent implements OnInit {
             'required':      'Trade License Expiry is required.',
         }, 
         'phoneNumber' : {
-            'required':      'Phone Number is required.'
+            'required':      'Phone Number is required.',
+            'minlength':     'Enter 10 digit phone number (with operator code) along with country code.',
+            'maxlength':     'Enter 10 digit phone number (with operator code) along with country code.',
+            'pattern'   :    "eg : (971)-055-1234567 including or excluding '(', ')' or '-'. "
         },
         'ownerName' : {
             'required':      'Owner Name is required.'
         },
         'mobileNumber' : {
-            'required':      'Mobile Number is required.'
+            'required':      'Phone Number is required.',
+            'minlength':     'Enter 10 digit mobile number along with country code.',
+            'maxlength':     'Enter 10 digit mobile number along with country code.',
+            'pattern'   :    "eg : (971)-055-1234567 including or excluding '(', ')' or '-'. "
         },   
         'passportNumber' : {
-            'required':      'Passport Number is required.'
+            'required':      'Passport Number is required.',
+            'pattern' :    'eg : G0308084<1ITY9999999Q0410056<<<<<<<<<<<<<<39'
         },   
         'nationality' : {
             'required':      'Nationality is required.'
@@ -442,7 +467,8 @@ export class CustomerBusinessEditComponent implements OnInit {
         private customerService: CustomerService,
         private planService: PlanService,
         private router: Router,
-        private route: ActivatedRoute
+        private route: ActivatedRoute,
+        private _flashMessagesService: FlashMessagesService,
     ){ 
           this.currentCustomer = JSON.parse(localStorage.getItem('currentCustomer'));
     }
@@ -456,10 +482,10 @@ export class CustomerBusinessEditComponent implements OnInit {
             issuingAuthority: [''],
             tradeLicenseExpiry: ['', Validators.required],
             emiRate: ['', Validators.required],
-            phoneNumber: ['', Validators.required],
+            phoneNumber: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(15), Validators.pattern(this.phoneRegex)]],
             ownerName: ['', Validators.required],
-            mobileNumber: ['', Validators.required],
-            passportNumber: ['', Validators.required],
+            mobileNumber: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(15), Validators.pattern(this.phoneRegex)]],
+            passportNumber: ['', [Validators.required,Validators.pattern(this.passportRegex)]],
             nationality: ['', Validators.required],
             emiRateIdNumber: ['', Validators.required],
             ownerId: ['', Validators.required],
@@ -516,12 +542,17 @@ export class CustomerBusinessEditComponent implements OnInit {
     businessUpdate(){
         this.businessService.businessUpdate(this.businessAddForm.value).subscribe(
             (data) => {
-              if (!data.error) {
-                  this.router.navigate(['customer/business']);
+                if (!data.error) {
+                    this._flashMessagesService.show('Business Updated Successfully', { cssClass: 'alert-success', timeout: 5000 });
+                    this.router.navigate(['customer/business']);
+                }else{
+                    this._flashMessagesService.show('Something went wrong', { cssClass: 'danger-alert', timeout: 5000 });
+                    this.router.navigate(['customer/business']);
                 }
             },
             (err)=>{
-                console.log('kfgbhj')
+                this._flashMessagesService.show('Something went wrong', { cssClass: 'danger-alert', timeout: 5000 });
+                console.log('kfgbhj');
             }
         );
     }

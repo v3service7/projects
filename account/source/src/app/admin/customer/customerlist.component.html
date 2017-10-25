@@ -32,7 +32,7 @@
                         <a [routerLink]="['/admin/customer/',customer._id]" rel="tooltip" title="Edit Task" class="btn btn-primary btn-simple btn-xs">
                             <i class="material-icons">edit</i>
                         </a>
-                        <a rel="tooltip" title="Remove" class="btn btn-danger btn-simple btn-xs" (click)="deleteCustomer(customer._id)">
+                        <a href="javascript:void(0)" rel="tooltip" title="Remove" class="btn btn-danger btn-simple btn-xs" (click)="deleteCustomer(customer._id)">
                             <i class="material-icons">close</i>
                         </a>
                     </td>

@@ -27,7 +27,7 @@ export class CustomerDashboardComponent implements OnInit {
         private router: Router,
         private route: ActivatedRoute
     ){ 
-          this.currentCustomer = JSON.parse(localStorage.getItem('currentCustomer'));
+        this.currentCustomer = JSON.parse(localStorage.getItem('currentCustomer'));
       }
 
     ngOnInit() {
@@ -54,7 +54,7 @@ export class CustomerProfileComponent implements OnInit {
     customerAddForm: FormGroup;
 	cpForm: FormGroup;
     passwordRegex = /^([0-9]+[a-zA-Z]+|[a-zA-Z]+[0-9]+)[0-9a-zA-Z]*$/;
-    emailp : any = /^([a-z\d!#$%&'*+\-\/=?^_`{|}~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+(\.[a-z\d!#$%&'*+\-\/=?^_`{|}~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+)*|"((([ \t]*\r\n)?[ \t]+)?([\x01-\x08\x0b\x0c\x0e-\x1f\x7f\x21\x23-\x5b\x5d-\x7e\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|\\[\x01-\x09\x0b\x0c\x0d-\x7f\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]))*(([ \t]*\r\n)?[ \t]+)?")@(([a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|[a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF][a-z\d\-._~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]*[a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])\.)+([a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|[a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF][a-z\d\-._~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]*[a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])\.?$/i;
+    phoneRegex = /^[(]{0,1}[2-9]{1}[0-9]{1,2}[)]{0,1}[-\s\.]{0,1}[0-9]{3}[-\s\.]{0,1}[0-9]{7}$/;
     passwordp : any = '';
     newo : any = false;
     MutchPassword : any = false;
@@ -62,7 +62,7 @@ export class CustomerProfileComponent implements OnInit {
     formErrors = {
         'firstname': '',
         'lastname': '',
-        'email' : '',
+        'phonenumber': ''
     };
 
     validationMessages = {
@@ -72,12 +72,11 @@ export class CustomerProfileComponent implements OnInit {
         'lastname': {
             'required':      'Last Name is required.',
         },
-        'email' : {
-            'required':      'Email is required.',
-            'pattern'   :    'Email not in well format.'
-        },
         'phonenumber' : {
             'required':      'Phone Number is required.',
+            'minlength':     'Enter 10 digit mobile number or phone number (with operator code) along with country code.',
+            'maxlength':     'Enter 10 digit mobile number or phone number (with operator code) along with country code.',
+            'pattern'   :    "eg : (971)-055-1234567 including or excluding '(', ')' or '-'. "
         }
     };
 
@@ -107,8 +106,6 @@ export class CustomerProfileComponent implements OnInit {
         private _flashMessagesService: FlashMessagesService,
     ){ 
   		this.currentCustomer = JSON.parse(localStorage.getItem('currentCustomer'));
-          console.log("this.currentCustomer");
-          console.log(this.currentCustomer);
   	}
 
   	ngOnInit() {
@@ -116,9 +113,9 @@ export class CustomerProfileComponent implements OnInit {
             _id: ['', Validators.required],
             firstname: ['', Validators.required],
             lastname: ['', Validators.required],
-            phonenumber: ['', Validators.required],
+            phonenumber: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(15), Validators.pattern(this.phoneRegex)]],
             dob: [''],
-            email: ['', [Validators.required, Validators.pattern(this.emailp)]],
+            email: ['', Validators.required],
         });
 
         this.cpForm = this.lf.group({
@@ -129,16 +126,20 @@ export class CustomerProfileComponent implements OnInit {
 
         this.customerAddForm.patchValue(this.currentCustomer);
         
-        this.cpForm.valueChanges
-            .subscribe(data => this.onValueChanged(data));
+        this.cpForm.valueChanges.subscribe(data => this.onValueChanged(data));
         this.onValueChanged();
+        
+        this.customerAddForm.valueChanges.subscribe(data => this.onValueChangedForm(data));
+        this.onValueChangedForm();
+
         this.cpForm.controls["_id"].setValue(this.currentCustomer._id);
   	}
 
     customer(id){
         this.customerService.customer(id).subscribe(
             (data) => {
-              if (!data.error) {
+                if (!data.error) {
+                    this.currentCustomer = data.message;
                     localStorage.removeItem('currentCustomer');
                     localStorage.setItem('currentCustomer', JSON.stringify(data.message));
                 }
@@ -178,8 +179,24 @@ export class CustomerProfileComponent implements OnInit {
         }
     }
 
+    onValueChangedForm(data?: any) {
+        if (!this.customerAddForm) {return;  }
+        const form = this.customerAddForm;
 
-    adminUpdate(){
+        for (const field in this.formErrors) {
+            // clear previous error message (if any)
+            this.formErrors[field] = '';
+            const control = form.get(field);      
+            if (control && control.dirty && !control.valid) {
+                const messages = this.validationMessages[field];
+                for (const key in control.errors) {
+                    this.formErrors[field] += messages[key] + ' ';          
+                }
+            }
+        }
+    }
+
+    customerUpdate(){
         this.customerService.customerUpdate(this.customerAddForm.value).subscribe(
             (data) => {
               if (!data.error) {
@@ -189,26 +206,25 @@ export class CustomerProfileComponent implements OnInit {
                 }
             },
             (err)=>{
-                this._flashMessagesService.show('Something went wrong', { cssClass: 'alert-success', timeout: 5000 });
+                this._flashMessagesService.show('Something went wrong', { cssClass: 'danger-alert', timeout: 5000 });
             }
         );
     }
 
-    adminChangePassword(){
+    customerChangePassword(){
         this.customerService.customerChangePassword(this.cpForm.value).subscribe(
             (data) => {
-                console.log("data");
-                console.log(data);
               if (!data.error) {
                   this.customer(this.cpForm.value._id);
                   this._flashMessagesService.show(data.message, { cssClass: 'alert-success', timeout: 5000 });
                   this.router.navigate(['customer/dashboard']);
                 }else{
-                    this._flashMessagesService.show(data.message, { cssClass: 'alert-success', timeout: 5000 });
+                    this.cpForm.reset();
+                    this._flashMessagesService.show(data.message, { cssClass: 'danger-alert', timeout: 5000 });
                 }
             },
             (err)=>{
-                this._flashMessagesService.show('Something went wrong', { cssClass: 'alert-success', timeout: 5000 });
+                this._flashMessagesService.show('Something went wrong', { cssClass: 'danger-alert', timeout: 5000 });
                 console.log('kfgbhj');
             }
         );
