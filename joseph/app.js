@@ -8,6 +8,9 @@ const cors = require('cors');
 const passport = require('passport');
 const config = require('./config/database');
 const users = require('./routes/users');
+const pages = require('./routes/pages');
+const plans = require('./routes/plans');
+const exchanges = require('./routes/exchanges');
 
 // Connect to Database
 mongoose.connect(config.database);
@@ -42,6 +45,9 @@ app.use(passport.session());
 require('./config/passport')(passport);
 
 app.use('/users', users);
+app.use('/plan', plans);
+app.use('/page', pages);
+app.use('/exchange', exchanges);
 
 // Index Route
 app.get('/', (req, res) => {

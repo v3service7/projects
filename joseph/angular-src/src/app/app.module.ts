@@ -18,13 +18,14 @@ import { AdminPlanComponent, PlanListComponent, PlanAddComponent, PlanEditCompon
 
 import { AdminPagesComponent, PagesListComponent , PagesAddComponent, PagesEditComponent } from './admin/pages/pages.component';
 
-import { ExchangeComponent, ExchangeListComponent, ExchangeAddComponent, ExchangeEditComponent } from './admin/exchange/exchange.component';
+import { AdminExchangeComponent, ExchangeListComponent, ExchangeAddComponent, ExchangeEditComponent } from './admin/exchanges/exchange.component';
 
 import {ValidateService} from './services/validate.service';
 import {AdminService} from './services/admin.service';
 import {UserService} from './services/user.service';
 import {PlanService} from './services/plan.service';
 import { PagesService} from './services/pages.service';
+import { ExchangeService} from './services/exchange.service';
 import {FlashMessagesModule} from 'angular2-flash-messages';
 import {AuthGuard} from './guards/auth.guard';
 import { SidebarComponent } from './admin/sidebar/sidebar.component';
@@ -56,7 +57,7 @@ const appRoutes: Routes =  [
             { path: 'add', component: PlanAddComponent, },
             { path: ':id', component: PlanEditComponent, },
         ]},
-        { path: 'exchange', component: ExchangeComponent, canActivate: [AuthGuard], children :[
+        { path: 'exchange', component: AdminExchangeComponent, canActivate: [AuthGuard], children :[
             { path: '', component: ExchangeListComponent, },
             { path: 'add', component: ExchangeAddComponent, },
             { path: ':id', component: ExchangeEditComponent, },
@@ -79,7 +80,7 @@ const appRoutes: Routes =  [
     SidebarComponent,
     AdminPlanComponent, PlanListComponent, PlanAddComponent, PlanEditComponent,
      AdminPagesComponent, PagesListComponent , PagesAddComponent, PagesEditComponent,
-    ExchangeComponent, ExchangeListComponent, ExchangeAddComponent, ExchangeEditComponent
+    AdminExchangeComponent, ExchangeListComponent, ExchangeAddComponent, ExchangeEditComponent
   ],
   imports: [
     BrowserModule,
@@ -89,7 +90,7 @@ const appRoutes: Routes =  [
     RouterModule.forRoot(appRoutes),
     FlashMessagesModule, 
   ],
-  providers: [ValidateService, AdminService, AuthGuard, UserService, PlanService, PagesService],
+  providers: [ValidateService, AdminService, AuthGuard, UserService, PlanService, PagesService, ExchangeService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
