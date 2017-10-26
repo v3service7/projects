@@ -1,0 +1,16 @@
+<app-headerowner></app-headerowner>
+
+<div class="rightMenu1 col-lg-9 col-md-9 col-sm-9" style="background-color: #E9E9E8;height: 585px;">
+    <!-- <alert></alert> -->
+	<form [formGroup]="customMessageForm" (ngSubmit)="messageUpdate()">        
+		<div class="settings-heading col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        	<span class="settings-title ng-binding">Custom Message</span>
+            <input type="submit" class="btn btn-next ng-binding" value="Next">
+        </div>
+        <div class="settings-content col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        	<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        		<textarea formControlName = "checkoutMessage" class="form-control" rows="2" placeholder="Enter message here..."></textarea>
+        	</div>
+		</div>
+	</form> 
+</div>

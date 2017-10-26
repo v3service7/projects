@@ -6,7 +6,7 @@ import { UsersComponent, UsersupdateComponent, UsersaddComponent, AdminComponent
 
 import { RestaurantsComponent, RestaurantaddComponent, RestaurantupdateComponent,  RestaurantupdateownerComponent, RestaurantlocationComponent, RestaurantconfirmationComponent,OwnermailactivateComponent} from './restaurants/index';
 
-import {RestaurantOwnerPickupComponent, RestaurantOwnerOrderForLaterComponent, RestaurantOwnerTaxationComponent, RestaurantOwnerPaymentOptionComponent, RestaurantOwnerOpeningHoursComponent, RestaurantOwnerDeliveryZoneComponent, KitchenMenuListComponent,LegacyComponent,LegacycodeComponent, NotificationComponent, SupportedLanguagesComponent,DeliveryOutsideComponent,OnlinePaymentComponent} from './serviceandopening/index';
+import {RestaurantOwnerPickupComponent, RestaurantOwnerOrderForLaterComponent, RestaurantOwnerTaxationComponent, RestaurantOwnerPaymentOptionComponent, RestaurantOwnerOpeningHoursComponent, RestaurantOwnerDeliveryZoneComponent, KitchenMenuListComponent,LegacyComponent,LegacycodeComponent, NotificationComponent, SupportedLanguagesComponent,DeliveryOutsideComponent,OnlinePaymentComponent, CustomMessageComponent} from './serviceandopening/index';
 
 import { OwnerDriversComponent, DriverOrdersComponent, OwnerDriversupdateComponent,OwnerDriversaddComponent} from './ownerdrivers/index';
 
@@ -93,6 +93,7 @@ const appRoutes: Routes = [
     { path: 'notification', component: NotificationComponent, canActivate: [OwnerAuthGuard]  },
     { path: 'supported-languages', component: SupportedLanguagesComponent, canActivate: [OwnerAuthGuard]  },
     { path: 'delivery-outside', component: DeliveryOutsideComponent, canActivate: [OwnerAuthGuard]  },
+    { path: 'custom-message', component: CustomMessageComponent, canActivate: [OwnerAuthGuard]  },
     { path: 'reports', component: ReportingComponent, canActivate: [OwnerAuthGuard],children:[
       { path: 'overview', component: ReportingoverviewComponent, canActivate: [OwnerAuthGuard]  },
       { path: 'method', component: ReportingMethodComponent, canActivate: [OwnerAuthGuard]  },

@@ -617,7 +617,7 @@ div.cartLength2{
     transition: background-color 0.4s ease-out;
 }
 
-.itemDetailListDiv:hover{
+.subMenuItem:hover{
     background-color: rgb(244, 244, 244);
 }
 
@@ -635,6 +635,14 @@ div.cartLength2{
     font-size: 24px;
 }
 
+.fontSize14{
+    font-size: 14px;
+}
+
+.fontSize16px{
+    font-size: 16px;
+}
+
 .toast-top-full-width{
     top: 10%;
     padding: 0 15% 0 15%;
@@ -648,8 +656,20 @@ div.cartLength2{
     padding: 20px 5px;
 }
 
+.padding10px5px{
+    padding: 10px 5px;
+}
+
 .padding0px15px{
     padding: 0px 15px;
+}
+
+.marginBottom15px{
+    margin-bottom: 15px;
+}
+
+.marginBottom5px{
+    margin-bottom: 5px;
 }
 
 .offerButton{
@@ -980,4 +1000,63 @@ div:focus{
 
 .displayFlex{
     display: flex;
+}
+
+.noneClass, .noneClass:hover{
+    cursor: no-drop;
+    background: #dedede;
+}
+
+.noneClass a{
+    pointer-events : none;
+}
+
+.headingMenu{
+    background: rgb(189, 189, 189);
+    background: -webkit-linear-gradient(left, rgb(189, 189, 189) , rgb(255, 255, 255));
+    background: -o-linear-gradient(right, rgb(189, 189, 189), rgb(255, 255, 255));
+    background: -moz-linear-gradient(right, rgb(189, 189, 189), rgb(255, 255, 255));
+    background: linear-gradient(to right, rgb(189, 189, 189), rgb(255, 255, 255));
+}
+
+
+.customMessage{
+    padding: 10px;
+    background-color: #33b0da;
+    color: #ffffff;
+    border-radius: 3px;
+    box-shadow: 0 12px 20px -10px rgba(60, 203, 226, 0.35), 0 4px 20px 0px rgba(51, 130, 146, 0.4), 0 7px 8px -5px rgba(77, 190, 199, 0.66);
+    word-wrap: break-word;
+}
+
+.customMessageDialogue{
+    padding: 10px;
+    background-color: #f08b18;
+    color: #ffffff;
+    border-radius: 3px;
+    box-shadow: 0 7px 8px -5px rgba(244, 67, 54, 0.2), 0 7px 8px -5px rgba(244, 67, 54, 0.2), 0 7px 8px -5px rgba(244, 67, 54, 0.2);
+    word-wrap: break-word;
+}
+
+.customMessageDialogue i, .customMessage i{
+    position: absolute;
+    right: 5px;
+    top: 0;
+    color: white;
+}
+
+#custmMsg .col-lg-12{
+    margin-bottom: 10px;
+}
+
+.width100{
+    width: 100%;
+}
+
+.gradientClass{
+    background: red; /* For browsers that do not support gradients */
+    background: -webkit-linear-gradient(to left, red, orange); /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient(to left, red, orange); /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient(to left ,red, orange); /* For Firefox 3.6 to 15 */
+    background: linear-gradient(to left ,red, orange); /* Standard syntax (must be last) */
 }

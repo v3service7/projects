@@ -70,3 +70,19 @@
 .mainMenuItem12 .icons .drop{
     float: right;
 }
+
+.fontSize20px{
+    font-size: 20px;
+}
+
+.fontSize12px{
+    font-size: 12px;
+}
+
+.padding0{
+    padding: 0;
+}
+
+.itemImage .custom_img_size{
+    width: 100%;
+}

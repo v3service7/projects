@@ -983,12 +983,14 @@ export class KitchenMenuListComponent implements OnInit {
 
 		this.menuAddModel = this.lf.group({
 			name: ['', Validators.required],
+			description: [''],
 			kitchenId: ['', Validators.required],
 			image: [],
 		});
 
 		this.menuUpdateModel = this.lf.group({
 			_id: ['', Validators.required],
+			description: [''],
 			name: ['', Validators.required],
 			image:[]
 		});
@@ -1585,7 +1587,21 @@ export class KitchenMenuListComponent implements OnInit {
 		this.editableChoiceDetail.reset();
 		this.currentChoice = '';
 	}
-	private passId(id){	  
+	private menuImage(img,type){
+		if (img != null && img != "") {
+            var imgPath = this.imageUrl + img;
+        }
+        if (img == null) {
+        	if (type == 'menu') {
+            	var imgPath = "assets/images/menu.jpg";
+        	}else{
+        		var imgPath = "assets/images/itemimage.gif";
+        	}
+        }
+        return imgPath;
+	} 
+
+	private passId(id){
       this.menuImageAddModel.controls["_id"].setValue(id);
 	}
     private passub(id){
@@ -2515,6 +2531,46 @@ export class DeliveryOutsideComponent implements OnInit {
 		obj['deliveryoutside'] = this.outsideDelivery;
 		this.restaurantsService.updateRestaurant(obj).subscribe((data)=>{
 			console.log(data);
+		});
+	}
+}
+
+@Component({
+  selector: 'app-custom-message',
+  templateUrl: './customMessage.component.html',
+  styleUrls: ['./custom-message.component.css']
+})
+export class CustomMessageComponent implements OnInit {
+    restaurants:any={};
+    customMessageForm : FormGroup;
+
+  	constructor(
+  		private masterService: MasterService,
+  		private restaurantsService: RestaurantsService,
+  		private router: Router,
+  		private alertService: AlertService,
+  		private lf: FormBuilder
+  		) { }
+
+  	ngOnInit() {
+  		this.customMessageForm = this.lf.group({
+  			checkoutMessage : ['', Validators.required],
+  			_id : ['', Validators.required]
+  		});
+		this.getRestaurants();
+	}
+
+	private getRestaurants() {
+		this.restaurantsService.getOwnerRestaurants(JSON.parse(localStorage.getItem('currentOwner'))._id).subscribe(users => {
+			this.restaurants = users.message;
+			this.customMessageForm.patchValue(this.restaurants);
+		});
+	}
+
+	private messageUpdate(){
+		this.restaurantsService.updateRestaurant(this.customMessageForm.value).subscribe((data)=>{
+			toastr.success('Checkout Page Message has been saved successfully');
+			this.router.navigate(['/owner/supported-languages']);
 		});
 	}
 }

@@ -197,6 +197,7 @@ export class FrontendPromoDetailComponent implements OnInit {
     mandatoryItemId=[];
     mandatoryItemIdList=[];
     detailShow: String;
+    spicyLevel: String = '0%';
     promotionStorage : string;
     customerStorage : string;
     cartStorage : string;
@@ -269,6 +270,18 @@ export class FrontendPromoDetailComponent implements OnInit {
 
         var days = ["sunday","monday","tuesday","wednesday","thursday","friday","saturday"];
         this.day = days[this.currentDate.getDay()];
+
+
+        /*setTimeout(()=>{
+            var id1 = 'menuItem_ig1_' + this.itemG1[0].menus[0]._id;
+            $("div[id^='menuItem_ig1_']").hide();
+            $('#'+id1).show();
+            if (this.itemG2) {
+                var id2 = 'menuItem_ig2_' + this.itemG2[0].menus[0]._id;
+                $("div[id^='menuItem_ig2_']").hide();
+                $('#'+id2).show();
+            }
+        },1000)*/
     }
 
     private addZero(i) {
@@ -276,6 +289,21 @@ export class FrontendPromoDetailComponent implements OnInit {
             i = "0" + i;
             }
         return i;
+    }
+
+    private showThisMenuItems(id, type){
+        if (type == 'ig2') {
+            var id1 = 'menuItem_ig2_'+id;
+            $('#'+id1).toggle();   
+        }
+        if (type == 'ig1') {
+            var id1 = 'menuItem_ig1_'+id;
+            $('#'+id1).toggle();   
+        }
+    }
+
+    private spicylevel(num){
+        this.spicyLevel = num;
     }
 
     private getCurrentCustomer(id){
@@ -451,6 +479,7 @@ export class FrontendPromoDetailComponent implements OnInit {
     }
 
     private showDetail(itemObj,itemMultiSizeObj) {
+        this.spicyLevel = '0%';
 
         $("a[id^='changeBg_']").removeClass('changeBg');
         $('#changeBg_'+itemObj._id).addClass('changeBg');
@@ -618,10 +647,9 @@ export class FrontendPromoDetailComponent implements OnInit {
 
             var id1 = 'Location_' + id + '_specialInstructionIG1';
             var idG1 = <HTMLInputElement>document.getElementById(id1);
-
-            console.log("idG1"); 
-            console.log(idG1.value);
             this.orderItem['itemInstruction'] = idG1.value;
+            this.orderItem['spicyLevel'] = this.spicyLevel;
+            this.spicyLevel = '0%';
 
             if (typeof discountOn[1] == 'undefined') {
                 var discountedPrice = ((100 - this.promotion.discountPercent)/100)*this.orderItem.totalPrice;
@@ -679,7 +707,11 @@ export class FrontendPromoDetailComponent implements OnInit {
             var id2 = 'Location_' + id + '_specialInstructionIG2';
             var idG2 = <HTMLInputElement>document.getElementById(id2);
             this.orderItem['itemInstruction'] = idG2.value;
+            this.orderItem['spicyLevel'] = this.spicyLevel;
+            this.spicyLevel = '0%';
+
             this.promotionItem['itemGroup2'] = this.orderItem;
+
             if (typeof discountOn[0] != 'undefined' && discountOn[0]['itemGroup1'].length > 0 && (this.promotionItem['itemGroup1'] == null || typeof this.promotionItem['itemGroup1'] == 'undefined')) {
                 toastr.remove();
                 toastr.warning("Please select another item to get this deal",null, {'positionClass' : 'toast-top-full-width'});
@@ -795,6 +827,8 @@ export class FrontendComponent implements OnInit {
     tempGroup=[];
     mandatoryItemId=[];
     mandatoryItemIdList=[];
+
+    spicyLevel : string = '0%';
     constructor(
         private masterService: MasterService,
         private restaurantsService: RestaurantsService,
@@ -851,6 +885,31 @@ export class FrontendComponent implements OnInit {
 
         var days = ["sunday","monday","tuesday","wednesday","thursday","friday","saturday"];
         this.day = days[this.currentDate.getDay()];
+
+        setTimeout(()=>{
+            var id1 = 'menuItem_' + this.menus[0]._id;
+            $("div[id^='menuItem_']").hide();
+            $('#'+id1).show();
+        },1000)
+    }
+
+    private showThisMenuItems(id){
+        var id1 = 'menuItem_'+id;
+        $('#'+id1).toggle();   
+    }
+
+    private spicylevel(num){
+        this.spicyLevel = num;
+    }
+
+    private resImage(img){
+        if (img != null && img != "") {
+            var imgPath = this.imageURL + img;
+        }
+        if (img == null) {
+            var imgPath = "assets/images/banner.jpg";
+        }
+        return imgPath;
     }
 
     private addZero(i) {
@@ -889,39 +948,46 @@ export class FrontendComponent implements OnInit {
         if (obj.isSpecific) {
             if (obj.openinghours.opentime <= time2 && obj.openinghours.closetime >= this.time) {
                 if ((obj.openinghours.monday == true) && ('monday' == this.day)) {
-                    return 'block';
+                    return 'blockClass';
                 }else if ((obj.openinghours.tuesday == true) && ('tuesday' == this.day)) {
-                    return 'block';
+                    return 'blockClass';
                 }else if (obj.openinghours.wednesday == true && 'wednesday' == this.day) {
-                    return 'block';
+                    return 'blockClass';
                 }else if (obj.openinghours.thursday == true && 'thursday' == this.day) {
-                    return 'block';
+                    return 'blockClass';
                 }else if (obj.openinghours.friday == true && 'friday' == this.day) {
-                    return 'block';
+                    return 'blockClass';
                 }else if (obj.openinghours.saturday == true && 'saturday' == this.day) {
-                    return 'block';
+                    return 'blockClass';
                 }else if (obj.openinghours.sunday == true && 'sunday' == this.day) {
-                    return 'block';
+                    return 'blockClass';
                 }else{
-                    return 'none';
+                    return 'noneClass';
                 }
             }else{
-                return 'none';
+                return 'noneClass';
             }
         }else{
-            return 'block';
+            return 'blockClass';
         }
     }
 
     private loadAllUsers(id) {
-        this.kitchenMenuService.getAll(id).subscribe(users => {       
-            this.menus = users.message;
+        this.kitchenMenuService.getAll(id).subscribe(users => {
+            let menuList = users.message;
+            for (var i = 0; i < menuList.length; i++) {
+                var x = this.items.findIndex(mn=>menuList[i]['_id'] == mn.menuId)
+                if (x > -1) {
+                    this.menus.push(menuList[i])
+                }
+            }
         });
     }
 
     private loadAllItem(id) {
         this.kitchenMenuItemService.getAllItems(id).subscribe(users => { 
             this.items = users.message;
+            this.loadAllUsers(id);
         });
         this.kitchenMenuService.getAllAddOn(this.restaurants._id).subscribe(data => {
             this.addOns = data.message;
@@ -972,6 +1038,9 @@ export class FrontendComponent implements OnInit {
         var itemId = 'Location_' + id + '_specialInstruction'
         var itemInstruction = <HTMLInputElement>document.getElementById(itemId);
         this.orderItem['itemInstruction'] = itemInstruction.value;
+        this.orderItem['spicyLevel'] = this.spicyLevel;
+
+        this.spicyLevel = '0%';
 
         this.totalOrder = JSON.parse(localStorage.getItem(this.cartStorage));
         this.totalOrder.push(this.orderItem);
@@ -1125,6 +1194,8 @@ export class FrontendComponent implements OnInit {
 
     private showDetail(itemObj,itemMultiSizeObj) {
 
+        this.spicyLevel = '0%';
+
         $("a[id^='changeBg_']").removeClass('changeBg');
         $('#changeBg_'+itemObj._id).addClass('changeBg');
 
@@ -1159,7 +1230,6 @@ export class FrontendComponent implements OnInit {
         this.restaurantsService.getOne(id).subscribe(users => {
             this.restaurants = users.message;
             this.loadAllRestroPromotions(this.restaurants._id);
-            this.loadAllUsers(this.restaurants._id);
             this.loadAllItem(this.restaurants._id); 
         });
     }
@@ -1488,6 +1558,7 @@ export class FrontendCartComponent implements OnInit {
     paymentMethod:boolean =false;
     cartZero:boolean =false;
     all:boolean=false;
+    cstMsg:boolean=false;
     delLater:boolean;
     addressClicked:boolean;
     grandTotal:number;
@@ -1645,6 +1716,14 @@ export class FrontendCartComponent implements OnInit {
 
         this.laterTime = this.currentDate.toLocaleTimeString();
         this.laterDay =  this.dayO + ', ' + this.completeDate;
+    }
+
+    private showCustomMessage(){
+        this.cstMsg = !this.cstMsg;
+    }
+
+    private hideMessage(){
+        document.getElementById('custmMsg').style.display = 'none';
     }
 
     public loadScript(url,type) {

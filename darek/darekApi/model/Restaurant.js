@@ -18,6 +18,7 @@ var RestaurantSchema = new Schema({
     address : String,
     zipcode : String,
     phoneNo : String,
+    checkoutMessage : String,
     billingaddress:{},
     paymentcredential:{},
     emailstatus: { type: Boolean, default: false },
