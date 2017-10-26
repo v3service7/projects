@@ -21,7 +21,7 @@ const appRoutes: Routes = [
     	{ path: '', component: AdminLoginComponent },
         { path: 'login', component: AdminLoginComponent },
         { path: 'forget-password', component: AdminForgetPasswordComponent },
-        { path: 'resetpassword/:id', component: AdminResetPasswordComponent },
+        { path: 'reset-password/:id', component: AdminResetPasswordComponent },
         { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] },
         { path: 'profile', component: AdminProfileComponent, canActivate: [AuthGuard] },
         { path: 'staff', component: StaffComponent, canActivate: [AuthGuard], children :[
@@ -43,14 +43,14 @@ const appRoutes: Routes = [
             { path: '', component: BusinessListComponent, },
             { path: 'view', component: BusinessEditComponent, },
         ]},
-       ]},
+    ]},
        
   	{ path: 'customer', component: CustomerComponent, children :[
     	{ path: '', component: CustomerLoginComponent },
         { path: 'login', component: CustomerLoginComponent },
         { path: 'register', component: CustomerRegisterComponent },
         { path: 'forget-password', component: CustomerForgetPasswordComponent },
-    	{ path: 'resetpassword/:id', component: CustomerResetPasswordComponent },
+    	{ path: 'reset-password/:id', component: CustomerResetPasswordComponent },
         { path: 'dashboard', component: CustomerDashboardComponent, canActivate: [CustomerAuthGuard] },
         { path: 'profile', component: CustomerProfileComponent, canActivate: [CustomerAuthGuard] },
         { path: 'business', component: CustomerBusinessComponent, canActivate: [CustomerAuthGuard], children :[

@@ -3,6 +3,7 @@ var ejs = require('ejs');
 var randomstring = require("randomstring");
 
 var emailFrom = 'this@company.com';
+/*var templateDir = '/home/nodeapp/account/email_template';*/
 var templateDir = '../api/email_template';
 var transporter = nodemailer.createTransport({
     service: "Gmail",
@@ -38,9 +39,11 @@ module.exports = {
 
     forgetEmailShoot: function(customer, type) {
         if (type == 'cust') {
-            customer['resetPassLink'] = 'http://34.209.114.118:4021/customer/resetpassword/'+customer._id;
+            /*customer['resetPassLink'] = 'http://34.209.114.118:4021/customers/reset-password/'+customer._id;*/
+            customer['resetPassLink'] = 'http://localhost:4200/customer/reset-password/'+customer._id;
         }else{
-            customer['resetPassLink'] = 'http://34.209.114.118:4021/admin/resetpassword/'+customer._id;
+            /*customer['resetPassLink'] = 'http://34.209.114.118:4021/admin/reset-password/'+customer._id;*/
+            customer['resetPassLink'] = 'http://localhost:4200/admin/reset-password/'+customer._id;
         }
 
         // rendering html template (same way can be done for subject, text)

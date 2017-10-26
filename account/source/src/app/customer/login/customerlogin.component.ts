@@ -76,9 +76,14 @@ export class CustomerLoginComponent implements OnInit {
         this.customerService.customerLogin(this.loginForm.value).subscribe(
             (data) => {
                 if (!data.error) {
-                    this._flashMessagesService.show('Login Successfully', { cssClass: 'alert-success', timeout: 5000 });
-                    localStorage.setItem('currentCustomer', JSON.stringify(data.message));
-                    this.router.navigate([this.returnUrl]);
+                    if (data.message['status']) {                    
+                        this._flashMessagesService.show('Login Successfully', { cssClass: 'alert-success', timeout: 5000 });
+                        localStorage.setItem('currentCustomer', JSON.stringify(data.message));
+                        this.router.navigate([this.returnUrl]);
+                    }else{
+                        this._flashMessagesService.show('Your Account is not Active.', { cssClass: 'danger-alert', timeout: 5000 });
+                        this.loginForm.reset();
+                    }
                 }else{
                     this._flashMessagesService.show(data.message, { cssClass: 'danger-alert', timeout: 5000 });
                     /*this.err = data.message;*/
