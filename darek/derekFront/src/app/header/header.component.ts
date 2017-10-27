@@ -35,4 +35,8 @@ export class HeaderownerComponent implements OnInit {
           this.restaurants = users.message;
         });
     }
+
+    private signOut(){
+      localStorage.removeItem('currentOwner');
+    }
 }

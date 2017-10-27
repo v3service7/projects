@@ -156,33 +156,53 @@ export class RestaurantupdateComponent implements OnInit {
 })
 export class OwnermailactivateComponent implements OnInit {
 
-	ownerProfile: FormGroup;
 	returnUrl: string;
 	err:any;
+	id:any;
+
+	currentOwner : any = {};
 
 	constructor(
 		private alertService: AlertService,
 		private restaurantsService: RestaurantsService,
 		private router: Router,
 		//private _flashMessagesService: FlashMessagesService,
-		private route: ActivatedRoute,
+		private activatedRoute: ActivatedRoute
 		) { }
 
 	ngOnInit() {
-		JSON.parse(localStorage.getItem('currentOwner'));
-		this.mailactivate(JSON.parse(localStorage.getItem('currentOwner'))._id)
+
+		this.activatedRoute.params.subscribe((params: Params) => {
+			this.id = params['id'];
+			this.mailactivate(this.id);
+		});
+		/*JSON.parse(localStorage.getItem('currentOwner'));
+		this.mailactivate(JSON.parse(localStorage.getItem('currentOwner'))._id)*/
 	}
 
 	mailactivate(id){
 		this.restaurantsService.activateMail(id).subscribe(
 			(data) => {
 				if (data.error) {
-					toastr.warning('Some thing went wrong','Alert!');
+					toastr.warning(data.message,'Alert!');
 					//this._flashMessagesService.show('Some thing went wrong', { cssClass: 'alert-danger', timeout: 10000 });
 				}else{
-					toastr.success('Email confirmed','Success!');
-					//this._flashMessagesService.show('Email confirmed', { cssClass: 'alert-success', timeout: 10000 });
+					//toastr.success('Email confirmed','Success!');
+					if(localStorage.getItem('currentOwner')){
+						this.currentOwner = JSON.parse(localStorage.getItem('currentOwner'));
+						if (this.currentOwner._id == this.id && this.currentOwner['emailstatus'] == false) {
+							toastr.success(data.message,'Success!')
+						}else if(this.currentOwner._id == this.id && this.currentOwner['emailstatus'] == true){
+							toastr.success("Email Already Activated")
+						}else{
+							toastr.success(data.message,'Success!')
+							localStorage.removeItem('currentOwner');
+						}
+					}else{
+						toastr.success(data.message,'Success!');
+					}
 					this.router.navigate(['owner/profile']);
+					//this._flashMessagesService.show('Email confirmed', { cssClass: 'alert-success', timeout: 10000 });
 				}
 			}
 		);
@@ -432,9 +452,11 @@ export class RestaurantconfirmationComponent implements OnInit {
 		document.getElementById('submitButton').style.cursor = 'wait';
 		this.restaurantsService.emailConfirm({'email': this.user.email }).subscribe(
 			(data) => {
+				console.log("data");
+				console.log(data);
 				toastr.info('Email Sent Successfully','Email Sent');
 				//this.alertService.success('Email Sent Successfully', true);
-				this.router.navigate(['/owner/basic-detail']);
+				//this.router.navigate(['/owner/basic-detail']);
 			}
 		);
 	}

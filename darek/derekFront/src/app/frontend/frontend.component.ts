@@ -313,7 +313,7 @@ export class FrontendPromoDetailComponent implements OnInit {
         });
     }
 
-    private checkMenuItemShow(obj){
+    private checkMenuShow(obj){
         var currentDate2 = new Date();
         var date2 = currentDate2.toLocaleDateString();
         var h = this.addZero(currentDate2.getHours());
@@ -344,6 +344,40 @@ export class FrontendPromoDetailComponent implements OnInit {
             }
         }else{
             return 'block';
+        }
+    }
+
+    private checkItemShow(obj){
+        var currentDate2 = new Date();
+        var date2 = currentDate2.toLocaleDateString();
+        var h = this.addZero(currentDate2.getHours());
+        var m = this.addZero(currentDate2.getMinutes());
+        var s = this.addZero(currentDate2.getSeconds());
+        var time2 = h+':'+m;
+        if (obj.isSpecific) {
+            if (obj.openinghours.opentime <= time2 && obj.openinghours.closetime >= this.time) {
+                if ((obj.openinghours.monday == true) && ('monday' == this.day)) {
+                    return 'blockClass';
+                }else if ((obj.openinghours.tuesday == true) && ('tuesday' == this.day)) {
+                    return 'blockClass';
+                }else if (obj.openinghours.wednesday == true && 'wednesday' == this.day) {
+                    return 'blockClass';
+                }else if (obj.openinghours.thursday == true && 'thursday' == this.day) {
+                    return 'blockClass';
+                }else if (obj.openinghours.friday == true && 'friday' == this.day) {
+                    return 'blockClass';
+                }else if (obj.openinghours.saturday == true && 'saturday' == this.day) {
+                    return 'blockClass';
+                }else if (obj.openinghours.sunday == true && 'sunday' == this.day) {
+                    return 'blockClass';
+                }else{
+                    return 'noneClass';
+                }
+            }else{
+                return 'noneClass';
+            }
+        }else{
+            return 'blockClass';
         }
     }
 
@@ -482,7 +516,8 @@ export class FrontendPromoDetailComponent implements OnInit {
         this.spicyLevel = '0%';
 
         $("a[id^='changeBg_']").removeClass('changeBg');
-        $('#changeBg_'+itemObj._id).addClass('changeBg');
+        $('#changeBg_ig1_'+itemObj._id).addClass('changeBg');
+        $('#changeBg_ig2_'+itemObj._id).addClass('changeBg');
 
         this.mandCheckedCount = false;
         this.loadThisItem(itemObj);
@@ -493,7 +528,7 @@ export class FrontendPromoDetailComponent implements OnInit {
 
 
         this.detailShow = itemObj._id;
-        this.multiSizePrice = 0;  
+        this.multiSizePrice = 0;
         this.price = 0;
         this.finalPrice = 0;
         this.addonPrice = 0;
@@ -756,9 +791,15 @@ export class FrontendPromoDetailComponent implements OnInit {
         this.hideDiv();
     }
 
-    private showPos(id) {
+    private showPos(id, type) {
         if (this.detailShow == id) {
-            let divId = '#changeBg_'+id
+            let divId : String;
+            if (type == 'ig1') {
+                divId = '#changeBg_ig1_'+id
+            }
+            if (type == 'ig2') {
+                divId = '#changeBg_ig2_'+id
+            }
             let left = '';
             let itemP = '#itemPop_'+id;
 
@@ -938,7 +979,7 @@ export class FrontendComponent implements OnInit {
         });
     }
 
-    private checkMenuItemShow(obj){
+    private checkItemShow(obj){
         var currentDate2 = new Date();
         var date2 = currentDate2.toLocaleDateString();
         var h = this.addZero(currentDate2.getHours());
@@ -969,6 +1010,40 @@ export class FrontendComponent implements OnInit {
             }
         }else{
             return 'blockClass';
+        }
+    }
+
+    private checkMenuShow(obj){
+        var currentDate2 = new Date();
+        var date2 = currentDate2.toLocaleDateString();
+        var h = this.addZero(currentDate2.getHours());
+        var m = this.addZero(currentDate2.getMinutes());
+        var s = this.addZero(currentDate2.getSeconds());
+        var time2 = h+':'+m;
+        if (obj.isSpecific) {
+            if (obj.openinghours.opentime <= time2 && obj.openinghours.closetime >= this.time) {
+                if ((obj.openinghours.monday == true) && ('monday' == this.day)) {
+                    return 'block';
+                }else if ((obj.openinghours.tuesday == true) && ('tuesday' == this.day)) {
+                    return 'block';
+                }else if (obj.openinghours.wednesday == true && 'wednesday' == this.day) {
+                    return 'block';
+                }else if (obj.openinghours.thursday == true && 'thursday' == this.day) {
+                    return 'block';
+                }else if (obj.openinghours.friday == true && 'friday' == this.day) {
+                    return 'block';
+                }else if (obj.openinghours.saturday == true && 'saturday' == this.day) {
+                    return 'block';
+                }else if (obj.openinghours.sunday == true && 'sunday' == this.day) {
+                    return 'block';
+                }else{
+                    return 'none';
+                }
+            }else{
+                return 'none';
+            }
+        }else{
+            return 'block';
         }
     }
 
@@ -1617,8 +1692,6 @@ export class FrontendCartComponent implements OnInit {
         this.addressForm = this.lf.group({
             streetName: ['', Validators.required],
             city: ['', Validators.required],
-            state: ['', Validators.required],
-            country: ['', Validators.required],
             postcode: ['', Validators.required],
         });
         this.detailForm = this.lf.group({
@@ -1937,7 +2010,7 @@ export class FrontendCartComponent implements OnInit {
     private zoneCalculate(method){
         this.customerService.getLatLng(method).subscribe(data => {
 
-            this.orderMethod = {"streetName": this.addressForm.value.streetName, "city": this.addressForm.value.city, "state": this.addressForm.value.state, "country": this.addressForm.value.country, "postcode": this.addressForm.value.postcode,"lat": data.message.lat,"lng": data.message.lng,"mType":'Delivery'};
+            this.orderMethod = {"streetName": this.addressForm.value.streetName, "city": this.addressForm.value.city, "postcode": this.addressForm.value.postcode,"lat": data.message.lat,"lng": data.message.lng,"mType":'Delivery'};
             localStorage.setItem(this.orderMethodStorage, JSON.stringify(this.orderMethod));
             this.orderMethod = JSON.parse(localStorage.getItem(this.orderMethodStorage));
             
@@ -2013,7 +2086,7 @@ export class FrontendCartComponent implements OnInit {
         console.log("this.addressForm.value");
         console.log(this.addressForm.value);
         this.zoneObject=[];
-        this.orderMethod = {"streetName": this.addressForm.value.streetName, "city": this.addressForm.value.city, "state": this.addressForm.value.state, "country": this.addressForm.value.country, "postcode": this.addressForm.value.postcode,"mType":'Delivery'};
+        this.orderMethod = {"streetName": this.addressForm.value.streetName, "city": this.addressForm.value.city, "postcode": this.addressForm.value.postcode,"mType":'Delivery'};
         this.zoneCalculate(this.orderMethod);
         this.cartDetail.orderMethod = this.orderMethod;
         this.editOrderMethod = true;
@@ -2036,6 +2109,11 @@ export class FrontendCartComponent implements OnInit {
             }
 
             if (place.address_components) {
+
+                console.log("place.address_components");
+                console.log(place.address_components);
+
+
                 let city,state,country;
                 
                 /*if (place.address_components.length >= 4) {
@@ -2050,8 +2128,6 @@ export class FrontendCartComponent implements OnInit {
                 }
 
                 this.addressForm.controls['city'].setValue(city);
-                this.addressForm.controls['state'].setValue(state);
-                this.addressForm.controls['country'].setValue(country);
             }
         });
     }
@@ -2082,7 +2158,7 @@ export class FrontendCartComponent implements OnInit {
     private showDatePicker(type){
         $('#datetimepicker1').datetimepicker({format : 'dddd, DD-MM-YYYY'});
         $('#datetimepicker2').datetimepicker({format:'LT'});
-     }
+    }
 
     private getValue(type){
         let eleObj = (<HTMLInputElement>document.getElementById(type));
@@ -2441,6 +2517,9 @@ export class FrontendCartComponent implements OnInit {
 
                         localStorage.setItem(this.cartStorage,'[]');
                         localStorage.removeItem(this.orderTimeStorage);
+                        localStorage.removeItem(this.orderMethodStorage);
+                        localStorage.removeItem(this.orderPaymentStorage);
+                        
                         if (localStorage.getItem(this.coupon) != 'undefined' && localStorage.getItem(this.coupon) != 'null') {
                             localStorage.removeItem(this.coupon);
                         }

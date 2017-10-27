@@ -15,14 +15,15 @@
 
 
 <div class="container-fluid cartDiv col-lg-12" id="cartDetailDiv">
+	
 	<div *ngIf="restaurants.checkoutMessage" id="custmMsg">
-		<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" *ngIf="!cstMsg" (click)="showCustomMessage()">
-			<div class="col-lg-2 col-md-2 col-sm-4 col-xs-6 pull-right customMessage">
+		<div class="custmMsgBox" *ngIf="!cstMsg" (click)="showCustomMessage()">
+			<div class="customMessage">
 				Message<i class="fa fa-times" aria-hidden="true" (click)="hideMessage()"></i>
 			</div>
 		</div>
-		<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" *ngIf="cstMsg">
-			<div class="col-lg-4 col-md-4 col-sm-4 col-xs-6 customMessageDialogue pull-right">
+		<div class="custmMsgBox" *ngIf="cstMsg">
+			<div class="customMessageDialogue">
 				{{restaurants.checkoutMessage}}
 
 				<i class="fa fa-times" aria-hidden="true" (click)="showCustomMessage()"></i>
@@ -148,8 +149,7 @@
 							<div *ngIf="orderMethod.mType == 'Pickup'">{{orderMethod.mType}}</div>
 							<div *ngIf="orderMethod.mType == 'Delivery'">
 								{{orderMethod.mType}}<br>
-								{{orderMethod.streetName}} ,{{orderMethod.city}} ,{{orderMethod.postcode}}<br>
-								{{orderMethod.state}}, {{orderMethod.country}}
+								{{orderMethod.streetName}}, {{orderMethod.city}} <br>{{orderMethod.postcode}}
 							</div>
 						</div>
 						<div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 editButton" (click)="editOrder()">
@@ -270,13 +270,16 @@
 					</div>
 					<div class="editPaymentMethod" *ngIf="editPaymentMethod">
 						<div class="col-lg-8 col-md-8 col-sm-8 orderPaymentDetail">
-							<div *ngIf="orderPayment.cash == true">
+							<div *ngIf="orderPayment.cash">
 								{{'Cash' | translate}}
 							</div>
-							<div *ngIf="orderPayment.cardpickup == true">
+							<div *ngIf="orderPayment.cardpickup && orderPayment.ptype == 'Delivery'">
+								{{'Card' | translate}} {{'at' | translate}} {{'Delivery' | translate}}
+							</div>
+							<div *ngIf="orderPayment.cardpickup && orderPayment.ptype == 'Pickup'">
 								{{'Card' | translate}} {{'Pickup' | translate}}
 							</div>
-							<div *ngIf="orderPayment.cardinternet == true">
+							<div *ngIf="orderPayment.cardinternet">
 								{{'Card' | translate}} {{'via' | translate}} {{'Internet' | translate}}
 							</div>
 						</div>
@@ -363,7 +366,14 @@
 									</div>
 								</div>
 								<div class="col-lg-7 col-md-7 col-sm-7 col-xs-7 padding0">
-									<div class="col-lg-12 col-md-12 col-sm-12 col-xs-2 cart-item-name fontWeight700">{{crt.item.name}}</div>
+									<div class="col-lg-12 col-md-12 col-sm-12 col-xs-2 cart-item-name">
+										<strong>{{crt.item.name}}</strong>
+										<span class="fontSize12px" *ngIf = "crt.spicyLevel == '0%'">(No Spices)</span>
+										<span class="fontSize12px" *ngIf = "crt.spicyLevel == '25%'">(Less Spicy)</span>
+										<span class="fontSize12px" *ngIf = "crt.spicyLevel == '50%'">(Medium Spicy)</span>
+										<span class="fontSize12px" *ngIf = "crt.spicyLevel == '75%'">(Spicy)</span>
+										<span class="fontSize12px" *ngIf = "crt.spicyLevel == '100%'">(Extra Spicy)</span>
+									</div>
 									<div class="col-lg-12 col-md-12 col-sm-12 col-xs-2 cart-item-option" style="font-size: 12px;">
 										<div *ngIf="crt.multisize">
 											<div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">{{crt.multisize.size}}</div>
@@ -396,7 +406,15 @@
 
 								<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding5px15px" *ngIf="promotionOrder.itemGroup1">
 									<div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 padding0">
-										<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 cart-item-name padding0 fontWeight700">{{promotionOrder.itemGroup1.item.name}}</div>
+										<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 cart-item-name padding0">
+											<!-- {{promotionOrder.itemGroup1.item.name}} -->
+											<strong>{{promotionOrder.itemGroup1.item.name}}</strong>
+											<span class="fontSize12px" *ngIf = "promotionOrder.itemGroup1.spicyLevel == '0%'">(No Spices)</span>
+											<span class="fontSize12px" *ngIf = "promotionOrder.itemGroup1.spicyLevel == '25%'">(Less Spicy)</span>
+											<span class="fontSize12px" *ngIf = "promotionOrder.itemGroup1.spicyLevel == '50%'">(Medium Spicy)</span>
+											<span class="fontSize12px" *ngIf = "promotionOrder.itemGroup1.spicyLevel == '75%'">(Spicy)</span>
+											<span class="fontSize12px" *ngIf = "promotionOrder.itemGroup1.spicyLevel == '100%'">(Extra Spicy)</span>
+										</div>
 										<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 cart-item-option" style="font-size: 12px;">
 											<div *ngIf="promotionOrder.itemGroup1.multisize">
 												<div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 padding0">{{promotionOrder.itemGroup1.multisize.size}}</div>
@@ -421,7 +439,15 @@
 
 								<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding5px15px" *ngIf="promotionOrder.itemGroup2">
 									<div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 padding0">
-										<div class="col-lg-12 col-md-12 col-sm-12 col-xs-2 cart-item-name padding0">{{promotionOrder.itemGroup2.item.name}}</div>
+										<div class="col-lg-12 col-md-12 col-sm-12 col-xs-2 cart-item-name padding0">
+											<!-- {{promotionOrder.itemGroup2.item.name}} -->
+											<strong>{{promotionOrder.itemGroup2.item.name}}</strong>
+											<span class="fontSize12px" *ngIf = "promotionOrder.itemGroup2.spicyLevel == '0%'">(No Spices)</span>
+											<span class="fontSize12px" *ngIf = "promotionOrder.itemGroup2.spicyLevel == '25%'">(Less Spicy)</span>
+											<span class="fontSize12px" *ngIf = "promotionOrder.itemGroup2.spicyLevel == '50%'">(Medium Spicy)</span>
+											<span class="fontSize12px" *ngIf = "promotionOrder.itemGroup2.spicyLevel == '75%'">(Spicy)</span>
+											<span class="fontSize12px" *ngIf = "promotionOrder.itemGroup2.spicyLevel == '100%'">(Extra Spicy)</span>
+										</div>
 										<div class="col-lg-12 col-md-12 col-sm-12 col-xs-2 cart-item-option" style="font-size: 12px;">
 											<div *ngIf="promotionOrder.itemGroup2.multisize">
 												<div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 padding0">{{promotionOrder.itemGroup2.multisize.size}}</div>

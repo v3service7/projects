@@ -15,6 +15,8 @@
 
 
 <div class="col-lg-12 col-md-12 col-xs-12 col-sm-12 padding0" style="top: 60px">
+	
+	<!-- top promotion banner -->
 	<div class="col-lg-12 col-md-12 col-xs-12 col-sm-12 padding0 colorWhite" id="base" style=" height: 250px" [ngStyle]="{'background-image': 'url(' + imageURL + promotion.image + ')'}">
 		<div class="col-lg-12 col-md-12 col-xs-12 col-sm-12" style="background-color: rgba(0,0,0,.55); box-shadow: inset 0 -20px 30px -10px #000;height: inherit;">
 			<div class="col-lg-12 col-md-12 col-xs-12 col-sm-12 padding20px5px fontWeight700 fontSize24">
@@ -50,11 +52,13 @@
 			</div>
 		</div>
 	</div>
+	<!-- top promotion banner end -->
 
+	<!-- Item Group1 -->
 	<div class="container-fluid menuDetail padding0" style="margin: 3% auto 10% auto;" id="itemGroup1">
 		<div class="col-lg-12 col-md-12 col-xs-12 col-sm-12 padding0" *ngIf = "itemG1">
 			<div class="col-lg-12 col-md-12 col-xs-12 col-sm-12 padding10px5px" *ngFor = "let ig1 of itemG1">
-				<div *ngIf = "ig1.menu && !ig1.menu.isHidden" [style.display]="checkMenuItemShow(ig1.menu)">
+				<div *ngIf = "ig1.menu && !ig1.menu.isHidden" [style.display]="checkMenuShow(ig1.menu)">
 					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0" (click)="showThisMenuItems(ig1.menu._id,'ig1')">
 						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 fontSize24 textCenter marginBottom15px headingMenu">
 							<strong>{{ig1.menu.name | uppercase}}</strong>
@@ -72,11 +76,11 @@
 
 						<div *ngIf = "ig1.items && ig1.items.length > 0">
 							<div *ngFor = "let item of ig1.items">
-								<div *ngIf="!item.isHidden" [style.display]="checkMenuItemShow(item)">
+								<div *ngIf="!item.isHidden">
 									<div  class="col-lg-6 col-md-6 col-sm-6 col-xs-6"  style="height: 60px;">
 										<div class="itemDetailListDiv col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0">
-											<div class="subMenuItem col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0">
-												<a class="col-lg-12 col-md-12 col-sm-12 col-xs-12 itemDetailList" href="javascript:void(0)" (click)="showDetail(item,item.multisize[0] )" id="changeBg_{{item._id}}">
+											<div class="subMenuItem col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0" [ngClass]="checkItemShow(item)">
+												<a class="col-lg-12 col-md-12 col-sm-12 col-xs-12 itemDetailList" href="javascript:void(0)" (click)="showDetail(item,item.multisize[0] )" id="changeBg_ig1_{{item._id}}">
 													<div class="col-lg-10 col-md-10 col-sm-10 col-xs-10" style="height: inherit;">
 														<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0"><h5><strong>{{item.name}}</strong></h5></div>
 														<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0">
@@ -90,7 +94,7 @@
 													</div>
 													<div class="col-lg-2 col-md-2 col-sm-2 col-xs-2" style="height: inherit;text-align: -webkit-right;"><h5><strong>{{item.price}}</strong></h5></div>
 												</a>
-												<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 itemDetailDiv" id="itemPop_{{item._id}}" [style.display]="showDiv(item._id)" [style.left]="showPos(item._id)">
+												<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 itemDetailDiv" id="itemPop_{{item._id}}" [style.display]="showDiv(item._id)" [style.left]="showPos(item._id, 'ig1')">
 													<button class="hideDetailDiv" type="button"  (click) = "hideDiv()" >
 														<span aria-hidden="true">&times;</span>
 													</button>
@@ -212,11 +216,13 @@
 			</div>
 		</div>
 	</div>
+	<!-- Item Group1 end -->
 
+	<!-- Item Group2 -->
 	<div class="container-fluid menuDetail padding0" style="margin: 3% auto 10% auto;" id="itemGroup2">
 		<div class="col-lg-12 col-md-12 col-xs-12 col-sm-12 padding0" *ngIf = "itemG2">
 			<div class="col-lg-12 col-md-12 col-xs-12 col-sm-12 padding10px5px" *ngFor = "let ig2 of itemG2">
-				<div *ngIf = "ig2.menu && !ig2.menu.isHidden" [style.display]="checkMenuItemShow(ig2.menu)">
+				<div *ngIf = "ig2.menu && !ig2.menu.isHidden" [style.display]="checkMenuShow(ig2.menu)">
 					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0" (click)="showThisMenuItems(ig2.menu._id, 'ig2')">
 						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 fontSize24 textCenter marginBottom15px headingMenu">
 							<strong>{{ig2.menu.name | uppercase}}</strong>
@@ -235,11 +241,11 @@
 
 						<div *ngIf = "ig2.items && ig2.items.length > 0">
 							<div *ngFor = "let item of ig2.items">
-								<div *ngIf="!item.isHidden" [style.display]="checkMenuItemShow(item)">
+								<div *ngIf="!item.isHidden">
 									<div  class="col-lg-6 col-md-6 col-sm-6 col-xs-6"  style="height: 60px;">
 										<div class="itemDetailListDiv col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0">
-											<div class="subMenuItem col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0">
-												<a class="col-lg-12 col-md-12 col-sm-12 col-xs-12 itemDetailList" href="javascript:void(0)" (click)="showDetail(item,item.multisize[0] )" id="changeBg_{{item._id}}">
+											<div class="subMenuItem col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0" [ngClass]="checkItemShow(item)">
+												<a class="col-lg-12 col-md-12 col-sm-12 col-xs-12 itemDetailList" href="javascript:void(0)" (click)="showDetail(item,item.multisize[0] )" id="changeBg_ig2_{{item._id}}">
 													<div class="col-lg-10 col-md-10 col-sm-10 col-xs-10" style="height: inherit;">
 														<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0"><h5><strong>{{item.name}}</strong></h5></div>
 														<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0">
@@ -253,7 +259,7 @@
 													</div>
 													<div class="col-lg-2 col-md-2 col-sm-2 col-xs-2" style="height: inherit;text-align: -webkit-right;"><h5><strong>{{item.price}}</strong></h5></div>
 												</a>
-												<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 itemDetailDiv" id="itemPop_{{item._id}}" [style.display]="showDiv(item._id)" [style.left]="showPos(item._id)">
+												<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 itemDetailDiv" id="itemPop_{{item._id}}" [style.display]="showDiv(item._id)" [style.left]="showPos(item._id,'ig2')">
 													<button class="hideDetailDiv" type="button"  (click) = "hideDiv()" >
 														<span aria-hidden="true">&times;</span>
 													</button>
@@ -376,4 +382,5 @@
 			</div>
 		</div>
 	</div>
+	<!-- Item Group2 end -->
 </div>

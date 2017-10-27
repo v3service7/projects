@@ -71,7 +71,7 @@ const appRoutes: Routes = [
     { path: 'forget-password', component: ForgetOwnerComponent },
     { path: 'resetpassword/:id', component: ResetPasswordOwnerComponent },
     { path: 'change-password', component: OwnerchangepasswordComponent, canActivate: [OwnerAuthGuard]  },
-    { path: 'mailactivate/:id', component: OwnermailactivateComponent, canActivate: [OwnerAuthGuard]  },
+    { path: 'mailactivate/:id', component: OwnermailactivateComponent},
     { path: 'profile', component: OwnerprofileComponent, canActivate: [OwnerAuthGuard]  },
     { path: 'basic-detail', component: RestaurantupdateownerComponent, canActivate: [OwnerAuthGuard]  },
     { path: 'restaurant-location', component: RestaurantlocationComponent, canActivate: [OwnerAuthGuard]  },

@@ -457,7 +457,7 @@ footer.footer .footerButton .saveButton .button-separator{
 
 .itemDetailDiv{
     top: -200px;
-    z-index: 1070;
+    z-index: 100000;
     /*margin: 15% 0;*/
 }
 
@@ -1024,7 +1024,7 @@ div:focus{
     padding: 10px;
     background-color: #33b0da;
     color: #ffffff;
-    border-radius: 3px;
+    border-radius: 10px 0;
     box-shadow: 0 12px 20px -10px rgba(60, 203, 226, 0.35), 0 4px 20px 0px rgba(51, 130, 146, 0.4), 0 7px 8px -5px rgba(77, 190, 199, 0.66);
     word-wrap: break-word;
 }
@@ -1033,7 +1033,7 @@ div:focus{
     padding: 10px;
     background-color: #f08b18;
     color: #ffffff;
-    border-radius: 3px;
+    border-radius: 10px 0;
     box-shadow: 0 7px 8px -5px rgba(244, 67, 54, 0.2), 0 7px 8px -5px rgba(244, 67, 54, 0.2), 0 7px 8px -5px rgba(244, 67, 54, 0.2);
     word-wrap: break-word;
 }
@@ -1059,4 +1059,16 @@ div:focus{
     background: -o-linear-gradient(to left, red, orange); /* For Opera 11.1 to 12.0 */
     background: -moz-linear-gradient(to left ,red, orange); /* For Firefox 3.6 to 15 */
     background: linear-gradient(to left ,red, orange); /* Standard syntax (must be last) */
+}
+
+.fontSize12px{
+    font-size: 12px;
+}
+
+.custmMsgBox{
+    top: 20px;
+    right: 0;
+    position: fixed;
+    width: 25%;
+    z-index: 1060;
 }

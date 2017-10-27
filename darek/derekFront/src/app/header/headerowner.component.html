@@ -14,7 +14,7 @@
 	  	<div class="dropdown-content" style="z-index: 4;">
 	    	<a [routerLink]="['/owner/profile']" ><i class="fa fa-user" aria-hidden="true"></i>&nbsp;&nbsp;My Profile</a>
 	    	<a [routerLink]="['/owner/change-password']"><i class="fa fa-key" aria-hidden="true"></i>&nbsp;&nbsp;Password Change</a>
-	    	<a [routerLink]="['/owner/login/']"><i class="fa  fa-power-off"></i>&nbsp;&nbsp;Sign Out</a>
+	    	<a [routerLink]="['/owner/login/']" (click)="signOut()"><i class="fa  fa-power-off"></i>&nbsp;&nbsp;Sign Out</a>
 	  	</div>
 	</div>
 </div>

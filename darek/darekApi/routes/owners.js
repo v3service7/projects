@@ -5,6 +5,10 @@ var passport = require('passport');
 var User = require('../model/User.js');
 var ownerModel = require('../model/Owner.js');
 
+var moment = require('moment');
+var now = moment();
+
+
 router.post('/register', function(req, res) {
     console.log(req.body);
     User.register(new User(req.body), req.body.password, function(err, account) {
@@ -60,44 +64,64 @@ router.post('/account-confirm',function(req, res){
     //        message:'Access Denied'
     //    });
     //}
+    let response = {};
     console.log(req.body);
     ownerModel.find({email:req.body.email}, req.body, function(err, ownerD) {
         if(err) {
-            response = {"error" : true,"message" : err};
+            response = {"error" : false,"message" : err};
+            return res.json(response);
         } else {
             var loggedUser = ownerD[0];
             var name = loggedUser.firstname+" <"+loggedUser.email+" >";
             /*var content = "Email Activation Link <a href='http://34.209.114.118:3003/owner/mailactivate/"+loggedUser._id+"'>Click Here</a>"*/
-            /*var content = "Email Activation Link <a href='http://localhost:4200/owner/mailactivate/"+loggedUser._id+"'>Click Here</a>"*/
-            var content = "Email Activation Link <a href='http://104.236.69.166:3000/owner/mailactivate/"+loggedUser._id+"'>Click Here</a>"
+            var content = "Restaurant Activation Link <a href='http://localhost:4200/owner/mailactivate/"+loggedUser._id+"'>Click Here</a>"
+            /*var content = "Email Activation Link <a href='http://104.236.69.166:3000/owner/mailactivate/"+loggedUser._id+"'>Click Here</a>"*/
             req.mail.sendMail({  //email options
                from: "Restaurant Team <noreply@abcpos.com>", // sender address.  Must be the same as authenticated user if using GMail.
                to: name, // receiver
-               subject: "Email Activation", // subject
+               subject: "Restaurant Account Activation", // subject
                html: content
-            }, function(error, response){  //callback
-               if(error){
-                   console.log(error);
-               }else{
-                   console.log("Message sent: " + response.message);
-               }
-               req.mail.close();
-               res.json({status:true});
-               
+            }, function(error, resp){  //callback
+                if(error){
+                    console.log(error);
+                    response = {"error" : true,"message" : error};
+                }else{
+                    console.log("Message sent: " + resp.message);
+                    response = {"error" : false,"message" : "Mail Sent Successfully"};
+                }
+                req.mail.close();
+                return res.json(response);
             });
         }
     });
 });
 
 router.get('/mailactivate/:id', function(req, res, next) {
-    req.body.emailstatus = true;
-    ownerModel.findByIdAndUpdate(req.params.id, req.body, function(err, owner) {
-        if(err) {
-            response = {"error" : true,"message" : err};
+    let response = {};
+    ownerModel.findById(req.params.id, function(err, customer) {
+
+        console.log("owner");
+        console.log(customer);
+
+        if (err) {
+            response = { "error": true, "message": "Something Went Wrong" };
         } else {
-            response = {"error" : false,"message" : owner};
-            res.json(response);
-        }
+            var registerTime = moment(customer.created_at).format('YYYY-MM-DD HH:mm:ss');
+            var currentTime = moment().format('YYYY-MM-DD HH:mm:ss');
+            if (moment(currentTime).diff(moment(registerTime), 'days') >= 1) {
+                response = { "error": true, "message": 'Email Link Expire Try again' };
+                return res.json(response);
+            } else {
+                ownerModel.findByIdAndUpdate(customer._id, { emailstatus: true }, function(err, customer) {
+                    if (err) {
+                        response = { "error": true, "message": "Couldn't Update Now. Try after some time" };
+                    } else {
+                        response = { "error": false, "message": 'Restaurant Activated Successfully' };
+                    }
+                    return res.json(response);
+                });
+            }
+        };
     });
 });
 

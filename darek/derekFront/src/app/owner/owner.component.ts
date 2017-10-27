@@ -55,7 +55,19 @@ export class OwnerregisterComponent implements OnInit {
     register(){
         this.ownerService.addUser(this.loginForm.value).subscribe(
             (data) => {
-                toastr.success('Register successful','Success!');
+                console.log("data");
+                console.log(data);
+                if (!data.error) {
+                    toastr.success('Register successful','Success!');
+                    this.router.navigate([this.returnUrl]);
+                }else{
+                    toastr.error('Email/ Username Already Exist','Alert!');
+                    this.loginForm.controls['username'].setValue('');
+                    this.loginForm.controls['email'].setValue('');
+                }
+            },
+            (err)=>{
+                toastr.error('Something Went Wrong','Error!');
                 this.router.navigate([this.returnUrl]);
             }
         );
