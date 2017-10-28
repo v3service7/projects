@@ -322,7 +322,7 @@
 
 						<span style="border: 1px solid gray;padding: 10px;"><%= order.restaurantId.phoneNo%></span>
 					</p>
-					<p>On behalf of FairPizza, we apologize for any inconvenience this might have caused you.</p>
+					<p>On behalf of <%= order.restaurantId.name %>, we apologize for any inconvenience this might have caused you.</p>
 					<p>Thank you for your understanding, <%= order.customerId.firstname%>!</p>
 				<% } %>
 

@@ -89,7 +89,7 @@ export class RestaurantaddComponent implements OnInit {
 				//this.alertService.success('Restaurant Add successful', true);
 				this.router.navigate(['/admin/restaurants']);
 			}
-			);
+		);
 	}
 }
 

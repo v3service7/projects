@@ -9,7 +9,9 @@
         </div>
         <div class="settings-content">
             <div class="row">
-                <div class="col-xs-12"><strong class="ng-binding">Taxation options:</strong></div>
+                <div class="col-xs-12">
+                    <strong class="ng-binding">Taxation options:</strong>
+                </div>
             </div>
             <div class="row">
                 <div class="col-xs-8">
@@ -17,26 +19,35 @@
                 </div>
                 <div class="col-xs-4">
                     <div class="input-group">
-                        <input type="text" placeholder="0" class="form-control" formControlName="tax"><span class="input-group-addon">%</span></div>
+                        <input type="number" placeholder="0" class="form-control" formControlName="tax"><span class="input-group-addon">%</span>
+                    </div>
                 </div>
             </div>
             <div class="row">
                 <div class="col-xs-12">
                     <select class="form-control" formControlName="menuTax">
-                        <option>Menu prices already include taxes</option>
-                        <option>Apply tax on top of my menu prices</option>
+                        <option value="Already Include">Menu prices already include taxes</option>
+                        <option value="Apply Tax">Apply tax on top of my menu prices</option>
                     </select>
                 </div>
             </div>
             <div class="row tax-subtitle">
-                <div class="col-xs-12"><strong class="ng-binding">Taxation for delivery fee:</strong></div>
+                <div class="col-xs-12">
+                    <strong class="ng-binding">Taxation for delivery fee:</strong>
+                </div>
             </div>
             <div class="row">
                 <div class="col-xs-8">
                     <select class="form-control" formControlName="deliveryTax">
-                        <option>Apply the same tax for the delivery fee</option>
-                        <option>Apply this tax for the delivery fee</option>
+                        <option value="Same Tax">Apply the same tax for the delivery fee</option>
+                        <option value="New Tax">Apply this tax for the delivery fee</option>
                     </select>
+                </div>
+                <div class="col-xs-4" *ngIf = "taxationAddModel.controls['deliveryTax'].value == 'New Tax' ">
+                    <div class="input-group">
+                        <input type="number" placeholder="0" class="form-control" (keyup)="deliveryTax($event)">
+                        <span class="input-group-addon">%</span>
+                    </div>
                 </div>
             </div>
             <div class="row tax-subtitle">
@@ -51,7 +62,6 @@
                     </select>
                 </div>
             </div>
-            <div class="clearfix"></div>
         </div>
     </form>
 </div>

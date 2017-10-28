@@ -279,6 +279,8 @@ export class RestaurantOwnerTaxationComponent implements OnInit {
 
 	taxationAddModel: FormGroup;
 	restaurants: any;
+	deliveryT: number;
+	newTax: boolean = false;
 	user = [];
 
 	constructor(
@@ -304,26 +306,39 @@ export class RestaurantOwnerTaxationComponent implements OnInit {
 	getRestaurants() {
 		this.restaurantsService.getOwnerRestaurants(JSON.parse(localStorage.getItem('currentOwner'))._id).subscribe(users => {
 			this.restaurants = users.message;
-			this.taxationAddModel.controls['name'].setValue(this.restaurants.taxation.name);
-			this.taxationAddModel.controls['tax'].setValue(this.restaurants.taxation.taxpercent);
-			this.taxationAddModel.controls['menuTax'].setValue(this.restaurants.taxation.menuTax);
-			this.taxationAddModel.controls['deliveryTax'].setValue(this.restaurants.taxation.deliveryTax);
-			this.taxationAddModel.controls['currency'].setValue(this.restaurants.taxation.currency);
+			console.log("this.restaurants");
+			console.log(this.restaurants);
+			if (typeof this.restaurants.taxation != 'undefined') {
+				this.taxationAddModel.controls['name'].setValue(this.restaurants.taxation.name);
+				this.taxationAddModel.controls['tax'].setValue(this.restaurants.taxation.taxpercent);
+				this.taxationAddModel.controls['menuTax'].setValue(this.restaurants.taxation.menuTax);
+				this.taxationAddModel.controls['deliveryTax'].setValue(this.restaurants.taxation.deliveryTax);
+				this.taxationAddModel.controls['currency'].setValue(this.restaurants.taxation.currency);
+			}
 		});
 	}
 
+	deliveryTax(event){
+		this.deliveryT = event.target.value; 
+	}
+
 	taxationDetailUpdate() {
+		let deliveryTaxObj = {};
+		deliveryTaxObj['type'] = this.taxationAddModel.value.deliveryTax;
+		if (deliveryTaxObj['type'] == 'New Tax') {
+			deliveryTaxObj['tax'] = this.deliveryT;
+		}
 
 		var objForUpdate: any = {};
 		objForUpdate._id = this.restaurants._id;
-		objForUpdate.taxation = { "name": this.taxationAddModel.value.name, "taxpercent": this.taxationAddModel.value.tax, "menuTax": this.taxationAddModel.value.menuTax, "deliveryTax": this.taxationAddModel.value.deliveryTax, "currency": this.taxationAddModel.value.currency };
+		objForUpdate.taxation = { "name": this.taxationAddModel.value.name, "taxpercent": this.taxationAddModel.value.tax.toString(), "menuTax": this.taxationAddModel.value.menuTax, "deliveryTax": deliveryTaxObj, "currency": this.taxationAddModel.value.currency };
 		this.restaurantsService.updatePickUp(objForUpdate).subscribe(
 			(data) => {
 				this.user = data.message;
 				toastr.success('Taxation Detail Updated','Success!');
 				this.router.navigate(['/owner/restaurant-paymentoption']);
-			});
-
+			}
+		);
 	}
 }
 
@@ -1023,12 +1038,12 @@ export class KitchenMenuListComponent implements OnInit {
 		this.editableDetail = this.lf.group({
 			_id : [],
 			name : ['', Validators.required],
-			groupType : []
+			groupType : ['', Validators.required]
 		});
 
 		this.groupAddModel = this.lf.group({
 			name : ['', Validators.required],
-			groupType : [],
+			groupType : ['', Validators.required],
 			restaurantId : []						
 		});
 
@@ -1086,7 +1101,6 @@ export class KitchenMenuListComponent implements OnInit {
 			});
 		});
 	}
-
 	private showPreview(){
 		var gfid = this.restaurants._id;
 	    var baseUrl = this.frontUrl;
@@ -1105,7 +1119,6 @@ export class KitchenMenuListComponent implements OnInit {
 			$('#previewModal').css('display','none');
 		});
 	}
-
 	private onClicked(event){
 	    if (!event.target.checked) {
 	    	this.addGroupAddon.splice(this.addGroupAddon.indexOf(event.target.value),1);
@@ -1116,7 +1129,6 @@ export class KitchenMenuListComponent implements OnInit {
 	    /*console.log(this.addGroupAddon);*/
 	    this.getGroupDetail(this.addGroupAddon);
     }
-
     private getGroupDetail(data){
     	this.option2 = []
     	/*console.log(data);*/
@@ -1126,7 +1138,6 @@ export class KitchenMenuListComponent implements OnInit {
     		});
     	}
     }
-
     private checkCheckedGroup(id){
     	if((typeof this.addGroupAddon !='undefined') && (this.addGroupAddon.length > 0)) {
 	    	if(this.addGroupAddon.indexOf(id) > -1) {
@@ -1136,7 +1147,6 @@ export class KitchenMenuListComponent implements OnInit {
 		    }
 	    }
 	}
-
 	onChange(event) {
 	    var files = event.srcElement.files;
 	    this.uploader.uploadAll();
@@ -1146,14 +1156,12 @@ export class KitchenMenuListComponent implements OnInit {
 			toastr.success('Image Uploaded Successfully');
 		};
 	}
-
 	private menuModelShow() {
 		$("#addMenu").modal('show');
 		this.restaurantsService.getOwnerRestaurants(JSON.parse(localStorage.getItem('currentOwner'))._id).subscribe(users => {
 			this.menuAddModel.controls['kitchenId'].setValue(users.message._id);
 		});
 	}
-
 	private userAdd() {
 		this.kitchenMenuService.addUser(this.menuAddModel.value).subscribe(
 			(data) => {
@@ -1163,12 +1171,10 @@ export class KitchenMenuListComponent implements OnInit {
 			}
 		);
 	}
-
 	private menuUpdateModelShow(id) {
 		$("#updateMenu").modal('show');
 		this.getUsers(id);
 	}
-
 	private getUsers(id) {
 		this.kitchenMenuService.getOne(id).subscribe(users => {
 			this.userForUpdate = users.message;
@@ -1179,7 +1185,6 @@ export class KitchenMenuListComponent implements OnInit {
 	    var files = event.target.files;
 	    this.menuUpdateModel.controls['image'].setValue(files[0].name);
 	}
-
 	private userUpdate() {
 		if (this.menuUpdateModel.value.image == null || this.menuUpdateModel.value.image == this.userForUpdate.image) {
 			this.kitchenMenuService.updateMenu(this.menuUpdateModel.value).subscribe(
@@ -1204,7 +1209,6 @@ export class KitchenMenuListComponent implements OnInit {
 			};
 		}
 	}
-
 	private itemAddModelShow(id) {
 		$("#addItem").modal('show');
 		this.itemAddModel.controls['menuId'].setValue(id);
@@ -1213,7 +1217,6 @@ export class KitchenMenuListComponent implements OnInit {
 		});
 		this.getAllGroups();
 	}
-
     private getAllGroups(){
 		this.restaurantsService.getOwnerRestaurants(JSON.parse(localStorage.getItem('currentOwner'))._id).subscribe(data => {		
 			this.kitchenMenuService.getAllAddOn(data.message._id).subscribe(users => {
@@ -1223,7 +1226,6 @@ export class KitchenMenuListComponent implements OnInit {
 			});
 		});
 	}
-
 	onChangeItem(event) {
 	    var files = event.srcElement.files;
 	    this.uploader.uploadAll();
@@ -1233,7 +1235,6 @@ export class KitchenMenuListComponent implements OnInit {
 			toastr.success('Image Uploaded Successfully');
 		};
 	}
-
 	private itemAdd() {
 		this.itemAddModel.controls['options'].setValue(this.addGroupAddon) ;
 		this.kitchenMenuItemService.addUser(this.itemAddModel.value).subscribe(
@@ -1246,7 +1247,6 @@ export class KitchenMenuListComponent implements OnInit {
 			}
 		);
 	}
-
 	private itemUpdateModelShow(item) {
 		$("#updateItem").modal('show');
 		this.getAllGroups();
@@ -1255,12 +1255,10 @@ export class KitchenMenuListComponent implements OnInit {
 			this.addGroupAddon.push(item.options[i]._id);
 		}
 	}
-
 	onChangeItemUpdate(event) {
 	    var files = event.target.files;
 	    this.itemUpdateModel.controls['image'].setValue(files[0].name);
 	}
-
 	private itemUpdate() {
 		if (this.option2.length > 0) {
 			this.itemUpdateModel.controls['options'].setValue(this.option2);
@@ -1289,7 +1287,6 @@ export class KitchenMenuListComponent implements OnInit {
 			};
 		}
 	}
-
 	optionalUpdate() {
 		this.groupDetail = {};
 		if (this.btn_class1 != 'btn-success') {
@@ -1297,9 +1294,21 @@ export class KitchenMenuListComponent implements OnInit {
 			this.btn_class1 = 'btn-success';
 		}
 		this.groupDetail.gType = 'optional';
+
+		this.groupAddModel.controls['groupType'].setValue(this.groupDetail);
 		document.getElementById('mandatoryFields').style.display = 'none';
 	}
+	optionalUpdateEdit() {
+		this.groupDetail = {};
+		if (this.btn_class1 != 'btn-success') {
+			this.btn_class2 = 'btn-default';
+			this.btn_class1 = 'btn-success';
+		}
+		this.groupDetail.gType = 'optional';
 
+		this.editableDetail.controls['groupType'].setValue(this.groupDetail);
+		document.getElementById('mandatoryFields').style.display = 'none';
+	}
 	mandatoryUpdate() {
 		this.groupDetail = {};
 		if (this.btn_class2 != 'btn-success') {
@@ -1307,7 +1316,62 @@ export class KitchenMenuListComponent implements OnInit {
 			this.btn_class2 = 'btn-success';
 		}
 		this.groupDetail.gType = 'mandatory';
+		//this.groupAddModel.controls['groupType'].setValue(null);
+		
+		if (typeof this.groupDetail.min != 'undefined' && typeof this.groupDetail.max != 'undefined' && this.groupDetail.min != "" && this.groupDetail.max != "") {
+			this.groupAddModel.controls['groupType'].setValue(this.groupDetail);
+		}else{
+			this.groupAddModel.controls['groupType'].setValue(null);
+		}
+
 		document.getElementById('mandatoryFields').style.display = 'block';
+	}
+	mandatoryUpdateEdit() {
+		this.groupDetail = {};
+		if (this.btn_class2 != 'btn-success') {
+			this.btn_class1 = 'btn-default';
+			this.btn_class2 = 'btn-success';
+		}
+		this.groupDetail.gType = 'mandatory';
+		//this.groupAddModel.controls['groupType'].setValue(null);
+		
+		if (typeof this.groupDetail.min != 'undefined' && typeof this.groupDetail.max != 'undefined' && this.groupDetail.min != "" && this.groupDetail.max != "") {
+			this.editableDetail.controls['groupType'].setValue(this.groupDetail);
+		}else{
+			this.editableDetail.controls['groupType'].setValue(null);
+		}
+
+		document.getElementById('mandatoryFields').style.display = 'block';
+	}
+	mandMinMaxValue(event,type){
+		if (type == 'min') {
+			this.groupDetail.min = event.target.value;
+		}
+
+		if (type == 'max') {
+			this.groupDetail.max = event.target.value;
+		}
+
+		if (typeof this.groupDetail.min != 'undefined' && typeof this.groupDetail.max != 'undefined' && this.groupDetail.min != "" && this.groupDetail.max != "") {
+			this.groupAddModel.controls['groupType'].setValue(this.groupDetail);
+		}else{
+			this.groupAddModel.controls['groupType'].setValue(null);
+		}
+	}
+	mandEditMinMaxValue(event,type){
+		if (type == 'min') {
+			this.groupDetail.min = event.target.value;
+		}
+
+		if (type == 'max') {
+			this.groupDetail.max = event.target.value;
+		}
+
+		if (typeof this.groupDetail.min != 'undefined' && typeof this.groupDetail.max != 'undefined' && this.groupDetail.min != "" && this.groupDetail.max != "") {
+			this.editableDetail.controls['groupType'].setValue(this.groupDetail);
+		}else{
+			this.editableDetail.controls['groupType'].setValue(null);
+		}
 	}
 	private modelClose(){
 		$("#myeditModal").modal('hide');
@@ -1356,22 +1420,25 @@ export class KitchenMenuListComponent implements OnInit {
 		this.groupDetail.gType = 'optional';
 		this.btn_class2 = 'btn-default';
 		this.btn_class1 = 'btn-success';
+
+		this.groupAddModel.controls['groupType'].setValue(this.groupDetail);
 	}
 	private clearadd(){
 		this.addgroup = {"display" : "none"}; 
 	}
 	private groupDetailAdd(){
-		var min=((<HTMLInputElement>document.getElementById("forceMin")).value);
-		var max=((<HTMLInputElement>document.getElementById("forceMax")).value);
+		/*var min=((<HTMLInputElement>document.getElementById("forceMin")).value);
+		var max=((<HTMLInputElement>document.getElementById("forceMax")).value);*/
 
-		if (this.groupDetail.gType == 'optional') {
+		/*if (this.groupDetail.gType == 'optional') {
 			this.groupAddModel.controls['groupType'].setValue(this.groupDetail);
-		}
-		if (this.groupDetail.gType == 'mandatory') {
+		}*/
+		/*if (this.groupDetail.gType == 'mandatory') {
 			this.groupDetail.min = min;
 			this.groupDetail.max = max;
 			this.groupAddModel.controls['groupType'].setValue(this.groupDetail);
-		}
+		}*/
+
 		this.groupAddModel.controls['restaurantId'].setValue(this.restaurants._id);
 		this.kitchenMenuService.adddetailAddOn(this.groupAddModel.value).subscribe(addons => {     
 			this.getAllAddonDetail();
@@ -1389,31 +1456,47 @@ export class KitchenMenuListComponent implements OnInit {
 		this.currentOpen = 'editgroup';
 		this.kitchenMenuService.groupDetailEditser(id).subscribe(data => {   
 		//console.log("data")     	
-		//console.log(data)     	
-			this.editableDetail.controls['_id'].setValue(data.message._id);
-			this.editableDetail.controls['name'].setValue(data.message.name);
+		//console.log(data)
+			/*this.editableDetail.controls['_id'].setValue(data.message._id);
+			this.editableDetail.controls['name'].setValue(data.message.name);*/
+
+			this.editableDetail.patchValue(data.message);
 			
+			this.groupDetail = data.message.groupType;
 			if (data.message.groupType.gType == 'mandatory') {
-				this.mandatoryUpdate();
-				(<HTMLInputElement>document.getElementById("forceMinEdit")).value = data.message.groupType.min;
-				(<HTMLInputElement>document.getElementById("forceMaxEdit")).value = data.message.groupType.max;
+				this.btn_class1 = 'btn-default';
+				this.btn_class2 = 'btn-success';
+				/*if (typeof this.groupDetail.min != 'undefined' && typeof this.groupDetail.max != 'undefined' && this.groupDetail.min != "" && this.groupDetail.max != "") {
+					this.groupAddModel.controls['groupType'].setValue(this.groupDetail);
+				}else{
+					this.groupAddModel.controls['groupType'].setValue(null);
+				}*/
+
+				document.getElementById('mandatoryFields').style.display = 'block';
+				//this.mandatoryUpdate();
+				/*(<HTMLInputElement>document.getElementById("forceMinEdit")).value = data.message.groupType.min;
+				(<HTMLInputElement>document.getElementById("forceMaxEdit")).value = data.message.groupType.max;*/
 			}else{
-				this.optionalUpdate();
+				this.btn_class2 = 'btn-default';
+				this.btn_class1 = 'btn-success';
+
+				document.getElementById('mandatoryFields').style.display = 'none';
+				/*this.optionalUpdateEdit();*/
 			}
 		});
 	}
 	private groupDetailEditUpdate(){
-		var min=((<HTMLInputElement>document.getElementById("forceMinEdit")).value);
-		var max=((<HTMLInputElement>document.getElementById("forceMaxEdit")).value);
+		/*var min=((<HTMLInputElement>document.getElementById("forceMinEdit")).value);
+		var max=((<HTMLInputElement>document.getElementById("forceMaxEdit")).value);*/
 
-		if (this.groupDetail.gType == 'optional') {
+		/*if (this.groupDetail.gType == 'optional') {
 			this.editableDetail.controls['groupType'].setValue(this.groupDetail);
 		}
 		if (this.groupDetail.gType == 'mandatory') {
 			this.groupDetail.min = min;
 			this.groupDetail.max = max;
 			this.editableDetail.controls['groupType'].setValue(this.groupDetail);
-		}
+		}*/
 		this.kitchenMenuService.groupEditUpdate(this.editableDetail.value).subscribe(data => {
 			this.getAllAddonDetail();
 			this.clearCancel();
@@ -1527,7 +1610,6 @@ export class KitchenMenuListComponent implements OnInit {
 			toastr.success('Choice Added Successfully','Success!');
 		}); 
 	}
-
 	private showHideAddons(id, property){
 		var addonGroupId = "#gr"+id;
 		var x = property.getAttribute('class');
@@ -1539,7 +1621,6 @@ export class KitchenMenuListComponent implements OnInit {
 			$("div[id^='gr']").hide();
 		}
 	}
-
 	private loadAllAddons(id){
 		this.kitchenMenuService.groupDetailEditser(id).subscribe(data => {   
 			this.allAddons = data.message.subaddon;
@@ -1599,8 +1680,7 @@ export class KitchenMenuListComponent implements OnInit {
         	}
         }
         return imgPath;
-	} 
-
+	}
 	private passId(id){
       this.menuImageAddModel.controls["_id"].setValue(id);
 	}
@@ -1686,7 +1766,6 @@ export class KitchenMenuListComponent implements OnInit {
 				}
 			}
    		}
-
    	}
    	private checkChecked(allDay,day){
    		if (allDay) {
@@ -1897,7 +1976,6 @@ export class KitchenMenuListComponent implements OnInit {
 		// console.log(this.menuObj);
 		this.hideDiv(type);
    	}
-
    	private deleteHiddenSpecific(user, type){
 
    		user.isSpecific = false;
@@ -1912,6 +1990,31 @@ export class KitchenMenuListComponent implements OnInit {
 	   		this.kitchenMenuItemService.updateMenu(user).subscribe((data)=>{
 	   			toastr.success('Item is no more Hidden or Specific');
 	   		});
+   		}
+   	}
+
+   	private deleteMenuImage(user,type){
+   		if (user.image != null) {
+   			if (confirm("Delete Image?")) {
+	   			delete user.image;
+	   			user.image = null;
+		   		if (type == 'menu') {
+		   			this.kitchenMenuService.updateMenu(user).subscribe(data => {
+		                console.log(data);
+		                if (!data.error) {
+						    toastr.success('Image Deleted Successfully');
+		                }else{
+						    toastr.error('Unable to Delete Image');
+		                }
+		            });
+		   		}
+		   		if (type == 'item') {
+		   			this.kitchenMenuItemService.updateMenu(user).subscribe((data) => {
+		   				console.log(data);
+						toastr.success('Image Deleted successful');
+					});
+		   		}
+		   	}
    		}
    	}
 }

@@ -15,7 +15,7 @@
 						<div>A moment ago we have sent you an email to <strong class="user-email">{{user.email}}</strong>.<br><br>Please click on the link in order to validate your email address.
 						</div>
 						<div class="resend-email">
-							<a class="btn btn-primary btn-resend-email ng-binding" (click)="accountConfirm()">Resend activation email</a>
+							<button class="btn btn-primary btn-resend-email ng-binding" (click)="accountConfirm()" [disabled]="user.emailstatus">Resend activation email</button>
 							<span class="icon-checkmark js-checkmark"></span>
 						</div>
 					</div>

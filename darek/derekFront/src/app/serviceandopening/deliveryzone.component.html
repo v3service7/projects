@@ -2,141 +2,172 @@
 
 <div class="rightMenu1 col-lg-9 col-md-9 col-sm-9 col-xs-9" style="background-color: #E9E9E8;height: 585px;">
 
-  <div class="profile col-lg-12 col-md-12 col-sm-12 col-xs-12" id="deliveryChoice" style="background: rgba(255, 255, 255, 0.87);padding: 7% 14%;z-index: 1;position: absolute;height: 585px;margin: 0;">
-    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="width: 80%;padding: 0;    box-shadow: 0 1px 6px rgba(0,1,1,.35);background: white;">
-      <form [formGroup]="deliveryConfirmAddModel" (ngSubmit)="deliveryDetailUpdate()">
-        <div class="firstDiv col-lg-12 col-md-12 col-sm-12 col-xs-12" style="box-shadow: 0 -1px 0 #d5d5d3, inset 0 1px 0 rgba(0, 0, 0, .04);">  
-          <span class="">Delivery Options</span>
-          <input type="submit" class="btn btn-next" value="Next" style="float: right;" 
-          [disabled]="!deliveryConfirmAddModel.valid" />   
-        </div>
-        <div class="secondDiv col-lg-12 col-md-12 col-sm-12 col-xs-12" style="box-shadow: 0 -1px 0 #d5d5d3, inset 0 1px 0 rgba(0, 0, 0, .04);">   
-          <div class="col-sm-8 delivery_text"> Do you offer food delivery? </div>
-          <div class="col-sm-4">
-            <div class="input-group">
-              <span class="input-group-addon" class="btn pickupindegate1" [ngClass]="btn_class1" (click)="deliveryYesUpdate()" >Yes</span>
-              <span class="input-group-addon" class="btn pickupindegate2" [ngClass]="btn_class2" (click)="deliveryNoUpdate()" >No</span>
-            </div>
-          </div>        
-        </div>  
-      </form>
-    </div>
-  </div>
-
-  <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8" style="display: -webkit-box;padding: 1%;">
-    <div class="" style="padding: 1%; font-weight: 700;"> Delivery Areas Are </div>
-    <div class="">
-      <div class="input-group">
-        <span class="input-group-addon" class="btn pickupindegate1" [ngClass]="btn_class1" (click)="deliveryYesUpdate()" style="border-radius: 0;" >Active</span>
-        <span class="input-group-addon" class="btn pickupindegate2" [ngClass]="btn_class2" (click)="deliveryNoUpdate()" style="border-radius: 0;" >Inactive</span>
-      </div>
-    </div>
-    <div class="btn saveButton pull-right" style="padding: 1%;left: 45%;width: 10%;">Next</div>
-  </div>
-
-  <div class="screen screen-form js-screen-address-form ng-scope col-lg-12 col-md-12 col-sm-12 col-xs-12" id="Menu18" id="gmap" style="min-height: 0;padding: 0">   
-  </div>
-  <div class="screen-sidebar js-sidebar col-lg-4 col-md-4 col-sm-4 col-xs-4">
-    <h4 *ngIf="edit">Edit Delivery Zones</h4>
-    <div class="settings-content" *ngIf="edit">
-      <div class="comp-edit-area js-edit-area">
-        <form [formGroup]="editableDetail" (ngSubmit)="editDeliveryValueUpdate()">  
-          <div class="comp-edit-zone comp-edit-composed js-edit-zone">
-            <div class="btn-group comp-type-picker comp-mandatory-selector js-edit-mandatory" data-toggle="buttons">
-              <button [disabled]="true" class="btn btn-selector js-circle ng-binding" [ngClass]="etypeClass == 'Circle' ? 'active' : '' " >
-                <input type="radio" name="etype" formControlName="etype">Circle</button>
-                <button [disabled]="true" class="btn btn-selector js-shape ng-binding"  [ngClass]="etypeClass == 'Shape' ? 'active' : ''">
-                  <input type="radio" name="etype" formControlName="etype">Shape</button>
+    <!-- Delivery Confirmation Box -->
+    <div class="profile col-lg-12 col-md-12 col-sm-12 col-xs-12" id="deliveryChoice" style="background: rgba(255, 255, 255, 0.87);padding: 7% 14%;z-index: 1;position: absolute;height: 585px;margin: 0;">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="width: 80%;padding: 0;box-shadow: 0 1px 6px rgba(0,1,1,.35);background: white;">
+            <form [formGroup]="deliveryConfirmAddModel" (ngSubmit)="deliveryDetailUpdate()">
+                <div class="firstDiv col-lg-12 col-md-12 col-sm-12 col-xs-12" style="box-shadow: 0 -1px 0 #d5d5d3, inset 0 1px 0 rgba(0, 0, 0, .04);">  
+                    <span class="">Delivery Options</span>
+                    <input type="submit" class="btn btn-next" value="Next" style="float: right;" 
+                    [disabled]="!deliveryConfirmAddModel.valid" />   
                 </div>
-                <div class="comp-edit-field comp-medium-field ng-binding">Name</div>
-                <input type="hidden" formControlName="eid">
-                <input type="hidden" formControlName="ecolor">
-                <input type="text" class="comp-medium-field form-control js-edit-name has-success" name="name" data-completed="1" placeholder="Zone Name" data-rule="notEmpty" formControlName="ename">
-                <div class="clearfix"></div>
-                <div class="comp-edit-field comp-medium-field ng-binding">Minimum Amount</div>
-                <input type="text" class="comp-medium-two comp-edit-field-composed form-control"  formControlName="eamount" name="amount" value="11">
-                <div class="comp-edit-currency comp-medium-one js-info-currency">USD</div>
-                <div class="clearfix"></div>
-                <div class="comp-edit-field comp-medium-field ng-binding">Delivery Fee</div>
-                <input type="text" class="comp-medium-two comp-edit-field-composed form-control" name="deliveryfee"  value="1" formControlName="edeliveryfee">
-                <div class="comp-edit-currency comp-medium-one js-info-currency">USD</div>
-              </div>
-              <div class="comp-button-zone">
-                <button class="btn btn-plain pull-left js-cancel ng-binding" (click)="clearEdit()">Cancel</button>
-                <button type="submit" class="btn btn-action pull-right js-save ng-binding" [disabled]="!editableDetail.valid">Update</button>
-              </div>
+                <div class="secondDiv col-lg-12 col-md-12 col-sm-12 col-xs-12" style="box-shadow: 0 -1px 0 #d5d5d3, inset 0 1px 0 rgba(0, 0, 0, .04);">   
+                    <div class="col-sm-8 delivery_text"> Do you offer food delivery? </div>
+                    <div class="col-sm-4">
+                        <div class="input-group">
+                            <span class="input-group-addon" class="btn pickupindegate1" [ngClass]="btn_class1" (click)="deliveryYesUpdate()" >Yes</span>
+                            <span class="input-group-addon" class="btn pickupindegate2" [ngClass]="btn_class2" (click)="deliveryNoUpdate()" >No</span>
+                        </div>
+                    </div>        
+                </div>  
             </form>
-          </div>
         </div>
-        <div class="separator"></div>
-        <div class="js-zones">
-          <h4>Delivery Zones</h4>        
-          <div spellcheck="false" class="comp-alt-panel-container js-area-prototype js-container" data-index="1" *ngFor="let deliveryitem of deliverys">
-            <div class="zoneData" data-type="true" data-radius="200" data-color="#905dba"></div>
-            <div class="comp-alt-panel js-area">
-              <div class="comp-area-name js-info-name pull-left ng-binding">
-                <a class="colls" data-toggle="collapse" data-parent="#accordion" href = "#ax{{deliveryitem._id}}">
-                  <span class="icon-collapse"></span>&nbsp;&nbsp;
-                </a>
-                {{deliveryitem.name}}
-              </div>
-              <div class="comp-area-color js-info-color pull-left" [style.backgroundColor]="deliveryitem.color"></div>
-              <div class="comp-action-zone js-actions">
+    </div>
+    <!-- Delivery Confirmation Box -->
 
-                <a title="Edit" (click)="deliveryZoneDetailEdit(deliveryitem._id)"><span class="icon-menu-edit js-edit"></span></a>&nbsp;&nbsp;
 
-                <a title="Delete" (click)="deliveryZoneDetailRemove(deliveryitem._id)"><span class="icon-menu-remove js-remove"></span></a>
-
-              </div>
+    <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8 padding0">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="display: -webkit-box;padding: 1%;">
+            <div class="" style="padding: 1%; font-weight: 700;"> Delivery Areas Are </div>
+            <div class="">
+                <div class="input-group">
+                    <span class="input-group-addon" class="btn pickupindegate1" [ngClass]="btn_class1" (click)="deliveryYesUpdate()" style="border-radius: 0;" >Active</span>
+                    <span class="input-group-addon" class="btn pickupindegate2" [ngClass]="btn_class2" (click)="deliveryNoUpdate()" style="border-radius: 0;" >Inactive</span>
+                </div>
             </div>
-
-            <div id = "ax{{deliveryitem._id}}" class = "panel-collapse collapse" >
-              <div class="comp-area-attribute">
-                <div class="comp-area-attribute-name ng-binding">Type:</div>
-                <div class="comp-area-attribute-value js-area-type">{{deliveryitem.type}}</div>
-              </div>
-              <div class="comp-area-attribute">
-                <div class="comp-area-attribute-name ng-binding">Minimum Order:</div>
-                <div class="comp-area-attribute-value"><span class="js-area-minimum">{{deliveryitem.amount}}</span> <span class="js-info-currency">{{deliveryitem.currency}}</span></div>
-              </div>
-              <div class="comp-area-attribute">
-                <div class="comp-area-attribute-name ng-binding">Delivery Fee:</div>
-                <div class="comp-area-attribute-value"><span class="js-area-fee">{{deliveryitem.deliveryfee}}</span> <span class="js-info-currency">{{deliveryitem.currency}}</span></div>
-              </div>
-            </div>
-          </div>
+            <div class="btn saveButton pull-right" style="padding: 1%;left: 45%;width: 10%;">Next</div>
         </div>
-        <div class="separator"></div>
-        <div class="collapse" id="collapseExample" [ngStyle]="addanother">
-          <form [formGroup]="deliveryAddModel" (ngSubmit)="deliveryZoneDetailAdd()">            
-            <div class="comp-edit-area js-edit-area">
-              <div class="comp-edit-zone comp-edit-composed js-edit-zone">
-                <div class="btn-group comp-type-picker comp-mandatory-selector js-edit-mandatory" data-toggle="buttons">
 
-                  <button id="btn-circle" class="btn btn-selector js-circle ng-binding" [ngClass]="areatype == 'Circle' ? 'active' : ''"  (click)="circleShapeClick('Circle')"><input type="radio" name="areatype" value="circle" >Circle</button>
+        <div class="screen screen-form js-screen-address-form ng-scope col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0" id="Menu18" id="gmap" style="min-height: 585px;">   
+        </div>
+    </div>
 
-                  <button class="btn btn-selector js-shape ng-binding" [ngClass]="areatype == 'Shape' ? 'active' : ''" (click)="circleShapeClick('Shape')">
-                    <input type="radio" name="areatype" value="shape">Shape</button>
 
-                  </div>
-                  <div class="comp-edit-field comp-medium-field ng-binding">Name</div>
-                  <input type="text" class="comp-medium-field form-control js-edit-name has-success"  placeholder="Zone Name" formControlName="name">
-                  <div class="clearfix"></div>
-                  <div class="comp-edit-field comp-medium-field ng-binding">Minimum Amount</div>
-                  <input type="number" class="comp-medium-two comp-edit-field-composed form-control js-edit-minimum js-force-price" formControlName="amount">
-                  <div class="comp-edit-currency comp-medium-one js-info-currency">USD</div>
-                  <div class="clearfix"></div>
-                  <div class="comp-edit-field comp-medium-field ng-binding">Delivery Fee</div>
-                  <input type="number" class="comp-medium-two comp-edit-field-composed form-control js-edit-fee js-force-price" formControlName="deliveryfee">
-                  <div class="comp-edit-currency comp-medium-one js-info-currency">USD</div>
+    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 rightDeliveryZoneList">
+        
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0" *ngIf="edit">
+            <h4 *ngIf="edit">Edit Delivery Zones</h4>
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 settings-content">
+                <form [formGroup]="editableDetail" (ngSubmit)="editDeliveryValueUpdate()">  
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0">
+                        
+                        <div class="btn-group comp-type-picker comp-mandatory-selector js-edit-mandatory" data-toggle="buttons">
+                            <button [disabled]="true" class="btn btn-selector js-circle ng-binding" [ngClass]="etypeClass == 'Circle' ? 'active' : '' " >
+                                <input type="radio" name="etype" formControlName="etype">Circle
+                            </button>
+                            <button [disabled]="true" class="btn btn-selector js-shape ng-binding"  [ngClass]="etypeClass == 'Shape' ? 'active' : ''">
+                                <input type="radio" name="etype" formControlName="etype">Shape
+                            </button>
+                        </div>
+
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0 margin5px0px">
+                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 padding0">Name</div>
+                            <input type="text" class="col-lg-6 col-md-6 col-sm-6 col-xs-12 width50 form-control" name="name" data-completed="1" placeholder="Zone Name" data-rule="notEmpty" formControlName="ename">
+                        </div>
+
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0 margin5px0px">
+                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 padding0">Minimum Amount</div>
+                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 padding0 displayFlex">
+                                <input type="text" class="width70 form-control" formControlName="eamount" name="amount" value="11">
+                                <div class="width30 USDdiv">USD</div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0 margin5px0px">
+                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 padding0">Delivery Fee</div>
+                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 padding0 displayFlex">
+                                <input type="text" class="width70 form-control" name="deliveryfee"  value="1" formControlName="edeliveryfee">
+                                <div class="width30 USDdiv">USD</div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0 margin5px0px textRight">
+                            <button class="btn btn-plain" (click)="clearEdit()">Cancel</button>
+                            <button type="submit" class="btn btn-action" [disabled]="!editableDetail.valid">Update</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0">
+            <h4>Delivery Zones</h4>
+            <div class="deliveryZoneDiv" data-index="1" *ngFor="let deliveryitem of deliverys">
+                <div class="comp-alt-panel">
+                    <div class="comp-area-name js-info-name pull-left ng-binding">
+                        <a class="colls" data-toggle="collapse" data-parent="#accordion" href = "#ax{{deliveryitem._id}}">
+                            <span class="icon-collapse"></span>&nbsp;&nbsp;
+                        </a>
+                        {{deliveryitem.name}}
+                    </div>
+                    <div class="comp-area-color js-info-color pull-left" [style.backgroundColor]="deliveryitem.color"></div>
+                    <div class="comp-action-zone js-actions">
+                        <a title="Edit" (click)="deliveryZoneDetailEdit(deliveryitem._id)"><span class="icon-menu-edit js-edit"></span></a>&nbsp;&nbsp;
+                        <a title="Delete" (click)="deliveryZoneDetailRemove(deliveryitem._id)"><span class="icon-menu-remove js-remove"></span></a>
+                    </div>
                 </div>
-                <div class="comp-button-zone">
-                  <button id="btncncl" type="button" (click)="clearadd()" class="btn btn-plain pull-left js-cancel">Cancel</button>
-                  <input type="submit" class="btn btn-action pull-right js-save ng-binding" [disabled]="!deliveryAddModel.valid"  value="Save">
+
+                <div id = "ax{{deliveryitem._id}}" class = "panel-collapse collapse" >
+                    <div class="comp-area-attribute">
+                        <div class="comp-area-attribute-name ng-binding">Type:</div>
+                        <div class="comp-area-attribute-value js-area-type">{{deliveryitem.type}}</div>
+                    </div>
+                    <div class="comp-area-attribute">
+                        <div class="comp-area-attribute-name ng-binding">Minimum Order:</div>
+                        <div class="comp-area-attribute-value"><span class="js-area-minimum">{{deliveryitem.amount}}</span> <span class="js-info-currency">{{deliveryitem.currency}}</span></div>
+                    </div>
+                    <div class="comp-area-attribute">
+                        <div class="comp-area-attribute-name ng-binding">Delivery Fee:</div>
+                        <div class="comp-area-attribute-value"><span class="js-area-fee">{{deliveryitem.deliveryfee}}</span> <span class="js-info-currency">{{deliveryitem.currency}}</span></div>
+                    </div>
                 </div>
-              </div>
+            </div>
+        </div>
+
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 settings-content collapse" id="collapseExample" [ngStyle]="addanother">
+            <form [formGroup]="deliveryAddModel" (ngSubmit)="deliveryZoneDetailAdd()">            
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0 ">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0 ">
+                            <div class="btn-group comp-type-picker comp-mandatory-selector js-edit-mandatory" data-toggle="buttons">
+                                <button id="btn-circle" class="btn btn-selector js-circle ng-binding" [ngClass]="areatype == 'Circle' ? 'active' : ''"  (click)="circleShapeClick('Circle')">
+                                    <input type="radio" name="areatype" value="circle" >Circle
+                                </button>
+                                <button class="btn btn-selector js-shape ng-binding" [ngClass]="areatype == 'Shape' ? 'active' : ''" (click)="circleShapeClick('Shape')">
+                                    <input type="radio" name="areatype" value="shape">Shape
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0 margin5px0px">
+                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 padding0">Name</div>
+                            <input type="text" class="col-lg-6 col-md-6 col-sm-6 col-xs-12 width50 form-control" placeholder="Zone Name" formControlName="name">
+                        </div>
+
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0 margin5px0px">
+                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 padding0">Minimum Amount</div>
+                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 padding0 displayFlex">
+                                <input type="number" class="width70 form-control" formControlName="amount">
+                                <div class="width30 USDdiv">USD</div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0 margin5px0px">
+                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 padding0">Delivery Fee</div>
+                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 padding0 displayFlex">
+                                <input type="number" class="width70 form-control" formControlName="deliveryfee">
+                                <div class="width70 USDdiv">USD</div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0 margin5px0px textRight">
+                            <button id="btncncl" type="button" (click)="clearadd()" class="btn btn-plain">Cancel</button>
+                            <input type="submit" class="btn btn-action" value="Save" [disabled] = "!deliveryAddModel.valid">
+                        </div>
+                    </div>
+                </div>
             </form>
-          </div>
-          <button id="btnadd" (click)="addAnotherZone()" class="btn btn-plain btn-sidebar pull-left js-add-zone ng-binding">Add Another Zone?</button>
         </div>
-      </div>
+
+        <button id="btnadd" (click)="addAnotherZone()" class="btn btn-plain col-lg-12 col-md-12 col-sm-12 col-xs-12 margin5px0px">Add Another Zone?</button>
+    </div>

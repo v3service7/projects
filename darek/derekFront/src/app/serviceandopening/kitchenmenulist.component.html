@@ -1,181 +1,6 @@
 <app-headerowner></app-headerowner>
 
 <div class="rightMenu col-lg-9 col-md-9 col-sm-9" style="padding: 0; background-color: #E9E9E8;min-height: 600px;">
-   <!-- Group Detail -->
-      <div class="screen-sidebar js-sidebar col-lg-4 col-md-4 col-sm-4 col-xs-4">
-         <h4  *ngIf="currentOpen ==  'editgroup'">Edit Group</h4>
-         <div class="settings-content custom_settings_content col-lg-12 col-md-12 col-sm-12 col-xs-12" *ngIf="currentOpen ==  'editgroup'">
-            <div class="comp-edit-area js-edit-area col-lg-12 col-md-12 col-sm-12 col-xs-12" style="padding: 0;">
-               <form [formGroup]="editableDetail" (ngSubmit)="groupDetailEditUpdate()">
-                  <div class="comp-edit-zone comp-edit-composed js-edit-zone col-lg-12 col-md-12 col-sm-12 col-xs-12" style="padding: 0;"> 
-                     <input type="hidden" formControlName="_id" />
-                     <input type="text" class="comp-medium-field form-control js-edit-name has-success" name="name" data-completed="1" placeholder="Group Name" data-rule="notEmpty" formControlName="name"  style="width: 100%;">
-                     <div class="clearfix"></div>
-                     <div class="input-group" style="width: 100%;">
-                        <span class="input-group-addon" class="btn pickupindegate1" [ngClass]="btn_class1" (click)="optionalUpdate()" style="width: 50%;">Optional</span>
-                        <span class="input-group-addon" class="btn pickupindegate2" [ngClass]="btn_class2" (click)="mandatoryUpdate()" style="width: 50%;">Mandatory</span>
-                     </div>
-                     <div style="width: 100%; display: none;" id="mandatoryFields" >
-                        <div style="width: 100%;display: -webkit-inline-box;padding: 5%;">
-                           <div style="width: 70%; padding-top: 2%;">Force Minimum &nbsp;&nbsp;<i class="fa fa-info-circle" aria-hidden="true"></i></div>
-                           <div style="width: 30%;"><input type="number"  name="" class="comp-medium-field form-control js-edit-name has-success" id="forceMinEdit" style="width: 80%;float: right;"></div>
-                        </div>
-                        <div style="width: 100%;display: -webkit-inline-box;padding: 5%;">
-                           <div style="width: 70%;padding-top: 2%;">Force Maximum &nbsp;&nbsp;<i class="fa fa-info-circle" aria-hidden="true"></i></div>
-                           <div style="width: 30%;"><input type="number" class="comp-medium-field form-control js-edit-name has-success" id="forceMaxEdit" name="" style="width: 80%;float: right;"></div>
-                        </div>
-                     </div>
-                     <!-- <div style="display: -webkit-inline-box;">
-                        <div style="width: 50%">Allow adding same choice multiple times</div>
-                        <div style="width: 50%;padding: 3% 0 0 40%;"><input type="checkbox" name=""></div>
-                     </div> -->
-                  </div>
-                  <div class="comp-button-zone col-lg-12 col-md-12 col-sm-12 col-xs-12" style="padding: 0;">
-                     <button class="btn btn-plain pull-left js-cancel ng-binding" (click)="clearCancel()">Cancel</button>
-                     <button type="submit" class="btn btn-action pull-right js-save ng-binding" 
-                     [disabled]="!editableDetail.valid">Update</button>
-                  </div>
-               </form>
-            </div>
-         </div>
-
-         <h4  *ngIf="currentOpen ==  'choice'">Add Choice for <code>{{currentChoice}} </code></h4>
-         <div class="settings-content custom_settings_content"  *ngIf="currentOpen ==  'choice'">
-            <div class="comp-edit-area js-edit-area">
-               <form [formGroup]="choiceAddModel" (ngSubmit)="choiceDetailadd()"> 
-                  <input type="hidden" formControlName="_id">  
-                  <div class="comp-edit-zone comp-edit-composed js-edit-zone">
-
-                     <div class="comp-edit-field comp-medium-field ng-binding">Name</div>                       
-                     <input type="text" class="comp-medium-field form-control js-edit-name has-success" name="name" data-completed="1" placeholder="Choice Name" data-rule="notEmpty" formControlName="name">
-                     <div class="clearfix"></div>            
-                  </div>
-                  <div class="comp-edit-zone comp-edit-composed js-edit-zone">            
-                     <div class="comp-edit-field comp-medium-field ng-binding">Price</div>                       
-                     <input type="text" class="comp-medium-field form-control js-edit-name has-success" name="name" data-completed="1" placeholder="Price Name" data-rule="notEmpty" formControlName="price">
-                     <div class="clearfix"></div>            
-                  </div>
-                  <div class="comp-button-zone">
-                     <button class="btn btn-plain pull-left js-cancel ng-binding" (click)="clearCancel()">Cancel</button>
-                     <button type="submit" class="btn btn-action pull-right js-save ng-binding" 
-                     [disabled]="!choiceAddModel.valid">Add</button>
-                  </div>
-               </form>
-            </div>
-         </div>
-
-         <h4 *ngIf="currentOpen ==  'editchoice'">Edit Choice</h4>
-         <div class="settings-content custom_settings_content" *ngIf="currentOpen ==  'editchoice'">
-            <div class="comp-edit-area js-edit-area">
-               <form [formGroup]="editableChoiceDetail" (ngSubmit)="editChoiceUpdate()">  
-                  <div class="comp-edit-zone comp-edit-composed js-edit-zone">            
-                     <div class="comp-edit-field comp-medium-field ng-binding">Name</div> 
-                     <input type="hidden" formControlName="_id" />  
-                     <input type="hidden" formControlName="id" />          
-                     <input type="text" class="comp-medium-field form-control js-edit-name has-success" name="name" data-completed="1" placeholder="Group Name" data-rule="notEmpty" formControlName="name">
-                     <div class="clearfix"></div>            
-                  </div>
-                  <div class="comp-edit-zone comp-edit-composed js-edit-zone">            
-                     <div class="comp-edit-field comp-medium-field ng-binding">Price</div>
-                     <input type="text" class="comp-medium-field form-control js-edit-name has-success" name="name" data-completed="1" placeholder="Price Name" data-rule="notEmpty" formControlName="price">
-                     <div class="clearfix"></div>            
-                  </div>
-                  <div class="comp-button-zone">
-                     <button class="btn btn-plain pull-left js-cancel ng-binding" (click)="clearEdit()">Cancel</button>
-                     <button type="submit" class="btn btn-action pull-right js-save ng-binding" 
-                     [disabled]="!editableChoiceDetail.valid">Update</button>
-                  </div>
-               </form>
-            </div>
-         </div>
-
-         <div class="separator"></div>
-
-         <div class="js-zones">
-            <div spellcheck="false" class="comp-alt-panel-container js-area-prototype js-container" data-index="1" *ngFor="let group of groups">
-               <div class="zoneData" data-type="true" data-radius="200" data-color="#905dba"></div>
-
-               <div class="comp-alt-panel js-area">
-                  <div class="comp-area-name js-info-name pull-left ng-binding">
-                     <a class="colls" data-toggle="collapse" data-parent="#accordion" href = "#gr{{group._id}}">
-                        <span class="icon-collapse" #classexp  (click)="showHideAddons(group._id,classexp)"></span>&nbsp;&nbsp;</a>{{group.name}}&nbsp;&nbsp;
-                     <span *ngIf="group.groupType">
-                        ({{group.groupType.gType | uppercase}})
-                     </span>
-                  </div>
-                  <div class="comp-action-zone js-actions">                
-                     <a title="Edit" (click)="groupDetailEdit(group._id)">
-                        <span class="icon-menu-edit js-edit"></span>
-                     </a>
-                     &nbsp;&nbsp;
-                     <a title="Delete" (click)="groupDetailRemove(group._id)"><span class="icon-menu-remove js-remove"></span></a>
-                  </div>
-               </div>
-
-               <div id="gr{{group._id}}" class = "panel-collapse collapse">
-                  <div class="comp-area-attribute" *ngFor="let addon of allAddons; let i = index; ">
-                     <div class="comp-area-name js-info-name pull-left ng-binding"><span>{{addon.name}}</span></div>
-                     <div class="comp-action-zone js-actions makeopacity">
-                        <div class="pull-left">{{addon.price}}&nbsp;&nbsp;</div>
-
-                        <a href="javascript:void(0);" (click)="editchoice(group._id,addon._id)" title="Edit">
-                           <span class="icon-menu-edit js-edit"></span>
-                        </a>&nbsp;&nbsp;
-
-                        <a href="javascript:void(0);" title="Delete" (click)="removechoice(i,group._id)">
-                           <span class="icon-menu-remove js-remove"></span>
-                        </a>
-
-                     </div>
-                  </div>
-
-                  <div><button class="btn btn-plain btn-sidebar pull-left js-add-group ng-binding" (click)="addChoic(group._id,group.name)">Add Choice</button></div>
-               </div>
-            </div>
-         </div>
-
-         <div class="separator"></div>
-
-         <div class="collapse" id="collapseExample" *ngIf="currentOpen ==  'group'" [ngStyle]="addgroup">
-            <form [formGroup]="groupAddModel" (ngSubmit)="groupDetailAdd()">            
-               <div class="comp-edit-area js-edit-area">
-                  <div class="comp-edit-zone comp-edit-composed js-edit-zone">
-                     <div class="btn-group comp-type-picker comp-mandatory-selector js-edit-mandatory" data-toggle="buttons">
-                     </div>
-                     <!-- <div class="comp-edit-field comp-medium-field ng-binding">Name</div> -->
-                     <input type="text" class="comp-medium-field form-control js-edit-name has-success"  placeholder="Group Name" formControlName="name" style="width: 100%;">
-                     <div class="clearfix"></div>
-                     <div class="input-group" style="width: 100%;">
-                        <span class="input-group-addon" class="btn pickupindegate1" [ngClass]="btn_class1" (click)="optionalUpdate()" style="width: 50%;">Optional</span>
-                        <span class="input-group-addon" class="btn pickupindegate2" [ngClass]="btn_class2" (click)="mandatoryUpdate()" style="width: 50%;">Mandatory</span>
-                     </div>
-                     <div style="width: 100%; display: none;" id="mandatoryFields" >
-                        <div style="width: 100%;display: -webkit-inline-box;padding: 5%;">
-                           <div style="width: 70%; padding-top: 2%;">Force Minimum &nbsp;&nbsp;<i class="fa fa-info-circle" aria-hidden="true"></i></div>
-                           <div style="width: 30%;"><input type="number"  name="" class="comp-medium-field form-control js-edit-name has-success" id="forceMin" style="width: 80%;float: right;"></div>
-                        </div>
-                        <div style="width: 100%;display: -webkit-inline-box;padding: 5%;">
-                           <div style="width: 70%;padding-top: 2%;">Force Maximum &nbsp;&nbsp;<i class="fa fa-info-circle" aria-hidden="true"></i></div>
-                           <div style="width: 30%;"><input type="number" class="comp-medium-field form-control js-edit-name has-success" id="forceMax" name="" style="width: 80%;float: right;"></div>
-                        </div>
-                     </div>
-                     <!-- <div style="display: -webkit-inline-box;">
-                        <div style="width: 50%">Allow adding same choice multiple times</div>
-                        <div style="width: 50%;padding: 3% 0 0 40%;"><input type="checkbox" name=""></div>
-                     </div> -->
-                  </div>
-                  <div class="comp-button-zone">
-                     <button id="btncncl" type="button" (click)="clearCancel()" class="btn btn-plain pull-left js-cancel" cancelAll="">Cancel</button>
-                     <input type="submit" class="btn btn-action pull-right js-save ng-binding" [disabled]="!groupAddModel.valid"  value="Save">
-                  </div>
-               </div>
-            </form>
-         </div>
-
-         <button id="btnadd" (click)="addAnothergroup()" class="btn btn-plain btn-sidebar pull-left js-add-zone ng-binding">Add Group?</button>
-      </div>
-   <!-- Group Detail End -->
-
    <div class="menuSetup col-lg-8 col-md-8 col-xs-8 col-sm-8" id="Menu11" style="box-shadow: 0px 0px 0px;background-color: #E9E9E8;">
       <!-- add menu button -->
       <div class="row col-lg-8 col-md-8 col-xs-8 col-sm-8" style="display: -webkit-inline-box;">
@@ -521,6 +346,7 @@
          <div class="mainMenuItem mainMenuItem12" >
             <div class="itemImage col-lg-2 col-md-2 col-sm-2 col-xs-2" >
                <img (click)="passId(user._id)" data-toggle="modal" data-target="#mymenuModal" [src]="menuImage(user.image,'menu')" class="img-responsive custom_img_size">
+               <span class="imgDel" *ngIf="user.image" (click) = "deleteMenuImage(user,'menu')">&times;</span>
                <!-- <div *ngIf="!user.image"><img  (click)="passId(user._id)" data-toggle="modal" data-target="#mymenuModal" src="./assets/images/menu.jpg" class="img-responsive custom_img_size"></div> -->
             </div>
             <div class="itemDesc col-lg-7 col-md-7 col-sm-7 col-xs-7 custom_menu_color padding0">
@@ -612,7 +438,7 @@
                      <div class="margin-for-addon">
                         <div class="itemImage col-lg-2 col-md-2 col-sm-2 col-xs-2">
                            <img (click)="passub(item._id)" data-toggle="modal" data-target="#mySubMenuModal" [src]="menuImage(item.image,'item')" class="img-responsive">
-                           <!-- <div *ngIf="!item.image"><img (click)="passub(item._id)" data-toggle="modal" data-target="#mySubMenuModal" src="./assets/images/itemimage.gif" class="img-responsive"></div> -->
+                           <span class="imgDel" *ngIf="item.image" (click) = "deleteMenuImage(item,'item')">&times;</span>
                         </div>
                         <div class="itemDesc col-lg-8 col-md-8 col-sm-8 col-xs-8">{{item.name}}
                         <span class="label label-warning" *ngIf="item.isHidden == true" style="font-size: 60%;position: absolute;border-radius: 1.25em;padding: 1%;">Hidden from Menu  &nbsp;&nbsp;
@@ -732,6 +558,197 @@
          <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12"></div>
       </div>
    </div>
+
+   <!-- Group Detail -->
+      <div class="rightDeliveryZoneList col-lg-4 col-md-4 col-sm-4 col-xs-4 padding15px">
+         
+         <!-- UPDATE GROUP -->
+         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0 margin10px0px" *ngIf="currentOpen ==  'editgroup'">
+         
+            <h4  *ngIf="currentOpen ==  'editgroup'">Edit Group</h4>
+            <div class="settings-content col-lg-12 col-md-12 col-sm-12 col-xs-12">
+               <form [formGroup]="editableDetail" (ngSubmit)="groupDetailEditUpdate()">
+                  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0">
+                     
+                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0 margin5px0px">
+                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 padding0">
+                           Name
+                        </div>
+                        <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8 padding0">
+                           <input type="text" class="form-control" placeholder="Group Name" data-rule="notEmpty" formControlName="name">
+                        </div>
+                     </div>
+                     
+                     <div class="input-group" style="width: 100%;">
+                        <span class="input-group-addon" class="btn pickupindegate1" [ngClass]="btn_class1" (click)="optionalUpdateEdit()" style="width: 50%;">Optional</span>
+                        <span class="input-group-addon" class="btn pickupindegate2" [ngClass]="btn_class2" (click)="mandatoryUpdateEdit()" style="width: 50%;">Mandatory</span>
+                     </div>
+
+                     <div style="width: 100%; display: none;" id="mandatoryFields" >
+                        <div style="width: 100%;display: -webkit-inline-box;padding: 5%;">
+                           <div style="width: 70%; padding-top: 2%;">Force Minimum</div>
+                           <div style="width: 30%;">
+                              <input type="number" class="form-control" value="{{groupDetail.min}}" (keyup)="mandEditMinMaxValue($event,'min')">
+                           </div>
+                        </div>
+                        <div style="width: 100%;display: -webkit-inline-box;padding: 5%;">
+                           <div style="width: 70%;padding-top: 2%;">Force Maximum</div>
+                           <div style="width: 30%;">
+                              <input type="number" class="form-control" value="{{groupDetail.max}}" (keyup)="mandEditMinMaxValue($event,'max')">
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="comp-button-zone col-lg-12 col-md-12 col-sm-12 col-xs-12" style="padding: 0;">
+                     <button class="btn btn-plain pull-left js-cancel ng-binding" (click)="clearCancel()">Cancel</button>
+                     <button type="submit" class="btn btn-action pull-right js-save ng-binding" 
+                     [disabled]="!editableDetail.valid">Update</button>
+                  </div>
+               </form>
+            </div>
+         </div>
+         <!-- UPDATE GROUP END -->
+
+         <!-- ADD CHOICE -->
+         <h4  *ngIf="currentOpen ==  'choice'">Add Choice for <code>{{currentChoice}} </code></h4>
+         <div class="settings-content custom_settings_content margin10px0px" *ngIf="currentOpen ==  'choice'">
+            <div class="comp-edit-area js-edit-area">
+               <form [formGroup]="choiceAddModel" (ngSubmit)="choiceDetailadd()"> 
+                  <input type="hidden" formControlName="_id">  
+                  <div class="comp-edit-zone comp-edit-composed js-edit-zone">
+
+                     <div class="comp-edit-field comp-medium-field ng-binding">Name</div>                       
+                     <input type="text" class="comp-medium-field form-control js-edit-name has-success" name="name" data-completed="1" placeholder="Choice Name" data-rule="notEmpty" formControlName="name">
+                     <div class="clearfix"></div>            
+                  </div>
+                  <div class="comp-edit-zone comp-edit-composed js-edit-zone">            
+                     <div class="comp-edit-field comp-medium-field ng-binding">Price</div>                       
+                     <input type="text" class="comp-medium-field form-control js-edit-name has-success" name="name" data-completed="1" placeholder="Price Name" data-rule="notEmpty" formControlName="price">
+                     <div class="clearfix"></div>            
+                  </div>
+                  <div class="comp-button-zone">
+                     <button class="btn btn-plain pull-left js-cancel ng-binding" (click)="clearCancel()">Cancel</button>
+                     <button type="submit" class="btn btn-action pull-right js-save ng-binding" 
+                     [disabled]="!choiceAddModel.valid">Add</button>
+                  </div>
+               </form>
+            </div>
+         </div>
+         <!-- ADD CHOICE END-->
+
+         <!-- EDIT CHOICE -->
+         <h4 *ngIf="currentOpen ==  'editchoice'">Edit Choice</h4>
+         <div class="settings-content custom_settings_content margin10px0px" *ngIf="currentOpen ==  'editchoice'">
+            <div class="comp-edit-area js-edit-area">
+               <form [formGroup]="editableChoiceDetail" (ngSubmit)="editChoiceUpdate()">  
+                  <div class="comp-edit-zone comp-edit-composed js-edit-zone">            
+                     <div class="comp-edit-field comp-medium-field ng-binding">Name</div> 
+                     <input type="hidden" formControlName="_id" />  
+                     <input type="hidden" formControlName="id" />          
+                     <input type="text" class="comp-medium-field form-control js-edit-name has-success" name="name" data-completed="1" placeholder="Group Name" data-rule="notEmpty" formControlName="name">
+                     <div class="clearfix"></div>            
+                  </div>
+                  <div class="comp-edit-zone comp-edit-composed js-edit-zone">            
+                     <div class="comp-edit-field comp-medium-field ng-binding">Price</div>
+                     <input type="text" class="comp-medium-field form-control js-edit-name has-success" name="name" data-completed="1" placeholder="Price Name" data-rule="notEmpty" formControlName="price">
+                     <div class="clearfix"></div>            
+                  </div>
+                  <div class="comp-button-zone">
+                     <button class="btn btn-plain pull-left js-cancel ng-binding" (click)="clearEdit()">Cancel</button>
+                     <button type="submit" class="btn btn-action pull-right js-save ng-binding" 
+                     [disabled]="!editableChoiceDetail.valid">Update</button>
+                  </div>
+               </form>
+            </div>
+         </div>
+         <!-- EDIT CHOICE END -->
+
+         <!-- GROUP LISTING -->
+         <div class="js-zones">
+            <div spellcheck="false" class="comp-alt-panel-container js-area-prototype js-container" data-index="1" *ngFor="let group of groups">
+               <div class="zoneData" data-type="true" data-radius="200" data-color="#905dba"></div>
+
+               <div class="comp-alt-panel js-area">
+                  <div class="comp-area-name js-info-name pull-left ng-binding">
+                     <a class="colls" data-toggle="collapse" data-parent="#accordion" href = "#gr{{group._id}}">
+                        <span class="icon-collapse" #classexp  (click)="showHideAddons(group._id,classexp)"></span>&nbsp;&nbsp;</a>{{group.name}}&nbsp;&nbsp;
+                     <span *ngIf="group.groupType">
+                        ({{group.groupType.gType | uppercase}})
+                     </span>
+                  </div>
+                  <div class="comp-action-zone js-actions">                
+                     <a title="Edit" (click)="groupDetailEdit(group._id)">
+                        <span class="icon-menu-edit js-edit"></span>
+                     </a>
+                     &nbsp;&nbsp;
+                     <a title="Delete" (click)="groupDetailRemove(group._id)"><span class="icon-menu-remove js-remove"></span></a>
+                  </div>
+               </div>
+
+               <div id="gr{{group._id}}" class = "panel-collapse collapse">
+                  <div class="comp-area-attribute" *ngFor="let addon of allAddons; let i = index; ">
+                     <div class="comp-area-name js-info-name pull-left ng-binding"><span>{{addon.name}}</span></div>
+                     <div class="comp-action-zone js-actions makeopacity">
+                        <div class="pull-left">{{addon.price}}&nbsp;&nbsp;</div>
+
+                        <a href="javascript:void(0);" (click)="editchoice(group._id,addon._id)" title="Edit">
+                           <span class="icon-menu-edit js-edit"></span>
+                        </a>&nbsp;&nbsp;
+
+                        <a href="javascript:void(0);" title="Delete" (click)="removechoice(i,group._id)">
+                           <span class="icon-menu-remove js-remove"></span>
+                        </a>
+
+                     </div>
+                  </div>
+
+                  <div><button class="btn btn-plain btn-sidebar pull-left js-add-group ng-binding" (click)="addChoic(group._id,group.name)">Add Choice</button></div>
+               </div>
+            </div>
+         </div>
+         <!-- GROUP LISTING END -->
+
+         <!-- ADD GROUP -->
+         <div class="collapse" id="collapseExample" *ngIf="currentOpen ==  'group'" [ngStyle]="addgroup">
+            <form [formGroup]="groupAddModel" (ngSubmit)="groupDetailAdd()">            
+               <div class="comp-edit-area js-edit-area">
+                  <div class="comp-edit-zone comp-edit-composed js-edit-zone">
+                     <div class="btn-group comp-type-picker comp-mandatory-selector js-edit-mandatory" data-toggle="buttons">
+                     </div>
+                     <!-- <div class="comp-edit-field comp-medium-field ng-binding">Name</div> -->
+                     <input type="text" class="comp-medium-field form-control js-edit-name has-success"  placeholder="Group Name" formControlName="name" style="width: 100%;">
+                     <div class="clearfix"></div>
+                     <div class="input-group" style="width: 100%;">
+                        <span class="input-group-addon" class="btn pickupindegate1" [ngClass]="btn_class1" (click)="optionalUpdate()" style="width: 50%;">Optional</span>
+                        <span class="input-group-addon" class="btn pickupindegate2" [ngClass]="btn_class2" (click)="mandatoryUpdate()" style="width: 50%;">Mandatory</span>
+                     </div>
+                     <div style="width: 100%; display: none;" id="mandatoryFields" >
+                        <div style="width: 100%;display: -webkit-inline-box;padding: 5%;">
+                           <div style="width: 70%; padding-top: 2%;">Force Minimum</div>
+                           <div style="width: 30%;">
+                              <input type="number" name="" class="form-control" (keyup)="mandMinMaxValue($event,'min')">
+                           </div>
+                        </div>
+                        <div style="width: 100%;display: -webkit-inline-box;padding: 5%;">
+                           <div style="width: 70%;padding-top: 2%;">Force Maximum</div>
+                           <div style="width: 30%;">
+                              <input type="number" class="form-control"name="" (keyup)="mandMinMaxValue($event,'max')">
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="comp-button-zone">
+                     <button id="btncncl" type="button" (click)="clearCancel()" class="btn btn-plain pull-left js-cancel" cancelAll="">Cancel</button>
+                     <input type="submit" class="btn btn-action pull-right js-save ng-binding" [disabled]="!groupAddModel.valid"  value="Save">
+                  </div>
+               </div>
+            </form>
+         </div>
+         <!-- ADD GROUP END-->
+
+         <button id="btnadd" (click)="addAnothergroup()" class="btn btn-plain btn-sidebar pull-left js-add-zone ng-binding">Add Group?</button>
+      </div>
+   <!-- Group Detail End -->
 
 </div>
 
