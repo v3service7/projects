@@ -43,6 +43,41 @@ module.exports = (function() {
         });
     });
 
+    router.post('/resend-activation-link', function(req, res) {
+        var response = {};
+        customerModel.find({ email: req.body.email}, null, function(err,cstmr){
+
+            if (err) {
+                response = { "error": true, "message": err };
+                return res.json(response);
+            }
+
+            if (cstmr && cstmr.length == 0) {
+                response = { "error": true, "message": 'Incorrect Email' };
+                return res.json(response);
+            }
+
+            if(cstmr && cstmr.length > 0){
+                var token = randomstring.generate()
+                cstmr[0].email_token = token;
+        
+                /*response = { "error": false, "message": cstmr[0] };*/
+                customerModel.findByIdAndUpdate(cstmr[0]._id, cstmr[0], function(err, customer) {
+                    customerModel.findById(customer._id, function(err, customer1) {
+                        if (err) {
+                            response = { "error": true, "message": 'Connection Timeout!' };
+                            return res.json(response);
+                        } else {
+                            response = { "error": false, "message": 'Email Sent! Please access your Email ID to Activate your Account' };
+                            emails.emailShoot(cstmr[0].email, cstmr[0].email, token);
+                            return res.json(response);
+                        }
+                    });
+                });
+            }
+        });
+    });
+
     router.put('/customer/:id', function(req, res) {
         var response = {};
         customerModel.findByIdAndUpdate(req.params.id, req.body, function(err, customer) {

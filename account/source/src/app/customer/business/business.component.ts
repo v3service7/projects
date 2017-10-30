@@ -106,8 +106,9 @@ export class CustomerBusinessAddComponent implements OnInit {
     plans: any = [];
     isVisit = false;
     businessAddForm: FormGroup;
-    phoneRegex = /^[(]{0,1}[2-9]{1}[0-9]{1,2}[)]{0,1}[-\s\.]{0,1}[0-9]{3}[-\s\.]{0,1}[0-9]{7}$/;
-    passportRegex = /^[A-Z0-9<]{9}[0-9]{1}[A-Z]{3}[0-9]{7}[A-Z]{1}[0-9]{7}[A-Z0-9<]{14}[0-9]{2}$/;
+    /*phoneRegex = /^[(]{0,1}[2-9]{1}[0-9]{1,2}[)]{0,1}[-\s\.]{0,1}[0-9]{3}[-\s\.]{0,1}[0-9]{7}$/;*/
+    phoneRegex = /^[0-9]*$/;
+    /*passportRegex = /^[A-Z0-9<]{9}[0-9]{1}[A-Z]{3}[0-9]{7}[A-Z]{1}[0-9]{7}[A-Z0-9<]{14}[0-9]{2}$/;*/
 
     formErrors = {
         'businessName': '',
@@ -117,7 +118,7 @@ export class CustomerBusinessAddComponent implements OnInit {
         'phoneNumber' : '',
         'ownerName' : '',
         'mobileNumber' : '',
-        'passportNumber' : '',
+       /* 'passportNumber' : '',*/
         'nationality' : '',
         'emiRateIdNumber' : '',
     };
@@ -137,9 +138,7 @@ export class CustomerBusinessAddComponent implements OnInit {
         }, 
         'phoneNumber' : {
             'required':      'Phone Number is required.',
-            'minlength':     'Enter 10 digit phone number (with operator code) along with country code.',
-            'maxlength':     'Enter 10 digit phone number (with operator code) along with country code.',
-            'pattern'   :    "eg : (971)-055-1234567 including or excluding '(', ')' or '-'. "
+            'pattern'   :    "Invalid Phone Number"
         },
         'ownerName' : {
             'required':      'Owner Name is required.'
@@ -150,10 +149,10 @@ export class CustomerBusinessAddComponent implements OnInit {
             'maxlength':     'Enter 10 digit mobile number along with country code.',
             'pattern'   :    "eg : (971)-055-1234567 including or excluding '(', ')' or '-'. "
         },   
-        'passportNumber' : {
+        /*'passportNumber' : {
             'required':    'Passport Number is required.',
             'pattern' :    'eg : G0308084<1ITY9999999Q0410056<<<<<<<<<<<<<<39'
-        },   
+        },*/   
         'nationality' : {
             'required':      'Nationality is required.'
         },   
@@ -182,10 +181,10 @@ export class CustomerBusinessAddComponent implements OnInit {
             issuingAuthority: [''],
             tradeLicenseExpiry: ['', Validators.required],
             emiRate: ['', Validators.required],
-            phoneNumber: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(15), Validators.pattern(this.phoneRegex)]],
+            phoneNumber: ['', [Validators.required, Validators.pattern(this.phoneRegex)]],
             ownerName: ['', Validators.required],
             mobileNumber: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(15), Validators.pattern(this.phoneRegex)]],
-            passportNumber: ['', [Validators.required,Validators.pattern(this.passportRegex)]],
+            passportNumber: ['', Validators.required],
             nationality: ['', Validators.required],
             emiRateIdNumber: ['', Validators.required],
             ownerId: ['', Validators.required],

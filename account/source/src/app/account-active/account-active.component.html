@@ -1,0 +1,7 @@
+<h3 id="login"><button class="btn btn-success btn-wd btn-lg" (click)="goToLogin()">Login</button></h3>
+
+<form id="resendLink" [formGroup]="emailForm" (ngSubmit)="resendActivationLink()">
+	Email : <input type="email" formControlName="email" placeholder="Enter Email ID"><br>
+
+	<button class="btn btn-success btn-wd btn-lg" [disabled]="!emailForm.valid">Resend Activation Link</button>
+</form>

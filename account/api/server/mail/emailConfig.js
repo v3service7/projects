@@ -38,13 +38,16 @@ module.exports = {
     },
 
     forgetEmailShoot: function(customer, type) {
+        console.log(customer);
         if (type == 'cust') {
-            /*customer['resetPassLink'] = 'http://34.209.114.118:4021/customers/reset-password/'+customer._id;*/
-            customer['resetPassLink'] = 'http://localhost:4200/customer/reset-password/'+customer._id;
+            customer['resetPassLink'] = 'http://34.209.114.118:4021/customers/reset-password/'+customer._id;
+            /*customer['resetPassLink'] = 'http://localhost:4200/customer/reset-password/'+customer._id;*/
         }else{
-            /*customer['resetPassLink'] = 'http://34.209.114.118:4021/admin/reset-password/'+customer._id;*/
-            customer['resetPassLink'] = 'http://localhost:4200/admin/reset-password/'+customer._id;
+            customer['resetPassLink'] = 'http://34.209.114.118:4021/admin/reset-password/'+customer._id;
+            /*customer['resetPassLink'] = 'http://localhost:4200/admin/reset-password/'+customer._id;*/
         }
+
+        console.log(customer);
 
         // rendering html template (same way can be done for subject, text)
         var html = ejs.renderFile(templateDir + '/forgetPassword.ejs', {customer : customer},

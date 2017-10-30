@@ -19,19 +19,20 @@ module.exports = (function() {
         customerModel.findOne({ 'email_token': req.body.token }, function(err, customer) {
 
             if (err) {
-                response = { "error": true, "message": err };
+                response = { "error": true, "message": 'Connection Lost!' };
+                return res.json(response);
             } else {
                 var registerTime = moment(customer.created_at).format('YYYY-MM-DD HH:mm:ss');
                 var currentTime = moment().format('YYYY-MM-DD HH:mm:ss');
                 if (moment(currentTime).diff(moment(registerTime), 'days') >= 1) {
-                    response = { "error": false, "message": 'Email Link Expire Try again' };
+                    response = { "error": true, "message": 'Email Activation Link Expire.' };
                     return res.json(response);
                 } else {
                     customerModel.findByIdAndUpdate(customer._id, { status: true }, function(err, customer) {
                         if (err) {
-                            response = { "error": true, "message": err };
+                            response = { "error": true, "message": 'Update Unsuccessful! Please Try Again' };
                         } else {
-                            response = { "error": false, "message": 'Customer Active Successfully' };
+                            response = { "error": false, "message": '“Your account successfully activated, please click here to login' };
                         }
                         return res.json(response);
                     });
@@ -299,13 +300,13 @@ module.exports = (function() {
         var response = {};
         customerModel.find({ email: req.body.email }, function(err, data) {
             if (err) {
-                req.flash('error', 'something went wrong!');
+                req.flash({ error: true, message: 'Unable to reach Server!'});
             } else {
                 if (data.length > 0) {
                     emails.forgetEmailShoot(data[0],'cust');
                     res.json({ error: false, message: 'Email sent Successfully' });
                 } else {
-                    res.json({ error: true, message: 'Email id does not exist' });
+                    res.json({ error: true, message: 'Email Id does not exist' });
                 }
             };
         });

@@ -213,8 +213,8 @@ router.post('/',function(req, res){
                     }else{    
                         var name = ownerData.firstname+" <"+ownerData.email+" >";
                         /*var content = "Email Activation Link <a href='http://34.209.114.118:3003/owner/mailactivate/"+ownerData._id+"'>Click Here</a>"*/
-                        var content = "Restaurant Activation Link <a href='http://localhost:4200/owner/mailactivate/"+ownerData._id+"'>Click Here</a>"
-                        /*var content = "Account Activation Link <a href='http://104.236.69.166:3000/owner/mailactivate/"+ownerData._id+"'>Click Here</a>"*/
+                        /*var content = "Restaurant Activation Link <a href='http://localhost:4200/owner/mailactivate/"+ownerData._id+"'>Click Here</a>"*/
+                        var content = "Account Activation Link <a href='http://104.236.69.166:3000/owner/mailactivate/"+ownerData._id+"'>Click Here</a>"
                         req.mail.sendMail({  //email options
                             from: "Restaurant Team <noreply@abcpos.com>", // sender address.  Must be the same as authenticated user if using GMail.
                             to: name, // receiver

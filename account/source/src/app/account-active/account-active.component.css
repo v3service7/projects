@@ -1,0 +1,12 @@
+#login , #resendLink{
+	display: none;
+    text-align: center;
+    margin: 15% 0;
+}
+
+/*#resendLink a{
+	color: green;
+    font-size: 14px;
+    font-weight: 500;
+    text-decoration: underline;
+}*/

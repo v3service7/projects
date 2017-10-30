@@ -100,6 +100,7 @@ export class CustomerAddComponent implements OnInit {
     passwordRegex = /^([0-9]+[a-zA-Z]+|[a-zA-Z]+[0-9]+)[0-9a-zA-Z]*$/;
     phoneRegex = /^[(]{0,1}[2-9]{1}[0-9]{1,2}[)]{0,1}[-\s\.]{0,1}[0-9]{3}[-\s\.]{0,1}[0-9]{7}$/;
     passwordp : any = '';
+    err : any = '';
     newo : any = false;
     MutchPassword : any = false;
 
@@ -186,14 +187,17 @@ export class CustomerAddComponent implements OnInit {
             (data) => {
                 if (!data.error) {
                     this._flashMessagesService.show('Customer created successfully', { cssClass: 'alert-success', timeout: 5000 });
-                    this.router.navigate(['admin/customer']);
+                    setTimeout(()=>{
+                        this.router.navigate(['admin/customer']);
+                    },1000)
                 }else{
-                    this._flashMessagesService.show('Email already in use', { cssClass: 'danger-alert', timeout: 5000 });
-                    this.customerAddForm.reset();
+                    //this._flashMessagesService.show('Email already in use', { cssClass: 'danger-alert', timeout: 5000 });
+                    //this.customerAddForm.reset();
+                    this.err = 'Email already in use';
                 }
             },
             (err)=>{
-                this._flashMessagesService.show('Something went wrong', { cssClass: 'danger-alert', timeout: 5000 });
+                this._flashMessagesService.show('Server not Responding', { cssClass: 'danger-alert', timeout: 5000 });
                 console.log('kfgbhj')
             }
         );

@@ -77,12 +77,12 @@ export class CustomerLoginComponent implements OnInit {
             (data) => {
                 if (!data.error) {
                     if (data.message['status']) {                    
-                        this._flashMessagesService.show('Login Successfully', { cssClass: 'alert-success', timeout: 5000 });
+                        this._flashMessagesService.show('Logged in Successfully', { cssClass: 'alert-success', timeout: 5000 });
                         localStorage.setItem('currentCustomer', JSON.stringify(data.message));
                         this.router.navigate([this.returnUrl]);
                     }else{
                         this._flashMessagesService.show('Your Account is not Active.', { cssClass: 'danger-alert', timeout: 5000 });
-                        this.loginForm.reset();
+                        //this.loginForm.reset();
                     }
                 }else{
                     this._flashMessagesService.show(data.message, { cssClass: 'danger-alert', timeout: 5000 });
@@ -91,8 +91,8 @@ export class CustomerLoginComponent implements OnInit {
                 }
             },
             (err)=>{
-                this.err = 'Invalid Username/Password';
-                this.loginForm.reset();
+                this.err = 'Unable to reach Server';
+                //this.loginForm.reset();
             }
             );
     }
@@ -199,18 +199,20 @@ export class CustomerRegisterComponent implements OnInit {
                 console.log(data);
                 if (!data.error) {
                     /*localStorage.setItem('currentCustomer', JSON.stringify(data.message));*/
-                    this._flashMessagesService.show('You Registered Successfully. Check your email to activate your account', { cssClass: 'alert-success', timeout: 5000 });
-                    this.router.navigate(['customer/login']);
+                    this._flashMessagesService.show('Successfully Registered, Please access your Email ID to Activate your Account', { cssClass: 'alert-success', timeout: 5000 });
+                    setTimeout(()=>{
+                        this.router.navigate(['customer/login']);
+                    },1000)
                 }else{
                     this.err = 'Email already in use';
                     //this.router.navigate(['customer/login']);
                 }
             },
             (err)=>{
-                this._flashMessagesService.show('Something went wrong', { cssClass: 'danger-alert', timeout: 5000 });
-                this.router.navigate(['customer/login']);
+                this._flashMessagesService.show('Connection Lost! Try Again', { cssClass: 'danger-alert', timeout: 5000 });
+                //this.router.navigate(['customer/login']);
             }
-            );
+        );
     }
 
     onValueChanged(data?: any) {
@@ -301,7 +303,9 @@ export class CustomerForgetPasswordComponent implements OnInit {
             (data) => {
                 if (!data.error) {
                     this._flashMessagesService.show(data.message+'. Please Check your mail', { cssClass: 'alert-success', timeout: 5000 });
-                    this.router.navigate(['customer/login']);
+                    setTimeout(()=>{
+                        this.router.navigate(['customer/login']);
+                    },1000);
                 }else{
                     this._flashMessagesService.show(data.message, { cssClass: 'danger-alert', timeout: 5000 });
                     this.loginForm.reset();
@@ -309,8 +313,10 @@ export class CustomerForgetPasswordComponent implements OnInit {
                 }
             },
             (err)=>{
-                this._flashMessagesService.show('Something went wrong', { cssClass: 'danger-alert', timeout: 5000 });
-                this.router.navigate(['customer/login']);
+                this._flashMessagesService.show(err.message, { cssClass: 'danger-alert', timeout: 5000 });
+                setTimeout(()=>{
+                    this.router.navigate(['customer/login']);
+                },1000);
             }
         );
     }
@@ -377,10 +383,8 @@ export class CustomerResetPasswordComponent implements OnInit {
                 if (!data.error) {
                     this._flashMessagesService.show('Password changed Successfully', { cssClass: 'alert-success', timeout: 5000 });
                     this.router.navigate(['customer/login']);
-                    console.log("data");
-                    console.log(data);
                 }else{
-                    this._flashMessagesService.show('Something Went Wrong', { cssClass: 'danger-alert', timeout: 5000 });
+                    this._flashMessagesService.show('Server not responding', { cssClass: 'danger-alert', timeout: 5000 });
                 }
             });
         }else{

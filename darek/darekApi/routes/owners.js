@@ -5,8 +5,8 @@ var passport = require('passport');
 var User = require('../model/User.js');
 var ownerModel = require('../model/Owner.js');
 
-var moment = require('moment');
-var now = moment();
+/*var moment = require('moment');
+var now = moment();*/
 
 
 router.post('/register', function(req, res) {
@@ -74,8 +74,8 @@ router.post('/account-confirm',function(req, res){
             var loggedUser = ownerD[0];
             var name = loggedUser.firstname+" <"+loggedUser.email+" >";
             /*var content = "Email Activation Link <a href='http://34.209.114.118:3003/owner/mailactivate/"+loggedUser._id+"'>Click Here</a>"*/
-            var content = "Restaurant Activation Link <a href='http://localhost:4200/owner/mailactivate/"+loggedUser._id+"'>Click Here</a>"
-            /*var content = "Email Activation Link <a href='http://104.236.69.166:3000/owner/mailactivate/"+loggedUser._id+"'>Click Here</a>"*/
+            /*var content = "Restaurant Activation Link <a href='http://localhost:4200/owner/mailactivate/"+loggedUser._id+"'>Click Here</a>"*/
+            var content = "Email Activation Link <a href='http://104.236.69.166:3000/owner/mailactivate/"+loggedUser._id+"'>Click Here</a>"
             req.mail.sendMail({  //email options
                from: "Restaurant Team <noreply@abcpos.com>", // sender address.  Must be the same as authenticated user if using GMail.
                to: name, // receiver
@@ -100,28 +100,27 @@ router.get('/mailactivate/:id', function(req, res, next) {
     let response = {};
     ownerModel.findById(req.params.id, function(err, customer) {
 
-        console.log("owner");
-        console.log(customer);
+        /*console.log("owner");
+        console.log(customer);*/
 
         if (err) {
             response = { "error": true, "message": "Something Went Wrong" };
         } else {
-            var registerTime = moment(customer.created_at).format('YYYY-MM-DD HH:mm:ss');
+            /*var registerTime = moment(customer.created_at).format('YYYY-MM-DD HH:mm:ss');
             var currentTime = moment().format('YYYY-MM-DD HH:mm:ss');
             if (moment(currentTime).diff(moment(registerTime), 'days') >= 1) {
                 response = { "error": true, "message": 'Email Link Expire Try again' };
                 return res.json(response);
-            } else {
-                ownerModel.findByIdAndUpdate(customer._id, { emailstatus: true }, function(err, customer) {
-                    if (err) {
-                        response = { "error": true, "message": "Couldn't Update Now. Try after some time" };
-                    } else {
-                        response = { "error": false, "message": 'Restaurant Activated Successfully' };
-                    }
-                    return res.json(response);
-                });
-            }
-        };
+            } else {*/
+            ownerModel.findByIdAndUpdate(customer._id, { emailstatus: true }, function(err, customer) {
+                if (err) {
+                    response = { "error": true, "message": "Couldn't Update Now. Try after some time" };
+                } else {
+                    response = { "error": false, "message": 'Restaurant Activated Successfully' };
+                }
+                return res.json(response);
+            });
+        }
     });
 });
 

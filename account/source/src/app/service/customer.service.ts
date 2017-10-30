@@ -68,6 +68,15 @@ export class CustomerService {
         });
     }
 
+
+    public resendActivationLink(data){
+        return this.http.post(globalVariable.url+'api/resend-activation-link',data)
+        .map((response: Response) => {
+            let user = response.json();
+            return user;
+        });
+    }
+
     public customerUpdate(data){
         /*let customer = JSON.parse(localStorage.getItem('currentCustomer'))
         let headers = new Headers();
