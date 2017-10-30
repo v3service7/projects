@@ -4,6 +4,8 @@ const path = require('path');
 const http = require('http');
 const mongoose = require('mongoose');
 const jwt = require('jsonwebtoken');
+const cors = require('cors');
+const passport = require('passport');
 const app = express();
 
 const multer = require('multer');
@@ -19,7 +21,8 @@ app.use(function(req, res, next) {
     next();
 });
 
-app.set('superSecret', 'securityURI');
+// CORS Middleware to access API from outside
+app.use(cors());
 
 // Parsers
 app.use(bodyParser.json());
@@ -27,19 +30,24 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 app.use(express.static(path.join(__dirname, 'dist')));
 
-allowCrossDomain = function(req, res, next) {
-    res.header('Access-Control-Allow-Credentials', true);
-    res.header('Access-Control-Allow-Origin', req.headers.origin);
-    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
-    res.header('Access-Control-Allow-Headers', 'X-Requested-With, X-HTTP-Method-Override, Content-Type, Accept,x-access-token');
-    if ('OPTIONS' === req.method) {
-        res.sendStatus(200);
-    } else {
-        next();
-    }
-};
+// Passport Middleware
+app.use(passport.initialize());
+app.use(passport.session());
+require('./config/passport')(passport);
 
-app.use(allowCrossDomain);
+// allowCrossDomain = function(req, res, next) {
+//     res.header('Access-Control-Allow-Credentials', true);
+//     res.header('Access-Control-Allow-Origin', req.headers.origin);
+//     res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
+//     res.header('Access-Control-Allow-Headers', 'X-Requested-With, X-HTTP-Method-Override, Content-Type, Accept,x-access-token');
+//     if ('OPTIONS' === req.method) {
+//         res.sendStatus(200);
+//     } else {
+//         next();
+//     }
+// };
+
+// app.use(allowCrossDomain);
 
 var storage = multer.diskStorage({ //multers disk storage settings
     destination: function(req, file, cb) {
@@ -73,9 +81,14 @@ app.post('/upload', function(req, res) {
 app.use('/', index);
 app.use('/api', api);
 
-/* app.get('*', (req, res) => {
+// Index Route
+app.get('/', (req, res) => {
+    res.send('Invalid End Point');
+}); 
+
+app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, 'dist/index.html'));
-}); */
+}); 
 
 //Set Port
 const port = process.env.PORT || '4021';

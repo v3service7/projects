@@ -10,12 +10,15 @@ module.exports = (function() {
     let staffModel = require("../model/staff.js");
     let businessModel = require("../model/business.js");
     let planModel = require("../model/plan.js");
-    var randomstring = require("randomstring");
+
+    const randomstring = require("randomstring");
+    const passport = require('passport');
+    const jwt = require('jsonwebtoken');
 
 
     /*-------------------------------START CUSTOMER--------------------------------------------------------*/
 
-    router.get('/customer', function(req, res, next) {
+    router.get('/customer', passport.authenticate('jwt', {session:false}), function(req, res, next) {
         var response = {};
         customerModel.find({}, null, { sort: { created_at: 1 } }, function(err, customers) {
             if (err) {
@@ -27,7 +30,7 @@ module.exports = (function() {
         });
     });
 
-    router.post('/customer', function(req, res) {
+    router.post('/customer', passport.authenticate('jwt', {session:false}), function(req, res) {
         var response = {};
         var token = randomstring.generate()
         req.body.email_token = token;
@@ -43,7 +46,7 @@ module.exports = (function() {
         });
     });
 
-    router.post('/resend-activation-link', function(req, res) {
+    router.post('/resend-activation-link', passport.authenticate('jwt', {session:false}), function(req, res) {
         var response = {};
         customerModel.find({ email: req.body.email}, null, function(err,cstmr){
 
@@ -78,7 +81,7 @@ module.exports = (function() {
         });
     });
 
-    router.put('/customer/:id', function(req, res) {
+    router.put('/customer/:id', passport.authenticate('jwt', {session:false}), function(req, res) {
         var response = {};
         customerModel.findByIdAndUpdate(req.params.id, req.body, function(err, customer) {
             if (err) {
@@ -90,7 +93,7 @@ module.exports = (function() {
         });
     });
 
-    router.get('/customer/:id', function(req, res) {
+    router.get('/customer/:id', passport.authenticate('jwt', {session:false}), function(req, res) {
         var response = {};
         customerModel.findById(req.params.id, function(err, customer) {
             if (err) {
@@ -102,7 +105,7 @@ module.exports = (function() {
         });
     });
 
-    router.delete('/customer/:id', function(req, res) {
+    router.delete('/customer/:id', passport.authenticate('jwt', {session:false}), function(req, res) {
         var response = {};
         customerModel.remove({ _id: req.params.id }, function(err, customer) {
             if (err) {
@@ -118,7 +121,7 @@ module.exports = (function() {
 
     /*-------------------------------START BUSINESS--------------------------------------------------------*/
 
-    router.get('/business-list/:id', function(req, res, next) {
+    router.get('/business-list/:id', passport.authenticate('jwt', {session:false}), function(req, res, next) {
         var response = {};
         businessModel.find({ ownerId: req.params.id }, null, { sort: { created_at: 1 } }, function(err, businesses) {
             if (err) {
@@ -130,7 +133,7 @@ module.exports = (function() {
         });
     });
 
-    router.post('/business', function(req, res) {
+    router.post('/business', passport.authenticate('jwt', {session:false}), function(req, res) {
         var response = {};
         var business = new businessModel(req.body);
         business.save(function(err, business) {
@@ -143,7 +146,7 @@ module.exports = (function() {
         });
     });
 
-    router.put('/business/:id', function(req, res) {
+    router.put('/business/:id', passport.authenticate('jwt', {session:false}), function(req, res) {
         var response = {};
         businessModel.findByIdAndUpdate(req.params.id, req.body, function(err, business) {
             if (err) {
@@ -155,7 +158,7 @@ module.exports = (function() {
         });
     });
 
-    router.get('/business/:id', function(req, res) {
+    router.get('/business/:id', passport.authenticate('jwt', {session:false}), function(req, res) {
         var response = {};
         businessModel.findById(req.params.id, function(err, business) {
             if (err) {
@@ -167,7 +170,7 @@ module.exports = (function() {
         });
     });
 
-    router.delete('/business/:id', function(req, res) {
+    router.delete('/business/:id', passport.authenticate('jwt', {session:false}), function(req, res) {
         var response = {};
         businessModel.remove({ _id: req.params.id }, function(err, business) {
             if (err) {
@@ -183,7 +186,7 @@ module.exports = (function() {
 
     /*-------------------------------START STAFF--------------------------------------------------------*/
 
-    router.get('/staff', function(req, res, next) {
+    router.get('/staff', passport.authenticate('jwt', {session:false}), function(req, res, next) {
         var response = {};
         staffModel.find({}, null, { sort: { created_at: 1 } }, function(err, staffs) {
             if (err) {
@@ -195,7 +198,7 @@ module.exports = (function() {
         });
     });
 
-    router.post('/staff', function(req, res) {
+    router.post('/staff', passport.authenticate('jwt', {session:false}), function(req, res) {
         var response = {};
         var staff = new staffModel(req.body);
         staff.save(function(err, staff) {
@@ -208,7 +211,7 @@ module.exports = (function() {
         });
     });
 
-    router.put('/staff/:id', function(req, res) {
+    router.put('/staff/:id', passport.authenticate('jwt', {session:false}), function(req, res) {
         var response = {};
         staffModel.findByIdAndUpdate(req.params.id, req.body, function(err, staff) {
             if (err) {
@@ -220,7 +223,7 @@ module.exports = (function() {
         });
     });
 
-    router.get('/staff/:id', function(req, res) {
+    router.get('/staff/:id', passport.authenticate('jwt', {session:false}), function(req, res) {
         var response = {};
         console.log(req.params.id);
         staffModel.findById(req.params.id, function(err, staff) {
@@ -233,7 +236,7 @@ module.exports = (function() {
         });
     });
 
-    router.delete('/staff/:id', function(req, res) {
+    router.delete('/staff/:id', passport.authenticate('jwt', {session:false}), function(req, res) {
         var response = {};
         staffModel.remove({ _id: req.params.id }, function(err, staff) {
             if (err) {
@@ -249,7 +252,7 @@ module.exports = (function() {
 
     /*-------------------------------START PLAN--------------------------------------------------------*/
 
-    router.get('/plan', function(req, res, next) {
+    router.get('/plan', passport.authenticate('jwt', {session:false}), function(req, res, next) {
         var response = {};
         planModel.find({}, null, { sort: { created_at: 1 } }, function(err, plans) {
             if (err) {
@@ -261,7 +264,7 @@ module.exports = (function() {
         });
     });
 
-    router.post('/plan', function(req, res) {
+    router.post('/plan', passport.authenticate('jwt', {session:false}), function(req, res) {
         var response = {};
         var plan = new planModel(req.body);
         plan.save(function(err, plan) {
@@ -274,7 +277,7 @@ module.exports = (function() {
         });
     });
 
-    router.put('/plan/:id', function(req, res) {
+    router.put('/plan/:id', passport.authenticate('jwt', {session:false}), function(req, res) {
         var response = {};
         planModel.findByIdAndUpdate(req.params.id, req.body, function(err, plan) {
             if (err) {
@@ -286,7 +289,7 @@ module.exports = (function() {
         });
     });
 
-    router.get('/plan/:id', function(req, res) {
+    router.get('/plan/:id', passport.authenticate('jwt', {session:false}), function(req, res) {
         var response = {};
         console.log(req.params.id);
         planModel.findById(req.params.id, function(err, plan) {
@@ -299,7 +302,7 @@ module.exports = (function() {
         });
     });
 
-    router.delete('/plan/:id', function(req, res) {
+    router.delete('/plan/:id', passport.authenticate('jwt', {session:false}), function(req, res) {
         var response = {};
         planModel.remove({ _id: req.params.id }, function(err, plan) {
             if (err) {

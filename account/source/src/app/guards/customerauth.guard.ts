@@ -1,19 +1,17 @@
 import { Injectable } from '@angular/core';
 import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
-
+import { CustomerService} from '../service/index';
 @Injectable()
 export class CustomerAuthGuard implements CanActivate {
 
-    constructor(private router: Router) { }
+    constructor(private customerService: CustomerService,private router: Router) { }
 
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
 
-        if (localStorage.getItem('currentCustomer')) {
-            // logged in so return true
+        if (this.customerService.loggedIn()) {
             return true;
         }
 
-        // not logged in so redirect to login page with the return url
         this.router.navigate(['/customer/login'], { queryParams: { returnUrl: state.url }});
         return false;
         

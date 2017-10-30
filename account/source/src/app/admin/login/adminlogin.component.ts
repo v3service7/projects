@@ -31,7 +31,7 @@ export class AdminLoginComponent implements OnInit {
     ngOnInit() {
         this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/admin/dashboard';
         this.loginForm = this.lf.group({
-            username: ['', Validators.required],
+            email: ['', Validators.required],
             password: ['', Validators.required],
         });
     }
@@ -40,7 +40,8 @@ export class AdminLoginComponent implements OnInit {
         this.adminService.adminLogin(this.loginForm.value).subscribe(
             (data) => {
                 if (!data.error) {
-                    localStorage.setItem('currentAdmin', JSON.stringify(data.message));
+                    //localStorage.setItem('currentAdmin', JSON.stringify(data.message));
+                    this.adminService.storeUserData(data.token, data.user);
                     this._flashMessagesService.show('Login Successfully', { cssClass: 'alert-success', timeout: 5000 });
                     this.router.navigate([this.returnUrl]);
                 }else{

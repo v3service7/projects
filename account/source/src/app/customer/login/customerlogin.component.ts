@@ -76,9 +76,9 @@ export class CustomerLoginComponent implements OnInit {
         this.customerService.customerLogin(this.loginForm.value).subscribe(
             (data) => {
                 if (!data.error) {
-                    if (data.message['status']) {                    
+                    if (data.success) {                    
                         this._flashMessagesService.show('Logged in Successfully', { cssClass: 'alert-success', timeout: 5000 });
-                        localStorage.setItem('currentCustomer', JSON.stringify(data.message));
+                        this.customerService.storeUserData(data.token, data.user);
                         this.router.navigate([this.returnUrl]);
                     }else{
                         this._flashMessagesService.show('Your Account is not Active.', { cssClass: 'danger-alert', timeout: 5000 });
@@ -193,10 +193,8 @@ export class CustomerRegisterComponent implements OnInit {
     }
 
     register(){
-        this.customerService.customerAdd(this.registerForm.value).subscribe(
+        this.customerService.customerRegister(this.registerForm.value).subscribe(
             (data) => {
-                console.log("data");
-                console.log(data);
                 if (!data.error) {
                     /*localStorage.setItem('currentCustomer', JSON.stringify(data.message));*/
                     this._flashMessagesService.show('Successfully Registered, Please access your Email ID to Activate your Account', { cssClass: 'alert-success', timeout: 5000 });

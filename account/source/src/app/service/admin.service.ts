@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Http, Response,Headers } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
-
+import {tokenNotExpired} from 'angular2-jwt';
 import * as globalVariable from "../global";
 
 
@@ -10,6 +10,34 @@ import * as globalVariable from "../global";
 export class AdminService {
 
     constructor(private http: Http) { }
+
+
+
+    authToken: any;
+    user: any;
+
+  storeUserData(token, user){
+    localStorage.setItem('id_token_admin', token);
+    localStorage.setItem('currentAdmin', JSON.stringify(user));
+    this.authToken = token;
+    this.user = user;
+  }
+
+  loadToken(){
+    const token = localStorage.getItem('id_token_admin');
+    this.authToken = token;
+  }
+
+  loggedIn(){
+    return tokenNotExpired('id_token_admin');
+  }
+
+  logout(){
+    this.authToken = null;
+    this.user = null;
+    localStorage.clear();
+  }
+
 
     public adminLogin(data){
         return this.http.post(globalVariable.url+'admin-login', data)

@@ -2,12 +2,38 @@ import { Injectable } from '@angular/core';
 import { Http, Response,Headers } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
-
+import {tokenNotExpired} from 'angular2-jwt';
 import * as globalVariable from "../global";
 
 @Injectable()
 export class CustomerService {
     constructor(private http: Http) { }
+
+    authToken: any;
+    user: any;
+
+  storeUserData(token, user){
+    localStorage.setItem('id_token_admin', token);
+    localStorage.setItem('currentCustomer', JSON.stringify(user));
+    this.authToken = token;
+    this.user = user;
+  }
+
+  loadToken(){
+    const token = localStorage.getItem('id_token_admin');
+    this.authToken = token;
+  }
+
+  loggedIn(){
+    return tokenNotExpired('id_token_admin');
+  }
+
+  logout(){
+    this.authToken = null;
+    this.user = null;
+    localStorage.clear();
+  }
+
 
     public customerVerify(data) {
         return this.http.post(globalVariable.url+'customer-verify', {'token':data})
@@ -25,6 +51,14 @@ export class CustomerService {
         });
     }
 
+    public customerRegister(data){
+        return this.http.post(globalVariable.url+'customer-register', data)
+        .map((response: Response) => {
+            let user = response.json();
+            return user;
+        });
+    }
+
     public customerForgetPassword(data){
         return this.http.post(globalVariable.url+'customer-forget-password', data)
         .map((response: Response) => {
@@ -34,11 +68,11 @@ export class CustomerService {
     }
 
     public customerList(){
-        /*let customer = JSON.parse(localStorage.getItem('currentCustomer'))
         let headers = new Headers();
-        headers.append('x-access-token', customer['custoken']);
-        , {headers: headers}*/
-        return this.http.get(globalVariable.url+'api/customer')
+        this.loadToken();
+        headers.append('Authorization', this.authToken);
+        headers.append('Content-Type','application/json');
+        return this.http.get(globalVariable.url+'api/customer',{headers: headers})
         .map((response: Response) => {
             let user = response.json();
             return user;
@@ -46,10 +80,11 @@ export class CustomerService {
     }
 
     public customer(id){
-        /*let customer = JSON.parse(localStorage.getItem('currentCustomer'))
         let headers = new Headers();
-        headers.append('x-access-token', customer['custoken']);, {headers: headers}*/
-        return this.http.get(globalVariable.url+'api/customer/'+id)
+        this.loadToken();
+        headers.append('Authorization', this.authToken);
+        headers.append('Content-Type','application/json');
+        return this.http.get(globalVariable.url+'api/customer/'+id,{headers: headers})
         .map((response: Response) => {
             let user = response.json();
             return user;

@@ -48,7 +48,7 @@ module.exports = (function() {
 
     router.get('/admin-getall', function(req, res, next) {
         var response = {};
-        adminModel.find({}, null, { sort: { created_at: 1 } }, function(err, admins) {
+        customerModel.find({}, null, { sort: { created_at: 1 } }, function(err, admins) {
             if (err) {
                 response = { "error": true, "message": err };
             } else {
@@ -60,7 +60,7 @@ module.exports = (function() {
 
     router.post('/admin-register', function(req, res) {
         let response = {};
-        let adminObj = new adminModel(req.body);
+        let adminObj = new customerModel(req.body);
         adminObj.save(function(err, data) {
             if (err) {
                 response = { "error": true, "message": err };
@@ -73,7 +73,7 @@ module.exports = (function() {
 
     router.put('/admin-update/:id', function(req, res) {
         var response = {};
-        adminModel.findByIdAndUpdate(req.params.id, req.body, function(err, admin) {
+        customerModel.findByIdAndUpdate(req.params.id, req.body, function(err, admin) {
             if (err) {
                 response = { "error": true, "message": err };
             } else {
@@ -85,11 +85,11 @@ module.exports = (function() {
 
     router.put('/admin-change-password/:id', function(req, res) {
         var response = {};
-        adminModel.findById(req.params.id, function(err, admin) {
+        customerModel.findById(req.params.id, function(err, admin) {
             if (admin.password == req.body.password) {
                 var newObject = {};
                 newObject.password = req.body.newpassword;
-                adminModel.findByIdAndUpdate(req.params.id, newObject, function(err, kitchen) {
+                customerModel.findByIdAndUpdate(req.params.id, newObject, function(err, kitchen) {
                     if (err) {
                         response = { "error": true, "message": err };
                     } else {
@@ -106,7 +106,7 @@ module.exports = (function() {
 
     router.get('/admin-get/:id', function(req, res) {
         var response = {};
-        adminModel.findById(req.params.id, function(err, customer) {
+        customerModel.findById(req.params.id, function(err, customer) {
             if (err) {
                 response = { "error": true, "message": err };
             } else {
@@ -117,68 +117,41 @@ module.exports = (function() {
     });
 
     router.post('/admin-login', function(req, res, next) {
-        let response = {};
-        adminModel.find({ username: req.body.username, password: req.body.password }, function(err, adminObj) {
-            if (adminObj.length > 0) {
-                adminObj[0].custoken = '';
-                console.log(adminObj[0])
-                var token = jwt.sign({ data: adminObj[0] }, "superSecret", {
-                    expiresIn: 360000 // expires in 1 hours
-                });
-                adminObj[0].custoken = token;
+        const email = req.body.email;
+          const password = req.body.password;
 
-                adminModel.findByIdAndUpdate(adminObj[0]._id, adminObj[0], function(err, userU) {
-                    adminModel.findById(adminObj[0]._id, function(err, userIIII) {
-                        if (err) {
-                            response = { "error": true, "message": err };
-                        } else {
-                            response = { "error": false, "message": userIIII };
-                        }
-                        return res.status(200).json(response);
-                    });
-                });
-            } else {
-                return res.status(403).json({ 'message': 'Invalid Username/Password' });
+          customerModel.getUserByEmail(email, (err, user) => {
+            if(err) throw err;
+            if(!user){
+              return res.json({success: false, msg: 'User not found'});
             }
-        });
+            if(user.role != "Admin"){
+              return res.json({success: false, msg: 'Not Authorized'});
+            }
+
+            customerModel.comparePassword(password, user.password, (err, isMatch) => {
+              if(err) throw err;
+              if(isMatch){
+                  const token = jwt.sign({data:user}, 'accountHabeeb', {
+                  expiresIn: 3600 // 1 hour
+                });
+
+                res.json({
+                  success: true,
+                  token: 'JWT '+token,
+                  user: user
+                });
+              } else {
+                return res.json({success: false, msg: 'Wrong password'});
+              }
+            });
+          });
     });
 
 
-    /*router.post('/admin-forget-password', function(req, res, next) {
-        var response = {};
-        adminModel.find({ email: req.body.email }, function(err, data) {
-            if (err) {
-                req.flash('error', 'something went wrong!');
-            } else {
-                if (data.length > 0) {
-                    var name = data[0].firstname + " <" + data[0].email + " >";
-                    var content = "Password reset Link <a href='http://34.209.114.118:3003/admin/resetpassword/" + data[0]._id + "'>Click Here</a>"
-                    req.mail.sendMail({ //email options
-                        from: "Restaurant Team <habeebacount@gmail.com>", // sender address.  Must be the same as authenticated user if using GMail.
-                        to: name, // receiver
-                        subject: "Reset Password", // subject
-                        //text: "Email Example with nodemailer" // body
-                        html: content
-                    }, function(error, response) { //callback
-                        if (error) {
-                            console.log(error);
-                        } else {
-                            console.log("Message sent: " + response.message);
-                        }
-                        req.mail.close(); // shut down the connection pool, no more messages.  Comment this line out to continue sending emails.
-                        res.json({ error: false });
-                    });
-                    console.log(data);
-                } else {
-                    res.json({ error: true, message: 'Email id does not exist' });
-                }
-            };
-        });
-    });*/
-
     router.post('/admin-forget-password', function(req, res, next) {
         var response = {};
-        adminModel.find({ email: req.body.email }, function(err, data) {
+        customerModel.find({ email: req.body.email }, function(err, data) {
             if (err) {
                 req.flash('error', 'something went wrong!');
             } else {
@@ -196,10 +169,10 @@ module.exports = (function() {
         var response = {};
         let userToken = req.headers['x-access-token'];
         if (userToken != '' && typeof userToken != 'undefined') {
-            adminModel.find({ custoken: userToken }, function(err, user) {
+            customerModel.find({ custoken: userToken }, function(err, user) {
                 if (user.length > 0) {
                     user[0]['custoken'] = '';
-                    adminModel.findByIdAndUpdate(user[0]._id, user[0], function(err, userU) {
+                    customerModel.findByIdAndUpdate(user[0]._id, user[0], function(err, userU) {
                         if (err) {
                             response = { "error": true, "message": err };
                         } else {
@@ -223,39 +196,58 @@ module.exports = (function() {
 
 
     router.post('/customer-login', function(req, res, next) {
-        let response = {};
-        customerModel.find({ email: req.body.email, password: req.body.password }, function(err, adminObj) {
-            if (adminObj.length > 0) {
-                adminObj[0].custoken = '';
-                console.log(adminObj[0])
-                var token = jwt.sign({ data: adminObj[0] }, "superSecret", {
-                    expiresIn: 360000 // expires in 1 hours
-                });
-                adminObj[0].custoken = token;
-                customerModel.findByIdAndUpdate(adminObj[0]._id, adminObj[0], function(err, userU) {
-                    customerModel.findById(adminObj[0]._id, function(err, userIIII) {
-                        if (err) {
-                            response = { "error": true, "message": err };
-                        } else {
-                            response = { "error": false, "message": userIIII };
-                        }
-                        return res.status(200).json(response);
-                    });
-                });
-            } else {
-                return res.status(403).json({ 'message': 'Invalid Username/Password' });
-            }
+        const email = req.body.email;
+  const password = req.body.password;
+
+  customerModel.getUserByEmail(email, (err, user) => {
+    if(err) throw err;
+    if(!user){
+      return res.json({success: false, msg: 'User not found'});
+    }
+    if(user.role == "Admin"){
+      return res.json({success: false, msg: 'Not Authorized'});
+    }
+
+    customerModel.comparePassword(password, user.password, (err, isMatch) => {
+      if(err) throw err;
+      if(isMatch){
+          const token = jwt.sign({data:user}, 'accountHabeeb', {
+          expiresIn: 3600 // 1 hour
         });
+
+        res.json({
+          success: true,
+          token: 'JWT '+token,
+          user: user
+        });
+      } else {
+        return res.json({success: false, msg: 'Wrong password'});
+      }
     });
+  });
+    });
+    
+// User Add
+router.post('/customer-register', (req, res, next) => {
+  let newUser = new customerModel(req.body);
+
+  customerModel.addUser(newUser, (err, user) => {
+    if(err){          
+      res.json({success: false, msg:err});
+    } else {
+      res.json({success: true, msg:'User registered'});
+    }
+  });
+}); 
 
     router.get('/customer-logout', function(req, res) {
         var response = {};
         let userToken = req.headers['x-access-token'];
         if (userToken != '' && typeof userToken != 'undefined') {
-            adminModel.find({ custoken: userToken }, function(err, user) {
+            customerModel.find({ custoken: userToken }, function(err, user) {
                 if (user.length > 0) {
                     user[0]['custoken'] = '';
-                    adminModel.findByIdAndUpdate(user[0]._id, user[0], function(err, userU) {
+                    customerModel.findByIdAndUpdate(user[0]._id, user[0], function(err, userU) {
                         if (err) {
                             response = { "error": true, "message": err };
                         } else {
