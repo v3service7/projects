@@ -507,8 +507,13 @@
 						</div>
 						<div *ngIf="cart.length > 0 || promotionOrder">
 							<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 tax" *ngIf="restaurants.taxation">
-								<div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">{{restaurants.taxation.name}}</div>
-								<div class="col-lg-3 col-md-3 col-sm-3 col-xs-3" style="text-align: -webkit-right;">{{restaurants.taxation.taxpercent}} %</div>
+								<div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">Tax</div>
+								<div class="col-lg-8 col-md-8 col-sm-8 col-xs-8" style="text-align: -webkit-right;">
+									<span *ngIf = "restaurants.taxation.menuTax == 'Apply Tax'">{{restaurants.taxation.name}} - {{restaurants.taxation.tax}} %</span>
+									<span *ngIf = "restaurants.taxation.deliveryTax != null"><br>
+									Delivery Tax - {{restaurants.taxation.deliveryTax}} %
+									</span>
+								</div>
 							</div>
 						</div>
 						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 grand-total">

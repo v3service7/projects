@@ -296,7 +296,8 @@ export class RestaurantOwnerTaxationComponent implements OnInit {
 			name: ['', Validators.required],
 			tax: ['', Validators.required],
 			menuTax: ['', Validators.required],
-			deliveryTax: ['', Validators.required],
+			deliveryTaxType: ['', Validators.required],
+			deliveryTax: [],
 			currency: ['', Validators.required],
 			_id: []
 		});
@@ -309,34 +310,30 @@ export class RestaurantOwnerTaxationComponent implements OnInit {
 			console.log("this.restaurants");
 			console.log(this.restaurants);
 			if (typeof this.restaurants.taxation != 'undefined') {
-				this.taxationAddModel.controls['name'].setValue(this.restaurants.taxation.name);
-				this.taxationAddModel.controls['tax'].setValue(this.restaurants.taxation.taxpercent);
-				this.taxationAddModel.controls['menuTax'].setValue(this.restaurants.taxation.menuTax);
-				this.taxationAddModel.controls['deliveryTax'].setValue(this.restaurants.taxation.deliveryTax);
-				this.taxationAddModel.controls['currency'].setValue(this.restaurants.taxation.currency);
+				this.taxationAddModel.patchValue(this.restaurants.taxation);
 			}
 		});
 	}
 
-	deliveryTax(event){
-		this.deliveryT = event.target.value; 
-	}
-
 	taxationDetailUpdate() {
-		let deliveryTaxObj = {};
-		deliveryTaxObj['type'] = this.taxationAddModel.value.deliveryTax;
-		if (deliveryTaxObj['type'] == 'New Tax') {
-			deliveryTaxObj['tax'] = this.deliveryT;
-		}
 
+		if (this.taxationAddModel.controls['deliveryTaxType'].value == 'New Tax' && this.taxationAddModel.controls['deliveryTax'].value == null) {
+			this.taxationAddModel.controls['deliveryTax'].setValue(0);
+		}
+		if (this.taxationAddModel.controls['deliveryTaxType'].value == 'Same Tax') {
+			this.taxationAddModel.controls['deliveryTax'].setValue(null);
+		}
 		var objForUpdate: any = {};
 		objForUpdate._id = this.restaurants._id;
-		objForUpdate.taxation = { "name": this.taxationAddModel.value.name, "taxpercent": this.taxationAddModel.value.tax.toString(), "menuTax": this.taxationAddModel.value.menuTax, "deliveryTax": deliveryTaxObj, "currency": this.taxationAddModel.value.currency };
+		objForUpdate.taxation = this.taxationAddModel.value;
 		this.restaurantsService.updatePickUp(objForUpdate).subscribe(
 			(data) => {
-				this.user = data.message;
-				toastr.success('Taxation Detail Updated','Success!');
-				this.router.navigate(['/owner/restaurant-paymentoption']);
+				if (!data.error) {
+					toastr.success('Taxation Detail Updated','Success!');
+					this.router.navigate(['/owner/restaurant-paymentoption']);
+				}else{
+					toastr.error('Unable to Updated','Error!');
+				}
 			}
 		);
 	}

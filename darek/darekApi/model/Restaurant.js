@@ -29,7 +29,7 @@ var RestaurantSchema = new Schema({
     orderforlater: { type: Boolean, default: true },
     orderforlaterpickup: { mintime: String, mindate: String },    
     orderforlaterdelivery: { mintime: String, mindate: String },
-    taxation: { name: String, taxpercent: String, menuTax: String, deliveryTax: String, currency: String },
+    taxation: { name: String, tax: String, menuTax: String, deliveryTaxType: String, deliveryTax: String, currency: String },
     paymentpickup: { cash: Boolean, cardpickup: Boolean, cardinternet: Boolean},
     paymentdelivery: { cash: Boolean, cardpickup: Boolean, cardinternet: Boolean},
     notification: [],

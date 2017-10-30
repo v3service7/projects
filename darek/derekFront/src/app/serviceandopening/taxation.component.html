@@ -38,14 +38,14 @@
             </div>
             <div class="row">
                 <div class="col-xs-8">
-                    <select class="form-control" formControlName="deliveryTax">
+                    <select class="form-control" formControlName="deliveryTaxType">
                         <option value="Same Tax">Apply the same tax for the delivery fee</option>
                         <option value="New Tax">Apply this tax for the delivery fee</option>
                     </select>
                 </div>
-                <div class="col-xs-4" *ngIf = "taxationAddModel.controls['deliveryTax'].value == 'New Tax' ">
+                <div class="col-xs-4" *ngIf = "taxationAddModel.controls['deliveryTaxType'].value == 'New Tax' ">
                     <div class="input-group">
-                        <input type="number" placeholder="0" class="form-control" (keyup)="deliveryTax($event)">
+                        <input type="number" placeholder="0" class="form-control" formControlName="deliveryTax">
                         <span class="input-group-addon">%</span>
                     </div>
                 </div>

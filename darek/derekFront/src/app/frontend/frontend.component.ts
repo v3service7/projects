@@ -2293,14 +2293,90 @@ export class FrontendCartComponent implements OnInit {
         }
 
         if (typeof this.restaurants.taxation != 'undefined') {
-            if (typeof this.cartTotal != 'undefined') {            
-                taxAmount = (parseInt(this.restaurants.taxation.taxpercent)/100) * this.cartTotal;
-                this.cartDetail.tax = taxAmount.toFixed(2);
-                this.grandTotalWithTax = this.deliveryFee + this.cartTotal + taxAmount;
+            if (typeof this.cartTotal != 'undefined') {
+                if (this.restaurants.taxation['menuTax'] == 'Apply Tax') {
+                    if (this.restaurants.taxation['deliveryTaxType'] == 'Same Tax') {                    
+                        taxAmount = (parseInt(this.restaurants.taxation.tax)/100) * (this.deliveryFee + this.cartTotal);
+                        console.log("taxAmount ", taxAmount);
+                        this.cartDetail.tax = taxAmount.toFixed(2);
+                        this.grandTotalWithTax = this.deliveryFee + this.cartTotal + taxAmount;
+                    }
+
+                    if (this.restaurants.taxation['deliveryTaxType'] == 'New Tax') {                    
+                        taxAmount = (parseInt(this.restaurants.taxation.tax)/100) * this.cartTotal;
+                        console.log("taxAmount ", taxAmount);
+                        this.cartDetail.tax = taxAmount.toFixed(2);
+
+                        let deliveryTax : any;
+                        deliveryTax = (parseInt(this.restaurants.taxation.deliveryTax)/100) * this.deliveryFee;
+                        console.log("deliveryTax ", deliveryTax);
+                        this.cartDetail.deliveryTax = deliveryTax.toFixed(2);
+
+                        this.grandTotalWithTax = this.deliveryFee + this.cartTotal + taxAmount + deliveryTax;
+                    }
+                }
+
+                if (this.restaurants.taxation['menuTax'] == 'Already Include') {
+                    if (this.restaurants.taxation['deliveryTaxType'] == 'Same Tax') {                    
+                        //taxAmount = (parseInt(this.restaurants.taxation.tax)/100) * (this.deliveryFee + this.cartTotal);
+                        this.cartDetail.tax = 0;
+                        this.grandTotalWithTax = this.deliveryFee + this.cartTotal;
+                    }
+
+                    if (this.restaurants.taxation['deliveryTaxType'] == 'New Tax') {                    
+                        //taxAmount = (parseInt(this.restaurants.taxation.tax)/100) * this.cartTotal;
+                        this.cartDetail.tax = 0;
+
+                        let deliveryTax : any;
+                        deliveryTax = (parseInt(this.restaurants.taxation.deliveryTax)/100) * this.deliveryFee;
+                        console.log("deliveryTax ", deliveryTax);
+                        this.cartDetail.deliveryTax = deliveryTax.toFixed(2);
+
+                        this.grandTotalWithTax = this.deliveryFee + this.cartTotal + deliveryTax;
+                    }
+                }
             }else{
-                taxAmount = (parseInt(this.restaurants.taxation.taxpercent)/100) * this.grandTotal;
-                this.cartDetail.tax = taxAmount.toFixed(2);
-                this.grandTotalWithTax = this.deliveryFee + this.grandTotal + taxAmount;
+                if (this.restaurants.taxation['menuTax'] == 'Apply Tax') {
+                    if (this.restaurants.taxation['deliveryTaxType'] == 'Same Tax') {                    
+                        taxAmount = (parseInt(this.restaurants.taxation.tax)/100) * (this.deliveryFee + this.grandTotal);
+                        console.log("taxAmount ", taxAmount);
+                        this.cartDetail.tax = taxAmount.toFixed(2);
+                        this.grandTotalWithTax = this.deliveryFee + this.grandTotal + taxAmount;
+                    }
+
+                    if (this.restaurants.taxation['deliveryTaxType'] == 'New Tax') {                    
+                        taxAmount = (parseInt(this.restaurants.taxation.tax)/100) * this.grandTotal;
+                        console.log("taxAmount ", taxAmount);
+                        this.cartDetail.tax = taxAmount.toFixed(2);
+
+                        let deliveryTax : any;
+                        deliveryTax = (parseInt(this.restaurants.taxation.deliveryTax)/100) * this.deliveryFee;
+                        console.log("deliveryTax ", deliveryTax);
+                        this.cartDetail.deliveryTax = deliveryTax.toFixed(2);
+
+                        this.grandTotalWithTax = this.deliveryFee + this.grandTotal + taxAmount + deliveryTax;
+                    }
+                }
+
+                if (this.restaurants.taxation['menuTax'] == 'Already Include') {
+                    if (this.restaurants.taxation['deliveryTaxType'] == 'Same Tax') {                    
+                        //taxAmount = (parseInt(this.restaurants.taxation.tax)/100) * (this.deliveryFee + this.grandTotal);
+                        this.cartDetail.tax = 0;
+                        this.grandTotalWithTax = this.deliveryFee + this.grandTotal;
+                    }
+
+                    if (this.restaurants.taxation['deliveryTaxType'] == 'New Tax') {                    
+                        //taxAmount = (parseInt(this.restaurants.taxation.tax)/100) * this.grandTotal;
+                        this.cartDetail.tax = 0;
+
+                        let deliveryTax : any;
+                        deliveryTax = (parseInt(this.restaurants.taxation.deliveryTax)/100) * this.deliveryFee;
+                        console.log("deliveryTax ", deliveryTax);
+                        this.cartDetail.deliveryTax = deliveryTax.toFixed(2);
+
+                        this.grandTotalWithTax = this.deliveryFee + this.grandTotal +  deliveryTax;
+                    }
+                }
             }
         }else{
             this.cartDetail.tax = 0;
@@ -2318,7 +2394,7 @@ export class FrontendCartComponent implements OnInit {
             this.cartDetail.discountAmount=0;
         }
         
-        this.cartDetail.gTotal=this.grandTotalWithTax.toFixed(2) ;
+        this.cartDetail.gTotal=this.grandTotalWithTax ;
         this.cartDetail.orderMethod=this.orderMethod;
         this.saveInfo();
 
