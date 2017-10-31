@@ -46,12 +46,12 @@
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-group ">
-                                                    <label class="control-label">Username</label>
-                                                    <input formControlName="username" type="text" class="form-control" disabled>
+                                                    <label class="control-label">Phone Number</label>
+                                                    <input formControlName="phonenumber" type="text" class="form-control">
                                                 </div>
-                                                <!-- <div *ngIf="formErrors.username" class="alert alert-danger">
-                                                    {{ formErrors.username }}
-                                                </div> -->
+                                                <div *ngIf="formErrors.phonenumber" class="alert alert-danger">
+                                                    {{ formErrors.phonenumber }}
+                                                </div>
                                             </div>
                                         </div>
                                         <button type="submit" class="btn btn-warning pull-right" [disabled]="!customerAddForm.valid">Save</button>

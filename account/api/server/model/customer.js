@@ -20,7 +20,6 @@ var customer = mongoose.model('customer', customerSchema);
 
 module.exports = customer;
 
-
 module.exports.getUserById = function(id, callback){
   customer.findById(id, callback);
 }
@@ -36,6 +35,15 @@ module.exports.addUser = function(newUser, callback){
       if(err) throw err;
       newUser.password = hash;
       newUser.save(callback);
+    });
+  });
+}
+
+module.exports.encryptPassword = function(password, callback){
+  bcrypt.genSalt(10, (err, salt) => {
+    bcrypt.hash(password, salt, (err, hash) => {
+      if(err) throw err;
+      callback(null, hash);
     });
   });
 }

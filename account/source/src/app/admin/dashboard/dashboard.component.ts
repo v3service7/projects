@@ -39,19 +39,20 @@ export class DashboardComponent implements OnInit {
     }
 
     getCustomerList(){
-        this.customerService.customerList().subscribe(
+        this.adminService.customerList().subscribe(
             (data) => {
                 if (!data.error) {
                     this.customers = data.message
                 }
-            },(err)=>{
+            },
+            (err)=>{
                 console.log('kfgbhj')
             }
         );
     }
 
     getStaffList(){
-        this.staffService.staffList().subscribe(
+        this.adminService.staffList().subscribe(
             (data) => {
                 if (!data.error) {
                     this.staffs = data.message
@@ -88,13 +89,15 @@ export class AdminProfileComponent implements OnInit {
     customerAddForm: FormGroup;
 	cpForm: FormGroup;
     passwordRegex = /^([0-9]+[a-zA-Z]+|[a-zA-Z]+[0-9]+)[0-9a-zA-Z]*$/;
+    phoneRegx = /^[0-9]*$/
     passwordp : any = '';
     newo : any = false;
     MutchPassword : any = false;
 
     formErrors = {
         'firstname': '',
-        'lastname': ''
+        'lastname': '',
+        'phonenumber': '',
     };
 
     validationMessages = {
@@ -103,6 +106,9 @@ export class AdminProfileComponent implements OnInit {
         },
         'lastname': {
             'required':      'Last Name is required.',
+        },
+        'phonenumber': {
+            'pattern':      'Invalid Phone Number.',
         }
     };
 
@@ -133,7 +139,7 @@ export class AdminProfileComponent implements OnInit {
             _id: ['', Validators.required],
             firstname: ['', Validators.required],
             lastname: ['', Validators.required],
-            username: ['', Validators.required],
+            phonenumber: ['',[Validators.pattern(this.phoneRegx)]],
             email: ['', Validators.required],
         });
 
@@ -217,7 +223,7 @@ export class AdminProfileComponent implements OnInit {
         this.adminService.adminUpdate(this.customerAddForm.value).subscribe(
             (data) => {
                 if (!data.error) {
-                    this.admin(this.customerAddForm.value._id);
+                    this.admin(this.currentAdmin._id);
                     this._flashMessagesService.show('Details Updated Successfully', { cssClass: 'alert-success', timeout: 5000 });
                     this.router.navigate(['admin/dashboard']);
                 }
@@ -236,8 +242,9 @@ export class AdminProfileComponent implements OnInit {
                     this._flashMessagesService.show(data.message, { cssClass: 'alert-success', timeout: 5000 });
                     this.router.navigate(['admin/dashboard']);
                 }else{
-                    this.cpForm.reset();
                     this._flashMessagesService.show(data.message, { cssClass: 'danger-alert', timeout: 5000 });
+                    this.cpForm.reset();
+                    this.cpForm.controls["_id"].setValue(this.currentAdmin._id);
                 }
             },(err)=>{
                 this._flashMessagesService.show('Something went wrong', { cssClass: 'danger-alert', timeout: 5000 });

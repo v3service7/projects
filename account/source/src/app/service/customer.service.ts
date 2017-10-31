@@ -12,49 +12,48 @@ export class CustomerService {
     authToken: any;
     user: any;
 
-  storeUserData(token, user){
-    localStorage.setItem('id_token_admin', token);
-    localStorage.setItem('currentCustomer', JSON.stringify(user));
-    this.authToken = token;
-    this.user = user;
-  }
+    authenticateUser(user){
+        let headers = new Headers();
+        headers.append('Content-Type','application/json');    
+        return this.http.post(globalVariable.url+'customer-login', user,{headers: headers})
+            .map(res => res.json()
+        );
+    }
 
-  loadToken(){
-    const token = localStorage.getItem('id_token_admin');
-    this.authToken = token;
-  }
+    storeUserData(token, user){
+        localStorage.setItem('id_token_customer', token);
+        localStorage.setItem('currentCustomer', JSON.stringify(user));
+        this.authToken = token;
+        this.user = user;
+    }
 
-  loggedIn(){
-    return tokenNotExpired('id_token_admin');
-  }
+    loadToken(){
+        const token = localStorage.getItem('id_token_customer');
+        this.authToken = token;
+    }
 
-  logout(){
-    this.authToken = null;
-    this.user = null;
-    localStorage.clear();
-  }
+    loggedIn(){
+        return tokenNotExpired('id_token_customer');
+    }
 
+    logout(){
+        this.authToken = null;
+        this.user = null;
+        localStorage.clear();
+    }
+
+    public customerRegister(data){
+        return this.http.post(globalVariable.url+'api/customer', data)
+        .map((response: Response) => {
+            let user = response.json();
+            return user;
+        });
+    }
 
     public customerVerify(data) {
         return this.http.post(globalVariable.url+'customer-verify', {'token':data})
         .map((response: Response) => {
             const user = response.json();
-            return user;
-        });
-    }
-
-    public customerLogin(data){
-        return this.http.post(globalVariable.url+'customer-login', data)
-        .map((response: Response) => {
-            let user = response.json();
-            return user;
-        });
-    }
-
-    public customerRegister(data){
-        return this.http.post(globalVariable.url+'customer-register', data)
-        .map((response: Response) => {
-            let user = response.json();
             return user;
         });
     }
@@ -67,16 +66,9 @@ export class CustomerService {
         });
     }
 
-    public customerList(){
-        let headers = new Headers();
-        this.loadToken();
-        headers.append('Authorization', this.authToken);
-        headers.append('Content-Type','application/json');
-        return this.http.get(globalVariable.url+'api/customer',{headers: headers})
-        .map((response: Response) => {
-            let user = response.json();
-            return user;
-        });
+    public resetPassword(user){
+        return this.http.put(globalVariable.url+'customer-reset-password/'+user._id, user)
+          .map(res => res.json());
     }
 
     public customer(id){
@@ -84,25 +76,12 @@ export class CustomerService {
         this.loadToken();
         headers.append('Authorization', this.authToken);
         headers.append('Content-Type','application/json');
-        return this.http.get(globalVariable.url+'api/customer/'+id,{headers: headers})
+        return this.http.get(globalVariable.url+'api/customer/'+ id, {headers: headers})
         .map((response: Response) => {
             let user = response.json();
             return user;
         });
     }
-
-    public customerAdd(data){
-        /*let customer = JSON.parse(localStorage.getItem('currentCustomer'))
-        let headers = new Headers();
-        headers.append('x-access-token', customer['custoken']);
-        , {headers: headers}*/
-        return this.http.post(globalVariable.url+'api/customer',data)
-        .map((response: Response) => {
-            let user = response.json();
-            return user;
-        });
-    }
-
 
     public resendActivationLink(data){
         return this.http.post(globalVariable.url+'api/resend-activation-link',data)
@@ -113,22 +92,12 @@ export class CustomerService {
     }
 
     public customerUpdate(data){
-        /*let customer = JSON.parse(localStorage.getItem('currentCustomer'))
         let headers = new Headers();
-        headers.append('x-access-token', customer['custoken']);, {headers: headers}*/
+        this.loadToken();
+        headers.append('Authorization', this.authToken);
+        headers.append('Content-Type','application/json');
 
-        return this.http.put(globalVariable.url+'api/customer/'+data._id,data)
-        .map((response: Response) => {
-            let user = response.json();
-            return user;
-        });
-    }
-    
-    public customerDelete(id){
-        /*let customer = JSON.parse(localStorage.getItem('currentCustomer'))
-        let headers = new Headers();
-        headers.append('x-access-token', customer['custoken']);, {headers: headers}*/
-        return this.http.delete(globalVariable.url+'api/customer/'+id)
+        return this.http.put(globalVariable.url+'api/customer/'+ data._id, data, {headers: headers})
         .map((response: Response) => {
             let user = response.json();
             return user;
@@ -136,7 +105,12 @@ export class CustomerService {
     }
 
     public customerChangePassword(data){
-        return this.http.put(globalVariable.url+'customer-change-password/'+data._id,data)
+        let headers = new Headers();
+        this.loadToken();
+        headers.append('Authorization', this.authToken);
+        headers.append('Content-Type','application/json');
+
+        return this.http.put(globalVariable.url+'customer-change-password/'+ data._id, data, {headers: headers})
         .map((response: Response) => {
             let user = response.json();
             return user;
@@ -144,7 +118,7 @@ export class CustomerService {
     }
 
     public customerLogout(){
-       /* let admin = JSON.parse(localStorage.getItem('currentAdmin'))
+        /* let admin = JSON.parse(localStorage.getItem('currentAdmin'))
         let headers = new Headers();
         headers.append('x-access-token', admin['custoken']);
         , {headers: headers}*/

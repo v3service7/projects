@@ -25,6 +25,7 @@ export class AdminSidebarComponent implements OnInit {
     adminLogout(){
       this._flashMessagesService.show('Logout Successfully', { cssClass: 'alert-success', timeout: 5000 });
       localStorage.removeItem('currentAdmin');
+      localStorage.removeItem('id_token_admin');
       this.router.navigate(['admin/login']);
         /*this.adminService.adminLogout().subscribe(
             (data) => {

@@ -58,7 +58,7 @@
                                             <div class="col-md-6">
                                                 <div class="form-group ">
                                                     <label class="control-label">Date Of Birth</label>
-                                                    <input formControlName="dob" type="text" class="form-control">
+                                                    <input formControlName="dob" type="date" class="form-control">
                                                 </div>
                                                 <div *ngIf="formErrors.dob" class="alert alert-danger">
                                                     {{ formErrors.dob }}
@@ -66,7 +66,6 @@
                                             </div>
                                         </div>
                                         <button type="submit" class="btn btn-success pull-right" [disabled]="!customerAddForm.valid">Save Customer</button>
-                                        <div class="clearfix"></div>
                                     </form>
                                 </div>
                             </div>

@@ -10,10 +10,15 @@ export class PlanService {
     
     constructor(private http: Http) { }
 
+    authToken: any;
+    user: any;
+
+    loadToken(){
+        const token = localStorage.getItem('id_token_admin');
+        this.authToken = token;
+    }
+
     public planList(){
-        /*let admin = JSON.parse(localStorage.getItem('currentAdmin'))
-        let headers = new Headers();
-        headers.append('x-access-token', admin['custoken']);, {headers: headers}*/
         return this.http.get(globalVariable.url+'api/plan')
         .map((response: Response) => {
             let user = response.json();
@@ -22,9 +27,6 @@ export class PlanService {
     }
 
     public plan(id){
-        /*let admin = JSON.parse(localStorage.getItem('currentAdmin'))
-        let headers = new Headers();
-        headers.append('x-access-token', admin['custoken']);, {headers: headers}*/
         return this.http.get(globalVariable.url+'api/plan/'+id)
         .map((response: Response) => {
             let user = response.json();
@@ -33,10 +35,12 @@ export class PlanService {
     }
 
     public planAdd(data){
-        /*let admin = JSON.parse(localStorage.getItem('currentAdmin'))
         let headers = new Headers();
-        headers.append('x-access-token', admin['custoken']);, {headers: headers}*/
-        return this.http.post(globalVariable.url+'api/plan',data)
+        this.loadToken();
+        headers.append('Authorization', this.authToken);
+        headers.append('Content-Type','application/json');
+
+        return this.http.post(globalVariable.url+'api/plan',data,{headers: headers})
         .map((response: Response) => {
             let user = response.json();
             return user;
@@ -44,10 +48,12 @@ export class PlanService {
     }
 
     public planUpdate(data){
-        /*let admin = JSON.parse(localStorage.getItem('currentAdmin'))
         let headers = new Headers();
-        headers.append('x-access-token', admin['custoken']);, {headers: headers}*/
-        return this.http.put(globalVariable.url+'api/plan/'+data._id,data)
+        this.loadToken();
+        headers.append('Authorization', this.authToken);
+        headers.append('Content-Type','application/json');
+
+        return this.http.put(globalVariable.url+'api/plan/'+data._id,data,{headers: headers})
         .map((response: Response) => {
             let user = response.json();
             return user;
@@ -55,10 +61,12 @@ export class PlanService {
     }
     
     public planDelete(id){
-        /*let admin = JSON.parse(localStorage.getItem('currentAdmin'))
         let headers = new Headers();
-        headers.append('x-access-token', admin['custoken']);, {headers: headers}*/
-        return this.http.delete(globalVariable.url+'api/plan/'+id)
+        this.loadToken();
+        headers.append('Authorization', this.authToken);
+        headers.append('Content-Type','application/json');
+        
+        return this.http.delete(globalVariable.url+'api/plan/'+id,{headers: headers})
         .map((response: Response) => {
             let user = response.json();
             return user;

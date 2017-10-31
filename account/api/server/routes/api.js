@@ -4,7 +4,7 @@ module.exports = (function() {
     const router = express.Router();
 
     /*load Model*/
-    let adminModel = require("../model/admin.js");
+    /*let adminModel = require("../model/admin.js");*/
     var emails = require('../mail/emailConfig.js');
     let customerModel = require("../model/customer.js");
     let staffModel = require("../model/staff.js");
@@ -20,7 +20,7 @@ module.exports = (function() {
 
     router.get('/customer', passport.authenticate('jwt', {session:false}), function(req, res, next) {
         var response = {};
-        customerModel.find({}, null, { sort: { created_at: 1 } }, function(err, customers) {
+        customerModel.find({role: "User"}, null, {sort: {created_at: 1}}, (err, customers) => {
             if (err) {
                 response = { "error": true, "message": err };
             } else {
@@ -30,12 +30,12 @@ module.exports = (function() {
         });
     });
 
-    router.post('/customer', passport.authenticate('jwt', {session:false}), function(req, res) {
+    router.post('/customer', function(req, res) {
         var response = {};
         var token = randomstring.generate()
         req.body.email_token = token;
         var customer = new customerModel(req.body);
-        customer.save(function(err, customer) {
+        customerModel.addUser(customer, (err, customer) => {
             if (err) {
                 response = { "error": true, "message": err };
             } else {
@@ -252,13 +252,26 @@ module.exports = (function() {
 
     /*-------------------------------START PLAN--------------------------------------------------------*/
 
-    router.get('/plan', passport.authenticate('jwt', {session:false}), function(req, res, next) {
+    router.get('/plan',function(req, res, next) {
         var response = {};
         planModel.find({}, null, { sort: { created_at: 1 } }, function(err, plans) {
             if (err) {
                 response = { "error": true, "message": err };
             } else {
                 response = { "error": false, "message": plans };
+            };
+            res.json(response);
+        });
+    });
+
+    router.get('/plan/:id', function(req, res) {
+        var response = {};
+        console.log(req.params.id);
+        planModel.findById(req.params.id, function(err, plan) {
+            if (err) {
+                response = { "error": true, "message": err };
+            } else {
+                response = { "error": false, "message": plan };
             };
             res.json(response);
         });
@@ -285,19 +298,6 @@ module.exports = (function() {
             } else {
                 response = { "error": false, "message": plan };
             }
-            res.json(response);
-        });
-    });
-
-    router.get('/plan/:id', passport.authenticate('jwt', {session:false}), function(req, res) {
-        var response = {};
-        console.log(req.params.id);
-        planModel.findById(req.params.id, function(err, plan) {
-            if (err) {
-                response = { "error": true, "message": err };
-            } else {
-                response = { "error": false, "message": plan };
-            };
             res.json(response);
         });
     });

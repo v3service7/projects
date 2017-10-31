@@ -25,6 +25,7 @@ export class CustomerSidebarComponent implements OnInit {
     customerLogout(){
       this._flashMessagesService.show('Logout Successfully', { cssClass: 'alert-success', timeout: 5000 });
       localStorage.removeItem('currentCustomer');
+      localStorage.removeItem('id_token_customer');
       this.router.navigate(['customer/login']);
         /*this.customerService.customerLogout().subscribe(
             (data) => {

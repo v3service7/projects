@@ -35,21 +35,21 @@ app.use(passport.initialize());
 app.use(passport.session());
 require('./config/passport')(passport);
 
-// allowCrossDomain = function(req, res, next) {
-//     res.header('Access-Control-Allow-Credentials', true);
-//     res.header('Access-Control-Allow-Origin', req.headers.origin);
-//     res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
-//     res.header('Access-Control-Allow-Headers', 'X-Requested-With, X-HTTP-Method-Override, Content-Type, Accept,x-access-token');
-//     if ('OPTIONS' === req.method) {
-//         res.sendStatus(200);
-//     } else {
-//         next();
-//     }
-// };
+allowCrossDomain = function(req, res, next) {
+    res.header('Access-Control-Allow-Credentials', true);
+    res.header('Access-Control-Allow-Origin', req.headers.origin);
+    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
+    res.header('Access-Control-Allow-Headers', 'X-Requested-With, X-HTTP-Method-Override, Content-Type, Accept,x-access-token');
+    if ('OPTIONS' === req.method) {
+        res.sendStatus(200);
+    } else {
+        next();
+    }
+};
 
-// app.use(allowCrossDomain);
+app.use(allowCrossDomain);
 
-var storage = multer.diskStorage({ //multers disk storage settings
+/*var storage = multer.diskStorage({ //multers disk storage settings
     destination: function(req, file, cb) {
         //cb(null, '/kitchen/ms-2/public/uploads/');
         cb(null, './dist/uploads/');
@@ -57,6 +57,16 @@ var storage = multer.diskStorage({ //multers disk storage settings
     filename: function(req, file, cb) {
         var datetimestamp = Date.now();
         cb(null, file.fieldname + '-' + datetimestamp + '.' + file.originalname.split('.')[file.originalname.split('.').length - 1]);
+    }
+});*/
+
+var storage = multer.diskStorage({ //multers disk storage settings
+    destination: function (req, file, cb) {
+        cb(null, 'public/uploads/');
+    },
+    filename: function (req, file, cb) {
+        var datetimestamp = Date.now();
+        cb(null, file.fieldname + '-' + datetimestamp + '.' + file.originalname.split('.')[file.originalname.split('.').length -1]);
     }
 });
 

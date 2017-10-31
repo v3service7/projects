@@ -56,7 +56,7 @@ const appRoutes: Routes = [
         { path: 'business', component: CustomerBusinessComponent, canActivate: [CustomerAuthGuard], children :[
             { path: '', component: CustomerBusinessListComponent, },
             { path: 'add', component: CustomerBusinessAddComponent, },
-            { path: 'document-update/:id', component: CustomerBusinessDocumentComponent, },
+            { path: 'document-update', component: CustomerBusinessDocumentComponent, },
             { path: ':id', component: CustomerBusinessEditComponent, },
         ]},
    	]},

@@ -54,6 +54,7 @@ export class CustomerListComponent implements OnInit {
         private customerService: CustomerService,
         private router: Router,
         private route: ActivatedRoute,
+        private adminService: AdminService,
         private _flashMessagesService: FlashMessagesService
     ){ 
         this.currentAdmin = JSON.parse(localStorage.getItem('currentAdmin'));
@@ -64,7 +65,7 @@ export class CustomerListComponent implements OnInit {
     }
 
     getList(){
-        this.customerService.customerList().subscribe(
+        this.adminService.customerList().subscribe(
             (data) => {
                 if (!data.error) {
                     this.customers = data.message
@@ -78,7 +79,7 @@ export class CustomerListComponent implements OnInit {
 
     private deleteCustomer(id) {
         if(confirm("Are you sure to delete ?")) {
-            this.customerService.customerDelete(id).subscribe(data => {
+            this.adminService.customerDelete(id).subscribe(data => {
                 if (!data.error) {
                     this._flashMessagesService.show('Customer Deleted Successfully', { cssClass: 'alert-success', timeout: 5000 });
                 }
@@ -183,7 +184,7 @@ export class CustomerAddComponent implements OnInit {
     }
 
     customerAdd(){
-        this.customerService.customerAdd(this.customerAddForm.value).subscribe(
+        this.customerService.customerRegister(this.customerAddForm.value).subscribe(
             (data) => {
                 if (!data.error) {
                     this._flashMessagesService.show('Customer created successfully', { cssClass: 'alert-success', timeout: 5000 });
@@ -261,6 +262,7 @@ export class CustomerEditComponent implements OnInit {
         private customerService: CustomerService,
         private router: Router,
         private route: ActivatedRoute,
+        private adminService: AdminService,
         private _flashMessagesService: FlashMessagesService
     ){ 
         //this.currentAdmin = JSON.parse(localStorage.getItem('currentAdmin'));
@@ -299,7 +301,7 @@ export class CustomerEditComponent implements OnInit {
     }*/
 
     customerUpdate(){
-        this.customerService.customerUpdate(this.customerAddForm.value).subscribe(
+        this.adminService.customerUpdate(this.customerAddForm.value).subscribe(
             (data) => {
                 if (!data.error) {
                     this._flashMessagesService.show('Customer Updated successfully', { cssClass: 'alert-success', timeout: 5000 });

@@ -89,8 +89,12 @@ export class CustomerBusinessListComponent implements OnInit {
     private deleteBusiness(id) {
         if(confirm("Are you sure to delete ?")) {
             this.businessService.businessDelete(id).subscribe(data => {
-                this._flashMessagesService.show('Business deleted Successfully', { cssClass: 'alert-success', timeout: 5000 });
-                this.getList(this.currentCustomer._id);
+                if (!data.error) {
+                    this._flashMessagesService.show('Business deleted Successfully', { cssClass: 'alert-success', timeout: 5000 });
+                    this.getList(this.currentCustomer._id);
+                }else{
+                    this._flashMessagesService.show('Network/ Server Issue. Please Try Again!', { cssClass: 'alert-success', timeout: 5000 });
+                }
             });
         }
     }
@@ -234,7 +238,7 @@ export class CustomerBusinessAddComponent implements OnInit {
     }
 
     businessAdd(){
-        this.businessService.businessAdd(this.businessAddForm.value).subscribe(
+        /*this.businessService.businessAdd(this.businessAddForm.value).subscribe(
             (data) => {
                 if (!data.error) {
                     this._flashMessagesService.show('Business Added Successfully', { cssClass: 'alert-success', timeout: 5000 });
@@ -242,17 +246,25 @@ export class CustomerBusinessAddComponent implements OnInit {
                 }
             },
             (err)=>{
-                this._flashMessagesService.show('Something went wrong', { cssClass: 'danger-alert', timeout: 5000 });
-                console.log('kfgbhj')
+                this._flashMessagesService.show('Network/ Server Issue. Please Try Again!', { cssClass: 'danger-alert', timeout: 5000 });
             }
-        );
+        );*/
+
+        console.log("this.businessAddForm.value");
+        console.log(this.businessAddForm.value);
+
+        this._flashMessagesService.show('Upload Documents to add Business', { cssClass: 'alert-warning', timeout: 5000 });
+        let bID = 'business_'+this.currentCustomer._id;
+        localStorage.setItem(bID, JSON.stringify(this.businessAddForm.value));
+        this.router.navigate(['customer/business/document-update']);
+
+
     }
 
     customer(id){
         this.customerService.customer(id).subscribe(
             (data) => {
             if (!data.error) {
-                console.log(data)
                 this.currentCustomer = data.message;
                 let name = this.currentCustomer.firstname+' '+this.currentCustomer.lastname
                 this.businessAddForm.controls["ownerName"].setValue(name);
@@ -311,20 +323,44 @@ export class CustomerBusinessDocumentComponent implements OnInit {
 
     ngOnInit() {
         this.businessAddForm = this.lf.group({
-            _id: ['', Validators.required],
-            passportFile: [''],
-            visaFile: [''],
-            emiRatesIdFile: [''],
-            tradeLicenseFile: [''],
-            articleAndPartnershipFile: [''],
-            certificateOfIncorporationFile: [''],
-            bankStatementFile: [''],
+            businessName: [],
+            typeOfOrg: [],
+            tradeLicenseNumber: [],
+            issuingAuthority: [],
+            tradeLicenseExpiry: [],
+            emiRate: [],
+            phoneNumber: [],
+            ownerName: [],
+            mobileNumber: [],
+            passportNumber: [],
+            nationality: [],
+            emiRateIdNumber: [],
+            ownerId: [],
+            plan: [],
+            bankName: [],
+            bankBranch: [],
+            bankAccountNumber: [],
+            certificateOfIncorporationNo: [],
+            vattrn: [],
+            siteVisit: [],
+            noDaysRequired: [],
+
+
+            passportFile: ['', Validators.required],
+            visaFile: ['', Validators.required],
+            emiRatesIdFile: ['', Validators.required],
+            tradeLicenseFile: ['', Validators.required],
+            articleAndPartnershipFile: ['', Validators.required],
+            certificateOfIncorporationFile: ['', Validators.required],
+            bankStatementFile: ['', Validators.required],
         });
-        this.route.params.subscribe((params: Params) => {
+        /*this.route.params.subscribe((params: Params) => {
             let id = params['id'];  
             this.business(id);
-        });
-        this._flashMessagesService.show('Upload Documents', { cssClass: 'alert-info', timeout: 3000 });
+        });*/
+
+        let bID = 'business_'+this.currentCustomer._id
+        this.businessAddForm.patchValue(JSON.parse(localStorage.getItem(bID)));
     }
 
     onChange(event,fileType) {
@@ -332,11 +368,11 @@ export class CustomerBusinessDocumentComponent implements OnInit {
         this.uploader.onCompleteItem = (item: any, response: any, status: any, headers: any) => {
             var responsePath = JSON.parse(response);
             this.businessAddForm.controls[fileType].setValue(responsePath.filename);
-            this.businesses[fileType]= responsePath.filename;
+            /*this.businesses[fileType]= responsePath.filename;*/
         };
     }
 
-    customer(id){
+    /*customer(id){
         this.customerService.customer(id).subscribe(
             (data) => {
               if (!data.error) {
@@ -348,9 +384,9 @@ export class CustomerBusinessDocumentComponent implements OnInit {
                 console.log('kfgbhj')
             }
         );
-    }
+    }*/
 
-    business(id){
+    /*business(id){
         this.businessService.business(id).subscribe(
             (data) => {
                 if (!data.error) {
@@ -363,24 +399,23 @@ export class CustomerBusinessDocumentComponent implements OnInit {
                 console.log('kfgbhj')
             }
         );
-    }
+    }*/
 
     businessDocument(){
-        this.businessService.businessUpdate(this.businessAddForm.value).subscribe(
+        this.businessService.businessAdd(this.businessAddForm.value).subscribe(
             (data) => {
                 if (!data.error) {
-                    this._flashMessagesService.show('Documents Uploaded Successfully', { cssClass: 'alert-success', timeout: 5000 });
+                    this._flashMessagesService.show('Business Added Successfully', { cssClass: 'alert-success', timeout: 5000 });
                     this.router.navigate(['customer/business']);
                 }
             },
             (err)=>{
-                this._flashMessagesService.show('Something went wrong', { cssClass: 'danger-alert', timeout: 5000 });
-                console.log('kfgbhj')
+                this._flashMessagesService.show('Network/ Server Issue. Please Try Again!', { cssClass: 'danger-alert', timeout: 5000 });
             }
         );
     }
 
-    getList(id){
+    /*getList(id){
         this.businessService.businessList(id).subscribe(
             (data) => {
               if (!data.error) {
@@ -391,7 +426,7 @@ export class CustomerBusinessDocumentComponent implements OnInit {
                 console.log('kfgbhj')
             }
         );
-    }
+    }*/
 }
 
 @Component({

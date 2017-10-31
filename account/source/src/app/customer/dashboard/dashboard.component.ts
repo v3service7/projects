@@ -199,10 +199,12 @@ export class CustomerProfileComponent implements OnInit {
     customerUpdate(){
         this.customerService.customerUpdate(this.customerAddForm.value).subscribe(
             (data) => {
-              if (!data.error) {
-                  this._flashMessagesService.show('Profile updated Successfully', { cssClass: 'alert-success', timeout: 5000 });
-                  this.customer(this.customerAddForm.value._id);
-                  this.router.navigate(['customer/dashboard']);
+                if (!data.error) {
+                    this._flashMessagesService.show('Profile updated Successfully', { cssClass: 'alert-success', timeout: 5000 });
+                    this.customer(this.currentCustomer._id);
+                    setTimeout(()=>{
+                        this.router.navigate(['customer/dashboard']);
+                    },2000)
                 }
             },
             (err)=>{
@@ -219,8 +221,9 @@ export class CustomerProfileComponent implements OnInit {
                   this._flashMessagesService.show(data.message, { cssClass: 'alert-success', timeout: 5000 });
                   this.router.navigate(['customer/dashboard']);
                 }else{
-                    this.cpForm.reset();
                     this._flashMessagesService.show(data.message, { cssClass: 'danger-alert', timeout: 5000 });
+                    this.cpForm.reset();
+                    this.cpForm.controls["_id"].setValue(this.currentCustomer._id);
                 }
             },
             (err)=>{

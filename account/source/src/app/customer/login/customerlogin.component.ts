@@ -73,7 +73,23 @@ export class CustomerLoginComponent implements OnInit {
     }
 
     login(){
-        this.customerService.customerLogin(this.loginForm.value).subscribe(
+        this.customerService.authenticateUser(this.loginForm.value).subscribe(data => {
+            console.log("data");
+            console.log(data);
+            if(data.success){
+                this.customerService.storeUserData(data.token, data.user);
+                this._flashMessagesService.show('You are now logged in', {
+                    cssClass: 'alert-success',
+                    timeout: 5000});
+                this.router.navigate([this.returnUrl]);
+            } else {
+                this._flashMessagesService.show(data.msg, {
+                    cssClass: 'danger-alert',
+                    timeout: 5000});
+                this.router.navigate(['customer/login']);
+            }
+        });
+        /*this.customerService.customerLogin(this.loginForm.value).subscribe(
             (data) => {
                 if (!data.error) {
                     if (data.success) {                    
@@ -86,7 +102,7 @@ export class CustomerLoginComponent implements OnInit {
                     }
                 }else{
                     this._flashMessagesService.show(data.message, { cssClass: 'danger-alert', timeout: 5000 });
-                    /*this.err = data.message;*/
+                    this.err = data.message;
                     this.loginForm.reset();
                 }
             },
@@ -94,7 +110,7 @@ export class CustomerLoginComponent implements OnInit {
                 this.err = 'Unable to reach Server';
                 //this.loginForm.reset();
             }
-            );
+        );*/
     }
 }
 
@@ -377,9 +393,9 @@ export class CustomerResetPasswordComponent implements OnInit {
             let custObj = {};
             custObj['_id']=this.id;
             custObj['password'] = this.resetPassForm.value.password;
-            this.customerService.customerUpdate(custObj).subscribe((data)=>{
+            this.customerService.resetPassword(custObj).subscribe((data)=>{
                 if (!data.error) {
-                    this._flashMessagesService.show('Password changed Successfully', { cssClass: 'alert-success', timeout: 5000 });
+                    this._flashMessagesService.show(data.message, { cssClass: 'alert-success', timeout: 5000 });
                     this.router.navigate(['customer/login']);
                 }else{
                     this._flashMessagesService.show('Server not responding', { cssClass: 'danger-alert', timeout: 5000 });

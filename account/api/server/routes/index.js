@@ -1,5 +1,6 @@
 module.exports = (function() {
     'use strict';
+    const passport = require('passport');
     const jwt = require('jsonwebtoken');
     const express = require('express');
     const router = express.Router();
@@ -9,7 +10,7 @@ module.exports = (function() {
 
 
     /*load Model*/
-    let adminModel = require("../model/admin.js");
+    /*let adminModel = require("../model/admin.js");*/
     let customerModel = require("../model/customer.js");
     var emails = require('../mail/emailConfig.js');
 
@@ -17,7 +18,6 @@ module.exports = (function() {
     router.post('/customer-verify', function(req, res) {
         let response = {};
         customerModel.findOne({ 'email_token': req.body.token }, function(err, customer) {
-
             if (err) {
                 response = { "error": true, "message": 'Connection Lost!' };
                 return res.json(response);
@@ -32,7 +32,7 @@ module.exports = (function() {
                         if (err) {
                             response = { "error": true, "message": 'Update Unsuccessful! Please Try Again' };
                         } else {
-                            response = { "error": false, "message": '“Your account successfully activated, please click here to login' };
+                            response = { "error": false, "message": 'Your account successfully activated, please click here to login' };
                         }
                         return res.json(response);
                     });
@@ -48,7 +48,7 @@ module.exports = (function() {
 
     router.get('/admin-getall', function(req, res, next) {
         var response = {};
-        customerModel.find({}, null, { sort: { created_at: 1 } }, function(err, admins) {
+        customerModel.find({role : 'Admin'}, null, { sort: { created_at: 1 } }, function(err, admins) {
             if (err) {
                 response = { "error": true, "message": err };
             } else {
@@ -60,18 +60,22 @@ module.exports = (function() {
 
     router.post('/admin-register', function(req, res) {
         let response = {};
-        let adminObj = new customerModel(req.body);
-        adminObj.save(function(err, data) {
+        req.body.role = 'Admin';
+        /*let adminObj = new customerModel(req.body);
+        adminObj.save(function(err, data) {*/
+        let newUser = new customerModel(req.body);
+
+        customerModel.addUser(newUser, (err, user) => {
             if (err) {
                 response = { "error": true, "message": err };
             } else {
-                response = { "error": false, "message": data };
+                response = { "error": false, "message": 'Admin Registered!' };
             }
             return res.status(200).json(response);
         });
     });
 
-    router.put('/admin-update/:id', function(req, res) {
+    router.put('/admin-update/:id', passport.authenticate('jwt', {session:false}), function(req, res) {
         var response = {};
         customerModel.findByIdAndUpdate(req.params.id, req.body, function(err, admin) {
             if (err) {
@@ -83,28 +87,50 @@ module.exports = (function() {
         });
     });
 
-    router.put('/admin-change-password/:id', function(req, res) {
-        var response = {};
-        customerModel.findById(req.params.id, function(err, admin) {
-            if (admin.password == req.body.password) {
-                var newObject = {};
-                newObject.password = req.body.newpassword;
-                customerModel.findByIdAndUpdate(req.params.id, newObject, function(err, kitchen) {
-                    if (err) {
-                        response = { "error": true, "message": err };
-                    } else {
-                        response = { "error": false, "message": "Password changed Successfully " };
-                    }
+    router.put('/admin-change-password/:id', passport.authenticate('jwt', {session:false}), function(req, res) {
+        var response={};
+        customerModel.findById(req.params.id, (err, user) => {
+            customerModel.comparePassword(req.body.password, user.password, (err, isMatch) => {
+                if(err) throw err;
+                if(isMatch){
+                    customerModel.encryptPassword(req.body.newpassword, (err, hash) => {
+                        var newObject = {};
+                        newObject.password = hash;
+                        customerModel.findByIdAndUpdate(req.params.id, newObject, (err, customer) => {
+                            if (err) {
+                                response = { "error": true, "message": err };
+                            } else {
+                                response = { "error": false, "message": "Password Changed Successfully" };
+                            }
+                            res.json(response);
+                        });
+                    });          
+                } else {
+                    response = { "error": true, "message": "Password Incorect" };
                     res.json(response);
-                });
-            } else {
-                response = { "error": true, "message": "Password Incorect" };
-                res.json(response);
-            };
+                }
+            });
         });
     });
 
-    router.get('/admin-get/:id', function(req, res) {
+    router.put('/admin-reset-password/:id', function(req, res) {
+        var response={};
+        customerModel.encryptPassword(req.body.password, (err, hash) => {
+            var newObject = {};
+            newObject.password = hash;
+            console.log(hash);
+            customerModel.findByIdAndUpdate(req.params.id, newObject, (err, customer) => {
+                if (err) {
+                    response = { "error": true, "message": err };
+                } else {
+                    response = { "error": false, "message": "Password Reset Successfully" };
+                }
+                res.json(response);
+            });
+        });
+    });
+
+    router.get('/admin-get/:id', passport.authenticate('jwt', {session:false}), function(req, res) {
         var response = {};
         customerModel.findById(req.params.id, function(err, customer) {
             if (err) {
@@ -148,10 +174,9 @@ module.exports = (function() {
         });
     });
 
-
     router.post('/admin-forget-password', function(req, res, next) {
         var response = {};
-        customerModel.find({ email: req.body.email }, function(err, data) {
+        customerModel.find({ email: req.body.email, role : 'Admin'}, function(err, data) {
             if (err) {
                 req.flash('error', 'something went wrong!');
             } else {
@@ -227,17 +252,20 @@ module.exports = (function() {
     });
 
     // User Add
-    router.post('/customer-register', (req, res, next) => {
+    /*router.post('/customer-register', (req, res, next) => {
         let newUser = new customerModel(req.body);
 
         customerModel.addUser(newUser, (err, user) => {
-            if(err){          
+            console.log("err");
+            console.log(err);
+            console.log(user);
+            if(err){
                 res.json({success: false, msg:err});
             } else {
                 res.json({success: true, msg:'User registered'});
             }
         });
-    }); 
+    }); */
 
     router.get('/customer-logout', function(req, res) {
         var response = {};
@@ -266,30 +294,34 @@ module.exports = (function() {
     });
 
     router.put('/customer-change-password/:id', function(req, res) {
-        var response = {};
-        customerModel.findById(req.params.id, function(err, admin) {
-            if (admin.password == req.body.password) {
-                var newObject = {};
-                newObject.password = req.body.newpassword;
-                customerModel.findByIdAndUpdate(req.params.id, newObject, function(err, customer) {
-                    if (err) {
-                        response = { "error": true, "message": err };
-                    } else {
-                        response = { "error": false, "message": "Password changed Successfully " };
-                    }
+        var response={};
+        customerModel.findById(req.params.id, (err, user) => {
+            customerModel.comparePassword(req.body.password, user.password, (err, isMatch) => {
+                if(err) throw err;
+                if(isMatch){
+                    customerModel.encryptPassword(req.body.newpassword, (err, hash) => {
+                        var newObject = {};
+                        newObject.password = hash;
+                        customerModel.findByIdAndUpdate(req.params.id, newObject, (err, customer) => {
+                            if (err) {
+                                response = { "error": true, "message": err };
+                            } else {
+                                response = { "error": false, "message": "Password Changed Successfully" };
+                            }
+                            res.json(response);
+                        });
+                    });          
+                } else {
+                    response = { "error": true, "message": "Password Incorect" };
                     res.json(response);
-                });
-            } else {
-                response = { "error": true, "message": "Password Incorect" };
-                res.json(response);
-            };
+                }
+            });
         });
     });
 
-
     router.post('/customer-forget-password', function(req, res, next) {
         var response = {};
-        customerModel.find({ email: req.body.email }, function(err, data) {
+        customerModel.find({ email: req.body.email, role : 'User' }, function(err, data) {
             if (err) {
                 req.flash({ error: true, message: 'Unable to reach Server!'});
             } else {
@@ -300,6 +332,23 @@ module.exports = (function() {
                     res.json({ error: true, message: 'Email Id does not exist' });
                 }
             };
+        });
+    });
+
+    router.put('/customer-reset-password/:id', function(req, res) {
+        var response={};
+        customerModel.encryptPassword(req.body.password, (err, hash) => {
+            var newObject = {};
+            newObject.password = hash;
+            console.log(hash);
+            customerModel.findByIdAndUpdate(req.params.id, newObject, (err, customer) => {
+                if (err) {
+                    response = { "error": true, "message": err };
+                } else {
+                    response = { "error": false, "message": "Password Reset Successfully" };
+                }
+                res.json(response);
+            });
         });
     });
 

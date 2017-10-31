@@ -9,16 +9,28 @@ import * as globalVariable from "../global";
 export class BusinessService {
     authToken: any;
     constructor(private http: Http) {
-        const token = localStorage.getItem('id_token_admin');
-        this.authToken = token;
+        this.loadToken();
     }
 
+    loadToken(){
+        /*const token = localStorage.getItem('id_token_admin');
+        this.authToken = token;*/
+        if (localStorage.getItem('id_token_admin')) {
+            this.authToken = localStorage.getItem('id_token_admin');
+        }
+        
+        if (localStorage.getItem('id_token_customer')) {
+            this.authToken = localStorage.getItem('id_token_customer');
+        }
+    }
+
+    /*Business list of particular Customer*/
     public businessList(id){
         let headers = new Headers();
         this.loadToken();
         headers.append('Authorization', this.authToken);
         headers.append('Content-Type','application/json');
-        return this.http.get(globalVariable.url+'api/business-list/'+id,{headers: headers})
+        return this.http.get(globalVariable.url+'api/business-list/'+ id, {headers: headers})
         .map((response: Response) => {
             let user = response.json();
             return user;
@@ -30,7 +42,7 @@ export class BusinessService {
         this.loadToken();
         headers.append('Authorization', this.authToken);
         headers.append('Content-Type','application/json');
-        return this.http.get(globalVariable.url+'api/business/'+id)
+        return this.http.get(globalVariable.url+'api/business/'+ id, {headers: headers})
         .map((response: Response) => {
             let user = response.json();
             return user;
@@ -42,7 +54,7 @@ export class BusinessService {
         this.loadToken();
         headers.append('Authorization', this.authToken);
         headers.append('Content-Type','application/json');
-        return this.http.post(globalVariable.url+'api/business',data)
+        return this.http.post(globalVariable.url+'api/business', data, {headers: headers})
         .map((response: Response) => {
             let user = response.json();
             return user;
@@ -54,7 +66,7 @@ export class BusinessService {
         this.loadToken();
         headers.append('Authorization', this.authToken);
         headers.append('Content-Type','application/json');
-        return this.http.put(globalVariable.url+'api/business/'+data._id,data)
+        return this.http.put(globalVariable.url+'api/business/'+data._id, data, {headers: headers})
         .map((response: Response) => {
             let user = response.json();
             return user;
@@ -66,15 +78,11 @@ export class BusinessService {
         this.loadToken();
         headers.append('Authorization', this.authToken);
         headers.append('Content-Type','application/json');
-        return this.http.delete(globalVariable.url+'api/business/'+id)
+        return this.http.delete(globalVariable.url+'api/business/'+ id, {headers: headers})
         .map((response: Response) => {
             let user = response.json();
             return user;
         });
     }
 
-    loadToken(){
-        const token = localStorage.getItem('id_token_admin');
-        this.authToken = token;
-    }
 }
