@@ -59,9 +59,9 @@ router.get('/', passport.authenticate('jwt', {session:false}), (req, res, next) 
     var response={};
     User.find({role: "User"}, null, {sort: {created_at: 1}}, (err, data) => {
         if (err) {
-            response = {"success" : false,"message" : "Error fetching data"};
+            response = {"error" : true,"message" : "Error fetching data"};
         } else{
-            response = {"success" : true,"message" : data};
+            response = {"error" : false,"message" : data};
         };        
         res.json(response);
     }); 
@@ -69,7 +69,7 @@ router.get('/', passport.authenticate('jwt', {session:false}), (req, res, next) 
 
 
 // User Add
-router.post('/', passport.authenticate('jwt', {session:false}), (req, res, next) => {
+router.post('/', (req, res, next) => {
   let newUser = new User({
     firstname: req.body.firstname,
     lastname: req.body.lastname,
@@ -78,14 +78,15 @@ router.post('/', passport.authenticate('jwt', {session:false}), (req, res, next)
     email: req.body.email,
     username: req.body.username,
     password: req.body.password,
+    role: req.body.role,
     status: true
   });
 
   User.addUser(newUser, (err, user) => {
     if(err){          
-      res.json({success: false, msg:err});
+      res.json({error: true, msg:err});
     } else {
-      res.json({success: true, msg:'User registered'});
+      res.json({error: false, msg:'User registered'});
     }
   });
 }); 
@@ -96,9 +97,9 @@ router.put('/:id', passport.authenticate('jwt', {session:false}), (req, res) => 
     var response={};
     User.findByIdAndUpdate(req.params.id, req.body, (err, user) => {
             if(err) {
-                response = {"success" : false,"message" : err};
+                response = {"error" : true,"message" : err};
             } else {
-                response = {"success" : true,"message" : user};
+                response = {"error" : false,"message" : user};
             }
             res.json(response);
         });
@@ -106,28 +107,52 @@ router.put('/:id', passport.authenticate('jwt', {session:false}), (req, res) => 
 
 // User Change Password
 router.put('/changePassword/:id', passport.authenticate('jwt', {session:false}), (req, res) => {    
-    var response={};
-    User.findById(req.params.id, (err, user) => {
-        if (user.password == req.body.password) {
-            var newObject = {};
-            newObject.password = req.body.newpassword;
-            User.findByIdAndUpdate(req.params.id, newObject, (err, customer) => {
-                if (err) {
-                    response = { "error": true, "message": err };
-                } else {
-                    response = { "error": false, "message": "Password changed Successfully " };
-                }
-                res.json(response);
-            });
-        } else {
-            response = { "error": true, "message": "Password Incorect" };
+  var response={};
+  User.findById(req.params.id, (err, user) => {
+    User.comparePassword(req.body.password, user.password, (err, isMatch) => {
+      if(err) throw err;
+      if(isMatch){
+        User.encryptPassword(req.body.newpassword, (err, hash) => {
+          var newObject = {};
+          newObject.password = hash;
+          User.findByIdAndUpdate(req.params.id, newObject, (err, customer) => {
+            if (err) {
+              response = { "error": true, "message": err };
+            } else {
+              response = { "error": false, "message": "Password Changed Successfully" };
+            }
             res.json(response);
-        };
+          });
+        });          
+      } else {
+        response = { "error": true, "message": "Password Incorect" };
+        res.json(response);
+      }
     });
+  });
+});
+
+// User Reset Password
+router.put('/resetPassword/:id', (req, res) => {    
+  var response={};
+  User.encryptPassword(req.body.password, (err, hash) => {
+    var newObject = {};
+    newObject.password = hash;
+    console.log(hash);
+    User.findByIdAndUpdate(req.params.id, newObject, (err, customer) => {
+      if (err) {
+        response = { "error": true, "message": err };
+      } else {
+        response = { "error": false, "message": "Password Reset Successfully" };
+      }
+      res.json(response);
+    });
+  });
 });
 
 
-router.post('/forget-password', function(req, res, next) {
+// User Forgot Password
+router.post('/forgotPassword', function(req, res, next) {
     var response = {};
     User.find({ email: req.body.email }, function(err, data) {
         if (err) {
@@ -143,28 +168,15 @@ router.post('/forget-password', function(req, res, next) {
     });
 });
 
-router.put('/customer-change-password/:id', function(req, res) {
-        var response = {};        
-        
-        User.findByIdAndUpdate(req.params.id, req.body, function(err, customer) {
-            if (err) {
-                response = { "error": true, "message": err };
-            } else {
-                response = { "error": false, "message": "Password changed Successfully " };
-            }
-            res.json(response);
-        });
-
-    });
 
 // Get User Profile by id
 router.get('/:id', passport.authenticate('jwt', {session:false}), (req,res) => {    
     var response={};
     User.findById(req.params.id, (err,data) => {
         if (err) {
-            response = {"success" : false,"message" : "Error fetching data"};
+            response = {"error" : true,"message" : "Error fetching data"};
         } else{
-            response = {"success" : true,"message" : data};
+            response = {"error" : false,"message" : data};
         };
         res.json(response);
     }); 
@@ -176,9 +188,9 @@ router.delete('/:id', passport.authenticate('jwt', {session:false}), (req,res) =
     var response={};
     User.remove({_id:req.params.id}, (err,data) => {
         if (err) {
-            response = {"success" : false,"message" : "Error fetching data"};
+            response = {"error" : true,"message" : "Error fetching data"};
         } else{
-            response = {"success" : true,"message" : "Deleted Successfully"};
+            response = {"error" : false,"message" : "Deleted Successfully"};
         };
         res.json(response);
     }); 

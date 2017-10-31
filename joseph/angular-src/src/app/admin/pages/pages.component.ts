@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router,ActivatedRoute,Params  } from '@angular/router';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
-
-/*service*/
+import { FlashMessagesService } from 'angular2-flash-messages';
 import { PagesService} from '../../services/pages.service';
 
 @Component({
@@ -11,20 +10,7 @@ import { PagesService} from '../../services/pages.service';
   styleUrls: ['./pages.component.css'],
 })
 export class AdminPagesComponent implements OnInit {
-    currentAdmin: any = {};
-    loginForm: FormGroup;
-    returnUrl: string;
-    err:any;
-
-      constructor(
-        private lf: FormBuilder, 
-        private router: Router,
-        private route: ActivatedRoute
-    )
-    { 
-        this.currentAdmin = JSON.parse(localStorage.getItem('currentAdmin'));
-    }
-
+    constructor() {}
     ngOnInit() {}
 }
 
@@ -34,19 +20,17 @@ export class AdminPagesComponent implements OnInit {
   styleUrls: ['./pages.component.css'],
 })
 export class PagesListComponent implements OnInit {
-    currentAdmin: any = {};
     plans: any=[];
     returnUrl: string;
     err:any;
 
-      constructor(
+    constructor(
         private lf: FormBuilder, 
         private pagesService: PagesService,
         private router: Router,
-        private route: ActivatedRoute
-    ){ 
-          this.currentAdmin = JSON.parse(localStorage.getItem('currentAdmin'));
-      }
+        private route: ActivatedRoute,
+        private _flashMessagesService: FlashMessagesService
+    ){}
 
     ngOnInit() {
         this.getList()
@@ -67,6 +51,7 @@ export class PagesListComponent implements OnInit {
 
     private deletePlan(id) {
         if(confirm("Are you sure to delete ?")) {
+            this._flashMessagesService.show('Page Deleted Successfully', { cssClass: 'alert-success', timeout: 3000 });
             this.pagesService.pageDelete(id).subscribe(data => {
                 this.getList();
             });
@@ -80,7 +65,6 @@ export class PagesListComponent implements OnInit {
   styleUrls: ['./pages.component.css'],
 })
 export class PagesAddComponent implements OnInit {
-    currentAdmin: any = {};
     planAddForm: FormGroup;
 
     formErrors = {
@@ -90,10 +74,10 @@ export class PagesAddComponent implements OnInit {
 
     validationMessages = {
         'title': {
-            'required':      'Name is required.',
+            'required':      'Page Title is required.',
         },
         'url': {
-            'required':      'Amount is required.',
+            'required':      'URL Text is required.',
         },
     };
 
@@ -101,10 +85,9 @@ export class PagesAddComponent implements OnInit {
         private lf: FormBuilder, 
         private pagesService: PagesService,
         private router: Router,
-        private route: ActivatedRoute
-    ){ 
-          this.currentAdmin = JSON.parse(localStorage.getItem('currentAdmin'));
-    }
+        private route: ActivatedRoute,
+        private _flashMessagesService: FlashMessagesService
+    ){}
 
     ngOnInit() {
         this.planAddForm = this.lf.group({
@@ -121,6 +104,7 @@ export class PagesAddComponent implements OnInit {
         this.pagesService.pageAdd(this.planAddForm.value).subscribe(
             (data) => {
               if (!data.error) {
+                  this._flashMessagesService.show('Page Added Successfully', { cssClass: 'alert-success', timeout: 3000 });
                   this.router.navigate(['admin/pages']);
                 }
             },
@@ -154,7 +138,6 @@ export class PagesAddComponent implements OnInit {
   styleUrls: ['./pages.component.css'],
 })
 export class PagesEditComponent implements OnInit {
-    currentAdmin: any = {};
 	currentCustomer: any = {};
     planAddForm: FormGroup;
 
@@ -165,10 +148,10 @@ export class PagesEditComponent implements OnInit {
 
     validationMessages = {
         'title': {
-            'required':      'Name is required.',
+            'required':      'Page Title is required.',
         },
         'url': {
-            'required':      'Amount is required.',
+            'required':      'URL Text is required.',
         },
     };
 
@@ -176,10 +159,9 @@ export class PagesEditComponent implements OnInit {
         private lf: FormBuilder, 
         private pagesService: PagesService,
         private router: Router,
-        private route: ActivatedRoute
-    ){ 
-          this.currentAdmin = JSON.parse(localStorage.getItem('currentAdmin'));
-    }
+        private route: ActivatedRoute,
+        private _flashMessagesService: FlashMessagesService
+    ){}
 
     ngOnInit() {
         this.planAddForm = this.lf.group({
@@ -203,6 +185,7 @@ export class PagesEditComponent implements OnInit {
         this.pagesService.pageUpdate(this.planAddForm.value).subscribe(
             (data) => {
               if (!data.error) {
+                  this._flashMessagesService.show('Page Updated Successfully', { cssClass: 'alert-success', timeout: 3000 });
                   this.router.navigate(['admin/pages']);
                 }
             },

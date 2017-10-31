@@ -32,7 +32,7 @@ currentAdmin: any = {};
     }
 
     forgetPassword(){
-        this.adminService.adminForgetPassword(this.loginForm.value).subscribe(
+        this.adminService.forgotPassword(this.loginForm.value).subscribe(
             (data) => {
                 if (data.status) {
                     this.router.navigate(['admin/login']);
@@ -107,20 +107,20 @@ export class AdminResetPasswordComponent implements OnInit {
             let custObj = {};
             custObj['_id']=this.id;
             custObj['password'] = this.resetPassForm.value.password;
-            this.adminService.changePassword(custObj).subscribe((data)=>{
+            this.adminService.resetPassword(custObj).subscribe((data)=>{
                 if (!data.error) {
-                	this.flashMessage.show('Password changed Successfully', {
+                	this.flashMessage.show(data.message, {
 			          cssClass: 'alert-success',
 			          timeout: 5000});
                     this.router.navigate(['admin/login']);
                     console.log("data");
                     console.log(data);
                 }else{
-                    this.flashMessage.show('Something Went Wrong', { cssClass: 'alert-danger', timeout: 5000 });
+                    this.flashMessage.show('Something Went Wrong', { cssClass: 'danger-alert', timeout: 5000 });
                 }
             });
         }else{
-            this.flashMessage.show('Password dont match. Please enter same password', { cssClass: 'alert-danger', timeout: 5000 });
+            this.flashMessage.show('Password dont match. Please enter same password', { cssClass: 'danger-alert', timeout: 5000 });
             this.resetPassForm.reset();
         }
     }

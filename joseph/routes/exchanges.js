@@ -12,7 +12,7 @@ module.exports = (function() {
 
     router.get('/', passport.authenticate('jwt', {session:false}), function(req, res, next) {
         var response = {};
-        exchangeModel.find({}, null, { sort: { created_at: 1 } }, function(err, plans) {
+        exchangeModel.find({}, null, { sort: { created_at: 1 } }).populate('user').exec(function(err, plans) {
             if (err) {
                 response = { "error": true, "message": err };
             } else {

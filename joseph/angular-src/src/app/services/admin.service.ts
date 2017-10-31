@@ -46,19 +46,28 @@ export class AdminService {
       .map(res => res.json());
   }
 
-  public changePassword(user){
+  changePassword(user){
     let headers = new Headers();
     this.loadToken();
     headers.append('Authorization', this.authToken);
     headers.append('Content-Type','application/json'); 
-    return this.http.put(globalVariable.url+'users/customer-change-password/'+user._id, user, {headers: headers})
+    return this.http.put(globalVariable.url+'users/changePassword/'+user._id, user, {headers: headers})
       .map(res => res.json());
-    }
+  }
 
-    public adminForgetPassword(data){
-        return this.http.post(globalVariable.url+'users/forget-password', data)
-        .map(res =>  res.json());
-    }
+  resetPassword(user){
+    let headers = new Headers();
+    this.loadToken();
+    headers.append('Authorization', this.authToken);
+    headers.append('Content-Type','application/json'); 
+    return this.http.put(globalVariable.url+'users/resetPassword/'+user._id, user, {headers: headers})
+      .map(res => res.json());
+  }
+
+  forgotPassword(data){
+    return this.http.post(globalVariable.url+'users/forgotPassword', data)
+    .map(res =>  res.json());
+  }
 
   storeUserData(token, user){
     localStorage.setItem('id_token_admin', token);

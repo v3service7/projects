@@ -1,16 +1,16 @@
 <div class="row">
-	<div class="col-md-8">
+	<div class="">
         <div class="card">
             <div class="card-header" data-background-color="green">
                 <h4 class="title">Add User</h4>
-                <p class="category">Complete User's profile</p>
+                <p class="category">Create User Profile</p>
             </div>
             <div class="card-content">
                 <form [formGroup]="customerAddForm" (ngSubmit)="customerAdd()">
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group label-floating">
-                                <label class="control-label">Fist Name</label>
+                                <label class="control-label">First Name <span>*</span></label>
                                 <input formControlName="firstname" type="text" class="form-control" autofocus>
                             </div>
                             <div *ngIf="formErrors.firstname" class="alert alert-danger">
@@ -19,7 +19,7 @@
                         </div>
                         <div class="col-md-6">
                             <div class="form-group label-floating">
-                                <label class="control-label">Last Name</label>
+                                <label class="control-label">Last Name <span>*</span></label>
                                 <input formControlName="lastname" type="text" class="form-control">
                             </div>
                             <div *ngIf="formErrors.lastname" class="alert alert-danger">
@@ -30,7 +30,7 @@
                     <div class="row">
                         <div class="col-md-4">
                             <div class="form-group label-floating">
-                                <label class="control-label">Username</label>
+                                <label class="control-label">Username <span>*</span></label>
                                 <input formControlName="username" type="text" class="form-control">
                             </div>
                             <div *ngIf="formErrors.username" class="alert alert-danger">
@@ -39,7 +39,7 @@
                         </div>
                         <div class="col-md-4">
                             <div class="form-group label-floating">
-                                <label class="control-label">Email address</label>
+                                <label class="control-label">Email address <span>*</span></label>
                                 <input formControlName="email" type="email" class="form-control">
                             </div>
                             <div *ngIf="formErrors.email" class="alert alert-danger">
@@ -48,7 +48,7 @@
                         </div>
                         <div class="col-md-4">
                             <div class="form-group label-floating">
-                                <label class="control-label">Phone Number</label>
+                                <label class="control-label">Phone Number <span>*</span></label>
                                 <input formControlName="phonenumber" type="text" class="form-control">
                             </div>
                             <div *ngIf="formErrors.phonenumber" class="alert alert-danger">
@@ -59,7 +59,7 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group label-floating">
-                                <label class="control-label">Password</label>
+                                <label class="control-label">Password <span>*</span></label>
                                 <input formControlName="password" type="password" class="form-control" (keyup)="matchpasswordreg()">
                             </div>
                             <div *ngIf="formErrors.password" class="alert alert-danger">
@@ -68,16 +68,16 @@
                         </div>
                         <div class="col-md-6">
                             <div class="form-group label-floating">
-                                <label class="control-label">Confirm Password</label>
+                                <label class="control-label">Confirm Password <span>*</span></label>
                                 <input formControlName="newpassword" type="password" class="form-control" (keyup)="matchpasswordreg()">
                             </div>
                             <div *ngIf="formErrors.newpassword" class="alert alert-danger">
                                 {{ formErrors.newpassword }}
                             </div>
-                            <div style="padding: 3px;" class="alert alert-danger" *ngIf="MutchPassword">Password not match</div>
+                            <div style="padding: 3px;" class="alert alert-danger" *ngIf="MutchPassword">Password does not match</div>
                         </div>
                     </div>
-                    <button type="submit" class="btn btn-success pull-right" [disabled]="!customerAddForm.valid">Save Customer</button>
+                    <button type="submit" class="btn btn-success pull-right" [disabled]="!customerAddForm.valid">Save User</button>
                     <div class="clearfix"></div>
                 </form>
             </div>

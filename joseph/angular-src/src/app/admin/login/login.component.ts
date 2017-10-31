@@ -36,7 +36,7 @@ export class LoginComponent implements OnInit {
         this.router.navigate(['admin/dashboard']);
       } else {
         this.flashMessage.show(data.msg, {
-          cssClass: 'alert-danger',
+          cssClass: 'danger-alert',
           timeout: 5000});
         this.router.navigate(['admin/login']);
       }

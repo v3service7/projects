@@ -1,16 +1,16 @@
 <div class="row">
-    <div class="col-md-8">
+    <div class="">
         <div class="card">
             <div class="card-header" data-background-color="green">
-                <h4 class="title">Udate Exchange Account</h4>
-                <p class="category">Create Exchange Account for user</p>
+                <h4 class="title">Edit Exchange Account</h4>
+                <p class="category">Update Exchange Account for user</p>
             </div>
             <div class="card-content">
                 <form [formGroup]="planAddForm" (ngSubmit)="planUpdate()">
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label class="control-label">Name <span>*</span></label>
+                                <label class="control-label">User <span>*</span></label>
                                 <select  formControlName="user" class="form-control">
                                     <option *ngFor="let user of users" [value]="user._id">{{user.firstname}}</option>
                                 </select>
@@ -21,7 +21,7 @@
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label class="control-label">Nick Name</label>
+                                <label class="control-label">Nick Name <span>*</span></label>
                                 <input formControlName="nickName" type="text" class="form-control">
                             </div>
                             <div *ngIf="formErrors.nickName" class="alert alert-danger">
@@ -32,7 +32,7 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label class="control-label">Exchange Name <span>*</span></label>
+                                <label class="control-label">Exchange API <span>*</span></label>
                                 <select  formControlName="exchangeName" class="form-control">
                                     <option *ngFor="let exchangeName of exchangeNames" [value]="exchangeName">{{exchangeName}}</option>
                                 </select>
@@ -55,8 +55,8 @@
                     </div>
                     <div class="row">
                         <div class="col-md-6">
-                            <div class="form-group label-floating">
-                                <label class="control-label">API key</label>
+                            <div class="form-group">
+                                <label class="control-label">API key <span>*</span></label>
                                 <input formControlName="apiKey" type="text" class="form-control">
                             </div>
                             <div *ngIf="formErrors.apiKey" class="alert alert-danger">
@@ -64,8 +64,8 @@
                             </div>
                         </div>
                         <div class="col-md-6">
-                            <div class="form-group label-floating">
-                                <label class="control-label">Secret Key</label>
+                            <div class="form-group">
+                                <label class="control-label">Secret Key <span>*</span></label>
                                 <input formControlName="secretKey" type="text" class="form-control">
                             </div>
                             <div *ngIf="formErrors.secretKey" class="alert alert-danger">

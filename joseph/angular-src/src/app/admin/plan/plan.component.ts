@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router,ActivatedRoute,Params  } from '@angular/router';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
-
-/*service*/
+import { FlashMessagesService } from 'angular2-flash-messages';
 import { PlanService} from '../../services/plan.service';
 
 @Component({
@@ -11,19 +10,8 @@ import { PlanService} from '../../services/plan.service';
   styleUrls: ['./plan.component.css'],
 })
 export class AdminPlanComponent implements OnInit {
-    currentAdmin: any = {};
-    loginForm: FormGroup;
-    returnUrl: string;
-    err:any;
 
-      constructor(
-        private lf: FormBuilder, 
-        private router: Router,
-        private route: ActivatedRoute
-    )
-    { 
-        this.currentAdmin = JSON.parse(localStorage.getItem('currentAdmin'));
-    }
+    constructor() {}
 
     ngOnInit() {}
 }
@@ -34,19 +22,17 @@ export class AdminPlanComponent implements OnInit {
   styleUrls: ['./plan.component.css'],
 })
 export class PlanListComponent implements OnInit {
-    currentAdmin: any = {};
     plans: any=[];
     returnUrl: string;
     err:any;
 
-      constructor(
+    constructor(
         private lf: FormBuilder, 
         private planService: PlanService,
         private router: Router,
-        private route: ActivatedRoute
-    ){ 
-          this.currentAdmin = JSON.parse(localStorage.getItem('currentAdmin'));
-      }
+        private route: ActivatedRoute,
+        private _flashMessagesService: FlashMessagesService
+    ){}
 
     ngOnInit() {
         this.getList()
@@ -67,6 +53,7 @@ export class PlanListComponent implements OnInit {
 
     private deletePlan(id) {
         if(confirm("Are you sure to delete ?")) {
+            this._flashMessagesService.show('Plan Deleted Successfully', { cssClass: 'alert-success', timeout: 5000 });
             this.planService.planDelete(id).subscribe(data => {
                 this.getList();
             });
@@ -80,7 +67,6 @@ export class PlanListComponent implements OnInit {
   styleUrls: ['./plan.component.css'],
 })
 export class PlanAddComponent implements OnInit {
-    currentAdmin: any = {};
     planAddForm: FormGroup;
 
     formErrors = {
@@ -90,7 +76,7 @@ export class PlanAddComponent implements OnInit {
 
     validationMessages = {
         'name': {
-            'required':      'Name is required.',
+            'required':      'Plan Name is required.',
         },
         'amount': {
             'required':      'Amount is required.',
@@ -101,10 +87,9 @@ export class PlanAddComponent implements OnInit {
         private lf: FormBuilder, 
         private planService: PlanService,
         private router: Router,
-        private route: ActivatedRoute
-    ){ 
-          this.currentAdmin = JSON.parse(localStorage.getItem('currentAdmin'));
-    }
+        private route: ActivatedRoute,
+        private _flashMessagesService: FlashMessagesService
+    ){}
 
     ngOnInit() {
         this.planAddForm = this.lf.group({
@@ -121,6 +106,7 @@ export class PlanAddComponent implements OnInit {
         this.planService.planAdd(this.planAddForm.value).subscribe(
             (data) => {
               if (!data.error) {
+                  this._flashMessagesService.show('Plan Added Successfully', { cssClass: 'alert-success', timeout: 5000 });
                   this.router.navigate(['admin/plan']);
                 }
             },
@@ -154,7 +140,6 @@ export class PlanAddComponent implements OnInit {
   styleUrls: ['./plan.component.css'],
 })
 export class PlanEditComponent implements OnInit {
-    currentAdmin: any = {};
 	currentCustomer: any = {};
     planAddForm: FormGroup;
 
@@ -165,7 +150,7 @@ export class PlanEditComponent implements OnInit {
 
     validationMessages = {
         'name': {
-            'required':      'Name is required.',
+            'required':      'Plan Name is required.',
         },
         'amount': {
             'required':      'Amount is required.',
@@ -176,10 +161,9 @@ export class PlanEditComponent implements OnInit {
         private lf: FormBuilder, 
         private planService: PlanService,
         private router: Router,
-        private route: ActivatedRoute
-    ){ 
-          this.currentAdmin = JSON.parse(localStorage.getItem('currentAdmin'));
-    }
+        private route: ActivatedRoute,
+        private _flashMessagesService: FlashMessagesService
+    ){}
 
     ngOnInit() {
         this.planAddForm = this.lf.group({
@@ -203,6 +187,7 @@ export class PlanEditComponent implements OnInit {
         this.planService.planUpdate(this.planAddForm.value).subscribe(
             (data) => {
               if (!data.error) {
+                  this._flashMessagesService.show('Plan Updated Successfully', { cssClass: 'alert-success', timeout: 5000 });
                   this.router.navigate(['admin/plan']);
                 }
             },

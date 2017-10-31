@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router,ActivatedRoute,Params  } from '@angular/router';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
-
-/*service*/
+import { FlashMessagesService } from 'angular2-flash-messages';
 import { ExchangeService} from '../../services/exchange.service';
 import { UserService} from '../../services/user.service';
 
@@ -12,20 +11,8 @@ import { UserService} from '../../services/user.service';
   styleUrls: ['./exchange.component.css'],
 })
 export class AdminExchangeComponent implements OnInit {
-    currentAdmin: any = {};
-    loginForm: FormGroup;
-    returnUrl: string;
-    err:any;
 
-      constructor(
-        private lf: FormBuilder, 
-        private router: Router,
-        private route: ActivatedRoute
-    )
-    { 
-        this.currentAdmin = JSON.parse(localStorage.getItem('currentAdmin'));
-    }
-
+    constructor() {}
     ngOnInit() {}
 }
 
@@ -35,19 +22,17 @@ export class AdminExchangeComponent implements OnInit {
   styleUrls: ['./exchange.component.css'],
 })
 export class ExchangeListComponent implements OnInit {
-    currentAdmin: any = {};
     plans: any=[];
     returnUrl: string;
     err:any;
 
-      constructor(
+    constructor(
         private lf: FormBuilder, 
         private exchangeService: ExchangeService,
         private router: Router,
-        private route: ActivatedRoute
-    ){ 
-          this.currentAdmin = JSON.parse(localStorage.getItem('currentAdmin'));
-      }
+        private route: ActivatedRoute,
+        private _flashMessagesService: FlashMessagesService
+    ){}
 
     ngOnInit() {
         this.getList()
@@ -68,6 +53,7 @@ export class ExchangeListComponent implements OnInit {
 
     private deletePlan(id) {
         if(confirm("Are you sure to delete ?")) {
+            this._flashMessagesService.show('Exchange Account Deleted Successfully', { cssClass: 'alert-success', timeout: 3000 });
             this.exchangeService.exchangeDelete(id).subscribe(data => {
                 this.getList();
             });
@@ -81,7 +67,6 @@ export class ExchangeListComponent implements OnInit {
   styleUrls: ['./exchange.component.css'],
 })
 export class ExchangeAddComponent implements OnInit {
-    currentAdmin: any = {};
     users: any = [];
     exchangeNames = ['API1', 'API2', 'API3', 'API4', 'API5'];
     exchangeTypes = ['Exchange', 'Margin Trading', 'Deposit'];
@@ -104,13 +89,13 @@ export class ExchangeAddComponent implements OnInit {
             'required':      'Exchange Type is required.',
         },
         'nickName': {
-            'required':      'Nick name is required.',
+            'required':      'Nick Name is required.',
         },
         'apiKey': {
             'required':      'API Key is required.',
         },
         'secretKey': {
-            'required':      'Secret key is required.',
+            'required':      'Secret Key is required.',
         },
         'user': {
             'required':      'User is required.',
@@ -122,10 +107,9 @@ export class ExchangeAddComponent implements OnInit {
         private exchangeService: ExchangeService,
         private userService: UserService,
         private router: Router,
-        private route: ActivatedRoute
-    ){ 
-          this.currentAdmin = JSON.parse(localStorage.getItem('currentAdmin'));
-    }
+        private route: ActivatedRoute,
+        private _flashMessagesService: FlashMessagesService
+    ){}
 
     ngOnInit() {
         this.planAddForm = this.lf.group({
@@ -146,6 +130,7 @@ export class ExchangeAddComponent implements OnInit {
         this.exchangeService.exchangeAdd(this.planAddForm.value).subscribe(
             (data) => {
               if (!data.error) {
+                  this._flashMessagesService.show('Exchange Account Added Successfully', { cssClass: 'alert-success', timeout: 3000 });
                   this.router.navigate(['admin/exchange']);
                 }
             },
@@ -192,7 +177,6 @@ export class ExchangeAddComponent implements OnInit {
   styleUrls: ['./exchange.component.css'],
 })
 export class ExchangeEditComponent implements OnInit {
-    currentAdmin: any = {};
 	currentCustomer: any = {};
     planAddForm: FormGroup;
     users: any = [];
@@ -216,13 +200,13 @@ export class ExchangeEditComponent implements OnInit {
             'required':      'Exchange Type is required.',
         },
         'nickName': {
-            'required':      'Nick name is required.',
+            'required':      'Nick Name is required.',
         },
         'apiKey': {
             'required':      'API Key is required.',
         },
         'secretKey': {
-            'required':      'Secret key is required.',
+            'required':      'Secret Key is required.',
         },
         'user': {
             'required':      'User is required.',
@@ -234,10 +218,9 @@ export class ExchangeEditComponent implements OnInit {
         private exchangeService: ExchangeService,
         private router: Router,
         private userService: UserService,
-        private route: ActivatedRoute
-    ){ 
-          this.currentAdmin = JSON.parse(localStorage.getItem('currentAdmin'));
-    }
+        private route: ActivatedRoute,
+        private _flashMessagesService: FlashMessagesService
+    ){}
 
     ngOnInit() {
         this.planAddForm = this.lf.group({
@@ -279,6 +262,7 @@ export class ExchangeEditComponent implements OnInit {
         this.exchangeService.exchangeUpdate(this.planAddForm.value).subscribe(
             (data) => {
               if (!data.error) {
+                  this._flashMessagesService.show('Exchange Account Updated Successfully', { cssClass: 'alert-success', timeout: 3000 });
                   this.router.navigate(['admin/exchange']);
                 }
             },

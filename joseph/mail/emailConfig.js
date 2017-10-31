@@ -46,13 +46,11 @@ module.exports = {
     },
 
     forgetEmailShoot: function(customer, type) {
-
-        console.log("customer");
-        console.log(customer);
+        
         if (type == 'cust') {
-            customer['resetPassLink'] = 'http://34.209.114.118:4021/customer/resetpassword/'+customer._id;
+            customer['resetPassLink'] = 'http://localhost:4200/customer/resetpassword/'+customer._id;
         }else{
-            customer['resetPassLink'] = 'http://34.209.114.118:4021/admin/resetpassword/'+customer._id;
+            customer['resetPassLink'] = 'http://localhost:4200/admin/resetpassword/'+customer._id;
         }
         // email 
         var emailFrom = 'this@company.com';

@@ -1,16 +1,16 @@
 <div class="row">
-    <div class="col-md-8">
+    <div class="">
         <div class="card">
             <div class="card-header" data-background-color="green">
-                <h4 class="title">Update Pages</h4>
-                <p class="category">Update pages for customer</p>
+                <h4 class="title">Edit Pages</h4>
+                <p class="category">Update Page</p>
             </div>
             <div class="card-content">
                 <form [formGroup]="planAddForm" (ngSubmit)="planUpdate()">
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label class="control-label">Title <span>*</span></label>
+                                <label class="control-label">Page Title <span>*</span></label>
                                 <input formControlName="title" type="text" class="form-control" autofocus>
                             </div>
                             <div *ngIf="formErrors.title" class="alert alert-danger">
@@ -19,7 +19,7 @@
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label class="control-label">URL</label>
+                                <label class="control-label">URL Text <span>*</span></label>
                                 <input formControlName="url" type="text" class="form-control">
                             </div>
                             <div *ngIf="formErrors.url" class="alert alert-danger">

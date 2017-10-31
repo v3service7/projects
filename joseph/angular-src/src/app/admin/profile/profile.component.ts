@@ -43,16 +43,10 @@ export class ProfileComponent implements OnInit {
   };
 
   cpFormErrors = {
-      'password' : '',
       'newpassword' : ''     
   };
 
-  cpValidationMessages = {
-      'password' : {
-          'required':    'Password is required.',
-          'pattern' :    'Please Enter at least one letter and number',
-          'minlength':   'Password should contain 6 characters',
-      },
+  cpValidationMessages = {    
       'newpassword' : {
           'required':    'Password is required.',
           'pattern' :    'Please Enter at least one letter and number',
@@ -81,7 +75,7 @@ export class ProfileComponent implements OnInit {
 
     this.cpForm = this.lf.group({
         _id: ['', Validators.required],
-        password: ['', [Validators.required, Validators.minLength(6), Validators.pattern(this.passwordRegex)]],
+        password: ['', Validators.required],
         newpassword: ['', [Validators.required, Validators.minLength(6), Validators.pattern(this.passwordRegex)]]
     });
 
@@ -167,19 +161,17 @@ export class ProfileComponent implements OnInit {
 
     adminChangePassword(){
         this.adminService.changePassword(this.cpForm.value).subscribe(
-            (data) => {
-                console.log("data");
-                console.log(data);
+            (data) => {                
               if (!data.error) {
                   this.getUserById(this.cpForm.value._id);
                   this._flashMessagesService.show(data.message, { cssClass: 'alert-success', timeout: 5000 });
                   this.router.navigate(['admin/dashboard']);
                 }else{
-                    this._flashMessagesService.show(data.message, { cssClass: 'alert-success', timeout: 5000 });
+                    this._flashMessagesService.show(data.message, { cssClass: 'danger-alert', timeout: 5000 });
                 }
             },
             (err)=>{
-                this._flashMessagesService.show('Something went wrong', { cssClass: 'alert-success', timeout: 5000 });
+                this._flashMessagesService.show('Something went wrong', { cssClass: 'danger-alert', timeout: 5000 });
                 console.log('kfgbhj');
             }
         );

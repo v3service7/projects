@@ -118,34 +118,34 @@ module.exports = (function() {
 
     router.post('/admin-login', function(req, res, next) {
         const email = req.body.email;
-          const password = req.body.password;
+        const password = req.body.password;
 
-          customerModel.getUserByEmail(email, (err, user) => {
+        customerModel.getUserByEmail(email, (err, user) => {
             if(err) throw err;
             if(!user){
-              return res.json({success: false, msg: 'User not found'});
+                return res.json({success: false, msg: 'User not found'});
             }
             if(user.role != "Admin"){
-              return res.json({success: false, msg: 'Not Authorized'});
+                return res.json({success: false, msg: 'Not Authorized'});
             }
 
             customerModel.comparePassword(password, user.password, (err, isMatch) => {
-              if(err) throw err;
-              if(isMatch){
-                  const token = jwt.sign({data:user}, 'accountHabeeb', {
-                  expiresIn: 3600 // 1 hour
-                });
+                if(err) throw err;
+                if(isMatch){
+                    const token = jwt.sign({data:user}, 'accountHabeeb', {
+                        expiresIn: 3600 // 1 hour
+                    });
 
-                res.json({
-                  success: true,
-                  token: 'JWT '+token,
-                  user: user
-                });
-              } else {
-                return res.json({success: false, msg: 'Wrong password'});
-              }
+                    res.json({
+                        success: true,
+                        token: 'JWT '+token,
+                        user: user
+                    });
+                } else {
+                    return res.json({success: false, msg: 'Wrong password'});
+                }
             });
-          });
+        });
     });
 
 
@@ -197,48 +197,47 @@ module.exports = (function() {
 
     router.post('/customer-login', function(req, res, next) {
         const email = req.body.email;
-  const password = req.body.password;
+        const password = req.body.password;
 
-  customerModel.getUserByEmail(email, (err, user) => {
-    if(err) throw err;
-    if(!user){
-      return res.json({success: false, msg: 'User not found'});
-    }
-    if(user.role == "Admin"){
-      return res.json({success: false, msg: 'Not Authorized'});
-    }
+        customerModel.getUserByEmail(email, (err, user) => {
+            if(err) throw err;
+            if(!user){
+                return res.json({success: false, msg: 'User not found'});
+            }
+            if(user.role == "Admin"){
+                return res.json({success: false, msg: 'Not Authorized'});
+            }
 
-    customerModel.comparePassword(password, user.password, (err, isMatch) => {
-      if(err) throw err;
-      if(isMatch){
-          const token = jwt.sign({data:user}, 'accountHabeeb', {
-          expiresIn: 3600 // 1 hour
+            customerModel.comparePassword(password, user.password, (err, isMatch) => {
+                if(err) throw err;
+                if(isMatch){
+                    const token = jwt.sign({data:user}, 'accountHabeeb', {
+                        expiresIn: 3600 // 1 hour
+                    });
+                    res.json({
+                        success: true,
+                        token: 'JWT '+token,
+                        user: user
+                    });
+                } else {
+                    return res.json({success: false, msg: 'Wrong password'});
+                }
+            });
         });
+    });
 
-        res.json({
-          success: true,
-          token: 'JWT '+token,
-          user: user
+    // User Add
+    router.post('/customer-register', (req, res, next) => {
+        let newUser = new customerModel(req.body);
+
+        customerModel.addUser(newUser, (err, user) => {
+            if(err){          
+                res.json({success: false, msg:err});
+            } else {
+                res.json({success: true, msg:'User registered'});
+            }
         });
-      } else {
-        return res.json({success: false, msg: 'Wrong password'});
-      }
-    });
-  });
-    });
-    
-// User Add
-router.post('/customer-register', (req, res, next) => {
-  let newUser = new customerModel(req.body);
-
-  customerModel.addUser(newUser, (err, user) => {
-    if(err){          
-      res.json({success: false, msg:err});
-    } else {
-      res.json({success: true, msg:'User registered'});
-    }
-  });
-}); 
+    }); 
 
     router.get('/customer-logout', function(req, res) {
         var response = {};
