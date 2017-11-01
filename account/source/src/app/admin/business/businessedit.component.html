@@ -1,74 +1,289 @@
 <div class="row">
-    <div class="col-md-8">
+    <div class="col-md-12">
         <div class="card">
-            <div class="card-header" data-background-color="orange">
-                <h4 class="title">Edit Customer</h4>
-                <p class="category">Complete your profile</p>
+            <div class="card-header brandingColor">
+                <h4 class="title">Update Business
+                    <span class="nav-tabs-title" style="float: right;cursor: pointer;" (click) = "goToBusinessList()">Back</span>
+                </h4>
+                <p class="category">update your Business Data</p>
             </div>
             <div class="card-content">
-                <form [formGroup]="customerAddForm" (ngSubmit)="customerUpdate()">
+                <div class="progress progress-bar" *ngIf="processCompletePercent > 0 && processCompletePercent < 100">
+                    <div class="progress-bar progress-bar-info progress-bar" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" [ngStyle]="{'width': processCompletePercent + '%'}"></div>
+                </div>
+                
+                <form [formGroup]="businessEditForm" (ngSubmit)="businessUpdate()">
                     <div class="row">
                         <div class="col-md-6">
-                            <div class="form-group ">
-                                <label class="control-label">Fist Name</label>
-                                <input formControlName="firstname" type="text" class="form-control" autofocus>
+                            <div class="form-group">
+                                <label class="control-label">Name of business*</label>
+                                <input formControlName="businessName" type="text" class="form-control" autofocus>
                             </div>
-                            <div *ngIf="formErrors.firstname" class="alert alert-danger">
-                                {{ formErrors.firstname }}
+                            <div *ngIf="formErrors.businessName" class="alert alert-danger">
+                                {{ formErrors.businessName }}
                             </div>
                         </div>
                         <div class="col-md-6">
-                            <div class="form-group ">
-                                <label class="control-label">Last Name</label>
-                                <input formControlName="lastname" type="text" class="form-control">
+                            <div class="form-group">
+                                <label class="control-label">Types of business Organisation</label>
+                                <select formControlName="typeOfOrg" class="form-control">
+                                    <option>Natural Person</option>
+                                    <option>Incorporated entity</option>
+                                    <option>Non-incorporated entity</option>
+                                </select>
                             </div>
-                            <div *ngIf="formErrors.lastname" class="alert alert-danger">
-                                {{ formErrors.lastname }}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="control-label">Trade License Number*</label>
+                                <input formControlName="tradeLicenseNumber" type="text" class="form-control">
+                            </div>
+                            <div *ngIf="formErrors.tradeLicenseNumber" class="alert alert-danger">
+                                {{ formErrors.tradeLicenseNumber }}
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="control-label">Issuing Authority</label>
+                                <input formControlName="issuingAuthority" type="text" class="form-control">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="control-label">Trade License Expiry*</label>
+                                <input formControlName="tradeLicenseExpiry" type="text" class="form-control">
+                            </div>
+                            <div *ngIf="formErrors.tradeLicenseExpiry" class="alert alert-danger">
+                                {{ formErrors.tradeLicenseExpiry }}
                             </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-6">
-                            <div class="form-group ">
-                                <label class="control-label">Email address</label>
-                                <input formControlName="email" type="email" class="form-control">
+                            <div class="form-group">
+                                <label class="control-label">Emirate*</label>
+                                <select formControlName="emiRate" class="form-control">
+                                    <option>Dubai</option>
+                                    <option>Abu Dhabi</option>
+                                    <option>Ajman</option>
+                                    <option>Fujairah</option>
+                                    <option>UAQ</option>
+                                    <option>RAK</option>
+                                    <option>Sharjah</option>
+                                </select>
                             </div>
-                            <div *ngIf="formErrors.email" class="alert alert-danger">
-                                {{ formErrors.email }}
+                            <div *ngIf="formErrors.emiRate" class="alert alert-danger">
+                                {{ formErrors.emiRate }}
                             </div>
                         </div>
                         <div class="col-md-6">
-                            <div class="form-group ">
-                                <label class="control-label">Phone Number</label>
-                                <input formControlName="phonenumber" type="text" class="form-control">
+                            <div class="form-group">
+                                <label class="control-label">Phone*</label>
+                                <input formControlName="phoneNumber" type="text" class="form-control">
                             </div>
-                            <div *ngIf="formErrors.phonenumber" class="alert alert-danger">
-                                {{ formErrors.phonenumber }}
+                            <div *ngIf="formErrors.phoneNumber" class="alert alert-danger">
+                                {{ formErrors.phoneNumber }}
                             </div>
                         </div>
                     </div>
-                    <!-- <div class="row">
+                    <div class="row">
                         <div class="col-md-6">
-                            <div class="form-group ">
-                                <label class="control-label">Password</label>
-                                <input formControlName="password" type="password" class="form-control" (keyup)="matchpasswordreg()">
+                            <div class="form-group">
+                                <label class="control-label">Name of Owner / Manager*</label>
+                                <input formControlName="ownerName" type="text" class="form-control">
                             </div>
-                            <div *ngIf="formErrors.password" class="alert alert-danger">
-                                {{ formErrors.password }}
+                            <div *ngIf="formErrors.ownerName" class="alert alert-danger">
+                                {{ formErrors.ownerName }}
                             </div>
                         </div>
                         <div class="col-md-6">
-                            <div class="form-group ">
-                                <label class="control-label">Confirm Password</label>
-                                <input formControlName="newpassword" type="password" class="form-control" (keyup)="matchpasswordreg()">
+                            <div class="form-group">
+                                <label class="control-label">Mobile Number*</label>
+                                <input formControlName="mobileNumber" type="text" class="form-control">
                             </div>
-                            <div *ngIf="formErrors.newpassword" class="alert alert-danger">
-                                {{ formErrors.newpassword }}
+                            <div *ngIf="formErrors.mobileNumber" class="alert alert-danger">
+                                {{ formErrors.mobileNumber }}
                             </div>
-                            <div style="padding: 3px;" class="alert alert-danger" *ngIf="MutchPassword">Password not match</div>
                         </div>
-                    </div> -->
-                    <button type="submit" class="btn btn-warning pull-right" [disabled]="!customerAddForm.valid">Save Customer</button>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="control-label">Passport Number*</label>
+                                <input formControlName="passportNumber" type="text" class="form-control">
+                            </div>
+                            <div *ngIf="formErrors.passportNumber" class="alert alert-danger">
+                                {{ formErrors.passportNumber }}
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="control-label">Nationality*</label>
+                                <input formControlName="nationality" type="text" class="form-control">
+                            </div>
+                            <div *ngIf="formErrors.nationality" class="alert alert-danger">
+                                {{ formErrors.nationality }}
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="control-label">Emirates ID Number*</label>
+                                <input formControlName="emiRateIdNumber" type="text" class="form-control">
+                            </div>
+                            <div *ngIf="formErrors.emiRateIdNumber" class="alert alert-danger">
+                                {{ formErrors.emiRateIdNumber }}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="control-label">Bank Name</label>
+                                <input formControlName="bankName" type="text" class="form-control">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="control-label">Branch Name</label>
+                                <input formControlName="bankBranch" type="text" class="form-control">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="control-label">Account Number</label>
+                                <input formControlName="bankAccountNumber" type="number" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="control-label">Certificate of incorporation no</label>
+                                <input formControlName="certificateOfIncorporationNo" type="text" class="form-control">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="control-label">VAT TRN </label>
+                                <input formControlName="vattrn" type="text" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="control-label">Select Plan*</label>
+                                <select formControlName="plan" class="form-control">
+                                    <option *ngFor="let plan of plans" [value]="plan._id">{{plan.type}} business - {{plan.name}} ({{plan.amount}}/{{plan.duration}})</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="control-label">Optional Site visit package</label>
+                                <select formControlName="siteVisit" class="form-control" (change)="checkIsVisit()">
+                                    <option value="AED 0">No Site Visit Required(AED 0)</option>
+                                    <option value="AED 150">Site Visit Required(AED 150)</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-6" *ngIf="isVisit">
+                            <div class="form-group" >
+                                <label class="control-label">Number of days required</label>
+                                <input formControlName="noDaysRequired" type="number" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="myCard docDiv">
+                                <div class="form-group">
+                                    <input type="file" class="form-control" name="single" ng2FileSelect [uploader]="uploader" (change)="onChange($event,'passportFile')">
+                                    <a href="javascript:void(0)" class="btn btn-success btn-round btn-block">Upload Passport File</a>
+                                </div>
+                                <div class="textCenter viewFile" *ngIf="businessEditForm.value.passportFile">
+                                    <a target="_blank" href="{{imgUrl}}{{businessEditForm.value.passportFile}}">View</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="myCard docDiv">
+                                <div class="form-group">
+                                    <input type="file" class="form-control" name="single" ng2FileSelect [uploader]="uploader" (change)="onChange($event,'visaFile')">
+                                    <a href="javascript:void(0)" class="btn btn-success btn-round btn-block">Upload Visa File</a>
+                                </div>
+                                <div class="textCenter viewFile" *ngIf="businessEditForm.value.visaFile">
+                                    <a target="_blank" href="{{imgUrl}}{{businessEditForm.value.visaFile}}">View</a>
+                                </div>
+                            </div>
+                        </div>
+                    
+                        <div class="col-md-4">
+                            <div class="myCard docDiv">
+                                 <div class="form-group">
+                                    <input type="file" class="form-control" name="single" ng2FileSelect [uploader]="uploader" (change)="onChange($event,'emiRatesIdFile')">
+                                    <a href="javascript:void(0)" class="btn btn-success btn-round btn-block">UPLOAD EMI Rates Id File</a>
+                                </div>
+                                <div class="textCenter viewFile" *ngIf="businessEditForm.value.emiRatesIdFile">
+                                    <a target="_blank" href="{{imgUrl}}{{businessEditForm.value.emiRatesIdFile}}">View</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="myCard docDiv">
+                                 <div class="form-group">
+                                    <input type="file" class="form-control" name="single" ng2FileSelect [uploader]="uploader" (change)="onChange($event,'tradeLicenseFile')">
+                                    <a href="javascript:void(0)" class="btn btn-success btn-round btn-block">UPLOAD Trade License File</a>
+                                </div>
+                                <div class="textCenter viewFile" *ngIf="businessEditForm.value.tradeLicenseFile">
+                                    <a target="_blank" href="{{imgUrl}}{{businessEditForm.value.tradeLicenseFile}}">View</a>
+                                </div>
+                            </div>
+                        </div>
+                   
+                        <div class="col-md-4">
+                            <div class="myCard docDiv">
+                                <div class="form-group">
+                                    <input type="file" class="form-control" name="single" ng2FileSelect [uploader]="uploader" (change)="onChange($event,'articleAndPartnershipFile')">
+                                    <a href="javascript:void(0)" class="btn btn-success btn-round btn-block">UPLOAD Article and Partnership File</a>
+                                </div>
+                                <div class="textCenter viewFile" *ngIf="businessEditForm.value.articleAndPartnershipFile">
+                                    <a target="_blank" href="{{imgUrl}}{{businessEditForm.value.articleAndPartnershipFile}}">View</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="myCard docDiv">
+                                <div class="form-group">
+                                    <input type="file" class="form-control" name="single" ng2FileSelect [uploader]="uploader" (change)="onChange($event,'certificateOfIncorporationFile')">
+                                    <a href="javascript:void(0)" class="btn btn-success btn-round btn-block">UPLOAD Certificate of Incorporation File</a>
+                                </div>
+                                <div class="textCenter viewFile" *ngIf="businessEditForm.value.certificateOfIncorporationFile">
+                                    <a target="_blank" href="{{imgUrl}}{{businessEditForm.value.certificateOfIncorporationFile}}">View</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="myCard docDiv">
+                                <div class="form-group">
+                                    <input type="file" class="form-control" name="single" ng2FileSelect [uploader]="uploader" (change)="onChange($event,'bankStatementFile')">
+                                    <a href="javascript:void(0)" class="btn btn-success btn-round btn-block">UPLOAD Bank Statement File</a>
+                                </div>
+                                <div class="textCenter viewFile" *ngIf="businessEditForm.value.bankStatementFile">
+                                    <a target="_blank" href="{{imgUrl}}{{businessEditForm.value.bankStatementFile}}">View</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <button type="submit" class="btn btn-success pull-right" [disabled]="!businessEditForm.valid">Update Business</button>
                     <div class="clearfix"></div>
                 </form>
             </div>

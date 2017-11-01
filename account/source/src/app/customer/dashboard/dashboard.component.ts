@@ -7,7 +7,7 @@ import { FlashMessagesService } from 'angular2-flash-messages';
 import { CustomerService, BusinessService} from '../../service/index';
 
 @Component({
-  selector: 'app-admin-dashboard',
+  selector: 'app-customer-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css'],
 })
@@ -44,7 +44,7 @@ export class CustomerDashboardComponent implements OnInit {
 }
 
 @Component({
-  selector: 'app-admin-profile',
+  selector: 'app-customer-profile',
   templateUrl: './profile.component.html',
   styleUrls: ['./dashboard.component.css'],
 })

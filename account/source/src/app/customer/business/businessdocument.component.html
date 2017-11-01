@@ -1,22 +1,25 @@
 <div class="row">
     <div class="col-md-12">
         <div class="card">
-            <div class="card-header" data-background-color="green">
+            <div class="card-header brandingColor">
                 <h4 class="title">Update Business Document</h4>
                 <p class="category">Create your Business Data</p>
-            </div><div class="card-content">
-                <form [formGroup]="businessAddForm" (ngSubmit)="businessDocument()">
+            </div>
 
-                	<div class="row">
-                        <div class="col-md-4">
+            <div class="card-content">
+                <div class="progress progress-bar" *ngIf="processCompletePercent > 0 && processCompletePercent < 100">
+                    <div class="progress-bar progress-bar-info progress-bar" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" [ngStyle]="{'width': processCompletePercent + '%'}"></div>
+                </div>
+
+                <form [formGroup]="businessAddForm" (ngSubmit)="businessDocument()">
+                	<!-- <div class="row"> -->
+                        <div class="col-md-4" style="padding-left: 6px;">
                         	<div class="myCard">
 	                        	<div class="form-group">
 	                                <input type="file" class="form-control" name="single" ng2FileSelect [uploader]="uploader" (change)="onChange($event,'passportFile')">
 	                                <a href="javascript:void(0)" class="btn btn-success btn-round btn-block">Upload Passport File</a>
-	                            </div>
-	                            <!-- <div class="form-group textCenter viewFile" *ngIf="businesses.passportFile">
-	                            	<a href="{{imgUrl}}{{businesses.passportFile}}">View</a>
-	                            </div> -->
+                                </div>
+                                <span *ngIf = "businessAddForm.value.passportFile != ''" class="docUploaded"><i class="fa fa-check-circle" aria-hidden="true"></i></span>
                         	</div>
                         </div>
                         <div class="col-md-4">
@@ -25,9 +28,7 @@
                                     <input type="file" class="form-control" name="single" ng2FileSelect [uploader]="uploader" (change)="onChange($event,'visaFile')">
                                     <a href="javascript:void(0)" class="btn btn-success btn-round btn-block">Upload Visa File</a>
                                 </div>
-                                <!-- <div class="form-group textCenter viewFile" *ngIf="businesses.visaFile">
-                                	<a href="{{imgUrl}}{{businesses.visaFile}}">View</a>
-                                </div> -->
+                                <span *ngIf = "businessAddForm.value.visaFile != ''" class="docUploaded"><i class="fa fa-check-circle" aria-hidden="true"></i></span>
                             </div>
                         </div>
                     
@@ -37,9 +38,7 @@
                                     <input type="file" class="form-control" name="single" ng2FileSelect [uploader]="uploader" (change)="onChange($event,'emiRatesIdFile')">
                                     <a href="javascript:void(0)" class="btn btn-success btn-round btn-block">UPLOAD EMI Rates Id File</a>
                                 </div>
-                                <!-- <div class="form-group textCenter viewFile" *ngIf="businesses.emiRatesIdFile">
-                                	<a href="{{imgUrl}}{{businesses.emiRatesIdFile}}">View</a>
-                                </div> -->
+                                <span *ngIf = "businessAddForm.value.emiRatesIdFile != ''" class="docUploaded"><i class="fa fa-check-circle" aria-hidden="true"></i></span>
                             </div>
                         </div>
                         <div class="col-md-4">
@@ -48,9 +47,7 @@
                                     <input type="file" class="form-control" name="single" ng2FileSelect [uploader]="uploader" (change)="onChange($event,'tradeLicenseFile')">
                                     <a href="javascript:void(0)" class="btn btn-success btn-round btn-block">UPLOAD Trade License File</a>
                                 </div>
-                                <!-- <div class="form-group textCenter viewFile" *ngIf="businesses.tradeLicenseFile">
-                                	<a href="{{imgUrl}}{{businesses.tradeLicenseFile}}">View</a>
-                                </div> -->
+                                <span *ngIf = "businessAddForm.value.tradeLicenseFile != ''" class="docUploaded"><i class="fa fa-check-circle" aria-hidden="true"></i></span>
                             </div>
                         </div>
                    
@@ -60,9 +57,7 @@
                                     <input type="file" class="form-control" name="single" ng2FileSelect [uploader]="uploader" (change)="onChange($event,'articleAndPartnershipFile')">
                                     <a href="javascript:void(0)" class="btn btn-success btn-round btn-block">UPLOAD Article and Partnership File</a>
                                 </div>
-                                <!-- <div class="form-group textCenter viewFile" *ngIf="businesses.articleAndPartnershipFile">
-                                	<a href="{{imgUrl}}{{businesses.articleAndPartnershipFile}}">View</a>
-                                </div> -->
+                                <span *ngIf = "businessAddForm.value.articleAndPartnershipFile != ''" class="docUploaded"><i class="fa fa-check-circle" aria-hidden="true"></i></span>
                             </div>
                         </div>
                         <div class="col-md-4">
@@ -71,9 +66,7 @@
                                     <input type="file" class="form-control" name="single" ng2FileSelect [uploader]="uploader" (change)="onChange($event,'certificateOfIncorporationFile')">
                                     <a href="javascript:void(0)" class="btn btn-success btn-round btn-block">UPLOAD Certificate of Incorporation File</a>
                                 </div>
-                                <!-- <div class="form-group textCenter viewFile" *ngIf="businesses.certificateOfIncorporationFile">
-                                	<a href="{{imgUrl}}{{businesses.certificateOfIncorporationFile}}">View</a>
-                                </div> -->
+                                <span *ngIf = "businessAddForm.value.certificateOfIncorporationFile != ''" class="docUploaded"><i class="fa fa-check-circle" aria-hidden="true"></i></span>
                             </div>
                         </div>
                         <div class="col-md-4">
@@ -82,14 +75,14 @@
                                     <input type="file" class="form-control" name="single" ng2FileSelect [uploader]="uploader" (change)="onChange($event,'bankStatementFile')">
                                     <a href="javascript:void(0)" class="btn btn-success btn-round btn-block">UPLOAD Bank Statement File</a>
                                 </div>
-                                <!-- <div class="form-group textCenter viewFile" *ngIf="businesses.bankStatementFile">
-                                	<a href="{{imgUrl}}{{businesses.bankStatementFile}}">View</a>
-                                </div> -->
+                                <span *ngIf = "businessAddForm.value.bankStatementFile != ''" class="docUploaded"><i class="fa fa-check-circle" aria-hidden="true"></i></span>
                             </div>
                         </div>
-                    </div>
+                    <!-- </div> -->
 
-                    <button type="submit" class="btn btn-success pull-right" [disabled]="!businessAddForm.valid">Update Business</button>
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <button type="submit" class="btn btn-success pull-right" [disabled] = "!businessAddForm.valid">Add Business</button>
+                    </div>
 
                 </form>
             </div>

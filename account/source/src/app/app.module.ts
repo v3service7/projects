@@ -19,6 +19,11 @@ import { CustomerDashboardComponent, CustomerProfileComponent } from './customer
 import { CustomerHeaderComponent,CustomerSidebarComponent } from './header/customerheader.component';
 import { CustomerBusinessComponent, CustomerBusinessListComponent, CustomerBusinessAddComponent, CustomerBusinessDocumentComponent, CustomerBusinessEditComponent } from './customer/business/business.component';
 
+/*Staff*/
+import { StaffsComponent } from './staff/staff.component';
+import { StaffLoginComponent, StaffForgetPasswordComponent, StaffResetPasswordComponent } from './staff/login/stafflogin.component';
+import { StaffDashboardComponent, StaffProfileComponent } from './staff/dashboard/dashboard.component';
+
 /*Admin*/
 import { AdminComponent } from './admin/admin.component';
 import { AdminLoginComponent,AdminForgetPasswordComponent, AdminResetPasswordComponent } from './admin/login/adminlogin.component';
@@ -27,7 +32,7 @@ import { AdminHeaderComponent,AdminSidebarComponent } from './header/adminheader
 import { StaffComponent,StaffListComponent,StaffAddComponent,StaffEditComponent } from './admin/staff/staff.component';
 import { AdminPlanComponent, PlanListComponent, PlanAddComponent, PlanEditComponent } from './admin/plan/plan.component';
 import { AdminCustomerComponent,CustomerListComponent,CustomerAddComponent,CustomerEditComponent } from './admin/customer/customer.component';
-import { AdminBusinessComponent,BusinessListComponent,BusinessEditComponent } from './admin/business/business.component';
+import { AdminBusinessComponent,BusinessListComponent,BusinessViewComponent,BusinessEditComponent } from './admin/business/business.component';
 import { FlashMessagesModule } from 'angular2-flash-messages';
 import { ReCaptchaModule } from 'angular2-recaptcha';
 
@@ -47,13 +52,15 @@ import { AccountActiveComponent } from './account-active/account-active.componen
     StaffComponent,StaffListComponent,StaffAddComponent,StaffEditComponent,
     AdminPlanComponent, PlanListComponent, PlanAddComponent, PlanEditComponent,
     AdminCustomerComponent,CustomerListComponent,CustomerAddComponent,CustomerEditComponent,
-    AdminBusinessComponent,BusinessListComponent,BusinessEditComponent,
+    AdminBusinessComponent,BusinessListComponent,BusinessViewComponent,BusinessEditComponent,
     CustomerComponent,
     CustomerLoginComponent, CustomerRegisterComponent, CustomerForgetPasswordComponent,CustomerResetPasswordComponent,
     CustomerDashboardComponent, CustomerProfileComponent,
     CustomerHeaderComponent,CustomerSidebarComponent,
     CustomerBusinessComponent, CustomerBusinessListComponent, CustomerBusinessAddComponent, CustomerBusinessDocumentComponent, CustomerBusinessEditComponent, AccountActiveComponent,
-   
+    StaffComponent,
+    StaffLoginComponent, StaffForgetPasswordComponent,StaffResetPasswordComponent,
+    StaffDashboardComponent, StaffProfileComponent,   
   ],
   imports: [
     ReCaptchaModule,

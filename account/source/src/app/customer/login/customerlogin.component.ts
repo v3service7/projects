@@ -73,22 +73,27 @@ export class CustomerLoginComponent implements OnInit {
     }
 
     login(){
-        this.customerService.authenticateUser(this.loginForm.value).subscribe(data => {
-            console.log("data");
-            console.log(data);
-            if(data.success){
-                this.customerService.storeUserData(data.token, data.user);
-                this._flashMessagesService.show('You are now logged in', {
-                    cssClass: 'alert-success',
-                    timeout: 5000});
-                this.router.navigate([this.returnUrl]);
-            } else {
-                this._flashMessagesService.show(data.msg, {
-                    cssClass: 'danger-alert',
-                    timeout: 5000});
-                this.router.navigate(['customer/login']);
+        this.customerService.authenticateUser(this.loginForm.value).subscribe(
+            (data) => {
+                console.log("data");
+                console.log(data);
+                if(data.success){
+                    this.customerService.storeUserData(data.token, data.user);
+                    this._flashMessagesService.show('You are now logged in', {
+                        cssClass: 'alert-success',
+                        timeout: 5000});
+                    this.router.navigate([this.returnUrl]);
+                } else {
+                    this._flashMessagesService.show(data.msg, {
+                        cssClass: 'danger-alert',
+                        timeout: 5000});
+                    this.router.navigate(['customer/login']);
+                }
+            },
+            (err)=>{
+                this.err = 'Unable to reach Server';
             }
-        });
+        );
         /*this.customerService.customerLogin(this.loginForm.value).subscribe(
             (data) => {
                 if (!data.error) {

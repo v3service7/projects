@@ -303,3 +303,44 @@ footer #tzine-actions iframe{
 	width: 50%;
     left: 25%;
 }*/
+
+
+.brandingColor{
+	background-color : #0198B3 !important;
+}
+
+.brandingColor *{
+	color : white !important;
+}
+
+button{
+	background-color : #0198B3 !important;
+	color: white !important;
+}
+
+/*.customerSupportNumber{
+    position: absolute !important;
+    bottom: 60px;
+    padding: 5px 15px;
+    margin: 10px 15px 0;
+    color: #0198b3;
+    font-size: 12px;
+}*/
+
+.customerSupportNumber{
+    color: #0198b3;
+    font-size: 12px;
+    padding: 20px;
+}
+
+.companyLocation-n-emailID{
+    right: 0;
+    bottom: 0;
+    position: fixed;
+    text-align: center;
+    width: 100%;
+    margin: 10px 0;
+    font-size: 14px;
+    color: #0198b3;
+    font-weight: 600;
+}

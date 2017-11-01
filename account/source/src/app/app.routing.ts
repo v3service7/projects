@@ -6,13 +6,18 @@ import { DashboardComponent,AdminProfileComponent } from './admin/dashboard/dash
 import { StaffComponent,StaffListComponent,StaffAddComponent,StaffEditComponent } from './admin/staff/staff.component';
 import { AdminPlanComponent, PlanListComponent, PlanAddComponent, PlanEditComponent } from './admin/plan/plan.component';
 import { AdminCustomerComponent,CustomerListComponent,CustomerAddComponent,CustomerEditComponent } from './admin/customer/customer.component';
-import { AdminBusinessComponent,BusinessListComponent,BusinessEditComponent } from './admin/business/business.component';
+import { AdminBusinessComponent,BusinessListComponent,BusinessViewComponent,BusinessEditComponent } from './admin/business/business.component';
 
 import { CustomerComponent } from './customer/customer.component';
 import { CustomerLoginComponent, CustomerRegisterComponent, CustomerForgetPasswordComponent, CustomerResetPasswordComponent } from './customer/login/customerlogin.component';
 import { CustomerDashboardComponent, CustomerProfileComponent } from './customer/dashboard/dashboard.component';
 import { AccountActiveComponent } from './account-active/account-active.component';
 import { CustomerBusinessComponent, CustomerBusinessAddComponent, CustomerBusinessDocumentComponent, CustomerBusinessEditComponent,CustomerBusinessListComponent } from './customer/business/business.component';
+
+import { StaffsComponent } from './staff/staff.component';
+import { StaffLoginComponent, StaffForgetPasswordComponent, StaffResetPasswordComponent } from './staff/login/stafflogin.component';
+import { StaffDashboardComponent, StaffProfileComponent } from './staff/dashboard/dashboard.component';
+
 
 import { AuthGuard , CustomerAuthGuard} from './guards/index';
 
@@ -39,18 +44,19 @@ const appRoutes: Routes = [
             { path: 'add', component: PlanAddComponent, },
             { path: ':id', component: PlanEditComponent, },
         ]},
-    	{ path: 'business/:id', component: AdminBusinessComponent, canActivate: [AuthGuard], children :[
-            { path: '', component: BusinessListComponent, },
-            { path: 'view', component: BusinessEditComponent, },
+    	{ path: 'business', component: AdminBusinessComponent, canActivate: [AuthGuard], children :[
+            { path: ':id', component: BusinessListComponent, },
+            { path: 'view/:id', component: BusinessViewComponent, },
+            { path: 'edit/:id', component: BusinessEditComponent, },
         ]},
     ]},
        
   	{ path: 'customer', component: CustomerComponent, children :[
-    	{ path: '', component: CustomerLoginComponent },
+        { path: '', component: CustomerLoginComponent },
         { path: 'login', component: CustomerLoginComponent },
         { path: 'register', component: CustomerRegisterComponent },
         { path: 'forget-password', component: CustomerForgetPasswordComponent },
-    	{ path: 'reset-password/:id', component: CustomerResetPasswordComponent },
+        { path: 'reset-password/:id', component: CustomerResetPasswordComponent },
         { path: 'dashboard', component: CustomerDashboardComponent, canActivate: [CustomerAuthGuard] },
         { path: 'profile', component: CustomerProfileComponent, canActivate: [CustomerAuthGuard] },
         { path: 'business', component: CustomerBusinessComponent, canActivate: [CustomerAuthGuard], children :[
@@ -59,7 +65,16 @@ const appRoutes: Routes = [
             { path: 'document-update', component: CustomerBusinessDocumentComponent, },
             { path: ':id', component: CustomerBusinessEditComponent, },
         ]},
-   	]},
+    ]},
+
+    /*{ path: 'staff', component: StaffsComponent, children :[
+    	{ path: '', component: StaffLoginComponent },
+        { path: 'login', component: StaffLoginComponent },
+        { path: 'forget-password', component: StaffForgetPasswordComponent },
+    	{ path: 'reset-password/:id', component: StaffResetPasswordComponent },
+        { path: 'dashboard', component: StaffDashboardComponent},
+        { path: 'profile', component: StaffProfileComponent}
+   	]},*/
   	{ path: '', component: CustomerLoginComponent },
   	{ path: 'account-active/:token', component: AccountActiveComponent },
   	{ path: '**', redirectTo: '' },

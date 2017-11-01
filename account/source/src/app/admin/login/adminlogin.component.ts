@@ -37,20 +37,25 @@ export class AdminLoginComponent implements OnInit {
     }
 
     login(){
-        this.adminService.authenticateUser(this.loginForm.value).subscribe(data => {
-            if(data.success){
-                this.adminService.storeUserData(data.token, data.user);
-                this._flashMessagesService.show('You are now logged in', {
-                    cssClass: 'alert-success',
-                    timeout: 5000});
-                this.router.navigate([this.returnUrl]);
-            } else {
-                this._flashMessagesService.show(data.msg, {
-                    cssClass: 'danger-alert',
-                    timeout: 5000});
-                this.router.navigate(['admin/login']);
+        this.adminService.authenticateUser(this.loginForm.value).subscribe(
+            (data) => {
+                if(data.success){
+                    this.adminService.storeUserData(data.token, data.user);
+                    this._flashMessagesService.show('You are now logged in', {
+                        cssClass: 'alert-success',
+                        timeout: 5000});
+                    this.router.navigate([this.returnUrl]);
+                } else {
+                    this._flashMessagesService.show(data.msg, {
+                        cssClass: 'danger-alert',
+                        timeout: 5000});
+                    this.router.navigate(['admin/login']);
+                }
+            },
+            (err)=>{
+                this.err = 'Unable to reach Server';
             }
-        });
+        );
     }
 }
 

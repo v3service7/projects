@@ -1,5 +1,5 @@
 <div class="card card-nav-tabs">
-    <div class="card-header" data-background-color="green">
+    <div class="card-header brandingColor">
         <div class="nav-tabs-navigation">
             <div class="nav-tabs-wrapper">
                 <span class="nav-tabs-title">Business List of <strong>"{{currentCustomer.firstname}} {{currentCustomer.lastname}}"</strong></span>
@@ -26,9 +26,6 @@
                     <td class="padding0">{{business.businessName}}</td>
                     <td class="padding0">{{business.typeOfOrg}}</td>
                     <td class="padding0 td-actions text-right">
-                        <a [routerLink]="['/customer/business/document-update',business._id]" rel="tooltip" title="Update Document" class="btn btn-primary btn-simple btn-xs">
-                            <i class="material-icons">content_paste</i>
-                        </a>
                         <a [routerLink]="['/customer/business/',business._id]" rel="tooltip" title="Edit Task" class="btn btn-primary btn-simple btn-xs">
                             <i class="material-icons">edit</i>
                         </a>

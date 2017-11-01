@@ -3,3 +3,47 @@
 .businessClass{
 	height: 100%;
 }
+
+.docDiv{
+	border: 1px solid #43a047;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.docDiv .form-group{
+	padding-bottom: 0px;
+    margin: 0;
+}
+
+.viewFile{
+	position: absolute;
+    top: 5px;
+    right: 15px;
+}
+
+.viewFile a{
+    color: #4caf50;
+    text-decoration: underline;
+}
+
+
+/* Start progress bar*/
+.progress {
+  overflow: visible;
+  margin-bottom: 26px;
+  height: 6px;
+  width: 100%;
+  background-color: white !important;
+}
+
+.progress .progress-bar {
+  position: relative;
+  border-radius: 4px;
+}
+
+.progress-bar-info{
+  background-color: #0198b3;
+}
+
+
+/* End progress bar*/

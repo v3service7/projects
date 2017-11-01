@@ -304,6 +304,7 @@ export class CustomerBusinessDocumentComponent implements OnInit {
     currentCustomer: any = {};
     businesses: any={};
     returnUrl: string;
+    processCompletePercent: number = 0;
     err:any;
     businessAddForm: FormGroup;
     imgUrl = globalVariable.imageUrl;
@@ -354,10 +355,6 @@ export class CustomerBusinessDocumentComponent implements OnInit {
             certificateOfIncorporationFile: ['', Validators.required],
             bankStatementFile: ['', Validators.required],
         });
-        /*this.route.params.subscribe((params: Params) => {
-            let id = params['id'];  
-            this.business(id);
-        });*/
 
         let bID = 'business_'+this.currentCustomer._id
         this.businessAddForm.patchValue(JSON.parse(localStorage.getItem(bID)));
@@ -365,41 +362,15 @@ export class CustomerBusinessDocumentComponent implements OnInit {
 
     onChange(event,fileType) {
         this.uploader.uploadAll();
+        this.uploader.onProgressItem = (file: any, progress: any) =>{
+            this.processCompletePercent = progress;
+        }
         this.uploader.onCompleteItem = (item: any, response: any, status: any, headers: any) => {
             var responsePath = JSON.parse(response);
+            console.log(fileType,responsePath.filename);
             this.businessAddForm.controls[fileType].setValue(responsePath.filename);
-            /*this.businesses[fileType]= responsePath.filename;*/
         };
     }
-
-    /*customer(id){
-        this.customerService.customer(id).subscribe(
-            (data) => {
-              if (!data.error) {
-                  this.currentCustomer = data.message;
-                  this.getList(this.currentCustomer._id);
-                }
-            },
-            (err)=>{
-                console.log('kfgbhj')
-            }
-        );
-    }*/
-
-    /*business(id){
-        this.businessService.business(id).subscribe(
-            (data) => {
-                if (!data.error) {
-                    this.businessAddForm.patchValue(data.message);
-                    this.businesses = data.message;
-                    //console.log(this.businesses)
-                }
-            },
-            (err)=>{
-                console.log('kfgbhj')
-            }
-        );
-    }*/
 
     businessDocument(){
         this.businessService.businessAdd(this.businessAddForm.value).subscribe(
@@ -407,6 +378,7 @@ export class CustomerBusinessDocumentComponent implements OnInit {
                 if (!data.error) {
                     this._flashMessagesService.show('Business Added Successfully', { cssClass: 'alert-success', timeout: 5000 });
                     this.router.navigate(['customer/business']);
+                    localStorage.removeItem('business_'+this.currentCustomer._id);
                 }
             },
             (err)=>{
@@ -414,19 +386,6 @@ export class CustomerBusinessDocumentComponent implements OnInit {
             }
         );
     }
-
-    /*getList(id){
-        this.businessService.businessList(id).subscribe(
-            (data) => {
-              if (!data.error) {
-                    this.businesses = data.message
-                }
-            },
-            (err)=>{
-                console.log('kfgbhj')
-            }
-        );
-    }*/
 }
 
 @Component({
@@ -441,6 +400,10 @@ export class CustomerBusinessEditComponent implements OnInit {
     businessAddForm: FormGroup;
     mobileRegex = /^[(]{0,1}[2-9]{1}[0-9]{1,2}[)]{0,1}[-\s\.]{0,1}[0-9]{3}[-\s\.]{0,1}[0-9]{7}$/;
     phoneRegex = /^[0-9]*$/;
+    imgUrl = globalVariable.imageUrl;
+    processCompletePercent: number = 0;
+
+    public uploader: FileUploader = new FileUploader({ url: globalVariable.url+'upload' });
 
     formErrors = {
         'businessName': '',
@@ -538,8 +501,6 @@ export class CustomerBusinessEditComponent implements OnInit {
             this.business(id);
         });
 
-        this.customer(this.currentCustomer._id);
-
         this.businessAddForm.valueChanges
             .subscribe(data => this.onValueChanged(data));
         this.onValueChanged();
@@ -585,22 +546,16 @@ export class CustomerBusinessEditComponent implements OnInit {
         );
     }
 
-    customer(id){
-        this.customerService.customer(id).subscribe(
-            (data) => {
-            if (!data.error) {
-                console.log(data)
-                this.currentCustomer = data.message;
-                let name = this.currentCustomer.firstname+' '+this.currentCustomer.lastname
-                /*this.businessAddForm.controls["ownerName"].setValue(name);
-                this.businessAddForm.controls["mobileNumber"].setValue(this.currentCustomer.phonenumber);
-                this.businessAddForm.controls["ownerId"].setValue(data.message._id);*/
-            }
-            },
-            (err)=>{
-                console.log('kfgbhj')
-            }
-        );
+    onChange(event,fileType) {
+        this.uploader.uploadAll();
+        this.uploader.onProgressItem = (file: any, progress: any) =>{
+            this.processCompletePercent = progress;
+        }
+        this.uploader.onCompleteItem = (item: any, response: any, status: any, headers: any) => {
+            var responsePath = JSON.parse(response);
+            this.businessAddForm.controls[fileType].setValue(responsePath.filename);
+            /*this.businesses[fileType]= responsePath.filename;*/
+        };
     }
 
     business(id){
@@ -608,12 +563,7 @@ export class CustomerBusinessEditComponent implements OnInit {
             (data) => {
             if (!data.error) {
                 console.log(data)
-                /*this.currentCustomer = data.message;
-                let name = this.currentCustomer.firstname+' '+this.currentCustomer.lastname
-                this.businessAddForm.controls["ownerName"].setValue(name);
-                this.businessAddForm.controls["mobileNumber"].setValue(this.currentCustomer.phonenumber);*/
                 this.businessAddForm.patchValue(data.message);
-
                 console.log("this.businessAddForm.value");
                 console.log(this.businessAddForm.value);
             }

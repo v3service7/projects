@@ -1,0 +1,260 @@
+<div class="row">
+    <div class="col-md-12">
+        <div class="card" *ngIf = "business">
+            <div class="card-header brandingColor">
+                <h4 class="title">
+                    Business Detail
+                    <span class="nav-tabs-title" style="float: right;cursor: pointer;" (click) = "goToBusinessList()">Back</span>
+                 </h4>
+            </div>
+            <div class="card-content">
+                <div *ngIf = "business.businessName && business.businessName != ''" class="row">
+                    <div class="col-md-6">
+                        <label class="">Name of business</label>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="">{{business.businessName}}</label>
+                    </div>
+                </div>
+
+                <div *ngIf = "business.typeOfOrg && business.typeOfOrg != ''" class="row">
+                    <div class="col-md-6">
+                        <label class="">Types of business Organisation</label>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="">{{business.typeOfOrg}}</label>
+                    </div>
+                </div>
+
+                <div *ngIf = "business.tradeLicenseNumber && business.tradeLicenseNumber != ''" class="row">
+                    <div class="col-md-6">
+                        <label class="">Trade License Number</label>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="">{{business.tradeLicenseNumber}}</label>
+                    </div>
+                </div>
+
+                <div *ngIf = "business.issuingAuthority && business.issuingAuthority != ''" class="row">
+                    <div class="col-md-6">
+                        <label class="">Issuing Authority</label>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="">{{business.issuingAuthority}}</label>
+                    </div>
+                </div>
+
+                <div *ngIf = "business.tradeLicenseExpiry && business.tradeLicenseExpiry != ''" class="row">
+                    <div class="col-md-6">
+                        <label class="">Trade License Expiry</label>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="">{{business.tradeLicenseExpiry}}</label>
+                    </div>
+                </div>
+
+                <div *ngIf = "business.emiRate && business.emiRate != ''" class="row">
+                    <div class="col-md-6">
+                        <label class="">Emirate</label>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="">{{business.emiRate}}</label>
+                    </div>
+                </div>
+
+                <div *ngIf = "business.phoneNumber && business.phoneNumber != ''" class="row">
+                    <div class="col-md-6">
+                        <label class="">Phone</label>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="">{{business.phoneNumber}}</label>
+                    </div>
+                </div>
+
+                <div *ngIf = "business.ownerName && business.ownerName != ''" class="row">
+                    <div class="col-md-6">
+                        <label class="">Name of Owner / Manager</label>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="">{{business.ownerName}}</label>
+                    </div>
+                </div>
+
+                <div *ngIf = "business.mobileNumber && business.mobileNumber != ''" class="row">
+                    <div class="col-md-6">
+                        <label class="">Mobile Number</label>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="">{{business.mobileNumber}}</label>
+                    </div>
+                </div>
+
+                <div *ngIf = "business.passportNumber && business.passportNumber != ''" class="row">
+                    <div class="col-md-6">
+                        <label class="">Passport Number</label>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="">{{business.passportNumber}}</label>
+                    </div>
+                </div>
+                
+                <div *ngIf = "business.nationality && business.nationality != ''" class="row">
+                    <div class="col-md-6">
+                        <label class="">Nationality</label>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="">{{business.nationality}}</label>
+                    </div>
+                </div>
+                
+                <div *ngIf = "business.emiRateIdNumber && business.emiRateIdNumber != ''" class="row">
+                    <div class="col-md-6">
+                        <label class="">Emirates ID Number</label>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="">{{business.emiRateIdNumber}}</label>
+                    </div>
+                </div>
+
+                <div *ngIf = "business.emiRateIdNumber && business.emiRateIdNumber != ''" class="row">
+                    <div class="col-md-6">
+                        <label class="">Emirates ID Number</label>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="">{{business.emiRateIdNumber}}</label>
+                    </div>
+                </div>
+
+                <div *ngIf = "business.bankName && business.bankName != ''" class="row">
+                    <div class="col-md-6">
+                        <label class="">Bank Name</label>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="">{{business.bankName}}</label>
+                    </div>
+                </div>
+
+                <div *ngIf = "business.bankBranch && business.bankBranch != ''" class="row">
+                    <div class="col-md-6">
+                        <label class="">Branch Name</label>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="">{{business.bankBranch}}</label>
+                    </div>
+                </div>
+
+                <div *ngIf = "business.bankAccountNumber && business.bankAccountNumber != ''" class="row">
+                    <div class="col-md-6">
+                        <label class="">Account Number</label>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="">{{business.bankAccountNumber}}</label>
+                    </div>
+                </div>
+
+                <div *ngIf = "business.certificateOfIncorporationNo && business.certificateOfIncorporationNo != ''" class="row">
+                    <div class="col-md-6">
+                        <label class="">Certificate of incorporation no</label>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="">{{business.certificateOfIncorporationNo}}</label>
+                    </div>
+                </div>
+
+                <div *ngIf = "business.vattrn && business.vattrn != ''" class="row">
+                    <div class="col-md-6">
+                        <label class="">VAT TRN</label>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="">{{business.vattrn}}</label>
+                    </div>
+                </div>
+
+                <div *ngIf = "business.plan && business.plan != ''" class="row">
+                    <div class="col-md-6">
+                        <label class="">Plan Selected</label>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="">{{business.plan}}</label>
+                    </div>
+                </div>
+
+                <div *ngIf = "business.siteVisit && business.siteVisit != ''" class="row">
+                    <div class="col-md-6">
+                        <label class="">Optional Site visit package</label>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="" *ngIf = "business.siteVisit == 'AED 0'">
+                            No Site Visit Required(AED 0)
+                            <span>{{business.noDaysRequired}}</span>
+                        </label>
+                        <label class="" *ngIf = "business.siteVisit == 'AED 150'">Site Visit Required(AED 150)</label>
+                    </div>
+                </div>
+
+                <div *ngIf = "business.passportFile && business.passportFile != ''" class="row">
+                    <div class="col-md-6">
+                        <label class="">Passport File</label>
+                    </div>
+                    <div class="col-md-6">
+                        <label class=""><a target="_blank" href="{{imgUrl}}{{business.passportFile}}">View</a></label>
+                    </div>
+                </div>
+
+                <div *ngIf = "business.visaFile && business.visaFile != ''" class="row">
+                    <div class="col-md-6">
+                        <label class="">Visa File</label>
+                    </div>
+                    <div class="col-md-6">
+                        <label class=""><a target="_blank" href="{{imgUrl}}{{business.visaFile}}">View</a></label>
+                    </div>
+                </div>
+
+                <div *ngIf = "business.emiRatesIdFile && business.emiRatesIdFile != ''" class="row">
+                    <div class="col-md-6">
+                        <label class="">Emirates Id File</label>
+                    </div>
+                    <div class="col-md-6">
+                        <label class=""><a target="_blank" href="{{imgUrl}}{{business.emiRatesIdFile}}">View</a></label>
+                    </div>
+                </div>
+
+                <div *ngIf = "business.tradeLicenseFile && business.tradeLicenseFile != ''" class="row">
+                    <div class="col-md-6">
+                        <label class="">Trade License File</label>
+                    </div>
+                    <div class="col-md-6">
+                        <label class=""><a target="_blank" href="{{imgUrl}}{{business.tradeLicenseFile}}">View</a></label>
+                    </div>
+                </div>
+
+                <div *ngIf = "business.articleAndPartnershipFile && business.articleAndPartnershipFile != ''" class="row">
+                    <div class="col-md-6">
+                        <label class="">Article and Partnership File</label>
+                    </div>
+                    <div class="col-md-6">
+                        <label class=""><a target="_blank" href="{{imgUrl}}{{business.articleAndPartnershipFile}}">View</a></label>
+                    </div>
+                </div>
+
+                <div *ngIf = "business.certificateOfIncorporationFile && business.certificateOfIncorporationFile != ''" class="row">
+                    <div class="col-md-6">
+                        <label class="">Certificate of Incorporation File</label>
+                    </div>
+                    <div class="col-md-6">
+                        <label class=""><a target="_blank" href="{{imgUrl}}{{business.certificateOfIncorporationFile}}">View</a></label>
+                    </div>
+                </div>
+               
+                <div *ngIf = "business.bankStatementFile && business.bankStatementFile != ''" class="row">
+                    <div class="col-md-6">
+                        <label class="">Bank Statement File</label>
+                    </div>
+                    <div class="col-md-6">
+                        <label class=""><a target="_blank" href="{{imgUrl}}{{business.bankStatementFile}}">View</a></label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

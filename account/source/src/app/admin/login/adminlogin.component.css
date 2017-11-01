@@ -45,3 +45,7 @@
 .login-page .card-login .card-header .title {
     margin-top: 10px;
 }
+
+.footer a{
+    color: #0198B3 !important;
+}

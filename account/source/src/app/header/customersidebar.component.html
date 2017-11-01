@@ -1,5 +1,9 @@
-<div class="sidebar" data-color="green" data-image="../assets/img/sidebar-1.jpg">
-    <div class="logo"><a [routerLink]="['/customer/dashboard']" class="simple-text">Account Admin</a></div>
+<div class="sidebar" data-color="cgreen" data-image="../assets/img/sidebar-1.jpg">
+    <div class="logo">
+        <a [routerLink]="['/customer/dashboard']" class="simple-text">
+            <img src="assets/img/logo.jpg" style="height: 50px;width: 230px;">
+        </a>
+    </div>
     <div class="sidebar-wrapper">
         <ul class="nav">
             <li [routerLinkActive]="['active']">
@@ -20,6 +24,11 @@
                     <p>Business</p>
                 </a>
             </li>
+
+            <!-- <li class="active customerSupportNumber">
+                <p>Customer Support Number: +971 50 98 123 89 (UAE)</p>
+            </li> -->
+            
             <li class="active active-pro">
                 <a href="javascript:void(0)" (click)="customerLogout()" >
                     <i class="material-icons">power_settings_new</i>
@@ -28,4 +37,10 @@
             </li>
         </ul>
     </div>
+</div>
+
+
+<div class="companyLocation-n-emailID">
+    <span style="margin-right: 5%;">Company Location: Dubai, UAE</span>
+    <span>Email ID: info@vatfile.com</span>
 </div>
