@@ -316,7 +316,7 @@ export class CustomerEditComponent implements OnInit {
     }
 
     customer(id){
-        this.customerService.customer(id).subscribe(
+        this.adminService.customer(id).subscribe(
             (data) => {
                 if (!data.error) {
                     this.currentCustomer = data.message;

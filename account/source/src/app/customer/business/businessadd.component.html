@@ -19,7 +19,7 @@
                         </div>
                         <div class="col-md-6">
                             <div class="form-group label-floating">
-                                <label class="control-label">Types of business Organisation*</label>
+                                <label class="control-label">Types of business Organisation</label>
                                 <select formControlName="typeOfOrg" class="form-control">
                                     <option>Natural Person</option>
                                     <option>Incorporated entity</option>
@@ -40,7 +40,7 @@
                         </div>
                         <div class="col-md-4">
                             <div class="form-group label-floating">
-                                <label class="control-label">Issuing Authority*</label>
+                                <label class="control-label">Issuing Authority</label>
                                 <input formControlName="issuingAuthority" type="text" class="form-control">
                             </div>
                         </div>
@@ -134,19 +134,19 @@
                     <div class="row">
                         <div class="col-md-4">
                             <div class="form-group label-floating">
-                                <label class="control-label">Bank Name*</label>
+                                <label class="control-label">Bank Name</label>
                                 <input formControlName="bankName" type="text" class="form-control">
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group label-floating">
-                                <label class="control-label">Branch Name*</label>
+                                <label class="control-label">Branch Name</label>
                                 <input formControlName="bankBranch" type="text" class="form-control">
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group label-floating">
-                                <label class="control-label">Account Number*</label>
+                                <label class="control-label">Account Number</label>
                                 <input formControlName="bankAccountNumber" type="number" class="form-control">
                             </div>
                         </div>
@@ -154,13 +154,13 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group label-floating">
-                                <label class="control-label">Certificate of incorporation no*</label>
+                                <label class="control-label">Certificate of incorporation no</label>
                                 <input formControlName="certificateOfIncorporationNo" type="text" class="form-control">
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group label-floating">
-                                <label class="control-label">VAT TRN*</label>
+                                <label class="control-label">VAT TRN</label>
                                 <input formControlName="vattrn" type="text" class="form-control">
                             </div>
                         </div>
@@ -178,7 +178,7 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group label-floating">
-                                <label class="control-label">Optional Site visit package*</label>
+                                <label class="control-label">Optional Site visit package</label>
                                 <select formControlName="siteVisit" class="form-control" (change)="checkIsVisit()">
                                     <option value="AED 0">No Site Visit Required(AED 0)</option>
                                     <option value="AED 150">Site Visit Required(AED 150)</option>
@@ -187,12 +187,12 @@
                         </div>
                         <div class="col-md-6" *ngIf="isVisit">
                             <div class="form-group label-floating" >
-                                <label class="control-label">Number of days required*</label>
+                                <label class="control-label">Number of days required</label>
                                 <input formControlName="noDaysRequired" type="number" class="form-control">
                             </div>
                         </div>
                     </div>
-                    <button type="submit" class="btn btn-success pull-right" [disabled]="!businessAddForm.valid">Add Business</button>
+                    <button type="submit" class="btn btn-success pull-right" [disabled]="!businessAddForm.valid">Upload Documents</button>
                     <div class="clearfix"></div>
                 </form>
             </div>

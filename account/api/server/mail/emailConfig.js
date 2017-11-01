@@ -3,8 +3,8 @@ var ejs = require('ejs');
 var randomstring = require("randomstring");
 
 var emailFrom = 'this@company.com';
-/*var templateDir = '/home/nodeapp/account/email_template';*/
-var templateDir = '../api/email_template';
+var templateDir = '/home/nodeapp/account/email_template';
+/*var templateDir = '../api/email_template';*/
 var transporter = nodemailer.createTransport({
     service: "Gmail",
     auth: {

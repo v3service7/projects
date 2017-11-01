@@ -98,7 +98,6 @@ export class BusinessListComponent implements OnInit {
     }
 }
 
-
 @Component({
   selector: 'app-admin-business-edit',
   templateUrl: './businessedit.component.html',

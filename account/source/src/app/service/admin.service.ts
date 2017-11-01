@@ -79,6 +79,18 @@ export class AdminService {
         });
     }
 
+    public customerDelete(id){
+        let headers = new Headers();
+        this.loadToken();
+        headers.append('Authorization', this.authToken);
+        headers.append('Content-Type','application/json');
+        return this.http.delete(globalVariable.url+'api/customer/'+id,{headers: headers})
+        .map((response: Response) => {
+            let user = response.json();
+            return user;
+        });
+    }
+
     public staffList(){
         let headers = new Headers();
         this.loadToken();
@@ -91,12 +103,50 @@ export class AdminService {
         });
     }
 
-    public customerDelete(id){
+    public staff(id){
         let headers = new Headers();
         this.loadToken();
         headers.append('Authorization', this.authToken);
         headers.append('Content-Type','application/json');
-        return this.http.delete(globalVariable.url+'api/customer/'+id,{headers: headers})
+        return this.http.get(globalVariable.url+'api/staff/'+id,{headers: headers})
+        .map((response: Response) => {
+            let user = response.json();
+            return user;
+        });
+    }
+
+    public staffAdd(data){
+        let headers = new Headers();
+        this.loadToken();
+        headers.append('Authorization', this.authToken);
+        headers.append('Content-Type','application/json');
+        return this.http.post(globalVariable.url+'api/staff',data,{headers: headers})
+        .map((response: Response) => {
+            let user = response.json();
+            return user;
+        });
+    }
+
+    public staffUpdate(data){
+        let headers = new Headers();
+        this.loadToken();
+        headers.append('Authorization', this.authToken);
+        headers.append('Content-Type','application/json');
+        
+        return this.http.put(globalVariable.url+'api/staff/'+data._id,data,{headers: headers})
+        .map((response: Response) => {
+            let user = response.json();
+            return user;
+        });
+    }
+    
+    public staffDelete(id){
+        let headers = new Headers();
+        this.loadToken();
+        headers.append('Authorization', this.authToken);
+        headers.append('Content-Type','application/json');
+        
+        return this.http.delete(globalVariable.url+'api/staff/'+id,{headers: headers})
         .map((response: Response) => {
             let user = response.json();
             return user;

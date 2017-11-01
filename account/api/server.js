@@ -77,6 +77,8 @@ var upload = multer({ //multer settings
 
 /** API path that will upload the files */
 app.post('/upload', function(req, res) {
+    console.log("req, res");
+    console.log(req, res);
     upload(req, res, function(err) {
         console.log(req.file);
         if (err) {

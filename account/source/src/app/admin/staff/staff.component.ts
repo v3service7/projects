@@ -51,7 +51,8 @@ export class StaffListComponent implements OnInit {
 
     constructor(
         private lf: FormBuilder, 
-        private staffService: StaffService,
+        /*private staffService: StaffService,*/
+        private adminService: AdminService,
         private router: Router,
         private route: ActivatedRoute,
         private _flashMessagesService: FlashMessagesService
@@ -64,7 +65,7 @@ export class StaffListComponent implements OnInit {
     }
 
     getList(){
-        this.staffService.staffList().subscribe(
+        this.adminService.staffList().subscribe(
             (data) => {
               if (!data.error) {
                      this.staffs = data.message
@@ -78,7 +79,7 @@ export class StaffListComponent implements OnInit {
 
     private deleteStaff(id) {
         if(confirm("Are you sure to delete ?")) {
-            this.staffService.staffDelete(id).subscribe(data => {
+            this.adminService.staffDelete(id).subscribe(data => {
                 if (!data.error) {
                     this._flashMessagesService.show('Staff Deleted Successfully', { cssClass: 'alert-success', timeout: 5000 });
                 }
@@ -153,6 +154,7 @@ export class StaffAddComponent implements OnInit {
     constructor(
         private lf: FormBuilder, 
         private staffService: StaffService,
+        private adminService: AdminService,
         private router: Router,
         private route: ActivatedRoute,
         private _flashMessagesService: FlashMessagesService
@@ -191,7 +193,7 @@ export class StaffAddComponent implements OnInit {
     }
 
     staffAdd(){
-        this.staffService.staffAdd(this.staffAddForm.value).subscribe(
+        this.adminService.staffAdd(this.staffAddForm.value).subscribe(
             (data) => {
                 if (!data.error) {
                     this._flashMessagesService.show('Staff Created Successfully', { cssClass: 'alert-success', timeout: 5000 });
@@ -272,6 +274,7 @@ export class StaffEditComponent implements OnInit {
     constructor(
         private lf: FormBuilder, 
         private staffService: StaffService,
+        private adminService: AdminService,
         private router: Router,
         private route: ActivatedRoute,
         private _flashMessagesService: FlashMessagesService
@@ -302,7 +305,7 @@ export class StaffEditComponent implements OnInit {
     }
 
     staffUpdate(){
-        this.staffService.staffUpdate(this.staffAddForm.value).subscribe(
+        this.adminService.staffUpdate(this.staffAddForm.value).subscribe(
             (data) => {
               if (!data.error) {
                   this._flashMessagesService.show('Staff Updated successfully', { cssClass: 'alert-success', timeout: 5000 });
@@ -317,7 +320,7 @@ export class StaffEditComponent implements OnInit {
     }
 
     staff(id){
-        this.staffService.staff(id).subscribe(
+        this.adminService.staff(id).subscribe(
             (data) => {
               if (!data.error) {
                   this.currentStaff = data.message;

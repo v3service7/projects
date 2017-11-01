@@ -46,7 +46,7 @@
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label class="control-label">Trade License Expiry</label>
+                                <label class="control-label">Trade License Expiry*</label>
                                 <input formControlName="tradeLicenseExpiry" type="text" class="form-control">
                             </div>
                             <div *ngIf="formErrors.tradeLicenseExpiry" class="alert alert-danger">
@@ -57,7 +57,7 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label class="control-label">EMI Rate*</label>
+                                <label class="control-label">Emirate*</label>
                                 <select formControlName="emiRate" class="form-control">
                                     <option>Dubai</option>
                                     <option>Abu Dhabi</option>
@@ -123,7 +123,7 @@
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label class="control-label">Emi rates ID Number*</label>
+                                <label class="control-label">Emirates ID Number*</label>
                                 <input formControlName="emiRateIdNumber" type="text" class="form-control">
                             </div>
                             <div *ngIf="formErrors.emiRateIdNumber" class="alert alert-danger">
@@ -192,6 +192,91 @@
                             </div>
                         </div>
                     </div>
+
+
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="myCard">
+                                <div class="form-group">
+                                    <input type="file" class="form-control" name="single" ng2FileSelect [uploader]="uploader" (change)="onChange($event,'passportFile')">
+                                    <a href="javascript:void(0)" class="btn btn-success btn-round btn-block">Upload Passport File</a>
+                                </div>
+                                <div class="form-group textCenter viewFile" *ngIf="businessAddForm.value.passportFile">
+                                    <a href="{{imgUrl}}{{businesses.passportFile}}">View</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="myCard">
+                                <div class="form-group">
+                                    <input type="file" class="form-control" name="single" ng2FileSelect [uploader]="uploader" (change)="onChange($event,'visaFile')">
+                                    <a href="javascript:void(0)" class="btn btn-success btn-round btn-block">Upload Visa File</a>
+                                </div>
+                                <div class="form-group textCenter viewFile" *ngIf="businessAddForm.value.visaFile">
+                                    <a href="{{imgUrl}}{{businesses.visaFile}}">View</a>
+                                </div>
+                            </div>
+                        </div>
+                    
+                        <div class="col-md-4">
+                            <div class="myCard">
+                                 <div class="form-group">
+                                    <input type="file" class="form-control" name="single" ng2FileSelect [uploader]="uploader" (change)="onChange($event,'emiRatesIdFile')">
+                                    <a href="javascript:void(0)" class="btn btn-success btn-round btn-block">UPLOAD EMI Rates Id File</a>
+                                </div>
+                                <div class="form-group textCenter viewFile" *ngIf="businessAddForm.value.emiRatesIdFile">
+                                    <a href="{{imgUrl}}{{businesses.emiRatesIdFile}}">View</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="myCard">
+                                 <div class="form-group">
+                                    <input type="file" class="form-control" name="single" ng2FileSelect [uploader]="uploader" (change)="onChange($event,'tradeLicenseFile')">
+                                    <a href="javascript:void(0)" class="btn btn-success btn-round btn-block">UPLOAD Trade License File</a>
+                                </div>
+                                <div class="form-group textCenter viewFile" *ngIf="businessAddForm.value.tradeLicenseFile">
+                                    <a href="{{imgUrl}}{{businesses.tradeLicenseFile}}">View</a>
+                                </div>
+                            </div>
+                        </div>
+                   
+                        <div class="col-md-4">
+                            <div class="myCard">
+                                <div class="form-group">
+                                    <input type="file" class="form-control" name="single" ng2FileSelect [uploader]="uploader" (change)="onChange($event,'articleAndPartnershipFile')">
+                                    <a href="javascript:void(0)" class="btn btn-success btn-round btn-block">UPLOAD Article and Partnership File</a>
+                                </div>
+                                <div class="form-group textCenter viewFile" *ngIf="businessAddForm.value.articleAndPartnershipFile">
+                                    <a href="{{imgUrl}}{{businesses.articleAndPartnershipFile}}">View</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="myCard">
+                                <div class="form-group">
+                                    <input type="file" class="form-control" name="single" ng2FileSelect [uploader]="uploader" (change)="onChange($event,'certificateOfIncorporationFile')">
+                                    <a href="javascript:void(0)" class="btn btn-success btn-round btn-block">UPLOAD Certificate of Incorporation File</a>
+                                </div>
+                                <div class="form-group textCenter viewFile" *ngIf="businessAddForm.value.certificateOfIncorporationFile">
+                                    <a href="{{imgUrl}}{{businesses.certificateOfIncorporationFile}}">View</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="myCard">
+                                <div class="form-group">
+                                    <input type="file" class="form-control" name="single" ng2FileSelect [uploader]="uploader" (change)="onChange($event,'bankStatementFile')">
+                                    <a href="javascript:void(0)" class="btn btn-success btn-round btn-block">UPLOAD Bank Statement File</a>
+                                </div>
+                                <div class="form-group textCenter viewFile" *ngIf="businessAddForm.value.bankStatementFile">
+                                    <a href="{{imgUrl}}{{businesses.bankStatementFile}}">View</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
                     <button type="submit" class="btn btn-success pull-right" [disabled]="!businessAddForm.valid">Update Business</button>
                     <div class="clearfix"></div>
                 </form>
