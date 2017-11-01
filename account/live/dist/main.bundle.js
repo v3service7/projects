@@ -374,7 +374,7 @@ var BusinessViewComponent = (function () {
         });
     };
     BusinessViewComponent.prototype.goToBusinessList = function () {
-        this.router.navigate(['/admin/business', this.id]);
+        this.router.navigate(['/admin/business', this.business.ownerId]);
     };
     return BusinessViewComponent;
 }());
