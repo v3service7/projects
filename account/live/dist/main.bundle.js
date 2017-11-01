@@ -538,6 +538,7 @@ var BusinessEditComponent = (function () {
         this.uploader.onCompleteItem = function (item, response, status, headers) {
             var responsePath = JSON.parse(response);
             _this.businessEditForm.controls[fileType].setValue(responsePath.filename);
+            _this.processCompletePercent = 0;
             /*this.businesses[fileType]= responsePath.filename;*/
         };
     };
@@ -2958,6 +2959,7 @@ var CustomerBusinessDocumentComponent = (function () {
             var responsePath = JSON.parse(response);
             console.log(fileType, responsePath.filename);
             _this.businessAddForm.controls[fileType].setValue(responsePath.filename);
+            _this.processCompletePercent = 0;
         };
     };
     CustomerBusinessDocumentComponent.prototype.businessDocument = function () {
@@ -3131,6 +3133,7 @@ var CustomerBusinessEditComponent = (function () {
         this.uploader.onCompleteItem = function (item, response, status, headers) {
             var responsePath = JSON.parse(response);
             _this.businessAddForm.controls[fileType].setValue(responsePath.filename);
+            _this.processCompletePercent = 0;
             /*this.businesses[fileType]= responsePath.filename;*/
         };
     };
