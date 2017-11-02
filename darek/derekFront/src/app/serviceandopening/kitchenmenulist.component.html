@@ -67,7 +67,7 @@
                      <!-- </div> -->
                   </div>
 
-                  <div class="secondDiv">
+                  <div class="" style="background: #F4F2EF;padding: 3%;">
                      <div class="input-group gfe-input">
                         <span class="input-group-addon">
                            <i class="fa fa-cutlery" aria-hidden="true"></i>
@@ -86,7 +86,7 @@
                         <span class="input-group-addon">
                            <i class="fa fa-usd" aria-hidden="true"></i>
                         </span>
-                        <input type="text" class="form-control" formControlName="price">
+                        <input type="number" class="form-control" formControlName="price">
                         <span class="gfe-input-placeholder">Item Price *</span>
                      </div>
                      <div class="input-group gfe-input">
@@ -104,10 +104,28 @@
                               <input type="checkbox" value="{{itemGroup._id}}" (change)="onClicked($event)">{{itemGroup.name}} &nbsp;<span *ngIf="itemGroup.groupType">({{itemGroup.groupType.gType}})</span>
                            </div>
                         </div>
-                        <!-- <select multiple formControlName="options" style="width: 100%;">
-                           <option *ngFor="let itemGroup of itemGroups" [ngValue]="itemGroup._id">{{itemGroup.name}} &nbsp;<span *ngIf="itemGroup.groupType">({{itemGroup.groupType.gType}})</span></option>
-                        </select> -->
                      </div>
+                     <div class="input-group gfe-input">
+                        <span class="input-group-addon">
+                           <i class="fa fa-fire" aria-hidden="true"></i>
+                        </span>
+                        <div class="col-lg-12  col-md-12 col-sm-12 col-xs-12 spicySetting form-control">
+                           <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                              <div class="width100" style="background: #a4a4a4;height: 3px;">
+                                 <div class="gradientClass" [style.width] ="spicyLevel + '%'" style="height: 3px;"></div>
+                              </div>
+                              <div class="width100" style="display: flex;">
+                                 <span (click)="spicylevel(0, 'add')">0</span>
+                                 <div style="width: 33%; text-align: right;" class="level1" (click)="spicylevel(1, 'add')">1</div>
+                                 <div style="width: 33%; text-align: right;" class="level2" (click)="spicylevel(2, 'add')">2</div>
+                                 <div style="width: 33%; text-align: right;" class="level3" (click)="spicylevel(3, 'add')">3</div>
+                              </div>
+
+                           </div>
+                        </div>
+                     </div>
+
+
                   </div>
                   <div class="modal-footer">
                      <input type="submit" class="btn btn-next" value="Next" [disabled]="!itemAddModel.valid">
@@ -175,7 +193,7 @@
                         <h4 class="modal-title">Update Item</h4>
                      <!-- </div> -->
                   </div>
-                  <div class="secondDiv">
+                  <div class="" style="background: #F4F2EF;padding: 3%;">
                      <div class="input-group gfe-input">
                         <span class="input-group-addon">
                            <i class="fa fa-cutlery" aria-hidden="true"></i>
@@ -215,13 +233,30 @@
                               <input type="checkbox" value="{{itemGroup._id}}"  [checked]="checkCheckedGroup(itemGroup._id)" (change)="onClicked($event)">{{itemGroup.name}} &nbsp;<span *ngIf="itemGroup.groupType">({{itemGroup.groupType.gType}})</span>
                            </div>
                         </div>
-
-
-                          <!-- <select multiple formControlName="options" style="width: 100%; padding:5px;">
-                           <option *ngFor="let itemGroup of itemGroups" [ngValue]="itemGroup._id">{{itemGroup.name}} &nbsp;<span *ngIf="itemGroup.groupType">({{itemGroup.groupType.gType}})</span></option>
-                          </select> -->
                          <span class="gfe-input-placeholder">AddOns *</span>
                      </div>
+
+                     <div class="input-group gfe-input">
+                        <span class="input-group-addon">
+                           <i class="fa fa-fire" aria-hidden="true"></i>
+                        </span>
+                        <div class="col-lg-12  col-md-12 col-sm-12 col-xs-12 spicySetting form-control">
+                           <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                              <div class="width100" style="background: #a4a4a4;height: 3px;">
+                                 <div class="gradientClass" [style.width] ="spicyLevel + '%'" style="height: 3px;"></div>
+                              </div>
+                              <div class="width100" style="display: flex;">
+                                 <span (click)="spicylevel(0,'update')">0</span>
+                                 <div style="width: 33%; text-align: right;" class="level1" (click)="spicylevel(1,'update')">1</div>
+                                 <div style="width: 33%; text-align: right;" class="level2" (click)="spicylevel(2,'update')">2</div>
+                                 <div style="width: 33%; text-align: right;" class="level3" (click)="spicylevel(3,'update')">3</div>
+                              </div>
+
+                           </div>
+                        </div>
+                     </div>
+
+
 
                   </div>
                   <div class="modal-footer">
@@ -432,7 +467,7 @@
 
          <div  id="menuID{{user._id}}" class = "panel-collapse collapse">
             <div *ngFor="let item of items">
-               <div *ngIf="item.menuId == user._id" class="subMenuItem droppable" style="position: relative;"  (dropEvent)="addDropItem($event)" (dragenterEvent)="dragEnter($event)">
+               <div *ngIf="item.menuId == user._id" class="subMenuItem " style="position: relative;">
                
                   <!--Item Description-->   
                      <div class="margin-for-addon">
@@ -440,7 +475,14 @@
                            <img (click)="passub(item._id)" data-toggle="modal" data-target="#mySubMenuModal" [src]="menuImage(item.image,'item')" class="img-responsive">
                            <span class="imgDel" *ngIf="item.image" (click) = "deleteMenuImage(item,'item')">&times;</span>
                         </div>
-                        <div class="itemDesc col-lg-8 col-md-8 col-sm-8 col-xs-8">{{item.name}}
+                        <div class="itemDesc col-lg-8 col-md-8 col-sm-8 col-xs-8">
+                           <span *ngFor = "let chilly of spicyArray;">
+                              <span *ngIf = "chilly <= item.spicyLevel">
+                                 <img src="assets/images/chilly.PNG" width="15px">
+                              </span>
+                           </span>
+
+                           {{item.name}}
                         <span class="label label-warning" *ngIf="item.isHidden == true" style="font-size: 60%;position: absolute;border-radius: 1.25em;padding: 1%;">Hidden from Menu  &nbsp;&nbsp;
                            <span style=" cursor: pointer;border: 0px;"  (click) = "deleteHiddenSpecific(item,'item')">&times;</span>
                         </span>
@@ -448,7 +490,7 @@
                            <span style=" cursor: pointer;border: 0px;"  (click) = "deleteHiddenSpecific(item,'item')">&times;</span>
                         </span>
                            <span class="custom_sub_price" *ngIf="item.multisize.length < 1"><code> {{item.price}} USD</code></span>
-                           <div class="row " style="margin-top: 10px;" >
+                           <div class="row" style="margin-top: 10px;">
                               <!-- <small *ngFor="let grop of groups">
                                  <span *ngFor="let itemx of item.options; let i = index;">
                                     <i *ngIf = "grop._id == item.options[i]"> 
@@ -665,7 +707,7 @@
 
          <!-- GROUP LISTING -->
          <div class="js-zones">
-            <div spellcheck="false" class="comp-alt-panel-container js-area-prototype js-container" data-index="1" *ngFor="let group of groups" [dragDirective]="group">
+            <div spellcheck="false" class="comp-alt-panel-container js-area-prototype js-container" data-index="1" *ngFor="let group of groups">
                <div class="zoneData" data-type="true" data-radius="200" data-color="#905dba"></div>
 
                <div class="comp-alt-panel js-area">

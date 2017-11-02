@@ -191,12 +191,20 @@ export class RestaurantOwnerOrderForLaterComponent implements OnInit {
 
 	orderAddModel: FormGroup;
 	restaurants: any;
+	orderlater: any = {};
 	user = [];
+
+	detailComplete : boolean = false;
 
 	styleforpass1 = { 'background-color': 'green', "color": 'white' };
 	styleforpass2 = {};
 	stylefordisplay1 = { 'display': 'block' };
 	stylefordisplay2 = { 'display': 'none' };
+
+	mintime : number;
+	mindate : number;
+	dmintime : number;
+	dmindate : number;
 
 
 	constructor(
@@ -209,17 +217,7 @@ export class RestaurantOwnerOrderForLaterComponent implements OnInit {
 
 	ngOnInit() {
 		this.getRestaurants();
-		this.orderAddModel = this.lf.group({
-			orderforlater: [],
-			mintime: ['', Validators.required],
-			mindate: ['', Validators.required],
-			dmintime: ['', Validators.required],
-			dmindate: ['', Validators.required],
-			_id: []
-		});
-		this.orderAddModel.controls['orderforlater'].setValue(true);
 	}
-
 
 	orderForChange(action) {
 		if (action) {
@@ -227,44 +225,68 @@ export class RestaurantOwnerOrderForLaterComponent implements OnInit {
 			this.styleforpass2 = { 'background-color': '', "color": 'black' };
 			this.stylefordisplay2 = { 'display': 'none' };
 			this.stylefordisplay1 = { 'display': 'block' };
-			this.orderAddModel.controls['orderforlater'].setValue(true);
+
+			this.orderlater['orderforlater'] = true;
+			this.detailComplete = false;
 		} else {
 			this.styleforpass2 = { 'background-color': 'red', "color": 'white' };
 			this.styleforpass1 = { 'background-color': '', "color": 'black' };
 			this.stylefordisplay2 = { 'display': 'block' };
 			this.stylefordisplay1 = { 'display': 'none' };
-			this.orderAddModel.controls['orderforlater'].setValue(false);
+
+			this.orderlater['orderforlater'] = false;
+			this.detailComplete = true;
+
+			delete this.orderlater['orderforlaterpickup'];
+			delete this.orderlater['orderforlaterdelivery'];
+			delete this.mintime;
+			delete this.mindate;
+			delete this.dmintime;
+			delete this.dmindate;
 		}
 	}
 
-	orderDetailUpdate() {
-		var orderlater: any = {};
-		orderlater.orderforlater = this.orderAddModel.value.orderforlater;
-		orderlater._id = this.orderAddModel.value._id;
-		orderlater.orderforlaterpickup = { 'mintime': this.orderAddModel.value.mintime, 'mindate': this.orderAddModel.value.mindate };
-		orderlater.orderforlaterdelivery = { 'mintime': this.orderAddModel.value.dmintime, 'mindate': this.orderAddModel.value.dmindate };
+	orderDetailUpdate(event) {
+		this.orderlater['orderforlaterpickup'] = { 'mintime': this.mintime, 'mindate': this.mindate };
+		this.orderlater['orderforlaterdelivery'] = { 'mintime': this.dmintime, 'mindate': this.dmindate };
 
-		this.restaurantsService.updatePickUp(orderlater).subscribe(
+		if (this.mintime > 0 && this.mindate > 0 && this.dmintime > 0 && this.dmindate > 0) {
+			this.detailComplete = true;
+		}else{
+			this.detailComplete = false;
+		}
+	}
+
+	private saveData(){
+		this.restaurantsService.updatePickUp(this.orderlater).subscribe(
 			(data) => {
 				this.user = data.message;
 				toastr.success('Order for Later Detail Updated','Success!');
 				this.router.navigate(['/owner/restaurant-pickup']);
-			});
+			}
+		);
+	}
+
+	private incompleteData(){
+		if (this.detailComplete)
+			return false;
+		else
+			return true;
 	}
 
 	private getRestaurants() {
 		this.restaurantsService.getOwnerRestaurants(JSON.parse(localStorage.getItem('currentOwner'))._id).subscribe(users => {
 			this.restaurants = users.message;
-			console.log(this.restaurants)
-			if (typeof this.restaurants.orderforlaterpickup !== 'undefined') {
-				this.orderForChange(this.restaurants.orderforlater);
-				//console.log(this.restaurants.orderforlaterpickup)		
-				this.orderAddModel.controls['_id'].setValue(this.restaurants._id);
-				this.orderAddModel.controls['orderforlater'].setValue(this.restaurants.orderforlater);
-				this.orderAddModel.controls['mintime'].setValue(this.restaurants.orderforlaterpickup.mintime);
-				this.orderAddModel.controls['mindate'].setValue(this.restaurants.orderforlaterpickup.mindate);
-				this.orderAddModel.controls['dmintime'].setValue(this.restaurants.orderforlaterdelivery.mintime);
-				this.orderAddModel.controls['dmindate'].setValue(this.restaurants.orderforlaterdelivery.mindate);
+			this.orderlater['_id'] = this.restaurants._id;
+			this.orderForChange(this.restaurants.orderforlater);
+
+			if (this.restaurants.orderforlater) {
+				this.mintime = this.restaurants.orderforlaterpickup.mintime;
+				this.mindate = this.restaurants.orderforlaterpickup.mindate;
+				this.dmintime = this.restaurants.orderforlaterdelivery.mintime;
+				this.dmindate = this.restaurants.orderforlaterdelivery.mindate;
+
+				this.orderDetailUpdate(null);
 			}
 		});
 	}
@@ -980,6 +1002,10 @@ export class KitchenMenuListComponent implements OnInit {
 	imageUrl: string = globalVariable.url+'uploads/';
 	frontUrl: string = globalVariable.frontUrl;
 
+	spicyLevel: Number = 1;
+
+	spicyArray : any = [1,2,3];
+
 	public uploader: FileUploader = new FileUploader({ url: globalVariable.url+'upload' });
 	constructor(
 		private lf: FormBuilder,
@@ -1012,6 +1038,7 @@ export class KitchenMenuListComponent implements OnInit {
 			kitchenId: ['', Validators.required],
 			menuId: ['', Validators.required],
 			price: ['', Validators.required],
+			spicyLevel: ['', Validators.required],
 			description: ['', Validators.required],
 			options : [],
 			image: [],
@@ -1021,6 +1048,7 @@ export class KitchenMenuListComponent implements OnInit {
 			_id: ['', Validators.required],
 			name: ['', Validators.required],
 			price: ['', Validators.required],
+			spicyLevel: ['', Validators.required],
 			description: ['', Validators.required],
 			options: [],
 			image: []
@@ -1098,6 +1126,31 @@ export class KitchenMenuListComponent implements OnInit {
 			});
 		});
 	}
+
+	private spicylevel(num,type){
+		this.widthFunction(num);
+		if (type == 'add') {
+        	this.itemAddModel.controls['spicyLevel'].setValue(num);
+		}
+		if (type == 'update') {
+        	this.itemUpdateModel.controls['spicyLevel'].setValue(num);
+		}
+    }
+
+    private widthFunction(num){
+    	if (num == 0) {
+	        this.spicyLevel = 1;
+		}
+		if (num == 1) {
+	        this.spicyLevel = 34;
+		}
+		if (num == 2) {
+	        this.spicyLevel = 67;
+		}
+		if (num == 3) {
+	        this.spicyLevel = 100;
+		}
+    }
 	private showPreview(){
 		var gfid = this.restaurants._id;
 	    var baseUrl = this.frontUrl;
@@ -1116,15 +1169,6 @@ export class KitchenMenuListComponent implements OnInit {
 			$('#previewModal').css('display','none');
 		});
 	}
-
-	private addDropItem(event){
-		console.log(event)
-	}
-
-	private dragEnter(event1){
-		console.log(event1)
-	}
-
 	private onClicked(event){
 	    if (!event.target.checked) {
 	    	this.addGroupAddon.splice(this.addGroupAddon.indexOf(event.target.value),1);
@@ -1216,8 +1260,10 @@ export class KitchenMenuListComponent implements OnInit {
 		}
 	}
 	private itemAddModelShow(id) {
+		this.spicyLevel = 1;
 		$("#addItem").modal('show');
 		this.itemAddModel.controls['menuId'].setValue(id);
+		this.itemAddModel.controls['spicyLevel'].setValue(0);
 		this.restaurantsService.getOwnerRestaurants(JSON.parse(localStorage.getItem('currentOwner'))._id).subscribe(users => {
 			this.itemAddModel.controls['kitchenId'].setValue(users.message._id);
 		});
@@ -1254,6 +1300,7 @@ export class KitchenMenuListComponent implements OnInit {
 		);
 	}
 	private itemUpdateModelShow(item) {
+		this.widthFunction(item.spicyLevel)
 		$("#updateItem").modal('show');
 		this.getAllGroups();
 		this.itemUpdateModel.patchValue(item);

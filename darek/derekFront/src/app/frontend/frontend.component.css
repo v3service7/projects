@@ -87,7 +87,7 @@ a.selected {
     border-radius: 3px 3px 0 0;
     background-size: cover;
     background-position: center;
-    background-size: 100% 100%;
+    /*background-size: 100% 100%;*/
 }
 
 .deal-list {
@@ -664,6 +664,10 @@ div.cartLength2{
     padding: 0px 15px;
 }
 
+.padding10px15px0px{
+    padding: 10px 15px 0px 15px;
+}
+
 .marginBottom15px{
     margin-bottom: 15px;
 }
@@ -1011,14 +1015,14 @@ div:focus{
     pointer-events : none;
 }
 
-.headingMenu{
-    background: rgb(189, 189, 189);
-    background: -webkit-linear-gradient(left, rgb(189, 189, 189) , rgb(255, 255, 255));
-    background: -o-linear-gradient(right, rgb(189, 189, 189), rgb(255, 255, 255));
-    background: -moz-linear-gradient(right, rgb(189, 189, 189), rgb(255, 255, 255));
-    background: linear-gradient(to right, rgb(189, 189, 189), rgb(255, 255, 255));
+.showNoneMenu .noneClass,.showNoneMenu .noneClass:hover, .showNoneMenu .blockClass,.showNoneMenu .blockClass:hover{
+    cursor: no-drop;
+    background: #dedede;
 }
 
+.showNoneMenu .noneClass a, .showNoneMenu .blockClass a{
+    pointer-events : none;
+}
 
 .customMessage{
     padding: 10px;
@@ -1071,4 +1075,25 @@ div:focus{
     position: fixed;
     width: 25%;
     z-index: 1060;
+}
+
+.menuListDiv{
+    position: fixed;
+    top: 60px;
+    right: 0;
+    z-index: 1066;
+    width: min-content;
+    padding-right: 15px;
+}
+
+.menuList{
+    padding: 3px;
+    background: linear-gradient(to top,#ff8902, rgba(244, 244, 244, 0));
+    border-radius: 7px;
+    font-weight: 800;
+    color: white;
+    white-space: nowrap;
+    vertical-align: baseline;
+    font-size: 14px;
+    float: right;
 }

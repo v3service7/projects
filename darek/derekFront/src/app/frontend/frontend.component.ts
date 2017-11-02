@@ -197,7 +197,7 @@ export class FrontendPromoDetailComponent implements OnInit {
     mandatoryItemId=[];
     mandatoryItemIdList=[];
     detailShow: String;
-    spicyLevel: String = '0%';
+    /*spicyLevel: String = '0%';*/
     promotionStorage : string;
     customerStorage : string;
     cartStorage : string;
@@ -218,6 +218,8 @@ export class FrontendPromoDetailComponent implements OnInit {
     currentCustomer: any;
 
     imageURL: string = globalVariable.imageUrl;
+
+    spicyArray : any = [1,2,3];
 
     constructor(
         private lf: FormBuilder, 
@@ -291,7 +293,18 @@ export class FrontendPromoDetailComponent implements OnInit {
         return i;
     }
 
-    private showThisMenuItems(id, type){
+    private scrollToMenu(id, group){
+        let menu : String;
+        if (group == 'ig1') {
+            menu = '#menuItem_ig1_' + id;
+        }
+        if (group == 'ig2') {
+            menu = '#menuItem_ig2_' + id;
+        }
+        $(menu).attr("tabindex",1).focus();
+    }
+
+    /*private showThisMenuItems(id, type){
         if (type == 'ig2') {
             var id1 = 'menuItem_ig2_'+id;
             $('#'+id1).toggle();   
@@ -300,11 +313,11 @@ export class FrontendPromoDetailComponent implements OnInit {
             var id1 = 'menuItem_ig1_'+id;
             $('#'+id1).toggle();   
         }
-    }
+    }*/
 
-    private spicylevel(num){
+    /*private spicylevel(num){
         this.spicyLevel = num;
-    }
+    }*/
 
     private getCurrentCustomer(id){
         this.customerService.getOneCustomer(id).subscribe(
@@ -323,27 +336,27 @@ export class FrontendPromoDetailComponent implements OnInit {
         if (obj.isSpecific) {
             if (obj.openinghours.opentime <= time2 && obj.openinghours.closetime >= this.time) {
                 if ((obj.openinghours.monday == true) && ('monday' == this.day)) {
-                    return 'block';
+                    return 'showBlockMenu';
                 }else if ((obj.openinghours.tuesday == true) && ('tuesday' == this.day)) {
-                    return 'block';
+                    return 'showBlockMenu';
                 }else if (obj.openinghours.wednesday == true && 'wednesday' == this.day) {
-                    return 'block';
+                    return 'showBlockMenu';
                 }else if (obj.openinghours.thursday == true && 'thursday' == this.day) {
-                    return 'block';
+                    return 'showBlockMenu';
                 }else if (obj.openinghours.friday == true && 'friday' == this.day) {
-                    return 'block';
+                    return 'showBlockMenu';
                 }else if (obj.openinghours.saturday == true && 'saturday' == this.day) {
-                    return 'block';
+                    return 'showBlockMenu';
                 }else if (obj.openinghours.sunday == true && 'sunday' == this.day) {
-                    return 'block';
+                    return 'showBlockMenu';
                 }else{
-                    return 'none';
+                    return 'showNoneMenu';
                 }
             }else{
-                return 'none';
+                return 'showNoneMenu';
             }
         }else{
-            return 'block';
+            return 'showBlockMenu';
         }
     }
 
@@ -468,6 +481,11 @@ export class FrontendPromoDetailComponent implements OnInit {
                             menuObjects['items'] = users.message;
                             menuObjectsArray.push(menuObjects);
                             this.itemG1 = menuObjectsArray;
+
+
+
+                            console.log("this.itemG1");
+                            console.log(this.itemG1);
                         }
                     });
                 }
@@ -489,6 +507,11 @@ export class FrontendPromoDetailComponent implements OnInit {
                             menuObjects['items'] = users.message;
                             menuObjectsArray.push(menuObjects);
                             this.itemG2 = menuObjectsArray;
+
+
+
+                            console.log("this.itemG2");
+                            console.log(this.itemG2);
                         }
                     });
                 }
@@ -513,7 +536,7 @@ export class FrontendPromoDetailComponent implements OnInit {
     }
 
     private showDetail(itemObj,itemMultiSizeObj) {
-        this.spicyLevel = '0%';
+        /*this.spicyLevel = '0%';*/
 
         $("a[id^='changeBg_']").removeClass('changeBg');
         $('#changeBg_ig1_'+itemObj._id).addClass('changeBg');
@@ -683,8 +706,8 @@ export class FrontendPromoDetailComponent implements OnInit {
             var id1 = 'Location_' + id + '_specialInstructionIG1';
             var idG1 = <HTMLInputElement>document.getElementById(id1);
             this.orderItem['itemInstruction'] = idG1.value;
-            this.orderItem['spicyLevel'] = this.spicyLevel;
-            this.spicyLevel = '0%';
+            /*this.orderItem['spicyLevel'] = this.spicyLevel;
+            this.spicyLevel = '0%';*/
 
             if (typeof discountOn[1] == 'undefined') {
                 var discountedPrice = ((100 - this.promotion.discountPercent)/100)*this.orderItem.totalPrice;
@@ -742,8 +765,9 @@ export class FrontendPromoDetailComponent implements OnInit {
             var id2 = 'Location_' + id + '_specialInstructionIG2';
             var idG2 = <HTMLInputElement>document.getElementById(id2);
             this.orderItem['itemInstruction'] = idG2.value;
-            this.orderItem['spicyLevel'] = this.spicyLevel;
-            this.spicyLevel = '0%';
+            
+            /*this.orderItem['spicyLevel'] = this.spicyLevel;
+            this.spicyLevel = '0%';*/
 
             this.promotionItem['itemGroup2'] = this.orderItem;
 
@@ -869,7 +893,9 @@ export class FrontendComponent implements OnInit {
     mandatoryItemId=[];
     mandatoryItemIdList=[];
 
-    spicyLevel : string = '0%';
+    spicyArray : any = [1,2,3];
+
+    /*spicyLevel : string = '0%';*/
     constructor(
         private masterService: MasterService,
         private restaurantsService: RestaurantsService,
@@ -926,22 +952,22 @@ export class FrontendComponent implements OnInit {
 
         var days = ["sunday","monday","tuesday","wednesday","thursday","friday","saturday"];
         this.day = days[this.currentDate.getDay()];
-
-        setTimeout(()=>{
-            var id1 = 'menuItem_' + this.menus[0]._id;
-            $("div[id^='menuItem_']").hide();
-            $('#'+id1).show();
-        },1000)
     }
 
-    private showThisMenuItems(id){
+    /*private showThisMenuItems(id){
         var id1 = 'menuItem_'+id;
         $('#'+id1).toggle();   
+    }*/
+
+    private scrollToMenu(id){
+        let menu = '#menuItem_' + id;
+
+        $(menu).attr("tabindex",1).focus();
     }
 
-    private spicylevel(num){
+    /*private spicylevel(num){
         this.spicyLevel = num;
-    }
+    }*/
 
     private resImage(img){
         if (img != null && img != "") {
@@ -1023,27 +1049,27 @@ export class FrontendComponent implements OnInit {
         if (obj.isSpecific) {
             if (obj.openinghours.opentime <= time2 && obj.openinghours.closetime >= this.time) {
                 if ((obj.openinghours.monday == true) && ('monday' == this.day)) {
-                    return 'block';
+                    return 'showBlockMenu';
                 }else if ((obj.openinghours.tuesday == true) && ('tuesday' == this.day)) {
-                    return 'block';
+                    return 'showBlockMenu';
                 }else if (obj.openinghours.wednesday == true && 'wednesday' == this.day) {
-                    return 'block';
+                    return 'showBlockMenu';
                 }else if (obj.openinghours.thursday == true && 'thursday' == this.day) {
-                    return 'block';
+                    return 'showBlockMenu';
                 }else if (obj.openinghours.friday == true && 'friday' == this.day) {
-                    return 'block';
+                    return 'showBlockMenu';
                 }else if (obj.openinghours.saturday == true && 'saturday' == this.day) {
-                    return 'block';
+                    return 'showBlockMenu';
                 }else if (obj.openinghours.sunday == true && 'sunday' == this.day) {
-                    return 'block';
+                    return 'showBlockMenu';
                 }else{
-                    return 'none';
+                    return 'showNoneMenu';
                 }
             }else{
-                return 'none';
+                return 'showNoneMenu';
             }
         }else{
-            return 'block';
+            return 'showBlockMenu';
         }
     }
 
@@ -1113,9 +1139,9 @@ export class FrontendComponent implements OnInit {
         var itemId = 'Location_' + id + '_specialInstruction'
         var itemInstruction = <HTMLInputElement>document.getElementById(itemId);
         this.orderItem['itemInstruction'] = itemInstruction.value;
-        this.orderItem['spicyLevel'] = this.spicyLevel;
+        /*this.orderItem['spicyLevel'] = this.spicyLevel;
 
-        this.spicyLevel = '0%';
+        this.spicyLevel = '0%';*/
 
         this.totalOrder = JSON.parse(localStorage.getItem(this.cartStorage));
         this.totalOrder.push(this.orderItem);
@@ -1269,7 +1295,7 @@ export class FrontendComponent implements OnInit {
 
     private showDetail(itemObj,itemMultiSizeObj) {
 
-        this.spicyLevel = '0%';
+        /*this.spicyLevel = '0%';*/
 
         $("a[id^='changeBg_']").removeClass('changeBg');
         $('#changeBg_'+itemObj._id).addClass('changeBg');
@@ -1662,6 +1688,8 @@ export class FrontendCartComponent implements OnInit {
     months:any = ['01','02','03','04','05','06','07','08','09','10','11','12'];
     years:any=[];
 
+    spicyArray : any = [1,2,3];
+
     constructor(
         private lf: FormBuilder,
         private masterService: MasterService,
@@ -1964,6 +1992,9 @@ export class FrontendCartComponent implements OnInit {
         toastr.info('Order Method Updated','Information', {'positionClass' : 'toast-top-full-width'});   
         localStorage.removeItem(this.orderPaymentStorage);
         this.orderPayment={};
+        delete this.cartDetail.orderPayment;
+        console.log("this.cartDetail");
+        console.log(this.cartDetail);
     }
 
     private calculateDeliveryZone(zoneObj,deliveryAddress,map,marker){
@@ -2082,9 +2113,6 @@ export class FrontendCartComponent implements OnInit {
     }
 
     private saveAddressInfo(){
-
-        console.log("this.addressForm.value");
-        console.log(this.addressForm.value);
         this.zoneObject=[];
         this.orderMethod = {"streetName": this.addressForm.value.streetName, "city": this.addressForm.value.city, "postcode": this.addressForm.value.postcode,"mType":'Delivery'};
         this.zoneCalculate(this.orderMethod);
@@ -2094,6 +2122,7 @@ export class FrontendCartComponent implements OnInit {
         this.changeShowOrderingStatus();
         localStorage.removeItem(this.orderPaymentStorage);
         this.orderPayment={};
+        delete this.cartDetail.orderPayment;
     }
 
     private initMap() {
@@ -2156,8 +2185,17 @@ export class FrontendCartComponent implements OnInit {
     }
 
     private showDatePicker(type){
-        $('#datetimepicker1').datetimepicker({format : 'dddd, DD-MM-YYYY'});
-        $('#datetimepicker2').datetimepicker({format:'LT'});
+        var mindate = Date();
+        console.log("mindate");
+        console.log(mindate);
+        $('#datetimepicker1').datetimepicker({
+            format : 'dddd, DD-MM-YYYY',
+            minDate:mindate,
+            maxDate:new Date(),
+        });
+        $('#datetimepicker2').datetimepicker({
+            format:'LT'
+        });
     }
 
     private getValue(type){
@@ -2222,6 +2260,9 @@ export class FrontendCartComponent implements OnInit {
         this.changeShowPaymentStatus();
         toastr.remove();
         toastr.info('Order Payment Method Updated','Information', {'positionClass' : 'toast-top-full-width'});
+
+        console.log("this.cartDetail");
+        console.log(this.cartDetail);
     }
 
     private editPayment(){

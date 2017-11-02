@@ -40,7 +40,7 @@
                 <div class="col-xs-8">
                     <select class="form-control" formControlName="deliveryTaxType">
                         <option value="Same Tax">Apply the same tax for the delivery fee</option>
-                        <option value="New Tax">Apply this tax for the delivery fee</option>
+                        <option value="New Tax">Set Different tax for delivery fee</option>
                     </select>
                 </div>
                 <div class="col-xs-4" *ngIf = "taxationAddModel.controls['deliveryTaxType'].value == 'New Tax' ">

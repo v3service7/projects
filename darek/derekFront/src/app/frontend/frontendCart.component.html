@@ -179,30 +179,25 @@
 							<div class="checkbox1 col-lg-12 col-md-12 col-sm-12 col-xs-12 pointer">
 								<input type="radio" name="time" value="" id="now" (click)="setTime('now')" [checked]="this.orderTime.tType == 'Now'">{{'Now' | translate}}
 							</div>
-							<div class="checkbox1 col-lg-12 col-md-12 col-sm-12 col-xs-12 laterSelect pointer">
+
+							<div *ngIf = "restaurants.orderforlater" class="checkbox1 col-lg-12 col-md-12 col-sm-12 col-xs-12 laterSelect pointer">
 								<input type="radio" name="time" value="" id="later" (click)="setTime('later')" [checked]="this.orderTime.tType == 'Later'">Later
 								<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" *ngIf="delLater">
 									<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 select-container padding0" style="display: inline-table;">
-										<!-- <select [(ngModel)]="day" class="order-later-day form-control"  style="width: 100%;"> 
-											<option *ngFor="let n of days" [ngValue]="n.day">{{n.day}}</option>
-										</select> -->
 										<input type='text' class="form-control" id='datetimepicker1' value="{{laterDay}}" (click)="showDatePicker('Day')" (blur)="getValue('datetimepicker1')" style="border-radius: 0;" />
 										<span class="input-group-addon" (click)="showDatePicker('Day')">
 							                <span class="glyphicon glyphicon-calendar"></span>
 							            </span>
 									</div>
 									<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 select-container padding0" style="display: inline-table;">
-										<!-- <select [(ngModel)]="time" class="order-later-time form-control" name="latertime" style="width: 100%;">
-											<option *ngFor="let n of times" [ngValue]="n.time">{{n.time}}</option>
-										</select> -->
 										<input type='text' class="form-control" id='datetimepicker2' value="{{laterTime}}" (click)="showDatePicker('Time')" (blur)="getValue('datetimepicker2')" style="border-radius: 0;" />
 										<span class="input-group-addon" (click)="showDatePicker('Time')">
 						                    <span class="glyphicon glyphicon-time"></span>
 						                </span>
-										<!-- <input type="text" id="datePicker1" placeholder="Select Time" (click)="showDatePicker('displayTime')" (blur)="getValue('datePicker1')" class="form-control"> -->
 									</div>
 								</div>
 							</div>
+							
 							<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0" style="margin-top: 10px;">
 								<button type="submit" class="btn saveButton" (click)="saveTimeInfo()" [disabled]="!this.flagForTime">{{'Save' | translate}}</button>
 							</div>
@@ -367,12 +362,14 @@
 								</div>
 								<div class="col-lg-7 col-md-7 col-sm-7 col-xs-7 padding0">
 									<div class="col-lg-12 col-md-12 col-sm-12 col-xs-2 cart-item-name">
-										<strong>{{crt.item.name}}</strong>
-										<span class="fontSize12px" *ngIf = "crt.spicyLevel == '0%'">(No Spices)</span>
-										<span class="fontSize12px" *ngIf = "crt.spicyLevel == '25%'">(Less Spicy)</span>
-										<span class="fontSize12px" *ngIf = "crt.spicyLevel == '50%'">(Medium Spicy)</span>
-										<span class="fontSize12px" *ngIf = "crt.spicyLevel == '75%'">(Spicy)</span>
-										<span class="fontSize12px" *ngIf = "crt.spicyLevel == '100%'">(Extra Spicy)</span>
+										<strong>
+											<span *ngFor = "let chilly of spicyArray;">
+				                            	<span *ngIf = "chilly <= crt.item.spicyLevel">
+				                                	<img src="assets/images/chilly.PNG" width="15px">
+					                            </span>
+				                           </span>
+											{{crt.item.name}}
+										</strong>
 									</div>
 									<div class="col-lg-12 col-md-12 col-sm-12 col-xs-2 cart-item-option" style="font-size: 12px;">
 										<div *ngIf="crt.multisize">
@@ -408,12 +405,14 @@
 									<div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 padding0">
 										<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 cart-item-name padding0">
 											<!-- {{promotionOrder.itemGroup1.item.name}} -->
-											<strong>{{promotionOrder.itemGroup1.item.name}}</strong>
-											<span class="fontSize12px" *ngIf = "promotionOrder.itemGroup1.spicyLevel == '0%'">(No Spices)</span>
-											<span class="fontSize12px" *ngIf = "promotionOrder.itemGroup1.spicyLevel == '25%'">(Less Spicy)</span>
-											<span class="fontSize12px" *ngIf = "promotionOrder.itemGroup1.spicyLevel == '50%'">(Medium Spicy)</span>
-											<span class="fontSize12px" *ngIf = "promotionOrder.itemGroup1.spicyLevel == '75%'">(Spicy)</span>
-											<span class="fontSize12px" *ngIf = "promotionOrder.itemGroup1.spicyLevel == '100%'">(Extra Spicy)</span>
+											<strong>
+												<span *ngFor = "let chilly of spicyArray;">
+					                            	<span *ngIf = "chilly <= promotionOrder.itemGroup1.item.spicyLevel">
+					                                	<img src="assets/images/chilly.PNG" width="15px">
+						                            </span>
+					                           </span>
+												{{promotionOrder.itemGroup1.item.name}}
+											</strong>
 										</div>
 										<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 cart-item-option" style="font-size: 12px;">
 											<div *ngIf="promotionOrder.itemGroup1.multisize">
@@ -440,13 +439,14 @@
 								<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding5px15px" *ngIf="promotionOrder.itemGroup2">
 									<div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 padding0">
 										<div class="col-lg-12 col-md-12 col-sm-12 col-xs-2 cart-item-name padding0">
-											<!-- {{promotionOrder.itemGroup2.item.name}} -->
-											<strong>{{promotionOrder.itemGroup2.item.name}}</strong>
-											<span class="fontSize12px" *ngIf = "promotionOrder.itemGroup2.spicyLevel == '0%'">(No Spices)</span>
-											<span class="fontSize12px" *ngIf = "promotionOrder.itemGroup2.spicyLevel == '25%'">(Less Spicy)</span>
-											<span class="fontSize12px" *ngIf = "promotionOrder.itemGroup2.spicyLevel == '50%'">(Medium Spicy)</span>
-											<span class="fontSize12px" *ngIf = "promotionOrder.itemGroup2.spicyLevel == '75%'">(Spicy)</span>
-											<span class="fontSize12px" *ngIf = "promotionOrder.itemGroup2.spicyLevel == '100%'">(Extra Spicy)</span>
+											<strong>
+												<span *ngFor = "let chilly of spicyArray;">
+					                            	<span *ngIf = "chilly <= promotionOrder.itemGroup2.item.spicyLevel">
+					                                	<img src="assets/images/chilly.PNG" width="15px">
+						                            </span>
+					                           </span>
+												{{promotionOrder.itemGroup2.item.name}}
+											</strong>
 										</div>
 										<div class="col-lg-12 col-md-12 col-sm-12 col-xs-2 cart-item-option" style="font-size: 12px;">
 											<div *ngIf="promotionOrder.itemGroup2.multisize">

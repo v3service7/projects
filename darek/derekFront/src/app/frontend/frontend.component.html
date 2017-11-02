@@ -16,6 +16,8 @@
 <div style="min-height: 600px;">
 	<div class="container-fluid topNavImage" [ngStyle]="{'background-image': 'url(' + resImage(restaurants.image) + ')'}"></div>
 
+	<div class="menuListDiv"><div *ngFor = "let menuu of menus" class="menuList" (click) = "scrollToMenu(menuu._id)"> {{menuu.name}}</div></div>
+
 	<div class="deal-list col-lg-12 col-md-12 col-xs-12 col-sm-12" *ngIf = "restroPromotions.length == 1">
 		<div *ngFor = "let promo of restroPromotions">
 			<div class="deal-special col-lg-12 col-md-12 col-xs-12 col-sm-12">
@@ -87,18 +89,16 @@
 	</div>
 
 	<div class="container-fluid menuDetail padding0" style="margin: 3% auto 10% auto;">
-		<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding10px5px" *ngFor="let menu of menus">
-			<div *ngIf="!menu.isHidden" [style.display]="checkMenuShow(menu)">
-				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0" (click)="showThisMenuItems(menu._id)">
-					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 fontSize24 textCenter marginBottom15px headingMenu">
+		<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding10px5px" *ngFor="let menu of menus" id="menuItem_{{menu._id}}">
+			<div *ngIf="!menu.isHidden" [ngClass]="checkMenuShow(menu)">
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0 marginBottom15px textCenter">
+					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 fontSize24">
 						<strong>{{menu.name | uppercase}}</strong>
-						<span style="float: right;"><i class="fa fa-caret-down fontSize16px" aria-hidden="true"></i></span>
 					</div>
+					<div *ngIf = "menu.description" class="col-lg-12 col-md-12 col-sm-12 col-xs-12 fontSize14"><strong>{{menu.description}}</strong></div>
 				</div>
 
-				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0" id="menuItem_{{menu._id}}">
-					<div *ngIf = "menu.description" class="col-lg-12 col-md-12 col-sm-12 col-xs-12 fontSize14 marginBottom5px"><strong>{{menu.description}}</strong></div>
-					
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0">					
 					<div *ngIf="menu.image" class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pull-right">
 						<div class="menuImage" [ngStyle]="{'background-image': 'url(' + imageURL + menu.image + ')'}" style="z-index: -1;"></div>
 					</div>
@@ -111,7 +111,18 @@
 									
 									<a class="col-lg-12 col-md-12 col-sm-12 col-xs-12 itemDetailList" href="javascript:void(0)" (click)="showDetail(item,item.multisize[0] )" id="changeBg_{{item._id}}">
 										<div class="col-lg-10 col-md-10 col-sm-10 col-xs-10" style="height: inherit;">
-											<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0"><h5><strong>{{item.name}}</strong></h5></div>
+											<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0">
+												<h5>
+													<strong>
+														<span *ngFor = "let chilly of spicyArray;">
+							                            	<span *ngIf = "chilly <= item.spicyLevel">
+							                                	<img src="assets/images/chilly.PNG" width="15px">
+								                            </span>
+							                           </span>
+														{{item.name}}
+													</strong>
+												</h5>
+											</div>
 											<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0">
 											<div *ngIf="item.description.length >= 40">
 												{{item.description.substr(0,40)}}...	
@@ -183,7 +194,7 @@
 											<!-- items special Instruction end-->
 
 											<!-- Spicy Setting Menu -->
-											<div class="col-lg-12  col-md-12 col-sm-12 col-xs-12 spicySetting">
+											<!-- <div class="col-lg-12  col-md-12 col-sm-12 col-xs-12 spicySetting">
 												<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">Choose Spicy Level
 												</div>
 												<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="padding: 10px;">
@@ -199,7 +210,7 @@
 													</div>
 
 												</div>
-											</div>
+											</div> -->
 											<!-- Spicy Setting Menu -->
 
 											<!-- items quantity -->

@@ -9,6 +9,7 @@ var MenuSchema = new Schema({
     kitchenId: { type: String, required: true},     /*restaurant id*/
     menuId: { type: Schema.Types.ObjectId, ref:'Menu', required: true}, /*menu id*/
     price: Number,
+    spicyLevel: {type:Number,default:0},
     image: String,
     isHidden:  {type:Boolean,default:false},
     isSpecific:  {type:Boolean,default:false},
