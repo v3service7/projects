@@ -1116,6 +1116,15 @@ export class KitchenMenuListComponent implements OnInit {
 			$('#previewModal').css('display','none');
 		});
 	}
+
+	private addDropItem(event){
+		console.log(event)
+	}
+
+	private dragEnter(event1){
+		console.log(event1)
+	}
+
 	private onClicked(event){
 	    if (!event.target.checked) {
 	    	this.addGroupAddon.splice(this.addGroupAddon.indexOf(event.target.value),1);

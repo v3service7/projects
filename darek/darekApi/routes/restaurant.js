@@ -75,7 +75,7 @@ router.put('/restaurant/:id',function(req, res){
     console.log(fullAddress);
     geocoder.geocode(fullAddress, function(err, gResponse) {
         console.log(gResponse);
-        if (typeof gResponse != 'undefined' && gResponse.length>0) {
+        if (gResponse.length>0) {
             req.body.lat = gResponse[0].latitude;
             req.body.lng = gResponse[0].longitude;
         };

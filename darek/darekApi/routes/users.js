@@ -193,7 +193,6 @@ router.post('/',function(req, res){
     user.save(function(err,ownerData){
         if(err) {
             response = {"error" : true,"message" : err};
-            return res.json(response);
         } else {
             restaurantModel.find({},function(err,data){
                 var resObj = {};
@@ -205,38 +204,12 @@ router.post('/',function(req, res){
                 };
                 resObj.ownerId = ownerData._id;
                 restaurant = new restaurantModel(resObj);
-                restaurant.save(function(err, newRes){
-                    if (err) {
-                        console.log("Restaurant Not Created");
-                        response = {"error" : true ,"message" : "Restaurant not created. Mail not Sent"};
-                        return res.json(response);
-                    }else{    
-                        var name = ownerData.firstname+" <"+ownerData.email+" >";
-                        /*var content = "Email Activation Link <a href='http://34.209.114.118:3003/owner/mailactivate/"+ownerData._id+"'>Click Here</a>"*/
-                        /*var content = "Restaurant Activation Link <a href='http://localhost:4200/owner/mailactivate/"+ownerData._id+"'>Click Here</a>"*/
-                        var content = "Account Activation Link <a href='http://104.236.69.166:3000/owner/mailactivate/"+ownerData._id+"'>Click Here</a>"
-                        req.mail.sendMail({  //email options
-                            from: "Restaurant Team <noreply@abcpos.com>", // sender address.  Must be the same as authenticated user if using GMail.
-                            to: name, // receiver
-                            subject: "Restaurant Account Activation", // subject
-                            html: content
-                            },function(error, resp){  //callback
-                                if(error){
-                                    console.log(error);
-                                    response = {"error" : true ,"message" : "Unable to activate account. Mail not Sent"};
-                                    return res.json(response);
-                                }else{
-                                    console.log("Message sent: " + resp.message);
-                                    response = {"error" : false,"message" : "Activate your Resaturant"};
-                                    return res.json(response);
-                                }
-                                req.mail.close();
-                            }
-                        );
-                    }
-                });
+                restaurant.save();
+                response = {"error" : false,"message" : "Data added"};
             });
+            
         }
+        res.json(response);
     });
 });
 

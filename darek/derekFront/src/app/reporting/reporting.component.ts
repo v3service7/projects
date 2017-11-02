@@ -134,15 +134,20 @@ export class ReportingMethodComponent implements OnInit {
         this.getRestaurants();
     }
 
-    private lastSevenDays(day){
-        var array = [];
-        for (var i = 0; i < day; i++) {
-            var date = new Date();
-            date.setDate(date.getDate()-i)
-            array.push(new Date(date).toDateString())
-        }
-        return array;
+    private lastSevenDays(id,days){
+        this.orderService.getResultChart(id,days).subscribe(users => {
+            if (users.message.length > 0) {
+                this.lineChartLabels = users.dateArr;
+                this.isShow = true;
+            }
+
+            if(users.message.length == 0){
+                this.isShow = false;
+                document.getElementById('noRecordClass').style.display = 'block';
+            }
+        });
     }
+
     private getMethodData(id , days) {
         this.orderService.getMethodChart(id , days).subscribe(users => {
             if (users.message.length > 0) {
@@ -159,14 +164,14 @@ export class ReportingMethodComponent implements OnInit {
     private getRestaurants() {
         this.restaurantsService.getOwnerRestaurants(JSON.parse(localStorage.getItem('currentOwner'))._id).subscribe(users => {
             this.restaurants = users.message;
-            this.lineChartLabels = this.lastSevenDays(this.selectedTime);
+            this.lastSevenDays(this.restaurants._id ,this.selectedTime);
             this.getMethodData(this.restaurants._id , this.selectedTime);
 
         });
     }
     onChangeObj(newObj) {
         this.selectedTime = newObj;
-        this.lineChartLabels = this.lastSevenDays(this.selectedTime);
+        this.lastSevenDays(this.restaurants._id ,this.selectedTime);
         this.getMethodData(this.restaurants._id , this.selectedTime);
     }
 }
@@ -213,15 +218,20 @@ export class ReportingResultComponent implements OnInit {
         this.getRestaurants();
         
     }
-    private lastSevenDays(days){
-        var array = [];
-        for (var i = 0; i < days; i++) {
-            var date = new Date();
-            date.setDate(date.getDate()-i)
-            array.push(new Date(date).toDateString())
-        }
-        return array;
+    private lastSevenDays(id,days){
+        this.orderService.getResultChart(id,days).subscribe(users => {
+            if (users.message.length > 0) {
+                this.lineChartLabels = users.dateArr;
+                this.isShow = true;
+            }
+
+            if(users.message.length == 0){
+                this.isShow = false;
+                document.getElementById('noRecordClass').style.display = 'block';
+            }
+        });
     }
+
     private getResultData(id, days) {
         this.orderService.getResultChart(id,days).subscribe(users => {
             if (users.message.length > 0) {
@@ -238,14 +248,14 @@ export class ReportingResultComponent implements OnInit {
     private getRestaurants() {
         this.restaurantsService.getOwnerRestaurants(JSON.parse(localStorage.getItem('currentOwner'))._id).subscribe(users => {
             this.restaurants = users.message;
-            this.lineChartLabels = this.lastSevenDays(this.selectedTime);
+            this.lastSevenDays(this.restaurants._id ,this.selectedTime);
             this.getResultData(this.restaurants._id , this.selectedTime);
 
         });
     }
     onChangeObj(newObj) {
         this.selectedTime = newObj;
-        this.lineChartLabels = this.lastSevenDays(this.selectedTime);
+        this.lastSevenDays(this.restaurants._id ,this.selectedTime);
         this.getResultData(this.restaurants._id , this.selectedTime);
     }
 }
@@ -290,15 +300,21 @@ export class ReportingTypeComponent implements OnInit {
         document.getElementById('noRecordClass').style.display = 'none';
         this.getRestaurants();
     }
-    private lastSevenDays(days){
-        var array = [];
-        for (var i = 0; i < days; i++) {
-            var date = new Date();
-            date.setDate(date.getDate()-i)
-            array.push(new Date(date).toDateString())
-        }
-        return array;
+    
+    private lastSevenDays(id,days){
+        this.orderService.getTypeChart(id,days).subscribe(users => {
+            if (users.message.length > 0) {
+                this.lineChartLabels = users.dateArr;
+                this.isShow = true;
+            }
+
+            if(users.message.length == 0){
+                this.isShow = false;
+                document.getElementById('noRecordClass').style.display = 'block';
+            }
+        });
     }
+
     private getTypeData(id, days) {
         this.orderService.getTypeChart(id,days).subscribe(users => {
             if (users.message.length > 0) {
@@ -315,13 +331,13 @@ export class ReportingTypeComponent implements OnInit {
     private getRestaurants() {
         this.restaurantsService.getOwnerRestaurants(JSON.parse(localStorage.getItem('currentOwner'))._id).subscribe(users => {
             this.restaurants = users.message;
-            this.lineChartLabels = this.lastSevenDays(this.selectedTime);
+            this.lastSevenDays(this.restaurants._id, this.selectedTime);
             this.getTypeData(this.restaurants._id, this.selectedTime);
         });
     }
     onChangeObj(newObj) {
         this.selectedTime = newObj;
-        this.lineChartLabels = this.lastSevenDays(this.selectedTime);
+        this.lastSevenDays(this.restaurants._id, this.selectedTime);
         this.getTypeData(this.restaurants._id , this.selectedTime);
     }
 }
@@ -367,15 +383,21 @@ export class ReportingPaymentMethodComponent implements OnInit {
         document.getElementById('noRecordClass').style.display = 'none';
         this.getRestaurants();
     }
-    private lastSevenDays(days){
-        var array = [];
-        for (var i = 0; i < days; i++) {
-            var date = new Date();
-            date.setDate(date.getDate()-i)
-            array.push(new Date(date).toDateString())
-        }
-        return array;
+    
+    private lastSevenDays(id,days){
+        this.orderService.getPaymentChart(id,days).subscribe(users => {
+            if (users.message.length > 0) {
+                this.lineChartLabels = users.dateArr;
+                this.isShow = true;
+            }
+
+            if(users.message.length == 0){
+                this.isShow = false;
+                document.getElementById('noRecordClass').style.display = 'block';
+            }
+        });
     }
+
     private getPaymentData(id,days) {
         this.orderService.getPaymentChart(id,days).subscribe(users => {
             if (users.message.length > 0) {
@@ -392,13 +414,13 @@ export class ReportingPaymentMethodComponent implements OnInit {
     private getRestaurants() {
         this.restaurantsService.getOwnerRestaurants(JSON.parse(localStorage.getItem('currentOwner'))._id).subscribe(users => {
             this.restaurants = users.message;
-            this.lineChartLabels = this.lastSevenDays(this.selectedTime);
+            this.lastSevenDays(this.restaurants._id ,this.selectedTime);
             this.getPaymentData(this.restaurants._id , this.selectedTime);
         });
     }
     onChangeObj(newObj) {
         this.selectedTime = newObj;
-        this.lineChartLabels = this.lastSevenDays(this.selectedTime);
+        this.lastSevenDays(this.restaurants._id ,this.selectedTime);
         this.getPaymentData(this.restaurants._id , this.selectedTime);
     }
 }
@@ -636,15 +658,21 @@ export class ReportingSaleDetailComponent implements OnInit {
         document.getElementById('noRecordClass').style.display = 'none';
         this.getRestaurants();
     }
-    private lastSevenDays(days){
-        var array = [];
-        for (var i = 0; i < days; i++) {
-            var date = new Date();
-            date.setDate(date.getDate()-i)
-            array.push(new Date(date).toDateString())
-        }
-        return array;
+    
+    private lastSevenDays(id,days){
+        this.orderService.getAllSaleChart(id,days).subscribe(users => {
+            if (users.message.length > 0) {
+                this.lineChartLabels = users.dateArr;
+                this.isShow = true;
+            }
+
+            if(users.message.length == 0){
+                this.isShow = false;
+                document.getElementById('noRecordClass').style.display = 'block';
+            }
+        });
     }
+
     private getAllSaleData(id,days) {
         this.orderService.getAllSaleChart(id,days).subscribe(users => {
             if (users.message.length > 0) {
@@ -661,13 +689,13 @@ export class ReportingSaleDetailComponent implements OnInit {
     private getRestaurants() {
         this.restaurantsService.getOwnerRestaurants(JSON.parse(localStorage.getItem('currentOwner'))._id).subscribe(users => {
             this.restaurants = users.message;
-                    this.lineChartLabels = this.lastSevenDays(this.selectedTime);
+            this.lastSevenDays(this.restaurants._id ,this.selectedTime);
             this.getAllSaleData(this.restaurants._id , this.selectedTime);
         });
     }
     onChangeObj(newObj) {
         this.selectedTime = newObj;
-        this.lineChartLabels = this.lastSevenDays(this.selectedTime);
+        this.lastSevenDays(this.restaurants._id ,this.selectedTime);
         this.getAllSaleData(this.restaurants._id , this.selectedTime);
     }
 }

@@ -13,6 +13,7 @@ router.get('/promotion-stats/:id/:days', function(req, res, next) {
     var lastWeek = new Date();
     //lastWeek.setDate(lastWeek.getDate()-7);
     var promotionData=[];
+    var dateData = []
     var days = req.params.days; 
     Order.find({restaurantId:req.params.id/*,created_at:{'$gte':lastWeek}*/}).exec(function(err,orderList){
         for (var i = 0; i < days; i++) {
@@ -24,11 +25,14 @@ router.get('/promotion-stats/:id/:days', function(req, res, next) {
                     if (orderList[j].isPromotion == true) {
                         promotionUsedCount++;
                     }
+                    promotionData.push(promotionUsedCount);
+                    if (dateData.indexOf(date.toDateString()) == -1) {
+                        dateData.push(date.toDateString());
+                    }
                 }
             }
-            promotionData.push(promotionUsedCount);
         }
-        res.json({'status':true,'message':[{'data':promotionData,'label':'Promotion'}]});
+        res.json({'status':true,'message':[{'data':promotionData,'label':'Promotion'}],'dateArr':dateData});
     });
 });
 
@@ -77,6 +81,7 @@ router.get('/method/:id/:days', function(req, res, next) {
     //lastWeek.setDate(lastWeek.getDate()-7);
     var pickupData=[];
     var deliveryData = [];
+    var dateData = []
     var days = req.params.days; 
     Order.find({restaurantId:req.params.id/*,created_at:{'$gte':lastWeek}*/}).exec(function(err,orderList){
         for (var i = 0; i < days; i++) {
@@ -92,12 +97,15 @@ router.get('/method/:id/:days', function(req, res, next) {
                     if (orderList[j].orderMethod.mType == 'Delivery') {
                         deliveryCount++;
                     }
+                    pickupData.push(pickupCount);
+                    deliveryData.push(deliveryCount);
+                    if (dateData.indexOf(date.toDateString()) == -1) {
+                        dateData.push(date.toDateString());
+                    }
                 }
             }
-            pickupData.push(pickupCount);
-            deliveryData.push(deliveryCount);
         }
-        res.json({'status':true,'message':[{'data':pickupData,'label':'Pickup'},{'data':deliveryData,'label':'Delivery'}]});
+        res.json({'status':true,'message':[{'data':pickupData,'label':'Pickup'},{'data':deliveryData,'label':'Delivery'}],'dateArr':dateData});
     });
 });
 
@@ -107,6 +115,7 @@ router.get('/results/:id/:days', function(req, res, next) {
     var acceptData=[];
     var missedData = [];
     var rejectData = [];
+    var dateData = []
     var days = req.params.days; 
     Order.find({restaurantId:req.params.id/*,created_at:{'$gte':lastWeek}*/}).exec(function(err,orderList){
         for (var i = 0; i < days; i++) {
@@ -115,6 +124,7 @@ router.get('/results/:id/:days', function(req, res, next) {
             var missCount = 0;
             var date = new Date();
             date.setDate(date.getDate()-i);
+            
             for (var j = 0; j < orderList.length; j++) {
                 if (date.toDateString() == orderList[j].created_at.toDateString()) {
                     if (orderList[j].status == 'Accepted') {
@@ -126,13 +136,16 @@ router.get('/results/:id/:days', function(req, res, next) {
                     if (orderList[j].status == 'Missed') {
                         missCount++;
                     }
+                    acceptData.push(acptCount);
+                    rejectData.push(rjctCount);
+                    missedData.push(missCount);
+                    if (dateData.indexOf(date.toDateString()) == -1) {
+                        dateData.push(date.toDateString());
+                    }
                 }
             }
-            acceptData.push(acptCount);
-            rejectData.push(rjctCount);
-            missedData.push(missCount);   
         }
-        res.json({'status':true,'message':[{'data':acceptData,'label':'Accepted'},{'data':missedData,'label':'Missed'},{'data':rejectData,'label':'Rejected'}]});
+        res.json({'status':true,'message':[{'data':acceptData,'label':'Accepted'},{'data':missedData,'label':'Missed'},{'data':rejectData,'label':'Rejected'}],'dateArr':dateData});
     });
 });
 
@@ -141,6 +154,7 @@ router.get('/type/:id/:days', function(req, res, next) {
     //lastWeek.setDate(lastWeek.getDate()-7);
     var nowData=[];
     var laterData = [];
+    var dateData = []
     var days = req.params.days;
     Order.find({restaurantId:req.params.id/*,created_at:{'$gte':lastWeek}*/}).exec(function(err,orderList){
         for (var i = 0; i < days; i++) {
@@ -157,13 +171,16 @@ router.get('/type/:id/:days', function(req, res, next) {
                         if (orderList[j].orderTime.tType == 'Later') {
                             deliveryCount++;
                         }
+                        nowData.push(pickupCount);
+                        laterData.push(deliveryCount);
+                        if (dateData.indexOf(date.toDateString()) == -1) {
+                            dateData.push(date.toDateString());
+                        }
                     }
                 }
             }
-            nowData.push(pickupCount);
-            laterData.push(deliveryCount);
         }
-        res.json({'status':true,'message':[{'data':nowData,'label':'Now'},{'data':laterData,'label':'Later'}]});
+        res.json({'status':true,'message':[{'data':nowData,'label':'Now'},{'data':laterData,'label':'Later'}],'dateArr':dateData});
     });
 });
 
@@ -173,6 +190,7 @@ router.get('/payment/:id/:days', function(req, res, next) {
     var cashData=[];
     var cardPickupData=[];
     var cardViaInternetData = [];
+    var dateData = []
     var days = req.params.days;
     Order.find({restaurantId:req.params.id/*,created_at:{'$gte':lastWeek}*/}).exec(function(err,orderList){
         for (var i = 0; i < days; i++) {
@@ -193,14 +211,18 @@ router.get('/payment/:id/:days', function(req, res, next) {
                         if (orderList[j].orderPayment.cardinternet == true) {
                             cardViaInternetCount++;
                         }
+
+                        cashData.push(cashCount);
+                        cardPickupData.push(cardPickupCount);
+                        cardViaInternetData.push(cardViaInternetCount);
+                        if (dateData.indexOf(date.toDateString()) == -1) {
+                            dateData.push(date.toDateString());
+                        }
                     }
                 }
             }
-            cashData.push(cashCount);
-            cardPickupData.push(cardPickupCount);
-            cardViaInternetData.push(cardViaInternetCount);
         }
-        res.json({'status':true,'message':[{'data':cashData,'label':'Cash'},{'data':cardPickupData,'label':'Cart at Pickup'},{'data':cardViaInternetData,'label':'Cart via Internet'}]});
+        res.json({'status':true,'message':[{'data':cashData,'label':'Cash'},{'data':cardPickupData,'label':'Cart at Pickup'},{'data':cardViaInternetData,'label':'Cart via Internet'}],'dateArr':dateData});
     });
 });
 
@@ -343,6 +365,7 @@ router.get('/all-sale/:id/:days', function(req, res, next) {
     var rejectData = [];
     var pendingData = [];
     var receiveData = [];
+    var dateData = []
     var days = req.params.days;
     Order.find({restaurantId:req.params.id/*,created_at:{'$gte':lastWeek}*/}).exec(function(err,orderList){
         for (var i = 0; i < days; i++) {
@@ -360,28 +383,31 @@ router.get('/all-sale/:id/:days', function(req, res, next) {
                         if (orderList[j].status == 'Accepted') {
                             acceptCount = acceptCount + orderList[j].gTotal;
                         }
-                    if (orderList[j].status == 'Rejected') {
+                        if (orderList[j].status == 'Rejected') {
                             rejectedCount = rejectedCount + orderList[j].gTotal;
                         }
-                    if (orderList[j].status == 'Missed') {
+                        if (orderList[j].status == 'Missed') {
                             missedCount = missedCount + orderList[j].gTotal;
                         }
-                    if (orderList[j].status == 'Pending') {
+                        if (orderList[j].status == 'Pending') {
                             pendingCount = pendingCount + orderList[j].gTotal;
                         }
-                    if (orderList[j].status == 'Received') {
+                        if (orderList[j].status == 'Received') {
                             receiveCount = receiveCount + orderList[j].gTotal;
+                        }
+                        acceptData.push(acceptCount);
+                        rejectData.push(rejectedCount);
+                        missedData.push(missedCount);
+                        receiveData.push(receiveCount);
+                        pendingData.push(pendingCount);
+                        if (dateData.indexOf(date.toDateString()) == -1) {
+                            dateData.push(date.toDateString());
                         }
                     }
                 }
             }
-            acceptData.push(acceptCount);
-            rejectData.push(rejectedCount);
-            missedData.push(missedCount);
-            receiveData.push(receiveCount);
-            pendingData.push(pendingCount);
         }
-        res.json({'status':true,'message':[{'data':receiveData,'label':'Received'},{'data':acceptData,'label':'Accepted'},{'data':rejectData,'label':'Rejected'},{'data':missedData,'label':'Missed'},{'data':pendingData,'label':'Pending'}]});
+        res.json({'status':true,'message':[{'data':receiveData,'label':'Received'},{'data':acceptData,'label':'Accepted'},{'data':rejectData,'label':'Rejected'},{'data':missedData,'label':'Missed'},{'data':pendingData,'label':'Pending'}],'dateArr':dateData});
     });
 });
 

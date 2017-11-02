@@ -4,6 +4,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {HttpModule, Http} from "@angular/http";
 import { RouterModule, Routes } from '@angular/router';
 import { FileSelectDirective, FileDropDirective } from 'ng2-file-upload';
+import { DragDropDirectiveModule} from "angular4-drag-drop";
 import {TranslateModule, TranslateLoader} from '@ngx-translate/core';
 import {TranslateHttpLoader} from "@ngx-translate/http-loader";
 /*import { ChartsModule } from 'ng2-charts';*/
@@ -75,6 +76,7 @@ export function HttpLoaderFactory(http: Http) {
     HttpModule,
     routing,
     ReactiveFormsModule,
+    DragDropDirectiveModule,
     //FlashMessagesModule,
     ChartsModule,
     //TranslateModule.forRoot(),
