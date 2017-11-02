@@ -1127,6 +1127,26 @@ export class KitchenMenuListComponent implements OnInit {
 		});
 	}
 
+	private addDropItem(event1,item){
+		var itemObj = {};
+		itemObj['_id'] = item._id;
+		itemObj['options'] = [];
+		let addOns = []
+		for (var i = 0; i < item.options.length; ++i) {
+			addOns.push(item.options[i]._id);
+		}
+		if (addOns.indexOf(event1._id) == -1) {
+			addOns.push(event1._id);
+		}
+		itemObj['options'] = addOns;
+		console.log(itemObj)
+
+		this.kitchenMenuItemService.updateMenu(itemObj).subscribe((data) => {
+			this.loadAllItem(); 
+			toastr.success('Addons Updated successful');
+		});
+	}
+
 	private spicylevel(num,type){
 		this.widthFunction(num);
 		if (type == 'add') {

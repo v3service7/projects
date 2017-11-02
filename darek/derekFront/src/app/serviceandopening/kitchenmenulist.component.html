@@ -467,7 +467,7 @@
 
          <div  id="menuID{{user._id}}" class = "panel-collapse collapse">
             <div *ngFor="let item of items">
-               <div *ngIf="item.menuId == user._id" class="subMenuItem " style="position: relative;">
+               <div *ngIf="item.menuId == user._id" class="subMenuItem droppable" style="position: relative;" dropDirective (dropEvent)="addDropItem($event,item)" [dropHighlight]="'highlight'">
                
                   <!--Item Description-->   
                      <div class="margin-for-addon">
@@ -707,7 +707,7 @@
 
          <!-- GROUP LISTING -->
          <div class="js-zones">
-            <div spellcheck="false" class="comp-alt-panel-container js-area-prototype js-container" data-index="1" *ngFor="let group of groups">
+            <div spellcheck="false" class="comp-alt-panel-container js-area-prototype js-container" data-index="1" *ngFor="let group of groups" [dragDirective]="group" [dragHightlight]="'highlight'">
                <div class="zoneData" data-type="true" data-radius="200" data-color="#905dba"></div>
 
                <div class="comp-alt-panel js-area">

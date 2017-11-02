@@ -8,6 +8,7 @@ import {TranslateModule, TranslateLoader} from '@ngx-translate/core';
 import {TranslateHttpLoader} from "@ngx-translate/http-loader";
 /*import { ChartsModule } from 'ng2-charts';*/
 import { ChartsModule } from 'ng2-charts/ng2-charts';
+import { DragDropDirectiveModule } from "angular4-drag-drop";
 
 import { AppComponent } from './app.component';
 import { routing } from './app.routing';
@@ -75,6 +76,7 @@ export function HttpLoaderFactory(http: Http) {
     HttpModule,
     routing,
     ReactiveFormsModule,
+    DragDropDirectiveModule,
     //FlashMessagesModule,
     ChartsModule,
     //TranslateModule.forRoot(),
