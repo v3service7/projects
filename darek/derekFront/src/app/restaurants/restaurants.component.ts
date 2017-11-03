@@ -93,6 +93,8 @@ export class RestaurantaddComponent implements OnInit {
 	}
 }
 
+
+/*Admin End Restaurant Update*/
 @Component({
 	selector: 'app-updaterestaurants',
 	templateUrl: './restaurantupdate.component.html',
@@ -119,7 +121,6 @@ export class RestaurantupdateComponent implements OnInit {
 		this.restaurantAddModel = this.lf.group({
 			_id: ['', Validators.required],
 			name: ['', Validators.required],
-			//ownerId: ['', Validators.required],
 			city: ['', Validators.required],
 			country: ['', Validators.required],
 			state: ['', Validators.required],
@@ -140,7 +141,7 @@ export class RestaurantupdateComponent implements OnInit {
 
 	private restaurantUpdate() {
 		console.log(this.restaurantAddModel.value);
-		this.restaurantsService.updateRestaurant(this.restaurantAddModel.value).subscribe(
+		this.restaurantsService.updateRestaurantLocation(this.restaurantAddModel.value).subscribe(
 			(data) => {
 				toastr.success('Restaurant Updated successful','Success');
 				//this.alertService.success('Restaurant Updated successful', true);
@@ -149,6 +150,7 @@ export class RestaurantupdateComponent implements OnInit {
 			);
 	}
 }
+/*Admin End Restaurant Update End*/
 
 @Component({
 	selector: 'app-ownerprofile',
@@ -233,7 +235,6 @@ export class RestaurantupdateownerComponent implements OnInit {
 		this.restaurantAddModel = this.lf.group({
 			_id: ['', Validators.required],
 			name: ['', Validators.required],
-			//ownerId: ['', Validators.required],
 			city: ['', Validators.required],
 			country: ['', Validators.required],
 			state: ['', Validators.required],
@@ -272,8 +273,6 @@ export class RestaurantupdateownerComponent implements OnInit {
 			this.lat = this.restaurants.lat;
 			this.lng = this.restaurants.lng;
 			this.initMap();
-			console.log("this.restaurants");
-			console.log(this.restaurants);
 		});
 	}
 
@@ -289,7 +288,7 @@ export class RestaurantupdateownerComponent implements OnInit {
 		console.log(this.restaurantAddModel.value);
 		console.log(this.restaurants.image);
 		if (this.restaurantAddModel.value.image == this.restaurants.image ) {
-			this.restaurantsService.updateRestaurant(this.restaurantAddModel.value).subscribe(
+			this.restaurantsService.updateRestaurantLocation(this.restaurantAddModel.value).subscribe(
 				(data) => {
 					toastr.success('Restaurant Updated Successfully','Success!');
 					this.router.navigate(['/owner/restaurant-location']);
@@ -300,7 +299,7 @@ export class RestaurantupdateownerComponent implements OnInit {
 			this.uploader.onCompleteItem = (item: any, response: any, status: any, headers: any) => {
 				var responsePath = JSON.parse(response);
 				this.restaurantAddModel.controls['image'].setValue(responsePath.filename);
-				this.restaurantsService.updateRestaurant(this.restaurantAddModel.value).subscribe(
+				this.restaurantsService.updateRestaurantLocation(this.restaurantAddModel.value).subscribe(
 					(data) => {
 						toastr.success('Restaurant Updated Successfully','Success!');
 						this.router.navigate(['/owner/restaurant-location']);
@@ -337,15 +336,17 @@ export class RestaurantlocationComponent implements OnInit {
 
 
 	ngOnInit(){
+		var owner = JSON.parse(localStorage.getItem('currentOwner'))
+		this.getRestaurants(owner._id);
 		this.restaurantAddModel = this.lf.group({
 			_id: ['', Validators.required],
 			lat: [],
 			lng: []
 		});
-		this.getRestaurants();
 	}
 
 	initMap(){
+		console.log(this.lat, this.lng);
 		let mapProp = {
 			center: new google.maps.LatLng(this.lat, this.lng),
 			zoom: 10,
@@ -366,9 +367,14 @@ export class RestaurantlocationComponent implements OnInit {
 				var geocoder = new google.maps.Geocoder();
 				var latlng = new google.maps.LatLng(marker.position.lat(), marker.position.lng());
 				geocoder.geocode({ 'latLng': latlng }, (results, status) => {
+					console.log("results");
+					console.log(results);
 					if (status == google.maps.GeocoderStatus.OK) {
-						if (results[1]) {
+						/*if (results[1]) {
 							document.getElementById('addressId').innerText =  results[1].formatted_address;
+						}*/
+						if (results.length > 0) {
+							document.getElementById('addressId').innerText =  results[0].formatted_address;
 						}
 					}
 				});
@@ -378,9 +384,11 @@ export class RestaurantlocationComponent implements OnInit {
 		);
 	}
 
-	private getRestaurants() {
-		this.restaurantsService.getOwnerRestaurants(JSON.parse(localStorage.getItem('currentOwner'))._id).subscribe(users => {
+	private getRestaurants(id) {
+		this.restaurantsService.getOwnerRestaurants(id).subscribe(users => {
 			this.restaurants = users.message;
+			console.log("this.restaurants");
+			console.log(this.restaurants);
 			this.restaurantAddModel.controls['_id'].setValue(this.restaurants._id);
 			this.lat = this.restaurants.lat;
 			this.lng = this.restaurants.lng;
@@ -397,7 +405,6 @@ export class RestaurantlocationComponent implements OnInit {
 		this.restaurantsService.updateLocation(this.restaurantAddModel.value).subscribe(
 			(data) => {
 				toastr.success('Restaurant Location Updated Successfully','Success!');
-				//this.alertService.success('Restaurant Updated Successfully', true);
 				this.router.navigate(['/owner/restaurant-confirm']);
 			}
 		);

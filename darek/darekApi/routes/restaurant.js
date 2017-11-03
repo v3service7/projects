@@ -64,12 +64,18 @@ router.post('/restaurant',function(req, res){
 });
 
 router.put('/restaurant/:id',function(req, res){
-    //if (!req.isAuthenticated()) {
-    //    return res.status(200).json({
-    //        status: false,
-    //        message:'Access Denied'
-    //    });
-    //}
+    var response={};
+    restaurantModel.findByIdAndUpdate(req.params.id, req.body, function(err, country) {
+        if(err) {
+            response = {"error" : true,"message" : err};
+        } else {
+            response = {"error" : false,"message" : country};
+        }
+        res.json(response);
+    });
+});
+
+router.put('/restaurant-location-update/:id',function(req, res){
     var response={};
     var fullAddress = req.body.address+" "+req.body.zipcode+" "+req.body.city+" "+req.body.country;
     console.log(fullAddress);
@@ -123,8 +129,6 @@ router.put('/delivery-update/:id',function(req, res){
         res.json(response);
     });
 });
-
-
 
 router.put('/location-update/:id',function(req, res){
     //if (!req.isAuthenticated()) {
@@ -206,14 +210,14 @@ router.delete('/restaurant/:id',function(req,res){
 });
 
 router.delete('/restaurant/notification/:id/:index', function(req, res) {
- console.log(req.params.id);
- console.log(req.params.index);
+    console.log(req.params.id);
+    console.log(req.params.index);
 
-restaurantModel.findById(req.params.id, function(err, data) {
-    data.notification.splice(req.params.index,1);
-    data.save();
-    res.json({"error" : false,"message" : "Deleted Successfully"});  
- });
+    restaurantModel.findById(req.params.id, function(err, data) {
+        data.notification.splice(req.params.index,1);
+        data.save();
+        res.json({"error" : false,"message" : "Deleted Successfully"});  
+    });
 });
 
 // router.put('/restaurant/notification/:id/:index', function(req, res) {
