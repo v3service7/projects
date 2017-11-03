@@ -1024,6 +1024,12 @@ div:focus{
     pointer-events : none;
 }
 
+.enableDisablePicker input, .enableDisablePicker span {
+    cursor: no-drop;
+    background: #dedede;
+    pointer-events : none;
+}
+
 .customMessage{
     padding: 10px;
     background-color: #33b0da;

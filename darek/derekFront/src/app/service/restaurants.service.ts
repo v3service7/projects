@@ -23,6 +23,13 @@ export class RestaurantsService {
     );
   }
 
+  updateRestaurantLocation(data) {
+    return this.http.put(globalVariable.url+'restaurant-location-update/'+data._id,data)
+      .map(
+      (response: Response) => response.json()
+    );
+  }
+
   updatePickUp(data){
    return this.http.put(globalVariable.url+'restaurant/'+ data._id, data)
       .map(

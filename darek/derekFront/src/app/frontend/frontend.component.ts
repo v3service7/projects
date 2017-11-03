@@ -1627,8 +1627,17 @@ export class FrontendCartComponent implements OnInit {
     objForUpdate: any = {};
     cart:any=[];
     promotionOrder:any;
+    
     laterDay:any;
     laterTime:any;
+    laterPickupDay:any;
+    laterPickupTime:any;
+    laterDeliveryDay:any;
+    laterDeliveryTime:any;
+
+
+
+
     user = [];
     allPromotions = [];
     restroPromotions = [];
@@ -1688,6 +1697,8 @@ export class FrontendCartComponent implements OnInit {
     months:any = ['01','02','03','04','05','06','07','08','09','10','11','12'];
     years:any=[];
 
+    enableDisablePicker = 'enableDisablePicker';
+
     spicyArray : any = [1,2,3];
 
     constructor(
@@ -1740,10 +1751,12 @@ export class FrontendCartComponent implements OnInit {
             this.customerStorage = 'currentCustomer' + id;
             this.coupon = 'coupon_' + id;
             this.cartSubTotal = 'subTotal_' + id;
+            localStorage.removeItem(this.orderTimeStorage);
             this.loadAllPromotions();
             this.getRestaurants(id);
             this.deliveryZone(id);
             this.locale(id);
+
         });
         this.makePaymentModel = this.lf.group({
             cardNumber: ['', [Validators.required, Validators.minLength(16),Validators.maxLength(16), Validators.pattern('[0-9]+')]],
@@ -1797,6 +1810,9 @@ export class FrontendCartComponent implements OnInit {
         var date = this.addZero(this.currentDate.getDate());
         var month = this.addZero(this.currentDate.getMonth()+1);
         var year = this.currentDate.getFullYear();
+
+        console.log("date,month,year");
+        console.log(date,month,year);
         
         this.currentTime = h+':'+m;
 
@@ -1815,7 +1831,11 @@ export class FrontendCartComponent implements OnInit {
         this.onValueChanged();
         this.yearAdd();
 
-        this.laterTime = this.currentDate.toLocaleTimeString();
+        this.laterTime = this.timeO;
+
+        console.log("this.laterTime on init");
+        console.log(this.laterTime);
+        console.log(this.timeO);
         this.laterDay =  this.dayO + ', ' + this.completeDate;
     }
 
@@ -1971,13 +1991,56 @@ export class FrontendCartComponent implements OnInit {
             delete this.amount;
             delete this.cartDetail.deliveryfee;
             this.update();
+
+            if (this.orderTime.tType == 'Later') {
+                this.addTime = false;
+                this.editTimeMethod = false;
+                this.showHideTime = false;
+                this.flagForTime=false;
+                this.enableDisablePicker = 'enableDisablePicker';
+                localStorage.removeItem(this.orderTimeStorage);
+                this.orderTime={};
+                delete this.cartDetail.orderTime;
+            }
+            if (typeof this.orderPayment.ptype != 'undefined') {
+                this.paymentMethod = false;
+                this.editPaymentMethod = false;
+                this.showHidePaymentMethod = false;
+                this.flagForPayment = false;
+                localStorage.removeItem(this.orderPaymentStorage);
+                this.orderPayment={};
+                delete this.cartDetail.orderPayment;
+            }
         }
-        else if (id=="delivery") {
+        
+        if (id=="delivery") {
             this.del=true;
             this.orderMethod.mType = 'Delivery';
             this.addressClicked = true;
             this.deliveryAddress = false;
+            this.orderType = false;
+
+            if (this.orderTime.tType == 'Later') {
+                this.addTime = false;
+                this.editTimeMethod = false;
+                this.showHideTime = false;
+                this.flagForTime=false;
+                this.enableDisablePicker = 'enableDisablePicker';
+                localStorage.removeItem(this.orderTimeStorage);
+                this.orderTime={};
+                delete this.cartDetail.orderTime;
+            }
+            if (typeof this.orderPayment.ptype != 'undefined') {
+                this.paymentMethod = false;
+                this.editPaymentMethod = false;
+                this.showHidePaymentMethod = false;
+                this.flagForPayment = false;
+                localStorage.removeItem(this.orderPaymentStorage);
+                this.orderPayment={};
+                delete this.cartDetail.orderPayment;
+            }
         }
+        this.saveInfo();
     }
 
     private pickupOnly(){
@@ -1990,9 +2053,7 @@ export class FrontendCartComponent implements OnInit {
         this.editOrderMethod = true;
         toastr.remove();
         toastr.info('Order Method Updated','Information', {'positionClass' : 'toast-top-full-width'});   
-        localStorage.removeItem(this.orderPaymentStorage);
-        this.orderPayment={};
-        delete this.cartDetail.orderPayment;
+
         console.log("this.cartDetail");
         console.log(this.cartDetail);
     }
@@ -2120,9 +2181,6 @@ export class FrontendCartComponent implements OnInit {
         this.editOrderMethod = true;
         this.saveInfo();
         this.changeShowOrderingStatus();
-        localStorage.removeItem(this.orderPaymentStorage);
-        this.orderPayment={};
-        delete this.cartDetail.orderPayment;
     }
 
     private initMap() {
@@ -2167,34 +2225,63 @@ export class FrontendCartComponent implements OnInit {
         this.deliveryAddress = true;
     }
 
+
+
+
+
+
+
     private setTime(id){
         if (id=="now") {
+            this.enableDisablePicker = 'enableDisablePicker';
             this.delLater=false;
             this.orderTime = {};
             this.orderTime.tType = 'Now';
             this.flagForTime=true;
         }
         else if (id=="later") {
-            $('#datetimepicker1').datetimepicker({format : 'dddd, DD-MM-YYYY'});
-            $('#datetimepicker2').datetimepicker({format:'LT'});
+            /*$('#datetimepicker1').datetimepicker({format : 'dddd, DD-MM-YYYY'});*/
+            if (this.orderMethod.mType == 'Pickup') {
+            $('#datetimepicker1').datetimepicker({
+                    format : 'dddd, DD-MM-YYYY',
+                    minDate:Date(),
+                    maxDate:this.laterPickupDay,
+                });
+            }
+            if (this.orderMethod.mType == 'Delivery') {
+                $('#datetimepicker1').datetimepicker({
+                    format : 'dddd, DD-MM-YYYY',
+                    minDate:Date(),
+                    maxDate:this.laterDeliveryDay,
+                });
+            }
+            $('#datetimepicker2').datetimepicker({format:'HH:mm:ss'});
+
+            this.enableDisablePicker = ''
             this.delLater=true;
             this.orderTime = {};
             this.orderTime.tType = 'Later';
-            this.flagForTime=true;
+            this.flagForTime=false;
         }
     }
 
     private showDatePicker(type){
-        var mindate = Date();
-        console.log("mindate");
-        console.log(mindate);
-        $('#datetimepicker1').datetimepicker({
-            format : 'dddd, DD-MM-YYYY',
-            minDate:mindate,
-            maxDate:new Date(),
-        });
+        if (this.orderMethod.mType == 'Pickup') {
+            $('#datetimepicker1').datetimepicker({
+                format : 'dddd, DD-MM-YYYY',
+                minDate:Date(),
+                maxDate:this.laterPickupDay,
+            });
+        }
+        if (this.orderMethod.mType == 'Delivery') {
+            $('#datetimepicker1').datetimepicker({
+                format : 'dddd, DD-MM-YYYY',
+                minDate:Date(),
+                maxDate:this.laterDeliveryDay,
+            });
+        }
         $('#datetimepicker2').datetimepicker({
-            format:'LT'
+            format:'HH:mm:ss'
         });
     }
 
@@ -2205,9 +2292,32 @@ export class FrontendCartComponent implements OnInit {
 
             console.log(this.laterDay);
         }
+
         if (type == 'datetimepicker2') {
-            this.laterTime = eleObj.value;
-            console.log(this.laterTime);
+            if (this.orderMethod.mType == 'Pickup') {
+                if (eleObj.value < this.laterPickupTime) {
+                    toastr.error('For Later Pickup Order, The order placement has to be at least: ' +this.restaurants.orderforlaterpickup['mintime']+ ' min before');
+                    this.flagForTime=false;
+                    this.addTime = false;
+                }else{
+                    this.laterTime = eleObj.value;
+                    this.flagForTime=true;
+                    this.addTime = true;
+                }
+            }
+
+            if (this.orderMethod.mType == 'Delivery') {
+                if (eleObj.value < this.laterDeliveryTime) {
+                    toastr.error('For Later Delivery Order, The order placement has to be at least: ' +this.restaurants.orderforlaterdelivery['mintime']+ ' min before');
+                    this.flagForTime=false;
+                    this.addTime = false;
+                }else{
+                    this.laterTime = eleObj.value;
+                    this.flagForTime=true;
+                    this.addTime = true;
+                }
+            }
+
         }
     }
 
@@ -2233,7 +2343,33 @@ export class FrontendCartComponent implements OnInit {
     private editTime(){
         this.editTimeMethod =!this.editTimeMethod;
         this.showHideTime = true;
+
+        if (this.orderTime.tType == 'Later') {
+            if (this.orderMethod.mType == 'Pickup') {
+                $('#datetimepicker1').datetimepicker({
+                    format : 'dddd, DD-MM-YYYY',
+                    minDate:Date(),
+                    maxDate:this.laterPickupDay,
+                });
+            }
+            if (this.orderMethod.mType == 'Delivery') {
+                $('#datetimepicker1').datetimepicker({
+                    format : 'dddd, DD-MM-YYYY',
+                    minDate:Date(),
+                    maxDate:this.laterDeliveryDay,
+                });
+            }
+            $('#datetimepicker2').datetimepicker({format:'HH:mm:ss'});
+            this.enableDisablePicker = '';
+        }else{
+            this.enableDisablePicker = 'enableDisablePicker';
+        }
     }
+
+
+
+
+
 
     private paymentOption(id){
         if (id=="cash") {
@@ -2266,7 +2402,7 @@ export class FrontendCartComponent implements OnInit {
     }
 
     private editPayment(){
-        this.editPaymentMethod =!this.editTimeMethod;
+        this.editPaymentMethod =!this.editPaymentMethod;
         this.showHidePaymentMethod = true;
     }
 
@@ -2296,6 +2432,10 @@ export class FrontendCartComponent implements OnInit {
 
     private changeShowTimingStatus(){
         this.showHideTime = !this.showHideTime;
+        if (this.showHideTime) {
+            $('#datetimepicker1').datetimepicker({format : 'dddd, DD-MM-YYYY'});
+            $('#datetimepicker2').datetimepicker({format:'HH:mm:ss'});
+        }
     }
 
     private changeShowPaymentStatus(){
@@ -2533,6 +2673,45 @@ export class FrontendCartComponent implements OnInit {
             this.checkOpenClose(this.restaurants);
             this.update();
             this.loadAllRestroPromotions(this.restaurants._id);
+
+            console.log("this.restaurants");
+            console.log(this.restaurants);
+
+            if (this.restaurants.orderforlater) {
+                let pmindate : any;
+                let pmintime : any;
+                let dmindate : any;
+                let dmintime : any;
+
+                let temp = 24*60*60*1000;
+                pmindate = this.restaurants.orderforlaterpickup['mindate'];
+                pmintime = this.restaurants.orderforlaterpickup['mintime'];
+                dmindate = this.restaurants.orderforlaterdelivery['mindate'];
+                dmintime = this.restaurants.orderforlaterdelivery['mintime'];
+
+                var time = new Date();
+                
+                this.laterPickupDay = new Date(time.getTime()+(parseInt(pmindate)*temp));
+                this.laterDeliveryDay = new Date(time.getTime()+(parseInt(dmindate)*temp));
+
+                this.laterPickupTime = new Date();
+                this.laterPickupTime.setMinutes(time.getMinutes() + parseInt(pmintime));
+
+                this.laterDeliveryTime = new Date();
+                this.laterDeliveryTime.setMinutes(time.getMinutes() + parseInt(dmintime));
+
+                var hP = this.addZero(this.laterPickupTime.getHours());
+                var mP = this.addZero(this.laterPickupTime.getMinutes());
+                var sP = this.addZero(this.laterPickupTime.getSeconds());
+                
+                var hD = this.addZero(this.laterDeliveryTime.getHours());
+                var mD = this.addZero(this.laterDeliveryTime.getMinutes());
+                var sD = this.addZero(this.laterDeliveryTime.getSeconds());
+
+                this.laterPickupTime = hP+':'+mP+':'+sP;
+                this.laterDeliveryTime = hD+':'+mD+':'+sD;
+            }
+
         });
     }
 
