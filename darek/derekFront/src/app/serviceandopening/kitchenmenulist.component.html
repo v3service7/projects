@@ -378,7 +378,7 @@
       <!-- upload SubMenu Image -->
 
       <div *ngFor="let user of users" class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-         <div class="mainMenuItem mainMenuItem12" >
+         <div class="mainMenuItem mainMenuItem12" dropDirective (dropEvent)="addDropMenu($event,user)" [dropHighlight]="'highlight'">
             <div class="itemImage col-lg-2 col-md-2 col-sm-2 col-xs-2" >
                <img (click)="passId(user._id)" data-toggle="modal" data-target="#mymenuModal" [src]="menuImage(user.image,'menu')" class="img-responsive custom_img_size">
                <span class="imgDel" *ngIf="user.image" (click) = "deleteMenuImage(user,'menu')">&times;</span>

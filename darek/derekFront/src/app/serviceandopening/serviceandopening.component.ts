@@ -1127,6 +1127,16 @@ export class KitchenMenuListComponent implements OnInit {
 		});
 	}
 
+	private addDropMenu(event1,menu){
+		var menuId = menu._id;
+		console.log(menuId)
+
+		this.kitchenMenuItemService.updateMenuItem(menu._id,event1._id).subscribe((data) => {
+			this.loadAllItem(); 
+			toastr.success('Addons Updated successful');
+		});
+	}
+
 	private addDropItem(event1,item){
 		var itemObj = {};
 		itemObj['_id'] = item._id;

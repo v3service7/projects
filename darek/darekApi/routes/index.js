@@ -13,6 +13,29 @@ var promotionDetailModel  =  require("../model/PromotionDetail.js");
 
 
 
+router.put('/item-update-by-menu/:id',function(req, res){
+	var response={};
+	itemModel.find({menuId:req.params.id}, function(err, itemList) {
+		for (var i = 0; i < itemList.length; i++) {
+			var itemId =  itemList[i]._id;
+			itemModel.findById(itemId, function(err, itemObj) {
+				var addonId = req.body.options;
+				if (itemObj.options.indexOf(addonId) == -1) {
+					itemObj.options.push(addonId);
+					itemObj.save();
+				}
+			});
+		}
+    	if(err) {
+            response = {"error" : true,"message" : err};
+        } else {
+            response = {"error" : false,"message" : "Data Update"};
+        }
+        res.json(response);
+    });
+});
+
+
 /*-------------------------------START LANGUAGE--------------------------------------------------------*/
 
 router.get('/language', function(req, res, next) {

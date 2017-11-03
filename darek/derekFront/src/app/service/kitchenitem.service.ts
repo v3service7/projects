@@ -27,6 +27,13 @@ export class KitchenItemService {
         );
     }
     
+    updateMenuItem(id,option) {
+        return this.http.put(globalVariable.url+'item-update-by-menu/'+id,{'options':option})
+        .map(
+            (response: Response) => response.json()
+        );
+    }
+    
     updateMenuAddOn(data) {
         return this.http.put(globalVariable.url+'itemaddon/'+data._id, data)
         .map(
