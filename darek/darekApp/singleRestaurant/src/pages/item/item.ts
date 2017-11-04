@@ -29,6 +29,8 @@ export class ItemPage {
     imageURL: string = globalVariable.imageUrl;
     loading: any;
 
+    spicyArray : any = [1,2,3];
+
     constructor(
         public loadingCtrl: LoadingController,
         public menuCtrl: MenuController,

@@ -970,6 +970,7 @@ export class KitchenMenuListComponent implements OnInit {
 	sundayCheck : boolean;
 
 	menuObj : any = {};
+	item4UpdateObj : any = {};
 	itemObj : any = {};
 	openinghours : any = {};
 	hideMenuOption : any = false;
@@ -1330,10 +1331,16 @@ export class KitchenMenuListComponent implements OnInit {
 		);
 	}
 	private itemUpdateModelShow(item) {
+
+		this.item4UpdateObj = item;
+
 		this.widthFunction(item.spicyLevel)
 		$("#updateItem").modal('show');
 		this.getAllGroups();
 		this.itemUpdateModel.patchValue(item);
+
+		console.log("this.itemUpdateModel.value");
+		console.log(this.itemUpdateModel.value);
 		for (var i = 0; i < item.options.length; ++i) {
 			this.addGroupAddon.push(item.options[i]._id);
 		}
@@ -1346,7 +1353,7 @@ export class KitchenMenuListComponent implements OnInit {
 		if (this.option2.length > 0) {
 			this.itemUpdateModel.controls['options'].setValue(this.option2);
 		}
-		if (this.itemUpdateModel.value.image == null || this.itemUpdateModel.value.image == this.item.image) {
+		if (this.itemUpdateModel.value.image == null || this.itemUpdateModel.value.image == this.item4UpdateObj.image) {
 			this.kitchenMenuItemService.updateMenu(this.itemUpdateModel.value).subscribe((data) => {
 				this.modelClose();
 				//this.refresh();

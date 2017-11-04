@@ -31,6 +31,8 @@ export class ItemDetailPage {
     itemGroup : string;
     previousPage: any;
 
+    spicyArray : any = [1,2,3];
+
     constructor(
         public loadingCtrl: LoadingController,
         public menuCtrl: MenuController,

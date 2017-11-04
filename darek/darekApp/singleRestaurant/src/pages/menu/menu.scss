@@ -8,7 +8,16 @@ page-menu {
     background-size: 100% 100%;
     max-width : 94%;
   }
+.card-title{
+    left : 0;
+}
 
+.descriptionDiv{
+    position: absolute;
+    top: 55%;
+    color: white;
+    width: 100%;
+    }
 
 .toolbar-content-md, .toolbar-content-wp{
     display: flex;

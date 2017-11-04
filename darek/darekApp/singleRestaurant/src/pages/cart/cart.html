@@ -8,6 +8,13 @@
 </ion-header>
 
 <ion-content padding class="cartPage">
+
+	<ion-row *ngIf = "restaurants.checkoutMessage" class="customCheckoutMessage">
+		<ion-col>
+			{{restaurants.checkoutMessage}}
+		</ion-col>
+		<ion-icon name="close" ios="ios-close" md="md-close" (click) = "hideCustomMessage()"></ion-icon>
+	</ion-row>
 	
 	<ion-row *ngIf = " cart && cart.length == 0 && promotion == undefined" class="cartDiv">
 		<ion-card-header text-center class="width100">
@@ -215,7 +222,7 @@
 		</ion-card>
 		<ion-card  *ngIf="restaurants.taxation" no-margin class="width100 marginBottom4 padding3">
 			<ion-row>
-				<ion-col col-12>{{restaurants.taxation.name}} : <span class="fontWeight600" float-right>{{restaurants.taxation.taxpercent}} %</span></ion-col>
+				<ion-col col-12>{{restaurants.taxation.name}} : <span class="fontWeight600" float-right>{{restaurants.taxation.tax}} %</span></ion-col>
 			</ion-row>
 		</ion-card>
 		<ion-card  *ngIf = "cartStorage && cartStorage.deliveryfee" no-margin class="width100 marginBottom4 padding3">

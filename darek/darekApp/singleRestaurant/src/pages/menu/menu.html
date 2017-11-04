@@ -29,6 +29,7 @@
     <ion-row>
         <ion-col col-12 *ngFor = "let menu of menus" (click)="showItems(menu)" [ngStyle]="{'background-image': 'url(' + menuImage(menu.image) + ')'}">
             <div class="card-title positionAbsolute fontWeight500">{{menu.name}}</div>
+            <div *ngIf = "menu.description" class="descriptionDiv">{{menu.description}}</div>
         </ion-col>
     </ion-row>
 </ion-content>
