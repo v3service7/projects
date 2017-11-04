@@ -1550,7 +1550,7 @@ export class FrontendDetailComponent implements OnInit {
     private selectCircle() {        
         let mapProp = {
             center: new google.maps.LatLng(this.lat, this.lng),
-            zoom: 15,
+            zoom: 10,
             mapTypeId: google.maps.MapTypeId.ROADMAP
         };
         let map = new google.maps.Map(document.getElementById("gmap"), mapProp);
@@ -1619,6 +1619,9 @@ export class FrontendCartComponent implements OnInit {
     customerStorage :string ;
     currentTime :string ;
     completeDate :string ;
+    completeDateMDYformat :string ;
+    completeDateYMDformat :string ;
+
     couponCodeApplied :string ;
     cartSubTotal :string ;
     coupon :string ;
@@ -1669,7 +1672,6 @@ export class FrontendCartComponent implements OnInit {
     cartZero:boolean =false;
     all:boolean=false;
     cstMsg:boolean=false;
-    delLater:boolean;
     addressClicked:boolean;
     grandTotal:number;
     indexPromotion:number;
@@ -1699,6 +1701,8 @@ export class FrontendCartComponent implements OnInit {
 
     enableDisablePicker = 'enableDisablePicker';
 
+    laterDiffDays : number = 0;
+
     spicyArray : any = [1,2,3];
 
     constructor(
@@ -1716,7 +1720,6 @@ export class FrontendCartComponent implements OnInit {
         this.showHideTime = false;
         this.showHidePaymentMethod = false;
         this.del = false;
-        this.delLater = false;
         this.addressClicked = true;
         this.editOrderMethod = false;
         this.editTimeMethod = false;
@@ -1756,7 +1759,6 @@ export class FrontendCartComponent implements OnInit {
             this.getRestaurants(id);
             this.deliveryZone(id);
             this.locale(id);
-
         });
         this.makePaymentModel = this.lf.group({
             cardNumber: ['', [Validators.required, Validators.minLength(16),Validators.maxLength(16), Validators.pattern('[0-9]+')]],
@@ -1784,6 +1786,7 @@ export class FrontendCartComponent implements OnInit {
             this.saveInfo();
             this.flagForTime=true;
         }
+
         if (JSON.parse(localStorage.getItem(this.orderPaymentStorage)) != null) {
             this.orderPayment = JSON.parse(localStorage.getItem(this.orderPaymentStorage));
             this.editPaymentMethod = true;
@@ -1811,16 +1814,12 @@ export class FrontendCartComponent implements OnInit {
         var month = this.addZero(this.currentDate.getMonth()+1);
         var year = this.currentDate.getFullYear();
 
-        console.log("date,month,year");
-        console.log(date,month,year);
-        
         this.currentTime = h+':'+m;
-
-        this.completeDate = date+'-'+month+'-'+year;
-
-
         this.timeO = h+':'+m +':'+ s;
 
+        this.completeDate = date+'-'+month+'-'+year;
+        this.completeDateMDYformat = month+'-'+date+'-'+year;
+        this.completeDateYMDformat = year+'-'+month+'-'+date;
 
         var days = ["sunday","monday","tuesday","wednesday","thursday","friday","saturday"];
         this.dayO = days[this.currentDate.getDay()];
@@ -1832,11 +1831,15 @@ export class FrontendCartComponent implements OnInit {
         this.yearAdd();
 
         this.laterTime = this.timeO;
-
-        console.log("this.laterTime on init");
-        console.log(this.laterTime);
-        console.log(this.timeO);
         this.laterDay =  this.dayO + ', ' + this.completeDate;
+
+        /*var date1 = new Date("12-17-2010");
+        var date2 = new Date("12-15-2010");
+        var timeDiff = Math.abs(date2.getTime() - date1.getTime());
+        var diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24)); 
+        alert(diffDays);*/
+
+
     }
 
     private showCustomMessage(){
@@ -2234,7 +2237,6 @@ export class FrontendCartComponent implements OnInit {
     private setTime(id){
         if (id=="now") {
             this.enableDisablePicker = 'enableDisablePicker';
-            this.delLater=false;
             this.orderTime = {};
             this.orderTime.tType = 'Now';
             this.flagForTime=true;
@@ -2244,21 +2246,20 @@ export class FrontendCartComponent implements OnInit {
             if (this.orderMethod.mType == 'Pickup') {
             $('#datetimepicker1').datetimepicker({
                     format : 'dddd, DD-MM-YYYY',
-                    minDate:Date(),
+                    minDate:this.completeDateYMDformat,
                     maxDate:this.laterPickupDay,
                 });
             }
             if (this.orderMethod.mType == 'Delivery') {
                 $('#datetimepicker1').datetimepicker({
                     format : 'dddd, DD-MM-YYYY',
-                    minDate:Date(),
+                    minDate:this.completeDateYMDformat,
                     maxDate:this.laterDeliveryDay,
                 });
             }
             $('#datetimepicker2').datetimepicker({format:'HH:mm:ss'});
 
-            this.enableDisablePicker = ''
-            this.delLater=true;
+            this.enableDisablePicker = '';
             this.orderTime = {};
             this.orderTime.tType = 'Later';
             this.flagForTime=false;
@@ -2269,14 +2270,14 @@ export class FrontendCartComponent implements OnInit {
         if (this.orderMethod.mType == 'Pickup') {
             $('#datetimepicker1').datetimepicker({
                 format : 'dddd, DD-MM-YYYY',
-                minDate:Date(),
+                minDate:this.completeDateYMDformat,
                 maxDate:this.laterPickupDay,
             });
         }
         if (this.orderMethod.mType == 'Delivery') {
             $('#datetimepicker1').datetimepicker({
                 format : 'dddd, DD-MM-YYYY',
-                minDate:Date(),
+                minDate:this.completeDateYMDformat,
                 maxDate:this.laterDeliveryDay,
             });
         }
@@ -2288,34 +2289,71 @@ export class FrontendCartComponent implements OnInit {
     private getValue(type){
         let eleObj = (<HTMLInputElement>document.getElementById(type));
         if (type == 'datetimepicker1') {
-            this.laterDay = eleObj.value;
 
-            console.log(this.laterDay);
-        }
+            var val2 = eleObj.value.split(', ');
+            var D2 = val2[1].split('-');
 
-        if (type == 'datetimepicker2') {
-            if (this.orderMethod.mType == 'Pickup') {
-                if (eleObj.value < this.laterPickupTime) {
-                    toastr.error('For Later Pickup Order, The order placement has to be at least: ' +this.restaurants.orderforlaterpickup['mintime']+ ' min before');
-                    this.flagForTime=false;
-                    this.addTime = false;
-                }else{
-                    this.laterTime = eleObj.value;
+            var date1 = new Date(this.completeDateMDYformat);
+            var date2 = new Date(D2[1]+'-'+D2[0]+'-'+D2[2]);
+
+            var timeDiff = date2.getTime() - date1.getTime();
+            this.laterDiffDays = timeDiff / (1000 * 3600 * 24);
+
+            if (this.laterDiffDays == 0) {
+                if (this.orderMethod.mType == 'Pickup') {                
+                    if (this.laterTime && this.laterTime < this.laterPickupTime) {
+                        toastr.warning('Select time Again');
+                        delete this.laterTime;
+                        this.flagForTime=false;
+                        this.addTime = false;
+                    }
+                }
+                if (this.orderMethod.mType == 'Delivery') {                
+                    if (this.laterTime && this.laterTime < this.laterDeliveryTime) {
+                        toastr.warning('Select time Again');
+                        delete this.laterTime;
+                        this.flagForTime=false;
+                        this.addTime = false;
+                    }
+                }
+            }else{
+                if (this.laterTime) {
                     this.flagForTime=true;
                     this.addTime = true;
                 }
             }
+            this.laterDay = eleObj.value;
+            console.log(this.laterDay);
+        }
 
-            if (this.orderMethod.mType == 'Delivery') {
-                if (eleObj.value < this.laterDeliveryTime) {
-                    toastr.error('For Later Delivery Order, The order placement has to be at least: ' +this.restaurants.orderforlaterdelivery['mintime']+ ' min before');
-                    this.flagForTime=false;
-                    this.addTime = false;
-                }else{
-                    this.laterTime = eleObj.value;
-                    this.flagForTime=true;
-                    this.addTime = true;
+        if (type == 'datetimepicker2') {
+            if (this.laterDiffDays == 0) {
+                if (this.orderMethod.mType == 'Pickup') {
+                    if (eleObj.value < this.laterPickupTime) {
+                        toastr.error('For Later Pickup Order, The order placement has to be at least: ' +this.restaurants.orderforlaterpickup['mintime']+ ' min before');
+                        this.flagForTime=false;
+                        this.addTime = false;
+                    }else{
+                        this.laterTime = eleObj.value;
+                        this.flagForTime=true;
+                        this.addTime = true;
+                    }
                 }
+                if (this.orderMethod.mType == 'Delivery') {
+                    if (eleObj.value < this.laterDeliveryTime) {
+                        toastr.error('For Later Delivery Order, The order placement has to be at least: ' +this.restaurants.orderforlaterdelivery['mintime']+ ' min before');
+                        this.flagForTime=false;
+                        this.addTime = false;
+                    }else{
+                        this.laterTime = eleObj.value;
+                        this.flagForTime=true;
+                        this.addTime = true;
+                    }
+                }
+            }else{
+                this.laterTime = eleObj.value;
+                this.flagForTime=true;
+                this.addTime = true;
             }
 
         }
@@ -2348,14 +2386,14 @@ export class FrontendCartComponent implements OnInit {
             if (this.orderMethod.mType == 'Pickup') {
                 $('#datetimepicker1').datetimepicker({
                     format : 'dddd, DD-MM-YYYY',
-                    minDate:Date(),
+                    minDate:this.completeDateYMDformat,
                     maxDate:this.laterPickupDay,
                 });
             }
             if (this.orderMethod.mType == 'Delivery') {
                 $('#datetimepicker1').datetimepicker({
                     format : 'dddd, DD-MM-YYYY',
-                    minDate:Date(),
+                    minDate:this.completeDateYMDformat,
                     maxDate:this.laterDeliveryDay,
                 });
             }
@@ -2708,8 +2746,19 @@ export class FrontendCartComponent implements OnInit {
                 var mD = this.addZero(this.laterDeliveryTime.getMinutes());
                 var sD = this.addZero(this.laterDeliveryTime.getSeconds());
 
+                var dateP = this.addZero(this.laterPickupDay.getDate());
+                var monthP = this.addZero(this.laterPickupDay.getMonth()+1);
+                var yearP = this.laterPickupDay.getFullYear();
+
+                var dateD = this.addZero(this.laterDeliveryDay.getDate());
+                var monthD = this.addZero(this.laterDeliveryDay.getMonth()+1);
+                var yearD = this.laterDeliveryDay.getFullYear();
+
                 this.laterPickupTime = hP+':'+mP+':'+sP;
                 this.laterDeliveryTime = hD+':'+mD+':'+sD;
+
+                this.laterPickupDay = yearP+'-'+monthP+'-'+dateP;
+                this.laterDeliveryDay = yearD+'-'+monthD+'-'+dateD;
             }
 
         });

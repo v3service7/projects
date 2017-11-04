@@ -615,7 +615,7 @@ export class RestaurantOwnerDeliveryZoneComponent implements OnInit {
 	selectCircleEdit(Obj1) {
 		let mapProp = {
 			center: new google.maps.LatLng(this.lat, this.lng),
-			zoom: 15,
+			zoom: 12,
 			mapTypeId: google.maps.MapTypeId.ROADMAP
 		};
 
@@ -668,7 +668,7 @@ export class RestaurantOwnerDeliveryZoneComponent implements OnInit {
 	selectCircle() {
 		let mapProp = {
 			center: new google.maps.LatLng(this.lat, this.lng),
-			zoom: 15,
+			zoom: 12,
 			mapTypeId: google.maps.MapTypeId.ROADMAP
 		};
 
@@ -723,7 +723,7 @@ export class RestaurantOwnerDeliveryZoneComponent implements OnInit {
 		this.randomColorCode = '#' + (Math.random() * 0xFFFFFF << 0).toString(16);
 		let mapProp = {
 			center: new google.maps.LatLng(this.lat, this.lng),
-			zoom: 15,
+			zoom: 12,
 			mapTypeId: google.maps.MapTypeId.ROADMAP
 		}
 		let map = new google.maps.Map(document.getElementById("gmap"), mapProp);
@@ -731,7 +731,7 @@ export class RestaurantOwnerDeliveryZoneComponent implements OnInit {
 		let marker = new google.maps.Marker({
 			position: latLng,
 			map: map,
-			draggable: true,
+			draggable: false,
 			animation: google.maps.Animation.DROP
 		});
 		for (var city in this.citymap) {
@@ -753,7 +753,7 @@ export class RestaurantOwnerDeliveryZoneComponent implements OnInit {
 		this.randomColorCode = '#' + (Math.random() * 0xFFFFFF << 0).toString(16);
 		let mapProp = {
 			center: new google.maps.LatLng(this.lat, this.lng),
-			zoom: 15,
+			zoom: 12,
 			mapTypeId: google.maps.MapTypeId.ROADMAP
 		};
 		let map = new google.maps.Map(document.getElementById("gmap"), mapProp);
@@ -761,7 +761,7 @@ export class RestaurantOwnerDeliveryZoneComponent implements OnInit {
 		let marker = new google.maps.Marker({
 			position: latLng,
 			map: map,
-			draggable: true,
+			draggable: false,
 			animation: google.maps.Animation.DROP
 		});
 		this.mypolygone = new google.maps.Polygon({

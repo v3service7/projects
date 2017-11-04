@@ -184,13 +184,13 @@
 								<input type="radio" name="time" value="" id="later" (click)="setTime('later')" [checked]="this.orderTime.tType == 'Later'">Later
 								<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" [ngClass]="enableDisablePicker">
 									<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 select-container padding0" style="display: inline-table;">
-										<input type='text' class="form-control" id='datetimepicker1' (click)="showDatePicker('Day')" (blur)="getValue('datetimepicker1')" style="border-radius: 0;" />
+										<input type='text' class="form-control" id='datetimepicker1' (click)="showDatePicker('Day')" value="{{laterDay}}" (blur)="getValue('datetimepicker1')" style="border-radius: 0;" />
 										<span class="input-group-addon" (click)="showDatePicker('Day')">
 							                <span class="glyphicon glyphicon-calendar"></span>
 							            </span>
 									</div>
 									<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 select-container padding0" style="display: inline-table;">
-										<input type='text' class="form-control" id='datetimepicker2' (click)="showDatePicker('Time')" (blur)="getValue('datetimepicker2')" style="border-radius: 0;" />
+										<input type='text' class="form-control" id='datetimepicker2' (click)="showDatePicker('Time')" value="{{laterTime}}" (blur)="getValue('datetimepicker2')" style="border-radius: 0;" />
 										<span class="input-group-addon" (click)="showDatePicker('Time')">
 						                    <span class="glyphicon glyphicon-time"></span>
 						                </span>

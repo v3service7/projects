@@ -319,9 +319,10 @@ export class RestaurantlocationComponent implements OnInit {
 
 	restaurantAddModel: FormGroup;
 	restaurants:any;
+	address:any;
+	restaurantObj4Update:any = {};
 	lat: number ;
 	lng: number ;
-	adres : string='sdfghjdfghdfvgbhn';
 	static  latt: number;
 	static  lngg: number;
 
@@ -338,11 +339,6 @@ export class RestaurantlocationComponent implements OnInit {
 	ngOnInit(){
 		var owner = JSON.parse(localStorage.getItem('currentOwner'))
 		this.getRestaurants(owner._id);
-		this.restaurantAddModel = this.lf.group({
-			_id: ['', Validators.required],
-			lat: [],
-			lng: []
-		});
 	}
 
 	initMap(){
@@ -363,19 +359,83 @@ export class RestaurantlocationComponent implements OnInit {
 		google.maps.event.addListener(
 			marker,
 			'dragend',
-			function() {
+			() => {
 				var geocoder = new google.maps.Geocoder();
 				var latlng = new google.maps.LatLng(marker.position.lat(), marker.position.lng());
 				geocoder.geocode({ 'latLng': latlng }, (results, status) => {
 					console.log("results");
 					console.log(results);
-					if (status == google.maps.GeocoderStatus.OK) {
-						/*if (results[1]) {
-							document.getElementById('addressId').innerText =  results[1].formatted_address;
-						}*/
-						if (results.length > 0) {
+
+					if (status == google.maps.GeocoderStatus.OK) { 
+						if (results[0]) {
 							document.getElementById('addressId').innerText =  results[0].formatted_address;
+							var result = results[0];
+							var component = results[0].address_components;
+							var country = null, state = null, city = null,cityAlt = null, address = null, zipcode = null;
+
+							for (var i = 0; i < component.length; i++) {
+								if (!address) {
+									if (component[i].types[0] == 'route') {
+										address = component[i].long_name;
+										//this.restaurantObj4Update['address'] = address;
+									}
+								}
+								if (!city) {
+									if (component[i].types[0] == 'administrative_area_level_2') {
+										city = component[i].long_name;
+										//this.restaurantObj4Update['city'] = city;
+									}
+								}
+								if (!cityAlt) {
+									if (component[i].types[0] == 'locality') {
+										cityAlt = component[i].long_name;
+										//this.restaurantObj4Update['cityAlt'] = cityAlt;
+									}
+								}
+								if (!state) {
+									if (component[i].types[0] == 'administrative_area_level_1') {
+										state = component[i].long_name;
+										this.restaurantObj4Update['state'] = state;
+									}
+								}
+								if (!country) {
+									if (component[i].types[0] == 'country') {
+										country = component[i].long_name;
+										this.restaurantObj4Update['country'] = country;
+									}
+								}
+								if (!zipcode) {
+									if (component[i].types[0] == 'postal_code') {
+										zipcode = component[i].long_name;
+										this.restaurantObj4Update['zipcode'] = zipcode;
+									}
+								}
+							}
+
+							if (city == null && cityAlt != null) {
+								this.restaurantObj4Update['city'] = cityAlt;
+								this.restaurantObj4Update['address'] = address;
+							}
+							if (city != null && cityAlt == null) {
+								this.restaurantObj4Update['city'] = city;
+								this.restaurantObj4Update['address'] = address;
+							}
+
+							if (city != null && cityAlt != null && city == cityAlt) {
+								this.restaurantObj4Update['city'] = city;
+								this.restaurantObj4Update['address'] = address;
+							}
+
+							if (city != null && cityAlt != null && city !== cityAlt) {
+								this.restaurantObj4Update['city'] = city;
+								this.restaurantObj4Update['address'] = address + ', ' + cityAlt;
+							}
+							
+						} else {
+							alert("address not found");
 						}
+					} else { 
+						alert("Geocoder failed due to: " + status);
 					}
 				});
 				RestaurantlocationComponent.latt  = marker.position.lat();
@@ -389,7 +449,7 @@ export class RestaurantlocationComponent implements OnInit {
 			this.restaurants = users.message;
 			console.log("this.restaurants");
 			console.log(this.restaurants);
-			this.restaurantAddModel.controls['_id'].setValue(this.restaurants._id);
+			//this.restaurantAddModel.controls['_id'].setValue(this.restaurants._id);
 			this.lat = this.restaurants.lat;
 			this.lng = this.restaurants.lng;
 			this.initMap();
@@ -399,13 +459,18 @@ export class RestaurantlocationComponent implements OnInit {
 	private restaurantUpdate() {
 		document.getElementById('Menu18').style.cursor = 'wait';
 		document.getElementById('submitButton').style.cursor = 'wait';
-		this.restaurantAddModel.controls['lat'].setValue(RestaurantlocationComponent.latt);
-		this.restaurantAddModel.controls['lng'].setValue(RestaurantlocationComponent.lngg);
-		console.log(this.restaurantAddModel.value);
-		this.restaurantsService.updateLocation(this.restaurantAddModel.value).subscribe(
+		this.restaurantObj4Update['lat'] = RestaurantlocationComponent.latt;
+		this.restaurantObj4Update['lng'] = RestaurantlocationComponent.lngg;
+		this.restaurantObj4Update['_id'] = this.restaurants._id;
+
+		this.restaurantsService.updateLocation(this.restaurantObj4Update).subscribe(
 			(data) => {
-				toastr.success('Restaurant Location Updated Successfully','Success!');
-				this.router.navigate(['/owner/restaurant-confirm']);
+				if (!data.error) {
+					toastr.success('Restaurant Location Updated Successfully','Success!');
+					this.router.navigate(['/owner/restaurant-confirm']);
+				}else{
+					toastr.error('Unable to Update Location','Error!');
+				}
 			}
 		);
 	}
