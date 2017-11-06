@@ -7,6 +7,7 @@ import { ForgetPasswordPage } from './forgetpassword';
 import { RegisterPage } from './register';
 
 import { MyApp } from '../../app/app.component'
+import { MenuPage } from '../../pages/menu/menu'
 
 import { IconTextPage } from '../item/iconText';
 
@@ -72,7 +73,7 @@ export class LoginPage {
                localStorage.setItem('currentCustomer', JSON.stringify(data.data));
                this.menuCtrl.enable(true);
                //this.nav.setRoot(this.previousPage);
-               this.nav.setRoot(MyApp);
+               this.nav.setRoot(MenuPage);
             }else{
                this.getToast('Bad Credential');
                this.loginForm.reset();

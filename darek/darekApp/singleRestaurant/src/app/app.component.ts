@@ -26,7 +26,7 @@ import { PaymentinfoPage } from '../pages/paymentinfo/paymentinfo';
 export class MyApp {
     @ViewChild(Nav) nav: Nav;
 
-    rootPage: any = MenuPage;
+    rootPage: any = LoginPage;
     currentCustomer : any;
     restaurant : any = {};
     pages: Array<{iconA: string, iconI : string, iconW : string ,title: string, component: any}>;
