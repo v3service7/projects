@@ -168,7 +168,7 @@ export class CustomerAddComponent implements OnInit {
         this.onValueChanged();
     }
 
-    private matchpasswordreg(){
+    public matchpasswordreg(){
         if (this.customerAddForm.value.newpassword != "") {
             if(this.customerAddForm.value.password == this.customerAddForm.value.newpassword){
                 this.customerAddForm.controls["matchpass"].setValue(true);

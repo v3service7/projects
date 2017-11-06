@@ -229,6 +229,9 @@ module.exports = (function() {
             if(!user){
                 return res.json({success: false, msg: 'User not found'});
             }
+            if(!user.status){
+                return res.json({success: false, msg: 'Your account is not active'});
+            }
             if(user.role == "Admin"){
                 return res.json({success: false, msg: 'Not Authorized'});
             }

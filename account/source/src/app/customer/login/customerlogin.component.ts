@@ -197,7 +197,7 @@ export class CustomerRegisterComponent implements OnInit {
         this.onValueChanged();
     }
 
-    private matchpasswordreg(){
+    public matchpasswordreg(){
 
         if (this.registerForm.value.newpassword != "") {
             if(this.registerForm.value.password == this.registerForm.value.newpassword){

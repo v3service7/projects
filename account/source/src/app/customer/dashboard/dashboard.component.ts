@@ -62,6 +62,7 @@ export class CustomerProfileComponent implements OnInit {
     formErrors = {
         'firstname': '',
         'lastname': '',
+        'dob': '',
         'phonenumber': ''
     };
 

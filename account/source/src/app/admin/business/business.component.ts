@@ -180,6 +180,7 @@ export class BusinessEditComponent implements OnInit {
         'ownerName' : '',
         'mobileNumber' : '',
         'nationality' : '',
+        'passportNumber' : '',
         'emiRateIdNumber' : '',
     };
 

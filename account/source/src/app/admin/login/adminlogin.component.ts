@@ -44,6 +44,7 @@ export class AdminLoginComponent implements OnInit {
                     this._flashMessagesService.show('You are now logged in', {
                         cssClass: 'alert-success',
                         timeout: 5000});
+                    console.log(this.returnUrl)
                     this.router.navigate([this.returnUrl]);
                 } else {
                     this._flashMessagesService.show(data.msg, {
