@@ -7,14 +7,28 @@ var emailFrom = 'sahal@vatfile.com';
 var templateDir = '/home/ec2-user/vatfile/email_template';
 /*var templateDir = '../api/email_template';*/
 var transporter = nodemailer.createTransport({
-    service: "Gmail",
+    host: 'smtp.zoho.com',
+    port: 465,
     auth: {
-        user: "navaidkitchen@gmail.com",
-       pass: "navaidkitchennavaidkitchen"
+        user: "sahal@vatfile.com",
+       pass: "Sahaldubai"
     }
 });
 
 module.exports = {
+
+    emailTest: function() {
+        var html = 'Hello test Mail'
+
+        var options = {
+            from: emailFrom,
+            to: 'dharmendra@v3xperts.com',
+            subject: 'Test mail',
+            html: html,
+            text: 'text'
+        };
+        sendmail(options);
+    },
 
     emailShoot: function(emailTo, username, token) {
 
@@ -41,7 +55,7 @@ module.exports = {
     forgetEmailShoot: function(customer, type) {
         console.log(customer);
         if (type == 'cust') {
-            customer['resetPassLink'] = 'http://54.76.61.58:4021/customers/reset-password/'+customer._id;
+            customer['resetPassLink'] = 'http://54.76.61.58:4021/customer/reset-password/'+customer._id;
             /*customer['resetPassLink'] = 'http://localhost:4200/customer/reset-password/'+customer._id;*/
         }else{
             customer['resetPassLink'] = 'http://54.76.61.58:4021/admin/reset-password/'+customer._id;

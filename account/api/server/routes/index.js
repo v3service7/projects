@@ -15,6 +15,15 @@ module.exports = (function() {
     var emails = require('../mail/emailConfig.js');
 
 
+    router.post('/testmail', function(req, res) {
+        const tet = emails.emailTest();
+        if (tet) {
+            return res.status(200).json({status: false, message:'Accessed'  });
+        }else{
+            return res.status(403).json({status: false, message:'Access Denied'  });
+        }
+    });
+
     router.post('/customer-verify', function(req, res) {
         let response = {};
         customerModel.findOne({ 'email_token': req.body.token }, function(err, customer) {
@@ -42,8 +51,12 @@ module.exports = (function() {
     });
 
     router.get('/test', function(req, res) {
-        let response = {};
-        return res.status(200).json({ status: true });
+        const tet = emails.emailTest();
+        if (tet) {
+            return res.status(200).json({status: false, message:'Accessed'  });
+        }else{
+            return res.status(200).json({status: false, message:'Access Denied'  });
+        }
     });
 
     router.get('/admin-getall', function(req, res, next) {
