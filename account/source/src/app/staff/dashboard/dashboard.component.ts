@@ -62,6 +62,7 @@ export class StaffProfileComponent implements OnInit {
     formErrors = {
         'firstname': '',
         'lastname': '',
+        'dob': '',
         'phonenumber': ''
     };
 

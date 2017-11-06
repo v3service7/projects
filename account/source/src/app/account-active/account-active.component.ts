@@ -55,7 +55,7 @@ export class AccountActiveComponent implements OnInit {
         );
     }
 
-    private resendActivationLink(){
+    public resendActivationLink(){
         this.customerService.resendActivationLink(this.emailForm.value).subscribe((data)=>{
             if (!data.error) {
                 this._flashMessagesService.show(data.message, { cssClass: 'alert-success', timeout: 5000 });
@@ -68,7 +68,7 @@ export class AccountActiveComponent implements OnInit {
         })
     }
 
-    private goToLogin(){
+    public goToLogin(){
         this.router.navigate(['customer/login']);
     }
 }

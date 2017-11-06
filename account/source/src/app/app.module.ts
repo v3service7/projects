@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {HttpModule, Http} from "@angular/http";
 import { RouterModule, Routes } from '@angular/router';
-import { FileSelectDirective, FileDropDirective } from 'ng2-file-upload';
+import { FileUploadModule , FileDropDirective } from 'ng2-file-upload';
 
 import { MyDirective } from './directive';
 import { AppComponent } from './app.component';
@@ -43,8 +43,9 @@ import { AccountActiveComponent } from './account-active/account-active.componen
 
 @NgModule({
   declarations: [
-   
-    AppComponent,MyDirective,FileSelectDirective,
+       OrderPipe,
+       FilterPipe,
+    AppComponent,MyDirective,
     AdminComponent,
     AdminLoginComponent,AdminForgetPasswordComponent,AdminResetPasswordComponent,
     AdminHeaderComponent,AdminSidebarComponent,
@@ -58,12 +59,13 @@ import { AccountActiveComponent } from './account-active/account-active.componen
     CustomerDashboardComponent, CustomerProfileComponent,
     CustomerHeaderComponent,CustomerSidebarComponent,
     CustomerBusinessComponent, CustomerBusinessListComponent, CustomerBusinessAddComponent, CustomerBusinessDocumentComponent, CustomerBusinessEditComponent, AccountActiveComponent,
-    StaffComponent,
+    StaffsComponent,
     StaffLoginComponent, StaffForgetPasswordComponent,StaffResetPasswordComponent,
     StaffDashboardComponent, StaffProfileComponent,   
   ],
   imports: [
     ReCaptchaModule,
+    FileUploadModule,
     BrowserModule,
     FormsModule,
     HttpModule,
@@ -71,6 +73,7 @@ import { AccountActiveComponent } from './account-active/account-active.componen
     ReactiveFormsModule,
     FlashMessagesModule,
   ],
+  exports: [FileUploadModule],
   providers: [AuthGuard, CustomerAuthGuard, AdminService, CustomerService, StaffService, BusinessService, PlanService],
   bootstrap: [AppComponent]
 })

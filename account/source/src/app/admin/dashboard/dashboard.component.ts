@@ -113,7 +113,8 @@ export class AdminProfileComponent implements OnInit {
     };
 
     cpFormErrors = {
-        'newpassword' : ''     
+        'newpassword' : '',
+        'password' : ''
     };
 
     cpValidationMessages = {

@@ -14,9 +14,9 @@ import { CustomerDashboardComponent, CustomerProfileComponent } from './customer
 import { AccountActiveComponent } from './account-active/account-active.component';
 import { CustomerBusinessComponent, CustomerBusinessAddComponent, CustomerBusinessDocumentComponent, CustomerBusinessEditComponent,CustomerBusinessListComponent } from './customer/business/business.component';
 
-import { StaffsComponent } from './staff/staff.component';
+/*import { StaffsComponent } from './staff/staff.component';
 import { StaffLoginComponent, StaffForgetPasswordComponent, StaffResetPasswordComponent } from './staff/login/stafflogin.component';
-import { StaffDashboardComponent, StaffProfileComponent } from './staff/dashboard/dashboard.component';
+import { StaffDashboardComponent, StaffProfileComponent } from './staff/dashboard/dashboard.component';*/
 
 
 import { AuthGuard , CustomerAuthGuard} from './guards/index';

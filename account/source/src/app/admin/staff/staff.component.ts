@@ -110,6 +110,9 @@ export class StaffAddComponent implements OnInit {
         'email' : '',
         'phonenumber' : '',
         'password' : '',
+        'dob' : '',
+        'qualification' : '',
+        'percentage' : '',
         'newpassword' : ''     
     };
 
@@ -180,7 +183,7 @@ export class StaffAddComponent implements OnInit {
         this.onValueChanged();
     }
 
-    private matchpasswordreg(){
+    public matchpasswordreg(){
         if (this.staffAddForm.value.newpassword != '') {
             if(this.staffAddForm.value.password == this.staffAddForm.value.newpassword){
                 this.staffAddForm.controls["matchpass"].setValue(true);

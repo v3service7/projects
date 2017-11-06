@@ -122,7 +122,7 @@ export class CustomerBusinessAddComponent implements OnInit {
         'phoneNumber' : '',
         'ownerName' : '',
         'mobileNumber' : '',
-       /* 'passportNumber' : '',*/
+        'passportNumber' : '',
         'nationality' : '',
         'emiRateIdNumber' : '',
     };
@@ -411,6 +411,7 @@ export class CustomerBusinessEditComponent implements OnInit {
         'tradeLicenseExpiry' : '',
         'emiRate' : '',
         'phoneNumber' : '',
+        'passportNumber' : '',
         'ownerName' : '',
         'mobileNumber' : '',
         'nationality' : '',
