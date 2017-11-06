@@ -17,6 +17,10 @@ page-cart {
 	    padding: 2%;
 	}
 
+	.chillyImage{
+		width  : 15px !important;
+	}
+
 	.quantity{
 		border-top: 1px solid #dedede;
 	    border-bottom: 1px solid #dedede;
@@ -27,6 +31,10 @@ page-cart {
 	.qtyButton{
 	    font-weight: 600;
 	    font-size: 20px;
+	}
+
+	.taxPercent{
+		font-size : 10px;
 	}
 
 	.itemInstruction{
@@ -116,10 +124,10 @@ ion-card-content.card-content.card-content-ios {
 /* Portrait phones and smaller */
 @media (max-width: 480px) {
 
-.card-img{
-	height: 65px;
-	width: 200px;
-}
+	.card-img{
+		height: 50px;
+		width: 200px;
+	}
 }
 
 }

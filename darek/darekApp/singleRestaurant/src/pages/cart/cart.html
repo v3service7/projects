@@ -26,14 +26,22 @@
 		<ion-card *ngFor = "let crt of cart; let i= index; " class="width100 padding3 marginBottom4" no-margin>
 			<ion-card-header *ngIf = "crt.item" no-padding>
 				<ion-row>
-					<ion-col col-4><img [src]="itemImage(crt.item.image)" class="card-img" /></ion-col>
+					<ion-col col-3><img [src]="itemImage(crt.item.image)" class="card-img" /></ion-col>
 					<ion-col col-8>
 						<ion-row>
-							<ion-col no-padding>{{crt.item.name}}<ion-icon float-right name="trash" ios="ios-trash" md="md-trash" class="delItem" (click)="deleteItem(i)"></ion-icon></ion-col>
+							<ion-col no-padding class="displayFlex">
+								{{crt.item.name}}
+								<span *ngFor = "let chilly of spicyArray">
+		                        	<img *ngIf = "crt.item.spicyLevel && chilly <= crt.item.spicyLevel" src="assets/img/chilly.PNG" class="chillyImage">
+			                   </span>
+							</ion-col>
 						</ion-row>
 						<ion-row>
 							<ion-col col-4 class="fontWeight600 cartItemPrice">${{crt.totalPrice}}</ion-col>
 						</ion-row>
+					</ion-col>
+					<ion-col col-1>
+						<ion-icon float-right name="trash" ios="ios-trash" md="md-trash" class="delItem" (click)="deleteItem(i)"></ion-icon>
 					</ion-col>
 				</ion-row>
 			</ion-card-header>
@@ -98,7 +106,14 @@
 						<ion-col col-4><img [src]="itemImage(promotion.itemGroup1.item.image)"  class="card-img" /></ion-col>
 						<ion-col col-8>
 							<ion-row>
-								<ion-col no-padding>{{promotion.itemGroup1.item.name}}</ion-col>
+								<ion-col no-padding>
+									{{promotion.itemGroup1.item.name}}
+									<span *ngFor = "let chilly of spicyArray">
+				                    	<span *ngIf = "promotion.itemGroup1.item.spicyLevel && chilly <= promotion.itemGroup1.item.spicyLevel">
+				                        	<img src="assets/img/chilly.PNG" class="chillyImage">
+				                        </span>
+				                   </span>
+								</ion-col>
 							</ion-row>
 							<ion-row>
 								<ion-col col-4 class="fontWeight600 cartItemPrice">${{promotion.itemGroup1.totalPrice}}</ion-col>
@@ -148,10 +163,19 @@
 
 				<ion-row *ngIf = "promotion.itemGroup2" class="width100">
 					<ion-row *ngIf="promotion.itemGroup2.item" class="width100">
-						<ion-col col-4><img [src]="itemImage(promotion.itemGroup2.item.image)" class="cart-img" /></ion-col>
+						<ion-col col-4>
+							<img [src]="itemImage(promotion.itemGroup2.item.image)" class="cart-img" />
+						</ion-col>
 						<ion-col col-8>
 							<ion-row>
-								<ion-col no-padding>{{promotion.itemGroup2.item.name}}</ion-col>
+								<ion-col no-padding>
+									{{promotion.itemGroup2.item.name}}
+									<span *ngFor = "let chilly of spicyArray">
+				                    	<span *ngIf = "promotion.itemGroup2.item.spicyLevel && chilly <= promotion.itemGroup2.item.spicyLevel">
+				                        	<img src="assets/img/chilly.PNG" class="chillyImage">
+				                        </span>
+				                   </span>
+								</ion-col>
 							</ion-row>
 							<ion-row>
 								<ion-col col-4 class="fontWeight600 cartItemPrice">${{promotion.itemGroup2.totalPrice}}</ion-col>
@@ -220,14 +244,23 @@
 				<ion-col col-12 >Discount : <span class="fontWeight600" float-right>${{discountAmount | number : '1.2-2'}}</span></ion-col>
 			</ion-row>
 		</ion-card>
-		<ion-card  *ngIf="restaurants.taxation" no-margin class="width100 marginBottom4 padding3">
-			<ion-row>
-				<ion-col col-12>{{restaurants.taxation.name}} : <span class="fontWeight600" float-right>{{restaurants.taxation.tax}} %</span></ion-col>
+		<ion-card  *ngIf="cartStorage['tax'] > 0" no-margin class="width100 marginBottom4 padding3">
+			<ion-row *ngIf = "restaurants.taxation">
+				<ion-col col-12>{{restaurants.taxation.name}} <span class="taxPercent"> ({{restaurants.taxation.tax}} %)</span>: 
+					<span class="fontWeight600" float-right>${{cartStorage['tax']  | number : '1.2-2'}}</span>
+				</ion-col>
 			</ion-row>
 		</ion-card>
 		<ion-card  *ngIf = "cartStorage && cartStorage.deliveryfee" no-margin class="width100 marginBottom4 padding3">
 			<ion-row>
 				<ion-col col-12 >Delivery Fee : <span class="fontWeight600" float-right>${{deliveryfee | number : '1.2-2'}}</span></ion-col>
+			</ion-row>
+		</ion-card>
+		<ion-card  *ngIf = "cartStorage && cartStorage.deliveryTax" no-margin class="width100 marginBottom4 padding3">
+			<ion-row *ngIf = "restaurants.taxation">
+				<ion-col col-12 >Delivery Tax <span class="taxPercent">({{restaurants.taxation.deliveryTax}} %)</span>:
+					<span class="fontWeight600" float-right>${{cartStorage['deliveryTax'] | number : '1.2-2'}}</span>
+				</ion-col>
 			</ion-row>
 		</ion-card>
 		<ion-card no-margin class="width100 marginBottom4 padding3">

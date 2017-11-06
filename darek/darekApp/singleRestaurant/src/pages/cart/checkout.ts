@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ToastController, NavController, NavParams, LoadingController, Nav } from 'ionic-angular';
+import { ToastController, NavController, NavParams, LoadingController, Nav, AlertController } from 'ionic-angular';
 import {Validators, FormBuilder, FormGroup } from '@angular/forms';
 import * as globalVariable from "../../app/global";
 
@@ -18,9 +18,20 @@ declare var google: any;
 export class CheckoutPage {
 
 	cartStorage : any = {};
-	loading : any;
-	laterDate : any;
-	laterTime : any;
+    loading : any;
+    currentTime : any;
+    currentDate : any;
+	completeDateMDYformat : any;
+
+    /*laterDay:any;
+    laterTime:any;*/
+
+    event = {laterDay : '',laterTime : ''};
+    laterPickupDay:any;
+    laterPickupTime:any;
+    laterDeliveryDay:any;
+    laterDeliveryTime:any;
+    laterDiffDays : number = 0;
 	
     orderMethodSelect : any;
 	orderTimeSelect : any;
@@ -51,6 +62,9 @@ export class CheckoutPage {
 	tMethod : boolean;
 	pMethod : boolean;
 
+    monthArray : any = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+    time24Array : any = ['0','13','14','15','16','17','18','19','20','21','22','23'];
+
 	constructor(
 		public navCtrl: NavController,
         public nav: Nav,
@@ -59,7 +73,8 @@ export class CheckoutPage {
 		private restaurantsService: RestaurantsService,
 		private customerService: CustomersService,
 		public toastCtrl: ToastController,
-		private lf: FormBuilder
+		private lf: FormBuilder,
+        public alertCtrl: AlertController
 		) {
 
 		this.loading = this.loadingCtrl.create({
@@ -113,18 +128,37 @@ export class CheckoutPage {
                 if(this.cartStorage['orderTime']['tType'] == 'Later'){
                     this.orderTimeSelect = 'later';
                     this.showLater = true;
-                    this.tMethod = false;
+                    this.tMethod = true;
                     this.orderTime = this.cartStorage['orderTime'];
-                    this.laterDate = this.cartStorage['orderTime']['day'];
-                    this.laterTime = this.cartStorage['orderTime']['time'];
-                    setTimeout(()=>{
+
+                    var datee1 = this.orderTime['day'].split(', ');
+                    var datee2 = datee1[1].split('-');
+                    var monthNo = this.monthArray.findIndex((mn)=>mn == datee2[1]);
+
+                    this.event['laterDay'] = datee2[2] + '-' + (monthNo+1) + '-' + datee2[0];
+                    this.laterDateFunction();
+                    
+                    var timee1 = this.orderTime['time'].split(' ');
+                    var timee2 : string;
+                    if (timee1[1] == 'AM') {
+                        timee2 = timee1[0] + ':00';
+                        this.event['laterTime'] = timee2;
+                    }else{
+                        var timee3 = timee1[0].split(':');
+                        var date24Format = this.time24Array[timee3[0]];
+                        this.event['laterTime'] = date24Format+':'+timee3[1]+':00';
+                    }
+
+                    this.laterTimeFunction();
+
+                    /*setTimeout(()=>{
                         var x = document.getElementsByTagName('ion-datetime');
                         var day = x[0].getElementsByClassName('datetime-text');
                         var time = x[1].getElementsByClassName('datetime-text');
                         day[0].innerHTML = this.cartStorage['orderTime']['day'];
                         time[0].innerHTML = this.cartStorage['orderTime']['time'];
                         this.tMethod = true;
-                    },500)
+                    },500)*/
                 }
             }
 
@@ -194,7 +228,79 @@ export class CheckoutPage {
     private getRestaurants(id) {
         this.restaurantsService.getOne(id).subscribe(users => {
             this.restaurants = users.message;
+
+            if (this.restaurants.orderforlater) {
+                let pmindate : any;
+                let pmintime : any;
+                let dmindate : any;
+                let dmintime : any;
+
+                let temp = 24*60*60*1000;
+                pmindate = this.restaurants.orderforlaterpickup['mindate'];
+                pmintime = this.restaurants.orderforlaterpickup['mintime'];
+                dmindate = this.restaurants.orderforlaterdelivery['mindate'];
+                dmintime = this.restaurants.orderforlaterdelivery['mintime'];
+
+                var time = new Date();
+                
+                this.laterPickupDay = new Date(time.getTime()+(parseInt(pmindate)*temp));
+                this.laterDeliveryDay = new Date(time.getTime()+(parseInt(dmindate)*temp));
+
+                this.laterPickupTime = new Date();
+                this.laterPickupTime.setMinutes(time.getMinutes() + parseInt(pmintime));
+
+                this.laterDeliveryTime = new Date();
+                this.laterDeliveryTime.setMinutes(time.getMinutes() + parseInt(dmintime));
+
+                var hour = this.addZero(time.getHours());
+                var min = this.addZero(time.getMinutes());
+                var sec = this.addZero(time.getSeconds());
+                
+                var date = this.addZero(time.getDate());
+                var month = this.addZero(time.getMonth()+1);
+                var year = time.getFullYear();
+
+                this.currentDate = year+'-'+month+'-'+date;
+                this.completeDateMDYformat = month+'-'+date+'-'+year;
+                this.currentTime = hour+':'+min+':'+sec;
+
+                console.log("this.currentDate");
+                console.log(this.currentDate);
+                console.log(this.currentTime);
+                console.log(this.completeDateMDYformat);
+                
+                var hP = this.addZero(this.laterPickupTime.getHours());
+                var mP = this.addZero(this.laterPickupTime.getMinutes());
+                var sP = this.addZero(this.laterPickupTime.getSeconds());
+                
+                var hD = this.addZero(this.laterDeliveryTime.getHours());
+                var mD = this.addZero(this.laterDeliveryTime.getMinutes());
+                var sD = this.addZero(this.laterDeliveryTime.getSeconds());
+
+                var dateP = this.addZero(this.laterPickupDay.getDate());
+                var monthP = this.addZero(this.laterPickupDay.getMonth()+1);
+                var yearP = this.laterPickupDay.getFullYear();
+
+                var dateD = this.addZero(this.laterDeliveryDay.getDate());
+                var monthD = this.addZero(this.laterDeliveryDay.getMonth()+1);
+                var yearD = this.laterDeliveryDay.getFullYear();
+
+                this.laterPickupTime = hP+':'+mP+':'+sP;
+                this.laterDeliveryTime = hD+':'+mD+':'+sD;
+
+                this.laterPickupDay = yearP+'-'+monthP+'-'+dateP;
+                this.laterDeliveryDay = yearD+'-'+monthD+'-'+dateD;
+            }
+
+
         });
+    }
+    
+    private addZero(i) {
+        if (i < 10) {
+            i = "0" + i;
+            }
+        return i;
     }
 
     private deliveryZone(id){
@@ -233,11 +339,17 @@ export class CheckoutPage {
             
             setTimeout(()=>{
                 this.initMap();
-            },2000)
-    		if (this.cartStorage['orderPayment']) {
-    			delete this.cartStorage['orderPayment'];
-    			this.orderPaymentSelect = '';
-    			this.orderPaymentFunction();
+            },1000)
+            if (this.cartStorage['orderPayment']) {
+                delete this.cartStorage['orderPayment'];
+                this.orderPaymentSelect = '';
+                this.orderPaymentFunction();
+            }
+    		if (this.cartStorage['orderTime']) {
+    			delete this.cartStorage['orderTime'];
+    			this.orderTimeSelect = '';
+
+    			this.orderTimeFunction();
     		}
     	}else{
     		this.del = false;
@@ -247,14 +359,20 @@ export class CheckoutPage {
     		this.orderMethod['mType'] = 'Pickup';
     		this.cartStorage['orderMethod'] = this.orderMethod;
     		if (this.cartStorage['deliveryfee']) {
-                this.cartStorage['gTotal'] = this.cartStorage['gTotal'] - this.cartStorage['deliveryfee'];
+                this.cartStorage['gTotal'] = this.cartStorage['gTotal'] - this.cartStorage['deliveryfee'] - this.cartStorage['deliveryTax'];
                 delete this.cartStorage['deliveryfee'];
+                delete this.cartStorage['deliveryTax'];
     		}
     		if (this.cartStorage['orderPayment']) {
     			delete this.cartStorage['orderPayment'];
     			this.orderPaymentSelect = '';
     			this.orderPaymentFunction();
     		}
+            if (this.cartStorage['orderTime']) {
+                delete this.cartStorage['orderTime'];
+                this.orderTimeSelect = '';
+                this.orderTimeFunction();
+            }
             this.cartStorage['gTotal'] = this.totalAmount;
     	}
     }
@@ -268,11 +386,20 @@ export class CheckoutPage {
     		this.orderTime['tType'] = 'Now';
     		this.orderTime['time'] = new Date();
     		this.cartStorage['orderTime'] = this.orderTime;
-    	}else{
-    		this.showLater = true;
+    	}
+
+        if(time == 'later'){
+            this.showLater = true;
+            this.tMethod = false;
+            this.orderTime = {};
+            this.orderTime['tType'] = 'Later';
+        }
+
+        if(time == ''){
+            this.showLater = false;
     		this.tMethod = false;
-    		this.orderTime = {};
-    		this.orderTime['tType'] = 'Later';
+            delete this.orderTime;
+            this.event = {laterDay : '',laterTime : ''};
     	}
     }
 
@@ -302,37 +429,139 @@ export class CheckoutPage {
     }
 
 	private laterDateFunction(){
+        console.log("this.event.laterDay");
+        console.log(this.event.laterDay);
+        console.log(this.event.laterTime);
+        console.log(this.laterDiffDays);
+        console.log(this.orderTime);
+
         setTimeout(()=>{
 			var dayId = document.getElementById('laterDate1');
 			var day = dayId.getElementsByClassName('datetime-text');
 
-            console.log("day");
-            console.log(day[0].innerHTML);
-
-
 			this.orderTime['day'] = day[0].innerHTML;
-			if (typeof this.orderTime['time'] != 'undefined') {
-                this.cartStorage['orderTime'] = this.orderTime;
-				this.tMethod = true;
-			}
-        },500);
+
+            var val2 = this.event.laterDay.split('-'); /*YMD*/
+
+            var date1 = new Date(this.completeDateMDYformat);
+            var date2 = new Date(val2[1]+'-'+val2[2]+'-'+val2[0]);
+
+            var timeDiff = date2.getTime() - date1.getTime();
+            this.laterDiffDays = timeDiff / (1000 * 3600 * 24);
+
+            console.log("this.laterDiffDays");
+            console.log(this.laterDiffDays);
+
+            if (typeof this.orderTime['time'] != 'undefined') {
+                if (this.laterDiffDays == 0) {
+                    if (this.orderMethod.mType == 'Pickup') {
+                        if (this.event.laterTime && this.event.laterTime < this.laterPickupTime) {
+                            //this.getToast('For Later Pickup Order, The order placement has to be at least: ' +this.restaurants.orderforlaterpickup['mintime']+ ' min before');
+                            this.showAlert('pickup');
+                            /*delete this.event.laterTime;
+                            delete this.orderTime['time'];*/
+                            this.tMethod = false;
+                            //console.log("this.event.laterTime is chota than this.laterPickupTime");
+                        }else{
+                            this.cartStorage['orderTime'] = this.orderTime;
+                            this.tMethod = true;
+                        }
+                    }
+                    if (this.orderMethod.mType == 'Delivery') {
+                        if (this.event.laterTime && this.event.laterTime < this.laterDeliveryTime) {
+                            //this.getToast('For Later Pickup Order, The order placement has to be at least: ' +this.restaurants.orderforlaterdelivery['mintime']+ ' min before');
+                            this.showAlert('delivery');
+                            /*delete this.event.laterTime;
+                            delete this.orderTime['time'];*/
+                            this.tMethod = false;
+                            //console.log("this.event.laterTime is chota than this.laterDeliveryTime");
+                        }else{
+                            this.cartStorage['orderTime'] = this.orderTime;
+                            this.tMethod = true;
+                        }
+                    }
+                }else{
+                    this.cartStorage['orderTime'] = this.orderTime;
+    				this.tMethod = true;
+                }
+            }else{
+                this.tMethod = false;
+            }
+        },500)
 	}
 
 	private laterTimeFunction(){
+        console.log("this.event.laterTime");
+        console.log(this.event.laterDay);
+        console.log(this.event.laterTime);
+        console.log(this.laterDiffDays);
+        console.log(this.orderTime);
+
+
 		setTimeout(()=>{
 			var timeId = document.getElementById('laterTime1');
 			var time = timeId.getElementsByClassName('datetime-text');
 
-            console.log("time");
-            console.log(time[0].innerHTML);
-
 			this.orderTime['time'] = time[0].innerHTML;
 			if (typeof this.orderTime['day'] != 'undefined') {
-                this.cartStorage['orderTime'] = this.orderTime;
-				this.tMethod = true;
-			}
+
+                if (this.laterDiffDays == 0) {
+                    if (this.orderMethod.mType == 'Pickup') {
+                        if (this.event.laterTime && this.event.laterTime < this.laterPickupTime) {
+                            //this.getToast('For Later Pickup Order, The order placement has to be at least: ' +this.restaurants.orderforlaterpickup['mintime']+ ' min before');
+                            this.showAlert('pickup');
+                            /*delete this.event.laterTime;
+                            delete this.orderTime['time'];*/
+                            this.tMethod = false;
+                            //console.log("this.event.laterTime is chota than this.laterPickupTime");
+                        }else{
+                            this.cartStorage['orderTime'] = this.orderTime;
+                            this.tMethod = true;
+                        }
+                    }
+                    if (this.orderMethod.mType == 'Delivery') {
+                        if (this.event.laterTime && this.event.laterTime < this.laterDeliveryTime) {
+                            //this.getToast('For Later Pickup Order, The order placement has to be at least: ' +this.restaurants.orderforlaterdelivery['mintime']+ ' min before');
+                            this.showAlert('delivery');
+                            /*delete this.event.laterTime;
+                            delete this.orderTime['time'];*/
+                            this.tMethod = false;
+                            //console.log("this.event.laterTime is chota than this.laterDeliveryTime");
+                        }else{
+                            this.cartStorage['orderTime'] = this.orderTime;
+                            this.tMethod = true;
+                        }
+                    }
+                }else{
+                    this.cartStorage['orderTime'] = this.orderTime;
+                    this.tMethod = true;
+                }
+			}else{
+                this.tMethod = false;
+            }
 	    },500);
 	}
+
+    private showAlert(type){
+        if (type == 'pickup'){
+            let alert = this.alertCtrl.create({
+            title: 'Choose Date/Time Again!',
+            subTitle: 'For Later Pickup Order, The order placement has to be at least: ' +this.restaurants.orderforlaterpickup['mintime']+ ' min before',
+            buttons: ['OK']
+            });
+            alert.present();
+        }
+        if (type == 'delivery'){
+            let alert = this.alertCtrl.create({
+            title: 'Choose Date/Time Again!',
+            subTitle: 'For Later Delivery Order, The order placement has to be at least: ' +this.restaurants.orderforlaterdelivery['mintime']+ ' min before',
+            buttons: ['OK']
+            });
+            alert.present();
+        }
+
+        this.tMethod = false;
+    }
 
     private saveAddressInfo(){
         this.zoneObject=[];
@@ -456,6 +685,9 @@ export class CheckoutPage {
     }
 
     private updateInfo(){
+        console.log("this.cartStorage while updating");
+        console.log(this.cartStorage);
+        localStorage.removeItem(this.cartStorageString);
         localStorage.setItem(this.cartStorageString,JSON.stringify(this.cartStorage));
         this.navCtrl.pop(CartPage)
     }

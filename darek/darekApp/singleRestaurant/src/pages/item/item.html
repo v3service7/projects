@@ -29,12 +29,12 @@
 			<ion-col col-4 class="itemImage" (tap)="tapEvent($event,item)"><img [src]="itemImage(item.image)"/></ion-col>
 			<ion-col col-7 (tap)="tapEvent($event,item)">
 				<ion-row text-uppercase class="itemName">
+					{{item.name}}
 					<span *ngFor = "let chilly of spicyArray">
                     	<span *ngIf = "item.spicyLevel && chilly <= item.spicyLevel">
                         	<img src="assets/img/chilly.PNG" class="chillyImage">
                         </span>
                    </span>
-					{{item.name}}
 				</ion-row>
 				<ion-row class="itemPrice fontWeight600 colorGreen">
 					${{item.price}}

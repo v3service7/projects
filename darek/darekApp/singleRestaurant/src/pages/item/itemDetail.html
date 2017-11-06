@@ -28,12 +28,12 @@
 			<ion-row class="itemInfo positionAbsolute padding0px15px">
 				<ion-col col-12 class="itemName colorWhite" text-uppercase>
 					<ion-col col-10>
+	                   {{item.name}}
 						<span *ngFor = "let chilly of spicyArray">
 	                    	<span *ngIf = "item.spicyLevel && chilly <= item.spicyLevel">
 	                        	<img src="assets/img/chilly.PNG" class="chillyImage">
 	                        </span>
 	                   </span>
-                   {{item.name}}
 					</ion-col>
 					<ion-col col-2 *ngIf="currentCustomer"><ion-icon (click)="makeFav(item._id)" float-right name="heart" ios="ios-heart" md="md-heart" [ngStyle]="isFavOrNot(item._id)"></ion-icon></ion-col>
 				</ion-col>

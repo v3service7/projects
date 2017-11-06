@@ -46,6 +46,8 @@ export class CartPage {
     completeDate : string;
     currentTime : string;
 
+    spicyArray : any = [1,2,3];
+
 	constructor(
 		public navCtrl: NavController,
 		public navParams: NavParams,
@@ -60,13 +62,17 @@ export class CartPage {
 	    public alertCtrl: AlertController
 		) {
 		this.resId = '595172e2421a472120e0db5e';
+
 	}
 
 	ionViewDidEnter() {
-		this.currentDateTime();
-		this.getRestaurants(this.resId);
-		this.cartString = 'cart_' + this.resId;
-		this.cartStorageString = 'cartStorage_' + this.resId;
+        this.deliveryfee = 0;
+
+        this.currentDateTime();
+        this.getRestaurants(this.resId);
+        this.cartString = 'cart_' + this.resId;
+        this.cartStorageString = 'cartStorage_' + this.resId;
+
 		this.promotionString = 'promotion_' + this.resId;
 		this.coupon = 'coupon_' + this.resId;
 		if (localStorage.getItem(this.cartString)) {
@@ -82,12 +88,9 @@ export class CartPage {
 
 		if (localStorage.getItem(this.cartStorageString)) {
 			this.cartStorage = JSON.parse(localStorage.getItem(this.cartStorageString));
-			if (this.cartStorage['deliveryfee']) {
+			if (typeof this.cartStorage['deliveryfee'] != 'undefined') {
 				this.deliveryfee = this.cartStorage['deliveryfee'];
 			}
-
-			console.log("this.deliveryfee");
-			console.log(this.deliveryfee);
 			if(this.cartStorage['customerId']){
 				this.currentCustomer = JSON.parse(localStorage.getItem('currentCustomer'));
 			}
@@ -135,7 +138,6 @@ export class CartPage {
         }else{
             return true;
         }
-
     }
 
     private loadAllPromotions() {
@@ -379,8 +381,8 @@ export class CartPage {
 
     	if (typeof this.restaurants.taxation != 'undefined') {
 		    let tax = parseInt(this.restaurants.taxation.tax);
-    		if (typeof this.cartTotalAfterDiscount != 'undefined') {
 
+    		if (typeof this.cartTotalAfterDiscount != 'undefined') {
                 if (this.restaurants.taxation['menuTax'] == 'Apply Tax') {
                     if (this.restaurants.taxation['deliveryTaxType'] == 'Same Tax') {
                         this.cartStorage['tax'] = (tax/100)*(this.cartTotalAfterDiscount+ this.deliveryfee);
@@ -394,45 +396,80 @@ export class CartPage {
                         let deliveryTax : any;
                         deliveryTax = (parseInt(this.restaurants.taxation.deliveryTax)/100) * this.deliveryfee;
                         console.log("deliveryTax ", deliveryTax);
-                        this.cartStorage['deliveryTax'] = deliveryTax.toFixed(2);
+                        if (deliveryTax > 0) {
+                            this.cartStorage['deliveryTax'] = deliveryTax.toFixed(2);
+                        }
 
                         this.totalWithTax = this.cartTotalAfterDiscount + this.deliveryfee + deliveryTax + this.cartStorage['tax'];
                         this.cartStorage['gTotal'] = this.totalWithTax;
                     }
                 }
 
-                /*if (this.restaurants.taxation['menuTax'] == 'Already Include') {
-                    if (this.restaurants.taxation['deliveryTaxType'] == 'Same Tax') {                    
-                        //taxAmount = (parseInt(this.restaurants.taxation.tax)/100) * (this.deliveryFee + this.cartTotal);
-                        this.cartDetail.tax = 0;
-                        this.grandTotalWithTax = this.deliveryFee + this.cartTotal;
+                if (this.restaurants.taxation['menuTax'] == 'Already Include') {
+                    if (this.restaurants.taxation['deliveryTaxType'] == 'Same Tax') {
+                        this.cartStorage['tax'] = 0;
+                        this.totalWithTax = this.deliveryfee + this.cartTotalAfterDiscount;
+                        this.cartStorage['gTotal'] = this.totalWithTax;
+                    }
+                    if (this.restaurants.taxation['deliveryTaxType'] == 'New Tax') {
+                        this.cartStorage['tax'] = 0;
+                        let deliveryTax : any;
+                        deliveryTax = (parseInt(this.restaurants.taxation.deliveryTax)/100) * this.deliveryfee;
+                        console.log("deliveryTax ", deliveryTax);
+                        if (deliveryTax > 0) {
+                            this.cartStorage['deliveryTax'] = deliveryTax.toFixed(2);
+                        }
+
+                        this.totalWithTax = this.cartTotalAfterDiscount + this.deliveryfee + deliveryTax;
+                        this.cartStorage['gTotal'] = this.totalWithTax;
+                    }
+                }
+    		}else{
+                if (this.restaurants.taxation['menuTax'] == 'Apply Tax') {
+                    if (this.restaurants.taxation['deliveryTaxType'] == 'Same Tax') {
+                        this.cartStorage['tax'] = (tax/100)*(this.subTotal+ this.deliveryfee);
+                        this.totalWithTax = ((tax + 100)/100)*(this.subTotal + this.deliveryfee);
+                        this.cartStorage['gTotal'] = this.totalWithTax;
                     }
 
-                    if (this.restaurants.taxation['deliveryTaxType'] == 'New Tax') {                    
-                        //taxAmount = (parseInt(this.restaurants.taxation.tax)/100) * this.cartTotal;
-                        this.cartDetail.tax = 0;
+                    if (this.restaurants.taxation['deliveryTaxType'] == 'New Tax') {
+                        this.cartStorage['tax'] = (tax/100)*this.subTotal;
 
                         let deliveryTax : any;
-                        deliveryTax = (parseInt(this.restaurants.taxation.deliveryTax)/100) * this.deliveryFee;
+                        deliveryTax = (parseInt(this.restaurants.taxation.deliveryTax)/100) * this.deliveryfee;
                         console.log("deliveryTax ", deliveryTax);
-                        this.cartDetail.deliveryTax = deliveryTax.toFixed(2);
+                        if (deliveryTax > 0) {
+                            this.cartStorage['deliveryTax'] = deliveryTax.toFixed(2);
+                        }
 
-                        this.grandTotalWithTax = this.deliveryFee + this.cartTotal + deliveryTax;
+                        this.totalWithTax = this.subTotal + this.deliveryfee + deliveryTax + this.cartStorage['tax'];
+                        this.cartStorage['gTotal'] = this.totalWithTax;
                     }
-                }*/
+                }
 
+                if (this.restaurants.taxation['menuTax'] == 'Already Include') {
+                    if (this.restaurants.taxation['deliveryTaxType'] == 'Same Tax') {
+                        this.cartStorage['tax'] = 0;
+                        this.totalWithTax = this.deliveryfee + this.subTotal;
+                        this.cartStorage['gTotal'] = this.totalWithTax;
+                    }
+                    if (this.restaurants.taxation['deliveryTaxType'] == 'New Tax') {
+                        this.cartStorage['tax'] = 0;
 
+                        let deliveryTax : any;
+                        deliveryTax = (parseInt(this.restaurants.taxation.deliveryTax)/100) * this.deliveryfee;
+                        console.log("deliveryTax ", deliveryTax);
+                        if (deliveryTax > 0) {
+                            this.cartStorage['deliveryTax'] = deliveryTax.toFixed(2);
+                        }
 
-
-
-		    	/*this.cartStorage['tax'] = (tax/100)*this.cartTotalAfterDiscount;
-		    	this.totalWithTax = ((tax + 100)/100)*this.cartTotalAfterDiscount + this.deliveryfee;
-	    		this.cartStorage['gTotal'] = this.totalWithTax;
-    			*/
-    		}else{
-		    	this.cartStorage['tax'] = (tax/100)*this.subTotal;
+                        this.totalWithTax = this.subTotal + this.deliveryfee + deliveryTax;
+                        this.cartStorage['gTotal'] = this.totalWithTax;
+                    }
+                }
+		    	/*this.cartStorage['tax'] = (tax/100)*this.subTotal;
 		    	this.totalWithTax = ((tax + 100)/100)*this.subTotal + this.deliveryfee;
-	    		this.cartStorage['gTotal'] = this.totalWithTax;
+	    		this.cartStorage['gTotal'] = this.totalWithTax;*/
     		}
 	    }else{
 	    	this.cartStorage['tax'] = 0;

@@ -29,43 +29,37 @@
 
 	<ion-row *ngIf= "del">
 		<ion-row class="width100"><ion-label class="fontWeight600">Address : <ion-icon *ngIf = "!enterAddress"  name="create" ios="ios-create" md="md-create" float-right (click)="editAddress()"></ion-icon></ion-label></ion-row>
+		
 		<ion-row *ngIf="enterAddress" class="width100">
 			<form role="form" [formGroup]="addressForm" (ngSubmit)="saveAddressInfo()" class="width100">
-				<!-- <ion-item no-padding> -->
-					<!-- <ion-label floating no-margin class="siLabel">Street Name & Number *</ion-label> -->	<!-- Flushing, Queens -->
-					<input type="text" class="siText" formControlName="streetName" placeholder="Enter Street Name *">
-				<!-- </ion-item> -->
-				<!-- <ion-item no-padding> -->
-					<!-- <ion-label floating no-margin class="siLabel">Town or City Area *</ion-label> -->	<!-- NY , USA -->
-					<input id="pac-input" type="text siText" class="siText" formControlName="city" placeholder="Enter City *">
-				<!-- </ion-item> -->
-				<!-- <ion-item no-padding> -->
-					<!-- <ion-label floating no-margin class="siLabel">Postalcode *</ion-label> -->
-					<input type="number" class="siText" formControlName="postcode" placeholder="Enter Postalcode *">	<!-- 11355 -->
-				<!-- </ion-item> -->
+				<input type="text" class="siText" formControlName="streetName" placeholder="Enter Street Name *">
+				<input id="pac-input" type="text siText" class="siText" formControlName="city" placeholder="Enter City *">
+				<input type="number" class="siText" formControlName="postcode" placeholder="Enter Postalcode *">
 				<button type="submit" class="width100 orderButton padding3 marginTop5" [disabled]="!addressForm.valid">Save</button>
 			</form>
 		</ion-row>
+
 		<ion-row *ngIf = "!enterAddress && this.orderMethod.mType == 'Delivery'" class="width100">
 			{{this.orderMethod.streetName}}, {{this.orderMethod.city}}<br>{{this.orderMethod.postcode}}
 		</ion-row>
 	</ion-row>
 
-	<ion-row>
+	<ion-row *ngIf = "orderMethod.mType">
 		<ion-label class="fontWeight600">Choose Order Time</ion-label>
 		<ion-select [(ngModel)]="orderTimeSelect" submitText="Ok" cancelText="Cancel" (ionChange)="orderTimeFunction()">
 			<ion-option value="now">Now</ion-option>
-			<ion-option value="later">Later</ion-option>
+			<ion-option *ngIf = "restaurants.orderforlater" value="later">Later</ion-option>
 		</ion-select>
 	</ion-row>
 	<ion-row *ngIf = "showLater" class="padding010 timeBg">
 		<ion-row class="width100">
 			<ion-label class="fontWeight600">Date</ion-label>
-			<ion-datetime displayFormat="DDDD, DD-MM-YYYY" min="2017" max="2027" id="laterDate1" [(ngModel)]="laterDate" (ionChange)="laterDateFunction()"></ion-datetime>
+			<ion-datetime *ngIf = "orderMethod.mType == 'Pickup'" displayFormat="DDDD, DD-MMM-YYYY" [min]="currentDate" [max]="laterPickupDay" id="laterDate1" [(ngModel)]="event.laterDay" (ionChange)="laterDateFunction()"></ion-datetime>
+			<ion-datetime *ngIf = "orderMethod.mType == 'Delivery'" displayFormat="DDDD, DD-MMM-YYYY" [min]="currentDate" [max]="laterDeliveryDay" id="laterDate1" [(ngModel)]="event.laterDay" (ionChange)="laterDateFunction()"></ion-datetime>
 		</ion-row>
 		<ion-row class="width100">
 			<ion-label class="fontWeight600">Time</ion-label>
-			<ion-datetime displayFormat="hh:mm A" pickerFormat="hh mm A" id="laterTime1" [(ngModel)]="laterTime" (ionChange)="laterTimeFunction()"></ion-datetime>
+			<ion-datetime displayFormat="hh:mm A" pickerFormat="HH mm ss" id="laterTime1" [(ngModel)]="event.laterTime" (ionChange)="laterTimeFunction()"></ion-datetime>
 		</ion-row>
 	</ion-row>
 
