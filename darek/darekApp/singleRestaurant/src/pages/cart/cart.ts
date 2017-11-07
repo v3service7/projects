@@ -19,7 +19,6 @@ export class CartPage {
 	cartStorageString : any = String;
 	coupon : any = String;
 	appliedCode : any = String;
-	resId : any = String;
 	subTotal : number = 0;
 	cartTotal : number = 0;
 	minCartAmount : number;
@@ -34,12 +33,14 @@ export class CartPage {
 	restroPromotions : any = [];
 	currentCustomer : any;
 	promotion : any;
-	imageURL: string = globalVariable.imageUrl;
+    imageURL: string = globalVariable.imageUrl;
+	resId: string = globalVariable.resId;
 	noCode : boolean = true;
 	typeCode : boolean = false;
 	haveCode : boolean = false;
 
-	currentDate:any;
+    currentDate:any;
+	subTotalString:any;
     date : any;
     time : any;
     day : any;
@@ -61,7 +62,7 @@ export class CartPage {
 	    private customerService: CustomersService,
 	    public alertCtrl: AlertController
 		) {
-		this.resId = '595172e2421a472120e0db5e';
+		//this.resId = '595172e2421a472120e0db5e';
 
 	}
 
@@ -69,10 +70,10 @@ export class CartPage {
         this.deliveryfee = 0;
 
         this.currentDateTime();
-        this.getRestaurants(this.resId);
+        this.getRestaurants();
         this.cartString = 'cart_' + this.resId;
+        this.subTotalString = 'subTotal_' + this.resId;
         this.cartStorageString = 'cartStorage_' + this.resId;
-
 		this.promotionString = 'promotion_' + this.resId;
 		this.coupon = 'coupon_' + this.resId;
 		if (localStorage.getItem(this.cartString)) {
@@ -82,8 +83,8 @@ export class CartPage {
 			this.promotion = JSON.parse(localStorage.getItem(this.promotionString));
 		}
 
-		if (localStorage.getItem('subTotal_595172e2421a472120e0db5e')) {
-			this.cartTotal = JSON.parse(localStorage.getItem('subTotal_595172e2421a472120e0db5e'));
+		if (localStorage.getItem(this.subTotalString)) {
+			this.cartTotal = JSON.parse(localStorage.getItem(this.subTotalString));
 		}
 
 		if (localStorage.getItem(this.cartStorageString)) {
@@ -153,18 +154,18 @@ export class CartPage {
         });
     }
 
-    private getRestaurants(id) {
-        this.restaurantsService.getOne(id).subscribe(users => {
+    private getRestaurants() {
+        this.restaurantsService.getOne(this.resId).subscribe(users => {
             this.restaurants = users.message;
             console.log("this.restaurants");
             console.log(this.restaurants);
-            this.loadAllRestroPromotions(id);
+            this.loadAllRestroPromotions();
             this.calculateTotal();
         });
     }
 
-    private loadAllRestroPromotions(id){
-        this.promotionsService.getRestroPromotions(id).subscribe(data => {
+    private loadAllRestroPromotions(){
+        this.promotionsService.getRestroPromotions(this.resId).subscribe(data => {
             for (var i = 0; i < data.message.length; i++) {
                 if (data.message[i].status == true) {
                     var returnValue = this.displayPromotion(data.message[i]);
@@ -219,7 +220,7 @@ export class CartPage {
             var imgPath = this.imageURL + img;
         }
         if (img == null) {
-            var imgPath = "../assets/img/itemimage.gif";
+            var imgPath = "assets/img/itemimage.gif";
         }
         return imgPath;
     }
@@ -288,6 +289,8 @@ export class CartPage {
     	if (this.cart[i].quantity >1) {
 	    	this.cart[i].quantity = this.cart[i].quantity - 1;
 	    	this.cart[i].totalPrice = singleItemPrice * this.cart[i].quantity;
+
+            localStorage.removeItem(this.cartString);
 	    	localStorage.setItem(this.cartString,JSON.stringify(this.cart));
 	    	this.calculateTotal();
     	}else{
@@ -300,6 +303,8 @@ export class CartPage {
     	if (this.cart[i].quantity < 10) {
 	    	this.cart[i].quantity = this.cart[i].quantity + 1;
 	    	this.cart[i].totalPrice = singleItemPrice * this.cart[i].quantity;
+
+            localStorage.removeItem(this.cartString);
 	    	localStorage.setItem(this.cartString,JSON.stringify(this.cart));
 	    	this.calculateTotal();
 	    }else{
@@ -321,6 +326,7 @@ export class CartPage {
 	    			text: 'Delete',
 	    			handler: () => {
 	    				this.cart.splice(index,1);
+                        localStorage.removeItem(this.cartString);
 	    				localStorage.setItem(this.cartString,JSON.stringify(this.cart));
 	    				this.calculateTotal();
 	    			}
@@ -366,7 +372,8 @@ export class CartPage {
 
     		this.cartTotal = this.cartTotal + this.cart[i].totalPrice;
 
-    		localStorage.setItem('subTotal_595172e2421a472120e0db5e',JSON.stringify(this.cartTotal));
+            localStorage.removeItem(this.subTotalString);
+    		localStorage.setItem(this.subTotalString,JSON.stringify(this.cartTotal));
     	}
 
     	this.cartStorage['orders'] = this.cart;
@@ -587,6 +594,7 @@ export class CartPage {
     }
 
     private addDetail(){
+        localStorage.removeItem(this.cartStorageString);
     	localStorage.setItem(this.cartStorageString,JSON.stringify(this.cartStorage));
     	this.navCtrl.push(CheckoutPage)
     }
@@ -613,11 +621,11 @@ export class CartPage {
         }else{
             this.customerService.addOrder(this.cartStorage).subscribe((data) => {
                 if (data.error == false) {
-                    localStorage.removeItem('cart_595172e2421a472120e0db5e');
-                    localStorage.removeItem('cartStorage_595172e2421a472120e0db5e');
-                    localStorage.removeItem('subTotal_595172e2421a472120e0db5e');
-                    localStorage.removeItem('promotion_595172e2421a472120e0db5e');
-                    localStorage.removeItem('coupon_595172e2421a472120e0db5e');
+                    localStorage.removeItem(this.cartString);
+                    localStorage.removeItem(this.subTotalString);
+                    localStorage.removeItem(this.cartStorageString);
+                    localStorage.removeItem(this.promotionString);
+                    localStorage.removeItem(this.coupon);
                     this.nav.setRoot(AwaitPage);
                     loading.dismiss();
                 }

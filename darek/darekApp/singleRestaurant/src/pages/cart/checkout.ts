@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { ToastController, NavController, NavParams, LoadingController, Nav, AlertController } from 'ionic-angular';
 import {Validators, FormBuilder, FormGroup } from '@angular/forms';
+
 import * as globalVariable from "../../app/global";
 
 import { CustomersService,RestaurantsService } from '../../app/service/index';
@@ -45,6 +46,7 @@ export class CheckoutPage {
 	delivery : any = {};
 	zoneObject : any = [];
     imageURL: string = globalVariable.imageUrl;
+    resId: string = globalVariable.resId;
 	cartStorageString: string;
 
 
@@ -87,7 +89,7 @@ export class CheckoutPage {
 			this.loading.dismiss();
 			this.currentCustomer = JSON.parse(localStorage.getItem('currentCustomer'));
 
-            this.cartStorageString = 'cartStorage_595172e2421a472120e0db5e';
+            this.cartStorageString = 'cartStorage_' + this.resId;
 
 			//this.cartStorage = navParams.get('cart');
 			this.cartStorage = JSON.parse(localStorage.getItem(this.cartStorageString))
@@ -165,8 +167,8 @@ export class CheckoutPage {
 			this.totalAmount = this.cartStorage.gTotal;
 
 			this.cartStorage['customerId'] = this.currentCustomer._id;
-			this.getRestaurants(this.cartStorage.restaurantId);
-			this.deliveryZone(this.cartStorage.restaurantId);
+			this.getRestaurants();
+			this.deliveryZone();
 		}else{
 			this.loading.dismiss();
 			this.nav.setRoot(LoginPage);
@@ -225,8 +227,8 @@ export class CheckoutPage {
 		}
 	}
 
-    private getRestaurants(id) {
-        this.restaurantsService.getOne(id).subscribe(users => {
+    private getRestaurants() {
+        this.restaurantsService.getOne(this.resId).subscribe(users => {
             this.restaurants = users.message;
 
             if (this.restaurants.orderforlater) {
@@ -303,8 +305,8 @@ export class CheckoutPage {
         return i;
     }
 
-    private deliveryZone(id){
-        this.restaurantsService.getAllDeliveryZone(id).subscribe(users => {
+    private deliveryZone(){
+        this.restaurantsService.getAllDeliveryZone(this.resId).subscribe(users => {
             this.delivery = users.message;
         });
     }
@@ -429,12 +431,6 @@ export class CheckoutPage {
     }
 
 	private laterDateFunction(){
-        console.log("this.event.laterDay");
-        console.log(this.event.laterDay);
-        console.log(this.event.laterTime);
-        console.log(this.laterDiffDays);
-        console.log(this.orderTime);
-
         setTimeout(()=>{
 			var dayId = document.getElementById('laterDate1');
 			var day = dayId.getElementsByClassName('datetime-text');
@@ -449,19 +445,12 @@ export class CheckoutPage {
             var timeDiff = date2.getTime() - date1.getTime();
             this.laterDiffDays = timeDiff / (1000 * 3600 * 24);
 
-            console.log("this.laterDiffDays");
-            console.log(this.laterDiffDays);
-
             if (typeof this.orderTime['time'] != 'undefined') {
                 if (this.laterDiffDays == 0) {
                     if (this.orderMethod.mType == 'Pickup') {
                         if (this.event.laterTime && this.event.laterTime < this.laterPickupTime) {
-                            //this.getToast('For Later Pickup Order, The order placement has to be at least: ' +this.restaurants.orderforlaterpickup['mintime']+ ' min before');
                             this.showAlert('pickup');
-                            /*delete this.event.laterTime;
-                            delete this.orderTime['time'];*/
                             this.tMethod = false;
-                            //console.log("this.event.laterTime is chota than this.laterPickupTime");
                         }else{
                             this.cartStorage['orderTime'] = this.orderTime;
                             this.tMethod = true;
@@ -469,12 +458,8 @@ export class CheckoutPage {
                     }
                     if (this.orderMethod.mType == 'Delivery') {
                         if (this.event.laterTime && this.event.laterTime < this.laterDeliveryTime) {
-                            //this.getToast('For Later Pickup Order, The order placement has to be at least: ' +this.restaurants.orderforlaterdelivery['mintime']+ ' min before');
                             this.showAlert('delivery');
-                            /*delete this.event.laterTime;
-                            delete this.orderTime['time'];*/
                             this.tMethod = false;
-                            //console.log("this.event.laterTime is chota than this.laterDeliveryTime");
                         }else{
                             this.cartStorage['orderTime'] = this.orderTime;
                             this.tMethod = true;
@@ -491,13 +476,6 @@ export class CheckoutPage {
 	}
 
 	private laterTimeFunction(){
-        console.log("this.event.laterTime");
-        console.log(this.event.laterDay);
-        console.log(this.event.laterTime);
-        console.log(this.laterDiffDays);
-        console.log(this.orderTime);
-
-
 		setTimeout(()=>{
 			var timeId = document.getElementById('laterTime1');
 			var time = timeId.getElementsByClassName('datetime-text');
@@ -508,12 +486,8 @@ export class CheckoutPage {
                 if (this.laterDiffDays == 0) {
                     if (this.orderMethod.mType == 'Pickup') {
                         if (this.event.laterTime && this.event.laterTime < this.laterPickupTime) {
-                            //this.getToast('For Later Pickup Order, The order placement has to be at least: ' +this.restaurants.orderforlaterpickup['mintime']+ ' min before');
                             this.showAlert('pickup');
-                            /*delete this.event.laterTime;
-                            delete this.orderTime['time'];*/
                             this.tMethod = false;
-                            //console.log("this.event.laterTime is chota than this.laterPickupTime");
                         }else{
                             this.cartStorage['orderTime'] = this.orderTime;
                             this.tMethod = true;
@@ -521,12 +495,8 @@ export class CheckoutPage {
                     }
                     if (this.orderMethod.mType == 'Delivery') {
                         if (this.event.laterTime && this.event.laterTime < this.laterDeliveryTime) {
-                            //this.getToast('For Later Pickup Order, The order placement has to be at least: ' +this.restaurants.orderforlaterdelivery['mintime']+ ' min before');
                             this.showAlert('delivery');
-                            /*delete this.event.laterTime;
-                            delete this.orderTime['time'];*/
                             this.tMethod = false;
-                            //console.log("this.event.laterTime is chota than this.laterDeliveryTime");
                         }else{
                             this.cartStorage['orderTime'] = this.orderTime;
                             this.tMethod = true;
@@ -573,8 +543,6 @@ export class CheckoutPage {
         this.customerService.getLatLng(method).subscribe(data => {
 
             this.orderMethod = {"streetName": this.addressForm.value.streetName, "city": this.addressForm.value.city, "state": this.addressForm.value.state, "country": this.addressForm.value.country, "postcode": this.addressForm.value.postcode,"lat": data.message.lat,"lng": data.message.lng,"mType":'Delivery'};
-            /*localStorage.setItem(this.orderMethodStorage, JSON.stringify(this.orderMethod));*/
-            /*this.orderMethod = JSON.parse(localStorage.getItem(this.orderMethodStorage));*/
             
             let latLng = new google.maps.LatLng(this.restaurants.lat, this.restaurants.lng);
             let latLngDeliveryAddress = new google.maps.LatLng(data.message.lat, data.message.lng);
@@ -685,8 +653,6 @@ export class CheckoutPage {
     }
 
     private updateInfo(){
-        console.log("this.cartStorage while updating");
-        console.log(this.cartStorage);
         localStorage.removeItem(this.cartStorageString);
         localStorage.setItem(this.cartStorageString,JSON.stringify(this.cartStorage));
         this.navCtrl.pop(CartPage)

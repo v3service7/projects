@@ -549,30 +549,12 @@ export class MarketingEditPromotionComponent implements OnInit {
             this.promoName = data.message.promoname;
             this.discountOn = data.message.discountOn;
 
-            console.log("this.discountOn");
-            console.log(this.discountOn);
-
             this.discountTiming = data.message.discountTiming;
 
             if (this.discountOn != null || this.discountOn.length > 0) {
                this.menu1 = this.discountOn[0]['itemGroup1'];
                if (this.discountOn[1]) {
                   this.menu2 = this.discountOn[1]['itemGroup2'];
-               }
-
-               if (this.menu1.length > 0) {
-                  for (var i = 0; i < this.menu1.length; i++) {
-                     for (var j = 0; j < this.menu1[i]['item1'].length; j++) {
-                        this.itemNo1++;
-                     }
-                  }
-               }
-               if (this.menu2.length > 0) {          
-                  for (var m = 0; m < this.menu2.length; m++) {
-                     for (var n = 0; n < this.menu2[m]['item2'].length; n++) {
-                        this.itemNo2++;
-                     }
-                  }
                }
             }
 
@@ -1252,12 +1234,60 @@ export class MarketingEditPromotionComponent implements OnInit {
                   menuObj['item'] = itemObj;
                }
                this.menu1Copy.push(menuObj);
+
+               var index2 = this.menu1.findIndex(mn=> mn.id1 == allMenu[i]._id);
+               if (index2 == -1) {
+                  var pushObj1 = {'id1' : allMenu[i]._id , 'item1' : []}
+                  var pushObj2 = {'id2' : allMenu[i]._id , 'item2' : []}
+                  this.menu1.push(pushObj1);
+                  this.menu2.push(pushObj2);
+               }
             }
-            console.log("this.menu1Copy");
-            console.log(this.menu1Copy);
          }
 
+         setTimeout(()=>{
+            this.spliceMenu1Obj();
+         },2000)
+
       });
+   }
+
+   private spliceMenu1Obj(){
+      for (var i = 0; i < this.menu1.length; i++) {
+         var index1 = this.menus.findIndex(mn=> mn._id == this.menu1[i].id1);
+         if (index1 == -1) {
+            this.menu1.splice(i,1);
+         }
+      }
+
+      for (var j = 0; j < this.menu2.length; j++) {
+         var index2 = this.menus.findIndex(mn=> mn._id == this.menu2[j].id2);
+         if (index2 == -1) {
+            this.menu2.splice(j,1);
+         }
+      }
+
+      setTimeout(()=>{
+         if (this.menu1.length > 0) {
+            for (var i = 0; i < this.menu1.length; i++) {
+               if (this.menu1[i]['item1'].length > 0) {
+                  for (var j = 0; j < this.menu1[i]['item1'].length; j++) {
+                     this.itemNo1++;
+                  }
+               }
+            }
+         }
+
+         if (this.menu2.length > 0) {          
+            for (var m = 0; m < this.menu2.length; m++) {
+               if (this.menu2[m]['item2'].length > 0) {
+                  for (var n = 0; n < this.menu2[m]['item2'].length; n++) {
+                     this.itemNo2++;
+                  }
+               }
+            }
+         }
+      },2000)
    }
 
    private loadAllItem(id) {
@@ -2152,17 +2182,16 @@ export class MarketingPromotionsTemplateComponent implements OnInit {
 
                menuObj['id'] = allMenu[i]._id;
 
-               menuObj1['id1'] = allMenu[i]['_id'];
+               /*menuObj1['id1'] = allMenu[i]['_id'];
                menuObj2['id2'] = allMenu[i]['_id'];
                menuObj1['item1'] = [];
-               menuObj2['item2'] = [];
+               menuObj2['item2'] = [];*/
+
+               menuObj1 = {'id1' : allMenu[i]._id , 'item1' : []}
+               menuObj2 = {'id2' : allMenu[i]._id , 'item2' : []}
 
                this.menu1.push(menuObj1);
                this.menu2.push(menuObj2);
-
-               console.log("this.menu1");
-               console.log(this.menu1);
-               console.log(this.menu2);
 
                for (var k = 0; k < this.items.length; k++) {
                   if (this.items[k].menuId == allMenu[i]._id) {

@@ -19,7 +19,10 @@ export class PromotionPage {
     completeDate : string;
     restroPromotions : any = [];
     imageURL: string = globalVariable.imageUrl;
+    resId: string = globalVariable.resId;
     currentTime : string;
+    promotionString : string;
+    couponString : string;
     loading: any;
 
 	constructor(
@@ -36,11 +39,13 @@ export class PromotionPage {
   	}
 
 	ionViewDidLoad() {
+        this.promotionString = 'promotion_' + this.resId;
+        this.couponString = 'coupon_' + this.resId;
   		this.loading = this.loadingCtrl.create({
             content: 'Please wait...'
         });
         this.loading.present();
-        this.loadAllRestroPromotions('595172e2421a472120e0db5e');
+        this.loadAllRestroPromotions();
 		this.currentDate = new Date();
         this.date = this.currentDate.toLocaleDateString();
         var h = this.addZero(this.currentDate.getHours());
@@ -70,9 +75,9 @@ export class PromotionPage {
         return i;
     }
 
-    private loadAllRestroPromotions(id){
+    private loadAllRestroPromotions(){
     	this.restroPromotions = [];
-        this.promotionsService.getRestroPromotions(id).subscribe(data => {
+        this.promotionsService.getRestroPromotions(this.resId).subscribe(data => {
         	if (!data.error) {
         		this.loading.dismiss();
 	            for (var i = 0; i < data.message.length; i++) {
@@ -124,13 +129,15 @@ export class PromotionPage {
 
     doRefresh(refresher) {
         setTimeout(() => {
-            this.loadAllRestroPromotions('595172e2421a472120e0db5e');
+            this.loadAllRestroPromotions();
             refresher.complete();
         }, 2000);
     }
 
     private getDeal(promo){
-        if (localStorage.getItem('promotion_595172e2421a472120e0db5e') || localStorage.getItem('coupon_595172e2421a472120e0db5e')) {
+        console.log("promo");
+        console.log(promo);
+        if (localStorage.getItem(this.promotionString) || localStorage.getItem(this.couponString)) {
             var alert = this.alertCtrl.create({
                 title: 'Remainder',
                 message: 'Adding Another Deal will remove previous deals added',
@@ -145,9 +152,9 @@ export class PromotionPage {
                     {
                         text: 'Ok',
                         handler: () => {
-                            localStorage.removeItem('promotion_595172e2421a472120e0db5e');
-                            localStorage.removeItem('coupon_595172e2421a472120e0db5e');
-                            localStorage.setItem('promo',JSON.stringify(promo));
+                            localStorage.removeItem(this.promotionString);
+                            localStorage.removeItem(this.couponString);
+                            //localStorage.setItem('promo',JSON.stringify(promo));
                             this.navCtrl.push(PromotionDetailPage,{
                                 promo : promo
                             });

@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { ToastController, LoadingController, Nav, NavController, NavParams ,ViewController,MenuController, AlertController} from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { KitchenItemService,CustomersService } from '../../app/service/index';
+
 import * as globalVariable from "../../app/global";
 
 import { MenuPage } from '../menu/menu';
@@ -27,6 +28,7 @@ export class ItemPage {
     completeDate : string;
     currentTime : string;
     imageURL: string = globalVariable.imageUrl;
+    resID: string = globalVariable.resId;
     loading: any;
 
     spicyArray : any = [1,2,3];
@@ -47,7 +49,7 @@ export class ItemPage {
     }
 
     ionViewDidEnter() {
-        this.cart = 'cart_595172e2421a472120e0db5e';
+        this.cart = 'cart_' + this.resID;
         if (localStorage.getItem(this.cart)) {
             this.tempCart = JSON.parse(localStorage.getItem(this.cart));
         }
@@ -87,6 +89,8 @@ export class ItemPage {
         if (tempCurrentCustomer) {
             this.customerService.getOneCustomer(tempCurrentCustomer['_id']).subscribe(cust=>{
                 this.currentCustomer = cust.message;
+                localStorage.removeItem('currentCustomer');
+                localStorage.setItem('currentCustomer',JSON.stringify(this.currentCustomer));
             });
         }
     }
@@ -131,7 +135,7 @@ export class ItemPage {
             var imgPath = this.imageURL + img;
         }
         if (img == null) {
-            var imgPath = "../assets/img/itemimage.gif";
+            var imgPath = "assets/img/itemimage.gif";
         }
         return imgPath;
     }

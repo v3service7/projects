@@ -15,7 +15,8 @@ export class PromotionDetailPage {
 
 	promo : any = {};
 	selectedSegment : string = 'IG1';
-	imageURL: string = globalVariable.imageUrl;
+    imageURL: string = globalVariable.imageUrl;
+	resId: string = globalVariable.resId;
 	menus : any = [];
 	items : any = [];
 	addOns : any = [];
@@ -54,13 +55,13 @@ export class PromotionDetailPage {
             content: 'Please wait...'
         });
 
-		//this.promo = navParams.get('promo')
-		this.promo = JSON.parse(localStorage.getItem('promo'));
+		this.promo = navParams.get('promo');
+		//this.promo = JSON.parse(localStorage.getItem('promo'));
         this.loadAllPromotions(this.promo['promotionId'][0]);
   	}
 
 	ionViewDidEnter() {
-		this.loadAllUsers(this.promo['restaurantId'][0]);
+		this.loadAllUsers(this.resId);
 		this.currentDate = new Date();
         this.date = this.currentDate.toLocaleDateString();
         var h = this.addZero(this.currentDate.getHours());
@@ -82,12 +83,12 @@ export class PromotionDetailPage {
         var days = ["sunday","monday","tuesday","wednesday","thursday","friday","saturday"];
         this.day = days[this.currentDate.getDay()];
 
-        this.proId = 'promotion_' + this.promo['restaurantId'][0];
+        this.proId = 'promotion_' + this.resId;
         if (localStorage.getItem(this.proId)) {
             this.promotionItem = JSON.parse(localStorage.getItem(this.proId));
         }
 
-        this.cartSubTotal = 'subTotal_' + this.promo['restaurantId'][0];
+        this.cartSubTotal = 'subTotal_' + this.resId;
 
         if (localStorage.getItem(this.cartSubTotal)) {
         	this.cartTotalAmount = JSON.parse(localStorage.getItem(this.cartSubTotal));
@@ -311,6 +312,7 @@ export class PromotionDetailPage {
     	console.log("this.promotionItem");
     	console.log(this.promotionItem);
 
+        localStorage.removeItem(this.proId);
     	localStorage.setItem(this.proId,JSON.stringify(this.promotionItem));
     	localStorage.removeItem('promo');
     	this.nav.setRoot(MenuPage);

@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { NavController, Nav, LoadingController } from 'ionic-angular';
 import * as globalVariable from "../../app/global";
 
-import { CustomersService } from '../../app/service/customer.service';
+import { CustomersService, RestaurantsService } from '../../app/service/index';
 
 import { LoginPage } from '../login/login';
 
@@ -19,17 +19,21 @@ export class ProfilePage {
 	restaurant : any = {};
 	loading: any;
 	imageURL: string = globalVariable.imageUrl;
+	resID: string = globalVariable.resId;
 
 	constructor(
 		public nav: Nav,
 		public navCtrl: NavController,
 		public loadingCtrl: LoadingController,
 		private customerService: CustomersService,
+		private restaurantsService: RestaurantsService,
 		) {
+		this.loadRestaurant();
+
 		this.loading = this.loadingCtrl.create({
             content: 'Please wait...'
         });
-        this.restaurant = JSON.parse(localStorage.getItem('restaurant')); 
+
         this.loading.present();
 		if (localStorage.getItem('currentCustomer')) {
 			this.getCustomer();
@@ -39,6 +43,12 @@ export class ProfilePage {
 		}
 	}
 
+	private loadRestaurant(){
+    	this.restaurantsService.getOne(this.resID).subscribe(users => {
+            this.restaurant = users.message;
+        });
+    }
+
 	ionViewDidLoad() {}
 
 	private getCustomer(){
@@ -46,9 +56,8 @@ export class ProfilePage {
 		this.customerService.getOneCustomer(tempCurrentCustomer['_id']).subscribe(cust=>{
 			this.loading.dismiss();
 			this.currentCustomer = cust.message;
-
-			console.log("this.currentCustomer");
-			console.log(this.currentCustomer);
+			localStorage.removeItem('currentCustomer');
+			localStorage.setItem('currentCustomer',JSON.stringify(this.currentCustomer));
     	});
 	}
 
@@ -57,7 +66,7 @@ export class ProfilePage {
             var imgPath = this.imageURL + img;
         }
         if (img == null) {
-            var imgPath = "../assets/img/itemimage.gif";
+            var imgPath = "assets/img/itemimage.gif";
         }
         return imgPath;
     }

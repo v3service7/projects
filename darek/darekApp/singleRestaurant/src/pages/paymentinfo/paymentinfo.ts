@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { ToastController, LoadingController, Nav, NavController, NavParams ,ViewController,MenuController,AlertController } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
+import * as globalVariable from "../../app/global";
 
 import { AwaitPage } from '../cart/await';
 import { CartPage } from '../cart/cart';
@@ -20,6 +21,10 @@ export class PaymentinfoPage {
 	cardNum : any;
 	cardNumberErr : boolean = false;
 	cvvErr : boolean = false;
+
+	cartStorageString : string;
+
+	resID: string = globalVariable.resId;
 	/*makePaymentModel : FormGroup;*/
 
 	constructor(
@@ -35,7 +40,8 @@ export class PaymentinfoPage {
 		) {
 
 		//this.cartDetail = navParams.get('cart');
-		this.cartDetail = JSON.parse(localStorage.getItem('cartStorage_595172e2421a472120e0db5e'));
+		this.cartStorageString = 'cartStorage_' + this.resID
+		this.cartDetail = JSON.parse(localStorage.getItem(this.cartStorageString));
 		this.year();
 	}
 

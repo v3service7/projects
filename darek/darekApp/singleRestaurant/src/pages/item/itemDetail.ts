@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { AlertController , ToastController, LoadingController, Nav, NavController, NavParams ,ViewController,MenuController} from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { KitchenItemService,CustomersService } from '../../app/service/index';
+
 import * as globalVariable from "../../app/global";
 
 import { MenuPage } from '../menu/menu';
@@ -17,6 +18,7 @@ export class ItemDetailPage {
     item : any = {};
     currentCustomer : any;
     imageURL: string = globalVariable.imageUrl;
+    resID: string = globalVariable.resId;
     loading: any;
     orderItem : any = {};
     multisizeSelected : any = {};
@@ -49,10 +51,10 @@ export class ItemDetailPage {
         this.itemType = navParams.get('type');
         this.itemGroup = navParams.get('iG');
         this.orderItem['item'] = this.item;
-        this.cart = 'cart_' + this.item.kitchenId;
+        this.cart = 'cart_' + this.resID;
 
         if (this.itemType == 'promotionItem') {
-            this.proId = 'promotion_' + this.item.kitchenId;
+            this.proId = 'promotion_' + this.resID;
 
             if (localStorage.getItem(this.proId)) {
                 this.promotionItems = JSON.parse(localStorage.getItem(this.proId));
@@ -95,6 +97,8 @@ export class ItemDetailPage {
         if (tempCurrentCustomer) {
             this.customerService.getOneCustomer(tempCurrentCustomer['_id']).subscribe(cust=>{
                 this.currentCustomer = cust.message;
+                localStorage.removeItem('currentCustomer');
+                localStorage.setItem('currentCustomer',JSON.stringify(this.currentCustomer));
             });
         }
     }
@@ -132,7 +136,7 @@ export class ItemDetailPage {
             var imgPath = this.imageURL + img;
         }
         if (img == null) {
-            var imgPath = "../assets/img/itemimage.gif";
+            var imgPath = "assets/img/itemimage.gif";
         }
         return imgPath;
     }
@@ -355,7 +359,7 @@ export class ItemDetailPage {
 
             for (var i = 0; i < this.tempCart.length; i++) {
                 cartTotalAmount = cartTotalAmount + this.tempCart[i].totalPrice;
-                localStorage.setItem('subTotal_595172e2421a472120e0db5e',JSON.stringify(cartTotalAmount))
+                localStorage.setItem('subTotal_'+this.resID,JSON.stringify(cartTotalAmount))
             }
         }
 

@@ -18,6 +18,7 @@ export class MenuPage {
     restaurants:any;
     currentCustomer:any;
     imageURL: string = globalVariable.imageUrl;
+    resID: string = globalVariable.resId;
     cart : string;
     loading: any;
     currentDate:any;
@@ -66,23 +67,25 @@ export class MenuPage {
         var days = ["sunday","monday","tuesday","wednesday","thursday","friday","saturday"];
         this.day = days[this.currentDate.getDay()];
         this.loading.present();
-        this.loadRestaurant('595172e2421a472120e0db5e');
+        this.loadRestaurant();
 	}
 
     ionViewDidEnter(){
-        if(localStorage.getItem('currentCustomer')){
-            this.currentCustomer = JSON.parse(localStorage.getItem('currentCustomer'));
-        }
+        this.cart = 'cart_' + this.resID;
         if (localStorage.getItem(this.cart)) {
             this.tempCart = JSON.parse(localStorage.getItem(this.cart));
         }else{
             localStorage.setItem(this.cart,'[]');
         }
+
+        if(localStorage.getItem('currentCustomer')){
+            this.currentCustomer = JSON.parse(localStorage.getItem('currentCustomer'));
+        }
     }
 
     doRefresh(refresher) {
         setTimeout(() => {
-            this.loadAllMenu(this.restaurants._id);
+            this.loadAllMenu(this.resID);
             refresher.complete();
         }, 2000);
     }
@@ -94,18 +97,11 @@ export class MenuPage {
         return i;
     }
 
-    private loadRestaurant(id){
-    	this.restaurantsService.getOne(id).subscribe(users => {
+    private loadRestaurant(){
+    	this.restaurantsService.getOne(this.resID).subscribe(users => {
             this.restaurants = users.message;
-            localStorage.setItem('restaurant',JSON.stringify(this.restaurants));
-            this.cart = 'cart_' + id;
-            this.loadAllMenu(id);
-
-            if (localStorage.getItem(this.cart)) {
-                this.tempCart = JSON.parse(localStorage.getItem(this.cart));
-            }else{
-                localStorage.setItem(this.cart,'[]');
-            }
+            //localStorage.setItem('restaurant',JSON.stringify(this.restaurants));
+            this.loadAllMenu(this.resID);
         });
     }
 
@@ -176,7 +172,7 @@ export class MenuPage {
            var imgPath = this.imageURL + img;
        }
        if (img == null) {
-           var imgPath = "../assets/img/menu.jpg";
+           var imgPath = "assets/img/menu.jpg";
        }
        return imgPath;
     }

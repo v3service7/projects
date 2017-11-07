@@ -44,7 +44,7 @@ export class WishlistPage {
             var imgPath = this.imageURL + img;
         }
         if (img == null) {
-            var imgPath = "../assets/img/itemimage.gif";
+            var imgPath = "assets/img/itemimage.gif";
         }
         return imgPath;
     }

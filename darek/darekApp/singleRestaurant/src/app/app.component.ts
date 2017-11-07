@@ -20,14 +20,20 @@ import { CheckoutPage } from '../pages/cart/checkout';
 
 import { PaymentinfoPage } from '../pages/paymentinfo/paymentinfo';
 
+
+import { RestaurantsService } from './service/index';
+
+import * as globalVariable from "./global";
+
 @Component({
     templateUrl: 'app.html'
 })
 export class MyApp {
     @ViewChild(Nav) nav: Nav;
 
-    rootPage: any = LoginPage;
+    rootPage: any = MenuPage;
     currentCustomer : any;
+    resID: string = globalVariable.resId;
     restaurant : any = {};
     pages: Array<{iconA: string, iconI : string, iconW : string ,title: string, component: any}>;
 
@@ -36,6 +42,7 @@ export class MyApp {
         public events: Events,
         public statusBar: StatusBar,
         public alertCtrl: AlertController,
+        private restaurantsService: RestaurantsService,
         public splashScreen: SplashScreen
         ) {
             events.subscribe('user:created', (user, time) => {
@@ -58,8 +65,18 @@ export class MyApp {
     }
 
     ionViewDidEnter() {
-        this.restaurant = JSON.parse(localStorage.getItem('restaurant')); 
+
+        this.loadRestaurant();
         this.initializeApp();
+    }
+
+    loadRestaurant(){
+        this.restaurantsService.getOne(this.resID).subscribe(users => {
+            this.restaurant = users.message;
+
+            console.log("this.restaurant in app");
+            console.log(this.restaurant);
+        });
     }
 
     logout(){
@@ -92,8 +109,9 @@ export class MyApp {
             { iconA : 'cart' , iconI : 'ios-cart' , iconW : 'md-cart' , title: 'Shopping Cart', component: CartPage },
             { iconA : 'person' , iconI : 'ios-person' , iconW : 'md-person' , title: 'My Profile', component: LoginPage }
         ];
-        this.currentCustomer = JSON.parse(localStorage.getItem('currentCustomer')); 
-        this.restaurant = JSON.parse(localStorage.getItem('restaurant'));
+        this.currentCustomer = JSON.parse(localStorage.getItem('currentCustomer'));
+        this.loadRestaurant();
+        //this.restaurant = JSON.parse(localStorage.getItem('restaurant'));
         
         this.platform.ready().then(() => {
             // Here you can do any higher level native things you might need.
@@ -119,7 +137,7 @@ export class MyApp {
                     text: 'oK',
                     handler: data => {
                         localStorage.removeItem('currentCustomer');
-                        this.nav.setRoot(LoginPage);
+                        this.nav.setRoot(MenuPage);
                     }
                 }
                 ]
