@@ -5,6 +5,7 @@ module.exports = (function() {
     const express = require('express');
     const router = express.Router();
     var moment = require('moment');
+    const randomstring = require("randomstring");
     var now = moment();
 
 
@@ -229,9 +230,7 @@ module.exports = (function() {
         };
     });
 
-
     /*Customer Login*/
-
 
     router.post('/customer-login', function(req, res, next) {
         const email = req.body.email;
@@ -242,9 +241,9 @@ module.exports = (function() {
             if(!user){
                 return res.json({success: false, msg: 'User not found'});
             }
-            if(!user.status){
+            /*if(!user.status){
                 return res.json({success: false, msg: 'Your account is not active'});
-            }
+            }*/
             if(user.role == "Admin"){
                 return res.json({success: false, msg: 'Not Authorized'});
             }
@@ -265,6 +264,14 @@ module.exports = (function() {
                 }
             });
         });
+    });
+
+    router.post('/customer-email-verify', function(req, res) {
+        var response = {};
+        var token = randomstring.generate()
+        req.body.email_token = token;
+        emails.emailShoot(req.body.email, req.body.email, token);
+        res.json(response);
     });
 
     // User Add
@@ -365,6 +372,42 @@ module.exports = (function() {
                 }
                 res.json(response);
             });
+        });
+    });
+
+    router.put('/otp-validate/:id', function(req, res) {
+        var response={};
+        customerModel.findById(req.params.id, (err, customerObj) => {
+            console.log(customerObj)
+            if (customerObj.otp == req.body.otp) {
+                let obj = {};
+                obj.otp='';
+                obj.phonestatus=true;
+                customerModel.findByIdAndUpdate(req.params.id, obj, (err, customer) => {
+                    if (err) {
+                        response = { "error": true, "message": err };
+                    } else {
+                        response = { "error": false, "message": "OTP Veryfied" };
+                    }
+                    res.json(response);
+                });
+            }else{
+                response = { "error": true, "message": "Wrong OTP" };
+                res.json(response);
+            }
+        });
+    });
+
+    router.put('/customer-otp/:id', function(req, res) {
+        var response={};
+        var newObject = {};
+        customerModel.findByIdAndUpdate(req.params.id, req.body, (err, customer) => {
+            if (err) {
+                response = { "error": true, "message": err };
+            } else {
+                response = { "error": false, "message": "OTP Update" };
+            }
+            res.json(response);
         });
     });
 

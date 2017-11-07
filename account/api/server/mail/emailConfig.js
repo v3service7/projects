@@ -5,7 +5,7 @@ var randomstring = require("randomstring");
 var emailFrom = 'sahal@vatfile.com';
 //var templateDir = '/home/nodeapp/account/email_template';
 var templateDir = '/home/ec2-user/vatfile/email_template';
-/*var templateDir = '../api/email_template';*/
+//var templateDir = '../api/email_template';
 var transporter = nodemailer.createTransport({
     host: 'smtp.zoho.com',
     port: 465,
@@ -55,10 +55,10 @@ module.exports = {
     forgetEmailShoot: function(customer, type) {
         console.log(customer);
         if (type == 'cust') {
-            customer['resetPassLink'] = 'http://54.76.61.58:4021/customer/reset-password/'+customer._id;
+            customer['resetPassLink'] = 'http://sahal.vatfile.com/customer/reset-password/'+customer._id;
             /*customer['resetPassLink'] = 'http://localhost:4200/customer/reset-password/'+customer._id;*/
         }else{
-            customer['resetPassLink'] = 'http://54.76.61.58:4021/admin/reset-password/'+customer._id;
+            customer['resetPassLink'] = 'http://sahal.vatfile.com/admin/reset-password/'+customer._id;
             /*customer['resetPassLink'] = 'http://localhost:4200/admin/reset-password/'+customer._id;*/
         }
 

@@ -9,7 +9,7 @@ import { AdminCustomerComponent,CustomerListComponent,CustomerAddComponent,Custo
 import { AdminBusinessComponent,BusinessListComponent,BusinessViewComponent,BusinessEditComponent } from './admin/business/business.component';
 
 import { CustomerComponent } from './customer/customer.component';
-import { CustomerLoginComponent, CustomerRegisterComponent, CustomerForgetPasswordComponent, CustomerResetPasswordComponent } from './customer/login/customerlogin.component';
+import { CustomerLoginComponent, CustomerAccountVerifyComponent, CustomerRegisterComponent, CustomerOtpComponent, CustomerForgetPasswordComponent, CustomerResetPasswordComponent } from './customer/login/customerlogin.component';
 import { CustomerDashboardComponent, CustomerProfileComponent } from './customer/dashboard/dashboard.component';
 import { AccountActiveComponent } from './account-active/account-active.component';
 import { CustomerBusinessComponent, CustomerBusinessAddComponent, CustomerBusinessDocumentComponent, CustomerBusinessEditComponent,CustomerBusinessListComponent } from './customer/business/business.component';
@@ -55,8 +55,10 @@ const appRoutes: Routes = [
         { path: '', component: CustomerLoginComponent },
         { path: 'login', component: CustomerLoginComponent },
         { path: 'register', component: CustomerRegisterComponent },
+        { path: 'otp/:id', component: CustomerOtpComponent },
         { path: 'forget-password', component: CustomerForgetPasswordComponent },
         { path: 'reset-password/:id', component: CustomerResetPasswordComponent },
+        { path: 'account-verify', component: CustomerAccountVerifyComponent, canActivate: [CustomerAuthGuard] },
         { path: 'dashboard', component: CustomerDashboardComponent, canActivate: [CustomerAuthGuard] },
         { path: 'profile', component: CustomerProfileComponent, canActivate: [CustomerAuthGuard] },
         { path: 'business', component: CustomerBusinessComponent, canActivate: [CustomerAuthGuard], children :[
