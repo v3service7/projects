@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http, Response,Headers } from '@angular/http';
+import { Http, Response,Headers,Jsonp } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import {tokenNotExpired} from 'angular2-jwt';
@@ -7,7 +7,7 @@ import * as globalVariable from "../global";
 
 @Injectable()
 export class CustomerService {
-    constructor(private http: Http) { }
+    constructor(private http: Http,private _jsonp: Jsonp) { }
 
     authToken: any;
     user: any;
@@ -25,6 +25,39 @@ export class CustomerService {
         localStorage.setItem('currentCustomer', JSON.stringify(user));
         this.authToken = token;
         this.user = user;
+    }
+
+    sendEmail(userObj){
+        return this.http.post(globalVariable.url+'customer-email-verify', userObj)
+            .map((response: Response) => {
+                let user = response.json();
+                return user;
+            });
+    }
+
+    sendOtp(url,userObj){
+        //this.otpUdate(userObj)
+        return this._jsonp.get(url)
+            .map((response: Response) => {
+            const user = response
+            return user;
+        });
+    }
+
+    otpUdate(userObj){
+        return this.http.put(globalVariable.url+'customer-otp/'+userObj._id, userObj)
+            .map((response: Response) => {
+                let user = response.json();
+                return user;
+            });
+    }
+
+    otpValidate(userObj){
+        return this.http.put(globalVariable.url+'otp-validate/'+ userObj._id,userObj)
+            .map((response: Response) => {
+                let user = response.json();
+                return user;
+            });
     }
 
     loadToken(){

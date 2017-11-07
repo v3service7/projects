@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import {HttpModule, Http} from "@angular/http";
+import {HttpModule, Http,JsonpModule} from "@angular/http";
 import { RouterModule, Routes } from '@angular/router';
 import { FileUploadModule , FileDropDirective } from 'ng2-file-upload';
 
@@ -14,7 +14,7 @@ import { AdminService, CustomerService, StaffService, BusinessService, PlanServi
 
 /*Customer*/
 import { CustomerComponent } from './customer/customer.component';
-import { CustomerLoginComponent,CustomerForgetPasswordComponent, CustomerRegisterComponent, CustomerResetPasswordComponent } from './customer/login/customerlogin.component';
+import { CustomerLoginComponent,CustomerAccountVerifyComponent,CustomerForgetPasswordComponent, CustomerRegisterComponent, CustomerOtpComponent, CustomerResetPasswordComponent } from './customer/login/customerlogin.component';
 import { CustomerDashboardComponent, CustomerProfileComponent } from './customer/dashboard/dashboard.component';
 import { CustomerHeaderComponent,CustomerSidebarComponent } from './header/customerheader.component';
 import { CustomerBusinessComponent, CustomerBusinessListComponent, CustomerBusinessAddComponent, CustomerBusinessDocumentComponent, CustomerBusinessEditComponent } from './customer/business/business.component';
@@ -55,7 +55,7 @@ import { AccountActiveComponent } from './account-active/account-active.componen
     AdminCustomerComponent,CustomerListComponent,CustomerAddComponent,CustomerEditComponent,
     AdminBusinessComponent,BusinessListComponent,BusinessViewComponent,BusinessEditComponent,
     CustomerComponent,
-    CustomerLoginComponent, CustomerRegisterComponent, CustomerForgetPasswordComponent,CustomerResetPasswordComponent,
+    CustomerLoginComponent,CustomerAccountVerifyComponent, CustomerRegisterComponent, CustomerOtpComponent, CustomerForgetPasswordComponent,CustomerResetPasswordComponent,
     CustomerDashboardComponent, CustomerProfileComponent,
     CustomerHeaderComponent,CustomerSidebarComponent,
     CustomerBusinessComponent, CustomerBusinessListComponent, CustomerBusinessAddComponent, CustomerBusinessDocumentComponent, CustomerBusinessEditComponent, AccountActiveComponent,
@@ -69,6 +69,7 @@ import { AccountActiveComponent } from './account-active/account-active.componen
     BrowserModule,
     FormsModule,
     HttpModule,
+    JsonpModule,
     routing,
     ReactiveFormsModule,
     FlashMessagesModule,

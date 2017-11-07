@@ -42,13 +42,11 @@ export class CustomerLoginComponent implements OnInit {
     }
 
     ngOnInit() {
-
         this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/customer/dashboard';
         this.loginForm = this.lf.group({
             email: ['', [Validators.required, Validators.pattern(this.emailp)]],
             password: ['', Validators.required],
         });
-
 
         this.loginForm.valueChanges
         .subscribe(data => this.onValueChanged(data));
@@ -75,14 +73,16 @@ export class CustomerLoginComponent implements OnInit {
     login(){
         this.customerService.authenticateUser(this.loginForm.value).subscribe(
             (data) => {
-                console.log("data");
-                console.log(data);
                 if(data.success){
                     this.customerService.storeUserData(data.token, data.user);
-                    this._flashMessagesService.show('You are now logged in', {
-                        cssClass: 'alert-success',
-                        timeout: 5000});
-                    this.router.navigate([this.returnUrl]);
+                    if (!data.user.status || !data.user.phonestatus) {
+                        this.router.navigate(['customer/account-verify']);
+                    }else{
+                        this._flashMessagesService.show('You are now logged in', {
+                            cssClass: 'alert-success',
+                            timeout: 5000});
+                        this.router.navigate([this.returnUrl]);
+                    }
                 } else {
                     this._flashMessagesService.show(data.msg, {
                         cssClass: 'danger-alert',
@@ -94,28 +94,6 @@ export class CustomerLoginComponent implements OnInit {
                 this.err = 'Unable to reach Server';
             }
         );
-        /*this.customerService.customerLogin(this.loginForm.value).subscribe(
-            (data) => {
-                if (!data.error) {
-                    if (data.success) {                    
-                        this._flashMessagesService.show('Logged in Successfully', { cssClass: 'alert-success', timeout: 5000 });
-                        this.customerService.storeUserData(data.token, data.user);
-                        this.router.navigate([this.returnUrl]);
-                    }else{
-                        this._flashMessagesService.show('Your Account is not Active.', { cssClass: 'danger-alert', timeout: 5000 });
-                        //this.loginForm.reset();
-                    }
-                }else{
-                    this._flashMessagesService.show(data.message, { cssClass: 'danger-alert', timeout: 5000 });
-                    this.err = data.message;
-                    this.loginForm.reset();
-                }
-            },
-            (err)=>{
-                this.err = 'Unable to reach Server';
-                //this.loginForm.reset();
-            }
-        );*/
     }
 }
 
@@ -178,7 +156,6 @@ export class CustomerRegisterComponent implements OnInit {
     }
 
     ngOnInit() {
-
         this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/customer/dashboard';
 
         this.registerForm = this.lf.group({
@@ -210,17 +187,42 @@ export class CustomerRegisterComponent implements OnInit {
         }else{
             this.MutchPassword = false;
         }
+    }
 
+    public generateOTP(oserObj){
+        let otp = Math.floor(Math.random()*90000) + 10000;
+        let smsText = 'Your code to validate mobile number is '+otp;
+        let smsUrl = 'http://api.smscountry.com/SMSCwebservice_bulk.aspx?User=habeebk&passwd=vatfile@321&mobilenumber='+oserObj.phonenumber+'&message='+smsText+'&mtype=N&DR=Y';
+        this.customerService.sendOtp(smsUrl,oserObj).subscribe(
+            (data) => {
+                console.log(data)
+            },
+            (err)=>{
+              console.log(err)  
+            }
+        );
+        let obj = {};
+        obj['_id'] = oserObj._id;
+        obj['otp'] = otp;
+        this.customerService.otpUdate(obj).subscribe(
+            (data) => {
+                console.log(data)
+            },
+            (err)=>{
+              console.log(err)  
+            }
+        );
     }
 
     register(){
         this.customerService.customerRegister(this.registerForm.value).subscribe(
             (data) => {
                 if (!data.error) {
+                    this.generateOTP(data.message)
                     /*localStorage.setItem('currentCustomer', JSON.stringify(data.message));*/
                     this._flashMessagesService.show('Successfully Registered, Please access your Email ID to Activate your Account', { cssClass: 'alert-success', timeout: 5000 });
                     setTimeout(()=>{
-                        this.router.navigate(['customer/login']);
+                        this.router.navigate(['customer/otp',data.message._id]);
                     },1000)
                 }else{
                     this.err = 'Email already in use';
@@ -322,6 +324,185 @@ export class CustomerForgetPasswordComponent implements OnInit {
             (data) => {
                 if (!data.error) {
                     this._flashMessagesService.show(data.message+'. Please Check your mail', { cssClass: 'alert-success', timeout: 5000 });
+                    setTimeout(()=>{
+                        this.router.navigate(['customer/login']);
+                    },1000);
+                }else{
+                    this._flashMessagesService.show(data.message, { cssClass: 'danger-alert', timeout: 5000 });
+                    this.loginForm.reset();
+                    /*this.router.navigate(['customer/login']);*/
+                }
+            },
+            (err)=>{
+                this._flashMessagesService.show(err.message, { cssClass: 'danger-alert', timeout: 5000 });
+                setTimeout(()=>{
+                    this.router.navigate(['customer/login']);
+                },1000);
+            }
+        );
+    }
+}
+
+@Component({
+    selector: 'app-customer-accountverify',
+    templateUrl: './accountverify.component.html',
+    styleUrls: ['./customerlogin.component.css'],
+})
+export class CustomerAccountVerifyComponent implements OnInit {
+    currentCustomer: any = {};
+    id = '';
+    loginForm: FormGroup;
+    returnUrl: string;
+    err:any;
+
+
+    formErrors = {
+        'phonenumber' : '',
+    };
+
+    validationMessages = {
+        'phonenumber' : {
+            'required':    'Phone Number is required.'
+        }
+    };
+
+    constructor(
+        private lf: FormBuilder, 
+        private customerService: CustomerService,
+        private router: Router,
+        private route: ActivatedRoute,
+        private _flashMessagesService: FlashMessagesService
+        ){ 
+    }
+
+    ngOnInit() {
+        this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/customer/dashboard';
+        this.loginForm = this.lf.group({
+            _id: ['', [Validators.required]],
+            phonenumber: [''],
+            email: ['']
+        });
+        this.currentCustomer = JSON.parse(localStorage.getItem('currentCustomer'));
+        console.log('cus',this.currentCustomer);
+        this.loginForm.patchValue(this.currentCustomer);
+    }
+
+
+
+    public generateEmailLink(oserObj){
+        this.customerService.sendEmail(oserObj).subscribe(
+            (data) => {
+                console.log(data)
+            },
+            (err)=>{
+              console.log(err)  
+            }
+        );
+    }
+
+    public generateOTP(oserObj){
+        let otp = Math.floor(Math.random()*90000) + 10000;
+        let smsText = 'Your code to validate mobile number is '+otp;
+        let smsUrl = 'http://api.smscountry.com/SMSCwebservice_bulk.aspx?User=habeebk&passwd=vatfile@321&mobilenumber='+oserObj.phonenumber+'&message='+smsText+'&mtype=N&DR=Y';
+        this.customerService.sendOtp(smsUrl,oserObj).subscribe(
+            (data) => {
+                console.log(data)
+            },
+            (err)=>{
+              console.log(err)  
+            }
+        );
+        let obj = {};
+        obj['_id'] = oserObj._id;
+        obj['otp'] = otp;
+        this.customerService.otpUdate(obj).subscribe(
+            (data) => {
+                console.log(data)
+            },
+            (err)=>{
+              console.log(err)  
+            }
+        );
+    }
+
+    verify(){
+        this.customerService.otpUdate(this.loginForm.value).subscribe(
+            (data) => {
+                if (!this.currentCustomer.status) {
+                    this.generateEmailLink(this.currentCustomer);
+                }
+                
+                if (!this.currentCustomer.phonestatus) {
+                    this.generateOTP(this.currentCustomer);
+                    this._flashMessagesService.show('Successfully Registered, Please access your Email ID to Activate your Account', { cssClass: 'alert-success', timeout: 5000 });
+                    setTimeout(()=>{
+                        this.router.navigate(['customer/otp',this.currentCustomer._id]);
+                    },1000)
+                }
+
+                if (!this.currentCustomer.status && this.currentCustomer.phonestatus) {
+                    this.router.navigate(['customer/login']);
+                }
+            },
+            (err)=>{
+              console.log(err)  
+            }
+        );
+    }
+}
+
+@Component({
+    selector: 'app-customer-otp',
+    templateUrl: './otp.component.html',
+    styleUrls: ['./customerlogin.component.css'],
+})
+export class CustomerOtpComponent implements OnInit {
+    currentCustomer: any = {};
+    id = '';
+    loginForm: FormGroup;
+    returnUrl: string;
+    err:any;
+
+
+    formErrors = {
+        'otp' : '',
+    };
+
+    validationMessages = {
+        'otp' : {
+            'required':    'Code is required.'
+        }
+    };
+
+    constructor(
+        private lf: FormBuilder, 
+        private customerService: CustomerService,
+        private router: Router,
+        private route: ActivatedRoute,
+        private _flashMessagesService: FlashMessagesService
+        ){ 
+        //this.currentCustomer = JSON.parse(localStorage.getItem('currentCustomer'));
+    }
+
+    ngOnInit() {
+        this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/customer/dashboard';
+        this.loginForm = this.lf.group({
+            otp: ['', [Validators.required]]
+        });
+        this.route.params.subscribe((params: Params) => {
+            this.id = params['id'];
+        });
+
+    }
+
+    otpVeify(){
+        let objC = {}
+        objC['_id'] = this.id;
+        objC['otp'] = this.loginForm.value['otp'];
+        this.customerService.otpValidate(objC).subscribe(
+            (data) => {
+                if (!data.error) {
+                    this._flashMessagesService.show('Phone Number verified', { cssClass: 'alert-success', timeout: 5000 });
                     setTimeout(()=>{
                         this.router.navigate(['customer/login']);
                     },1000);
