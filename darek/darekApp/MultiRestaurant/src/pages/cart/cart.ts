@@ -18,13 +18,14 @@ export class CartPage {
 	promotionString : any = String;
 	cartStorageString : any = String;
 	coupon : any = String;
-	appliedCode : any = String;
+	appliedCode : any;
 	subTotal : number = 0;
 	cartTotal : number = 0;
 	minCartAmount : number;
 	deliveryfee : number = 0;
 	discountAmount : number;
-	cartTotalAfterDiscount : number;
+    cartTotalAfterDiscount : number;
+	cartLength : number;
 	index : number;
 	totalWithTax : number = 0;
 	restaurants : any = {};
@@ -49,6 +50,8 @@ export class CartPage {
 
     spicyArray : any = [1,2,3];
 
+    promotionMinAmount : any;
+
 	constructor(
 		public navCtrl: NavController,
 		public navParams: NavParams,
@@ -66,6 +69,11 @@ export class CartPage {
 	}
 
 	ionViewDidEnter() {
+
+        if (localStorage.getItem('cartLength')) {
+            this.cartLength = parseInt(localStorage.getItem('cartLength'));
+        }
+
         this.resId = this.navParams.get('resId');
 
         this.deliveryfee = 0;
@@ -77,6 +85,7 @@ export class CartPage {
         this.cartStorageString = 'cartStorage_' + this.resId;
 		this.promotionString = 'promotion_' + this.resId;
 		this.coupon = 'coupon_' + this.resId;
+
 		if (localStorage.getItem(this.cartString)) {
 			this.cart = JSON.parse(localStorage.getItem(this.cartString));
 		}
@@ -150,6 +159,16 @@ export class CartPage {
 	        if (this.promotion) {
 	        	if (this.promotion.promotion && this.promotion.promotion['promotionId']) {
 	            	this.index = this.allPromotions.findIndex(mn => mn._id == this.promotion.promotion['promotionId'][0]);
+
+                    if (this.index == 6) {
+                        if(this.promotion.promotion['minCartAmount']){
+                            this.promotionMinAmount = this.promotion.promotion['minCartAmount'];
+                            console.log("this.promotionMinAmount");
+                            console.log(this.promotionMinAmount);
+                        }
+                    }
+
+
 	        	}
 	        }
         });
@@ -211,7 +230,7 @@ export class CartPage {
     	let toast = this.toastCtrl.create({
 	        message: msg,
 	        duration: 3000,
-	        position:'top' //top,middle,bottom
+	        position:'middle' //top,middle,bottom
 	    });
 	    toast.present();
 	}
@@ -316,7 +335,7 @@ export class CartPage {
         }
     }
 
-    private deleteItem(index){
+    private deleteItemOnly(index){
     	let alert = this.alertCtrl.create({
     		title: 'Delete Item!',
     		buttons: [
@@ -327,6 +346,9 @@ export class CartPage {
 	    			text: 'Delete',
 	    			handler: () => {
 	    				this.cart.splice(index,1);
+                        this.cartLength = this.cartLength - 1;
+                        localStorage.removeItem('cartLength');
+                        localStorage.setItem('cartLength',JSON.stringify(this.cartLength));
                         localStorage.removeItem(this.cartString);
 	    				localStorage.setItem(this.cartString,JSON.stringify(this.cart));
 	    				this.calculateTotal();
@@ -335,6 +357,91 @@ export class CartPage {
     		]
     	});
     	alert.present();
+    }
+
+    private deleteItemWithPromotionCode(index){
+        let alert = this.alertCtrl.create({
+            title: 'Delete Item!',
+            message : 'Removing Item will remove your Coupon Applied! \n continue?',
+            buttons: [
+                {
+                    text: 'Cancel'
+                },
+                {
+                    text: 'Delete',
+                    handler: () => {
+                        this.cart.splice(index,1);
+
+                        this.cartLength = this.cartLength - 1;
+                        localStorage.removeItem('cartLength');
+                        localStorage.setItem('cartLength',JSON.stringify(this.cartLength));
+                        
+                        localStorage.removeItem(this.cartString);
+                        localStorage.setItem(this.cartString,JSON.stringify(this.cart));
+                        this.removeCode();
+                        this.calculateTotal();
+                    }
+                }
+            ]
+        });
+        alert.present();
+    }
+
+    private deleteItemWithPromotionDeal(index){
+        let alert = this.alertCtrl.create({
+            title: 'Delete Item!',
+            message : 'Removing Item will remove your Deal! \n continue?',
+            buttons: [
+                {
+                    text: 'Cancel'
+                },
+                {
+                    text: 'Delete',
+                    handler: () => {
+                        this.cart.splice(index,1);
+
+                        this.cartLength = this.cartLength - 1;
+                        localStorage.removeItem('cartLength');
+                        localStorage.setItem('cartLength',JSON.stringify(this.cartLength));
+
+                        localStorage.removeItem(this.cartString);
+                        localStorage.setItem(this.cartString,JSON.stringify(this.cart));
+
+                        delete this.promotion;
+                        delete this.cartStorage['promotion'];
+                        localStorage.removeItem(this.promotionString);
+                        this.calculateTotal();
+                    }
+                }
+            ]
+        });
+        alert.present();
+    }
+
+    private deleteItem(index){
+        console.log(this.cartStorage);
+        console.log(this.appliedCode);
+        console.log(this.index);
+        console.log(this.promotionMinAmount);
+        if ((this.cartStorage['promotion'] && typeof this.appliedCode == 'undefined' && this.index != 6)  || typeof this.cartStorage['promotion'] == 'undefined' ) {
+            this.deleteItemOnly(index);
+        }
+
+        if (this.cartStorage['promotion'] && typeof this.appliedCode != 'undefined') {
+            this.deleteItemWithPromotionCode(index);
+        }
+
+
+        if(this.cartStorage['promotion'] && this.index == 6 && typeof this.promotionMinAmount != 'undefined'){
+            var afterCartTotalAmount = this.cartTotal - this.cart[index]['totalPrice'];
+            if (afterCartTotalAmount < this.promotionMinAmount) {
+                this.deleteItemWithPromotionDeal(index);
+            }
+
+            if (afterCartTotalAmount >= this.promotionMinAmount) {
+                this.deleteItemOnly(index);
+            }
+        }
     }
 
     private deletePromotion(){
@@ -495,8 +602,13 @@ export class CartPage {
     }
 
     private showField(){
-    	this.noCode = false;
-    	this.typeCode = true;
+        this.noCode = false;
+        this.typeCode = true;
+    }
+
+    private hideField(){
+    	this.noCode = true;
+    	this.typeCode = false;
     }
 
     private applyCode(){
@@ -504,7 +616,8 @@ export class CartPage {
     	if (index > -1) {
             this.performCodeCalculation(index);
         }else{
-        	this.getToast('Invalid Coupon Code');
+            this.getToast('Invalid Coupon Code');
+            this.hideField();
         }
     }
 
@@ -525,8 +638,9 @@ export class CartPage {
                 if (typeof this.deliveryfee != 'undefined') {
                     this.discountAmount = ((this.restroPromotions[index].discountPercent)/100)*this.deliveryfee;
                 }else{
-                	delete this.appliedCode;
-                	this.getToast('Code Applicable on Delivery charges');
+                    delete this.appliedCode;
+                    this.getToast('Code Applicable on Delivery charges');
+                    this.hideField();
                 }
             }else if(promoIndex == 2){
                 this.discountAmount = this.restroPromotions[index].discountAmount;
@@ -542,8 +656,9 @@ export class CartPage {
                 this.calculateTotal();
             }
         }else{
-        	delete this.appliedCode;
+            delete this.appliedCode;
             this.getToast('To apply this coupon, Min order amount should be ' + this.minCartAmount);
+            this.hideField();
         }
     }
 

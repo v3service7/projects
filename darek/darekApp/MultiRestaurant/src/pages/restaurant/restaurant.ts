@@ -55,6 +55,7 @@ export class RestaurantPage {
     }
 
     private getAllRestaurants(){
+        this.restaurantsList = [];
     	this.restaurantsService.getAll().subscribe((data)=>{
     		if (!data.error) {
     			this.loading.dismiss();
@@ -73,7 +74,7 @@ export class RestaurantPage {
     	let toast = this.toastCtrl.create({
 	        message: msg,
 	        duration: 3000,
-	        position:'top' //top,middle,bottom
+	        position:'middle' //top,middle,bottom
 	    });
 	    toast.present();
     }
@@ -97,7 +98,7 @@ export class RestaurantPage {
     }
 
     private goToCart(){
-        var restaurantID = localStorage.getItem('resID');
+        var restaurantID = JSON.parse(localStorage.getItem('resID'));
 
         if (restaurantID != null) {
             this.navCtrl.push(CartPage,{

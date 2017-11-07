@@ -17,8 +17,17 @@
     </ion-refresher>
 
     <ion-row *ngIf = "restaurantsList.length > 0" class="margin4">
-        <ion-col col-12 *ngFor = "let restaurant of restaurantsList" (click)="goToRestaurant(restaurant._id)" [ngStyle]="{'background-image': 'url(' + restroImage(restaurant.image) + ')'}" class="restaurantInfo textCenter font18 colorWhite">
-            <div class="card-title positionAbsolute width100 fontWeight500">{{restaurant.name}}</div>
+        <ion-col col-12 no-padding *ngFor = "let restaurant of restaurantsList" (click)="goToRestaurant(restaurant._id)" class="marginBottom3 box-shadow">
+            <ion-row class = "width100">
+                <ion-col col-3 [ngStyle]="{'background-image': 'url(' + restroImage(restaurant.image) + ')'}" class="restaurantInfo"></ion-col>
+                <ion-col col-9 no-padding class="bgWhite">
+                    <ion-row class = "width100">
+                        <ion-col col-8 class="font16"><b>{{restaurant.name}}</b></ion-col>
+                        <ion-col col-4 class="paddingLeftRight0"><ion-icon class="black" name="pin" ios="ios-pin" md="md-pin"></ion-icon><b>{{restaurant.city}}</b></ion-col>
+                    </ion-row>
+                </ion-col>
+            </ion-row>
+            <!-- <div class="card-title positionAbsolute width100 fontWeight500">{{restaurant.name}}</div> -->
         </ion-col>
     </ion-row>
 

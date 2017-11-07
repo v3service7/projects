@@ -35,7 +35,7 @@ export class PromotionDetailPage {
     promotionItems : any = {};
     proId : string;
     cartSubTotal : string;
-    cartTotalAmount : number;
+    cartTotalAmount : number = 0;
 
 	constructor(
         public nav: Nav,
@@ -51,15 +51,14 @@ export class PromotionDetailPage {
 		public alertCtrl: AlertController
 		) {
 
-        this.resId = navParams.get('resId')
 
-		this.loading = this.loadingCtrl.create({
+        this.loading = this.loadingCtrl.create({
             content: 'Please wait...'
         });
 
-		this.promo = navParams.get('promo');
+        this.promo = navParams.get('promo');
+        this.resId = navParams.get('resId')
 		//this.promo = JSON.parse(localStorage.getItem('promo'));
-        this.loadAllPromotions(this.promo['promotionId'][0]);
   	}
 
 	ionViewDidEnter() {
@@ -95,6 +94,8 @@ export class PromotionDetailPage {
         if (localStorage.getItem(this.cartSubTotal)) {
         	this.cartTotalAmount = JSON.parse(localStorage.getItem(this.cartSubTotal));
         }
+
+        this.loadAllPromotions(this.promo['promotionId'][0]);
 	}
 
 	private checkDisabled(){
@@ -131,7 +132,7 @@ export class PromotionDetailPage {
     	let toast = this.toastCtrl.create({
 	        message: msg,
 	        duration: 3000,
-	        position:'top' //top,middle,bottom
+	        position:'middle' //top,middle,bottom
 	    });
 	    toast.present();
 	}
@@ -213,7 +214,9 @@ export class PromotionDetailPage {
             if (this.index == 6) {
                 if (this.cartTotalAmount < this.promo.minCartAmount) {
                     this.getToast('Cant add this deal now \n Minimum Cart Amount should be ' + this.promo.minCartAmount);
-                    this.nav.setRoot(MenuPage);
+                    this.nav.setRoot(MenuPage,{
+                        resId : this.resId
+                    });
                 }
             }
         });

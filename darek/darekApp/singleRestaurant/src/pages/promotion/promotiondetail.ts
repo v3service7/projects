@@ -35,7 +35,7 @@ export class PromotionDetailPage {
     promotionItems : any = {};
     proId : string;
     cartSubTotal : string;
-    cartTotalAmount : number;
+    cartTotalAmount : number = 0;
 
 	constructor(
         public nav: Nav,
@@ -57,7 +57,6 @@ export class PromotionDetailPage {
 
 		this.promo = navParams.get('promo');
 		//this.promo = JSON.parse(localStorage.getItem('promo'));
-        this.loadAllPromotions(this.promo['promotionId'][0]);
   	}
 
 	ionViewDidEnter() {
@@ -93,6 +92,7 @@ export class PromotionDetailPage {
         if (localStorage.getItem(this.cartSubTotal)) {
         	this.cartTotalAmount = JSON.parse(localStorage.getItem(this.cartSubTotal));
         }
+        this.loadAllPromotions(this.promo['promotionId'][0]);
 	}
 
 	private checkDisabled(){
@@ -129,7 +129,7 @@ export class PromotionDetailPage {
     	let toast = this.toastCtrl.create({
 	        message: msg,
 	        duration: 3000,
-	        position:'top' //top,middle,bottom
+	        position:'middle' //top,middle,bottom
 	    });
 	    toast.present();
 	}

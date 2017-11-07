@@ -173,7 +173,7 @@ export class ItemDetailPage {
         let toast = this.toastCtrl.create({
             message: msg,
             duration: 3000,
-            position:'top' //top,middle,bottom
+            position:'middle' //top,middle,bottom
         });
         toast.present();
     }
@@ -363,7 +363,7 @@ export class ItemDetailPage {
 
     private addToCart(){
         if (this.itemType == 'cartItem') {
-            var restaurantID = localStorage.getItem('resID');
+            var restaurantID = JSON.parse(localStorage.getItem('resID'));
             console.log("restaurantID");
             console.log(restaurantID);
             console.log(this.resID);
@@ -458,7 +458,7 @@ export class ItemDetailPage {
     }
 
     private goToCart(){
-        var restaurantID = localStorage.getItem('resID');
+        var restaurantID = JSON.parse(localStorage.getItem('resID'));
         if (restaurantID != null) {
             this.navCtrl.push(CartPage,{
                 resId : restaurantID

@@ -329,11 +329,11 @@
 		</ion-row>
 
 		<ion-row class="width100" *ngIf = "typeCode">
-			<ion-input type="text" maxlength="10" value="" (keyup)="countCharacter($event)"></ion-input> <button (click)=applyCode()>Apply</button> <button (click)=showField()>Cancel</button>
+			<ion-input type="text" maxlength="10" value="" (keyup)="countCharacter($event)"></ion-input> <button (click)="applyCode()">Apply</button> <button (click)="hideField()">Cancel</button>
 		</ion-row>
 
 		<ion-row class="width100" *ngIf = "haveCode">
-			<ion-label>{{appliedCode}}</ion-label> <button (click)=removeCode()>Remove</button>
+			<ion-label>{{appliedCode}}</ion-label> <button (click)="removeCode()">Remove</button>
 		</ion-row>
 	</ion-row>
 

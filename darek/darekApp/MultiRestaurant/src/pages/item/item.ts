@@ -227,7 +227,7 @@ export class ItemPage {
     }
 
     private goToCart(){
-        var restaurantID = localStorage.getItem('resID');
+        var restaurantID = JSON.parse(localStorage.getItem('resID'));
         if (restaurantID != null) {
             this.navCtrl.push(CartPage,{
                 resId : restaurantID

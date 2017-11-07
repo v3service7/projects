@@ -56,7 +56,7 @@ export class ChangePasswordPage {
 		let toast = this.toastCtrl.create({
 			message: msg,
 			duration: 3000,
-			position:'top' //top,middle,bottom
+			position:'middle' //top,middle,bottom
 		});
 		toast.present();
 	}
