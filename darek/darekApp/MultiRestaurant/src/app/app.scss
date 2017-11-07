@@ -1,0 +1,217 @@
+// http://ionicframework.com/docs/theming/
+
+
+// App Global Sass
+// --------------------------------------------------
+// Put style rules here that you want to apply globally. These
+// styles are for the entire app and not just one component.
+// Additionally, this file can be also used as an entry point
+// to import other Sass files to be included in the output CSS.
+//
+// Shared Sass variables, which can be used to adjust Ionic's
+// default Sass variables, belong in "theme/variables.scss".
+//
+// To declare rules for a specific mode, create a child rule
+// for the .md, .ios, or .wp mode classes. The mode class is
+// automatically applied to the <body> element in the app.
+
+
+.margin4{
+	margin : 4%;
+}
+
+.positionAbsolute{
+	position : absolute;
+}
+
+.width100{
+	width : 100%;
+}
+
+.textCenter{
+    text-align: center;
+}
+
+.font18{
+    font-size: 18px;
+}
+
+.toolbar-background{
+    background : black !important;
+}
+
+.colorWhite{
+    color : white !important ;
+}
+
+.toolbar-title{
+    color : white;
+    font-weight : 100;
+}
+
+.back-button {
+    color : white;
+}
+
+
+.leftNav .leftNavHeading button .item-inner{
+	margin-left: 12px !important;
+	font-size : 14px;
+    font-weight : 500;
+}
+
+.leftNav .leftNavHeading button {
+	border : none !important;
+
+}
+
+.restaurantLogo{
+    padding: 10% 0 10% 0;
+    font-size: 24px;
+    border-bottom: 1px solid rgb(222, 222, 222);
+}
+
+.restaurantLogo div{
+    
+    padding: 10%;
+    font-weight: 600;
+    letter-spacing: 3px;
+    font-family: Freestyle Script;
+    font-size: x-large;
+}
+
+.leftNav ion-list{
+    border-bottom: 1px solid rgba(128, 128, 128, 0.46) !important;
+    border-top: 1px solid rgba(128, 128, 128, 0.46) !important;
+}
+
+.width40{
+    width : 40% !important;
+}
+
+.height100{
+    height : 100%;
+}
+
+.padding4{
+    padding : 4%;
+}
+
+.padding3{
+    padding : 3%;
+}
+
+.padding6{
+    padding : 6%;
+}
+
+.colorGreen{
+    color : #32DB64;
+}
+
+.fontWeight600{
+    font-weight : 600 !important;
+}
+
+.fontWeight500{
+    font-weight : 500;
+}
+
+.padding0px15px{
+    padding : 0 15px;
+}
+
+.floatRight{
+    float : right;
+}
+
+.orderButton{
+    width: 100%;
+    background: #32DB64;
+    color: white;
+    border-radius: 5px;
+    font-weight: 500;
+    font-size: 16px;
+    margin: 0 0 5% 0;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+.displayInherit{
+    display: inherit;
+}
+
+.inlineFlex{
+    display: inline-flex;
+}
+
+.displayFlex{
+    display: flex;
+}
+
+.marginBottom4{
+    margin-bottom : 4% !important;
+}
+
+.marginTop4{
+    margin-top : 4% !important;
+}
+
+.margin20-3{
+    margin : 20% 3% 10% 3% !important;
+}
+
+.font14{
+    font-size : 14px !important;
+}
+
+ion-card-header{
+    white-space: normal;
+}
+
+.textUnderline{
+    text-decoration : underline;
+}
+
+@media (max-width: 767px){
+    .alert-md .alert-radio-group, .alert-md .alert-checkbox-group {
+    position: relative;
+    overflow: auto;
+    max-height: 160px;
+    border-top: 1px solid #dedede;
+    border-bottom: 1px solid #dedede;
+}
+.alert-ios .alert-radio-group, .alert-ios .alert-checkbox-group {
+    overflow: scroll;
+    max-height: 160px;
+    border-top: 0.55px solid #dbdbdf;
+    -webkit-overflow-scrolling: touch;
+}
+
+.fab , ion-fab-list button.fab{
+    background-color: rgba(0, 0, 0, 0.81);
+    color : white;
+}
+
+button.fab.activated , ion-fab-list button.fab.activated{
+    background-color: rgba(0, 0, 0, 0.81);
+}
+
+ion-fab-list button.fab-in-list{
+    height : 45px !important;
+    width : 45px !important;
+}
+
+.numberClass{
+    position : absolute;
+    top : 0;
+}
+
+.bgTransparent{
+    background: transparent !important;
+}
+
+.button-wp span.numberClass{
+    top : -2px;
+}
+
+}

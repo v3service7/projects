@@ -1,0 +1,38 @@
+page-paymentinfo {
+	ion-select .item-cover{
+	    height: 0 !important;
+	    width: 0 !important;
+	    position: fixed !important;
+	}
+
+	.padding5{
+		padding : 5px;
+	}
+
+	.text-input{
+		margin : 0 !important;
+	    letter-spacing: 3px;
+	}
+
+	.cvvClass .text-input{
+		text-align : right;
+	}
+
+	.alertErr{
+	    font-size: 12px;
+	    color: red;
+	    text-align: right;
+	}
+
+	.paymentDiv{
+	    background: aliceblue;
+	    margin : 30px 0;
+	}
+
+	.cancelButton{
+		padding: 5px 10px;
+	    background: #488aff;
+	    color: white;
+	    border-radius: 4px;
+	}
+}

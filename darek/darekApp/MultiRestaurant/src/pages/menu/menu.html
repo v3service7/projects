@@ -1,0 +1,34 @@
+<ion-header>
+    <ion-navbar>
+        <button ion-button menuToggle class="colorWhite">
+            <ion-icon name="menu" ios="ios-menu" md="md-menu"></ion-icon>
+        </button>
+        <ion-title *ngIf = "restaurants">{{restaurants.name}}</ion-title>
+        <button ion-button class="colorWhite bgTransparent" float-right  (click)="goToCart()">
+            <ion-icon name="cart" ios="ios-cart" md="md-cart"></ion-icon>
+            <span class="numberClass">{{cartLength}}</span>
+        </button>
+    </ion-navbar>
+</ion-header>
+
+<ion-content  *ngIf = "menus" class="card-background-page">
+    <ion-refresher (ionRefresh)="doRefresh($event)">
+        <ion-refresher-content></ion-refresher-content>
+    </ion-refresher>
+
+    <ion-fab right bottom>
+        <button ion-fab><ion-icon name="arrow-dropup"></ion-icon></button>
+        <ion-fab-list side="top">
+            <button ion-fab (click)="goToPromotion()">
+                <ion-icon name="flame" ios="ios-flame" md="md-flame"></ion-icon>
+            </button>
+        </ion-fab-list>
+    </ion-fab>
+    
+    <ion-row>
+        <ion-col col-12 *ngFor = "let menu of menus" (click)="showItems(menu)" [ngStyle]="{'background-image': 'url(' + menuImage(menu.image) + ')'}">
+            <div class="card-title positionAbsolute fontWeight500">{{menu.name}}</div>
+            <div *ngIf = "menu.description" class="descriptionDiv">{{menu.description}}</div>
+        </ion-col>
+    </ion-row>
+</ion-content>

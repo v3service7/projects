@@ -1,0 +1,89 @@
+page-item {
+
+ion-content{
+	background: #EEEEEE !important;
+}
+
+.toolbar-content-md, .toolbar-content-wp{
+    display: flex;
+}
+
+ion-content ion-card {
+	margin:0 0 2% 0 !important;
+	height: 15%;
+	box-shadow : none !important;
+}
+
+.itemDetail{
+	height : 100%;
+}
+
+.itemDetail ion-col{
+	padding: 2.5%;
+}
+
+.chillyImage{
+	width  : 15px !important;
+}
+
+.itemImage img{
+	height: 100%;
+    width: auto;
+}
+
+.itemName{
+	height : 65%;
+	font-size: 16px;
+}
+
+.itemPrice{
+	font-size: 14px;
+}
+
+  /* Large desktops and laptops */
+@media (min-width: 1200px) {
+
+}
+
+
+/* Landscape tablets and medium desktops */
+@media (min-width: 992px) and (max-width: 1199px) {
+  
+	ion-content ion-card {
+	    width: 45% !important;
+	    float: right;
+	    margin: 1% 2.5% !important;
+	}
+}
+
+/* Portrait tablets and small desktops */
+@media (min-width: 768px) and (max-width: 991px) {
+   
+ion-content ion-card {
+    width: 45% !important;
+    float: right;
+    margin: 1% 2.5% !important;
+}
+}
+
+/* Landscape phones and portrait tablets */
+@media (max-width: 767px) {
+   
+ion-content ion-card {
+    width: 45% !important;
+    float: right;
+    margin: 1% 2.5% !important;
+    height: 30%;
+}
+	
+}
+
+/* Portrait phones and smaller */
+@media (max-width: 480px) {
+   ion-content ion-card {
+    width: 100% !important;
+    height: 20%;
+}
+
+}
+}

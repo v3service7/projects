@@ -1,0 +1,346 @@
+<ion-header>
+    <ion-navbar>
+        <button ion-button menuToggle class="colorWhite">
+            <ion-icon name="menu" ios="ios-menu" md="md-menu"></ion-icon>
+        </button>
+        <ion-title>Cart</ion-title>
+    </ion-navbar>
+</ion-header>
+
+<ion-content padding class="cartPage">
+
+	<ion-row *ngIf = "restaurants.checkoutMessage" class="customCheckoutMessage">
+		<ion-col>
+			{{restaurants.checkoutMessage}}
+		</ion-col>
+		<ion-icon name="close" ios="ios-close" md="md-close" (click) = "hideCustomMessage()"></ion-icon>
+	</ion-row>
+	
+	<ion-row *ngIf = " cart && cart.length == 0 && promotion == undefined" class="cartDiv">
+		<ion-card-header text-center class="width100">
+			No Item!
+		</ion-card-header>
+	</ion-row>
+
+	<ion-row *ngIf = "cart && cart.length > 0">
+		<ion-card *ngFor = "let crt of cart; let i= index; " class="width100 padding3 marginBottom4" no-margin>
+			<ion-card-header *ngIf = "crt.item" no-padding>
+				<ion-row>
+					<ion-col col-3><img [src]="itemImage(crt.item.image)" class="card-img" /></ion-col>
+					<ion-col col-8>
+						<ion-row>
+							<ion-col no-padding class="displayFlex">
+								{{crt.item.name}}
+								<span *ngFor = "let chilly of spicyArray">
+		                        	<img *ngIf = "crt.item.spicyLevel && chilly <= crt.item.spicyLevel" src="assets/img/chilly.PNG" class="chillyImage">
+			                   </span>
+							</ion-col>
+						</ion-row>
+						<ion-row>
+							<ion-col col-4 class="fontWeight600 cartItemPrice">${{crt.totalPrice}}</ion-col>
+						</ion-row>
+					</ion-col>
+					<ion-col col-1>
+						<ion-icon float-right name="trash" ios="ios-trash" md="md-trash" class="delItem" (click)="deleteItem(i)"></ion-icon>
+					</ion-col>
+				</ion-row>
+			</ion-card-header>
+
+			<ion-card-content no-padding>
+				<ion-row *ngIf="crt.multisize" class="width100">
+					<ion-col col-4 class="fontWeight600">Size : </ion-col>
+					<ion-col col-4>{{crt.multisize.size}} </ion-col>
+					<ion-col col-4> + {{crt.multisize.price}}</ion-col>
+				</ion-row>
+
+				<ion-row *ngIf="crt.addon && crt.addon.length > 0" class="displayFlex">
+					<ion-col col-4 class="fontWeight600">Addon : </ion-col>
+					<ion-col col-8>
+						<ion-row *ngFor = "let addon of crt.addon">
+							<ion-col no-padding>{{addon.name}} </ion-col>
+							<ion-col no-padding> + {{addon.price}}</ion-col>
+						</ion-row>
+					</ion-col>
+				</ion-row>
+
+				<ion-row *ngIf = "crt.quantity" class="width100">
+					<ion-col col-4 class="fontWeight600">Quantity :</ion-col>
+					<ion-col col-4 class="displayInherit">
+						<ion-col col-4 no-padding>
+							<button class="decreaseQuantity width100" (click)="decreaseQuantity(i)">
+								<ion-icon name="remove" ios="ios-remove" md="md-remove" class="qtyButton"></ion-icon>
+							</button>
+						</ion-col>
+						<ion-col col-4 no-padding>
+							<ion-label no-margin class="quantity width100">{{crt.quantity}}</ion-label>
+						</ion-col>
+						<ion-col col-4 no-padding>
+							<button class="increaseQuantity width100" (click)="increaseQuantity(i)">
+								<ion-icon name="add" ios="ios-add" md="md-add" class="qtyButton"></ion-icon>
+							</button>
+						</ion-col>
+					</ion-col>
+					<!-- <ion-col col-4 class="fontWeight600" text-right>${{crt.totalPrice}}</ion-col> -->
+				</ion-row>
+
+				<ion-row *ngIf = "crt.itemInstruction" class="width100 itemInstruction">
+					<ion-col col-12>{{crt.itemInstruction}}</ion-col>
+				</ion-row>
+
+			</ion-card-content>
+		</ion-card>
+	</ion-row>
+
+	<ion-row *ngIf = "promotion">
+		<ion-card class="width100 padding3 marginBottom4" no-margin>
+			<ion-card-header no-padding>
+				<ion-row>
+					<ion-col col-12 *ngIf = "promotion.promotion">{{promotion.promotion.promoname}}<ion-icon float-right name="trash" ios="ios-trash" md="md-trash" class="delItem" (click)="deletePromotion()"></ion-icon></ion-col>
+				</ion-row>
+			</ion-card-header>
+
+			<ion-card-content no-padding *ngIf = "promotion.itemGroup1">
+
+				<ion-row class="width100">
+					<ion-row *ngIf="promotion.itemGroup1.item" class="width100">
+						<ion-col col-4><img [src]="itemImage(promotion.itemGroup1.item.image)"  class="card-img" /></ion-col>
+						<ion-col col-8>
+							<ion-row>
+								<ion-col no-padding>
+									{{promotion.itemGroup1.item.name}}
+									<span *ngFor = "let chilly of spicyArray">
+				                    	<span *ngIf = "promotion.itemGroup1.item.spicyLevel && chilly <= promotion.itemGroup1.item.spicyLevel">
+				                        	<img src="assets/img/chilly.PNG" class="chillyImage">
+				                        </span>
+				                   </span>
+								</ion-col>
+							</ion-row>
+							<ion-row>
+								<ion-col col-4 class="fontWeight600 cartItemPrice">${{promotion.itemGroup1.totalPrice}}</ion-col>
+							</ion-row>
+						</ion-col>
+					</ion-row>
+					
+					<ion-row *ngIf="promotion.itemGroup1.multisize" class="width100">
+						<ion-col col-4 class="fontWeight600">Size : </ion-col>
+						<ion-col col-4>{{promotion.itemGroup1.multisize.size}} </ion-col>
+						<ion-col col-4> + {{promotion.itemGroup1.multisize.price}}</ion-col>
+					</ion-row>
+
+					<ion-row *ngIf="promotion.itemGroup1.addon && promotion.itemGroup1.addon.length > 0 " class="displayFlex width100">
+						<ion-col col-4 class="fontWeight600">Addon : </ion-col>
+						<ion-col col-8>
+							<ion-row *ngFor = "let addon of promotion.itemGroup1.addon">
+								<ion-col no-padding>{{addon.name}} </ion-col>
+								<ion-col no-padding> + {{addon.price}}</ion-col>
+							</ion-row>
+						</ion-col>
+					</ion-row>
+
+					<ion-row *ngIf = "promotion.itemGroup1.quantity" class="width100">
+						<ion-col col-4 class="fontWeight600">Quantity :</ion-col>
+						<ion-col col-4 class="displayInherit">
+							<ion-col col-4 no-padding>
+								<button class="decreaseQuantity width100" disabled>
+									<ion-icon name="remove" ios="ios-remove" md="md-remove" class="qtyButton"></ion-icon>
+								</button>
+							</ion-col>
+							<ion-col col-4 no-padding>
+								<ion-label no-margin class="quantity width100" disabled>{{promotion.itemGroup1.quantity}}</ion-label>
+							</ion-col>
+							<ion-col col-4 no-padding>
+								<button class="increaseQuantity width100" disabled>
+									<ion-icon name="add" ios="ios-add" md="md-add" class="qtyButton"></ion-icon>
+								</button>
+							</ion-col>
+						</ion-col>
+					</ion-row>
+
+					<ion-row *ngIf = "promotion.itemGroup1.itemInstruction" class="width100 itemInstruction">
+						<ion-col col-12>{{promotion.itemGroup1.itemInstruction}}</ion-col>
+					</ion-row>
+				</ion-row>
+
+				<ion-row *ngIf = "promotion.itemGroup2" class="width100">
+					<ion-row *ngIf="promotion.itemGroup2.item" class="width100">
+						<ion-col col-4>
+							<img [src]="itemImage(promotion.itemGroup2.item.image)" class="cart-img" />
+						</ion-col>
+						<ion-col col-8>
+							<ion-row>
+								<ion-col no-padding>
+									{{promotion.itemGroup2.item.name}}
+									<span *ngFor = "let chilly of spicyArray">
+				                    	<span *ngIf = "promotion.itemGroup2.item.spicyLevel && chilly <= promotion.itemGroup2.item.spicyLevel">
+				                        	<img src="assets/img/chilly.PNG" class="chillyImage">
+				                        </span>
+				                   </span>
+								</ion-col>
+							</ion-row>
+							<ion-row>
+								<ion-col col-4 class="fontWeight600 cartItemPrice">${{promotion.itemGroup2.totalPrice}}</ion-col>
+							</ion-row>
+						</ion-col>
+					</ion-row>
+					
+					<ion-row *ngIf="promotion.itemGroup2.multisize" class="width100">
+						<ion-col col-4 class="fontWeight600">Size : </ion-col>
+						<ion-col col-4>{{promotion.itemGroup2.multisize.size}} </ion-col>
+						<ion-col col-4> + {{promotion.itemGroup2.multisize.price}}</ion-col>
+					</ion-row>
+
+					<ion-row *ngIf="promotion.itemGroup2.addon && promotion.itemGroup2.addon.length > 0" class="displayFlex width100">
+						<ion-col col-4 class="fontWeight600">Addon : </ion-col>
+						<ion-col col-8>
+							<ion-row *ngFor = "let addon of promotion.itemGroup2.addon">
+								<ion-col no-padding>{{addon.name}} </ion-col>
+								<ion-col no-padding> + {{addon.price}}</ion-col>
+							</ion-row>
+						</ion-col>
+					</ion-row>
+
+					<ion-row *ngIf = "promotion.itemGroup2.quantity" class="width100">
+						<ion-col col-4 class="fontWeight600">Quantity :</ion-col>
+						<ion-col col-4 class="displayInherit">
+							<ion-col col-4 no-padding>
+								<button class="decreaseQuantity width100" disabled>
+									<ion-icon name="remove" ios="ios-remove" md="md-remove" class="qtyButton"></ion-icon>
+								</button>
+							</ion-col>
+							<ion-col col-4 no-padding>
+								<ion-label no-margin class="quantity width100" disabled>{{promotion.itemGroup2.quantity}}</ion-label>
+							</ion-col>
+							<ion-col col-4 no-padding>
+								<button class="increaseQuantity width100" disabled>
+									<ion-icon name="add" ios="ios-add" md="md-add" class="qtyButton"></ion-icon>
+								</button>
+							</ion-col>
+						</ion-col>
+						<!-- <ion-col col-4 class="fontWeight600" text-right>${{promotion.itemGroup2.totalPrice}}</ion-col> -->
+					</ion-row>
+
+					<ion-row *ngIf = "promotion.itemGroup2.itemInstruction" class="width100 itemInstruction">
+						<ion-col col-12>{{promotion.itemGroup2.itemInstruction}}</ion-col>
+					</ion-row>
+				</ion-row>
+
+				<ion-row class="width100">
+					<ion-col col-5 >Total :</ion-col>
+					<ion-col col-7 text-right class="fontWeight600"> $ {{promotion.total}}</ion-col>
+				</ion-row>
+
+			</ion-card-content>
+		</ion-card>		
+	</ion-row>	
+
+	<ion-row  *ngIf = "cart || promotion">
+		<ion-card no-margin class="width100 marginBottom4 padding3">
+			<ion-row>
+				<ion-col col-12>Sub-Total : <span class="fontWeight600" float-right>${{subTotal | number : '1.2-2'}}</span></ion-col>
+			</ion-row>
+		</ion-card>
+		<ion-card no-margin class="width100 marginBottom4 padding3" *ngIf = "discountAmount">
+			<ion-row>
+				<ion-col col-12 >Discount : <span class="fontWeight600" float-right>${{discountAmount | number : '1.2-2'}}</span></ion-col>
+			</ion-row>
+		</ion-card>
+		<ion-card  *ngIf="cartStorage['tax'] > 0" no-margin class="width100 marginBottom4 padding3">
+			<ion-row *ngIf = "restaurants.taxation">
+				<ion-col col-12>{{restaurants.taxation.name}} <span class="taxPercent"> ({{restaurants.taxation.tax}} %)</span>: 
+					<span class="fontWeight600" float-right>${{cartStorage['tax']  | number : '1.2-2'}}</span>
+				</ion-col>
+			</ion-row>
+		</ion-card>
+		<ion-card  *ngIf = "cartStorage && cartStorage.deliveryfee" no-margin class="width100 marginBottom4 padding3">
+			<ion-row>
+				<ion-col col-12 >Delivery Fee : <span class="fontWeight600" float-right>${{deliveryfee | number : '1.2-2'}}</span></ion-col>
+			</ion-row>
+		</ion-card>
+		<ion-card  *ngIf = "cartStorage && cartStorage.deliveryTax" no-margin class="width100 marginBottom4 padding3">
+			<ion-row *ngIf = "restaurants.taxation">
+				<ion-col col-12 >Delivery Tax <span class="taxPercent">({{restaurants.taxation.deliveryTax}} %)</span>:
+					<span class="fontWeight600" float-right>${{cartStorage['deliveryTax'] | number : '1.2-2'}}</span>
+				</ion-col>
+			</ion-row>
+		</ion-card>
+		<ion-card no-margin class="width100 marginBottom4 padding3">
+			<ion-row>
+				<ion-col col-12 >Total : <span class="fontWeight600" float-right>${{totalWithTax | number : '1.2-2'}}</span></ion-col>
+			</ion-row>
+		</ion-card>
+	</ion-row>
+
+	<ion-row class="width100" *ngIf = "currentCustomer ">
+		<ion-row class="width100">
+			<ion-col class="fontWeight600">Name</ion-col>
+			<ion-col>: {{currentCustomer.firstname}} {{currentCustomer.lastname}}</ion-col>
+		</ion-row>
+		<ion-row class="width100">
+			<ion-col class="fontWeight600">Contact No.</ion-col>
+			<ion-col>: {{currentCustomer.phonenumber}}</ion-col>
+		</ion-row>
+	</ion-row>
+
+	<ion-row *ngIf = "cartStorage && cartStorage.orderMethod">
+		<ion-row class="width100">
+			<ion-col class="fontWeight600">Type</ion-col>
+			<ion-col>: {{cartStorage.orderMethod.mType}}</ion-col>
+		</ion-row>
+		<ion-row class="width100" *ngIf = "cartStorage.orderMethod.mType == 'Delivery'">
+			<ion-col class="fontWeight600">Address</ion-col> 
+			<ion-col>: {{cartStorage.orderMethod.streetName}}, {{cartStorage.orderMethod.city}}, {{cartStorage.orderMethod.postcode}}</ion-col>
+		</ion-row>
+	</ion-row>
+
+	<ion-row *ngIf = "cartStorage && cartStorage.orderTime">
+		<ion-row class="width100">
+			<ion-col class="fontWeight600">When</ion-col>
+			<ion-col >: {{cartStorage.orderTime.tType}}</ion-col>
+		</ion-row>
+		<ion-row class="width100" *ngIf = "cartStorage.orderTime.tType == 'Later'">
+			<ion-col class="fontWeight600">Day</ion-col> 
+			<ion-col>: {{cartStorage.orderTime.day}}</ion-col>
+		</ion-row>
+		<ion-row class="width100">
+			<ion-col class="fontWeight600">Time</ion-col> 
+			<ion-col>: {{cartStorage.orderTime.time}}</ion-col>
+		</ion-row>
+	</ion-row>
+
+	<ion-row *ngIf = "cartStorage && cartStorage.orderPayment">
+		<ion-row class="width100">
+			<ion-col class="fontWeight600">Payment Type</ion-col>
+			<ion-col *ngIf = "cartStorage.orderPayment.cash">: Cash</ion-col>
+			<ion-col *ngIf = "cartStorage.orderPayment.cardpickup">: Card Pickup</ion-col>
+			<ion-col *ngIf = "cartStorage.orderPayment.cardinternet">: Card via Internet</ion-col>
+		</ion-row>
+	</ion-row>
+
+	<ion-row class="width100">
+		<ion-item no-padding class="comment">
+			<ion-label no-margin floating class="siLabel">Leave a comment...</ion-label>
+			<ion-input type="text" class="siText" maxlength="100" value="" (keyup)="comment($event)"></ion-input>
+		</ion-item>
+	</ion-row>
+	
+	<ion-row class="couponCode" *ngIf = "promotion == undefined && cart && cart.length > 0">
+		<ion-row class="width100" *ngIf = "noCode">
+			<ion-col col-5 class="textUnderline" (click)="showField()">Apply Code</ion-col>
+		</ion-row>
+
+		<ion-row class="width100" *ngIf = "typeCode">
+			<ion-input type="text" maxlength="10" value="" (keyup)="countCharacter($event)"></ion-input> <button (click)=applyCode()>Apply</button> <button (click)=showField()>Cancel</button>
+		</ion-row>
+
+		<ion-row class="width100" *ngIf = "haveCode">
+			<ion-label>{{appliedCode}}</ion-label> <button (click)=removeCode()>Remove</button>
+		</ion-row>
+	</ion-row>
+
+	<ion-row class="width100 checkout" *ngIf = "cart || promotion">
+		<button class="orderButton padding3" [disabled]="cart.length == 0 && promotion == undefined" (click)="addDetail()"><ion-icon name="arrow-dropright-circle" ios="ios-arrow-dropright-circle" md="md-arrow-dropright-circle"></ion-icon>   Add Detail </button>
+
+		<button class="orderButton padding3" [disabled]="checkDisablePlaceOrderBtn()" (click)="placeOrder()"><ion-icon name="arrow-dropright-circle" ios="ios-arrow-dropright-circle" md="md-arrow-dropright-circle"></ion-icon> Place Order </button>
+	</ion-row>
+
+</ion-content>

@@ -1,0 +1,48 @@
+<ion-header>
+	<ion-navbar>
+		<ion-title>{{menu.name}}</ion-title>
+		<button ion-button class="colorWhite bgTransparent" float-right  (click)="goToCart()">
+            <ion-icon name="cart" ios="ios-cart" md="md-cart"></ion-icon>
+            <span class="numberClass">{{cartLength}}</span>
+        </button>
+	</ion-navbar>
+</ion-header>
+
+<ion-content padding>
+	<ion-refresher (ionRefresh)="doRefresh($event)">
+        <ion-refresher-content></ion-refresher-content>
+    </ion-refresher>
+
+	<!-- <ion-fab right bottom>
+	    <button ion-fab><ion-icon name="arrow-dropup"></ion-icon></button>
+	    <ion-fab-list side="top">
+			<button ion-fab (click)="goToCart()"><ion-icon name="cart" ios="ios-cart" md="md-cart"></ion-icon> <span class="numberClass">{{tempCart.length}}</span></button>
+			<button *ngIf = "currentCustomer" ion-fab (click)="goToMyOrder()"><ion-icon name="book" ios="ios-book" md="md-book"></ion-icon></button>
+			<button *ngIf = "currentCustomer" ion-fab (click)="logout()"><ion-icon name="log-out" ios="ios-log-out" md="md-log-out"></ion-icon></button>
+			<button *ngIf = "!currentCustomer" ion-fab (click)="login()"><ion-icon name="log-in" ios="ios-log-in" md="md-log-in"></ion-icon></button>
+	    </ion-fab-list>
+  </ion-fab> -->
+
+
+	<ion-card *ngFor = "let item of items" class="width100">
+		<ion-row class="itemDetail" *ngIf="item">
+			<ion-col col-4 class="itemImage" (tap)="tapEvent($event,item)"><img [src]="itemImage(item.image)"/></ion-col>
+			<ion-col col-7 (tap)="tapEvent($event,item)">
+				<ion-row text-uppercase class="itemName">
+					{{item.name}}
+					<span *ngFor = "let chilly of spicyArray">
+                    	<span *ngIf = "item.spicyLevel && chilly <= item.spicyLevel">
+                        	<img src="assets/img/chilly.PNG" class="chillyImage">
+                        </span>
+                   </span>
+				</ion-row>
+				<ion-row class="itemPrice fontWeight600 colorGreen">
+					${{item.price}}
+				</ion-row>
+			</ion-col>
+			<ion-col col-1 *ngIf="currentCustomer">
+				<ion-icon (click)="makeFav(item._id)" float-right name="heart" ios="ios-heart" md="md-heart" [ngStyle]="isFavOrNot(item._id)"></ion-icon>
+			</ion-col>
+		</ion-row>
+	</ion-card>
+</ion-content>

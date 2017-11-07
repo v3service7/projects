@@ -1,0 +1,31 @@
+page-await {
+	.continue{
+	    top: 80%;
+	    position: absolute;
+	    right: 10%;
+	}
+
+	.orderPlaced , .orderRejected, .orderMissed{
+		padding: 50% 10%;
+		font-family: Freestyle Script;
+	}
+
+	.continue{
+		font-family: Freestyle Script;
+	}
+
+	.font20{
+		font-size : 32px;
+	}
+
+	.font40{
+		font-size : 50px;
+	}
+
+	ion-content{
+		background-position: center;
+	    background-size: cover;
+	    font-weight: 600;
+	    color: white !important;
+	}
+}

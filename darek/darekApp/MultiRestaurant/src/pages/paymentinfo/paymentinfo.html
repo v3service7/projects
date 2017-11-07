@@ -1,0 +1,75 @@
+<ion-content padding>
+
+    <ion-row padding-vertical class="width100">
+        <ion-col><b>Make Payment : ${{cartDetail.gTotal}}</b> <span class="cancelButton" float-right (click)="cancelPayment()">Cancel</span></ion-col>
+    </ion-row>
+
+	<ion-row class="paymentDiv">
+        <ion-row class="width100">
+            <ion-col col-12>
+                Card Number
+            </ion-col>
+            <ion-col col-12>
+            	<ion-input type="number" placeholder="Enter Card Number" (keyup)="countChar($event,'cardNo')"></ion-input>
+            </ion-col>
+            <ion-col col-12 *ngIf="cardNumberErr" class="alertErr">
+            	*Card number must be 16 digit long
+            </ion-col>
+        </ion-row>
+
+        <ion-row class="width100 padding5">
+            <ion-label>
+                Expiry Month
+            </ion-label>
+            <ion-select [(ngModel)]="monthSelect" submitText="Ok" cancelText="Cancel" (ionChange)="selectFunction('monthSelect')">
+                <ion-option value="01">01</ion-option>
+                <ion-option value="02">02</ion-option>
+                <ion-option value="03">03</ion-option>
+                <ion-option value="04">04</ion-option>
+                <ion-option value="05">05</ion-option>
+                <ion-option value="06">06</ion-option>
+                <ion-option value="07">07</ion-option>
+                <ion-option value="08">08</ion-option>
+                <ion-option value="09">09</ion-option>
+                <ion-option value="10">10</ion-option>
+                <ion-option value="11">11</ion-option>
+                <ion-option value="12">12</ion-option>
+            </ion-select>
+        </ion-row>
+		
+		<ion-row class="width100 padding5">
+            <ion-label>
+                Expiry Year
+            </ion-label>
+        	<ion-select [(ngModel)]="yearSelect" submitText="Ok" cancelText="Cancel" (ionChange)="selectFunction('yearSelect')">
+            	<ion-option *ngFor="let yr of years" value={{yr}}>{{yr}}</ion-option>
+        	</ion-select>
+        </ion-row>
+
+        <ion-row class="width100">
+            <ion-col col-6>
+                CVV
+            </ion-col>
+            <ion-col col-6>
+                <ion-input class="cvvClass" type="number" placeholder="Enter cvv" (keyup)="countChar($event,'cvv')"></ion-input>
+            </ion-col>
+            <ion-col col-12 *ngIf="cvvErr" class="alertErr">
+                   *CVV must be 3 digit long
+            </ion-col>
+        </ion-row>
+
+        <ion-row class="width100">
+            <ion-col col-12>
+                Name on Card
+            </ion-col>
+            <ion-col col-12>
+            	<ion-input type="text" placeholder="Enter Name" (keyup)="cardHolder($event)"></ion-input>
+            </ion-col>
+        </ion-row>
+    </ion-row>
+
+    <ion-row padding-vertical class="width100">
+	    <button ion-button full [disabled]="checkDisable()">Submit</button>
+	</ion-row>
+
+</ion-content>

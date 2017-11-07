@@ -1,0 +1,9 @@
+
+<ion-content padding *ngIf="restaurant" [ngStyle]="{'background-image': 'url(' + restroImage(restaurant.image) + ')'}">
+	<ion-row class="orderPlaced">
+		<ion-col col-12 text-center class="font40">THANK You <ion-icon name="happy" ios="ios-happy" md="md-happy"></ion-icon></ion-col>
+		<ion-col col-12 text-center class="font20">We'll notify you via Email shortly</ion-col>
+	</ion-row>
+	
+	<ion-row class="continue font20" (click) = "goToMenuPage()"> Continue... </ion-row>
+</ion-content>

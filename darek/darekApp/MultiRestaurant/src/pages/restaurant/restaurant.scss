@@ -1,0 +1,29 @@
+page-restaurant {
+
+	.restaurantInfo{
+		height : 120px;
+	    margin-bottom: 3%;
+	    background-position: center;
+	    background-size: cover;
+        box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
+	}
+
+	.restaurantInfo .card-title{
+	    top: 35%;
+	    left: 0;
+	}
+
+	.restaurantInfo:before{
+		content: '';
+	    position: absolute;
+	    top: 0;
+	    right: 0;
+	    bottom: 0;
+	    left: 0;
+	    background-image: linear-gradient(to bottom right, black,black);
+	    opacity: .6;
+	}
+
+
+
+}

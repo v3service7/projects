@@ -1,0 +1,101 @@
+page-menu {
+.card-background-page  ion-col {
+    position: relative;
+    text-align: center;
+    height: 40%;
+    margin: 3% 3% 0 3%;
+    box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
+    background-size: 100% 100%;
+    max-width : 94%;
+  }
+.card-title{
+    left : 0;
+}
+
+.descriptionDiv{
+    position: absolute;
+    top: 55%;
+    color: white;
+    width: 100%;
+    }
+
+.toolbar-content-md, .toolbar-content-wp{
+    display: flex;
+}
+
+/*@media (min-width:592px){
+    .card-background-page  ion-col {
+        height: 40%;
+        width : 50%;
+        max-width : 44% !important;
+    }
+}*/
+
+ion-row{
+    height : 100%;
+}
+
+.card-background-page  ion-col:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-image: linear-gradient(to bottom right, black,black);
+    opacity: .6; 
+  }
+
+.card-background-page  .card-title {
+    top: 36%;
+    font-size: 24px;
+    width: 100%;
+    color : white;
+
+  }
+  /* Large desktops and laptops */
+@media (min-width: 1200px) {
+
+}
+
+/* Landscape tablets and medium desktops */
+@media (min-width: 992px) and (max-width: 1199px) {
+    .card-background-page  ion-col {
+        height: 40%;
+        width : 50%;
+        max-width : 44% !important;
+    }
+
+}
+
+/* Portrait tablets and small desktops */
+@media (min-width: 768px) and (max-width: 991px) {
+    .card-background-page  ion-col {
+        height: 40%;
+        width : 50%;
+        max-width : 44% !important;
+    }
+
+}
+
+/* Landscape phones and portrait tablets */
+@media (max-width: 767px) {
+    .card-background-page  ion-col {
+        height: 40%;
+        width : 50%;
+        max-width : 44% !important;
+    }
+
+}
+
+/* Portrait phones and smaller */
+@media (max-width: 480px) {
+    .card-background-page  ion-col {
+        height: 40%;
+        width : 100%;
+        max-width : 94% !important;
+    }
+
+
+}
+}

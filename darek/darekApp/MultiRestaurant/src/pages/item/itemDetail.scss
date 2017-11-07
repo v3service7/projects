@@ -1,0 +1,128 @@
+page-itemDetail {
+
+	.topRow{
+		height: 30%;
+		margin-bottom: 4%;
+	}
+	
+	.toolbar-content-md, .toolbar-content-wp{
+	    display: flex;
+	}
+	
+	ion-card{
+		margin-bottom : 20% !important;
+	}
+
+	.itemImage{
+		background-size: 100% 100%;
+	}
+
+	.itemImage:before{
+		content: '';
+	    position: absolute;
+	    top: 0;
+	    right: 0;
+	    bottom: 0;
+	    left: 0;
+	    background-image: linear-gradient(to bottom left, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0.75));
+	    opacity: .6; 
+	}
+
+	.itemInfo{
+	    bottom: 4%;
+	    width: 100%;
+	    left: 0;
+	}
+
+	.chillyImage{
+		width  : 15px !important;
+	}
+
+	.itemName {
+		font-size : 22px;
+	}
+
+	.itemPrice {
+		font-size: 16px;
+	    font-weight: 600;
+	}
+
+	.itemSize span.floatRight{
+	    float : right;
+	}
+
+	.maxWidth100{
+		max-width : 100% !important;
+	}
+
+	.quantity{
+		border-top: 1px solid #dedede;
+	    border-bottom: 1px solid #dedede;
+	    text-align: center;
+	    font-size : 14px;
+	}
+
+	.qtyButton{
+	    font-weight: 600;
+	    font-size: 20px;
+	}
+
+	.specialInstruction .item-inner{
+		border : none !important;
+	}
+
+	.siLabel{
+		color : gray;
+		font-size: initial !important;
+	    font-weight: 500;
+	}
+
+	.siText{
+		font-size: initial !important;
+	}
+
+	.priceBorder{
+		border-right: 1px solid white;
+		font-size : 18px;
+	}
+	
+	ion-select .item-cover{
+	    height: 0 !important;
+	    width: 0 !important;
+	    position: fixed !important;
+	}
+  /* Large desktops and laptops */
+@media (min-width: 1200px) {
+
+}
+
+/* Landscape tablets and medium desktops */
+@media (min-width: 992px) and (max-width: 1199px) {
+  
+
+}
+
+/* Portrait tablets and small desktops */
+@media (min-width: 768px) and (max-width: 991px) {
+   
+
+}
+
+/* Landscape phones and portrait tablets */
+@media (max-width: 767px) {
+   
+ion-row.topRow.item-img.row {
+    height: 50%;
+}
+.alert-checkbox-group {
+    max-height: 150px !important;
+}
+
+}
+
+/* Portrait phones and smaller */
+@media (max-width: 480px) {
+
+
+}
+}

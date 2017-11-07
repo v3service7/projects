@@ -1,0 +1,92 @@
+<ion-header>
+	<ion-navbar>
+		<button ion-button menuToggle class="colorWhite">
+            <ion-icon name="menu" ios="ios-menu" md="md-menu"></ion-icon>
+        </button>
+		<ion-title>Order Detail</ion-title>
+	</ion-navbar>
+</ion-header>
+
+<ion-content padding *ngIf = "restaurants">
+
+	<ion-row *ngIf = "currentCustomer">
+		<ion-item>
+			<ion-avatar item-start>
+				<img [src]="customerImage(currentCustomer.image)">
+			</ion-avatar>
+			<h2 text-uppercase>{{currentCustomer.firstname}} {{currentCustomer.lastname}}</h2>
+			<p>{{currentCustomer.phonenumber}}</p>
+		</ion-item>
+	</ion-row>
+
+	<ion-row class="marginTop10">
+		<ion-label class="fontWeight600">Choose Method</ion-label>
+		<ion-select [(ngModel)]="orderMethodSelect" submitText="Ok" cancelText="Cancel" (ionChange)="orderMethodFunction()">
+			<ion-option *ngIf="restaurants.pickup" value="pickup">Pickup</ion-option>
+			<ion-option *ngIf="restaurants.delivery" value="delivery">Delivery</ion-option>
+		</ion-select>
+	</ion-row>
+
+	<ion-row *ngIf= "del">
+		<ion-row class="width100"><ion-label class="fontWeight600">Address : <ion-icon *ngIf = "!enterAddress"  name="create" ios="ios-create" md="md-create" float-right (click)="editAddress()"></ion-icon></ion-label></ion-row>
+		
+		<ion-row *ngIf="enterAddress" class="width100">
+			<form role="form" [formGroup]="addressForm" (ngSubmit)="saveAddressInfo()" class="width100">
+				<input type="text" class="siText" formControlName="streetName" placeholder="Enter Street Name *">
+				<input id="pac-input" type="text siText" class="siText" formControlName="city" placeholder="Enter City *">
+				<input type="number" class="siText" formControlName="postcode" placeholder="Enter Postalcode *">
+				<button type="submit" class="width100 orderButton padding3 marginTop5" [disabled]="!addressForm.valid">Save</button>
+			</form>
+		</ion-row>
+
+		<ion-row *ngIf = "!enterAddress && this.orderMethod.mType == 'Delivery'" class="width100">
+			{{this.orderMethod.streetName}}, {{this.orderMethod.city}}<br>{{this.orderMethod.postcode}}
+		</ion-row>
+	</ion-row>
+
+	<ion-row *ngIf = "orderMethod.mType">
+		<ion-label class="fontWeight600">Choose Order Time</ion-label>
+		<ion-select [(ngModel)]="orderTimeSelect" submitText="Ok" cancelText="Cancel" (ionChange)="orderTimeFunction()">
+			<ion-option value="now">Now</ion-option>
+			<ion-option *ngIf = "restaurants.orderforlater" value="later">Later</ion-option>
+		</ion-select>
+	</ion-row>
+	<ion-row *ngIf = "showLater" class="padding010 timeBg">
+		<ion-row class="width100">
+			<ion-label class="fontWeight600">Date</ion-label>
+			<ion-datetime *ngIf = "orderMethod.mType == 'Pickup'" displayFormat="DDDD, DD-MMM-YYYY" [min]="currentDate" [max]="laterPickupDay" id="laterDate1" [(ngModel)]="event.laterDay" (ionChange)="laterDateFunction()"></ion-datetime>
+			<ion-datetime *ngIf = "orderMethod.mType == 'Delivery'" displayFormat="DDDD, DD-MMM-YYYY" [min]="currentDate" [max]="laterDeliveryDay" id="laterDate1" [(ngModel)]="event.laterDay" (ionChange)="laterDateFunction()"></ion-datetime>
+		</ion-row>
+		<ion-row class="width100">
+			<ion-label class="fontWeight600">Time</ion-label>
+			<ion-datetime displayFormat="hh:mm A" pickerFormat="HH mm ss" id="laterTime1" [(ngModel)]="event.laterTime" (ionChange)="laterTimeFunction()"></ion-datetime>
+		</ion-row>
+	</ion-row>
+
+	<ion-row *ngIf = "orderMethod.mType">
+		<ion-label class="fontWeight600">Choose Payment Method</ion-label>
+		<ion-select *ngIf = "orderMethod.mType == 'Pickup'" [(ngModel)]="orderPaymentSelect" submitText="Ok" cancelText="Cancel" (ionChange)="orderPaymentFunction()">
+			<ion-option *ngIf = "restaurants.paymentpickup && restaurants.paymentpickup.cash" value="cash">Cash</ion-option>
+			<ion-option *ngIf = "restaurants.paymentpickup && restaurants.paymentpickup.cardpickup" value="cardPickup">Card at Pickup</ion-option>
+			<ion-option *ngIf = "restaurants.paymentpickup && restaurants.paymentpickup.cardinternet" value="cardInternet">Card via Internet</ion-option>
+		</ion-select>
+		<ion-select *ngIf = "orderMethod.mType == 'Delivery'" [(ngModel)]="orderPaymentSelect" submitText="Ok" cancelText="Cancel" (ionChange)="orderPaymentFunction()">
+			<ion-option *ngIf = "restaurants.paymentpickup && restaurants.paymentdelivery.cash" value="cash">Cash</ion-option>
+			<ion-option *ngIf = "restaurants.paymentpickup && restaurants.paymentdelivery.cardpickup" value="cardPickup">Card at Pickup</ion-option>
+			<ion-option *ngIf = "restaurants.paymentpickup && restaurants.paymentdelivery.cardinternet" value="cardInternet">Card via Internet</ion-option>
+		</ion-select>
+	</ion-row>
+
+	<ion-row class="width100 marginTop5">
+		<button class="width100 orderButton padding3" [disabled]="checkDisabled()" (click)="updateInfo()">
+			<ion-row class="width100">
+				<ion-col text-center>
+					<ion-icon name="arrow-dropleft-circle" ios="ios-arrow-dropleft-circle" md="md-arrow-dropleft-circle"></ion-icon>   Update
+				</ion-col>
+			</ion-row>
+		</button>
+	</ion-row>
+
+	<div id="gmap" style="display: none;"></div>
+
+</ion-content>

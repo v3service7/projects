@@ -1,0 +1,49 @@
+page-profile {
+	
+	ion-item .item-inner{
+		padding : 0 !important;
+		border : none !important;
+	}
+
+	ion-item ion-label{
+		margin : 0 !important;
+		text-align: -webkit-center;
+	}
+
+	ion-avatar img{
+		width : 25% !important;
+		height : 25% !important;
+	}
+
+	ion-item{
+	    margin: 25% 0 10% 0 !important;
+	    background-color : transparent !important;
+	}
+
+	ion-content{
+		background-repeat: no-repeat;
+		background-position: center;
+	    background-size: cover;
+	}
+
+	ion-content:before{
+	    content: '';
+	    position: absolute;
+	    top: 0;
+	    right: 0;
+	    bottom: 0;
+	    left: 0;
+	    background-image: linear-gradient(to bottom right, black,black);
+	    opacity: .6;
+	}
+
+	.changePass{
+		text-decoration : underline;
+	}
+
+	.editProfile{
+		position: absolute;
+	    top: 0;
+	    right: 0;
+	}
+}

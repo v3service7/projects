@@ -1,0 +1,25 @@
+<ion-header>
+    <ion-navbar>
+        <button ion-button menuToggle class="colorWhite">
+            <ion-icon name="menu" ios="ios-menu" md="md-menu"></ion-icon>
+        </button>
+        <ion-title>Restaurants</ion-title>
+        <button ion-button class="colorWhite bgTransparent" float-right  (click)="goToCart()">
+            <ion-icon name="cart" ios="ios-cart" md="md-cart"></ion-icon>
+            <span class="numberClass">{{cartLength}}</span>
+        </button>
+    </ion-navbar>
+</ion-header>
+
+<ion-content>
+    <ion-refresher (ionRefresh)="doRefresh($event)">
+        <ion-refresher-content></ion-refresher-content>
+    </ion-refresher>
+
+    <ion-row *ngIf = "restaurantsList.length > 0" class="margin4">
+        <ion-col col-12 *ngFor = "let restaurant of restaurantsList" (click)="goToRestaurant(restaurant._id)" [ngStyle]="{'background-image': 'url(' + restroImage(restaurant.image) + ')'}" class="restaurantInfo textCenter font18 colorWhite">
+            <div class="card-title positionAbsolute width100 fontWeight500">{{restaurant.name}}</div>
+        </ion-col>
+    </ion-row>
+
+</ion-content>
