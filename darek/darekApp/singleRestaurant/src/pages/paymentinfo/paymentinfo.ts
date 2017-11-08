@@ -39,9 +39,9 @@ export class PaymentinfoPage {
 	    private lf: FormBuilder
 		) {
 
-		//this.cartDetail = navParams.get('cart');
-		this.cartStorageString = 'cartStorage_' + this.resID
-		this.cartDetail = JSON.parse(localStorage.getItem(this.cartStorageString));
+		this.cartDetail = navParams.get('cart');
+		//this.cartStorageString = 'cartStorage_' + this.resID
+		//this.cartDetail = JSON.parse(localStorage.getItem(this.cartStorageString));
 		this.year();
 	}
 

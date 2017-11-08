@@ -41,7 +41,7 @@ export class PaymentinfoPage {
 
 		this.cartDetail = navParams.get('cart');
 		this.resID = navParams.get('resId');
-		this.cartStorageString = 'cartStorage_' + this.resID
+		//this.cartStorageString = 'cartStorage_' + this.resID
 		//this.cartDetail = JSON.parse(localStorage.getItem(this.cartStorageString));
 		this.year();
 	}
