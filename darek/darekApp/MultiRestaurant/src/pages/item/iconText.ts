@@ -1,8 +1,6 @@
 import { Component } from '@angular/core';
 import { AlertController , ToastController, LoadingController, Nav, NavController, NavParams ,ViewController,MenuController} from 'ionic-angular';
 
-
-import { HomePage } from '../home/home';
 /*import { ProfilePage } from '../profile/profile';*/
 import { MenuPage } from '../menu/menu';
 
@@ -19,7 +17,6 @@ import { MenuPage } from '../menu/menu';
 
 export class IconTextPage {
   tabOne = MenuPage;
-  tabTwo = HomePage;
   tabThree = MenuPage;
 }
 

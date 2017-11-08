@@ -34,7 +34,6 @@ import { MenuPageModule } from '../pages/menu/menu.module';
 import { PaymentinfoPage } from '../pages/paymentinfo/paymentinfo';
 
 import { ItemPage } from '../pages/item/item';
-import { HomePage } from '../pages/home/home';
 import { ItemPageModule } from '../pages/item/item.module';
 import { ItemDetailPage } from '../pages/item/itemDetail';
 import { ItemDetailPageModule } from '../pages/item/itemDetail.module';
