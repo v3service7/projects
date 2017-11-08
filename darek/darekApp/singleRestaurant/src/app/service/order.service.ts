@@ -50,6 +50,13 @@ export class OrderService {
             );
     }
 
+    customerOrdersByRestaurant(obj) {
+        return this.http.get(globalVariable.url+'order/customer-by-restaurant/'+obj.custID+'/'+obj.resID)
+        .map(
+            (response: Response) => response.json()
+            );
+    }
+
 	getMethodChart(id, days) {
   		return this.http.get(globalVariable.url+'reporting/method/'+id + '/'+ days)
 			.map(
