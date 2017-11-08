@@ -74,6 +74,19 @@ router.get('/customer/:id', function(req, res, next) {
     }); 
 });
 
+router.get('/customer-by-restaurant/:custID/:resID', function(req, res, next) {
+    var response={};
+    Order.find({customerId:req.params.custID, restaurantId : req.params.resID}).populate('customerId').populate('restaurantId').populate('driverId').exec(function(err,data){
+        if (err) {
+            response = {"error" : true,"message" : "Error fetching data"};
+        } else{
+
+            response = {"error" : false,"message" : data};
+        };
+        res.json(response);
+    }); 
+});
+
 /*
 router.get('/create-hmac', function(req, res, next) {
     var response={};

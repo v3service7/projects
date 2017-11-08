@@ -4,6 +4,8 @@ import { ActionSheetController ,ModalController,ToastController, LoadingControll
 import { RestaurantsService } from '../../app/service/restaurants.service';
 import { OrderService } from '../../app/service/order.service';
 
+import * as globalVariable from "../../app/global";
+
 import { OrderDetailPage } from './order-detail';
 
 
@@ -16,6 +18,7 @@ import { OrderDetailPage } from './order-detail';
      currentCustomer:any={};
      orders: Array<{}>;
      loading:any;
+     resID: string = globalVariable.resId;
 
     constructor(
         public actionSheetCtrl: ActionSheetController,
@@ -40,7 +43,8 @@ import { OrderDetailPage } from './order-detail';
     }
 
      private getOrders(id){
-         this.orderService.customerOrders(id).subscribe(users => { 
+         var obj = {'custID' : id , 'resID' : this.resID}
+         this.orderService.customerOrdersByRestaurant(obj).subscribe(users => { 
              console.log("users.message");
              console.log(users.message);
              this.orders = users.message;
