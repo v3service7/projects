@@ -43,7 +43,7 @@ import { OrderDetailPage } from './order-detail';
     }
 
      private getOrders(id){
-         var obj = {'custID' : id , 'resID' : this.resID}
+         var obj = {'custID' : id , 'resID' : this.resID};
          this.orderService.customerOrdersByRestaurant(obj).subscribe(users => { 
              console.log("users.message");
              console.log(users.message);

@@ -117,7 +117,7 @@
                         {{order.multisize.size}}
                     </ion-col>
                     <ion-col col-6>
-                        <b>{{order.multisize.price}}</b>
+                        <b>{{order.multisize.price | number : '1.2-2'}}</b>
                     </ion-col>
                 </ion-row>
 
@@ -128,7 +128,7 @@
                                 {{adn.name}}
                             </ion-col>
                             <ion-col col-6>
-                                <b>{{adn.price}}</b>
+                                <b>{{adn.price | number : '1.2-2'}}</b>
                             </ion-col>
                         </ion-row>
                     </ion-item>
@@ -167,7 +167,7 @@
                             {{selectedOrder.promotion.itemGroup1.multisize.size}}
                         </ion-col>
                         <ion-col col-6>
-                            <b>{{selectedOrder.promotion.itemGroup1.multisize.price}}</b>
+                            <b>{{selectedOrder.promotion.itemGroup1.multisize.price | number : '1.2-2'}}</b>
                         </ion-col>
                     </ion-row>
                     
@@ -178,7 +178,7 @@
                                     {{adn.name}}
                                 </ion-col>
                                 <ion-col col-6>
-                                    <b>{{adn.price}}</b>
+                                    <b>{{adn.price | number : '1.2-2'}}</b>
                                 </ion-col>
                             </ion-row>
                         </ion-item>
@@ -211,7 +211,7 @@
                             {{selectedOrder.promotion.itemGroup2.multisize.size}}
                         </ion-col>
                         <ion-col col-6>
-                            <b>{{selectedOrder.promotion.itemGroup2.multisize.price}}</b>
+                            <b>{{selectedOrder.promotion.itemGroup2.multisize.price | number : '1.2-2'}}</b>
                         </ion-col>
                     </ion-row>
 
@@ -222,7 +222,7 @@
                                     {{adn.name}}
                                 </ion-col>
                                 <ion-col col-6>
-                                    <b>{{adn.price}}</b>
+                                    <b>{{adn.price | number : '1.2-2'}}</b>
                                 </ion-col>
                             </ion-row>
                         </ion-item>
@@ -251,7 +251,7 @@
                         Sub-Total
                     </ion-col>
                     <ion-col col-6>
-                        <b>{{selectedOrder.subTotal}}</b>
+                        <b>{{selectedOrder.subTotal | number : '1.2-2'}}</b>
                     </ion-col>
                 </ion-row>
                 <ion-row *ngIf="selectedOrder.orderMethod && selectedOrder.orderMethod.mType == 'Delivery'">
@@ -259,7 +259,7 @@
                         Delivery Fee
                     </ion-col>
                     <ion-col col-6>
-                        <b>{{selectedOrder.deliveryfee}}</b>
+                        <b>{{selectedOrder.deliveryfee | number : '1.2-2'}}</b>
                     </ion-col>
                 </ion-row>
                 <ion-row *ngIf="selectedOrder.orders && selectedOrder.orders.length > 0">
