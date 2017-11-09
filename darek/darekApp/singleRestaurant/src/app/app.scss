@@ -23,9 +23,14 @@
     color : white !important ;
 }
 
+.whiteSpaceInitial, .alert-checkbox-label{
+    white-space: initial;
+}
+
 .toolbar-title{
     color : white;
     font-weight : 100;
+    white-space: initial !important;
 }
 
 .back-button {
@@ -65,7 +70,7 @@
 }
 
 .width100{
-    width : 100%;
+    width : 100% !important;
 }
 
 .width40{

@@ -16,10 +16,10 @@ export class HomePage {
 	orders: Array<{}>;
 	loading:any;
 	overview:any = {};
-	acceptedOrderTotal : Number = 0;
-	avgAcceptedOrderTotal : Number;
-	lastWeekOrderTotal : Number = 0;
-	avglastWeekOrderTotal : Number;
+	acceptedOrderTotal = 0;
+	avgAcceptedOrderTotal = 0;
+	lastWeekOrderTotal = 0;
+	avglastWeekOrderTotal =0;
 
 	constructor(public navCtrl: NavController, public menuCtrl: MenuController, public viewCtrl: ViewController, public loadingCtrl: LoadingController, public navParams: NavParams,private restaurantsService: RestaurantsService,private orderService: OrderService) {
  		
@@ -51,7 +51,6 @@ export class HomePage {
 		this.currentOwner = JSON.parse(localStorage.getItem('currentOwner'));
         this.restaurantsService.getOwnerRestaurants(this.currentOwner._id).subscribe(users => {
             this.restaurants = users.message;
-            console.log(this.restaurants);
             this.getOverview(this.restaurants._id);
         });
     }
@@ -59,22 +58,18 @@ export class HomePage {
     private getOverview(id){
         this.orderService.overview(id).subscribe(users => { 
             this.overview = users.data;
-            console.log("this.overview");
-            console.log(this.overview);
-            if (this.overview.totalAcceptedOrder) {
+            if (this.overview.totalAcceptedOrder && this.overview.totalAcceptedOrder.length > 0) {
                 for (var i = 0; i < this.overview.totalAcceptedOrder.length; i++) {
                     this.acceptedOrderTotal = this.acceptedOrderTotal + this.overview.totalAcceptedOrder[i].gTotal;
                 }
-                this.avgAcceptedOrderTotal = Number(this.acceptedOrderTotal) / Number(this.overview.totalAcceptedOrder.length);
+                this.avgAcceptedOrderTotal = this.acceptedOrderTotal / this.overview.totalAcceptedOrder.length;
             }
-            console.log("this.overview");
-            console.log(this.overview);
 
-            if (this.overview.asPerDayOrder) {
+            if (this.overview.asPerDayOrder && this.overview.asPerDayOrder.length > 0) {
                 for (var i = 0; i < this.overview.asPerDayOrder.length; i++) {
                     this.lastWeekOrderTotal = this.lastWeekOrderTotal + this.overview.asPerDayOrder[i].gTotal;
                 }
-                this.avglastWeekOrderTotal = Number(this.lastWeekOrderTotal) / Number(this.overview.asPerDayOrder.length);
+                this.avglastWeekOrderTotal = this.lastWeekOrderTotal / this.overview.asPerDayOrder.length;
             }
             this.loading.dismiss();
         });

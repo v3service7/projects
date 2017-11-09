@@ -9,7 +9,7 @@
 
 <ion-content padding class="cartPage">
 
-	<ion-row *ngIf = "restaurants.checkoutMessage" class="customCheckoutMessage">
+	<ion-row *ngIf = "((cart && cart.length > 0) || promotion) && restaurants.checkoutMessage" class="customCheckoutMessage">
 		<ion-col>
 			{{restaurants.checkoutMessage}}
 		</ion-col>
@@ -233,17 +233,19 @@
 		</ion-card>		
 	</ion-row>	
 
-	<ion-row  *ngIf = "cart || promotion">
+	<ion-row  *ngIf = "(cart && cart.length > 0) || promotion">
 		<ion-card no-margin class="width100 marginBottom4 padding3">
 			<ion-row>
 				<ion-col col-12>Sub-Total : <span class="fontWeight600" float-right>${{subTotal | number : '1.2-2'}}</span></ion-col>
 			</ion-row>
 		</ion-card>
+
 		<ion-card no-margin class="width100 marginBottom4 padding3" *ngIf = "discountAmount">
 			<ion-row>
 				<ion-col col-12 >Discount : <span class="fontWeight600" float-right>${{discountAmount | number : '1.2-2'}}</span></ion-col>
 			</ion-row>
 		</ion-card>
+
 		<ion-card  *ngIf="cartStorage['tax'] > 0" no-margin class="width100 marginBottom4 padding3">
 			<ion-row *ngIf = "restaurants.taxation">
 				<ion-col col-12>{{restaurants.taxation.name}} <span class="taxPercent"> ({{restaurants.taxation.tax}} %)</span>: 
@@ -251,11 +253,13 @@
 				</ion-col>
 			</ion-row>
 		</ion-card>
+
 		<ion-card  *ngIf = "cartStorage && cartStorage.deliveryfee" no-margin class="width100 marginBottom4 padding3">
 			<ion-row>
 				<ion-col col-12 >Delivery Fee : <span class="fontWeight600" float-right>${{deliveryfee | number : '1.2-2'}}</span></ion-col>
 			</ion-row>
 		</ion-card>
+
 		<ion-card  *ngIf = "cartStorage && cartStorage.deliveryTax" no-margin class="width100 marginBottom4 padding3">
 			<ion-row *ngIf = "restaurants.taxation">
 				<ion-col col-12 >Delivery Tax <span class="taxPercent">({{restaurants.taxation.deliveryTax}} %)</span>:
@@ -263,6 +267,7 @@
 				</ion-col>
 			</ion-row>
 		</ion-card>
+		
 		<ion-card no-margin class="width100 marginBottom4 padding3">
 			<ion-row>
 				<ion-col col-12 >Total : <span class="fontWeight600" float-right>${{totalWithTax | number : '1.2-2'}}</span></ion-col>
@@ -316,7 +321,7 @@
 		</ion-row>
 	</ion-row>
 
-	<ion-row class="width100">
+	<ion-row class="width100" *ngIf = "(cart && cart.length > 0) || promotion">
 		<ion-item no-padding class="comment">
 			<ion-label no-margin floating class="siLabel">Leave a comment...</ion-label>
 			<ion-input type="text" class="siText" maxlength="100" value="" (keyup)="comment($event)"></ion-input>
@@ -337,7 +342,7 @@
 		</ion-row>
 	</ion-row>
 
-	<ion-row class="width100 checkout" *ngIf = "cart || promotion">
+	<ion-row class="width100 checkout" *ngIf = "(cart && cart.length > 0) || promotion">
 		<button class="orderButton padding3" [disabled]="cart.length == 0 && promotion == undefined" (click)="addDetail()"><ion-icon name="arrow-dropright-circle" ios="ios-arrow-dropright-circle" md="md-arrow-dropright-circle"></ion-icon>   Add Detail </button>
 
 		<button class="orderButton padding3" [disabled]="checkDisablePlaceOrderBtn()" (click)="placeOrder()"><ion-icon name="arrow-dropright-circle" ios="ios-arrow-dropright-circle" md="md-arrow-dropright-circle"></ion-icon> Place Order </button>

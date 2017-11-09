@@ -55,8 +55,8 @@ import { OrderDetailPage } from './order-detail';
 
      private getOrders(id){
          this.orderService.orders(id).subscribe(users => { 
-             console.log("users.message");
-             console.log(users.message);
+             /*console.log("users.message");
+             console.log(users.message);*/
              this.orders = users.message;
              this.tempOrdr = users.message;
              this.loading.dismiss();
@@ -107,7 +107,7 @@ import { OrderDetailPage } from './order-detail';
     private filterItems(searchTerm){
         this.orders = this.tempOrdr
         let ordr = this.orders.filter((item) => {
-            console.log(item['status'].toLowerCase() == searchTerm.toLowerCase());
+            /*console.log(item['status'].toLowerCase() == searchTerm.toLowerCase());*/
             return item['status'].toLowerCase() == searchTerm.toLowerCase();
         });
         this.orders = ordr;

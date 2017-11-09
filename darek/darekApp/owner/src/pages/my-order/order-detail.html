@@ -18,19 +18,19 @@
             <h2>{{selectedOrder.status}}</h2>
             <div *ngIf="selectedOrder.status == 'Received'">
                 <!-- <div> -->
-                    <button ion-button icon-only color="secondary" (click)="acceptPrompt(selectedOrder,'Accepted')">
-                        <ion-icon name="checkmark" ios="ios-checkmark" md="md-checkmark"> Accept</ion-icon>
-                    </button>
-                    <button ion-button icon-only color="danger" (click)="rejectPrompt(selectedOrder,'Rejected')">
-                        <ion-icon name="close" ios="ios-close" md="md-close"> Reject</ion-icon>
-                    </button>
-                </div>
-                <div *ngIf="!selectedOrder.driverId && selectedOrder.status != 'Rejected' && selectedOrder.status != 'Received' && selectedOrder.status != 'Missed' && selectedOrder.orderMethod.mType != 'Pickup'">
-                    <button ion-button full (click)="assignOrder($event,selectedOrder)">
-                        <ion-icon name="car" ios="ios-car" md="md-car"></ion-icon> &nbsp; Assign to Drivers
-                    </button>
-                </div>
-            </ion-card-content>
+                <button ion-button icon-only color="secondary" (click)="acceptPrompt(selectedOrder,'Accepted')">
+                    <ion-icon name="checkmark" ios="ios-checkmark" md="md-checkmark"> Accept</ion-icon>
+                </button>
+                <button ion-button icon-only color="danger" (click)="rejectPrompt(selectedOrder,'Rejected')">
+                    <ion-icon name="close" ios="ios-close" md="md-close"> Reject</ion-icon>
+                </button>
+            </div>
+            <div *ngIf="!selectedOrder.driverId && selectedOrder.status != 'Rejected' && selectedOrder.status != 'Received' && selectedOrder.status != 'Missed' && selectedOrder.orderMethod.mType != 'Pickup'">
+                <button ion-button full (click)="assignOrder($event,selectedOrder)">
+                    <ion-icon name="car" ios="ios-car" md="md-car"></ion-icon> &nbsp; Assign to Drivers
+                </button>
+            </div>
+        </ion-card-content>
     </ion-card>
         
     <ion-card>
@@ -119,30 +119,30 @@
 
             <ion-item *ngFor="let order of selectedOrder.orders" text-left>
                 <ion-row *ngIf="order.item">
-                    <ion-col col-6>
+                    <ion-col col-9>
                         <span style="font-size: 14px"> <b>{{order.quantity}} x </b></span>{{order.item.name}}
                     </ion-col>
-                    <ion-col col-6 text-right>
-                        <b>{{order.totalPrice}}</b>
+                    <ion-col col-3 text-right no-padding>
+                        <b>{{order.totalPrice |number : '1.2-2'}}</b>
                     </ion-col>
                 </ion-row>
 
-                <ion-row *ngIf="order.multisize" padding-horizontal>
-                    <ion-col col-6>
-                        {{order.multisize.size}}
+                <ion-row *ngIf="order.multisize" no-padding padding-left>
+                    <ion-col col-9>
+                        <b>{{order.multisize.size}}</b>
                     </ion-col>
-                    <ion-col col-6 text-right>
-                        <b>{{order.multisize.price}}</b>
+                    <ion-col col-3 text-right no-padding>
+                        {{order.multisize.price | number : '1.2-2'}}
                     </ion-col>
                 </ion-row>
 
-                <ion-row *ngIf="order.addon.length > 0" padding-horizontal>
+                <ion-row *ngIf="order.addon.length > 0" no-padding padding-left>
                     <ion-row *ngFor="let adn of order.addon" class="width100">
-                        <ion-col col-6>
-                            {{adn.name}}
+                        <ion-col col-9>
+                            <b>{{adn.name}}</b>
                         </ion-col>
-                        <ion-col col-6 text-right>
-                            <b>{{adn.price}}</b>
+                        <ion-col col-3 text-right no-padding>
+                            {{adn.price |number : '1.2-2'}}
                         </ion-col>
                     </ion-row>
                 </ion-row>
@@ -168,31 +168,31 @@
                 <b>Promotion Item</b>
                 <ion-row *ngIf="selectedOrder.promotion.itemGroup1 && selectedOrder.promotion.itemGroup1.item">
                     <ion-row class="width100">
-                        <ion-col col-6>
+                        <ion-col col-9>
                             <span style="font-size: 14px"> <b>{{selectedOrder.promotion.itemGroup1.quantity}} x </b></span>{{selectedOrder.promotion.itemGroup1.item.name}}
                         </ion-col>
 
-                        <ion-col col-6 text-right>
-                            <b>{{selectedOrder.promotion.itemGroup1.totalPrice}}</b>
+                        <ion-col col-3 text-right no-padding>
+                            <b>{{selectedOrder.promotion.itemGroup1.totalPrice |number : '1.2-2'}}</b>
                         </ion-col>
                     </ion-row>
 
-                    <ion-row *ngIf="selectedOrder.promotion.itemGroup1.multisize" class="width100" padding-horizontal>
-                        <ion-col col-6>
-                            {{selectedOrder.promotion.itemGroup1.multisize.size}}
+                    <ion-row *ngIf="selectedOrder.promotion.itemGroup1.multisize" class="width100"  no-padding padding-left>
+                        <ion-col col-9>
+                            <b>{{selectedOrder.promotion.itemGroup1.multisize.size}}</b>
                         </ion-col>
-                        <ion-col col-6 text-right>
-                            <b>{{selectedOrder.promotion.itemGroup1.multisize.price}}</b>
+                        <ion-col col-3 text-right no-padding>
+                            {{selectedOrder.promotion.itemGroup1.multisize.price |number : '1.2-2'}}
                         </ion-col>
                     </ion-row>
                     
-                    <ion-row *ngIf="selectedOrder.promotion.itemGroup1.addon.length > 0" class="width100" padding-horizontal>
+                    <ion-row *ngIf="selectedOrder.promotion.itemGroup1.addon.length > 0" class="width100"  no-padding padding-left>
                         <ion-row *ngFor="let adn of selectedOrder.promotion.itemGroup1.addon" class="width100">
-                            <ion-col col-6>
-                                {{adn.name}}
+                            <ion-col col-9>
+                                <b>{{adn.name}}</b>
                             </ion-col>
-                            <ion-col col-6 text-right>
-                                <b>{{adn.price}}</b>
+                            <ion-col col-3 text-right no-padding>
+                                {{adn.price}}
                             </ion-col>
                         </ion-row>
                     </ion-row>
@@ -210,36 +210,35 @@
                 </ion-row>
 
                 <ion-row *ngIf="selectedOrder.promotion.itemGroup2 && selectedOrder.promotion.itemGroup2.item" >
-                    <ion-col col-6>
+                    <ion-col col-9>
                         <span style="font-size: 14px"> <b>{{selectedOrder.promotion.itemGroup2.quantity}} x </b></span>{{selectedOrder.promotion.itemGroup2.item.name}}
                     </ion-col>
-                    <ion-col col-6 text-right>
-                        <b>{{selectedOrder.promotion.itemGroup2.totalPrice}}</b>
+                    <ion-col col-3 text-right no-padding>
+                        <b>{{selectedOrder.promotion.itemGroup2.totalPrice |number : '1.2-2'}}</b>
                     </ion-col>
 
-                    <ion-row *ngIf="selectedOrder.promotion.itemGroup2.multisize" class="width100" padding-horizontal>
-                        <ion-col col-6>
-                            {{selectedOrder.promotion.itemGroup2.multisize.size}}
+                    <ion-row *ngIf="selectedOrder.promotion.itemGroup2.multisize" class="width100"  no-padding padding-left>
+                        <ion-col col-9>
+                            <b>{{selectedOrder.promotion.itemGroup2.multisize.size}}</b>
                         </ion-col>
-                        <ion-col col-6 text-right>
-                            <b>{{selectedOrder.promotion.itemGroup2.multisize.price}}</b>
+                        <ion-col col-3 text-right no-padding>
+                            {{selectedOrder.promotion.itemGroup2.multisize.price |number : '1.2-2'}}
                         </ion-col>
                     </ion-row>
 
-                    <ion-row *ngIf="selectedOrder.promotion.itemGroup2.addon.length > 0" class="width100">
+                    <ion-row *ngIf="selectedOrder.promotion.itemGroup2.addon.length > 0" class="width100" no-padding padding-left>
                         
-                            <ion-row padding-horizontal *ngFor="let adn of selectedOrder.promotion.itemGroup2.addon" class="width100">
-                                <ion-col col-6>
-                                    {{adn.name}}
+                            <ion-row  no-padding padding-left *ngFor="let adn of selectedOrder.promotion.itemGroup2.addon" class="width100">
+                                <ion-col col-9>
+                                    <b>{{adn.name}}</b>
                                 </ion-col>
-                                <ion-col col-6 text-right>
-                                    <b>{{adn.price}}</b>
+                                <ion-col col-3 text-right no-padding>
+                                    {{adn.price |number : '1.2-2'}}
                                 </ion-col>
                             </ion-row>
                     </ion-row>
 
                     <ion-row *ngIf="selectedOrder.promotion.itemGroup2.itemInstruction && selectedOrder.promotion.itemGroup2.itemInstruction != ''">
-                      
                             <ion-row >
                                 <ion-col col-12>
                                     <b>Special Instructions</b>
@@ -248,7 +247,6 @@
                                     <p class="wrap">{{selectedOrder.promotion.itemGroup2.itemInstruction}}</p>
                                 </ion-col>
                             </ion-row >
-                      
                     </ion-row>
                 </ion-row>
             </ion-item>
@@ -261,7 +259,7 @@
                         <b>Sub-Total</b>
                     </ion-col>
                     <ion-col col-6 text-right>
-                        <b>$ {{selectedOrder.subTotal}}</b>
+                        <b>$ {{selectedOrder.subTotal |number : '1.2-2'}}</b>
                     </ion-col>
                 </ion-row>
                 <ion-row *ngIf="selectedOrder.deliveryfee">
@@ -269,7 +267,7 @@
                         <b>Delivery Fee</b>
                     </ion-col>
                     <ion-col col-6 text-right>
-                        <b>$ {{selectedOrder.deliveryfee}}</b>
+                        <b>$ {{selectedOrder.deliveryfee  |number : '1.2-2'}}</b>
                     </ion-col>
                 </ion-row>
                 <ion-row *ngIf="selectedOrder.tax">
@@ -277,7 +275,15 @@
                         <b>Tax</b>
                     </ion-col>
                     <ion-col col-6 text-right>
-                        <b>$ {{selectedOrder.tax}}</b>
+                        <b>$ {{selectedOrder.tax |number : '1.2-2'}}</b>
+                    </ion-col>
+                </ion-row>
+                <ion-row *ngIf="selectedOrder.deliveryTax">
+                    <ion-col col-6>
+                        <b>Delivery Tax</b>
+                    </ion-col>
+                    <ion-col col-6 text-right>
+                        <b>$ {{selectedOrder.deliveryTax |number : '1.2-2'}}</b>
                     </ion-col>
                 </ion-row>
                 <ion-row *ngIf="selectedOrder.gTotal">

@@ -14,8 +14,8 @@
             <h1 *ngIf="overview.totalAcceptedOrder" style="color: white;">{{overview.totalAcceptedOrder.length}}</h1>
             Total Accepted Orders
             <ion-row style="background-color: #4CABBE;padding: 2%; ">
-                <ion-col col-6><b>USD {{acceptedOrderTotal}}</b></ion-col>
-                <ion-col col-6><b>USD average order {{avgAcceptedOrderTotal}}</b></ion-col>
+                <ion-col col-6><b>USD {{acceptedOrderTotal|number : '1.2-2'}}</b></ion-col>
+                <ion-col col-6><b>USD average order {{avgAcceptedOrderTotal|number : '1.2-2'}}</b></ion-col>
             </ion-row>
         </ion-card-content>
     </ion-card>
@@ -23,8 +23,8 @@
         <ion-card-content style="background-color: #52B8CC; color: white;">
             <h1 *ngIf="overview.asPerDayOrder"  style="color: white;">{{overview.asPerDayOrder.length}}</h1>Order Accepted in last 7 Days
             <ion-row style="background-color: #4CABBE;padding: 2%;">
-                <ion-col col-6><b>USD {{lastWeekOrderTotal}}</b></ion-col>
-                <ion-col col-6><b>USD average order {{avglastWeekOrderTotal}}</b></ion-col>
+                <ion-col col-6><b>USD {{lastWeekOrderTotal|number : '1.2-2'}}</b></ion-col>
+                <ion-col col-6><b>USD average order {{avglastWeekOrderTotal|number : '1.2-2'}}</b></ion-col>
             </ion-row>
         </ion-card-content>
     </ion-card>

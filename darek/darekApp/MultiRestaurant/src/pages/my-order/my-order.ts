@@ -49,6 +49,8 @@ import { OrderDetailPage } from './order-detail';
      }
 
      private orderDetail(obj){
+         console.log("obj");
+         console.log(obj);
          this.navCtrl.push(OrderDetailPage, {
              item: obj
          });

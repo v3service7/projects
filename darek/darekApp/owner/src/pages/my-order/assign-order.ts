@@ -73,7 +73,7 @@ import { OrderDetailPage } from './order-detail';
                 this.getToast('Order Assigned to Driver successfully');
             }
         );
-        console.log('Submitting form', objUpdate);
+        /*console.log('Submitting form', objUpdate);*/
     }
 
     private getDrivers(resID){

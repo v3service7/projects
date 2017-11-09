@@ -203,6 +203,8 @@ export class ItemDetailPage {
         alert.addButton({
             text: 'Okay',
             handler: data => {
+                console.log("data");
+                console.log(data);
                 var data1 = this.addGroupId(data,group);
                 this.spliceAddon(data1,group)
             }
@@ -362,14 +364,19 @@ export class ItemDetailPage {
     }
 
     private addToCart(){
+
+        console.log("this.itemType");
+        console.log(this.itemType);
+
         if (this.itemType == 'cartItem') {
-            var restaurantID = JSON.parse(localStorage.getItem('resID'));
-            console.log("restaurantID");
+            var restaurantID = localStorage.getItem('resID');
+            
+            /*console.log("restaurantID");
             console.log(restaurantID);
-            console.log(this.resID);
+            console.log(this.resID);*/
 
             if (this.tempCart.length == 0 && restaurantID == null) {
-                localStorage.setItem('resID',JSON.stringify(this.resID));
+                localStorage.setItem('resID',this.resID);
                 this.addCart();
             }
             
@@ -458,7 +465,9 @@ export class ItemDetailPage {
     }
 
     private goToCart(){
-        var restaurantID = JSON.parse(localStorage.getItem('resID'));
+        var restaurantID = localStorage.getItem('resID');
+        console.log("restaurantID");
+        console.log(restaurantID);
         if (restaurantID != null) {
             this.navCtrl.push(CartPage,{
                 resId : restaurantID

@@ -37,7 +37,7 @@
 					</ion-col>
 					<ion-col col-2 *ngIf="currentCustomer"><ion-icon (click)="makeFav(item._id)" float-right name="heart" ios="ios-heart" md="md-heart" [ngStyle]="isFavOrNot(item._id)"></ion-icon></ion-col>
 				</ion-col>
-				<ion-col col-12 class="itemPrice colorGreen">${{item.price}}</ion-col>
+				<ion-col col-12 class="itemPrice colorGreen">${{item.price | number : '1.2-2'}}</ion-col>
 			</ion-row>
 		</ion-col>
 	</ion-row>
@@ -54,7 +54,7 @@
 					<!-- <div *ngFor="let multisizes of item.multisize; let i = index; "> -->
 						<ion-option *ngFor="let multisizes of item.multisize; let i = index; " [value]="multisizes" selected ="{{i== 0}}">
 							<ion-row>
-								<ion-col col-4 text-right>${{multisizes.price}}&nbsp;&nbsp;&nbsp;&nbsp;</ion-col>
+								<ion-col col-4 text-right>${{multisizes.price | number : '1.2-2'}}&nbsp;&nbsp;&nbsp;&nbsp;</ion-col>
 								<ion-col col-8>{{multisizes.size}}</ion-col>
 							</ion-row>
 						</ion-option>
@@ -112,7 +112,7 @@
 			<button class="width100 orderButton padding3" [disabled]="checkDisabled()" (click)="addToCart()">
 				<ion-row class="width100">
 					<ion-col col-3 text-center class="priceBorder">
-						{{this.totalAmount}} 
+						{{this.totalAmount | number : '1.2-2'}} 
 					</ion-col>
 					<ion-col col-9 text-center>
 						<ion-icon name="cart" ios="ios-cart" md="md-cart"></ion-icon> &nbsp;&nbsp; Add To Cart

@@ -744,6 +744,11 @@ export class CartPage {
                     localStorage.removeItem(this.cartStorageString);
                     localStorage.removeItem(this.promotionString);
                     localStorage.removeItem(this.coupon);
+                    localStorage.removeItem('resID');
+                    localStorage.clear();
+                    
+                    localStorage.setItem('cartLength','0');
+                    
                     this.nav.setRoot(AwaitPage,{
                         resId : this.resId
                     });

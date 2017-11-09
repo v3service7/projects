@@ -49,8 +49,8 @@ export class OrderDetailPage {
     }
     
     ionViewDidEnter() {
-        console.log('ionViewDidEnter MyCustomerPage');
-        console.log(this.selectedOrder)
+        /*console.log('ionViewDidEnter MyCustomerPage');
+        console.log(this.selectedOrder)*/
         this.getOrderDetail(this.selectedOrder);
     }
 
@@ -123,10 +123,10 @@ export class OrderDetailPage {
     }
 
     private updateStatus(obj){
-        console.log(obj)
+        /*console.log(obj)*/
         this.orderService.getUpdate(obj).subscribe(
             (data) => {
-                console.log(data.message);
+                /*console.log(data.message);*/
                 this.getOrderDetail(obj);
                 this.getToast('Order '+status+' successfully');
             }
@@ -136,9 +136,9 @@ export class OrderDetailPage {
 	private getOrderDetail(obj){
         this.orderService.getDetail(obj._id).subscribe(
             (data) => {
-                console.log(data.message)
+                /*console.log(data.message)*/
                 this.selectedOrder = data.message;
-                console.log(this.selectedOrder)
+                /*console.log(this.selectedOrder)*/
         });
 	}
 
