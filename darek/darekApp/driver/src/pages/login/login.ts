@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ToastController, LoadingController, Nav, IonicPage, NavController, NavParams,ViewController,MenuController  } from 'ionic-angular';
 import { AuthService } from '../../app/service/auth.service';
-import { HomePage } from '../home/home';
+
 import { MyOrderPage } from '../my-order/my-order';
 import { ForgetPasswordPage } from '../forget-password/forget-password';
 

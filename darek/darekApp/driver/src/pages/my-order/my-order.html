@@ -18,12 +18,11 @@
 		<ion-item text-right>
             <button ion-button clear (click)="presentActionSheet()">  <ion-icon name="funnel"></ion-icon></button>
         </ion-item>
-		<ion-item *ngFor="let order of orders" (click)="cleintDetail($event,order)">
+		<ion-item *ngFor="let order of orders" (click)="cleintDetail(order)">
 			<ion-avatar item-start>
                 <img src="https://d30y9cdsu7xlg0.cloudfront.net/png/50992-200.png">
             </ion-avatar>
-            <ion-icon name="pin"></ion-icon> {{order.restaurantId.address}}
-			<!-- <h2>{{order._id.substr(18,6)}}</h2> -->
+            <ion-icon name="pin"></ion-icon> <span class="font14px whiteSpaceInitial"> {{order.orderMethod.streetName}}, {{order.orderMethod.city}} </span>
 			 <p *ngIf="order.status == 'Accepted'"><ion-icon name="thumbs-up" color="secondary"></ion-icon> {{order.status}}</p>
             <p *ngIf="order.status != 'Accepted'"><ion-icon name="thumbs-down" color="danger"></ion-icon> {{order.status}}</p>
 		</ion-item>

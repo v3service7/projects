@@ -38,6 +38,11 @@ import { AssignOrderPage } from './assign-order';
     .wrap{
         white-space: normal;
     }
+    .statusButton{
+        height: auto;
+        padding: 5%;
+        font-size: 10px;
+    }
     `],
 })
 export class OrderDetailPage {

@@ -3,8 +3,6 @@ import { Nav, Platform, NavController,ViewController,AlertController   } from 'i
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
-import { HomePage } from '../pages/home/home';
-import { ListPage } from '../pages/list/list';
 import { LoginPage } from '../pages/login/login';
 import { InfoPage } from '../pages/profile/info';
 import { MyOrderPage } from '../pages/my-order/my-order';
@@ -23,7 +21,6 @@ export class MyApp {
         this.initializeApp();
 
         this.pages = [
-            { title: 'Home', icon: 'home', component: HomePage },
             { title: ' Account', icon: 'contact', component: InfoPage },
             { title: 'Orders', icon: 'cart', component: MyOrderPage },
         ];

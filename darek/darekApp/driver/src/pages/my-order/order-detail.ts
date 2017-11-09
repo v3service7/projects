@@ -4,7 +4,7 @@ import { ModalController,ToastController, LoadingController, Nav, IonicPage, Nav
 import { RestaurantsService, OrderService } from '../../app/service/index';
 
 import { MyOrderPage } from './my-order';
-import { AssignOrderPage } from './assign-order';
+
 /**
  * Generated class for the MyOrderPage page.
  *
@@ -16,8 +16,8 @@ import { AssignOrderPage } from './assign-order';
   selector: 'page-order-detail',
   templateUrl: 'order-detail.html',
   styles: [` 
-  ion-item{     
-  padding-left: 0px !important ;    
+    ion-item{     
+        padding-left: 0px !important ;    
     } 
     p{
         margin-bottom: 10px;
@@ -34,6 +34,11 @@ import { AssignOrderPage } from './assign-order';
     .label-md {
         margin: 0px !important;
     }
+    .statusButton{
+        height: auto;
+        padding: 5%;
+        font-size: 10px;
+    }
     `],
 })
 export class OrderDetailPage {
@@ -41,14 +46,15 @@ export class OrderDetailPage {
 	selectedOrder:any;
     
     constructor(public toastCtrl: ToastController, public navCtrl: NavController, public loadingCtrl: LoadingController, public navParams: NavParams,private restaurantsService: RestaurantsService,private orderService: OrderService) {
-        this.selectedOrder = navParams.get('item')
+        this.selectedOrder = navParams.get('item');
+
+        console.log("this.selectedOrder");
+        console.log(this.selectedOrder);
     }
 
-	ionViewDidLoad() {
-		console.log('ionViewDidLoad MyCustomerPage');
-	}
+	ionViewDidLoad() {}
 
-	private updateStatus(event,obj,status){
+	private updateStatus(obj,status){
 		let loading = this.loadingCtrl.create({
             content: 'Please wait...'
         });
@@ -59,19 +65,11 @@ export class OrderDetailPage {
         this.orderService.getUpdate(objUpdate).subscribe(
             (data) => {
                 loading.dismiss();
-                this.navCtrl.setRoot(MyOrderPage);
+                this.navCtrl.pop(MyOrderPage);
                 this.getToast('Order '+status+' successfully');
             }
         );
 	}
-
-	private assignOrder(event,obj){
-		this.navCtrl.push(AssignOrderPage, {
-            order: obj
-        });
-	}
-
-
 
     private getToast(msg){
  		let toast = this.toastCtrl.create({

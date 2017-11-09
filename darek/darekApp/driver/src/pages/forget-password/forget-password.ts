@@ -40,13 +40,14 @@ import { LoginPage } from '../login/login';
         loading.present();
         this.authService.forgetPasswordDriver(this.forgetForm.value).subscribe(
             (data) => {
-                loading.dismiss();
-              	if (data.status) {
+                if (!data.error) {
+                    loading.dismiss();
                 	this.getToast(data.message);
-                	this.forgetForm.reset();
+                    this.navCtrl.pop(LoginPage);
                 }else{
-                	this.getToast('Email Sent Successfully');
- 					this.nav.setRoot(LoginPage);
+                    loading.dismiss();
+                    this.getToast(data.message);
+                	this.forgetForm.reset();
                 }
             },
             (err)=>{
@@ -67,7 +68,7 @@ import { LoginPage } from '../login/login';
  	}
 
  	private goToLogin(){
- 		this.nav.setRoot(LoginPage);
+ 		this.navCtrl.pop(LoginPage);
  	}
 
  }

@@ -33,10 +33,7 @@ export class MyOrderPage {
         this.menuCtrl.enable(true);
     }
 
-	ionViewDidLoad() {
-		console.log('ionViewDidLoad MyCustomerPage');
-	}
-
+	ionViewDidLoad() {}
 
     private getOrders(){
         this.driversService.myOrder(JSON.parse(localStorage.getItem('currentDriver'))._id).subscribe(users => {
@@ -46,7 +43,7 @@ export class MyOrderPage {
         });
     }
 
-    private cleintDetail(event,obj){
+    private cleintDetail(obj){
     	this.navCtrl.push(OrderDetailPage, {
 	    	item: obj
 	    });

@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ToastController, LoadingController, Nav, IonicPage, NavController, NavParams,ViewController,MenuController  } from 'ionic-angular';
 import { DriversService } from '../../app/service/index';
+
 import { ProfilePage } from '../profile/profile';
 
 /**
@@ -17,29 +18,48 @@ import { ProfilePage } from '../profile/profile';
 })
 export class ChangePasswordPage {
 
-	ownerProfile: FormGroup;
+	changePasswordForm: FormGroup;
+	driver : any = {};
 
-  	constructor(public nav: Nav, public loadingCtrl: LoadingController, public menuCtrl: MenuController, private lf: FormBuilder, private driverService: DriversService,public toastCtrl: ToastController, public navCtrl: NavController, private viewCtrl: ViewController, public navParams: NavParams) {
- 	    this.ownerProfile = this.lf.group({
+  	constructor(
+  		public nav: Nav,
+  		public loadingCtrl: LoadingController,
+  		public menuCtrl: MenuController,
+  		private lf: FormBuilder,
+  		private driverService: DriversService,
+  		public toastCtrl: ToastController,
+  		public navCtrl: NavController,
+  		private viewCtrl: ViewController,
+  		public navParams: NavParams
+  		) {
+  		
+		this.driver = JSON.parse(localStorage.getItem('currentDriver'));
+
+		console.log(this.driver);
+
+		this.changePasswordForm = this.lf.group({
 	        _id: ['', Validators.required],
 	        oldpassword: ['', Validators.required],
 	        newpassword: ['', Validators.required]
 	    });
-	    this.ownerProfile.patchValue(JSON.parse(localStorage.getItem('currentOwner')));
+
+	    this.changePasswordForm.controls['_id'].setValue(this.driver._id);
   	}
 
 	ionViewDidLoad() {
-	console.log('ionViewDidLoad ChangePasswordPage');
+
 	}
 
-	ownerPasswordUpdate(){
-        this.driverService.updateDriverPassword(this.ownerProfile.value).subscribe(
+	driverPasswordUpdate(){
+        this.driverService.updateDriverPassword(this.changePasswordForm.value).subscribe(
             (data) => {
                 if (data.error) {
+                	this.changePasswordForm.reset();
+                	this.changePasswordForm.controls['_id'].setValue(this.driver._id);
                 	this.getToast(data.message)
                 }else{
-                	this.getToast('Password Has been changed Successfully');
-                    this.nav.setRoot(ProfilePage)
+                	this.getToast(data.message);
+                    this.navCtrl.pop(ProfilePage)
                 }
             }
         );
@@ -53,9 +73,4 @@ export class ChangePasswordPage {
 	    });
 	    toast.present();
  	}
-
- 	private goToChangePassword(){
- 		this.navCtrl.push(ProfilePage)
- 	}
-
 }

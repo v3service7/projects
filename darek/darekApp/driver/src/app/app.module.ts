@@ -8,17 +8,16 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { MyApp } from './app.component';
-import { HomePage } from '../pages/home/home';
-import { ListPage } from '../pages/list/list';
+
 import { LoginPage } from '../pages/login/login';
-/*import { LoginPageModule } from '../pages/login/login.module';*/
+
 import { ForgetPasswordPage } from '../pages/forget-password/forget-password';
 import { ChangePasswordPage } from '../pages/change-password/change-password';
 import { ProfilePage } from '../pages/profile/profile';
 import { InfoPage } from '../pages/profile/info';
 import { MyOrderPage } from '../pages/my-order/my-order';
 import { OrderDetailPage } from '../pages/my-order/order-detail';
-import { AssignOrderPage } from '../pages/my-order/assign-order';
+
 
 /*Services*/
 import {  AuthService, UsersService, RestaurantsService, OrderService, DriversService } from './service/index';
@@ -26,13 +25,11 @@ import {  AuthService, UsersService, RestaurantsService, OrderService, DriversSe
 @NgModule({
     declarations: [
         MyApp,
-        HomePage,
-        ListPage,
         LoginPage,
         ForgetPasswordPage,
         ChangePasswordPage,
         ProfilePage,InfoPage,
-        MyOrderPage,OrderDetailPage,AssignOrderPage,
+        MyOrderPage,OrderDetailPage,
     ],
     imports: [
         BrowserModule,
@@ -44,11 +41,9 @@ import {  AuthService, UsersService, RestaurantsService, OrderService, DriversSe
     bootstrap: [IonicApp],
     entryComponents: [
         MyApp,
-        HomePage,
-        ListPage,
         LoginPage,ForgetPasswordPage,
         ProfilePage,ChangePasswordPage,InfoPage,
-        MyOrderPage, OrderDetailPage, AssignOrderPage,
+        MyOrderPage, OrderDetailPage
     ],
     providers: [
         AuthService,

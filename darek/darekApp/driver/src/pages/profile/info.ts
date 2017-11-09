@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ToastController, LoadingController, Nav, IonicPage, NavController, NavParams,ViewController,MenuController  } from 'ionic-angular';
 import { UsersService,DriversService } from '../../app/service/index';
-import { HomePage } from '../home/home';
+
 import { ChangePasswordPage } from '../change-password/change-password';
 import { ProfilePage } from './profile';
 
@@ -24,11 +24,10 @@ export class InfoPage {
  	currentDriver:any={};
 
   	constructor(public nav: Nav, public driverService: DriversService, public loadingCtrl: LoadingController, public menuCtrl: MenuController, private lf: FormBuilder, private userService: UsersService,public toastCtrl: ToastController, public navCtrl: NavController, private viewCtrl: ViewController, public navParams: NavParams) {
- 		this.getOwner()
  	}
 
-	ionViewDidLoad() {
-		console.log('ionViewDidLoad ProfilePage');
+	ionViewDidEnter() {
+    this.getOwner();
 	}
 
 	private getOwner(){
@@ -39,7 +38,7 @@ export class InfoPage {
             		this.getToast('Some thing went wrong');
                 }else{
                 	this.currentDriver = data.message
- 					localStorage.removeItem('currentDriver');
+         					localStorage.removeItem('currentDriver');
                 	localStorage.setItem('currentDriver', JSON.stringify(data.message));
                 }
             }

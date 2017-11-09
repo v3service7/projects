@@ -19,7 +19,7 @@
         </ion-card-content>
     </ion-card>
         
-    <ion-card>
+    <!-- <ion-card>
         <ion-card-header>
             Customer Detail
         </ion-card-header>
@@ -34,7 +34,7 @@
                 <ion-icon name="mail" ios="ios-mail" md="md-mail"> Email: {{selectedOrder.customerId.email}}</ion-icon>
             </p>
         </ion-card-content>
-    </ion-card>
+    </ion-card> -->
 
     <ion-card *ngIf="selectedOrder.driverId">
         <ion-card-header>
@@ -48,11 +48,11 @@
             </ion-list>
         </ion-card-header>
         <ion-card-content>
-            <h2>{{selectedOrder.driverId.firstname}} {{selectedOrder.driverId.lastname}}</h2>
-            <p>{{selectedOrder.driverId.phoneNo}}</p>
-            <p>{{selectedOrder.driverId.email}}</p>
-            <p>{{selectedOrder.driverId.address}}</p>
-            <p>{{selectedOrder.driverId.vehicleType}}</p>
+            <h2>Name : {{selectedOrder.driverId.firstname}} {{selectedOrder.driverId.lastname}}</h2>
+            <p> Phone No. : {{selectedOrder.driverId.phoneNo}}</p>
+            <p>Email : {{selectedOrder.driverId.email}}</p>
+            <p>Address : {{selectedOrder.driverId.address}}</p>
+            <p>Vehicle : {{selectedOrder.driverId.vehicleType}}</p>
             <p>{{selectedOrder.driverId.vehicleName}} : {{selectedOrder.driverId.vehicleNo}}</p>
         </ion-card-content>
     </ion-card>
@@ -63,13 +63,16 @@
         </ion-card-header>
         <ion-card-content>
             <p *ngIf="selectedOrder.orderMethod">
-                <ion-icon name="card" ios="ios-card" md="md-card"> Type: {{selectedOrder.orderMethod.mType}}
-                    <span *ngIf="selectedOrder.orderPayment">
-                        , <span *ngIf="selectedOrder.orderPayment.cash">Cash</span>
-                        <span *ngIf="selectedOrder.orderPayment.cardpickup">Card Pickup</span>
-                        <span *ngIf="selectedOrder.orderPayment.cardinternet">Card via Internet</span>
-                    </span>
-                </ion-icon>
+                 Type: {{selectedOrder.orderMethod.mType}}
+                 <span *ngIf = "selectedOrder.orderMethod.mType == 'Delivery'" class="whiteSpaceInitial"><br>
+                    Address : {{selectedOrder.orderMethod.streetName}}, {{selectedOrder.orderMethod.city}} 
+                 </span>
+            </p>
+            <p *ngIf="selectedOrder.orderPayment">
+                <ion-icon name="card" ios="ios-card" md="md-card"></ion-icon>
+                <span *ngIf="selectedOrder.orderPayment.cash">Cash</span>
+                <span *ngIf="selectedOrder.orderPayment.cardpickup">Card Pickup</span>
+                <span *ngIf="selectedOrder.orderPayment.cardinternet">Card via Internet</span>
             </p>
             <p *ngIf="selectedOrder.orderTime && selectedOrder.orderTime.tType == 'Now'">
                 <ion-icon name="time">
@@ -105,9 +108,9 @@
             <ion-item *ngFor="let order of selectedOrder.orders" text-left>
                 <ion-row *ngIf="order.item">
                     <ion-col col-9 class="whiteSpaceInitial">
-                        <span style="font-size: 14px"> <b>{{order.quantity}} x </b></span>{{order.item.name}}
+                        <span> <b>{{order.quantity}} x </b></span>{{order.item.name}}
                     </ion-col>
-                    <ion-col col-3 text-right no-padding>
+                    <ion-col col-3 text-right>
                         <b>{{order.totalPrice |number : '1.2-2'}}</b>
                     </ion-col>
                 </ion-row>
@@ -127,7 +130,7 @@
                             <ion-col col-9 class="whiteSpaceInitial">
                                 <b>{{adn.name}}</b>
                             </ion-col>
-                            <ion-col col-3 text-right no-padding>
+                            <ion-col col-3 text-right>
                                 {{adn.price | number : '1.2-2'}}
                             </ion-col>
                         </ion-row>
@@ -155,10 +158,10 @@
                 <ion-row *ngIf="selectedOrder.promotion.itemGroup1 && selectedOrder.promotion.itemGroup1.item">
                     <ion-row class="width100">
                         <ion-col col-9 class="whiteSpaceInitial">
-                            <span style="font-size: 14px"> <b>{{selectedOrder.promotion.itemGroup1.quantity}} x </b></span>{{selectedOrder.promotion.itemGroup1.item.name}}
+                            <span> <b>{{selectedOrder.promotion.itemGroup1.quantity}} x </b></span>{{selectedOrder.promotion.itemGroup1.item.name}}
                         </ion-col>
 
-                        <ion-col col-3 text-right no-padding>
+                        <ion-col col-3 text-right>
                             <b>{{selectedOrder.promotion.itemGroup1.totalPrice | number : '1.2-2'}}</b>
                         </ion-col>
                     </ion-row>
@@ -167,7 +170,7 @@
                         <ion-col col-9 class="whiteSpaceInitial">
                             <b>{{selectedOrder.promotion.itemGroup1.multisize.size}}</b>
                         </ion-col>
-                        <ion-col col-3 text-right no-padding>
+                        <ion-col col-3 text-right>
                             {{selectedOrder.promotion.itemGroup1.multisize.price | number : '1.2-2'}}
                         </ion-col>
                     </ion-row>
@@ -178,7 +181,7 @@
                                 <ion-col col-9 class="whiteSpaceInitial">
                                     <b>{{adn.name}}</b>
                                 </ion-col>
-                                <ion-col col-3 text-right no-padding>
+                                <ion-col col-3 text-right>
                                     {{adn.price | number : '1.2-2'}}
                                 </ion-col>
                             </ion-row>
@@ -199,9 +202,9 @@
 
                 <ion-row *ngIf="selectedOrder.promotion.itemGroup2 && selectedOrder.promotion.itemGroup2.item">
                     <ion-col col-9 class="whiteSpaceInitial">
-                        <span style="font-size: 14px"> <b>{{selectedOrder.promotion.itemGroup2.quantity}} x </b></span>{{selectedOrder.promotion.itemGroup2.item.name}}
+                        <span> <b>{{selectedOrder.promotion.itemGroup2.quantity}} x </b></span>{{selectedOrder.promotion.itemGroup2.item.name}}
                     </ion-col>
-                    <ion-col col-3 text-right no-padding>
+                    <ion-col col-3 text-right>
                         <b>{{selectedOrder.promotion.itemGroup2.totalPrice |number : '1.2-2'}}</b>
                     </ion-col>
 
@@ -209,7 +212,7 @@
                         <ion-col col-9 class="whiteSpaceInitial">
                             <b>{{selectedOrder.promotion.itemGroup2.multisize.size}}</b>
                         </ion-col>
-                        <ion-col col-3 text-right no-padding>
+                        <ion-col col-3 text-right>
                             {{selectedOrder.promotion.itemGroup2.multisize.price | number : '1.2-2'}}
                         </ion-col>
                     </ion-row>
@@ -220,7 +223,7 @@
                                 <ion-col col-9 class="whiteSpaceInitial">
                                     <b>{{adn.name}}</b>
                                 </ion-col>
-                                <ion-col col-3 text-right no-padding>
+                                <ion-col col-3 text-right>
                                     {{adn.price | number : '1.2-2'}}
                                 </ion-col>
                             </ion-row>
