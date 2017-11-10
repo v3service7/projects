@@ -20,7 +20,6 @@ router.post('/forget-password',function(req,res,next){
     driverModel.find({email:req.body.email},function(err,data){
         if (err) {
             req.flash('error', 'something went wrong!');
-            
         } else{
             if (data.length>0) {
                 var name = data[0].firstname+" <"+data[0].email+" >";
@@ -39,11 +38,11 @@ router.post('/forget-password',function(req,res,next){
                        console.log("Message sent: " + response.message);
                    }
                    req.mail.close(); // shut down the connection pool, no more messages.  Comment this line out to continue sending emails.
-                   res.json({error:false});
+                   res.json({'error':false,'message':'Email Sent Successfully. Please access your Email ID.'});
                 });
                 console.log(data);
             }else{
-                res.json({error:true,'message':'Email doest no exist'});
+                res.json({'error':true,'message':'Email does not exist'});
             }
         };
     }); 
@@ -57,7 +56,7 @@ router.put('/change-password/:id',function(req, res){
             newObject.password = req.body.newpassword;
             driverModel.findByIdAndUpdate(req.params.id, newObject, function(err, kitchen) {
                 if(err) {
-                    response = {"error" : true,"message" : err};
+                    response = {"error" : true,"message" : 'Could not update now. Please Try Later!'};
                 } else {
                     response = {"error" : false,"message" : "Password changed Successfully "};
                 }
