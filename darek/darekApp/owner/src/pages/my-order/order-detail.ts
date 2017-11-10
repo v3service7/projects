@@ -50,7 +50,10 @@ export class OrderDetailPage {
 	selectedOrder:any;
     
     constructor(public alertCtrl: AlertController, public toastCtrl: ToastController, public navCtrl: NavController, public loadingCtrl: LoadingController, public navParams: NavParams,private restaurantsService: RestaurantsService,private orderService: OrderService) {
-        this.selectedOrder = navParams.get('item')        
+        this.selectedOrder = navParams.get('item');
+
+        console.log("this.selectedOrder");
+        console.log(this.selectedOrder);
     }
     
     ionViewDidEnter() {

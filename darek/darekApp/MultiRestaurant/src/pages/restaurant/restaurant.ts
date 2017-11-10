@@ -42,13 +42,13 @@ export class RestaurantPage {
             this.currentCustomer = JSON.parse(localStorage.getItem('currentCustomer'));
         }
 
+        if (localStorage.getItem('cartLength') != null) {
+            this.cartLength = parseInt(localStorage.getItem('cartLength'));
+        }
         if (localStorage.getItem('cartLength') == null) {
             localStorage.setItem('cartLength','0');
         }
 
-        if (localStorage.getItem('cartLength') != null) {
-            this.cartLength = parseInt(localStorage.getItem('cartLength'));
-        }
     }
 
     doRefresh(refresher) {

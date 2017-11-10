@@ -250,7 +250,7 @@
             <ion-item>
                 <ion-row>
                     <ion-col col-6>
-                        Sub-Total
+                        <b>Sub-Total</b>
                     </ion-col>
                     <ion-col col-6 text-right>
                         <b>$ {{selectedOrder.subTotal | number : '1.2-2'}}</b>
@@ -259,7 +259,7 @@
 
                 <ion-row *ngIf = "selectedOrder.discountAmount">
                     <ion-col col-6>
-                        Discount
+                        <b>Discount</b>
                     </ion-col>
                     <ion-col col-6 text-right>
                         <b>- $ {{selectedOrder.discountAmount | number : '1.2-2'}}</b>

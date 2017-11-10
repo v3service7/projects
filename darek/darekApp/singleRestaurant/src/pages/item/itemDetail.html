@@ -72,6 +72,13 @@
 						</span>
 						<ion-icon name="arrow-dropdown" ios="ios-arrow-dropdown" md="md-arrow-dropdown" class="fontWeight600" float-right></ion-icon>
 					</ion-col>
+
+					<ion-col col-12>
+						<span *ngFor = "let adn of orderItem['addon']">
+							<span *ngIf = "adn.groupId == group._id">{{adn.name}} ,</span>
+						</span>
+					</ion-col>
+					
 				</ion-row>
 			</ion-col>
 		</ion-row>

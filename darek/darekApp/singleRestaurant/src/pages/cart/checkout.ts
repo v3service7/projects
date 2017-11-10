@@ -177,7 +177,7 @@ export class CheckoutPage {
 
     private initMap() {
         var input = <HTMLInputElement>document.getElementById('pac-input');
-        var options = {types: ['(cities)']};
+        var options = {};
         var autocomplete = new google.maps.places.Autocomplete(input,options);
 
         autocomplete.addListener('place_changed', ()=> {
@@ -188,20 +188,38 @@ export class CheckoutPage {
             }
 
             if (place.address_components) {
-                let city,state,country;
-                
-                /*if (place.address_components.length >= 4) {
-                    city = place.address_components[place.address_components.length-3].long_name;
-                }else{
-                    city = place.address_components[place.address_components.length-3].long_name;
-                }*/
-                if (place.address_components.length >= 4) {
-                    city = place.address_components[0].long_name;
-                    state = place.address_components[place.address_components.length-2].long_name;
-                    country = place.address_components[place.address_components.length-1].long_name;
-                }
+                var component = place.address_components;
+                var country = null, state = null, city = null,cityAlt = null;
 
-                this.addressForm.controls['city'].setValue(city);
+                for (var i = 0; i < component.length; i++) {
+                    if (!city) {
+                        if (component[i].types[0] == 'administrative_area_level_2') {
+                            city = component[i].long_name;
+                        }
+                    }
+                    if (!cityAlt) {
+                        if (component[i].types[0] == 'locality') {
+                            cityAlt = component[i].long_name;
+                        }
+                    }
+                    if (!state) {
+                        if (component[i].types[0] == 'administrative_area_level_1') {
+                            state = component[i].long_name;
+                        }
+                    }
+                    if (!country) {
+                        if (component[i].types[0] == 'country') {
+                            country = component[i].long_name;
+                        }
+                    }
+                }
+                if (cityAlt != null && city != null) {
+                    this.addressForm.controls['city'].setValue(cityAlt+ ', '+city);
+                }else if(cityAlt != null && city == null){
+                    this.addressForm.controls['city'].setValue(cityAlt);
+                }else{
+                    this.addressForm.controls['city'].setValue(city);
+                }
                 this.addressForm.controls['state'].setValue(state);
                 this.addressForm.controls['country'].setValue(country);
             }
@@ -590,10 +608,39 @@ export class CheckoutPage {
                 this.cartStorage['gTotal'] = this.totalAmount + this.deliveryFee;
             }
             if (this.zoneObject.length == 0) {
-            	this.getToast('Delivery Not Available');
-            	this.enterAddress = true;
-            	this.oMethod = false;
-            	this.addressForm.reset();
+                if (this.restaurants['deliveryoutside']) {
+                    let confirm = this.alertCtrl.create({
+                    title: 'Outside our delivery zones!',
+                    message: 'A delivery fee of $50 will be added for your location.',
+                    buttons: [
+                    {
+                        text: 'Cancel',
+                        handler: () => {
+                            this.getToast('Delivery Not Available');
+                            this.enterAddress = true;
+                            this.oMethod = false;
+                        }
+                    },
+                    {
+                        text: 'Ok',
+                        handler: () => {
+                            this.deliveryFee = 50;
+                            this.amount = 0;
+                            this.enterAddress = false;
+                            this.oMethod = true;
+                            this.cartStorage.deliveryfee = this.deliveryFee;
+                            this.cartStorage['gTotal'] = this.totalAmount + this.deliveryFee;
+                        }
+                    }
+                    ]
+                });
+                confirm.present();
+                }else{
+                    this.getToast('Delivery Not Available');
+                    this.enterAddress = true;
+                    this.oMethod = false;
+                    //this.addressForm.reset();
+                }
             }
         });
     }
@@ -642,6 +689,9 @@ export class CheckoutPage {
     private editAddress(){
     	this.enterAddress = true;
     	this.addressForm.patchValue(this.orderMethod);
+        setTimeout(()=>{
+            this.initMap();
+        },1000)
     }
 
     private checkDisabled(){
