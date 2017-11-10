@@ -90,12 +90,13 @@
 													<div class="col-lg-10 col-md-10 col-sm-10 col-xs-10" style="height: inherit;">
 														<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0">
 															<h5>
-																<span *ngFor = "let chilly of spicyArray;">
-										                            <span *ngIf = "chilly <= item.spicyLevel">
-										                                <img src="assets/images/chilly.PNG" width="15px">
-										                            </span>
-										                           </span>
-																<strong>{{item.name}}</strong>
+																<strong>{{item.name}}
+																	<span *ngFor = "let chilly of spicyArray;">
+											                            <span *ngIf = "chilly <= item.spicyLevel">
+											                                <img src="assets/images/chilly.PNG" width="15px">
+											                            </span>
+											                        </span>
+										                        </strong>
 															</h5>
 														</div>
 														<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0">
@@ -270,12 +271,12 @@
 														<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0">
 															<h5>
 																<strong>
+																	{{item.name}}
 																	<span *ngFor = "let chilly of spicyArray;">
 											                            <span *ngIf = "chilly <= item.spicyLevel">
 											                            	<img src="assets/images/chilly.PNG" width="15px">
 											                            </span>
-											                           </span>
-																	{{item.name}}
+											                        </span>
 																</strong>
 															</h5>
 														</div>

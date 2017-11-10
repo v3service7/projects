@@ -696,3 +696,24 @@ margin-bottom: 36px;
     font-size: 13px;
     color: black;
 }
+
+
+.padding10px{
+    padding: 10px;
+}
+
+.paddingBottom5px{
+    padding-bottom: 10px;
+}
+
+.textRight{
+    text-align: right;
+}
+
+.padding5px{
+    padding: 5px;
+}
+
+.paddingRight0{
+    padding-right: 0;
+}

@@ -3,12 +3,13 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {HttpModule, Http} from "@angular/http";
 import { RouterModule, Routes } from '@angular/router';
-import { FileSelectDirective, FileDropDirective } from 'ng2-file-upload';
+/*import { FileUploadModule, FileDropDirective } from 'ng2-file-upload';*/
 import {TranslateModule, TranslateLoader} from '@ngx-translate/core';
 import {TranslateHttpLoader} from "@ngx-translate/http-loader";
 /*import { ChartsModule } from 'ng2-charts';*/
 import { ChartsModule } from 'ng2-charts/ng2-charts';
 import { DragDropDirectiveModule } from "angular4-drag-drop";
+import { FileUploadModule , FileDropDirective } from 'ng2-file-upload';
 
 import { AppComponent } from './app.component';
 import { routing } from './app.routing';
@@ -42,7 +43,7 @@ export function HttpLoaderFactory(http: Http) {
 }
 @NgModule({
   declarations: [
-    AppComponent,FileSelectDirective,
+    AppComponent,
     HeaderComponent,
     HomeComponent,
     HeaderownerComponent,
@@ -79,6 +80,7 @@ export function HttpLoaderFactory(http: Http) {
     DragDropDirectiveModule,
     //FlashMessagesModule,
     ChartsModule,
+    FileUploadModule,
     //TranslateModule.forRoot(),
     TranslateModule.forRoot({
           loader: {
@@ -88,6 +90,7 @@ export function HttpLoaderFactory(http: Http) {
           }
         })
   ],
+  exports: [FileUploadModule],
   providers: [AuthGuard,OwnerAuthGuard,AlertService,UsersService,AuthService,DriversService,RestaurantsService,PromotionsService, KitchenMenuService,KitchenItemService,MasterService, CustomersService, OrderService],
   bootstrap: [AppComponent]
 })

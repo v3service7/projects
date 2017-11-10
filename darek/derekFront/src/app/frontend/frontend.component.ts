@@ -1734,6 +1734,8 @@ export class FrontendCartComponent implements OnInit {
         this.addressForm = this.lf.group({
             streetName: ['', Validators.required],
             city: ['', Validators.required],
+            state: ['', Validators.required],
+            country: ['', Validators.required],
             postcode: ['', Validators.required],
         });
         this.detailForm = this.lf.group({
@@ -1838,8 +1840,6 @@ export class FrontendCartComponent implements OnInit {
         var timeDiff = Math.abs(date2.getTime() - date1.getTime());
         var diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24)); 
         alert(diffDays);*/
-
-
     }
 
     private showCustomMessage(){
@@ -1993,6 +1993,7 @@ export class FrontendCartComponent implements OnInit {
             this.deliveryFee = 0;
             delete this.amount;
             delete this.cartDetail.deliveryfee;
+            delete this.cartDetail.deliveryTax;
             this.update();
 
             if (this.orderTime.tType == 'Later') {
@@ -2156,13 +2157,23 @@ export class FrontendCartComponent implements OnInit {
             }
             if (this.zoneObject.length == 0) {
                 if (this.restaurants['deliveryoutside']) {
-                    this.deliveryFee = 50;
-                    this.amount = 0;
-                    this.orderType = true;
-                    this.cartDetail.deliveryfee = this.deliveryFee;
-                    this.update();
-                    toastr.remove();
-                    toastr.warning('A delivery fee of $50 is added at your location ','Outside our delivery zones',{'positionClass' : 'toast-top-full-width'});
+                    if (confirm("Outside our delivery zones! \n A delivery fee of $50 will be added for your location")) {
+                        this.deliveryFee = 50;
+                        this.amount = 0;
+                        this.orderType = true;
+                        this.cartDetail.deliveryfee = this.deliveryFee;
+                        this.update();
+                        toastr.remove();
+                        toastr.info('A delivery fee of $50 is added',null,{'positionClass' : 'toast-top-full-width'});
+                    }else{
+                        this.deliveryFee = 0;
+                        this.amount = 0;
+                        this.orderType = false;
+                        this.cartDetail.deliveryfee = this.deliveryFee;
+                        this.update();
+                        toastr.remove();
+                        toastr.warning('No delivery Available on this address','Try Again',{'positionClass' : 'toast-top-full-width'});
+                    }
                 }else{
                     this.deliveryFee = 0;
                     this.amount = 0;
@@ -2188,7 +2199,7 @@ export class FrontendCartComponent implements OnInit {
 
     private initMap() {
         var input = <HTMLInputElement>document.getElementById('pac-input');
-        var options = {types: ['(cities)']};
+        var options = {};
         var autocomplete = new google.maps.places.Autocomplete(input,options);
 
         autocomplete.addListener('place_changed', ()=> {
@@ -2199,25 +2210,40 @@ export class FrontendCartComponent implements OnInit {
             }
 
             if (place.address_components) {
+                var component = place.address_components;
+                var country = null, state = null, city = null,cityAlt = null;
 
-                console.log("place.address_components");
-                console.log(place.address_components);
-
-
-                let city,state,country;
-                
-                /*if (place.address_components.length >= 4) {
-                    city = place.address_components[place.address_components.length-3].long_name;
-                }else{
-                    city = place.address_components[place.address_components.length-3].long_name;
-                }*/
-                if (place.address_components.length >= 4) {
-                    city = place.address_components[0].long_name;
-                    state = place.address_components[place.address_components.length-2].long_name;
-                    country = place.address_components[place.address_components.length-1].long_name;
+                for (var i = 0; i < component.length; i++) {
+                    if (!city) {
+                        if (component[i].types[0] == 'administrative_area_level_2') {
+                            city = component[i].long_name;
+                        }
+                    }
+                    if (!cityAlt) {
+                        if (component[i].types[0] == 'locality') {
+                            cityAlt = component[i].long_name;
+                        }
+                    }
+                    if (!state) {
+                        if (component[i].types[0] == 'administrative_area_level_1') {
+                            state = component[i].long_name;
+                        }
+                    }
+                    if (!country) {
+                        if (component[i].types[0] == 'country') {
+                            country = component[i].long_name;
+                        }
+                    }
                 }
-
-                this.addressForm.controls['city'].setValue(city);
+                if (cityAlt != null && city != null) {
+                    this.addressForm.controls['city'].setValue(cityAlt+ ', '+city);
+                }else if(cityAlt != null && city == null){
+                    this.addressForm.controls['city'].setValue(cityAlt);
+                }else{
+                    this.addressForm.controls['city'].setValue(city);
+                }
+                this.addressForm.controls['state'].setValue(state);
+                this.addressForm.controls['country'].setValue(country);
             }
         });
     }

@@ -1442,7 +1442,7 @@ export class KitchenMenuListComponent implements OnInit {
 			this.groupDetail.max = event.target.value;
 		}
 
-		if (typeof this.groupDetail.min != 'undefined' && typeof this.groupDetail.max != 'undefined' && this.groupDetail.min != "" && this.groupDetail.max != "") {
+		if (typeof this.groupDetail.min != 'undefined' && typeof this.groupDetail.max != 'undefined' && this.groupDetail.min != "" && this.groupDetail.max != "" && this.groupDetail.min > 0 && this.groupDetail.max > 0) {
 			this.groupAddModel.controls['groupType'].setValue(this.groupDetail);
 		}else{
 			this.groupAddModel.controls['groupType'].setValue(null);
@@ -1457,7 +1457,7 @@ export class KitchenMenuListComponent implements OnInit {
 			this.groupDetail.max = event.target.value;
 		}
 
-		if (typeof this.groupDetail.min != 'undefined' && typeof this.groupDetail.max != 'undefined' && this.groupDetail.min != "" && this.groupDetail.max != "") {
+		if (typeof this.groupDetail.min != 'undefined' && typeof this.groupDetail.max != 'undefined' && this.groupDetail.min != "" && this.groupDetail.max != "" && this.groupDetail.min > 0 && this.groupDetail.max > 0) {
 			this.editableDetail.controls['groupType'].setValue(this.groupDetail);
 		}else{
 			this.editableDetail.controls['groupType'].setValue(null);

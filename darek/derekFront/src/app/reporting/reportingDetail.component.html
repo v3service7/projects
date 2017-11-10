@@ -50,14 +50,15 @@
 				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 marginBottom2px"  style="background: #F5F3F0;padding: 1%;" *ngFor="let order of detail.orders" >
 					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" *ngIf="order.item">
 						<div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
-							<span class="fontSize14px"> <b>{{order.quantity}} x </b></span>{{order.item.name}}  
-							<!-- <span *ngIf = "order.spicyLevel">
-								<span class="fontSize12px" *ngIf = "order.spicyLevel == '0%'">(No Spices)</span>
-								<span class="fontSize12px" *ngIf = "order.spicyLevel == '25%'">(Less Spicy)</span>
-								<span class="fontSize12px" *ngIf = "order.spicyLevel == '50%'">(Medium Spicy)</span>
-								<span class="fontSize12px" *ngIf = "order.spicyLevel == '75%'">(Spicy)</span>
-								<span class="fontSize12px" *ngIf = "order.spicyLevel == '100%'">(Extra Spicy)</span>
-							</span> -->
+							<span class="fontSize14px">
+								<b>{{order.quantity}} x </b>
+							</span>
+							{{order.item.name}}
+							<span *ngFor = "let chilly of spicyArray;">
+	                            <span *ngIf = "chilly <= item.spicyLevel">
+	                                <img src="assets/images/chilly.PNG" width="15px">
+	                            </span>
+	                        </span>
 						</div>
 						<div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 textAlignRight">
 							<span class="fontSize14px"><b>{{order.totalPrice}}</b></span>
@@ -99,13 +100,11 @@
 						<div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
 							<span class="fontSize14px"> <b>{{detail.promotion.itemGroup1.quantity}} x </b></span>
 							{{detail.promotion.itemGroup1.item.name}}
-							<!-- <span *ngIf = "detail.promotion.itemGroup1.spicyLevel">
-								<span class="fontSize12px" *ngIf = "detail.promotion.itemGroup1.spicyLevel == '0%'">(No Spices)</span>
-								<span class="fontSize12px" *ngIf = "detail.promotion.itemGroup1.spicyLevel == '25%'">(Less Spicy)</span>
-								<span class="fontSize12px" *ngIf = "detail.promotion.itemGroup1.spicyLevel == '50%'">(Medium Spicy)</span>
-								<span class="fontSize12px" *ngIf = "detail.promotion.itemGroup1.spicyLevel == '75%'">(Spicy)</span>
-								<span class="fontSize12px" *ngIf = "detail.promotion.itemGroup1.spicyLevel == '100%'">(Extra Spicy)</span>
-							</span> -->
+							<span *ngFor = "let chilly of spicyArray;">
+	                            <span *ngIf = "chilly <= item.spicyLevel">
+	                                <img src="assets/images/chilly.PNG" width="15px">
+	                            </span>
+	                        </span>
 						</div>
 						<div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 textAlignRight">
 							<span class="fontSize14px"><b>{{detail.promotion.itemGroup1.totalPrice}}</b></span>
@@ -145,13 +144,11 @@
 							<div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
 								<span class="fontSize14px"> <b>{{detail.promotion.itemGroup2.quantity}} x </b></span>
 								{{detail.promotion.itemGroup2.item.name}}
-								<!-- <span *ngIf = "detail.promotion.itemGroup2.spicyLevel">
-									<span class="fontSize12px" *ngIf = "detail.promotion.itemGroup2.spicyLevel == '0%'">(No Spices)</span>
-									<span class="fontSize12px" *ngIf = "detail.promotion.itemGroup2.spicyLevel == '25%'">(Less Spicy)</span>
-									<span class="fontSize12px" *ngIf = "detail.promotion.itemGroup2.spicyLevel == '50%'">(Medium Spicy)</span>
-									<span class="fontSize12px" *ngIf = "detail.promotion.itemGroup2.spicyLevel == '75%'">(Spicy)</span>
-									<span class="fontSize12px" *ngIf = "detail.promotion.itemGroup2.spicyLevel == '100%'">(Extra Spicy)</span>
-								</span> -->
+								<span *ngFor = "let chilly of spicyArray;">
+		                            <span *ngIf = "chilly <= item.spicyLevel">
+		                                <img src="assets/images/chilly.PNG" width="15px">
+		                            </span>
+		                        </span>
 							</div>
 							<div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 textAlignRight">
 								<span class="fontSize14px"><b>{{detail.promotion.itemGroup2.totalPrice}}</b></span>

@@ -541,10 +541,11 @@ button.orderButton{
 
 .addOnsDetail div div div.subAddOn div.subAddOnDetail{
     padding: 0;
+    display: flex;
     cursor: pointer;
 }
 
-.addOnsDetail div div div.subAddOn div.subAddOnDetail div.subAddOnDetailList{
+.addOnsDetail div div div.subAddOn div.subAddOnDetail div.subAddOnDetailList, .addOnsDetail div div div.subAddOn div.subAddOnDetail div.subAddOnDetailPrice{
     padding: 2%;
 }
 

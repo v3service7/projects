@@ -751,6 +751,8 @@ export class ReportingDetailComponent implements OnInit {
 	restaurants:any ={};
 	detail:any = [];
 	orderID :String;
+
+    spicyArray : any = [1,2,3];
 	constructor(
         private restaurantsService: RestaurantsService,
         private orderService: OrderService,
