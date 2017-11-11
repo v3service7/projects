@@ -13,8 +13,6 @@ import { ForgetPasswordPage } from '../forget-password/forget-password';
  * See http://ionicframework.com/docs/components/#navigation for more info
  * on Ionic pages and navigation.
  */
-
- @IonicPage()
  @Component({
  	selector: 'page-login',
  	templateUrl: 'login.html',
