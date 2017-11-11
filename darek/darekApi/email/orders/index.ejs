@@ -103,57 +103,60 @@
 						<tr>
 							<td colspan="2" style="border : none;border-bottom: solid white 1.5pt;background: #EBE8E4;padding: 15px 10px;">For reference, your Order Detail:</td>
 						</tr>
-						<% for(var i = 0; i<order.orders.length; i++ ){ %>
-							<tr>
-								<td style="border : none;background: #EBE8E4;padding: 5px 10px;">
-									<b> <%= order.orders[i].quantity %> x </b> <%= order.orders[i].item.name %>
-								</td>
-								<td style="border : none;background: #EBE8E4;padding: 5px 10px; text-align: right;">
-									<b><%= order.orders[i].totalPrice %></b>
-								</td>
-							</tr>
-							
-							<% if(order.orders[i].multisize || order.orders[i].addon) { %>
+						<% if(order.orders && order.orders.length > 0) { %>
+							<% for(var i = 0; i<order.orders.length; i++ ){ %>
 								<tr>
-									<td colspan="2" style="padding: 10px 25px;border : none;background: #EBE8E4;border-bottom: solid white 1.5pt;">
-										<table cellspacing="0" style="width: 100%">
-											<tbody>
-												<% if(order.orders[i].multisize){ %>
-													<tr colspan="2">
-														<td><b>Size</b></td>
-													</tr>
-													<tr>
-														<td style="padding: 0 20px;"><%= order.orders[i].multisize.size %></td>
-														<td style="padding: 0 20px;text-align: right;">
-															<b>(+<%= order.orders[i].multisize.price %>)</b>
-														</td>
-													</tr>
-												<% } %>
-												
-												<% if(order.orders[i].addon){ %>
-													<tr colspan="2">
-														<td><b>Addon</b></td>
-													</tr>
-													<% for(var j = 0; j< order.orders[i].addon.length; j++) {%>
+									<td style="border : none;background: #EBE8E4;padding: 5px 10px;">
+										<b> <%= order.orders[i].quantity %> x </b> <%= order.orders[i].item.name %>
+									</td>
+									<td style="border : none;background: #EBE8E4;padding: 5px 10px; text-align: right;">
+										<b><%= order.orders[i].totalPrice.toFixed(2) %></b>
+									</td>
+								</tr>
+								
+								<% if(order.orders[i].multisize || order.orders[i].addon) { %>
+									<tr>
+										<td colspan="2" style="padding: 10px 25px;border : none;background: #EBE8E4;border-bottom: solid white 1.5pt;">
+											<table cellspacing="0" style="width: 100%">
+												<tbody>
+													<% if(order.orders[i].multisize){ %>
+														<tr colspan="2">
+															<td><b>Size</b></td>
+														</tr>
 														<tr>
-															<td style="padding: 0 20px;"><%= order.orders[i].addon[j].name %></td>
-															<td style="padding: 0 20px;text-align: right;"><b>(+<%= order.orders[i].addon[j].price %>)</b></td>
+															<td style="padding: 0 20px;"><%= order.orders[i].multisize.size %></td>
+															<td style="padding: 0 20px;text-align: right;">
+																<b>(+<%= order.orders[i].multisize.price %>)</b>
+															</td>
 														</tr>
 													<% } %>
-												<% } %>
-											</tbody>
-										</table>
-									</td>
-								</tr>
+													
+													<% if(order.orders[i].addon){ %>
+														<tr colspan="2">
+															<td><b>Addon</b></td>
+														</tr>
+														<% for(var j = 0; j< order.orders[i].addon.length; j++) {%>
+															<tr>
+																<td style="padding: 0 20px;"><%= order.orders[i].addon[j].name %></td>
+																<td style="padding: 0 20px;text-align: right;"><b>(+<%= order.orders[i].addon[j].price %>)</b></td>
+															</tr>
+														<% } %>
+													<% } %>
+												</tbody>
+											</table>
+										</td>
+									</tr>
+								<% } %>
+								<% if(order.orders[i].itemInstruction){ %>
+									<tr>
+										<td colspan="2">
+											<b>Item Instruction : </b><%= order.orders[i].itemInstruction%>
+										</td>
+									</tr>
+								<%}%>
 							<% } %>
-							<% if(order.orders[i].itemInstruction){ %>
-								<tr>
-									<td colspan="2">
-										<b>Item Instruction : </b><%= order.orders[i].itemInstruction%>
-									</td>
-								</tr>
-							<%}%>
 						<% } %>
+
 
 						<% if(order.promotion && order.promotion.itemGroup1){%>
 							<tr>
@@ -166,7 +169,7 @@
 									<b> <%= order.promotion.itemGroup1.quantity %> x </b> <%= order.promotion.itemGroup1.item.name %>
 								</td>
 								<td style="border : none;background: rgba(128, 128, 128, 0.38);padding: 5px 10px; text-align: right;">
-									<b><%= order.promotion.itemGroup1.totalPrice %></b>
+									<b><%= order.promotion.itemGroup1.totalPrice.toFixed(2) %></b>
 								</td>
 							</tr>
 							<% if(order.promotion.itemGroup1.multisize || order.promotion.itemGroup1.addon) { %>
@@ -191,7 +194,7 @@
 													<% for(var k = 0; k < order.promotion.itemGroup1.addon.length; k++) {%>
 														<tr>
 															<td style="padding: 0 20px;"><%= order.promotion.itemGroup1.addon[k].name %></td>
-															<td style="padding: 0 20px;text-align: right;"><b>(+<%= order.promotion.itemGroup1.addon[k].name %>)</b></td>
+															<td style="padding: 0 20px;text-align: right;"><b>(+<%= order.promotion.itemGroup1.addon[k].price %>)</b></td>
 														</tr>
 													<% } %>
 												<% } %>
@@ -214,7 +217,7 @@
 										<b> <%= order.promotion.itemGroup2.quantity %> x </b> <%= order.promotion.itemGroup2.item.name %>
 									</td>
 									<td style="border : none;background: rgba(128, 128, 128, 0.38);padding: 5px 10px; text-align: right;">
-										<b><%= order.promotion.itemGroup2.totalPrice %></b>
+										<b><%= order.promotion.itemGroup2.totalPrice.toFixed(2) %></b>
 									</td>
 								</tr>
 								<% if(order.promotion.itemGroup2.multisize || order.promotion.itemGroup2.addon) { %>
@@ -239,7 +242,7 @@
 														<% for(var k = 0; k < order.promotion.itemGroup2.addon.length; k++) {%>
 															<tr>
 																<td style="padding: 0 20px;"><%= order.promotion.itemGroup2.addon[k].name %></td>
-																<td style="padding: 0 20px;text-align: right;"><b>(+<%= order.promotion.itemGroup2.addon[k].name %>)</b></td>
+																<td style="padding: 0 20px;text-align: right;"><b>(+<%= order.promotion.itemGroup2.addon[k].price %>)</b></td>
 															</tr>
 														<% } %>
 													<% } %>
@@ -264,16 +267,27 @@
 								<b>Sub-total</b>
 							</td>
 							<td style="background: #EBE8E4;padding: 5px 10px;text-align: right;">
-								<b><%= order.subTotal.toFixed(2)%></b>
+								<b>$ <%= order.subTotal.toFixed(2)%></b>
 							</td>
 						</tr>
-						<% if(order.discountAmount && order.discountAmount > 0){ %>
+						<% if(order.discountAmount){ %>
 							<tr>
 								<td style="padding: 5px 10px;background: #EBE8E4;">
 									<b>Discount</b>
 								</td>
 								<td style="padding: 5px 10px;text-align: right;background: #EBE8E4;">
-									<b>$<%= order.discountAmount%></b>
+									<b>$ <%= order.discountAmount.toFixed(2) %></b>
+								</td>
+							</tr>
+						<% } %>
+
+						<% if(order.deliveryfee) {%>
+							<tr>
+								<td style="padding: 5px 10px;background: #EBE8E4;">
+									<b>Delivery Charges</b>
+								</td>
+								<td style="padding: 5px 10px;text-align: right;background: #EBE8E4;">
+									<b>$ <%= order.deliveryfee.toFixed(2) %></b>
 								</td>
 							</tr>
 						<% } %>
@@ -283,17 +297,17 @@
 									<b>Tax</b>
 								</td>
 								<td style="padding: 5px 10px;text-align: right;background: #EBE8E4;">
-									<b>$<%= order.tax.toFixed(2)%></b>
+									<b>$ <%= order.tax.toFixed(2)%></b>
 								</td>
 							</tr>
 						<% } %>
-						<% if(order.deliveryFee) {%>
+						<% if(order.deliveryTax){ %>
 							<tr>
 								<td style="padding: 5px 10px;background: #EBE8E4;">
-									<b>Delivery Charges</b>
+									<b>Delivery Tax</b>
 								</td>
 								<td style="padding: 5px 10px;text-align: right;background: #EBE8E4;">
-									<b>$<%= order.deliveryFee.toFixed(2) %></b>
+									<b>$ <%= order.deliveryTax.toFixed(2) %></b>
 								</td>
 							</tr>
 						<% } %>

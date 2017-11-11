@@ -17,6 +17,7 @@ var OrderSchema = new Schema({
 	tax:Number,
 	gTotal:Number,
 	deliveryfee: Number,
+	deliveryTax: Number,
 	orders:{},
 	status : String,
 	custMessage : String,

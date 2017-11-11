@@ -79,18 +79,20 @@ router.get('/method/:id/:days', function(req, res, next) {
     var deliveryData = [];
     var days = req.params.days; 
     Order.find({restaurantId:req.params.id/*,created_at:{'$gte':lastWeek}*/}).exec(function(err,orderList){
-        for (var i = 0; i < days; i++) {
+        for (var i = days-1; i >= 0; i--) {
             var pickupCount = 0;
             var deliveryCount = 0;
             var date = new Date();
             date.setDate(date.getDate()-i);
-            for (var j = 0; j < orderList.length; j++) {
-                if (date.toDateString() == orderList[j].created_at.toDateString()) {
-                    if (orderList[j].orderMethod.mType == 'Pickup') {
-                        pickupCount++;
-                    }
-                    if (orderList[j].orderMethod.mType == 'Delivery') {
-                        deliveryCount++;
+            if (orderList.length > 0) {
+                for (var j = 0; j < orderList.length; j++) {
+                    if (date.toDateString() == orderList[j].created_at.toDateString()) {
+                        if (orderList[j].orderMethod && orderList[j].orderMethod.mType == 'Pickup') {
+                            pickupCount++;
+                        }
+                        if (orderList[j].orderMethod && orderList[j].orderMethod.mType == 'Delivery') {
+                            deliveryCount++;
+                        }
                     }
                 }
             }
@@ -109,7 +111,7 @@ router.get('/results/:id/:days', function(req, res, next) {
     var rejectData = [];
     var days = req.params.days; 
     Order.find({restaurantId:req.params.id/*,created_at:{'$gte':lastWeek}*/}).exec(function(err,orderList){
-        for (var i = 0; i < days; i++) {
+        for (var i = days-1; i >= 0; i--) {
             var acptCount = 0;
             var rjctCount = 0;
             var missCount = 0;
@@ -143,7 +145,7 @@ router.get('/type/:id/:days', function(req, res, next) {
     var laterData = [];
     var days = req.params.days;
     Order.find({restaurantId:req.params.id/*,created_at:{'$gte':lastWeek}*/}).exec(function(err,orderList){
-        for (var i = 0; i < days; i++) {
+        for (var i = days-1; i >= 0; i--) {
             var pickupCount = 0;
             var deliveryCount = 0;
             var date = new Date();
@@ -175,7 +177,7 @@ router.get('/payment/:id/:days', function(req, res, next) {
     var cardViaInternetData = [];
     var days = req.params.days;
     Order.find({restaurantId:req.params.id/*,created_at:{'$gte':lastWeek}*/}).exec(function(err,orderList){
-        for (var i = 0; i < days; i++) {
+        for (var i = days-1; i >= 0; i--) {
             var cashCount = 0;
             var cardPickupCount = 0;
             var cardViaInternetCount = 0;
@@ -239,7 +241,7 @@ router.get('/items/:id/:days', function(req, res, next) {
                 for (var i = 0; i < maunCatList.length; i++) {
                     console.log(menu[i])
                     var menuDataLen = []
-                    for (var p = 0; p < days; p++) {
+                    for (var p = days-1; p >= 0; p--) {
                         var date = new Date();
                         date.setDate(date.getDate()-p);
                         var menuData=[];
@@ -271,14 +273,11 @@ router.get('/items/:id/:days', function(req, res, next) {
 
 router.get('/item-category/:id/:menuId/:days', function(req, res, next) {
     var lastWeek = new Date();
-    //lastWeek.setDate(lastWeek.getDate()-7);
     var items=[];
     var menuIdParam = req.params.menuId;
     var days = req.params.days;
     Order.find({restaurantId:req.params.id/*,created_at:{'$gte':lastWeek}*/}).exec(function(err,orderList){
         var itemArray = []
-        /*console.log("orderList");
-        console.log(orderList);*//**/
         if (orderList && orderList.length > 0) {
             for (var j = 0; j < orderList.length; j++) {
                 if (orderList[j].orders && orderList[j].orders.length > 0) {
@@ -298,14 +297,10 @@ router.get('/item-category/:id/:menuId/:days', function(req, res, next) {
             var pickupCount = 0;
             var deliveryCount = 0;
             var db = []
-
-            console.log("itemCatList");
-            console.log(itemCatList);
-
             if (itemCatList && itemCatList.length > 0) {
                 for (var i = 0; i < itemCatList.length; i++) {
                     var menuDataLen = []
-                    for (var p = 0; p < days; p++) {
+                    for (var p = days-1; p >= 0; p--) {
                         var date = new Date();
                         date.setDate(date.getDate()-p);
                         var menuData=[];
@@ -345,7 +340,7 @@ router.get('/all-sale/:id/:days', function(req, res, next) {
     var receiveData = [];
     var days = req.params.days;
     Order.find({restaurantId:req.params.id/*,created_at:{'$gte':lastWeek}*/}).exec(function(err,orderList){
-        for (var i = 0; i < days; i++) {
+        for (var i = days-1; i >= 0; i--) {
             var receiveCount = 0;
             var acceptCount = 0;
             var missedCount = 0;

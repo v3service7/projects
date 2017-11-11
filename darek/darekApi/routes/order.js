@@ -37,7 +37,7 @@ function sendOrderMail(req,name,subject,content){
 
 router.get('/', function(req, res, next) {
     var response={};
-    Order.find({}, null, {sort: {created_at: 1}},function(err,data){
+    Order.find({}, null, {sort: {created_at: -1}},function(err,data){
         if (err) {
             response = {"error" : true,"message" : "Error fetching data"};
         } else{
@@ -50,7 +50,7 @@ router.get('/', function(req, res, next) {
 
 router.get('/driver/:id', function(req, res, next) {
     var response={};
-    Order.find({driverId:req.params.id}).populate('customerId').populate('restaurantId').populate('driverId').exec(function(err,data){
+    Order.find({driverId:req.params.id}, null, {sort: {created_at: -1}}).populate('customerId').populate('restaurantId').populate('driverId').exec(function(err,data){
         if (err) {
             response = {"error" : true,"message" : "Error fetching data"};
         } else{
@@ -63,7 +63,7 @@ router.get('/driver/:id', function(req, res, next) {
 
 router.get('/customer/:id', function(req, res, next) {
     var response={};
-    Order.find({customerId:req.params.id}).populate('customerId').populate('restaurantId').populate('driverId').exec(function(err,data){
+    Order.find({customerId:req.params.id}, null, {sort: {created_at: -1}}).populate('customerId').populate('restaurantId').populate('driverId').exec(function(err,data){
         if (err) {
             response = {"error" : true,"message" : "Error fetching data"};
         } else{
@@ -76,7 +76,7 @@ router.get('/customer/:id', function(req, res, next) {
 
 router.get('/customer-by-restaurant/:custID/:resID', function(req, res, next) {
     var response={};
-    Order.find({customerId:req.params.custID, restaurantId : req.params.resID}).populate('customerId').populate('restaurantId').populate('driverId').exec(function(err,data){
+    Order.find({customerId:req.params.custID, restaurantId : req.params.resID}, null, {sort: {created_at: -1}}).populate('customerId').populate('restaurantId').populate('driverId').exec(function(err,data){
         if (err) {
             response = {"error" : true,"message" : "Error fetching data"};
         } else{
