@@ -18,7 +18,7 @@
 			</div>
 			<div class="col-lg-2 col-md-2 col-sm-2 col-xs-2"> <div *ngIf="order.orderMethod">{{order.orderMethod.mType}}</div></div>
 			<div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">{{order.customerId.firstname}} {{order.customerId.lastname}}</div>
-			<div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 fontWeight700 color666">{{order.gTotal.toFixed(2)}}</div>
+			<div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 fontWeight700 color666">{{order.gTotal | number : '1.2-2'}}</div>
 			<div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 padding0">{{order.status}}</div>
 		</div>
 	</div>

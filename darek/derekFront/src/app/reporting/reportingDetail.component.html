@@ -55,13 +55,13 @@
 							</span>
 							{{order.item.name}}
 							<span *ngFor = "let chilly of spicyArray;">
-	                            <span *ngIf = "chilly <= item.spicyLevel">
+	                            <span *ngIf = "chilly <= order.item.spicyLevel">
 	                                <img src="assets/images/chilly.PNG" width="15px">
 	                            </span>
 	                        </span>
 						</div>
 						<div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 textAlignRight">
-							<span class="fontSize14px"><b>{{order.totalPrice}}</b></span>
+							<span class="fontSize14px"><b>{{order.totalPrice | number : '1.2-2'}}</b></span>
 						</div>
 						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" *ngIf="order.multisize" style="padding: 0 5%;">
 							<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0">
@@ -71,7 +71,7 @@
 								{{order.multisize.size}}
 							</div>
 							<div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 textAlignCenter">
-								<span class="fontSize14px"> <b>(+{{order.multisize.price}})</b></span>
+								<span class="fontSize14px"> <b>(+{{order.multisize.price | number : '1.2-2'}})</b></span>
 							</div>
 						</div>
 						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" *ngIf="order.addon.length > 0" style="padding: 0 5%;">
@@ -83,7 +83,7 @@
 									{{addon.name}}
 								</div>
 								<div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 textAlignCenter">
-									<span class="fontSize14px"> <b>(+{{addon.price}})</b></span>
+									<span class="fontSize14px"> <b>(+{{addon.price | number : '1.2-2'}})</b></span>
 								</div>
 							</div>
 						</div>
@@ -101,13 +101,13 @@
 							<span class="fontSize14px"> <b>{{detail.promotion.itemGroup1.quantity}} x </b></span>
 							{{detail.promotion.itemGroup1.item.name}}
 							<span *ngFor = "let chilly of spicyArray;">
-	                            <span *ngIf = "chilly <= item.spicyLevel">
+	                            <span *ngIf = "chilly <= detail.promotion.itemGroup1.item.spicyLevel">
 	                                <img src="assets/images/chilly.PNG" width="15px">
 	                            </span>
 	                        </span>
 						</div>
 						<div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 textAlignRight">
-							<span class="fontSize14px"><b>{{detail.promotion.itemGroup1.totalPrice}}</b></span>
+							<span class="fontSize14px"><b>{{detail.promotion.itemGroup1.totalPrice | number : '1.2-2'}}</b></span>
 						</div>
 						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" *ngIf="detail.promotion.itemGroup1.multisize" style="padding: 0 5%;">
 							<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0">
@@ -117,7 +117,7 @@
 								{{detail.promotion.itemGroup1.multisize.size}}
 							</div>
 							<div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 textAlignCenter">
-								<span class="fontSize14px"> <b>(+{{detail.promotion.itemGroup1.multisize.price}})</b></span>
+								<span class="fontSize14px"> <b>(+{{detail.promotion.itemGroup1.multisize.price | number : '1.2-2'}})</b></span>
 							</div>
 						</div>
 						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" *ngIf="detail.promotion.itemGroup1.addon.length > 0" style="padding: 0 5%;">
@@ -129,7 +129,7 @@
 									{{addon.name}}
 								</div>
 								<div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 textAlignCenter">
-									<span class="fontSize14px"> <b>(+{{addon.price}})</b></span>
+									<span class="fontSize14px"> <b>(+{{addon.price | number : '1.2-2'}})</b></span>
 								</div>
 							</div>
 						</div>
@@ -145,13 +145,13 @@
 								<span class="fontSize14px"> <b>{{detail.promotion.itemGroup2.quantity}} x </b></span>
 								{{detail.promotion.itemGroup2.item.name}}
 								<span *ngFor = "let chilly of spicyArray;">
-		                            <span *ngIf = "chilly <= item.spicyLevel">
+		                            <span *ngIf = "chilly <= detail.promotion.itemGroup2.item.spicyLevel">
 		                                <img src="assets/images/chilly.PNG" width="15px">
 		                            </span>
 		                        </span>
 							</div>
 							<div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 textAlignRight">
-								<span class="fontSize14px"><b>{{detail.promotion.itemGroup2.totalPrice}}</b></span>
+								<span class="fontSize14px"><b>{{detail.promotion.itemGroup2.totalPrice | number : '1.2-2'}}</b></span>
 							</div>
 							<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" *ngIf="detail.promotion.itemGroup2.multisize" style="padding: 0 5%;">
 								<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0">
@@ -161,7 +161,7 @@
 									{{detail.promotion.itemGroup2.multisize.size}}
 								</div>
 								<div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 textAlignCenter">
-									<span class="fontSize14px"> <b>(+{{detail.promotion.itemGroup2.multisize.price}})</b></span>
+									<span class="fontSize14px"> <b>(+{{detail.promotion.itemGroup2.multisize.price | number : '1.2-2'}})</b></span>
 								</div>
 							</div>
 							<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" *ngIf="detail.promotion.itemGroup2.addon.length > 0" style="padding: 0 5%;">
@@ -173,7 +173,7 @@
 										{{addon.name}}
 									</div>
 									<div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 textAlignCenter">
-										<span class="fontSize14px"> <b>(+{{addon.price}})</b></span>
+										<span class="fontSize14px"> <b>(+{{addon.price | number : '1.2-2'}})</b></span>
 									</div>
 								</div>
 							</div>
@@ -193,43 +193,48 @@
 						<b>Sub-Total </b>
 					</div>
 					<div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 fontSize14px textAlignRight">
-						<b>{{detail.subTotal}}</b>
+						<b>$ {{detail.subTotal | number : '1.2-2'}}</b>
 					</div>
 				</div>
 				<!-- subtotal end -->
+				
+				<!-- | number : '1.2-2' -->			
+				
+				<!-- discountAmmount -->
+				<div *ngIf="detail.discountAmount">
+					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0">
+						<div class="col-lg-8 col-md-8 col-sm-8 col-xs-8 fontSize14px" >
+							<b>Discount</b>
+						</div>
+						<div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 fontSize14px textAlignRight">
+							<b>$ {{detail.discountAmount | number : '1.2-2'}}</b>
+						</div>
+					</div>
+				</div>
+				<!-- discountAmmount end -->
 
 				<!-- deliveryFee -->
-				<div *ngIf="detail.orderMethod">
-					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0" *ngIf="detail.orderMethod.mType == 'Delivery'">
+				<div *ngIf="detail.orderMethod && detail.orderMethod.mType == 'Delivery'">
+					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0">
 						<div class="col-lg-8 col-md-8 col-sm-8 col-xs-8 fontSize14px">
 							<b>Delivery Fee</b>
 						</div>
 						<div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 fontSize14px textAlignRight">
-							<b>{{detail.deliveryfee}}</b>
+							<b>$ {{detail.deliveryfee | number : '1.2-2'}}</b>
 						</div>
 					</div>
 				</div>
 				<!-- deliveryFee end -->
 				
-				<!-- discountAmmount -->
-				<div *ngIf="detail.discountAmount">
-					<div class="col-lg-8 col-md-8 col-sm-8 col-xs-8 fontSize14px" >
-						<b>Discount</b>
-					</div>
-					<div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 fontSize14px textAlignRight">
-						<b>{{detail.discountAmount}}</b>
-					</div>
-				</div>
-				<!-- discountAmmount end -->
 
 				<!-- tax -->
-				<div *ngIf="detail.orders">
-					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0" *ngIf="detail.orders.length">
+				<div *ngIf="detail.tax">
+					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0">
 						<div class="col-lg-8 col-md-8 col-sm-8 col-xs-8 fontSize14px">
 							<b>Tax</b>
 						</div>
 						<div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 fontSize14px textAlignRight">
-							<b>{{detail.tax}}</b>
+							<b>$ {{detail.tax | number : '1.2-2'}}</b>
 						</div>
 					</div>
 					<div *ngIf = "detail.deliveryTax" class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0">
@@ -237,7 +242,7 @@
 							<b>Delivery Tax</b>
 						</div>
 						<div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 fontSize14px textAlignRight">
-							<b>{{detail.deliveryTax}}</b>
+							<b>$ {{detail.deliveryTax | number : '1.2-2'}}</b>
 						</div>
 					</div>
 				</div>
@@ -246,10 +251,10 @@
 				<!-- gTotal -->
 				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0">
 					<div class="col-lg-8 col-md-8 col-sm-8 col-xs-8 fontSize14px">
-						<b>Total </b>
+						<b>Total</b>
 					</div>
 					<div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 fontSize14px textAlignRight">
-						<b>{{detail.gTotal}}</b>
+						<b>$ {{detail.gTotal | number : '1.2-2'}}</b>
 					</div>
 				</div>
 				<!-- gTotal end -->

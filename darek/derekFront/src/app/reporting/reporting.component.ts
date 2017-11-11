@@ -53,7 +53,7 @@ export class ReportingoverviewComponent implements OnInit {
 	acceptedOrderTotal : Number = 0;
 	avgAcceptedOrderTotal : Number = 0;
 	lastWeekOrderTotal : Number = 0;
-	avglastWeekOrderTotal : Number;
+	avglastWeekOrderTotal : Number = 0;
     constructor(
         private restaurantsService: RestaurantsService,
         private orderService: OrderService
@@ -80,7 +80,7 @@ export class ReportingoverviewComponent implements OnInit {
                 }
                 this.avgAcceptedOrderTotal = Number(this.acceptedOrderTotal) / Number(this.overview.totalAcceptedOrder.length);
             }
-            if (this.overview.asPerDayOrder) {
+            if (this.overview.asPerDayOrder && this.overview.asPerDayOrder.length > 0) {
                 for (var i = 0; i < this.overview.asPerDayOrder.length; i++) {
                     this.lastWeekOrderTotal = this.lastWeekOrderTotal + this.overview.asPerDayOrder[i].gTotal;
                 }
@@ -136,13 +136,14 @@ export class ReportingMethodComponent implements OnInit {
 
     private lastSevenDays(day){
         var array = [];
-        for (var i = 0; i < day; i++) {
+        for (var i = day-1; i >= 0; i--) {
             var date = new Date();
             date.setDate(date.getDate()-i)
             array.push(new Date(date).toDateString())
         }
         return array;
     }
+
     private getMethodData(id , days) {
         this.orderService.getMethodChart(id , days).subscribe(users => {
             if (users.message.length > 0) {
@@ -159,6 +160,8 @@ export class ReportingMethodComponent implements OnInit {
     private getRestaurants() {
         this.restaurantsService.getOwnerRestaurants(JSON.parse(localStorage.getItem('currentOwner'))._id).subscribe(users => {
             this.restaurants = users.message;
+            console.log("this.restaurants");
+            console.log(this.restaurants);
             this.lineChartLabels = this.lastSevenDays(this.selectedTime);
             this.getMethodData(this.restaurants._id , this.selectedTime);
 
@@ -213,15 +216,16 @@ export class ReportingResultComponent implements OnInit {
         this.getRestaurants();
         
     }
-    private lastSevenDays(days){
+    private lastSevenDays(day){
         var array = [];
-        for (var i = 0; i < days; i++) {
+        for (var i = day-1; i >= 0; i--) {
             var date = new Date();
             date.setDate(date.getDate()-i)
             array.push(new Date(date).toDateString())
         }
         return array;
     }
+
     private getResultData(id, days) {
         this.orderService.getResultChart(id,days).subscribe(users => {
             if (users.message.length > 0) {
@@ -290,9 +294,9 @@ export class ReportingTypeComponent implements OnInit {
         document.getElementById('noRecordClass').style.display = 'none';
         this.getRestaurants();
     }
-    private lastSevenDays(days){
+    private lastSevenDays(day){
         var array = [];
-        for (var i = 0; i < days; i++) {
+        for (var i = day-1; i >= 0; i--) {
             var date = new Date();
             date.setDate(date.getDate()-i)
             array.push(new Date(date).toDateString())
@@ -367,9 +371,9 @@ export class ReportingPaymentMethodComponent implements OnInit {
         document.getElementById('noRecordClass').style.display = 'none';
         this.getRestaurants();
     }
-    private lastSevenDays(days){
+    private lastSevenDays(day){
         var array = [];
-        for (var i = 0; i < days; i++) {
+        for (var i = day-1; i >= 0; i--) {
             var date = new Date();
             date.setDate(date.getDate()-i)
             array.push(new Date(date).toDateString())
@@ -409,6 +413,8 @@ export class ReportingPaymentMethodComponent implements OnInit {
     styleUrls: ['./reporting.component.css']
 })
 export class ReportingItemsComponent implements OnInit {
+    @ViewChild('testChart') testChart;
+
     currentOwner:any={};
     restaurants:any ={};
     timeValue = [{name: 7}, {name: 15}, {name: 30}, {name: 90}, {name: 180}];
@@ -440,9 +446,9 @@ export class ReportingItemsComponent implements OnInit {
         document.getElementById('noRecordClass').style.display = 'none';
         this.getRestaurants();
     }
-    private lastSevenDays(days){
+    private lastSevenDays(day){
         var array = [];
-        for (var i = 0; i < days; i++) {
+        for (var i = day-1; i >= 0; i--) {
             var date = new Date();
             date.setDate(date.getDate()-i)
             array.push(new Date(date).toDateString())
@@ -453,6 +459,9 @@ export class ReportingItemsComponent implements OnInit {
     private getItemData(id,days) {
         this.orderService.getItemChart(id,days).subscribe(users => {
             if (users.message.length > 0) {
+                if (typeof this.testChart != 'undefined') {
+                    this.testChart.chart.config.data.datasets = users.message;
+                }
                 this.lineChartData = users.message;
                 this.isShow = true;
             }
@@ -558,9 +567,9 @@ export class ReportingItemCategoriesComponent implements OnInit {
         });
     }
 
-    private lastSevenDays(days){
+    private lastSevenDays(day){
         var array = [];
-        for (var i = 0; i < days; i++) {
+        for (var i = day-1; i >= 0; i--) {
             var date = new Date();
             date.setDate(date.getDate()-i)
             array.push(new Date(date).toDateString())
@@ -636,9 +645,9 @@ export class ReportingSaleDetailComponent implements OnInit {
         document.getElementById('noRecordClass').style.display = 'none';
         this.getRestaurants();
     }
-    private lastSevenDays(days){
+    private lastSevenDays(day){
         var array = [];
-        for (var i = 0; i < days; i++) {
+        for (var i = day-1; i >= 0; i--) {
             var date = new Date();
             date.setDate(date.getDate()-i)
             array.push(new Date(date).toDateString())

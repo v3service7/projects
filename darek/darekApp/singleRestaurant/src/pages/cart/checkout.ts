@@ -625,7 +625,7 @@ export class CheckoutPage {
                         text: 'Ok',
                         handler: () => {
                             this.deliveryFee = 50;
-                            this.amount = 0;
+                            this.minAmount = 0;
                             this.enterAddress = false;
                             this.oMethod = true;
                             this.cartStorage.deliveryfee = this.deliveryFee;

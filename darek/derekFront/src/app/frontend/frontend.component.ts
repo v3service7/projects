@@ -581,8 +581,8 @@ export class FrontendPromoDetailComponent implements OnInit {
     }
 
     private addonUncheck(){
-        $('.subAddOnDetailList').css('background','white');
-        $('.subAddOnDetailList').attr('data-addon','check');
+        $('.subAddOnDetail').css('background','white');
+        $('.subAddOnDetail').attr('data-addon','check');
     }
 
     private multiSizePriceInfo(itemMultiSizeObj) {
@@ -1131,8 +1131,8 @@ export class FrontendComponent implements OnInit {
     }
 
     private addonUncheck(){
-        $('.subAddOnDetailList').css('background','white');
-        $('.subAddOnDetailList').attr('data-addon','check');
+        $('.subAddOnDetail').css('background','white');
+        $('.subAddOnDetail').attr('data-addon','check');
     }
 
     private addToCart(id) {
@@ -2543,19 +2543,19 @@ export class FrontendCartComponent implements OnInit {
                     if (this.restaurants.taxation['deliveryTaxType'] == 'Same Tax') {                    
                         taxAmount = (parseInt(this.restaurants.taxation.tax)/100) * (this.deliveryFee + this.cartTotal);
                         console.log("taxAmount ", taxAmount);
-                        this.cartDetail.tax = taxAmount.toFixed(2);
+                        this.cartDetail.tax = taxAmount;
                         this.grandTotalWithTax = this.deliveryFee + this.cartTotal + taxAmount;
                     }
 
                     if (this.restaurants.taxation['deliveryTaxType'] == 'New Tax') {                    
                         taxAmount = (parseInt(this.restaurants.taxation.tax)/100) * this.cartTotal;
                         console.log("taxAmount ", taxAmount);
-                        this.cartDetail.tax = taxAmount.toFixed(2);
+                        this.cartDetail.tax = taxAmount;
 
                         let deliveryTax : any;
                         deliveryTax = (parseInt(this.restaurants.taxation.deliveryTax)/100) * this.deliveryFee;
                         console.log("deliveryTax ", deliveryTax);
-                        this.cartDetail.deliveryTax = deliveryTax.toFixed(2);
+                        this.cartDetail.deliveryTax = deliveryTax;
 
                         this.grandTotalWithTax = this.deliveryFee + this.cartTotal + taxAmount + deliveryTax;
                     }
@@ -2575,7 +2575,7 @@ export class FrontendCartComponent implements OnInit {
                         let deliveryTax : any;
                         deliveryTax = (parseInt(this.restaurants.taxation.deliveryTax)/100) * this.deliveryFee;
                         console.log("deliveryTax ", deliveryTax);
-                        this.cartDetail.deliveryTax = deliveryTax.toFixed(2);
+                        this.cartDetail.deliveryTax = deliveryTax;
 
                         this.grandTotalWithTax = this.deliveryFee + this.cartTotal + deliveryTax;
                     }
@@ -2585,19 +2585,19 @@ export class FrontendCartComponent implements OnInit {
                     if (this.restaurants.taxation['deliveryTaxType'] == 'Same Tax') {                    
                         taxAmount = (parseInt(this.restaurants.taxation.tax)/100) * (this.deliveryFee + this.grandTotal);
                         console.log("taxAmount ", taxAmount);
-                        this.cartDetail.tax = taxAmount.toFixed(2);
+                        this.cartDetail.tax = taxAmount;
                         this.grandTotalWithTax = this.deliveryFee + this.grandTotal + taxAmount;
                     }
 
                     if (this.restaurants.taxation['deliveryTaxType'] == 'New Tax') {                    
                         taxAmount = (parseInt(this.restaurants.taxation.tax)/100) * this.grandTotal;
                         console.log("taxAmount ", taxAmount);
-                        this.cartDetail.tax = taxAmount.toFixed(2);
+                        this.cartDetail.tax = taxAmount;
 
                         let deliveryTax : any;
                         deliveryTax = (parseInt(this.restaurants.taxation.deliveryTax)/100) * this.deliveryFee;
                         console.log("deliveryTax ", deliveryTax);
-                        this.cartDetail.deliveryTax = deliveryTax.toFixed(2);
+                        this.cartDetail.deliveryTax = deliveryTax;
 
                         this.grandTotalWithTax = this.deliveryFee + this.grandTotal + taxAmount + deliveryTax;
                     }
@@ -2617,7 +2617,7 @@ export class FrontendCartComponent implements OnInit {
                         let deliveryTax : any;
                         deliveryTax = (parseInt(this.restaurants.taxation.deliveryTax)/100) * this.deliveryFee;
                         console.log("deliveryTax ", deliveryTax);
-                        this.cartDetail.deliveryTax = deliveryTax.toFixed(2);
+                        this.cartDetail.deliveryTax = deliveryTax;
 
                         this.grandTotalWithTax = this.deliveryFee + this.grandTotal +  deliveryTax;
                     }
@@ -2632,9 +2632,9 @@ export class FrontendCartComponent implements OnInit {
             }
         }
 
-        this.cartDetail.subTotal=this.grandTotal.toFixed(2);
+        this.cartDetail.subTotal=this.grandTotal;
         if (typeof this.discountAmount != 'undefined') {
-            this.cartDetail.discountAmount=this.discountAmount.toFixed(2);
+            this.cartDetail.discountAmount=this.discountAmount;
         }else{
             this.cartDetail.discountAmount=0;
         }
