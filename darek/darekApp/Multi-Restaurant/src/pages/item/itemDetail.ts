@@ -114,29 +114,38 @@ export class ItemDetailPage {
     }
 
     private isFavOrNot(id){
-        if (this.currentCustomer) {
-            let wIndex = this.currentCustomer.wishlist.indexOf(id);
+        if (this.currentCustomer && this.currentCustomer.wishlist) {
+            let wIndex = this.currentCustomer['wishlist'].indexOf(id);
             if (wIndex == -1) {
                 return {'color':'#999'};
             }else{
                 return {'color':'red'};
             }
+        }else{
+            return {'color':'#999'};
         }
     }
 
     private makeFav(id){
-        console.log(this.multisizeSelected)
-        console.log(this.item.multisize)
-        let wIndex = this.currentCustomer.wishlist.indexOf(id);
-        if (wIndex == -1) {
-            this.currentCustomer.wishlist.push(id);
-            //this.getItems(this.item._id);
-            this.customerService.updateCustomer(this.currentCustomer).subscribe(cust=>{
-            });
+        if (this.currentCustomer && this.currentCustomer.wishlist) {
+            let wIndex = this.currentCustomer['wishlist'].indexOf(id);
+            if (wIndex == -1) {
+                this.currentCustomer['wishlist'].push(id);
+                this.customerService.updateCustomer(this.currentCustomer).subscribe(cust=>{
+                    this.getCustomer();
+                });
+            }else{
+                this.currentCustomer.wishlist.splice(wIndex,1);
+                //this.getItems(this.item._id);
+                this.customerService.updateCustomer(this.currentCustomer).subscribe(cust=>{
+                    this.getCustomer();
+                });
+            }
         }else{
-            this.currentCustomer.wishlist.splice(wIndex,1);
-            //this.getItems(this.item._id);
+            this.currentCustomer['wishlist'] = [];
+            this.currentCustomer['wishlist'].push(id);
             this.customerService.updateCustomer(this.currentCustomer).subscribe(cust=>{
+                this.getCustomer();
             });
         }
     }

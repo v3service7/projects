@@ -89,6 +89,8 @@ export class ItemPage {
         if (tempCurrentCustomer) {
             this.customerService.getOneCustomer(tempCurrentCustomer['_id']).subscribe(cust=>{
                 this.currentCustomer = cust.message;
+                console.log("this.currentCustomer");
+                console.log(this.currentCustomer);
                 localStorage.removeItem('currentCustomer');
                 localStorage.setItem('currentCustomer',JSON.stringify(this.currentCustomer));
             });
@@ -96,29 +98,40 @@ export class ItemPage {
     }
 
     private isFavOrNot(id){
-        if (this.currentCustomer) {
+        if (this.currentCustomer && this.currentCustomer.wishlist) {
             let wIndex = this.currentCustomer.wishlist.indexOf(id);
             if (wIndex == -1) {
                 return {'color':'#999'};
             }else{
                 return {'color':'red'};
             }
+        }else{
+            return {'color':'#999'};
         }
     }
 
     private makeFav(id){
-        let wIndex = this.currentCustomer.wishlist.indexOf(id);
-        if (wIndex == -1) {
-            this.currentCustomer.wishlist.push(id);
-            this.getItems(this.menu._id);
-            this.customerService.updateCustomer(this.currentCustomer).subscribe(cust=>{
-                console.log(cust)
-            });
+        if (this.currentCustomer && typeof this.currentCustomer.wishlist != 'undefined') {
+            let wIndex = this.currentCustomer['wishlist'].indexOf(id);
+            if (wIndex == -1) {
+                this.currentCustomer['wishlist'].push(id);
+                this.getItems(this.menu._id);
+                this.customerService.updateCustomer(this.currentCustomer).subscribe(cust=>{
+                    this.getCustomer();
+                });
+            }else{
+                this.currentCustomer.wishlist.splice(wIndex,1);
+                this.getItems(this.menu._id);
+                this.customerService.updateCustomer(this.currentCustomer).subscribe(cust=>{
+                    this.getCustomer();
+                });
+            }
         }else{
-            this.currentCustomer.wishlist.splice(wIndex,1);
+            this.currentCustomer['wishlist'] = [];
+            this.currentCustomer['wishlist'].push(id);
             this.getItems(this.menu._id);
-            console.log(this.currentCustomer)
             this.customerService.updateCustomer(this.currentCustomer).subscribe(cust=>{
+                this.getCustomer();
             });
         }
     }
@@ -178,8 +191,6 @@ export class ItemPage {
     private getItems(id){
         this.kitchenItemService.getMenuItem(id).subscribe(users => {       
             if(!users.error){
-
-
                 if (users.message.length > 0) {
                     this.items = [];
                     for(var i = 0; i < users.message.length; i++) {
@@ -206,7 +217,7 @@ export class ItemPage {
         let toast = this.toastCtrl.create({
             message: msg,
             duration: 3000,
-            position:'middle' //top,middle,bottom
+            position:'top' //top,middle,bottom
         });
         toast.present();
     }

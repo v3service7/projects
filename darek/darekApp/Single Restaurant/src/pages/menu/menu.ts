@@ -162,7 +162,7 @@ export class MenuPage {
     	let toast = this.toastCtrl.create({
 	        message: msg,
 	        duration: 3000,
-	        position:'middle' //top,middle,bottom
+	        position:'top' //top,middle,bottom
 	    });
 	    toast.present();
     }

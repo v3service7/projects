@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { CustomersService } from '../../app/service/index';
 import * as globalVariable from "../../app/global";
+
 import { ItemDetailPage } from './../item/itemDetail';
 
 /**
@@ -34,9 +35,15 @@ export class WishlistPage {
     private getCustomer(){
         var tempCurrentCustomer = JSON.parse(localStorage.getItem('currentCustomer'));
         this.customerService.getOneCustomerWishlist(tempCurrentCustomer['_id']).subscribe(cust=>{
-            this.items = cust.message.wishlist
-           
+            this.items = cust.message;
         });
+    }
+
+    doRefresh(refresher) {
+        setTimeout(() => {
+            this.getCustomer();
+            refresher.complete();
+        }, 2000);
     }
 
     private itemImage(img){

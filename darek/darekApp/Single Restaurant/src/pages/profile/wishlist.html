@@ -12,20 +12,29 @@
         <ion-refresher-content></ion-refresher-content>
     </ion-refresher>
 
-	<ion-card *ngFor = "let item of items" class="width100">
-		<ion-row class="itemDetail" *ngIf="item">
-			<ion-col col-4 class="itemImage" (tap)="tapEvent($event,item)"><img [src]="itemImage(item.image)"/></ion-col>
-			<ion-col col-7 (tap)="tapEvent($event,item)">
-				<ion-row text-uppercase class="itemName">
-					{{item.name}}
-				</ion-row>
-				<ion-row class="itemPrice fontWeight600 colorGreen">
-					${{item.price}}
-				</ion-row>
-			</ion-col>
-			<ion-col col-1>
-				<ion-icon  float-right name="heart" ios="ios-heart" md="md-heart" [ngStyle]="{'color':'red'}"></ion-icon>
-			</ion-col>
-		</ion-row>
-	</ion-card>
+    <ion-row *ngIf = "items && items.length == 0">
+    	<ion-card-header text-center class="width100">
+			No Wishlist!
+		</ion-card-header>
+    </ion-row>
+
+
+    <ion-row *ngIf = "items && items.length > 0">
+		<ion-card *ngFor = "let item of items" class="width100">
+			<ion-row class="itemDetail" *ngIf="item">
+				<ion-col col-4 class="itemImage" (tap)="tapEvent($event,item)"><img [src]="itemImage(item.image)"/></ion-col>
+				<ion-col col-7 (tap)="tapEvent($event,item)">
+					<ion-row text-uppercase class="itemName">
+						{{item.name}}
+					</ion-row>
+					<ion-row class="itemPrice fontWeight600 colorGreen">
+						${{item.price}}
+					</ion-row>
+				</ion-col>
+				<ion-col col-1>
+					<ion-icon  float-right name="heart" ios="ios-heart" md="md-heart" [ngStyle]="{'color':'red'}"></ion-icon>
+				</ion-col>
+			</ion-row>
+		</ion-card>
+	</ion-row>
 </ion-content>

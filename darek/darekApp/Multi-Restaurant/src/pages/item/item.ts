@@ -105,29 +105,40 @@ export class ItemPage {
     }
 
     private isFavOrNot(id){
-        if (this.currentCustomer) {
+        if (this.currentCustomer && this.currentCustomer.wishlist) {
             let wIndex = this.currentCustomer.wishlist.indexOf(id);
             if (wIndex == -1) {
                 return {'color':'#999'};
             }else{
                 return {'color':'red'};
             }
+        }else{
+            return {'color':'#999'};
         }
     }
 
     private makeFav(id){
-        let wIndex = this.currentCustomer.wishlist.indexOf(id);
-        if (wIndex == -1) {
-            this.currentCustomer.wishlist.push(id);
-            this.getItems(this.menu._id);
-            this.customerService.updateCustomer(this.currentCustomer).subscribe(cust=>{
-                console.log(cust)
-            });
+        if (this.currentCustomer && typeof this.currentCustomer.wishlist != 'undefined') {
+            let wIndex = this.currentCustomer['wishlist'].indexOf(id);
+            if (wIndex == -1) {
+                this.currentCustomer['wishlist'].push(id);
+                this.getItems(this.menu._id);
+                this.customerService.updateCustomer(this.currentCustomer).subscribe(cust=>{
+                    this.getCustomer();
+                });
+            }else{
+                this.currentCustomer.wishlist.splice(wIndex,1);
+                this.getItems(this.menu._id);
+                this.customerService.updateCustomer(this.currentCustomer).subscribe(cust=>{
+                    this.getCustomer();
+                });
+            }
         }else{
-            this.currentCustomer.wishlist.splice(wIndex,1);
+            this.currentCustomer['wishlist'] = [];
+            this.currentCustomer['wishlist'].push(id);
             this.getItems(this.menu._id);
-            console.log(this.currentCustomer)
             this.customerService.updateCustomer(this.currentCustomer).subscribe(cust=>{
+                this.getCustomer();
             });
         }
     }
