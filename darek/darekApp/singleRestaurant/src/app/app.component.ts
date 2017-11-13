@@ -79,29 +79,6 @@ export class MyApp {
         });
     }
 
-    logout(){
-        let prompt = this.alertCtrl.create({
-            title: 'Logout',
-            message: "Are you sure ?",
-            buttons: [
-            {
-                text: 'Cancel',
-                handler: data => {
-                    console.log('Cancel clicked');
-                }
-            },
-            {
-                text: 'oK',
-                handler: data => {
-                    localStorage.removeItem('currentCustomer');
-                    this.nav.setRoot(LoginPage);
-                }
-            }
-            ]
-        });
-        prompt.present();
-    }
-
     initializeApp() {
         this.pages = [
             { iconA : 'flame' , iconI : 'ios-flame' , iconW : 'md-flame' , title: 'Hot Deals', component: PromotionPage },
@@ -136,6 +113,9 @@ export class MyApp {
                 {
                     text: 'oK',
                     handler: data => {
+                        this.events.unsubscribe('user:created',null);
+                        this.pages = [];
+                        this.initializeApp();
                         localStorage.removeItem('currentCustomer');
                         this.nav.setRoot(MenuPage);
                     }

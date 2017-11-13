@@ -68,34 +68,9 @@ export class MyApp {
       this.initializeApp();
     }
 
-    logout(){
-        let prompt = this.alertCtrl.create({
-            title: 'Logout',
-            message: "Are you sure ?",
-            buttons: [
-            {
-                text: 'Cancel',
-                handler: data => {
-                    console.log('Cancel clicked');
-                }
-            },
-            {
-                text: 'oK',
-                handler: data => {
-                    localStorage.removeItem('currentCustomer');
-                    this.nav.setRoot(RestaurantPage);
-                }
-            }
-            ]
-        });
-        prompt.present();
-    }
-
     initializeApp() {
         this.pages = [
           { iconA : 'book' , iconI : 'ios-book' , iconW : 'md-book' , title: 'Restaurants', component: RestaurantPage },
-          //{ iconA : 'flame' , iconI : 'ios-flame' , iconW : 'md-flame' , title: 'Hot Deals', component: PromotionPage },
-          //{ iconA : 'clipboard' , iconI : 'ios-clipboard' , iconW : 'md-clipboard' , title: 'Menu', component: MenuPage },
           { iconA : 'cart' , iconI : 'ios-cart' , iconW : 'md-cart' , title: 'Shopping Cart', component: 'CartPage' },
           { iconA : 'person' , iconI : 'ios-person' , iconW : 'md-person' , title: 'My Profile', component: LoginPage }
         ];
@@ -122,8 +97,11 @@ export class MyApp {
                 {
                     text: 'oK',
                     handler: data => {
-                        localStorage.removeItem('currentCustomer');
-                        this.nav.setRoot(RestaurantPage);
+                      this.events.unsubscribe('user:created',null);
+                      this.pages = [];
+                      this.initializeApp();
+                      localStorage.removeItem('currentCustomer');
+                      this.nav.setRoot(RestaurantPage);
                     }
                 }
                 ]
