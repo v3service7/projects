@@ -110,7 +110,7 @@ export class CustomerBusinessAddComponent implements OnInit {
     plans: any = [];
     isVisit = false;
     businessAddForm: FormGroup;
-    mobileRegex = /^[(]{0,1}[2-9]{1}[0-9]{1,2}[)]{0,1}[-\s\.]{0,1}[0-9]{3}[-\s\.]{0,1}[0-9]{7}$/;
+    mobileRegex = /^[(]{0,1}[2-9]{1}[0-9]{1,2}[)]{0,1}[-\s\.]{0,1}[0-9]{2}[-\s\.]{0,1}[0-9]{7}$/;
     phoneRegex = /^[0-9]*$/;
     /*passportRegex = /^[A-Z0-9<]{9}[0-9]{1}[A-Z]{3}[0-9]{7}[A-Z]{1}[0-9]{7}[A-Z0-9<]{14}[0-9]{2}$/;*/
 
@@ -151,12 +151,8 @@ export class CustomerBusinessAddComponent implements OnInit {
             'required':      'Phone Number is required.',
             'minlength':     'Enter 10 digit mobile number along with country code.',
             'maxlength':     'Enter 10 digit mobile number along with country code.',
-            'pattern'   :    "eg : (971)-055-1234567 including or excluding '(', ')' or '-'. "
-        },   
-        /*'passportNumber' : {
-            'required':    'Passport Number is required.',
-            'pattern' :    'eg : G0308084<1ITY9999999Q0410056<<<<<<<<<<<<<<39'
-        },*/   
+            'pattern'   :    "eg : (971)-55-1234567 including or excluding '(', ')' or '-'. "
+        },
         'nationality' : {
             'required':      'Nationality is required.'
         },   
@@ -229,8 +225,8 @@ export class CustomerBusinessAddComponent implements OnInit {
     getPlanList(){
         this.planService.planList().subscribe(
             (data) => {
-              if (!data.error) {
-                     this.plans = data.message
+                if (!data.error) {
+                    this.plans = data.message
                 }
             },
             (err)=>{
@@ -255,7 +251,7 @@ export class CustomerBusinessAddComponent implements OnInit {
         console.log("this.businessAddForm.value");
         console.log(this.businessAddForm.value);
 
-        this._flashMessagesService.show('Upload Documents to add Business', { cssClass: 'alert-warning', timeout: 5000 });
+        this._flashMessagesService.show('Upload Documents to add Business', { cssClass: 'alert-success', timeout: 5000 });
         let bID = 'business_'+this.currentCustomer._id;
         localStorage.setItem(bID, JSON.stringify(this.businessAddForm.value));
         this.router.navigate(['customer/business/document-update']);
@@ -398,7 +394,7 @@ export class CustomerBusinessEditComponent implements OnInit {
     plans: any = [];
     isVisit = false;
     businessAddForm: FormGroup;
-    mobileRegex = /^[(]{0,1}[2-9]{1}[0-9]{1,2}[)]{0,1}[-\s\.]{0,1}[0-9]{3}[-\s\.]{0,1}[0-9]{7}$/;
+    mobileRegex = /^[(]{0,1}[2-9]{1}[0-9]{1,2}[)]{0,1}[-\s\.]{0,1}[0-9]{2}[-\s\.]{0,1}[0-9]{7}$/;
     phoneRegex = /^[0-9]*$/;
     imgUrl = globalVariable.imageUrl;
     processCompletePercent: number = 0;
@@ -442,7 +438,7 @@ export class CustomerBusinessEditComponent implements OnInit {
             'required':      'Phone Number is required.',
             'minlength':     'Enter 10 digit mobile number along with country code.',
             'maxlength':     'Enter 10 digit mobile number along with country code.',
-            'pattern'   :    "eg : (971)-055-1234567 including or excluding '(', ')' or '-'. "
+            'pattern'   :    "eg : (971)-55-1234567 including or excluding '(', ')' or '-'. "
         },   
         'nationality' : {
             'required':      'Nationality is required.'

@@ -88,7 +88,7 @@ export class AdminProfileComponent implements OnInit {
 	err = '';
     customerAddForm: FormGroup;
 	cpForm: FormGroup;
-    passwordRegex = /^([0-9]+[a-zA-Z]+|[a-zA-Z]+[0-9]+)[0-9a-zA-Z]*$/;
+    passwordRegex = /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,16}$/;
     phoneRegx = /^[0-9]*$/
     passwordp : any = '';
     newo : any = false;
@@ -120,7 +120,7 @@ export class AdminProfileComponent implements OnInit {
     cpValidationMessages = {
         'newpassword' : {
             'required':    'Password is required.',
-            'pattern' :    'Please Enter at least one letter and number',
+            'pattern' :    'Please enter at least one letter, number and a special character',
             'minlength':    'Password should contain 6 characters',
         }  
     }

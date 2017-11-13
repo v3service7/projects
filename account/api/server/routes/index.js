@@ -32,12 +32,13 @@ module.exports = (function() {
                 response = { "error": true, "message": 'Connection Lost!' };
                 return res.json(response);
             } else {
-                var registerTime = moment(customer.created_at).format('YYYY-MM-DD HH:mm:ss');
+                console.log(customer)
+                /*var registerTime = moment(customer.created_at).format('YYYY-MM-DD HH:mm:ss');
                 var currentTime = moment().format('YYYY-MM-DD HH:mm:ss');
                 if (moment(currentTime).diff(moment(registerTime), 'days') >= 1) {
                     response = { "error": true, "message": 'Email Activation Link Expire.' };
                     return res.json(response);
-                } else {
+                } else {*/
                     customerModel.findByIdAndUpdate(customer._id, { status: true }, function(err, customer) {
                         if (err) {
                             response = { "error": true, "message": 'Update Unsuccessful! Please Try Again' };
@@ -46,7 +47,7 @@ module.exports = (function() {
                         }
                         return res.json(response);
                     });
-                }
+                /*}*/
             };
         });
     });
@@ -269,9 +270,16 @@ module.exports = (function() {
     router.post('/customer-email-verify', function(req, res) {
         var response = {};
         var token = randomstring.generate()
-        req.body.email_token = token;
-        emails.emailShoot(req.body.email, req.body.email, token);
-        res.json(response);
+        //req.body.email_token = token;
+        console.log('token',token);
+        customerModel.findByIdAndUpdate(req.body._id, { email_token: token }, function(err, customer) {
+            if (err) {
+                res.json({ error: true, message: 'Unable to get data. Please Try Later!'});
+            }else{
+                emails.emailShoot(req.body.email, req.body.email, token);
+                res.json({ error: false, message: 'Email sent Successfully. Please access your Email ID to activate your account' });
+            }
+        });
     });
 
     // User Add

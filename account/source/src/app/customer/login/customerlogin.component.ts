@@ -109,8 +109,9 @@ export class CustomerRegisterComponent implements OnInit {
     returnUrl: string;
     err = '';
     emailp : any = /^([a-z\d!#$%&'*+\-\/=?^_`{|}~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+(\.[a-z\d!#$%&'*+\-\/=?^_`{|}~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+)*|"((([ \t]*\r\n)?[ \t]+)?([\x01-\x08\x0b\x0c\x0e-\x1f\x7f\x21\x23-\x5b\x5d-\x7e\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|\\[\x01-\x09\x0b\x0c\x0d-\x7f\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]))*(([ \t]*\r\n)?[ \t]+)?")@(([a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|[a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF][a-z\d\-._~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]*[a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])\.)+([a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|[a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF][a-z\d\-._~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]*[a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])\.?$/i;
-    passwordRegex = /^([0-9]+[a-zA-Z]+|[a-zA-Z]+[0-9]+)[0-9a-zA-Z]*$/;
-    phoneRegex = /^[(]{0,1}[2-9]{1}[0-9]{1,2}[)]{0,1}[-\s\.]{0,1}[0-9]{3}[-\s\.]{0,1}[0-9]{7}$/;
+    //passwordRegex = /^([0-9]+[a-zA-Z]+|[a-zA-Z]+[0-9]+)[0-9a-zA-Z]*$/;
+    passwordRegex = /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,16}$/;
+    phoneRegex = /^[(]{0,1}[2-9]{1}[0-9]{1,2}[)]{0,1}[-\s\.]{0,1}[0-9]{2}[-\s\.]{0,1}[0-9]{7}$/;
     passwordp : any = '';
     newo : any = false;
     MutchPassword : any = false;
@@ -129,7 +130,7 @@ export class CustomerRegisterComponent implements OnInit {
             'required':      'Phone Number is required.',
             'minlength':     'Enter 10 digit mobile number or phone number (with operator code) along with country code.',
             'maxlength':     'Enter 10 digit mobile number or phone number (with operator code) along with country code.',
-            'pattern'   :    "eg : (971)-055-1234567 including or excluding '(', ')' or '-'. "
+            'pattern'   :    "eg : (971)-55-1234567 including or excluding '(', ')' or '-'. "
         },
         'email' : {
             'required':    'Email is required.',
@@ -137,7 +138,7 @@ export class CustomerRegisterComponent implements OnInit {
         }, 
         'password' : {
             'required':    'Password is required.',
-            'pattern' :    'Please Enter at least one letter and number',
+            'pattern' :    'Please enter at least one letter, number and a special character',
             'minlength':   'Password should contain 6 characters',
         }, 
         'captcha' : {
@@ -151,9 +152,7 @@ export class CustomerRegisterComponent implements OnInit {
         private router: Router,
         private route: ActivatedRoute,
         private _flashMessagesService: FlashMessagesService
-        ){ 
-        //this.currentCustomer = JSON.parse(localStorage.getItem('currentCustomer'));
-    }
+        ){}
 
     ngOnInit() {
         this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/customer/dashboard';
@@ -219,19 +218,16 @@ export class CustomerRegisterComponent implements OnInit {
             (data) => {
                 if (!data.error) {
                     this.generateOTP(data.message)
-                    /*localStorage.setItem('currentCustomer', JSON.stringify(data.message));*/
                     this._flashMessagesService.show('Successfully Registered, Please access your Email ID to Activate your Account', { cssClass: 'alert-success', timeout: 5000 });
                     setTimeout(()=>{
                         this.router.navigate(['customer/otp',data.message._id]);
                     },1000)
                 }else{
                     this.err = 'Email already in use';
-                    //this.router.navigate(['customer/login']);
                 }
             },
             (err)=>{
                 this._flashMessagesService.show('Connection Lost! Try Again', { cssClass: 'danger-alert', timeout: 5000 });
-                //this.router.navigate(['customer/login']);
             }
         );
     }
@@ -354,15 +350,23 @@ export class CustomerAccountVerifyComponent implements OnInit {
     loginForm: FormGroup;
     returnUrl: string;
     err:any;
+    phoneRegex = /^[(]{0,1}[2-9]{1}[0-9]{1,2}[)]{0,1}[-\s\.]{0,1}[0-9]{2}[-\s\.]{0,1}[0-9]{7}$/;
+    emailp : any = /^([a-z\d!#$%&'*+\-\/=?^_`{|}~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+(\.[a-z\d!#$%&'*+\-\/=?^_`{|}~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+)*|"((([ \t]*\r\n)?[ \t]+)?([\x01-\x08\x0b\x0c\x0e-\x1f\x7f\x21\x23-\x5b\x5d-\x7e\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|\\[\x01-\x09\x0b\x0c\x0d-\x7f\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]))*(([ \t]*\r\n)?[ \t]+)?")@(([a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|[a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF][a-z\d\-._~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]*[a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])\.)+([a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|[a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF][a-z\d\-._~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]*[a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])\.?$/i;
 
 
     formErrors = {
         'phonenumber' : '',
+        'email' : ''
     };
 
     validationMessages = {
-        'phonenumber' : {
-            'required':    'Phone Number is required.'
+        'phonenumber': {
+            'minlength':     'Enter 10 digit mobile number or phone number (with operator code) along with country code.',
+            'maxlength':     'Enter 10 digit mobile number or phone number (with operator code) along with country code.',
+            'pattern'   :    "eg : (971)-55-1234567 including or excluding '(', ')' or '-'. "
+        },
+        'email' : {
+            'pattern' :    'Email is not valid.'
         }
     };
 
@@ -379,23 +383,26 @@ export class CustomerAccountVerifyComponent implements OnInit {
         this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/customer/dashboard';
         this.loginForm = this.lf.group({
             _id: ['', [Validators.required]],
-            phonenumber: [''],
-            email: ['']
+            phonenumber: ['', [Validators.minLength(10), Validators.maxLength(15), Validators.pattern(this.phoneRegex)]],
+            email: ['',[Validators.pattern(this.emailp)]]
         });
         this.currentCustomer = JSON.parse(localStorage.getItem('currentCustomer'));
         console.log('cus',this.currentCustomer);
         this.loginForm.patchValue(this.currentCustomer);
     }
 
-
-
     public generateEmailLink(oserObj){
         this.customerService.sendEmail(oserObj).subscribe(
             (data) => {
-                console.log(data)
+                if (!data.error) {
+                    this._flashMessagesService.show(data.message, { cssClass: 'alert-success', timeout: 5000 });
+                }else{
+                    this._flashMessagesService.show(data.message, { cssClass: 'danger-alert', timeout: 5000 });
+                }
             },
             (err)=>{
-              console.log(err)  
+                this._flashMessagesService.show('Server/ Internet Problem', { cssClass: 'danger-alert', timeout: 5000 });
+                console.log(err)
             }
         );
     }
@@ -406,10 +413,12 @@ export class CustomerAccountVerifyComponent implements OnInit {
         let smsUrl = 'http://api.smscountry.com/SMSCwebservice_bulk.aspx?User=habeebk&passwd=vatfile@321&mobilenumber='+oserObj.phonenumber+'&message='+smsText+'&mtype=N&DR=Y';
         this.customerService.sendOtp(smsUrl,oserObj).subscribe(
             (data) => {
+                this._flashMessagesService.show('Check OTP on registered Phone number', { cssClass: 'alert-success', timeout: 5000 });
                 console.log(data)
             },
             (err)=>{
-              console.log(err)  
+                this._flashMessagesService.show('OTP not sent', { cssClass: 'danger-alert', timeout: 5000 });
+                console.log(err)  
             }
         );
         let obj = {};
@@ -417,10 +426,10 @@ export class CustomerAccountVerifyComponent implements OnInit {
         obj['otp'] = otp;
         this.customerService.otpUdate(obj).subscribe(
             (data) => {
-                console.log(data)
+                console.log(data);
             },
             (err)=>{
-              console.log(err)  
+                console.log(err);
             }
         );
     }
@@ -431,10 +440,9 @@ export class CustomerAccountVerifyComponent implements OnInit {
                 if (!this.currentCustomer.status) {
                     this.generateEmailLink(this.currentCustomer);
                 }
-                
+
                 if (!this.currentCustomer.phonestatus) {
                     this.generateOTP(this.currentCustomer);
-                    this._flashMessagesService.show('Successfully Registered, Please access your Email ID to Activate your Account', { cssClass: 'alert-success', timeout: 5000 });
                     setTimeout(()=>{
                         this.router.navigate(['customer/otp',this.currentCustomer._id]);
                     },1000)
@@ -532,7 +540,7 @@ export class CustomerResetPasswordComponent implements OnInit {
     resetPassForm: FormGroup;
     id : any;
     err = '';
-    passwordRegex = /^([0-9]+[a-zA-Z]+|[a-zA-Z]+[0-9]+)[0-9a-zA-Z]*$/;
+    passwordRegex = /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,16}$/;
 
     formErrors = {
         'password' : '',
@@ -542,12 +550,12 @@ export class CustomerResetPasswordComponent implements OnInit {
     validationMessages = {
         'password' : {
             'required':    'Password is required.',
-            'pattern' :    'Please Enter at least one letter and number',
+            'pattern' :    'Please enter at least one letter, number and a special character',
             'minlength':   'Password should contain 6 characters',
         },
         'newpassword' : {
             'required':    'Password is required.',
-            'pattern' :    'Please Enter at least one letter and number',
+            'pattern' :    'Please enter at least one letter, number and a special character',
             'minlength':   'Password should contain 6 characters',
         }
     };

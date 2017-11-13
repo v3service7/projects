@@ -98,8 +98,8 @@ export class CustomerAddComponent implements OnInit {
     currentAdmin: any = {};
     customerAddForm: FormGroup;
     emailp : any = /^([a-z\d!#$%&'*+\-\/=?^_`{|}~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+(\.[a-z\d!#$%&'*+\-\/=?^_`{|}~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+)*|"((([ \t]*\r\n)?[ \t]+)?([\x01-\x08\x0b\x0c\x0e-\x1f\x7f\x21\x23-\x5b\x5d-\x7e\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|\\[\x01-\x09\x0b\x0c\x0d-\x7f\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]))*(([ \t]*\r\n)?[ \t]+)?")@(([a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|[a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF][a-z\d\-._~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]*[a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])\.)+([a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|[a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF][a-z\d\-._~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]*[a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])\.?$/i;
-    passwordRegex = /^([0-9]+[a-zA-Z]+|[a-zA-Z]+[0-9]+)[0-9a-zA-Z]*$/;
-    phoneRegex = /^[(]{0,1}[2-9]{1}[0-9]{1,2}[)]{0,1}[-\s\.]{0,1}[0-9]{3}[-\s\.]{0,1}[0-9]{7}$/;
+    passwordRegex = /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,16}$/;
+    phoneRegex = /^[(]{0,1}[2-9]{1}[0-9]{1,2}[)]{0,1}[-\s\.]{0,1}[0-9]{2}[-\s\.]{0,1}[0-9]{7}$/;
     passwordp : any = '';
     err : any = '';
     newo : any = false;
@@ -125,7 +125,7 @@ export class CustomerAddComponent implements OnInit {
             'required':      'Phone Number is required.',
             'minlength':     'Enter 10 digit mobile number or phone number (with operator code) along with country code.',
             'maxlength':     'Enter 10 digit mobile number or phone number (with operator code) along with country code.',
-            'pattern'   :    "eg : (971)-055-1234567 including or excluding '(', ')' or '-'. "
+            'pattern'   :    "eg : (971)-55-1234567 including or excluding '(', ')' or '-'. "
         },
         'email' : {
             'required':    'Email is required.',
@@ -133,12 +133,12 @@ export class CustomerAddComponent implements OnInit {
         }, 
         'password' : {
             'required':    'Password is required.',
-            'pattern' :    'Please Enter at least one letter and number',
+            'pattern' :    'Please enter at least one letter, number and a special character',
             'minlength':   'Password should contain 6 characters',
         },
         'newpassword' : {
             'required':    'Password is required.',
-            'pattern' :    'Please Enter at least one letter and number',
+            'pattern' :    'Please enter at least one letter, number and a special character',
             'minlength':   'Password should contain 6 characters',
         }            
     };
@@ -232,7 +232,7 @@ export class CustomerEditComponent implements OnInit {
 	currentCustomer: any = {};
     customerAddForm: FormGroup;
     passwordp : any = '';
-    phoneRegex = /^[(]{0,1}[2-9]{1}[0-9]{1,2}[)]{0,1}[-\s\.]{0,1}[0-9]{3}[-\s\.]{0,1}[0-9]{7}$/;
+    phoneRegex = /^[(]{0,1}[2-9]{1}[0-9]{1,2}[)]{0,1}[-\s\.]{0,1}[0-9]{2}[-\s\.]{0,1}[0-9]{7}$/;
     newo : any = false;
     MutchPassword : any = false;
 
@@ -253,7 +253,7 @@ export class CustomerEditComponent implements OnInit {
             'required':      'Phone Number is required.',
             'minlength':     'Enter 10 digit mobile number or phone number (with operator code) along with country code.',
             'maxlength':     'Enter 10 digit mobile number or phone number (with operator code) along with country code.',
-            'pattern'   :    "eg : (971)-055-1234567 including or excluding '(', ')' or '-'. "
+            'pattern'   :    "eg : (971)-55-1234567 including or excluding '(', ')' or '-'. "
         }
     };
 

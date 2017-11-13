@@ -3,9 +3,15 @@ var ejs = require('ejs');
 var randomstring = require("randomstring");
 
 var emailFrom = 'sahal@vatfile.com';
+//server-34
 //var templateDir = '/home/nodeapp/account/email_template';
+
+//server-54
 var templateDir = '/home/ec2-user/vatfile/email_template';
+
+//localhost
 //var templateDir = '../api/email_template';
+
 var transporter = nodemailer.createTransport({
     host: 'smtp.zoho.com',
     port: 465,

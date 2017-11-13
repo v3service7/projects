@@ -6,9 +6,9 @@
                 <p class="category">update your Business Data</p>
             </div>
             <div class="card-content">
-                <div class="progress progress-bar" *ngIf="processCompletePercent > 0 && processCompletePercent < 100">
+                <!-- <div class="progress progress-bar" *ngIf="processCompletePercent > 0 && processCompletePercent < 100">
                     <div class="progress-bar progress-bar-info progress-bar" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" [ngStyle]="{'width': processCompletePercent + '%'}"></div>
-                </div>
+                </div> -->
                 
                 <form [formGroup]="businessAddForm" (ngSubmit)="businessUpdate()">
                     <div class="row">
@@ -199,6 +199,10 @@
 
 
                     <div class="row">
+                        <div class="progress progress-bar" *ngIf="processCompletePercent > 0 && processCompletePercent < 100">
+                            <div class="progress-bar progress-bar-info progress-bar" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" [ngStyle]="{'width': processCompletePercent + '%'}"></div>
+                        </div>
+                        
                         <div class="col-md-4">
                             <div class="myCard">
                                 <div class="form-group">
@@ -210,6 +214,7 @@
                                 </div>
                             </div>
                         </div>
+
                         <div class="col-md-4">
                             <div class="myCard">
                                 <div class="form-group">
@@ -233,6 +238,7 @@
                                 </div>
                             </div>
                         </div>
+
                         <div class="col-md-4">
                             <div class="myCard">
                                  <div class="form-group">
@@ -256,6 +262,7 @@
                                 </div>
                             </div>
                         </div>
+
                         <div class="col-md-4">
                             <div class="myCard">
                                 <div class="form-group">
@@ -267,6 +274,7 @@
                                 </div>
                             </div>
                         </div>
+
                         <div class="col-md-4">
                             <div class="myCard">
                                 <div class="form-group">

@@ -22,7 +22,7 @@ app.use(function(req, res, next) {
 });
 
 // CORS Middleware to access API from outside
-app.use(cors());
+//app.use(cors());
 
 // Parsers
 app.use(bodyParser.json());
@@ -39,7 +39,7 @@ allowCrossDomain = function(req, res, next) {
     res.header('Access-Control-Allow-Credentials', true);
     res.header('Access-Control-Allow-Origin', req.headers.origin);
     res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
-    res.header('Access-Control-Allow-Headers', 'X-Requested-With, X-HTTP-Method-Override, Content-Type, Accept,x-access-token');
+    res.header('Access-Control-Allow-Headers', 'X-Requested-With, X-HTTP-Method-Override, Content-Type, Accept,x-access-token,Authorization');
     if ('OPTIONS' === req.method) {
         res.sendStatus(200);
     } else {
@@ -62,7 +62,7 @@ app.use(allowCrossDomain);
 
 var storage = multer.diskStorage({ //multers disk storage settings
     destination: function (req, file, cb) {
-        cb(null, 'public/uploads/');
+        cb(null, './dist/uploads/');
     },
     filename: function (req, file, cb) {
         var datetimestamp = Date.now();

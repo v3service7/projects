@@ -163,7 +163,7 @@ export class BusinessEditComponent implements OnInit {
     plans: any = [];
     isVisit = false;
     businessEditForm: FormGroup;
-    mobileRegex = /^[(]{0,1}[2-9]{1}[0-9]{1,2}[)]{0,1}[-\s\.]{0,1}[0-9]{3}[-\s\.]{0,1}[0-9]{7}$/;
+    mobileRegex = /^[(]{0,1}[2-9]{1}[0-9]{1,2}[)]{0,1}[-\s\.]{0,1}[0-9]{2}[-\s\.]{0,1}[0-9]{7}$/;
     phoneRegex = /^[0-9]*$/;
     imgUrl = globalVariable.imageUrl;
 
@@ -208,7 +208,7 @@ export class BusinessEditComponent implements OnInit {
             'required':      'Phone Number is required.',
             'minlength':     'Enter 10 digit mobile number along with country code.',
             'maxlength':     'Enter 10 digit mobile number along with country code.',
-            'pattern'   :    "eg : (971)-055-1234567 including or excluding '(', ')' or '-'. "
+            'pattern'   :    "eg : (971)-55-1234567 including or excluding '(', ')' or '-'. "
         },   
         'nationality' : {
             'required':      'Nationality is required.'

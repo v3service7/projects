@@ -53,8 +53,8 @@ export class CustomerProfileComponent implements OnInit {
 	err = '';
     customerAddForm: FormGroup;
 	cpForm: FormGroup;
-    passwordRegex = /^([0-9]+[a-zA-Z]+|[a-zA-Z]+[0-9]+)[0-9a-zA-Z]*$/;
-    phoneRegex = /^[(]{0,1}[2-9]{1}[0-9]{1,2}[)]{0,1}[-\s\.]{0,1}[0-9]{3}[-\s\.]{0,1}[0-9]{7}$/;
+    passwordRegex = /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,16}$/;
+    phoneRegex = /^[(]{0,1}[2-9]{1}[0-9]{1,2}[)]{0,1}[-\s\.]{0,1}[0-9]{2}[-\s\.]{0,1}[0-9]{7}$/;
     passwordp : any = '';
     newo : any = false;
     MutchPassword : any = false;
@@ -77,24 +77,18 @@ export class CustomerProfileComponent implements OnInit {
             'required':      'Phone Number is required.',
             'minlength':     'Enter 10 digit mobile number or phone number (with operator code) along with country code.',
             'maxlength':     'Enter 10 digit mobile number or phone number (with operator code) along with country code.',
-            'pattern'   :    "eg : (971)-055-1234567 including or excluding '(', ')' or '-'. "
+            'pattern'   :    "eg : (971)-55-1234567 including or excluding '(', ')' or '-'. "
         }
     };
 
     cpFormErrors = {
-        'password' : '',
-        'newpassword' : ''     
+        'newpassword' : ''
     };
 
     cpValidationMessages = {
-        'password' : {
-            'required':    'Password is required.',
-            'pattern' :    'Please Enter at least one letter and number',
-            'minlength':   'Password should contain 6 characters',
-        },
         'newpassword' : {
             'required':    'Password is required.',
-            'pattern' :    'Please Enter at least one letter and number',
+            'pattern' :    'Please enter at least one letter, number and a special character',
             'minlength':   'Password should contain 6 characters',
         }
     }
@@ -121,7 +115,7 @@ export class CustomerProfileComponent implements OnInit {
 
         this.cpForm = this.lf.group({
             _id: ['', Validators.required],
-            password: ['', [Validators.required, Validators.minLength(6), Validators.pattern(this.passwordRegex)]],
+            password: ['', Validators.required],
             newpassword: ['', [Validators.required, Validators.minLength(6), Validators.pattern(this.passwordRegex)]]
         });
 
@@ -149,18 +143,6 @@ export class CustomerProfileComponent implements OnInit {
                 console.log('kfgbhj')
             }
         );
-    }
-
-    private matchpasswordreg(){
-        if (this.cpForm.value.newpassword != '') {
-            if(this.cpForm.value.password == this.cpForm.value.newpassword){
-                this.cpForm.controls["matchpass"].setValue(true);
-                this.MutchPassword = false;   
-            }else{
-                this.cpForm.controls["matchpass"].setValue("");
-                this.MutchPassword = true;
-            }
-        }
     }
 
     onValueChanged(data?: any) {
