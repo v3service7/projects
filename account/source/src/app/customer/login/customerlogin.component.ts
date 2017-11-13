@@ -191,7 +191,7 @@ export class CustomerRegisterComponent implements OnInit {
     public generateOTP(oserObj){
         let otp = Math.floor(Math.random()*90000) + 10000;
         let smsText = 'Your code to validate mobile number is '+otp;
-        let smsUrl = 'http://api.smscountry.com/SMSCwebservice_bulk.aspx?User=habeebk&passwd=vatfile@321&mobilenumber='+oserObj.phonenumber+'&message='+smsText+'&mtype=N&DR=Y';
+        let smsUrl = 'https://api.smscountry.com/SMSCwebservice_bulk.aspx?User=habeebk&passwd=vatfile@321&mobilenumber='+oserObj.phonenumber+'&message='+smsText+'&mtype=N&DR=Y';
         this.customerService.sendOtp(smsUrl,oserObj).subscribe(
             (data) => {
                 console.log(data)
@@ -408,9 +408,10 @@ export class CustomerAccountVerifyComponent implements OnInit {
     }
 
     public generateOTP(oserObj){
+        console.log(oserObj); 
         let otp = Math.floor(Math.random()*90000) + 10000;
         let smsText = 'Your code to validate mobile number is '+otp;
-        let smsUrl = 'http://api.smscountry.com/SMSCwebservice_bulk.aspx?User=habeebk&passwd=vatfile@321&mobilenumber='+oserObj.phonenumber+'&message='+smsText+'&mtype=N&DR=Y';
+        let smsUrl = 'https://api.smscountry.com/SMSCwebservice_bulk.aspx?User=habeebk&passwd=vatfile@321&mobilenumber='+oserObj.phonenumber+'&message='+smsText+'&mtype=N&DR=Y';
         this.customerService.sendOtp(smsUrl,oserObj).subscribe(
             (data) => {
                 this._flashMessagesService.show('Check OTP on registered Phone number', { cssClass: 'alert-success', timeout: 5000 });

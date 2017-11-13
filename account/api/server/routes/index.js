@@ -240,7 +240,7 @@ module.exports = (function() {
         customerModel.getUserByEmail(email, (err, user) => {
             if(err) throw err;
             if(!user){
-                return res.json({success: false, msg: 'User not found'});
+                return res.json({success: false, msg: 'Invalid Email'});
             }
             /*if(!user.status){
                 return res.json({success: false, msg: 'Your account is not active'});
