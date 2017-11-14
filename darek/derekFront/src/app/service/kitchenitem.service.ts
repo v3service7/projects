@@ -104,6 +104,13 @@ export class KitchenItemService {
             (response: Response) => response.json()
              );
    }
+
+   removeOption(data){
+     return this.http.delete(globalVariable.url+'optiondelete/'+data.index+'/'+data._id)
+        .map(
+            (response: Response) => response.json()
+             );
+   }
    
    getEditChoice(data){
      return this.http.get(globalVariable.url+'addonchoice/'+data.id+'/'+data.cid)

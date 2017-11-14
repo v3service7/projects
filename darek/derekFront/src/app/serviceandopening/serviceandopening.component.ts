@@ -2,6 +2,7 @@ import { Component, OnInit, NgZone, ViewChild, ElementRef, ViewEncapsulation } f
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 //import { FlashMessagesService } from 'angular2-flash-messages';
+//import {InlineEditorDirective} from 'ng2-inline-editor';
 import { AlertService, RestaurantsService, UsersService, KitchenMenuService, KitchenItemService, MasterService } from '../service/index';
 import { FileUploader } from 'ng2-file-upload';
 import * as globalVariable from "../global";
@@ -1135,6 +1136,34 @@ export class KitchenMenuListComponent implements OnInit {
 		this.kitchenMenuItemService.updateMenuItem(menu._id,event1._id).subscribe((data) => {
 			this.loadAllItem(); 
 			toastr.success('Addons Updated successful');
+		});
+	}
+
+	deleteOption(id,index){
+		if (confirm("Are you sure to delete ?")) {
+			var removeid = {_id : id, index: index};
+			console.log(removeid)
+			this.kitchenMenuItemService.removeOption(removeid).subscribe(data => {
+				//this.getAllAddonDetail();
+				this.loadAllItem();
+			});
+			toastr.success('Choice Removed');
+		}
+	}
+
+	saveEditAddon(grID,id,key,value){
+		var data = {id: grID, cid : id};
+		this.kitchenMenuItemService.getEditChoice(data).subscribe(data => {
+			this.editableChoiceDetail.controls['id'].setValue(data.message.subaddon[0]._id);
+			this.editableChoiceDetail.controls['_id'].setValue(data.message._id);	  	
+			this.editableChoiceDetail.controls['name'].setValue(data.message.subaddon[0].name);
+			this.editableChoiceDetail.controls['price'].setValue(data.message.subaddon[0].price);	  	
+			this.editableChoiceDetail.controls[key].setValue(value);
+			this.kitchenMenuItemService.editSubAddOnUpdate(this.editableChoiceDetail.value).subscribe(data => {	
+				this.loadAllAddons(this.editableChoiceDetail.value._id);
+				this.clearCancel();
+				toastr.success('Choice Updated','Success!');
+			})
 		});
 	}
 

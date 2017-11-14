@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {HttpModule, Http} from "@angular/http";
 import { RouterModule, Routes } from '@angular/router';
+import {InlineEditorModule} from 'ng2-inline-editor';
 /*import { FileUploadModule, FileDropDirective } from 'ng2-file-upload';*/
 import {TranslateModule, TranslateLoader} from '@ngx-translate/core';
 import {TranslateHttpLoader} from "@ngx-translate/http-loader";
@@ -78,6 +79,7 @@ export function HttpLoaderFactory(http: Http) {
     routing,
     ReactiveFormsModule,
     DragDropDirectiveModule,
+    InlineEditorModule,
     //FlashMessagesModule,
     ChartsModule,
     FileUploadModule,

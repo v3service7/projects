@@ -491,9 +491,14 @@
                                  <code> {{item.price | number : '1.2-2'}} USD</code>
                               </span>
                            </div>
+
                            <div *ngIf="item.options" class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="padding: 10px 15px 0 15px;">
-                              <button *ngFor="let itemx of item.options;" class="addonClass">{{itemx.name}}</button>
+                              <span *ngFor="let itemx of item.options; let ith = index; " class="addonClass">
+                                 {{itemx.name}}
+                                 <a (click)="deleteOption(item._id,ith)" href="javascript:void(0);"><i class="fa fa-trash" aria-hidden="true"></i></a>
+                              </span>
                            </div>
+
                         </div>
                         <div class="icons col-lg-2 col-md-2 col-sm-2 col-xs-2 padding0">
                            <a href="javascript:void(0);" (click)="showDayOption(item, 'item')"><i class="fa fa-chevron-circle-down" aria-hidden="true"></i></a>
@@ -704,11 +709,18 @@
 
             <div id="gr{{group._id}}" class = "panel-collapse collapse">
                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding5px" *ngFor="let addon of allAddons; let i = index; ">
-                  <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7 paddingRight0">{{addon.name}}</div>
-                  <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 textRight">{{addon.price}}</div>
+
+                  <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7 paddingRight0">
+                     <inline-editor type="text" [(ngModel)]="addon.name" (onSave)="saveEditAddon(group._id,addon._id,'name',addon.name)" size="8"></inline-editor>
+                     <!-- {{addon.name}} -->
+                  </div>
+                  <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 textRight">
+                     <inline-editor type="text" [(ngModel)]="addon.price" (onSave)="saveEditAddon(group._id,addon._id,'price',addon.price)" pattern='^[0-9]+$'></inline-editor>
+                     <!-- {{addon.price}} -->
+                  </div>
                   <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 padding0">
                      <a class="pull-right" href="javascript:void(0);" title="Delete" (click)="removechoice(i,group._id)"><span class="icon-menu-remove js-remove"></span></a>
-                     <a class="pull-right" href="javascript:void(0);" (click)="editchoice(group._id,addon._id)" title="Edit"><span class="icon-menu-edit js-edit"></span></a>
+                     <!-- <a class="pull-right" href="javascript:void(0);" (click)="editchoice(group._id,addon._id)" title="Edit"><span class="icon-menu-edit js-edit"></span></a> -->
                   </div>
 
                </div>
