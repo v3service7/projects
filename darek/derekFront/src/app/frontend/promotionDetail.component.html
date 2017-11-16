@@ -23,17 +23,17 @@
 				{{promotion.promoname}}
 				<a [routerLink]="['/frontend', restaurants._id]" class="pull-right colorWhite cursorPointer" >&#10006;</a>
 			</div>
-			<div class="col-lg-12 col-md-12 col-xs-12 col-sm-12">{{promotion.description}}</div>
+			<div class="col-lg-12 col-md-12 col-xs-12 col-sm-12" *ngIf = "promotion.description">{{promotion.description}}</div>
 			<div class="col-lg-6 col-md-6 col-xs-6 col-sm-6 padding20px itemSelectedDetail" style="background-color: rgba(0,0,0,.55); box-shadow: inset 0 -20px 30px -10px #000;">
 				<div class="col-lg-12 col-md-12 col-xs-12 col-sm-12 padding5px cursorPointer" *ngIf = "promotion.discountOn && promotion.discountOn[0] && promotion.discountOn[0].itemGroup1" id="itemNo1" (click) = "selectItem(1)">
-					<div class="col-lg-3 col-md-3 col-xs-3 col-sm-3 fontWeight700">
+					<div class="col-lg-3 col-md-3 col-xs-3 col-sm-3 fontWeight700 padding0">
 						Item 1 :
 					</div>
 					<div class="col-lg-9 col-md-9 col-xs-9 col-sm-9" *ngIf = "promotionItem.itemGroup1 && promotionItem.itemGroup1.item"> {{promotionItem.itemGroup1.item.name}} </div>
 				</div>
 
 				<div class="col-lg-12 col-md-12 col-xs-12 col-sm-12 padding5px cursorPointer" *ngIf = "promotion.discountOn && promotion.discountOn[1] && promotion.discountOn[1].itemGroup2" id="itemNo2" (click) = "selectItem(2)">
-					<div class="col-lg-3 col-md-3 col-xs-3 col-sm-3 fontWeight700">
+					<div class="col-lg-3 col-md-3 col-xs-3 col-sm-3 fontWeight700 padding0">
 						Item 2 :
 					</div>
 					<div class="col-lg-9 col-md-9 col-xs-9 col-sm-9" *ngIf = "promotionItem.itemGroup2 && promotionItem.itemGroup2.item"> {{promotionItem.itemGroup2.item.name}} </div>
@@ -55,7 +55,7 @@
 	<!-- top promotion banner end -->
 
 	<!-- Item Group1 -->
-	<div class="container-fluid menuDetail padding0" style="margin: 3% auto 10% auto;" id="itemGroup1">
+	<div class="col-lg-12 col-md-12 col-xs-12 col-sm-12 menuDetail padding0" id="itemGroup1">
 
 		<div class="menuListDiv" *ngIf = "itemG1">
 			<div *ngFor = "let ig1 of itemG1" class="menuList">
@@ -76,39 +76,41 @@
 					</div>
 					
 					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0">
-						<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pull-right">
+						<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 pull-right">
 							<div *ngIf="ig1.menu.image" class="menuImage" [ngStyle]="{'background-image': 'url(' + imageURL + ig1.menu.image + ')'}" style="z-index: -1;"></div>
 						</div>
 
 						<div *ngIf = "ig1.items && ig1.items.length > 0">
 							<div *ngFor = "let item of ig1.items">
 								<div *ngIf="!item.isHidden">
-									<div  class="col-lg-6 col-md-6 col-sm-6 col-xs-6"  style="height: 60px;">
+									<div  class="col-lg-6 col-md-6 col-sm-6 col-xs-12"  style="height: 60px;">
 										<div class="itemDetailListDiv col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0">
 											<div class="subMenuItem col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0" [ngClass]="checkItemShow(item)">
-												<a class="col-lg-12 col-md-12 col-sm-12 col-xs-12 itemDetailList" href="javascript:void(0)" (click)="showDetail(item,item.multisize[0] )" id="changeBg_ig1_{{item._id}}">
-													<div class="col-lg-10 col-md-10 col-sm-10 col-xs-10" style="height: inherit;">
-														<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0">
-															<h5>
-																<strong>{{item.name}}
-																	<span *ngFor = "let chilly of spicyArray;">
-											                            <span *ngIf = "chilly <= item.spicyLevel">
-											                                <img src="assets/images/chilly.PNG" width="15px">
-											                            </span>
-											                        </span>
-										                        </strong>
-															</h5>
+												<a class="col-lg-12 col-md-12 col-sm-12 col-xs-12 itemDetailList" href="javascript:void(0)" (click)="showDetail(item,item.multisize[0] )">
+													<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0" id="changeBg_ig1_{{item._id}}">
+														<div class="col-lg-10 col-md-10 col-sm-10 col-xs-10" style="height: inherit;">
+															<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0 wordBreak">
+																<h5>
+																	<strong>{{item.name}}
+																		<span *ngFor = "let chilly of spicyArray;">
+												                            <span *ngIf = "chilly <= item.spicyLevel">
+												                                <img src="assets/images/chilly.PNG" width="15px">
+												                            </span>
+												                        </span>
+											                        </strong>
+																</h5>
+															</div>
 														</div>
-														<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0">
-														<div *ngIf="item.description.length >= 40">
-															{{item.description.substr(0,40)}}...	
-														</div>
-														<div *ngIf="item.description.length < 40">
-															{{item.description}}	
-														</div>
+														<div class="col-lg-2 col-md-2 col-sm-2 col-xs-2" style="height: inherit;text-align: -webkit-right;"><h5><strong>{{item.price | number : '1.2-2'}}</strong></h5></div>
+														<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 wordBreak">
+															<div *ngIf="item.description.length >= 45">
+																{{item.description.substr(0,45)}}...	
+															</div>
+															<div *ngIf="item.description.length < 45">
+																{{item.description}}
+															</div>
 														</div>
 													</div>
-													<div class="col-lg-2 col-md-2 col-sm-2 col-xs-2" style="height: inherit;text-align: -webkit-right;"><h5><strong>{{item.price}}</strong></h5></div>
 												</a>
 												<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 itemDetailDiv" id="itemPop_{{item._id}}" [style.display]="showDiv(item._id)" [style.left]="showPos(item._id, 'ig1')">
 													<button class="hideDetailDiv" type="button"  (click) = "hideDiv()" >
@@ -116,20 +118,20 @@
 													</button>
 
 													<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 pos-header">
-														<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">{{item.description}}</div>
+														<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 wordBreak">{{item.description}}</div>
 														<!-- item size -->
 														<div class="sizeDetail col-lg-12 col-md-12 col-sm-12 col-xs-12" *ngIf = "item.multisize.length > 0">
 															<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12"><h5><span>{{'Size' | translate}} ({{'Required' | translate}})</span></h5></div>
 															<form>
-																<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 sizeOption" *ngFor = "let multisizes of item.multisize; let i = index;" >
+																<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 sizeOption" *ngFor = "let multisizes of item.multisize; let i = index; ">
 																	<div *ngIf="i == 0">
 																		<input type="radio" (click)="multiSizePriceInfo(multisizes)" [name]="'optnButton'+item._id" checked="checked" [attr.id]="'Location_' + item._id + '_' + multisizes._id">
 																	</div>
 																	<div *ngIf="i != 0">
 																		<input type="radio" (click)="multiSizePriceInfo(multisizes)" [name]="'optnButton'+item._id" [attr.id]="'Location_' + item._id + '_' + multisizes._id">
 																	</div>
-																	<div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">{{multisizes.size}}</div>
-																	<div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 sizePrice pull-right">{{multisizes.price}}</div>
+																	<div class="col-lg-8 col-md-8 col-sm-8 col-xs-8 wordBreak">{{multisizes.size}}</div>
+																	<div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 sizePrice pull-right padding0">{{multisizes.price | number : '1.2-2'}}</div>
 																</div>
 															</form>
 														</div>
@@ -139,7 +141,7 @@
 														<div class="addOnsDetail col-lg-12 col-md-12 col-sm-12 col-xs-12" *ngIf = "item.options">
 															<div class=" col-lg-12 col-md-12 col-sm-12 col-xs-12 add padding0" *ngFor = "let group of item.options">
 																<div class=" col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0">
-																	<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">{{group.name}}
+																	<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 wordBreak">{{group.name}}
 																		<span *ngIf="group.groupType">({{group.groupType.gType | uppercase}})
 																			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0" *ngIf="group.groupType.gType == 'mandatory'" style="font-size: 11px;">Min Addon : {{group.groupType.min}},Max Addon : {{group.groupType.max}}
 																			</div>
@@ -147,8 +149,8 @@
 																	</div>
 																	<div class="subAddOn col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0" *ngIf = "group.subaddon">
 																		<div class="subAddOnDetail col-lg-12 col-md-12 col-sm-12 col-xs-12" *ngFor = "let detail of group.subaddon" #addonDetail [attr.data-addon]="'check'" [attr.id]="'Location_IG1_' + item._id + '_' + detail._id" (click)="addonPriceInfo(detail,addonDetail,group,item.options)" >
-																			<div class="col-lg-11 col-md-11 col-sm-11 col-xs-11 subAddOnDetailList">{{detail.name}}</div>
-																			<div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 subAddOnDetailPrice">	{{detail.price}}
+																			<div class="col-lg-10 col-md-10 col-sm-10 col-xs-10 subAddOnDetailList wordBreak">{{detail.name}}</div>
+																			<div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 subAddOnDetailPrice textRight padding0">	{{detail.price | number : '1.2-2'}}
 																			</div>
 																		</div>
 																	</div>
@@ -156,26 +158,6 @@
 															</div>
 														</div>
 														<!-- items addOns end-->
-
-														<!-- Spicy Setting Menu -->
-														<!-- <div class="col-lg-12  col-md-12 col-sm-12 col-xs-12 spicySetting">
-															<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">Choose Spicy Level
-															</div>
-															<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="padding: 10px;">
-																<div class="width100" style="background: #a4a4a4;height: 3px;">
-																	<div class="gradientClass" [style.width] ="spicyLevel" style="height: 3px;"></div>
-																</div>
-																<div class="width100" style="display: flex;">
-																	<span (click)="spicylevel('0%')">0</span>
-																	<div style="width: 25%; text-align: right;" class="level1" (click)="spicylevel('25%')">1</div>
-																	<div style="width: 25%; text-align: right;" class="level2" (click)="spicylevel('50%')">2</div>
-																	<div style="width: 25%; text-align: right;" class="level3" (click)="spicylevel('75%')">3</div>
-																	<div style="width: 25%; text-align: right;" class="level4" (click)="spicylevel('100%')">4</div>
-																</div>
-
-															</div>
-														</div> -->
-														<!-- Spicy Setting Menu -->
 
 														<!-- item special Instruction -->
 														<div class="col-lg-12  col-md-12 col-sm-12 col-xs-12 specialInstruction">
@@ -185,25 +167,6 @@
 															</div>
 														</div>
 														<!-- items special Instruction end-->
-
-														<!-- items quantity -->
-														<!-- <div class="col-lg-12  col-md-12 col-sm-12 col-xs-12 quantityDetail">
-															<div class="col-lg-12  col-md-12 col-sm-12 col-xs-12">{{'Quantity' | translate}}</div>
-															<div class="col-lg-12  col-md-12 col-sm-12 col-xs-12 fillQuantity">
-																<div class=" form-group">
-																	<input type="text" name="quantity" class="form-control" [value]="quantity" min="1" max="10"  [attr.id]="'Location_' + item._id + '_count'">
-																	<div class="cnt-input-buttons">
-																		<button class="cnt-input-decrease" id="minus" (click)="quantityDecrement()">
-																			<i class=" fa fa-minus" ></i>
-																		</button>
-																		<button class="cnt-input-increase"  id="plus" (click)="quantityIncrement()">
-																			<i class=" fa fa-plus"></i>
-																		</button>
-																	</div>
-																</div>
-															</div>
-														</div> -->
-														<!-- items quantity end-->
 													</div>
 
 													<div class="pos-footer">
@@ -212,7 +175,7 @@
 															<button class="btn saveButton" style="padding: 15px 20px;text-align: justify;" (click)="addToCart(item._id,'itemG1')" [disabled]="!mandCheckedCount">
 																<div class="col-lg-12  col-md-12 col-sm-12 col-xs-12 btn btn-action-primary checkout-button">
 																	<div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
-																		<div class="checkout-button">{{finalPrice}}</div>
+																		<div class="checkout-button">{{finalPrice | number : '1.2-2'}}</div>
 																	</div>
 																	<div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 checkout-button-separator"></div>
 																	<div class="col-lg-8 col-md-8 col-sm-8 col-xs-8 checkout-button-label" >{{'Add_to_cart' | translate}}</div>
@@ -235,7 +198,7 @@
 	<!-- Item Group1 end -->
 
 	<!-- Item Group2 -->
-	<div class="container-fluid menuDetail padding0" style="margin: 3% auto 10% auto;" id="itemGroup2">
+	<div class="col-lg-12 col-md-12 col-xs-12 col-sm-12 menuDetail padding0" id="itemGroup2">
 		
 		<div class="menuListDiv" *ngIf = "itemG2">
 			<div *ngFor = "let ig2 of itemG2" class="menuList">
@@ -256,40 +219,42 @@
 					</div>
 
 					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0">
-						<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pull-right">
+						<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 pull-right">
 							<div *ngIf="ig2.menu.image" class="menuImage" [ngStyle]="{'background-image': 'url(' + imageURL + ig2.menu.image + ')'}" style="z-index: -1;"></div>
 						</div>
 
 						<div *ngIf = "ig2.items && ig2.items.length > 0">
 							<div *ngFor = "let item of ig2.items">
 								<div *ngIf="!item.isHidden">
-									<div  class="col-lg-6 col-md-6 col-sm-6 col-xs-6"  style="height: 60px;">
+									<div  class="col-lg-6 col-md-6 col-sm-6 col-xs-12"  style="height: 60px;">
 										<div class="itemDetailListDiv col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0">
 											<div class="subMenuItem col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0" [ngClass]="checkItemShow(item)">
-												<a class="col-lg-12 col-md-12 col-sm-12 col-xs-12 itemDetailList" href="javascript:void(0)" (click)="showDetail(item,item.multisize[0] )" id="changeBg_ig2_{{item._id}}">
-													<div class="col-lg-10 col-md-10 col-sm-10 col-xs-10" style="height: inherit;">
-														<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0">
-															<h5>
-																<strong>
-																	{{item.name}}
-																	<span *ngFor = "let chilly of spicyArray;">
-											                            <span *ngIf = "chilly <= item.spicyLevel">
-											                            	<img src="assets/images/chilly.PNG" width="15px">
-											                            </span>
-											                        </span>
-																</strong>
-															</h5>
+												<a class="col-lg-12 col-md-12 col-sm-12 col-xs-12 itemDetailList" href="javascript:void(0)" (click)="showDetail(item,item.multisize[0] )">
+													<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0" id="changeBg_ig2_{{item._id}}">
+														<div class="col-lg-10 col-md-10 col-sm-10 col-xs-10" style="height: inherit;">
+															<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0 wordBreak">
+																<h5>
+																	<strong>
+																		{{item.name}}
+																		<span *ngFor = "let chilly of spicyArray;">
+												                            <span *ngIf = "chilly <= item.spicyLevel">
+												                            	<img src="assets/images/chilly.PNG" width="15px">
+												                            </span>
+												                        </span>
+																	</strong>
+																</h5>
+															</div>
 														</div>
-														<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0">
-														<div *ngIf="item.description.length >= 40">
-															{{item.description.substr(0,40)}}...	
-														</div>
-														<div *ngIf="item.description.length < 40">
-															{{item.description}}	
-														</div>
+														<div class="col-lg-2 col-md-2 col-sm-2 col-xs-2" style="height: inherit;text-align: -webkit-right;"><h5><strong>{{item.price}}</strong></h5></div>
+														<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 wordBreak">
+															<div *ngIf="item.description.length >= 45">
+																{{item.description.substr(0,45)}}...	
+															</div>
+															<div *ngIf="item.description.length < 45">
+																{{item.description}}	
+															</div>
 														</div>
 													</div>
-													<div class="col-lg-2 col-md-2 col-sm-2 col-xs-2" style="height: inherit;text-align: -webkit-right;"><h5><strong>{{item.price}}</strong></h5></div>
 												</a>
 												<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 itemDetailDiv" id="itemPop_{{item._id}}" [style.display]="showDiv(item._id)" [style.left]="showPos(item._id,'ig2')">
 													<button class="hideDetailDiv" type="button"  (click) = "hideDiv()" >
@@ -297,12 +262,12 @@
 													</button>
 
 													<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 pos-header">
-														<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">{{item.description}}</div>
+														<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 wordBreak">{{item.description}}</div>
 														<!-- item size -->
 														<div class="sizeDetail col-lg-12 col-md-12 col-sm-12 col-xs-12" *ngIf = "item.multisize.length > 0">
 															<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12"><h5><span>{{'Size' | translate}} ({{'Required' | translate}})</span></h5></div>
 															<form>
-																<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 sizeOption" *ngFor = "let multisizes of item.multisize; let i = index;" >
+																<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 sizeOption" *ngFor = "let multisizes of item.multisize; let i = index; ">
 																	<div *ngIf="i == 0">
 																		<input type="radio" (click)="multiSizePriceInfo(multisizes)" [name]="'optnButton'+item._id" checked="checked" [attr.id]="'Location_' + item._id + '_' + multisizes._id">
 																	</div>
@@ -310,7 +275,7 @@
 																		<input type="radio" (click)="multiSizePriceInfo(multisizes)" [name]="'optnButton'+item._id" [attr.id]="'Location_' + item._id + '_' + multisizes._id">
 																	</div>
 																	<div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">{{multisizes.size}}</div>
-																	<div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 sizePrice pull-right">{{multisizes.price}}</div>
+																	<div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 sizePrice pull-right padding0">{{multisizes.price | number : '1.2-2'}}</div>
 																</div>
 															</form>
 														</div>
@@ -320,7 +285,7 @@
 														<div class="addOnsDetail col-lg-12 col-md-12 col-sm-12 col-xs-12" *ngIf = "item.options">
 															<div class=" col-lg-12 col-md-12 col-sm-12 col-xs-12 add padding0" *ngFor = "let group of item.options">
 																<div class=" col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0">
-																	<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">{{group.name}}
+																	<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 wordBreak">{{group.name}}
 																		<span *ngIf="group.groupType">({{group.groupType.gType | uppercase}})
 																			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0" *ngIf="group.groupType.gType == 'mandatory'" style="font-size: 11px;">Min Addon : {{group.groupType.min}},Max Addon : {{group.groupType.max}}
 																			</div>
@@ -328,8 +293,8 @@
 																	</div>
 																	<div class="subAddOn col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0" *ngIf = "group.subaddon">
 																		<div class="subAddOnDetail col-lg-12 col-md-12 col-sm-12 col-xs-12" *ngFor = "let detail of group.subaddon" #addonDetail [attr.data-addon]="'check'" [attr.id]="'Location_IG2_' + item._id + '_' + detail._id" (click)="addonPriceInfo(detail,addonDetail,group,item.options)" >
-																			<div class="col-lg-11 col-md-11 col-sm-11 col-xs-11 subAddOnDetailList">{{detail.name}}</div>
-																			<div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 subAddOnDetailPrice">	{{detail.price}}
+																			<div class="col-lg-10 col-md-10 col-sm-10 col-xs-10 subAddOnDetailList wordBreak">{{detail.name}}</div>
+																			<div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 subAddOnDetailPrice textRight padding0">	{{detail.price | number : '1.2-2'}}
 																			</div>
 																		</div>
 																	</div>
@@ -337,27 +302,6 @@
 															</div>
 														</div>
 														<!-- items addOns end-->
-
-														<!-- Spicy Setting Menu -->
-														<!-- <div class="col-lg-12  col-md-12 col-sm-12 col-xs-12 spicySetting">
-															<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">Choose Spicy Level
-															</div>
-															<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="padding: 10px;">
-																<div class="width100" style="background: #a4a4a4;height: 3px;">
-																	<div class="gradientClass" [style.width] ="spicyLevel" style="height: 3px;"></div>
-																</div>
-																<div class="width100" style="display: flex;">
-																	<span (click)="spicylevel('0%')">0</span>
-																	<div style="width: 25%; text-align: right;" class="level1" (click)="spicylevel('25%')">1</div>
-																	<div style="width: 25%; text-align: right;" class="level2" (click)="spicylevel('50%')">2</div>
-																	<div style="width: 25%; text-align: right;" class="level3" (click)="spicylevel('75%')">3</div>
-																	<div style="width: 25%; text-align: right;" class="level4" (click)="spicylevel('100%')">4</div>
-																</div>
-
-															</div>
-														</div> -->
-														<!-- Spicy Setting Menu -->
-
 
 														<!-- item special Instruction -->
 														<div class="col-lg-12  col-md-12 col-sm-12 col-xs-12 specialInstruction">
@@ -367,25 +311,6 @@
 															</div>
 														</div>
 														<!-- items special Instruction end-->
-
-														<!-- items quantity -->
-														<!-- <div class="col-lg-12  col-md-12 col-sm-12 col-xs-12 quantityDetail">
-															<div class="col-lg-12  col-md-12 col-sm-12 col-xs-12">{{'Quantity' | translate}}</div>
-															<div class="col-lg-12  col-md-12 col-sm-12 col-xs-12 fillQuantity">
-																<div class=" form-group">
-																	<input type="text" name="quantity" class="form-control" [value]="quantity" min="1" max="10"  [attr.id]="'Location_' + item._id + '_count'">
-																	<div class="cnt-input-buttons">
-																		<button class="cnt-input-decrease" id="minus" (click)="quantityDecrement()">
-																			<i class=" fa fa-minus" ></i>
-																		</button>
-																		<button class="cnt-input-increase"  id="plus" (click)="quantityIncrement()">
-																			<i class=" fa fa-plus"></i>
-																		</button>
-																	</div>
-																</div>
-															</div>
-														</div> -->
-														<!-- items quantity end-->
 													</div>
 
 													<div class="pos-footer">
@@ -394,7 +319,7 @@
 															<button class="btn saveButton" style="padding: 15px 20px;text-align: justify;" (click)="addToCart(item._id,'itemG2')" [disabled]="!mandCheckedCount">
 																<div class="col-lg-12  col-md-12 col-sm-12 col-xs-12 btn btn-action-primary checkout-button">
 																	<div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
-																		<div class="checkout-button">{{finalPrice}}</div>
+																		<div class="checkout-button">{{finalPrice | number : '1.2-2'}}</div>
 																	</div>
 																	<div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 checkout-button-separator"></div>
 																	<div class="col-lg-8 col-md-8 col-sm-8 col-xs-8 checkout-button-label" >{{'Add_to_cart' | translate}}</div>

@@ -44,7 +44,7 @@ export class UsersupdateComponent implements OnInit {
         });
     }
 
-    private userUpdate() {
+    userUpdate() {
         console.log(this.userAddModel.value);
         this.usersService.updateUser(this.userAddModel.value).subscribe(
             (data) => {

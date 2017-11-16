@@ -531,7 +531,7 @@ export class ReportingItemCategoriesComponent implements OnInit {
         this.getRestaurants();
     }
 
-    private changeMenu(id) {
+    changeMenu(id) {
         this.menuId = id;
         this.menuName = id;
         this.getItemCategoryData(this.restaurants._id,this.menuId, this.selectedTime);
@@ -794,7 +794,7 @@ export class ReportingDetailComponent implements OnInit {
         });
     }
 
-     private deleteOrder(id){
+     deleteOrder(id){
         this.orderService.deleteOneOrder(id).subscribe(data=>{
             this.router.navigate(['/owner/reports/orders']);
         });

@@ -200,17 +200,6 @@ a.selected {
     transition: background-color .4s ease-out;    
 }
 
-.itemDetailDiv{
-    padding:2%;
-    width: 100%;
-}
-
-.itemDetailDiv div div.sizeDetail div.sizeOption, .addOnsDetail div.subAddOn div.subAddOnDetail{
-    padding: 2%;
-    border: 1px solid #CCCCCC;
-    background: white;
-}
-
 .itemDetailDiv div div.sizeDetail , .itemDetailDiv div div.specialInstruction{
     margin-top: 5%;
 }
@@ -266,7 +255,7 @@ div.cnt-input-buttons button .fa{
 
 
 .detailDiv{
-	padding-top: 10%;
+	padding-top: 66px;
 	display: grid;
     padding-bottom: 4%;
 }
@@ -283,7 +272,6 @@ div.cnt-input-buttons button .fa{
 */
 .info-title{
 	border-bottom: 1px solid #DBDBDB;
-    margin-bottom: 5%;
 }
 
 .info-hours-container div{
@@ -292,14 +280,6 @@ div.cnt-input-buttons button .fa{
 
 .paymentOptions .paymentDetail{
 	padding: 2% 0 2% 0;
-}
-
-.detailSection3 div{
-	padding: 0 1% 0 1%;
-}
-
-.detailSection3 {
-    display: -webkit-box;
 }
 
 .menuDetail{
@@ -326,15 +306,6 @@ div.cnt-input-buttons button .fa{
     break-inside: avoid;
 }
 
-.itemDetailDiv{
-    background-color: #f7f7f7;
-    /*left: 103%;*/
-    position: absolute;
-    z-index: 1;
-    box-shadow: 0 2px 10px rgba(0,0,0,.2);
-    border: 1px solid #ccc;
-    width: 103%;
-}
 
 #gmap{
     height: 485px;
@@ -452,13 +423,15 @@ footer.footer .footerButton .saveButton .button-separator{
 }
 
 .itemDetailDiv{
+    background-color: #f7f7f7;
     display: none;
-}
-
-.itemDetailDiv{
     top: -200px;
     z-index: 100000;
-    /*margin: 15% 0;*/
+    padding:2%;
+    position: absolute;
+    box-shadow: 0 2px 10px rgba(0,0,0,.2);
+    border: 1px solid #ccc;
+    width: 103%;
 }
 
 .pos-footer {
@@ -540,13 +513,26 @@ button.orderButton{
 }
 
 .addOnsDetail div div div.subAddOn div.subAddOnDetail{
-    padding: 0;
     display: flex;
     cursor: pointer;
 }
 
-.addOnsDetail div div div.subAddOn div.subAddOnDetail div.subAddOnDetailList, .addOnsDetail div div div.subAddOn div.subAddOnDetail div.subAddOnDetailPrice{
+.itemDetailDiv div div.sizeDetail div.sizeOption, .addOnsDetail div.subAddOn div.subAddOnDetail{
     padding: 2%;
+    border: 1px solid #CCCCCC;
+    background: white;
+}
+
+/*.addOnsDetail div div div.subAddOn div.subAddOnDetail div.subAddOnDetailList, .addOnsDetail div div div.subAddOn div.subAddOnDetail div.subAddOnDetailPrice{
+    padding: 2%;
+}*/
+
+.padding2prcnt{
+    padding: 2%;
+}
+
+.subAddOnDetailList{
+    word-break: break-all;
 }
 
 div.cartLength{
@@ -618,7 +604,7 @@ div.cartLength2{
     transition: background-color 0.4s ease-out;
 }
 
-.subMenuItem:hover{
+.itemDetailList:hover{
     background-color: rgb(244, 244, 244);
 }
 
@@ -759,32 +745,8 @@ div.deal-list div.oddEven:nth-child(odd) {
 #selectItem1 , #selectItem2{
     text-align: center;
     font-size: x-large;
-    margin-top: 37px;
+    /*margin-top: 37px;*/
 }
-
-/*#base:before {
-    border-top: 15px solid rgba(0, 0, 0, 0.95);
-    border-left: 20px solid transparent;
-    border-right: 20px solid transparent;
-    height: 0;
-    content: "";
-    left: 48%;
-    position: absolute;
-    top: 250px;
-    width: 0;
-}
-
-.itemDetailDiv:before {
-    height: 0;
-    left: -12px;
-    position: absolute;
-    content: "";
-    width: 0;
-    top: 92px;
-    border-top: 12px solid transparent;
-    border-right: 12px solid #f7f7f7;
-    border-bottom: 12px solid transparent;
-}*/
 
 .textCenter{
     text-align: center;
@@ -1009,7 +971,7 @@ div:focus{
 
 .noneClass, .noneClass:hover{
     cursor: no-drop;
-    background: #dedede;
+    background: #cfcfcf;
 }
 
 .noneClass a{
@@ -1018,7 +980,7 @@ div:focus{
 
 .showNoneMenu .noneClass,.showNoneMenu .noneClass:hover, .showNoneMenu .blockClass,.showNoneMenu .blockClass:hover{
     cursor: no-drop;
-    background: #dedede;
+    background: #cfcfcf;
 }
 
 .showNoneMenu .noneClass a, .showNoneMenu .blockClass a{
@@ -1103,4 +1065,25 @@ div:focus{
     vertical-align: baseline;
     font-size: 14px;
     float: right;
+}
+
+@media (max-width: 766px){
+    .itemDetailDiv {
+        position: inherit;
+        width: 65%;
+        float: right;
+        left: 0 !important;
+        background-color: #f7f7f7;
+        border: 1px solid #ccc;
+        box-shadow: 0 2px 10px rgba(0,0,0,.2);
+    }
+}
+@media (max-width: 550px){
+    .width100whensmall{
+        width: 100% !important;
+    }
+}
+
+.margin2prcnt-auto{
+    margin: 2% auto;
 }

@@ -49,7 +49,7 @@ const appRoutes: Routes = [
   { path: 'admin/drivers', component: DriversComponent, canActivate: [AuthGuard],children :[]  },
   { path: 'admin/drivers/:id', component: DriverupdateComponent, canActivate: [AuthGuard]  },
   { path: 'admin/driver/add', component: DriveraddComponent, canActivate: [AuthGuard]  },
-  { path: 'admin/restaurants', component: RestaurantsComponent, canActivate: [AuthGuard],children :[]  },
+  { path: 'admin/restaurant', component: RestaurantsComponent, canActivate: [AuthGuard],children :[]  },
   { path: 'admin/restaurants/:id', component: RestaurantupdateComponent, canActivate: [AuthGuard]  },
 
   { path: 'admin/owner-auto-login/:id', component: OwnerAutologinComponent},

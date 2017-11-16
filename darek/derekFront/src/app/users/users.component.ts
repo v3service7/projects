@@ -40,7 +40,7 @@ export class UsersComponent implements OnInit {
         }
     }
 
-    private sortBy(data) {
+    sortBy(data) {
         this.order = data;
         if (this.reverse == false) {
             this.reverse = true;
@@ -81,7 +81,7 @@ export class AdminComponent implements OnInit {
         }
     }
 
-    private sortBy(data) {
+    sortBy(data) {
         this.order = data;
         if (this.reverse == false) {
             this.reverse = true;
@@ -120,7 +120,7 @@ export class AdminaddComponent implements OnInit {
 
     }
 
-    private userAdd() {
+    userAdd() {
         this.usersService.addAdmin(this.userAddModel.value).subscribe(
             (data) => {
                 toastr.success('Admin Add successful');
@@ -173,7 +173,7 @@ export class AdminupdateComponent implements OnInit {
         });
     }
 
-    private userUpdate() {
+    userUpdate() {
         console.log(this.userAddModel.value);
         this.usersService.updateAdmin(this.userAddModel.value).subscribe(
             (data) => {

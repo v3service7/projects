@@ -23,7 +23,7 @@
 			</div>
 		</div>
 		<div class="custmMsgBox" *ngIf="cstMsg">
-			<div class="customMessageDialogue">
+			<div class="customMessageDialogue wordBreak">
 				{{restaurants.checkoutMessage}}
 
 				<i class="fa fa-times" aria-hidden="true" (click)="showCustomMessage()"></i>
@@ -80,7 +80,7 @@
 						</form>
 					</div>
 					<div class="editCustomer" *ngIf = "!showHideContactDetail">
-						<div class="col-lg-8 col-md-8 col-sm-8 col-xs-8 customerDetail">
+						<div class="col-lg-8 col-md-8 col-sm-8 col-xs-8 customerDetail wordBreak">
 							{{currentCustomer.firstname}} {{currentCustomer.lastname}}<br>
 							{{currentCustomer.email}}<br>
 							{{currentCustomer.phonenumber}}
@@ -145,7 +145,7 @@
 						</div>
 					</div>
 					<div class="editOrderMethod" *ngIf="editOrderMethod">
-						<div class="col-lg-8 col-md-8 col-sm-8 col-xs-8 orderMethodDetail">
+						<div class="col-lg-8 col-md-8 col-sm-8 col-xs-8 orderMethodDetail wordBreak">
 							<div *ngIf="orderMethod.mType == 'Pickup'">{{orderMethod.mType}}</div>
 							<div *ngIf="orderMethod.mType == 'Delivery'">
 								{{orderMethod.mType}}<br>
@@ -329,7 +329,7 @@
 					</div>
 				</div>
 
-				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding10px0px" *ngIf = "!commentNotMade">Comment : {{commentMade}}</div>
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding10px0px wordBreak" *ngIf = "!commentNotMade">Comment : {{commentMade}}</div>
 
 			</div>
 		</div>
@@ -363,7 +363,7 @@
 								</div>
 
 								<div class="col-lg-7 col-md-7 col-sm-7 col-xs-7 padding0">
-									<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 cart-item-name">
+									<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 cart-item-name wordBreak">
 										<strong>
 											{{crt.item.name}}
 											<span *ngFor = "let chilly of spicyArray;">
@@ -375,12 +375,12 @@
 									</div>
 									<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 cart-item-option" style="font-size: 12px;">
 										<div *ngIf="crt.multisize">
-											<div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">{{crt.multisize.size}}</div>
+											<div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 wordBreak">{{crt.multisize.size}}</div>
 											<div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 padding0" style="text-align: right;">(+{{crt.multisize.price | number : '1.2-2'}})</div>
 										</div>
 										<div *ngIf="crt.addon">
 											<div *ngFor="let adn of crt.addon">
-												<div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">{{adn.name}}</div>
+												<div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 wordBreak">{{adn.name}}</div>
 												<div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 padding0" style="text-align: right;">(+{{adn.price | number : '1.2-2'}})</div>
 											</div>
 										</div>
@@ -393,7 +393,7 @@
 									<span class="glf-loader"><div class="glf-loader-circle"></div></span>
 								</div>
 								<br>
-								<div *ngIf="crt.itemInstruction" class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0">Instruction : {{crt.itemInstruction}}</div>
+								<div *ngIf="crt.itemInstruction" class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0 wordBreak">Instruction : {{crt.itemInstruction}}</div>
 							</div>
 						</div>
 
@@ -405,7 +405,7 @@
 
 								<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding5px15px" *ngIf="promotionOrder.itemGroup1">
 									<div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 padding0">
-										<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 cart-item-name padding0">
+										<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 cart-item-name padding0 wordBreak">
 											<!-- {{promotionOrder.itemGroup1.item.name}} -->
 											<strong>
 												{{promotionOrder.itemGroup1.item.name}}
@@ -418,12 +418,12 @@
 										</div>
 										<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 cart-item-option" style="font-size: 12px;">
 											<div *ngIf="promotionOrder.itemGroup1.multisize">
-												<div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 padding0">{{promotionOrder.itemGroup1.multisize.size}}</div>
+												<div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 padding0 wordBreak">{{promotionOrder.itemGroup1.multisize.size}}</div>
 												<div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 padding0" style="text-align: right;">(+{{promotionOrder.itemGroup1.multisize.price | number : '1.2-2'}})</div>
 											</div>
 											<div *ngIf="promotionOrder.itemGroup1.addon">
 												<div *ngFor="let adn of promotionOrder.itemGroup1.addon" class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0">
-													<div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 padding0">{{adn.name}}</div>
+													<div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 padding0 wordBreak">{{adn.name}}</div>
 													<div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 padding0" style="text-align: right;">(+{{adn.price | number : '1.2-2'}})</div>
 												</div>
 											</div>
@@ -432,14 +432,14 @@
 									<div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 cart-price ng-binding padding0 fontWeight700" style="text-align: right;">
 										{{promotionOrder.itemGroup1.totalPrice | number : '1.2-2'}}
 									</div>
-									<div *ngIf = "promotionOrder.itemGroup1.itemInstruction" class="col-lg-12 col-md-12 col-sm-12 col-xs-12 promotionSpecialInstruction">
+									<div *ngIf = "promotionOrder.itemGroup1.itemInstruction" class="col-lg-12 col-md-12 col-sm-12 col-xs-12 promotionSpecialInstruction wordBreak">
 										Instruction : {{promotionOrder.itemGroup1.itemInstruction}}
 									</div>
 								</div>
 
 								<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding5px15px" *ngIf="promotionOrder.itemGroup2">
 									<div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 padding0">
-										<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 cart-item-name padding0">
+										<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 cart-item-name padding0 wordBreak">
 											<strong>
 												{{promotionOrder.itemGroup2.item.name}}
 												<span *ngFor = "let chilly of spicyArray;">
@@ -451,12 +451,12 @@
 										</div>
 										<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 cart-item-option" style="font-size: 12px;">
 											<div *ngIf="promotionOrder.itemGroup2.multisize">
-												<div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 padding0">{{promotionOrder.itemGroup2.multisize.size}}</div>
+												<div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 padding0 wordBreak">{{promotionOrder.itemGroup2.multisize.size}}</div>
 												<div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 padding0" style="text-align: right;">(+{{promotionOrder.itemGroup2.multisize.price | number : '1.2-2'}})</div>
 											</div>
 											<div *ngIf="promotionOrder.itemGroup2.addon">
 												<div *ngFor="let adn of promotionOrder.itemGroup2.addon" class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0">
-													<div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 padding0">{{adn.name}}</div>
+													<div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 padding0 wordBreak">{{adn.name}}</div>
 													<div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 padding0" style="text-align: right;">(+{{adn.price | number : '1.2-2'}})</div>
 												</div>
 											</div>
@@ -465,7 +465,7 @@
 									<div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 cart-price ng-binding padding0" style="text-align: right;">
 										{{promotionOrder.itemGroup2.totalPrice | number : '1.2-2'}}
 									</div>
-									<div *ngIf = "promotionOrder.itemGroup2.itemInstruction" class="col-lg-12 col-md-12 col-sm-12 col-xs-12 promotionSpecialInstruction">
+									<div *ngIf = "promotionOrder.itemGroup2.itemInstruction" class="col-lg-12 col-md-12 col-sm-12 col-xs-12 promotionSpecialInstruction wordBreak">
 										Instruction : {{promotionOrder.itemGroup2.itemInstruction}}
 									</div>
 								</div>
@@ -484,7 +484,7 @@
 						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 sub-total">
 							<div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">{{'Sub' | translate}} {{'Total' | translate}}</div>
 							<div class="col-lg-3 col-md-3 col-sm-3 col-xs-3" style="text-align: right;">
-								{{grandTotal}}
+								{{grandTotal | number : '1.2-2'}}
 							</div>
 						</div>
 						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 discount " *ngIf = "this.discountAmount" style="    font-size: 12px;">

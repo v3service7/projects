@@ -33,7 +33,7 @@ export class UsersaddComponent implements OnInit {
 
     }
 
-  	private userAdd() {
+  	userAdd() {
         this.usersService.addUser(this.userAddModel.value).subscribe(
             (data) => {
                 //this.alertService.success('Owner Added Successfully', true);

@@ -75,7 +75,7 @@ export class MarketingOverviewComponent implements OnInit {
       });
    }
 
-   private showDiv(id){
+   showDiv(id){
       $("[id$='Div']").css("display","none"); 
       document.getElementById(id).style.display = 'block';
    }
@@ -346,7 +346,7 @@ export class MarketingPromotionsComponent implements OnInit {
       });
    }
 
-   private presentTimeUpdate(property){
+   presentTimeUpdate(property){
       if (property == 'forTime') {    
          if (this.selected1 != 'selected1') {
             this.selected2 = 'selected2';
@@ -364,7 +364,7 @@ export class MarketingPromotionsComponent implements OnInit {
       }
    }
 
-   private dateNtimeUpdate(property){
+   dateNtimeUpdate(property){
       if (property == 'forTime') {
          if (this.selected2 != 'selected1') {
             this.selected2 = 'selected1';
@@ -797,7 +797,7 @@ export class MarketingEditPromotionComponent implements OnInit {
       /*this.fulfillmentTimeObj['available'] = this.obj2;*/
    }
 
-   private showDisplayTime(){
+   showDisplayTime(){
       if (this.displayTrue != 'displayTrue') {
          this.displayFalse = 'displayFalse';
          this.displayTrue = 'displayTrue';
@@ -808,7 +808,7 @@ export class MarketingEditPromotionComponent implements OnInit {
       $('#datePicker2').datetimepicker({format:'DD-MM-YYYY',useCurrent: false});
    }
 
-   private showFulfillmentTime(){
+   showFulfillmentTime(){
       if (this.displayFalse != 'displayTrue') {
          this.displayFalse = 'displayTrue';
          this.displayTrue = 'displayFalse';
@@ -907,7 +907,7 @@ export class MarketingEditPromotionComponent implements OnInit {
       }
    }
 
-   private orderType(type){
+   orderType(type){
       $("div[id^='orderType']").addClass('selected2');
       if (type == 'any') {
          $("div[id='orderType1']").removeClass('selected2').addClass('selected1');
@@ -921,7 +921,7 @@ export class MarketingEditPromotionComponent implements OnInit {
       this.promoDetailUpdateModel.controls['orderType'].setValue(type);
    }
 
-   private orderTime(type){
+   orderTime(type){
       $("div[id^='orderTime']").addClass('selected2');
       if (type == 'any') {
          $("div[id='orderTime1']").removeClass('selected2').addClass('selected1');
@@ -935,7 +935,7 @@ export class MarketingEditPromotionComponent implements OnInit {
       this.promoDetailUpdateModel.controls['orderTime'].setValue(type);
    }
 
-   private clientType(type){
+   clientType(type){
       $("div[id^='clientType']").addClass('selected2');
       if (type == 'any') {
          $("div[id='clientType1']").removeClass('selected2').addClass('selected1');
@@ -949,7 +949,7 @@ export class MarketingEditPromotionComponent implements OnInit {
       this.promoDetailUpdateModel.controls['clientbenefited'].setValue(type);
    }
 
-   private dealRedemption(type){
+   dealRedemption(type){
       $("div[id^='show']").addClass('selected2');
       if (type == 'showAll') {
          $("div[id='showAll']").removeClass('selected2').addClass('selected1');
@@ -961,7 +961,7 @@ export class MarketingEditPromotionComponent implements OnInit {
       }
    }
 
-   private couponCode(type){
+   couponCode(type){
       if (type == 'auto') {
          this.autoCode = this.autoGenerate()
          $("div[id='auto']").removeClass('selected2').addClass('selected1');
@@ -1072,7 +1072,7 @@ export class MarketingEditPromotionComponent implements OnInit {
       console.log(this.menu2);
    }
 
-   private saveMenu(type){
+   saveMenu(type){
       this.itemIds = [];
       if (type == 'itemGroup1') {
          this.itemNo1 = 0;
@@ -1140,7 +1140,7 @@ export class MarketingEditPromotionComponent implements OnInit {
       console.log(this.promoDetailUpdateModel.value);
    }
 
-   private countCharacter(event:any,name,type){
+   countCharacter(event:any,name,type){
       if (type == 'promoName') {
          this.promoName = name.value;
          this.promoDetailUpdateModel.controls['promoname'].setValue(this.promoName);
@@ -1165,7 +1165,7 @@ export class MarketingEditPromotionComponent implements OnInit {
       this.checkFormValidation();
    }
 
-   private onChange(event) {
+   onChange(event) {
       var files = event.srcElement.files;
       this.uploader.uploadAll();
       this.uploader.onCompleteItem = (item: any, response: any, status: any, headers: any) => {
@@ -1176,7 +1176,7 @@ export class MarketingEditPromotionComponent implements OnInit {
       };
    }
 
-   private showStep(property,stepNo){
+   showStep(property,stepNo){
       if (typeof property == 'object') {
          $('div.promotionStep').removeClass('changeBg');
          var cls = property.getAttribute('class');
@@ -1207,7 +1207,7 @@ export class MarketingEditPromotionComponent implements OnInit {
       this.showStep(property,x);
    }
 
-   private save(property,stepNo){
+   save(property,stepNo){
       this.hideStep(property,stepNo);
    }
 
@@ -1413,7 +1413,7 @@ export class MarketingEditPromotionComponent implements OnInit {
       }
    }
 
-   private savePromotion(){
+   savePromotion(){
       this.promotionsService.updateRestroPromotion(this.promoDetailUpdateModel.value).subscribe(data=>{
          this.router.navigate(['/owner/marketing/promotions']);
          console.log("data");
@@ -1465,8 +1465,8 @@ export class MarketingPromotionsListComponent implements OnInit {
    styleUrls: ['./marketing.component.css']
 })
 export class MarketingPromotionsTemplateComponent implements OnInit {
-   promotion = [];
-   promotions = [];
+   promotion : any = {};
+   promotions : any = {};
    menus: any = [];
    items: any = [];
    itemIds = [];
@@ -1756,7 +1756,7 @@ export class MarketingPromotionsTemplateComponent implements OnInit {
       /*this.fulfillmentTimeObj['available'] = this.obj2;*/
    }
 
-   private showDisplayTime(){
+   showDisplayTime(){
       if (this.displayTrue != 'displayTrue') {
          this.displayFalse = 'displayFalse';
          this.displayTrue = 'displayTrue';
@@ -1767,7 +1767,7 @@ export class MarketingPromotionsTemplateComponent implements OnInit {
       $('#datePicker2').datetimepicker({format:'DD-MM-YYYY',useCurrent: false});
    }
 
-   private showFulfillmentTime(){
+   showFulfillmentTime(){
       if (this.displayFalse != 'displayTrue') {
          this.displayFalse = 'displayTrue';
          this.displayTrue = 'displayFalse';
@@ -1867,7 +1867,7 @@ export class MarketingPromotionsTemplateComponent implements OnInit {
       }
    }
 
-   private orderType(type){
+   orderType(type){
       $("div[id^='orderType']").addClass('selected2');
       if (type == 'any') {
          $("div[id='orderType1']").removeClass('selected2').addClass('selected1');
@@ -1881,7 +1881,7 @@ export class MarketingPromotionsTemplateComponent implements OnInit {
       this.promoDetailAddModel.controls['orderType'].setValue(type);
    }
 
-   private orderTime(type){
+   orderTime(type){
       $("div[id^='orderTime']").addClass('selected2');
       if (type == 'any') {
          $("div[id='orderTime1']").removeClass('selected2').addClass('selected1');
@@ -1895,7 +1895,7 @@ export class MarketingPromotionsTemplateComponent implements OnInit {
       this.promoDetailAddModel.controls['orderTime'].setValue(type);
    }
 
-   private clientType(type){
+   clientType(type){
       $("div[id^='clientType']").addClass('selected2');
       if (type == 'any') {
          $("div[id='clientType1']").removeClass('selected2').addClass('selected1');
@@ -1909,7 +1909,7 @@ export class MarketingPromotionsTemplateComponent implements OnInit {
       this.promoDetailAddModel.controls['clientbenefited'].setValue(type);
    }
 
-   private dealRedemption(type){
+   dealRedemption(type){
       $("div[id^='show']").addClass('selected2');
       if (type == 'showAll') {
          $("div[id='showAll']").removeClass('selected2').addClass('selected1');
@@ -1921,7 +1921,7 @@ export class MarketingPromotionsTemplateComponent implements OnInit {
       }
    }
 
-   private couponCode(type){
+   couponCode(type){
       if (type == 'auto') {
          this.autoCode = this.autoGenerate()
          $("div[id='auto']").removeClass('selected2').addClass('selected1');
@@ -2019,7 +2019,7 @@ export class MarketingPromotionsTemplateComponent implements OnInit {
       console.log(this.menu2);
    }
 
-   private saveMenu(type){
+   saveMenu(type){
       this.itemIds = [];
       if (type == 'itemGroup1') {
          this.itemNo1 = 0;
@@ -2083,7 +2083,7 @@ export class MarketingPromotionsTemplateComponent implements OnInit {
       this.promoDetailAddModel.controls['discountOn'].setValue(this.discountOn);
    }
 
-   private countCharacter(event:any,name,type){
+   countCharacter(event:any,name,type){
       if (type == 'promoName') {
          this.promoName = name.value;
          this.promoDetailAddModel.controls['promoname'].setValue(this.promoName);
@@ -2119,7 +2119,7 @@ export class MarketingPromotionsTemplateComponent implements OnInit {
       };
    }
 
-   private showStep(property,stepNo){
+   showStep(property,stepNo){
       if (typeof property == 'object') {
          $('div.promotionStep').removeClass('changeBg');
          var cls = property.getAttribute('class');
@@ -2151,7 +2151,7 @@ export class MarketingPromotionsTemplateComponent implements OnInit {
       this.showStep(property,x);
    }
 
-   private save(property,stepNo){
+   save(property,stepNo){
       this.hideStep(property,stepNo);
    }
 
@@ -2289,7 +2289,7 @@ export class MarketingPromotionsTemplateComponent implements OnInit {
       }
    }
 
-   private savePromotion(){
+   savePromotion(){
       if (this.promoDetailAddModel.controls['image'].value == null) {
          this.promoDetailAddModel.controls['image'].setValue('defaultPromoImage.jpg');
       }
@@ -2408,21 +2408,21 @@ export class MarketingPromotionsSubscriptionComponent implements OnInit {
    };
 
 
-   private goFurther(id){
+   goFurther(id){
       console.log("id");
       console.log(id);
       $("[id^='section']").css("display","none"); 
       $('#'+id).css("display","block");
    }
 
-   private cardDetailSubmit(id){
+   cardDetailSubmit(id){
       console.log("this.cardDetailModel.value");
       console.log(this.cardDetailModel.value);
       toastr.success('Payment done successfully');
       this.goFurther(id);
    }
 
-   private providerSetting(){
+   providerSetting(){
       toastr.success('Successful');
       let obj = {};
       obj['_id'] = this.restaurants._id;
@@ -2434,7 +2434,7 @@ export class MarketingPromotionsSubscriptionComponent implements OnInit {
       console.log(obj);
    }
 
-   private showDetail(type){
+   showDetail(type){
       if (type == 'price') {
          this.showPricingDetail = !this.showPricingDetail
       }
@@ -2541,7 +2541,7 @@ export class MarketingStatsComponent implements OnInit {
       return array;
    }
 
-   private onChangeObj(newObj) {
+   onChangeObj(newObj) {
       this.selectedTime = newObj;
       this.lineChartLabels = this.lastSevenDays(this.selectedTime);
       this.getStatsData(this.restaurants._id , this.selectedTime);

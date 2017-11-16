@@ -46,7 +46,7 @@ export class LanguagelistComponent implements OnInit {
       }
     }
 
-    private sortBy(data) {
+    sortBy(data) {
         this.order = data;
         if (this.reverse == false) {
             this.reverse = true;
@@ -81,7 +81,7 @@ export class LanguageaddComponent implements OnInit {
         });    
     }
 
-    private userAdd() {
+    userAdd() {
         this.masterService.addLanguage(this.userAddModel.value).subscribe(
             (data) => {
                 toastr.success('Language Added Successfully');
@@ -129,7 +129,7 @@ export class LanguageupdateComponent implements OnInit {
         });
     }
 
-    private languageUpdate() {
+    languageUpdate() {
         console.log(this.userAddModel.value);
         this.masterService.updateLanguage(this.userAddModel.value).subscribe(
             (data) => {

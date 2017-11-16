@@ -56,7 +56,9 @@ export class DashboardComponent implements OnInit {
     private getAllSalesData( days) {
         this.orderService.getAllResSaleData(days).subscribe(users => {
             var chartData = users.message.data.sort(function (a, b) {
-                return a.name.localeCompare( b.name );
+                if (a.name) {
+                    return a.name.localeCompare( b.name );
+                }
             });
             if (users.status) {
                 let arr = chartData;
@@ -75,7 +77,7 @@ export class DashboardComponent implements OnInit {
         });
     }
 
-    private onChangeObj(newObj) {
+    onChangeObj(newObj) {
         this.selectedTime = newObj;
         this.getAllSalesData(this.selectedTime);
     }

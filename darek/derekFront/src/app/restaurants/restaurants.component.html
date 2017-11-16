@@ -29,7 +29,7 @@
                 </div>
               </div>
 
-              <div class="panel-body">
+              <div class="panel-body" *ngIf = "restaurants">
                 <div class="table-responsive">
                   <table class="table table-bordered table-hover table-striped">
                     <thead>
@@ -45,12 +45,12 @@
                     <tr *ngFor="let restaurant of restaurants|orderBy:order : reverse| filterBy: userFilter">
                       <td>{{restaurant.resCode}} </td>
                       <td>{{restaurant.name}} </td>
-                      <td>{{restaurant.ownerId.firstname}} {{restaurant.ownerId.lastname}}</td>
+                      <td><span *ngIf = "restaurant.ownerId">{{restaurant.ownerId.firstname}} {{restaurant.ownerId.lastname}}</span></td>
                       <td>
 
-                        <a  [routerLink]="['/admin/restaurants/',restaurant._id]"><i class="fa fa-pencil"></i></a> 
+                        <a  [routerLink]="['/admin/restaurants/',restaurant['_id']]"><i class="fa fa-pencil"></i></a> 
                         &nbsp; 
-                        <a  [routerLink]="['/admin/owner-auto-login/',restaurant.ownerId._id]" target="_blank"><i class="fa fa-user"></i></a>
+                        <a  [routerLink]="['/admin/owner-auto-login/',restaurant.ownerId['_id']]" target="_blank"><i class="fa fa-user"></i></a>
 
                       </td>
                     </tr>

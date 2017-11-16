@@ -258,7 +258,7 @@ export class RestaurantOwnerOrderForLaterComponent implements OnInit {
 		}
 	}
 
-	private saveData(){
+	saveData(){
 		this.restaurantsService.updatePickUp(this.orderlater).subscribe(
 			(data) => {
 				this.user = data.message;
@@ -268,7 +268,7 @@ export class RestaurantOwnerOrderForLaterComponent implements OnInit {
 		);
 	}
 
-	private incompleteData(){
+	incompleteData(){
 		if (this.detailComplete)
 			return false;
 		else
@@ -1187,7 +1187,7 @@ export class KitchenMenuListComponent implements OnInit {
 		});
 	}
 
-	private spicylevel(num,type){
+	spicylevel(num,type){
 		this.widthFunction(num);
 		if (type == 'add') {
         	this.itemAddModel.controls['spicyLevel'].setValue(num);
@@ -1266,13 +1266,13 @@ export class KitchenMenuListComponent implements OnInit {
 			toastr.success('Image Uploaded Successfully');
 		};
 	}
-	private menuModelShow() {
+	menuModelShow() {
 		$("#addMenu").modal('show');
 		this.restaurantsService.getOwnerRestaurants(JSON.parse(localStorage.getItem('currentOwner'))._id).subscribe(users => {
 			this.menuAddModel.controls['kitchenId'].setValue(users.message._id);
 		});
 	}
-	private userAdd() {
+	userAdd() {
 		this.kitchenMenuService.addUser(this.menuAddModel.value).subscribe(
 			(data) => {
 				this.modelClose();
@@ -1295,7 +1295,7 @@ export class KitchenMenuListComponent implements OnInit {
 	    var files = event.target.files;
 	    this.menuUpdateModel.controls['image'].setValue(files[0].name);
 	}
-	private userUpdate() {
+	userUpdate() {
 		if (this.menuUpdateModel.value.image == null || this.menuUpdateModel.value.image == this.userForUpdate.image) {
 			this.kitchenMenuService.updateMenu(this.menuUpdateModel.value).subscribe(
 				(data) => {
@@ -1347,7 +1347,7 @@ export class KitchenMenuListComponent implements OnInit {
 			toastr.success('Image Uploaded Successfully');
 		};
 	}
-	private itemAdd() {
+	itemAdd() {
 		this.itemAddModel.controls['options'].setValue(this.addGroupAddon) ;
 		this.kitchenMenuItemService.addUser(this.itemAddModel.value).subscribe(
 			(data) => {
@@ -1359,7 +1359,7 @@ export class KitchenMenuListComponent implements OnInit {
 			}
 		);
 	}
-	private itemUpdateModelShow(item) {
+	itemUpdateModelShow(item) {
 
 		this.item4UpdateObj = item;
 
@@ -1378,7 +1378,7 @@ export class KitchenMenuListComponent implements OnInit {
 	    var files = event.target.files;
 	    this.itemUpdateModel.controls['image'].setValue(files[0].name);
 	}
-	private itemUpdate() {
+	itemUpdate() {
 		if (this.option2.length > 0) {
 			this.itemUpdateModel.controls['options'].setValue(this.option2);
 		}
@@ -1533,7 +1533,7 @@ export class KitchenMenuListComponent implements OnInit {
 			////console.log(this.restaurants);	
 		});
 	}
-	private addAnothergroup(){
+	addAnothergroup(){
 		this.currentOpen = 'group';
 		this.addgroup = {"display" : "block"};
 		this.groupDetail.gType = 'optional';
@@ -1572,7 +1572,7 @@ export class KitchenMenuListComponent implements OnInit {
 		}
 	}
 	private groupDetailEdit(id){
-		this.currentOpen = 'editgroup';
+		this.currentOpen = 'editgroup_' + id;
 		this.kitchenMenuService.groupDetailEditser(id).subscribe(data => {   
 		//console.log("data")     	
 		//console.log(data)
@@ -1672,7 +1672,7 @@ export class KitchenMenuListComponent implements OnInit {
 	private addMultisizeAddOn(id){
 		this.multisizeAddModel.controls['sid'].setValue(id);	
 	}
-	private multisizeAddUpdate(){	 
+	multisizeAddUpdate(){	 
 		var allvalue :any = {}; 
 		allvalue._id = this.multisizeAddModel.value.sid;	
 		allvalue.multisize = {size: this.multisizeAddModel.value.sizename, price: this.multisizeAddModel.value.sizeprice};	 		
@@ -1703,7 +1703,7 @@ export class KitchenMenuListComponent implements OnInit {
 			this.multisizeEditAddModel.controls['price'].setValue(data.message.multisize[0].price);       
 		});
 	}
-	private multisizeEditAddUpdate(){
+	multisizeEditAddUpdate(){
 		this.kitchenMenuItemService.updateEditMenuAddOn(this.multisizeEditAddModel.value).subscribe(data => {
 			//this.refresh();
 			this.loadAllItem();
@@ -1806,7 +1806,7 @@ export class KitchenMenuListComponent implements OnInit {
     private passub(id){
      this.smenuImageAddModel.controls["_id"].setValue(id);     
     }
-	private updateMenuImage(){
+	updateMenuImage(){
       this.uploader.uploadAll();
 		this.uploader.onCompleteItem = (item: any, response: any, status: any, headers: any) => {
 			var responsePath = JSON.parse(response);
@@ -1821,7 +1821,7 @@ export class KitchenMenuListComponent implements OnInit {
             });
 		}
     }
-    private updateSubMenuImage(){
+    updateSubMenuImage(){
       this.uploader.uploadAll();
 		this.uploader.onCompleteItem = (item: any, response: any, status: any, headers: any) => {
 			var responsePath = JSON.parse(response);
@@ -2186,7 +2186,7 @@ export class LegacycodeComponent implements OnInit {
 		this.showDom.default = true;
   	}
 
-  	private showChildDom(type){
+  	showChildDom(type){
   		this.showDom.wordpress = false;
   		this.showDom.weebly = false;
   		this.showDom.wix = false;
@@ -2445,7 +2445,7 @@ export class SupportedLanguagesComponent implements OnInit {
 	    }
     }
 
-    private languageUpdate(){    	
+    languageUpdate(){    	
     	this.cusObj._id = this.restaurants._id;
     	this.cusObj.languages = this.addLng;
     	this.restaurantsService.updateRestaurant(this.cusObj).subscribe(users => {
@@ -2629,12 +2629,12 @@ export class OnlinePaymentComponent implements OnInit {
 		}	
 	}
 
-	private goFurther(id){
+	goFurther(id){
 		$("[id$='Section']").css("display","none"); 
 	    document.getElementById(id).style.display = 'block';
 	}
 
-	private acceptOnlinePayment(){
+	acceptOnlinePayment(){
 		if (this.btn_class1 == 'btn-success') {
 			document.getElementById('firstSection').style.display = 'none';
 			document.getElementById('secondSection').style.display = 'block';
@@ -2650,11 +2650,11 @@ export class OnlinePaymentComponent implements OnInit {
 		}
 	}
 
-	private showDetail(){
+	showDetail(){
 		this.show = !this.show;
 	}
 
-	private cardDetailSubmit(id){
+	cardDetailSubmit(id){
 		let obj = {};
 		obj['_id'] = this.restaurants._id;
 		obj['onlinepayment'] = true;
@@ -2678,7 +2678,7 @@ export class OnlinePaymentComponent implements OnInit {
 		console.log(this.cardDetailModel.value);*/
 	}
 
-	private providerSetting(){
+	providerSetting(){
 		toastr.success('Successful');
 		console.log("this.providerModel.value");
 		console.log(this.providerModel.value);
@@ -2730,7 +2730,7 @@ export class DeliveryOutsideComponent implements OnInit {
 		});
 	}
 
-	private deliveryOutside(type){
+	deliveryOutside(type){
 		if (type == false) {
 			this.outsideDelivery = false;
 			if (this.selected2 != 'green') {
@@ -2747,7 +2747,7 @@ export class DeliveryOutsideComponent implements OnInit {
 
 	}
 
-	private saveDeliveryOutside(){
+	saveDeliveryOutside(){
 		var obj = {}; 
 		obj['_id'] = this.restaurants._id
 		obj['deliveryoutside'] = this.outsideDelivery;
@@ -2789,7 +2789,7 @@ export class CustomMessageComponent implements OnInit {
 		});
 	}
 
-	private messageUpdate(){
+	messageUpdate(){
 		this.restaurantsService.updateRestaurant(this.customMessageForm.value).subscribe((data)=>{
 			toastr.success('Checkout Page Message has been saved successfully');
 			this.router.navigate(['/owner/supported-languages']);

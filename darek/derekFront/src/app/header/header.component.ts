@@ -36,7 +36,7 @@ export class HeaderownerComponent implements OnInit {
         });
     }
 
-    private signOut(){
+    signOut(){
       localStorage.removeItem('currentOwner');
     }
 }

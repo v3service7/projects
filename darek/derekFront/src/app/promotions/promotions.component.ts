@@ -44,7 +44,7 @@ export class PromotionsComponent implements OnInit {
     }
   }
 
-  private sortBy(data) {
+  sortBy(data) {
     this.order = data;
     if (this.reverse == false) {
       this.reverse = true;
@@ -104,7 +104,7 @@ export class PromotionaddComponent implements OnInit {
     }
   }
 
-  private promotionAdd() {
+  promotionAdd() {
     this.promotionAddModel.controls['restaurantOptions'].setValue(this.restaurantOption);
     this.promotionsService.addPromotion(this.promotionAddModel.value).subscribe(
       (data) => {
@@ -114,7 +114,7 @@ export class PromotionaddComponent implements OnInit {
     );
   }
 
-  private onChange(event) {
+  onChange(event) {
     var files = event.srcElement.files;
     this.uploader.uploadAll();
     this.uploader.onCompleteItem = (item: any, response: any, status: any, headers: any) => {
@@ -175,7 +175,7 @@ export class PromotionupdateComponent implements OnInit {
     });
   }
 
-  private onChange(event) {
+  onChange(event) {
     var files = event.srcElement.files;
     this.uploader.uploadAll();
     this.uploader.onCompleteItem = (item: any, response: any, status: any, headers: any) => {
@@ -210,7 +210,7 @@ export class PromotionupdateComponent implements OnInit {
     }
   }
 
-  private promotionUpdate() {
+  promotionUpdate() {
     this.promotionAddModel.controls['restaurantOptions'].setValue(this.restaurantOption);
     console.log(this.promotionAddModel.value);
     this.promotionsService.updatePromotion(this.promotionAddModel.value).subscribe(

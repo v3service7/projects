@@ -39,7 +39,7 @@ export class DriversComponent implements OnInit {
     }
   }
 
-  private sortBy(data) {
+  sortBy(data) {
     this.order = data;
     if (this.reverse == false) {
       this.reverse = true;
@@ -79,7 +79,7 @@ export class DriveraddComponent implements OnInit {
     });
   }
 
-  private driverAdd() {
+  driverAdd() {
     this.driversService.addDriver(this.driverAddModel.value).subscribe(
       (data) => {
         toastr.success('Driver Add successful');
@@ -141,7 +141,7 @@ export class DriverupdateComponent implements OnInit {
     });
   }
 
-  private driverUpdate() {
+  driverUpdate() {
     console.log(this.driverAddModel.value);
     this.driversService.updateDriver(this.driverAddModel.value).subscribe(
       (data) => {

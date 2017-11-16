@@ -30,8 +30,8 @@ var RestaurantSchema = new Schema({
     orderforlaterpickup: { mintime: Number, mindate: Number },    
     orderforlaterdelivery: { mintime: Number, mindate: Number },
     taxation: { name: String, tax: String, menuTax: String, deliveryTaxType: String, deliveryTax: String, currency: String },
-    paymentpickup: { cash: Boolean, cardpickup: Boolean, cardinternet: Boolean},
-    paymentdelivery: { cash: Boolean, cardpickup: Boolean, cardinternet: Boolean},
+    paymentpickup: { cash: { type: Boolean, default: false }, cardpickup: { type: Boolean, default: false }, cardinternet: { type: Boolean, default: false }},
+    paymentdelivery: { cash: { type: Boolean, default: false }, cardpickup: { type: Boolean, default: false }, cardinternet: { type: Boolean, default: false }},
     notification: [],
     languages: [{ type: Schema.Types.ObjectId, ref:'Language', required: true}],
     

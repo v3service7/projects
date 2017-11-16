@@ -31,7 +31,11 @@ export class RestaurantsComponent implements OnInit {
 	}
 
 	private loadAllRestaurants() {
-		this.restaurantsService.getAll().subscribe(users => { this.restaurants = users.message; });
+		this.restaurantsService.getAll().subscribe(users => { 
+			this.restaurants = users.message;
+			console.log("this.restaurants");
+			console.log(this.restaurants);
+		});
 	}
 
 	private deleteRestaurants(id) {
@@ -82,7 +86,7 @@ export class RestaurantaddComponent implements OnInit {
 		});
 	}
 
-	private restaurantAdd() {
+	restaurantAdd() {
 		this.restaurantsService.addRestaurant(this.restaurantAddModel.value).subscribe(
 			(data) => {
 				toastr.success('Restaurant Added successful','Success!');
@@ -139,7 +143,7 @@ export class RestaurantupdateComponent implements OnInit {
 		});
 	}
 
-	private restaurantUpdate() {
+	restaurantUpdate() {
 		console.log(this.restaurantAddModel.value);
 		this.restaurantsService.updateRestaurantLocation(this.restaurantAddModel.value).subscribe(
 			(data) => {
@@ -281,7 +285,7 @@ export class RestaurantupdateownerComponent implements OnInit {
 		this.restaurantAddModel.controls['image'].setValue(files[0].name);
 	}
 
-	private restaurantUpdate() {
+	restaurantUpdate() {
 		document.getElementById('Menu18').style.cursor = 'wait';
 		document.getElementById('submitButton').style.cursor = 'wait';
 		//document.body.style.cursor='progress';
@@ -456,7 +460,7 @@ export class RestaurantlocationComponent implements OnInit {
 		});
 	}
 
-	private restaurantUpdate() {
+	restaurantUpdate() {
 		document.getElementById('Menu18').style.cursor = 'wait';
 		document.getElementById('submitButton').style.cursor = 'wait';
 		this.restaurantObj4Update['lat'] = RestaurantlocationComponent.latt;
@@ -519,7 +523,7 @@ export class RestaurantconfirmationComponent implements OnInit {
 		);
 	}
 
-	private accountConfirm() {
+	accountConfirm() {
 		document.getElementById('rightMenu1').style.cursor = 'wait';
 		document.getElementById('submitButton').style.cursor = 'wait';
 		this.restaurantsService.emailConfirm({'email': this.user.email }).subscribe(

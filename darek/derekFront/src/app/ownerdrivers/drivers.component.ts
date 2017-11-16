@@ -44,7 +44,7 @@ export class OwnerDriversComponent implements OnInit {
     }
   }
 
-  private sortBy(data) {
+  sortBy(data) {
     this.order = data;
     if (this.reverse == false) {
       this.reverse = true;
@@ -149,7 +149,7 @@ export class OwnerDriversaddComponent implements OnInit {
   }
    
 
-  private driverAdd() {
+  driverAdd() {
     this.driverAddModel.controls['restaurantId'].setValue(this.restaurants._id);
     this.driversService.addDriver(this.driverAddModel.value).subscribe(
       (data) => {
@@ -209,7 +209,7 @@ export class OwnerDriversupdateComponent implements OnInit {
     });
   }
 
-  private driverUpdate() {
+  driverUpdate() {
     console.log(this.driverAddModel.value);
     this.driversService.updateDriver(this.driverAddModel.value).subscribe(
       (data) => {

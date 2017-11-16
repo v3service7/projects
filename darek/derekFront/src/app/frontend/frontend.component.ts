@@ -294,14 +294,22 @@ export class FrontendPromoDetailComponent implements OnInit {
     }
 
     private scrollToMenu(id, group){
-        let menu : String;
+        let menu : any;
         if (group == 'ig1') {
             menu = '#menuItem_ig1_' + id;
         }
         if (group == 'ig2') {
             menu = '#menuItem_ig2_' + id;
         }
-        $(menu).attr("tabindex",1).focus();
+        /*$(menu).attr("tabindex",1).focus();*/
+
+        var $target = $(menu);
+        let top = $target.offset().top;
+        $('html, body').stop().animate({
+            'scrollTop': top
+        }, 900, 'swing', function () {
+            window.location.hash = menu;
+        });
     }
 
     /*private showThisMenuItems(id, type){
@@ -538,7 +546,7 @@ export class FrontendPromoDetailComponent implements OnInit {
     private showDetail(itemObj,itemMultiSizeObj) {
         /*this.spicyLevel = '0%';*/
 
-        $("a[id^='changeBg_']").removeClass('changeBg');
+        $("div[id^='changeBg_']").removeClass('changeBg');
         $('#changeBg_ig1_'+itemObj._id).addClass('changeBg');
         $('#changeBg_ig2_'+itemObj._id).addClass('changeBg');
 
@@ -577,7 +585,7 @@ export class FrontendPromoDetailComponent implements OnInit {
     private hideDiv() {
         this.detailShow=''; 
         this.addonUncheck();
-        $("a[id^='changeBg_']").removeClass('changeBg');
+        $("div[id^='changeBg_']").removeClass('changeBg');
     }
 
     private addonUncheck(){
@@ -656,11 +664,47 @@ export class FrontendPromoDetailComponent implements OnInit {
         
         var isCheck = addonDetail.getAttribute('data-addon');
         var id = addonDetail.getAttribute('id');
+
+        var temp = id.split('_');
+        var tempItemId = temp[2];
+        var tempLocationId = temp[0]+'_'+temp[1];
+
+
         var groupId = group._id;
         if (isCheck == 'check') {
             document.getElementById(id).style.backgroundColor = '#e1eef5';
             document.getElementById(id).setAttribute('data-addon','uncheck');
             addonObj.groupId = groupId;
+
+            if (group.groupType.gType == 'mandatory') {
+                if (group.groupType.min == group.groupType.max && group.groupType.min == '1') {
+                    var num = 0;
+                    var manda = [];
+                    for (var j = 0; j < this.orderItem.addon.length; j++) {
+                        num = this.orderItem.addon.reduce(function (n, x) {
+                            return n + (x.groupId == group._id);
+                        }, 0);
+                    }
+                    manda[group._id] = num;
+
+                    if (num != 0) {
+                        for (var i = 0; i < this.orderItem.addon.length; i++) {
+                            let indx = this.orderItem.addon.findIndex(itm => itm.groupId == group._id);
+                            if (indx > -1) {
+                                var idz = tempLocationId+'_'+tempItemId+'_'+this.orderItem.addon[indx]._id;
+                                this.addonPrice = this.addonPrice - parseInt(this.orderItem.addon[indx].price);
+                                this.finalPrice = (this.multiSizePrice + this.price+ this.addonPrice)* this.quantity;
+                                this.orderItem.addon.splice(indx,1);
+                                document.getElementById(idz).style.backgroundColor = '#fff';
+                                document.getElementById(idz).setAttribute('data-addon','check');
+                            }
+                        }
+                    }
+                }
+            }
+
+
+
             this.orderItem.addon.push(addonObj);
             this.mandatory(this.orderItem.addon,option, group,'add');
             this.addonPrice = this.addonPrice + parseInt(addonObj.price);
@@ -827,12 +871,16 @@ export class FrontendPromoDetailComponent implements OnInit {
             let left = '';
             let itemP = '#itemPop_'+id;
 
-            $(itemP).attr("tabindex",1).focus();
+            /*$(itemP).attr("tabindex",1).focus();*/
+            var $target = $(itemP);
+            let top = $target.offset().top;
+            $('html, body').stop().animate({
+                'scrollTop': top
+            }, 20, 'linear', function () {
+                window.location.hash = itemP;
+            });
 
             var offset = $(divId).offset();
-            
-            console.log("offset");
-            console.log(offset);
 
             let offsetLeft = offset.left;
             
@@ -961,15 +1009,20 @@ export class FrontendComponent implements OnInit {
 
     private scrollToMenu(id){
         let menu = '#menuItem_' + id;
-
-        $(menu).attr("tabindex",1).focus();
+        var $target = $(menu);
+        let top = $target.offset().top;
+        $('html, body').stop().animate({
+            'scrollTop': top
+        }, 900, 'swing', function () {
+            window.location.hash = menu;
+        });
     }
 
     /*private spicylevel(num){
         this.spicyLevel = num;
     }*/
 
-    private resImage(img){
+    resImage(img){
         if (img != null && img != "") {
             var imgPath = this.imageURL + img;
         }
@@ -1107,12 +1160,17 @@ export class FrontendComponent implements OnInit {
             let left = '';
             let itemP = '#itemPop_'+id;
 
-            $(itemP).attr("tabindex",1).focus();
+            //$(itemP).attr("tabindex",1).focus();
+            var $target = $(itemP);
+            let top = $target.offset().top;
+            $('html, body').stop().animate({
+                'scrollTop': top
+            }, 20, 'linear', function () {
+                window.location.hash = itemP;
+            });
+
             //$('html, body').animate({ scrollTop: $(itemP).offset().top }, 'slow');
             var offset = $(divId).offset();
-
-            console.log("offset in main menu");
-            console.log(offset);
 
             let offsetLeft = offset.left;
             if (offsetLeft < 150) {
@@ -1127,7 +1185,7 @@ export class FrontendComponent implements OnInit {
     private hideDiv() {
         this.detailShow='';
         this.addonUncheck();
-        $("a[id^='changeBg_']").removeClass('changeBg');
+        $("div[id^='changeBg_']").removeClass('changeBg');
     }
 
     private addonUncheck(){
@@ -1226,11 +1284,45 @@ export class FrontendComponent implements OnInit {
         
         var isCheck = addonDetail.getAttribute('data-addon');
         var id = addonDetail.getAttribute('id');
+
+        var temp = id.split('_');
+        var tempItemId = temp[1];
+
         var groupId = group._id;
         if (isCheck == 'check') {
             document.getElementById(id).style.backgroundColor = '#e1eef5';
             document.getElementById(id).setAttribute('data-addon','uncheck');
             addonObj.groupId = groupId;
+
+
+            if (group.groupType.gType == 'mandatory') {
+                if (group.groupType.min == group.groupType.max && group.groupType.min == '1') {
+                    var num = 0;
+                    var manda = [];
+                    for (var j = 0; j < this.orderItem.addon.length; j++) {
+                        num = this.orderItem.addon.reduce(function (n, x) {
+                            return n + (x.groupId == group._id);
+                        }, 0);
+                    }
+                    manda[group._id] = num;
+
+                    if (num != 0) {
+                        for (var i = 0; i < this.orderItem.addon.length; i++) {
+                            let indx = this.orderItem.addon.findIndex(itm => itm.groupId == group._id);
+                            if (indx > -1) {
+                                var idz = 'Location_'+tempItemId+'_'+this.orderItem.addon[indx]._id;
+                                this.addonPrice = this.addonPrice - parseInt(this.orderItem.addon[indx].price);
+                                this.finalPrice = (this.multiSizePrice + this.price+ this.addonPrice)* this.quantity;
+                                this.orderItem.addon.splice(indx,1);
+                                document.getElementById(idz).style.backgroundColor = '#fff';
+                                document.getElementById(idz).setAttribute('data-addon','check');
+                            }
+                        }
+                    }
+                }
+            }
+
+
             this.orderItem.addon.push(addonObj);
             this.mandatory(this.orderItem.addon,option, group,'add');
             this.addonPrice = this.addonPrice + parseInt(addonObj.price);
@@ -1297,7 +1389,7 @@ export class FrontendComponent implements OnInit {
 
         /*this.spicyLevel = '0%';*/
 
-        $("a[id^='changeBg_']").removeClass('changeBg');
+        $("div[id^='changeBg_']").removeClass('changeBg');
         $('#changeBg_'+itemObj._id).addClass('changeBg');
 
 
@@ -1547,7 +1639,7 @@ export class FrontendDetailComponent implements OnInit {
         });
     }
 
-    private selectCircle() {        
+    private selectCircle() {
         let mapProp = {
             center: new google.maps.LatLng(this.lat, this.lng),
             zoom: 10,
@@ -1944,7 +2036,7 @@ export class FrontendCartComponent implements OnInit {
         }          
     };
 
-    private showCartDiv(){
+    showCartDiv(){
         (<HTMLInputElement>document.getElementById("cartDetailDiv")).style.display = 'block';
         (<HTMLInputElement>document.getElementById("paymentDiv")).style.display = 'none';
     }
@@ -2863,7 +2955,7 @@ export class FrontendCartComponent implements OnInit {
         this.cartDetail['comment'] = this.commentMade;
     }
 
-    private placeOrder(){
+    placeOrder(){
         this.cartDetail.orderTime = this.orderTime;
         this.cartDetail.orderPayment = this.orderPayment;
         this.cartDetail.orderMethod = this.orderMethod;
@@ -2913,7 +3005,7 @@ export class FrontendCartComponent implements OnInit {
         }
     }
 
-    private makePayment(){
+    makePayment(){
         this.hmacGenerate();
         this.customerService.addOrder(this.cartDetail).subscribe(
           (data) => {
@@ -3237,12 +3329,12 @@ export class FrontendLoginComponent implements OnInit {
         }
     }
 
-    private showLoginForm(){
+    showLoginForm(){
         this.showLogin = true;
         this.showRegister = false;
     }
 
-    private showRegisterForm(){
+    showRegisterForm(){
         this.showLogin = false;
         this.showRegister = true;
     }
@@ -3333,7 +3425,7 @@ export class FrontendForgetPasswordComponent implements OnInit {
         });
     }
 
-    private forgetPass(){
+    forgetPass(){
         this.customerService.forgetPassword(this.forgetForm.value).subscribe(
             (data) => {
                 if (data.error == true) {
@@ -3396,7 +3488,7 @@ export class FrontendResetPasswordComponent implements OnInit {
         }
     }
 
-    private resetPass(){
+    resetPass(){
         if (this.forgetForm.value.password == this.forgetForm.value.newpassword) {
             let cusObj = this.forgetForm.value;
             cusObj._id = this.id
@@ -3600,7 +3692,7 @@ export class FrontendChangePasswordComponent implements OnInit {
         });
     }
 
-    private customerChangePassword(){
+    customerChangePassword(){
         this.customerProfile.controls['_id'].setValue(this.currentCustomerId);
         this.customerService.changePassword(this.customerProfile.value).subscribe(
             (data) => {

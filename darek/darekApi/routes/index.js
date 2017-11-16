@@ -960,31 +960,44 @@ router.put('/addonchoice/:id',function(req, res){
 
 router.delete('/optiondelete/:index/:id',function(req, res){	
 	var response={};	
-	itemModel.findById({"_id": req.params.id}, function(err, doc){			
-        doc.options.splice(req.params.index, 1);
-		doc.save(function(err, item){
-			if(err) {
-				response = {"error" : true,"message" : err};
-			} else {
-				response = {"error" : false,"message" : "Data Update"};
-			}			
-			res.json(response);
-		});
+	itemModel.findById({"_id": req.params.id}, function(err, doc){
+		if (err) {
+			res.json({"error" : true,"message" : err});
+		}else{
+			if (doc.options && doc.options.length > 0) {
+		        doc.options.splice(req.params.index, 1);
+				doc.save(function(err, item){
+					if(err) {
+						response = {"error" : true,"message" : err};
+					} else {
+						response = {"error" : false,"message" : "Data Update"};
+					}			
+					res.json(response);
+				});
+			}
+		}
 	});
 });
 
+
 router.delete('/addonchoice/:index/:id',function(req, res){	
 	var response={};	
-	addOnModel.findById({"_id": req.params.id}, function(err, doc){			
-        doc.subaddon.splice(req.params.index, 1);
-		doc.save(function(err, item){
-			if(err) {
-				response = {"error" : true,"message" : err};
-			} else {
-				response = {"error" : false,"message" : "Data Update"};
-			}			
-			res.json(response);
-		});
+	addOnModel.findById({"_id": req.params.id}, function(err, doc){
+		if (err) {
+			res.json({"error" : true,"message" : err});
+		}else{
+			if (doc.subaddon && doc.subaddon.length > 0) {				
+		        doc.subaddon.splice(req.params.index, 1);
+				doc.save(function(err, item){
+					if(err) {
+						response = {"error" : true,"message" : err};
+					} else {
+						response = {"error" : false,"message" : "Data Update"};
+					}			
+					res.json(response);
+				});
+			}
+		}
 	});
 });
 
