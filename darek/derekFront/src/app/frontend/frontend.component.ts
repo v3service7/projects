@@ -301,15 +301,16 @@ export class FrontendPromoDetailComponent implements OnInit {
         if (group == 'ig2') {
             menu = '#menuItem_ig2_' + id;
         }
+
+        console.log("menu");
+        console.log(menu);
         /*$(menu).attr("tabindex",1).focus();*/
 
         var $target = $(menu);
         let top = $target.offset().top;
         $('html, body').stop().animate({
-            'scrollTop': top
-        }, 900, 'swing', function () {
-            window.location.hash = menu;
-        });
+            'scrollTop': top-65
+        }, 900);
     }
 
     /*private showThisMenuItems(id, type){
@@ -859,7 +860,7 @@ export class FrontendPromoDetailComponent implements OnInit {
         this.hideDiv();
     }
 
-    private showPos(id, type) {
+    showPos(id, type) {
         if (this.detailShow == id) {
             let divId : String;
             if (type == 'ig1') {
@@ -868,17 +869,19 @@ export class FrontendPromoDetailComponent implements OnInit {
             if (type == 'ig2') {
                 divId = '#changeBg_ig2_'+id
             }
+
             let left = '';
             let itemP = '#itemPop_'+id;
 
-            /*$(itemP).attr("tabindex",1).focus();*/
-            var $target = $(itemP);
+            $(itemP).attr("tabindex",1).focus();
+
+            /*var $target = $(itemP);
             let top = $target.offset().top;
             $('html, body').stop().animate({
                 'scrollTop': top
             }, 20, 'linear', function () {
                 window.location.hash = itemP;
-            });
+            });*/
 
             var offset = $(divId).offset();
 
@@ -886,9 +889,9 @@ export class FrontendPromoDetailComponent implements OnInit {
             
             
             if (offsetLeft < 150) {
-                left = '102%';
+                left = '95%';
             }else{
-                left = '-102%';
+                left = '-95%';
             }
             return left;
         }
@@ -939,6 +942,7 @@ export class FrontendComponent implements OnInit {
     mand: number = 0;
     tempGroup=[];
     mandatoryItemId=[];
+    mandatoryItemArray=[];
     mandatoryItemIdList=[];
 
     spicyArray : any = [1,2,3];
@@ -1012,10 +1016,8 @@ export class FrontendComponent implements OnInit {
         var $target = $(menu);
         let top = $target.offset().top;
         $('html, body').stop().animate({
-            'scrollTop': top
-        }, 900, 'swing', function () {
-            window.location.hash = menu;
-        });
+            'scrollTop': top-65
+        }, 900);
     }
 
     /*private spicylevel(num){
@@ -1154,29 +1156,30 @@ export class FrontendComponent implements OnInit {
         }
     }
 
-    private showPos(id) {
+    showPos(id) {
         if (this.detailShow == id) {
             let divId = '#changeBg_'+id
             let left = '';
             let itemP = '#itemPop_'+id;
 
-            //$(itemP).attr("tabindex",1).focus();
-            var $target = $(itemP);
+            $(itemP).attr("tabindex",1).focus();
+            
+            /*var $target = $(itemP);
             let top = $target.offset().top;
             $('html, body').stop().animate({
                 'scrollTop': top
             }, 20, 'linear', function () {
                 window.location.hash = itemP;
-            });
+            });*/
 
             //$('html, body').animate({ scrollTop: $(itemP).offset().top }, 'slow');
             var offset = $(divId).offset();
 
             let offsetLeft = offset.left;
             if (offsetLeft < 150) {
-                left = '102%';
+                left = '95%';
             }else{
-                left = '-102%';
+                left = '-95%';
             }
             return left;
         }
@@ -1194,22 +1197,45 @@ export class FrontendComponent implements OnInit {
     }
 
     private addToCart(id) {
-        var itemId = 'Location_' + id + '_specialInstruction'
-        var itemInstruction = <HTMLInputElement>document.getElementById(itemId);
-        this.orderItem['itemInstruction'] = itemInstruction.value;
-        /*this.orderItem['spicyLevel'] = this.spicyLevel;
 
-        this.spicyLevel = '0%';*/
+        var count = 0
+        if (this.mandatoryItemId.length > 0) {
+            for (var i = 0; i < this.mandatoryItemId.length; i++) {
+                if (this.mandatoryItemArray[this.mandatoryItemId[i]].total >= parseInt(this.mandatoryItemArray[this.mandatoryItemId[i]].min) && this.mandatoryItemArray[this.mandatoryItemId[i]].total <= parseInt(this.mandatoryItemArray[this.mandatoryItemId[i]].max) ) {
+                    count++;
+                }else{
+                    count--;
+                }
+            }
+        }
 
-        this.totalOrder = JSON.parse(localStorage.getItem(this.cartStorage));
-        this.totalOrder.push(this.orderItem);
-        localStorage.setItem(this.cartStorage, JSON.stringify(this.totalOrder));
-        toastr.remove();
-        toastr.info(null, this.totalOrder.length+' Items Added', {'positionClass' : 'toast-top-full-width'});
-        this.hideDiv();
+        setTimeout(()=>{
+            console.log(count);
+            console.log(this.mandatoryItemId);
+            console.log(this.mandatoryItemId.length);
+
+
+            if (count == this.mandatoryItemId.length) {
+                var itemId = 'Location_' + id + '_specialInstruction';
+                var itemInstruction = <HTMLInputElement>document.getElementById(itemId);
+                this.orderItem['itemInstruction'] = itemInstruction.value;
+                /*this.orderItem['spicyLevel'] = this.spicyLevel;
+
+                this.spicyLevel = '0%';*/
+
+                this.totalOrder = JSON.parse(localStorage.getItem(this.cartStorage));
+                this.totalOrder.push(this.orderItem);
+                localStorage.setItem(this.cartStorage, JSON.stringify(this.totalOrder));
+                toastr.remove();
+                toastr.info(null, this.totalOrder.length+' Items Added', {'positionClass' : 'toast-top-full-width'});
+                this.hideDiv();
+            }else{
+                console.log("addon left");
+            }
+        },2000);
     }
 
-    private cartItemCompare(obj1,obj2,index){
+    /*private cartItemCompare(obj1,obj2,index){
         if (((obj1.item._id == obj2.item._id) && (obj1.addon.length == obj2.addon.length)) ) {
             if ((typeof obj1.multisize != 'undefined') && (typeof obj2.multisize != 'undefined') && (obj1.item.multisize.size == obj2.item.multisize.size)) {
                     this.totalOrder[index].quantity = this.totalOrder[index].quantity+obj2.quantity
@@ -1219,9 +1245,9 @@ export class FrontendComponent implements OnInit {
                 
             }
         }
-    }
+    }*/
     
-    private mandatory(data, option, group,type){
+    /*private mandatory(data, group, option, type){
         if (group.groupType.gType == "mandatory") {
             var num = 0;
             var manda = [];
@@ -1256,6 +1282,7 @@ export class FrontendComponent implements OnInit {
                         this.addRemoveGroup(type,group._id);
                     }
                 }
+
             if (this.mand != 1 && this.mandatoryItemId.length != this.mandDefaultCount) {
                 toastr.remove();
                 toastr.warning('Please ensure Minimum and Maximum Addons for this Item',null, {'positionClass' : 'toast-top-full-width'});
@@ -1272,15 +1299,15 @@ export class FrontendComponent implements OnInit {
         else if (type == 'add') {
             this.mandatoryItemId.push(id);
         }
-    }
+    }*/
 
     private addonPriceInfo(addonObj,addonDetail,group,option) {
-        if (this.mandDefaultCount != 0) {
+        /*if (this.mandDefaultCount != 0) {
             this.mandCheckedCount = false;
         }
         if (this.mandDefaultCount == 0) {
             this.mandCheckedCount = true;
-        }
+        }*/
         
         var isCheck = addonDetail.getAttribute('data-addon');
         var id = addonDetail.getAttribute('id');
@@ -1294,6 +1321,12 @@ export class FrontendComponent implements OnInit {
             document.getElementById(id).setAttribute('data-addon','uncheck');
             addonObj.groupId = groupId;
 
+            if (this.mandatoryItemArray[groupId]) {
+                this.mandatoryItemArray[groupId].total=this.mandatoryItemArray[groupId].total+1;
+            }
+
+            console.log("this.mandatoryItemArray");
+            console.log(this.mandatoryItemArray);
 
             if (group.groupType.gType == 'mandatory') {
                 if (group.groupType.min == group.groupType.max && group.groupType.min == '1') {
@@ -1313,6 +1346,9 @@ export class FrontendComponent implements OnInit {
                                 var idz = 'Location_'+tempItemId+'_'+this.orderItem.addon[indx]._id;
                                 this.addonPrice = this.addonPrice - parseInt(this.orderItem.addon[indx].price);
                                 this.finalPrice = (this.multiSizePrice + this.price+ this.addonPrice)* this.quantity;
+                                if (this.mandatoryItemArray[groupId]) {
+                                    this.mandatoryItemArray[groupId].total=this.mandatoryItemArray[groupId].total-1;
+                                }
                                 this.orderItem.addon.splice(indx,1);
                                 document.getElementById(idz).style.backgroundColor = '#fff';
                                 document.getElementById(idz).setAttribute('data-addon','check');
@@ -1322,15 +1358,17 @@ export class FrontendComponent implements OnInit {
                 }
             }
 
-
             this.orderItem.addon.push(addonObj);
-            this.mandatory(this.orderItem.addon,option, group,'add');
+            //this.mandatory(this.orderItem.addon, group, option,'add');
             this.addonPrice = this.addonPrice + parseInt(addonObj.price);
             this.finalPrice = (this.multiSizePrice + this.price+ this.addonPrice)* this.quantity;
         }else{
+            if (this.mandatoryItemArray[groupId]) {
+                this.mandatoryItemArray[groupId].total=this.mandatoryItemArray[groupId].total-1;
+            }
             var addonIndex = this.orderItem.addon.findIndex(item => item._id == addonObj._id);
             this.orderItem.addon.splice(addonIndex, 1);
-            this.mandatory(this.orderItem.addon,option, group,'remove');
+            //this.mandatory(this.orderItem.addon, group, option,'remove');
             document.getElementById(id).style.backgroundColor = '#fff';
             document.getElementById(id).setAttribute('data-addon','check');
             this.addonPrice = this.addonPrice - parseInt(addonObj.price);
@@ -1339,9 +1377,9 @@ export class FrontendComponent implements OnInit {
         this.orderItem.totalPrice = this.finalPrice;
         this.orderItem.quantity = this.quantity;
 
-        if (this.mand == 1 && this.mandatoryItemId.length == this.mandDefaultCount) {
+        /*if (this.mand == 1 && this.mandatoryItemId.length == this.mandDefaultCount) {
             this.mandCheckedCount = true;
-        }
+        }*/
     }
 
     private multiSizePriceInfo(itemMultiSizeObj) {
@@ -1371,18 +1409,26 @@ export class FrontendComponent implements OnInit {
 
     private loadThisItem(itemSent){
         this.mandatoryItemId = [];
-        this.mandDefaultCount = 0;
-        if (itemSent.options.length > 0) {
+        this.mandatoryItemArray = [];
+        /*this.mandDefaultCount = 0;*/
+        if (itemSent.options && itemSent.options.length > 0) {
             for (var j = 0; j < itemSent.options.length; j++) {
-                if (itemSent.options[j].groupType) {
-                    if (itemSent.options[j].groupType.gType == 'mandatory') {
-                        this.mandDefaultCount++;
-                    }
+                if (itemSent.options[j].groupType && itemSent.options[j].groupType.gType == 'mandatory') {
+                    this.mandatoryItemId.push(itemSent.options[j]._id);
+                    var obj = {};
+                    obj['min'] = itemSent.options[j].groupType.min;
+                    obj['max'] = itemSent.options[j].groupType.max;
+                    obj['total'] = 0;
+                    this.mandatoryItemArray[itemSent.options[j]._id] = obj;
                 }
+
+                console.log("this.mandatoryItemId");
+                console.log(this.mandatoryItemId);
             }
-        }else{
-            this.mandCheckedCount = true;
         }
+        /*else{
+            this.mandCheckedCount = true;
+        }*/
     }
 
     private showDetail(itemObj,itemMultiSizeObj) {
@@ -1393,12 +1439,12 @@ export class FrontendComponent implements OnInit {
         $('#changeBg_'+itemObj._id).addClass('changeBg');
 
 
-        this.mandCheckedCount = false;
+        /*this.mandCheckedCount = false;*/
         this.loadThisItem(itemObj);
 
-        if (this.mandDefaultCount == 0) {
+        /*if (this.mandDefaultCount == 0) {
             this.mandCheckedCount = true;
-        }
+        }*/
 
 
         this.detailShow = itemObj._id;

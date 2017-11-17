@@ -17,6 +17,10 @@ body {
     }
 }
 
+.wordBreak{
+    word-break: break-all;
+}
+
 #wrapper {
     padding-left: 0;
 }

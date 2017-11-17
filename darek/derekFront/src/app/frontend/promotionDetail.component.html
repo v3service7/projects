@@ -169,7 +169,7 @@
 														<!-- items special Instruction end-->
 													</div>
 
-													<div class="pos-footer">
+													<div class="col-lg-12  col-md-12 col-sm-12 col-xs-12 pos-footer padding0">
 														<div class="pos-footer-shadow"></div>
 														<div class="pos-footer-inner" >
 															<button class="btn saveButton" style="padding: 15px 20px;text-align: justify;" (click)="addToCart(item._id,'itemG1')" [disabled]="!mandCheckedCount">
@@ -208,7 +208,7 @@
 
 		<div class="col-lg-12 col-md-12 col-xs-12 col-sm-12 padding0" *ngIf = "itemG2">
 			<div class="col-lg-12 col-md-12 col-xs-12 col-sm-12 padding10px5px" *ngFor = "let ig2 of itemG2">
-				<div *ngIf = "ig2.menu && !ig2.menu.isHidden" [ngClass]="checkMenuShow(ig2.menu)" id="menuItem_ig12_{{ig2.menu._id}}">
+				<div *ngIf = "ig2.menu && !ig2.menu.isHidden" [ngClass]="checkMenuShow(ig2.menu)" id="menuItem_ig2_{{ig2.menu._id}}">
 					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0 textCenter marginBottom15px">
 						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 fontSize24">
 							<strong>{{ig2.menu.name | uppercase}}</strong>

@@ -26,7 +26,6 @@ import { UsersComponent, UsersupdateComponent, UsersaddComponent, AdminComponent
 
 import {OrderPipe} from "./order.pipe"
 import {FilterPipe} from "./filter.pipe";
-import {TranslatePipe} from "./translate/translate";
 
 import { RestaurantsComponent , RestaurantaddComponent , RestaurantupdateComponent,RestaurantupdateownerComponent,RestaurantlocationComponent, RestaurantconfirmationComponent,OwnermailactivateComponent} from './restaurants/index';
 import { RestaurantOwnerPickupComponent, RestaurantOwnerOrderForLaterComponent, RestaurantOwnerTaxationComponent, RestaurantOwnerPaymentOptionComponent, RestaurantOwnerOpeningHoursComponent, RestaurantOwnerDeliveryZoneComponent, KitchenMenuListComponent,LegacyComponent,LegacycodeComponent, NotificationComponent, SupportedLanguagesComponent, DeliveryOutsideComponent, OnlinePaymentComponent, CustomMessageComponent} from './serviceandopening/index';
@@ -55,7 +54,7 @@ export function HttpLoaderFactory(http: Http) {
     UsersComponent,UsersupdateComponent,UsersaddComponent,AdminComponent,AdminaddComponent,AdminupdateComponent,
     OrderPipe,
     OwnerAutologinComponent,
-    FilterPipe,TranslatePipe,
+    FilterPipe,
     DriversComponent,
     RestaurantOwnerOrderForLaterComponent,RestaurantOwnerPaymentOptionComponent,RestaurantOwnerDeliveryZoneComponent, KitchenMenuListComponent,LegacyComponent,LegacycodeComponent, NotificationComponent, SupportedLanguagesComponent, DeliveryOutsideComponent, OnlinePaymentComponent,CustomMessageComponent,
     DriveraddComponent,

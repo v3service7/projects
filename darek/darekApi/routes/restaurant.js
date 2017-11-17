@@ -3,6 +3,17 @@ var router = express.Router();
 var NodeGeocoder = require('node-geocoder');
 var restaurantModel  =  require("../model/Restaurant.js");
 
+var ownerModel  =  require("../model/Owner.js");
+var deliveryZone = require("../model/DeliveryZone.js");
+var kitchenMenuModel  =  require("../model/Kitchenmenu.js");
+var itemModel  =  require("../model/Item.js");
+var addOnModel  =  require("../model/addon.js");
+var languageModel  =  require("../model/Language.js");
+var promotionDetailModel  =  require("../model/PromotionDetail.js");
+var order = require('../model/Order.js');
+var driverModel  =  require("../model/Driver.js");
+
+
 var options = {
     provider: 'google',
     httpAdapter: 'https', // Default 
@@ -203,6 +214,61 @@ router.delete('/restaurant/:id',function(req,res){
         if (err) {
             response = {"error" : true,"message" : "Error fetching data"};
         } else{
+            kitchenMenuModel.remove({kitchenId:req.params.id},function(err,data){
+                if (err) {
+                    response = {"error" : true,"message" : "Error fetching data"};
+                }else{
+                    console.log("All Menu Deleted Successfully");
+                };
+            });
+
+            itemModel.remove({kitchenId:req.params.id},function(err,data){
+                if (err) {
+                    response = {"error" : true,"message" : "Error fetching data"};
+                }else{
+                    console.log('All Items Deleted Successfully');
+                }
+            });
+
+            addOnModel.remove({restaurantId:req.params.id},function(err,data){
+                if (err) {
+                    response = {"error" : true,"message" : "Error fetching data"};
+                }else{
+                    console.log('All Addons Deleted Successfully');
+                }
+            });
+
+            promotionDetailModel.remove({restaurantId:req.params.id},function(err,data){
+                if (err) {
+                    response = {"error" : true,"message" : "Error fetching data"};
+                }else{
+                    console.log('All Promotions Deleted Successfully');
+                }
+            });
+
+            deliveryZone.remove({restaurantId:req.params.id},function(err,data){
+                if (err) {
+                    response = {"error" : true,"message" : "Error fetching data"};
+                }else{
+                    console.log('All Delivery Zones Deleted Successfully');
+                }
+            });
+
+            order.remove({restaurantId:req.params.id},function(err,data){
+                if (err) {
+                    response = {"error" : true,"message" : "Error fetching data"};
+                }else{
+                    console.log('All Orders Deleted Successfully');
+                }
+            });
+
+            driverModel.remove({restaurantId:req.params.id},function(err,data){
+                if (err) {
+                    response = {"error" : true,"message" : "Error fetching data"};
+                }else{
+                    console.log('All Driver Details related this restaurant Deleted Successfully');
+                }
+            });
             response = {"error" : false,"message" : "Deleted Successfully"};
         };
         res.json(response);
