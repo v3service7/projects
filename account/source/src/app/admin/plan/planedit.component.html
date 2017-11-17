@@ -19,7 +19,7 @@
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label class="control-label">Amount</label>
+                                <label class="control-label">Amount <span>*</span></label>
                                 <input formControlName="amount" type="text" class="form-control">
                             </div>
                             <div *ngIf="formErrors.amount" class="alert alert-danger">
@@ -40,7 +40,7 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label class="control-label">Type</label>
+                                <label class="control-label">Type <span>*</span></label>
                                 <select formControlName="type" class="form-control">
                                     <option>Select Type</option>
                                     <option value="Small Business">Small Business</option>
@@ -54,7 +54,7 @@
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label class="control-label">Duration</label>
+                                <label class="control-label">Duration <span>*</span></label>
                                 <select formControlName="duration" class="form-control">
                                     <option>Select Duration</option>
                                     <option value="Month">Month</option>

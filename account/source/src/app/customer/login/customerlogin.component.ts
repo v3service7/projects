@@ -418,7 +418,7 @@ export class CustomerAccountVerifyComponent implements OnInit {
                 console.log(data)
             },
             (err)=>{
-                this._flashMessagesService.show('OTP not sent', { cssClass: 'danger-alert', timeout: 5000 });
+                this._flashMessagesService.show('Check OTP on registered Phone number', { cssClass: 'alert-success', timeout: 5000 });
                 console.log(err)  
             }
         );
