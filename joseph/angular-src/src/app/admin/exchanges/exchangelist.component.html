@@ -25,7 +25,7 @@
             <tbody>
                 <tr *ngFor="let customer of plans">
                     <td class="padding0">{{customer.user.firstname}} {{customer.user.lastname}}</td>
-                    <td class="padding0">{{customer.exchangeName}}</td>
+                    <td class="padding0">{{customer.exchangeName.exchangeapiName}}</td>
                     <td class="padding0">{{customer.nickName}}</td>                    
                     <td class="padding0">{{customer.exchangeType}}</td>
                     <td class="padding0 td-actions text-right">

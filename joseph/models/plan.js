@@ -5,6 +5,7 @@ var planSchema = new Schema({
   	name: String,
   	desc: String,
   	amount:String,
+  	planType: Number,
   	status: { type: Boolean, default: true },
 });
 

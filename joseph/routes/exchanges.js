@@ -12,7 +12,7 @@ module.exports = (function() {
 
     router.get('/', passport.authenticate('jwt', {session:false}), function(req, res, next) {
         var response = {};
-        exchangeModel.find({}, null, { sort: { created_at: 1 } }).populate('user').exec(function(err, plans) {
+        exchangeModel.find({}, null, { sort: { created_at: 1 } }).populate('user').populate('exchangeName').exec(function(err, plans) {
             if (err) {
                 response = { "error": true, "message": err };
             } else {
@@ -20,22 +20,34 @@ module.exports = (function() {
             };
             res.json(response);
         });
-    });
+    });    
+    
 
     router.post('/', passport.authenticate('jwt', {session:false}), function(req, res) {
         var response = {};
         var plan = new exchangeModel(req.body);
-        plan.save(function(err, plan) {
+        exchangeModel.find({ "exchangeName": req.body.exchangeName,"user": req.body.user}).exec(function (err, data) {
             if (err) {
-                response = { "error": true, "message": err };
-            } else {
-                response = { "error": false, "message": plan };
-            }
-            res.json(response);
-        });
+                response = {"error" : true,"message" : "Error fetching data"};
+            } else{
+                if(data.length>0){
+                    response = {"error" : true,"message" : "Data already exits"};
+                }else{
+                    plan.save(function(err, plan) {
+                        if (err) {  
+                            response = { "error": true, "message": err };
+                        } else {
+                            response = { "error": false, "message": plan };
+                        }
+                     });
+                }
+         };
+        res.json(response);
+        }); 
+        
     });
 
-    router.put('/:id', passport.authenticate('jwt', {session:false}), function(req, res) {
+    /*router.put('/:id', passport.authenticate('jwt', {session:false}), function(req, res) {
         var response = {};
         exchangeModel.findByIdAndUpdate(req.params.id, req.body, function(err, plan) {
             if (err) {
@@ -45,8 +57,62 @@ module.exports = (function() {
             }
             res.json(response);
         });
+    });*/
+     router.get('/custexchange/:id', passport.authenticate('jwt', {session:false}), function(req, res) {
+        var response = {};
+        exchangeModel.find({"user":req.params.id}).populate('exchangeName').exec(function(err, plan) {
+            if (err) {
+                response = { "error": true, "message": err };
+            } else {
+                response = { "error": false, "message": plan };
+            };
+            res.json(response);
+        });
     });
 
+
+    router.put('/:id', passport.authenticate('jwt', {session:false}), function(req, res) {
+        var response = {};
+        exchangeModel.find({"exchangeName": req.body.exchangeName,"user": req.body.user}).exec(function (err, data) {
+            if (err) {
+                response = {"error" : true,"message" : "Error fetching data"};
+                res.json(response);
+            } else{
+                if(data.length>0){
+                    exchangeModel.find({"_id":req.params.id,"exchangeName": req.body.exchangeName,"user": req.body.user}).exec(function (err, data) {
+                        if (err) {
+                            response = {"error" : true,"message" : "Error fetching data"};
+                            res.json(response);
+                        } else{
+                            if(data.length>0){
+                                exchangeModel.findByIdAndUpdate(req.params.id, req.body, function(err, plan) {
+                                    if (err) {
+                                        response = { "error": true, "message": err };
+                                    } else {
+                                        response = { "error": false, "message": plan };
+                                    }
+                                });                           
+                            }else{
+                                response = {"error" : true,"message" : "Data already exits"};  
+                            }
+                            res.json(response);
+                        }
+                    });
+                }else{
+                    exchangeModel.findByIdAndUpdate(req.params.id, req.body, function(err, plan) {
+                        if (err) {
+                            response = { "error": true, "message": err };
+                        } else {
+                            response = { "error": false, "message": plan };
+                        }
+                        res.json(response);
+                    });
+                }
+            };
+        
+        });
+    });
+    
     router.get('/:id', passport.authenticate('jwt', {session:false}), function(req, res) {
         var response = {};
         exchangeModel.findById(req.params.id, function(err, plan) {

@@ -24,6 +24,8 @@ export class ProfileComponent implements OnInit {
     'firstname': '',
     'lastname': '',
     'email' : '',
+    'phonenumber' : '',
+    'dob' : '',
   };
 
   validationMessages = {

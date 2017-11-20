@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router,ActivatedRoute,Params  } from '@angular/router';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { FlashMessagesService } from 'angular2-flash-messages';
-import { UserService} from '../../services/user.service';
+import { AdminService} from '../../services/admin.service';
 
 @Component({
   selector: 'app-admin-customer',
@@ -40,7 +40,7 @@ export class CustomerListComponent implements OnInit {
 
     constructor(
         private lf: FormBuilder, 
-        private customerService: UserService,
+        private customerService: AdminService,
         private router: Router,
         private route: ActivatedRoute,
         private _flashMessagesService: FlashMessagesService
@@ -131,7 +131,7 @@ export class CustomerAddComponent implements OnInit {
 
     constructor(
         private lf: FormBuilder, 
-        private customerService: UserService,
+        private customerService: AdminService,
         private router: Router,
         private route: ActivatedRoute,
         private _flashMessagesService: FlashMessagesService
@@ -153,7 +153,7 @@ export class CustomerAddComponent implements OnInit {
         this.onValueChanged();
     }
 
-    private matchpasswordreg(){
+    matchpasswordreg(){
         if (this.customerAddForm.value.newpassword != "") {
             if(this.customerAddForm.value.password == this.customerAddForm.value.newpassword){
                 this.customerAddForm.controls["matchpass"].setValue(true);
@@ -175,7 +175,7 @@ export class CustomerAddComponent implements OnInit {
                   this._flashMessagesService.show('User Created Successfully', { cssClass: 'alert-success', timeout: 3000 });
                   this.router.navigate(['admin/user']);
                 }else{
-                    this._flashMessagesService.show('Email already in use', { cssClass: 'danger-alert', timeout: 3000 });
+                    this._flashMessagesService.show('Email/Username already in use', { cssClass: 'danger-alert', timeout: 3000 });
                     //this.customerAddForm.reset();
                 }
             },
@@ -250,7 +250,7 @@ export class CustomerEditComponent implements OnInit {
 
     constructor(
         private lf: FormBuilder, 
-        private customerService: UserService,
+        private customerService: AdminService,
         private router: Router,
         private route: ActivatedRoute,
         private _flashMessagesService: FlashMessagesService
@@ -275,7 +275,7 @@ export class CustomerEditComponent implements OnInit {
         this.onValueChanged();
     }
 
-    private matchpasswordreg(){
+    matchpasswordreg(){
         if(this.customerAddForm.value.password == this.customerAddForm.value.newpassword){
             this.customerAddForm.controls["matchpass"].setValue(true);
             this.MutchPassword = false;   

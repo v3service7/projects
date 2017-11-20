@@ -26,6 +26,20 @@
                                 {{ formErrors.amount }}
                             </div>
                         </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="control-label">Plan Type <span>*</span></label>
+                                <select  formControlName="planType" class="form-control">
+                                    <option value="">Select Plan</option>
+                                    <option value="3">Quarterly</option>
+                                    <option value="6">Half Yearly</option>
+                                    <option value="12">Annual</option>
+                                </select>
+                            </div>
+                            <div *ngIf="formErrors.planType" class="alert alert-danger">
+                                {{ formErrors.planType }}
+                            </div>
+                        </div>
                     </div>
                     <div class="row">
                         <div class="col-md-12">

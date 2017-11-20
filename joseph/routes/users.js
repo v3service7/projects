@@ -7,7 +7,7 @@ const config = require('../config/database');
 const emails = require('../mail/emailConfig.js');
 
 
-// User Login
+// Admin Login
 router.post('/login', (req, res, next) => {
   const username = req.body.username;
   const password = req.body.password;
@@ -25,6 +25,45 @@ router.post('/login', (req, res, next) => {
       if(err) throw err;
       if(isMatch){
 		  const token = jwt.sign({data:user}, config.secret, {
+          expiresIn: 3600 // 1 hour
+        });
+
+        res.json({
+          success: true,
+          token: 'JWT '+token,
+          user: {
+            _id: user._id,
+            firstname: user.firstname,
+            lastname: user.lastname,
+            phonenumber: user.phonenumber,
+            dob: user.dob,
+            username: user.username,
+            email: user.email
+          }
+        });
+      } else {
+        return res.json({success: false, msg: 'Wrong password'});
+      }
+    });
+  });
+});
+
+
+// User Login
+router.post('/userlogin', (req, res, next) => {
+  const username = req.body.username;
+  const password = req.body.password;
+
+  User.getUserByUsername(username, (err, user) => {
+    if(err) throw err;
+    if(!user){
+      return res.json({success: false, msg: 'User not found'});
+    }
+    
+    User.comparePassword(password, user.password, (err, isMatch) => {
+      if(err) throw err;
+      if(isMatch){
+      const token = jwt.sign({data:user}, config.secret, {
           expiresIn: 3600 // 1 hour
         });
 
@@ -78,7 +117,6 @@ router.post('/', (req, res, next) => {
     email: req.body.email,
     username: req.body.username,
     password: req.body.password,
-    role: req.body.role,
     status: true
   });
 
@@ -159,7 +197,7 @@ router.post('/forgotPassword', function(req, res, next) {
             req.flash('error', 'something went wrong!');
         } else {
             if (data.length > 0) {
-                emails.forgetEmailShoot(data[0],'admin');
+                emails.forgetEmailShoot(data[0]);
                 res.json({ error: false, message: 'Email sent Successfully' });
             } else {
                 res.json({ error: true, message: 'Email id does not exist' });
