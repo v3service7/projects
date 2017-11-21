@@ -171,7 +171,7 @@
 
 											<!-- items addOns -->
 											<div class="addOnsDetail col-lg-12 col-md-12 col-sm-12 col-xs-12" *ngIf = "item.options">
-												<div class=" col-lg-12 col-md-12 col-sm-12 col-xs-12 add padding0" *ngFor = "let group of item.options">
+												<div class=" col-lg-12 col-md-12 col-sm-12 col-xs-12 add padding0" *ngFor = "let group of item.options" id="group_{{group._id}}">
 													<div class=" col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0">
 														<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 wordBreak">{{group.name}}
 															<span *ngIf="group.groupType">({{group.groupType.gType | uppercase}})
@@ -218,6 +218,16 @@
 												</div>
 											</div>
 											<!-- items quantity end-->
+										</div>
+
+										
+										<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0 errMsgDiv">
+											<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 alertnew" *ngFor = "let grp of requiredAddonArray; let i = index ">
+												
+												<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0">{{grp.name}} requires atleast {{grp.groupType.min}} item and atmost {{grp.groupType.max}} item to be selected</div>
+												
+												<span (click)="deleteErrMsg(i)">&times;</span>
+											</div>
 										</div>
 
 										<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0 pos-footer">

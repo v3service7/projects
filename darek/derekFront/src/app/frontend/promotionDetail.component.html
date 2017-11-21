@@ -15,7 +15,7 @@
 
 
 <div class="col-lg-12 col-md-12 col-xs-12 col-sm-12 padding0" style="top: 60px">
-	
+
 	<!-- top promotion banner -->
 	<div class="col-lg-12 col-md-12 col-xs-12 col-sm-12 padding0 colorWhite" id="base" style=" height: 250px" [ngStyle]="{'background-image': 'url(' + imageURL + promotion.image + ')'}">
 		<div class="col-lg-12 col-md-12 col-xs-12 col-sm-12" style="background-color: rgba(0,0,0,.55); box-shadow: inset 0 -20px 30px -10px #000;height: inherit;">
@@ -74,7 +74,7 @@
 							<strong>{{ig1.menu.description}}</strong>
 						</div>
 					</div>
-					
+
 					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0">
 						<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 pull-right">
 							<div *ngIf="ig1.menu.image" class="menuImage" [ngStyle]="{'background-image': 'url(' + imageURL + ig1.menu.image + ')'}" style="z-index: -1;"></div>
@@ -93,11 +93,11 @@
 																<h5>
 																	<strong>{{item.name}}
 																		<span *ngFor = "let chilly of spicyArray;">
-												                            <span *ngIf = "chilly <= item.spicyLevel">
-												                                <img src="assets/images/chilly.PNG" width="15px">
-												                            </span>
-												                        </span>
-											                        </strong>
+																			<span *ngIf = "chilly <= item.spicyLevel">
+																				<img src="assets/images/chilly.PNG" width="15px">
+																			</span>
+																		</span>
+																	</strong>
 																</h5>
 															</div>
 														</div>
@@ -139,7 +139,7 @@
 
 														<!-- items addOns -->
 														<div class="addOnsDetail col-lg-12 col-md-12 col-sm-12 col-xs-12" *ngIf = "item.options">
-															<div class=" col-lg-12 col-md-12 col-sm-12 col-xs-12 add padding0" *ngFor = "let group of item.options">
+															<div class=" col-lg-12 col-md-12 col-sm-12 col-xs-12 add padding0" *ngFor = "let group of item.options"  id="group_ig1_{{group._id}}">
 																<div class=" col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0">
 																	<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 wordBreak">{{group.name}}
 																		<span *ngIf="group.groupType">({{group.groupType.gType | uppercase}})
@@ -169,10 +169,19 @@
 														<!-- items special Instruction end-->
 													</div>
 
+													<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0 errMsgDiv">
+														<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 alertnew" *ngFor = "let grp of requiredAddonArray; let i = index ">
+
+															<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0">{{grp.name}} requires atleast {{grp.groupType.min}} item and atmost {{grp.groupType.max}} item to be selected</div>
+
+															<span (click)="deleteErrMsg(i)">&times;</span>
+														</div>
+													</div>
+
 													<div class="col-lg-12  col-md-12 col-sm-12 col-xs-12 pos-footer padding0">
 														<div class="pos-footer-shadow"></div>
 														<div class="pos-footer-inner" >
-															<button class="btn saveButton" style="padding: 15px 20px;text-align: justify;" (click)="addToCart(item._id,'itemG1')" [disabled]="!mandCheckedCount">
+															<button class="btn saveButton" style="padding: 15px 20px;text-align: justify;" (click)="addToCart(item._id,'itemG1')">
 																<div class="col-lg-12  col-md-12 col-sm-12 col-xs-12 btn btn-action-primary checkout-button">
 																	<div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
 																		<div class="checkout-button">{{finalPrice | number : '1.2-2'}}</div>
@@ -199,7 +208,7 @@
 
 	<!-- Item Group2 -->
 	<div class="col-lg-12 col-md-12 col-xs-12 col-sm-12 menuDetail padding0" id="itemGroup2">
-		
+
 		<div class="menuListDiv" *ngIf = "itemG2">
 			<div *ngFor = "let ig2 of itemG2" class="menuList">
 				<span *ngIf = "ig2.menu" (click) = "scrollToMenu(ig2.menu._id, 'ig2')">{{ig2.menu.name}}</span>
@@ -237,10 +246,10 @@
 																	<strong>
 																		{{item.name}}
 																		<span *ngFor = "let chilly of spicyArray;">
-												                            <span *ngIf = "chilly <= item.spicyLevel">
-												                            	<img src="assets/images/chilly.PNG" width="15px">
-												                            </span>
-												                        </span>
+																			<span *ngIf = "chilly <= item.spicyLevel">
+																				<img src="assets/images/chilly.PNG" width="15px">
+																			</span>
+																		</span>
 																	</strong>
 																</h5>
 															</div>
@@ -283,7 +292,7 @@
 
 														<!-- items addOns -->
 														<div class="addOnsDetail col-lg-12 col-md-12 col-sm-12 col-xs-12" *ngIf = "item.options">
-															<div class=" col-lg-12 col-md-12 col-sm-12 col-xs-12 add padding0" *ngFor = "let group of item.options">
+															<div class=" col-lg-12 col-md-12 col-sm-12 col-xs-12 add padding0" *ngFor = "let group of item.options" id="group_ig2_{{group._id}}">
 																<div class=" col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0">
 																	<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 wordBreak">{{group.name}}
 																		<span *ngIf="group.groupType">({{group.groupType.gType | uppercase}})
@@ -313,10 +322,19 @@
 														<!-- items special Instruction end-->
 													</div>
 
-													<div class="pos-footer">
+													<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0 errMsgDiv">
+														<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 alertnew" *ngFor = "let grp of requiredAddonArray; let i = index ">
+
+															<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0">{{grp.name}} requires atleast {{grp.groupType.min}} item and atmost {{grp.groupType.max}} item to be selected</div>
+
+															<span (click)="deleteErrMsg(i)">&times;</span>
+														</div>
+													</div>
+
+													<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0 pos-footer">
 														<div class="pos-footer-shadow"></div>
 														<div class="pos-footer-inner" >
-															<button class="btn saveButton" style="padding: 15px 20px;text-align: justify;" (click)="addToCart(item._id,'itemG2')" [disabled]="!mandCheckedCount">
+															<button class="btn saveButton" style="padding: 15px 20px;text-align: justify;" (click)="addToCart(item._id,'itemG2')">
 																<div class="col-lg-12  col-md-12 col-sm-12 col-xs-12 btn btn-action-primary checkout-button">
 																	<div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
 																		<div class="checkout-button">{{finalPrice | number : '1.2-2'}}</div>

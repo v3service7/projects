@@ -208,10 +208,7 @@ a.selected {
     margin-top: 5%;
 }
 
-/*.subAddOnDetail{
-    margin-bottom: 2%;
-}
-*/
+
 .cnt-input button fa{
     margin:1px;
     width:15px;
@@ -241,13 +238,6 @@ div.cnt-input-buttons button {
 div.cnt-input-buttons button .fa{
     color: white;
 }
-/*
-.addOnsDetail div.subAddOn div.subAddOnDetail{
-    padding: 2%;
-    margin-bottom: 2%;
-    border: 1px solid #CCCCCC;
-    background: white;
-}*/
 
 .quantityDetail .fillQuantity{
     padding:0; 
@@ -521,12 +511,8 @@ button.orderButton{
 .itemDetailDiv div div.sizeDetail div.sizeOption, .addOnsDetail div.subAddOn div.subAddOnDetail{
     padding: 2%;
     border: 1px solid #CCCCCC;
-    background: white;
+    /*background: white;*/
 }
-
-/*.addOnsDetail div div div.subAddOn div.subAddOnDetail div.subAddOnDetailList, .addOnsDetail div div div.subAddOn div.subAddOnDetail div.subAddOnDetailPrice{
-    padding: 2%;
-}*/
 
 .padding2prcnt{
     padding: 2%;
@@ -1091,3 +1077,41 @@ div:focus{
 .margin2prcnt-auto{
     margin: 2% auto;
 }
+
+.alertnew{
+    border: 1px solid rgb(229, 82, 49);
+    padding: 10px;
+    background: #F04E4B;
+    color: white;
+}
+
+.alertnew span{
+    position: absolute;
+    right: 0;
+    top: -2px;
+    font-size: 11px;
+    font-weight: 800;
+    cursor: pointer;
+}
+
+.errMsgDiv{
+    position: absolute;
+    bottom: 106px;
+    display: none;
+    z-index: inherit;
+    /*animation: fadein 30s linear forwards;*/
+}
+
+.errBoxShadow{
+    box-shadow: 0px 0px 1px 1px #fc7c7c !important;
+}
+
+.errBackground{
+    background: #fcd2d287;
+}
+
+
+/*@keyframes fadein {
+  0%,100% { opacity: 0; }
+  5%, 50%, 90% { opacity: 1; }
+}*/

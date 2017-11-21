@@ -1216,17 +1216,18 @@ export class KitchenMenuListComponent implements OnInit {
 	    var baseUrl = this.frontUrl;
 	    var src = baseUrl + 'frontend/' + gfid;
 
-	    console.log(gfid , baseUrl, src)
 	    var height = '680px';
 	    $("#previewModal iframe").attr({'src':src , 'height':height});
 		$('#previewModal iframe').css({'position':'fixed','left': '0','top': '0','width': '100%','padding': '3% 20%','background': 'rgba(0, 0, 0, 0.58)','height':'100%'});
 		$('#previewModal').css({'display':'block'});
+		$('body').css({'overflow':'hidden'});
 
 		var closeBtn  = $('<a class ="closeBtn" href="javascript:void(0)">Close</a>');
 		$('#previewModal').append(closeBtn);
 		$('.closeBtn').css({'text-decoration-line:':'unset','padding':'10px','border-radius':'3px','background-color':'rgba(0,0,0,.6)','position':'fixed','right':'13%','top':'40px','color':'#fff','box-shadow':'0 2px 10px rgba(0,0,0,.5)'});
 		$('a.closeBtn').on('click', function(e) {
 			$('#previewModal').css('display','none');
+			$('body').css({'overflow':'auto'});
 		});
 	}
 	private onClicked(event){
@@ -1546,18 +1547,6 @@ export class KitchenMenuListComponent implements OnInit {
 		this.addgroup = {"display" : "none"}; 
 	}
 	private groupDetailAdd(){
-		/*var min=((<HTMLInputElement>document.getElementById("forceMin")).value);
-		var max=((<HTMLInputElement>document.getElementById("forceMax")).value);*/
-
-		/*if (this.groupDetail.gType == 'optional') {
-			this.groupAddModel.controls['groupType'].setValue(this.groupDetail);
-		}*/
-		/*if (this.groupDetail.gType == 'mandatory') {
-			this.groupDetail.min = min;
-			this.groupDetail.max = max;
-			this.groupAddModel.controls['groupType'].setValue(this.groupDetail);
-		}*/
-
 		this.groupAddModel.controls['restaurantId'].setValue(this.restaurants._id);
 		this.kitchenMenuService.adddetailAddOn(this.groupAddModel.value).subscribe(addons => {     
 			this.getAllAddonDetail();
@@ -1574,48 +1563,23 @@ export class KitchenMenuListComponent implements OnInit {
 	private groupDetailEdit(id){
 		this.currentOpen = 'editgroup_' + id;
 		this.kitchenMenuService.groupDetailEditser(id).subscribe(data => {   
-		//console.log("data")     	
-		//console.log(data)
-			/*this.editableDetail.controls['_id'].setValue(data.message._id);
-			this.editableDetail.controls['name'].setValue(data.message.name);*/
-
 			this.editableDetail.patchValue(data.message);
 			
 			this.groupDetail = data.message.groupType;
 			if (data.message.groupType.gType == 'mandatory') {
 				this.btn_class1 = 'btn-default';
 				this.btn_class2 = 'btn-success';
-				/*if (typeof this.groupDetail.min != 'undefined' && typeof this.groupDetail.max != 'undefined' && this.groupDetail.min != "" && this.groupDetail.max != "") {
-					this.groupAddModel.controls['groupType'].setValue(this.groupDetail);
-				}else{
-					this.groupAddModel.controls['groupType'].setValue(null);
-				}*/
 
 				document.getElementById('mandatoryFields').style.display = 'block';
-				//this.mandatoryUpdate();
-				/*(<HTMLInputElement>document.getElementById("forceMinEdit")).value = data.message.groupType.min;
-				(<HTMLInputElement>document.getElementById("forceMaxEdit")).value = data.message.groupType.max;*/
 			}else{
 				this.btn_class2 = 'btn-default';
 				this.btn_class1 = 'btn-success';
 
 				document.getElementById('mandatoryFields').style.display = 'none';
-				/*this.optionalUpdateEdit();*/
 			}
 		});
 	}
 	private groupDetailEditUpdate(){
-		/*var min=((<HTMLInputElement>document.getElementById("forceMinEdit")).value);
-		var max=((<HTMLInputElement>document.getElementById("forceMaxEdit")).value);*/
-
-		/*if (this.groupDetail.gType == 'optional') {
-			this.editableDetail.controls['groupType'].setValue(this.groupDetail);
-		}
-		if (this.groupDetail.gType == 'mandatory') {
-			this.groupDetail.min = min;
-			this.groupDetail.max = max;
-			this.editableDetail.controls['groupType'].setValue(this.groupDetail);
-		}*/
 		this.kitchenMenuService.groupEditUpdate(this.editableDetail.value).subscribe(data => {
 			this.getAllAddonDetail();
 			this.clearCancel();
@@ -1632,8 +1596,6 @@ export class KitchenMenuListComponent implements OnInit {
 	private loadAllUsers() {
 		this.kitchenMenuService.getAll(this.restaurants._id).subscribe(users => { 			
 			this.users = users.message;
-			//console.log("this.users");
-			//console.log(this.users);
 		});
 	}
 	private loadAllItem() {
@@ -1672,7 +1634,7 @@ export class KitchenMenuListComponent implements OnInit {
 	private addMultisizeAddOn(id){
 		this.multisizeAddModel.controls['sid'].setValue(id);	
 	}
-	multisizeAddUpdate(){	 
+	multisizeAddUpdate(){
 		var allvalue :any = {}; 
 		allvalue._id = this.multisizeAddModel.value.sid;	
 		allvalue.multisize = {size: this.multisizeAddModel.value.sizename, price: this.multisizeAddModel.value.sizeprice};	 		
@@ -1773,9 +1735,6 @@ export class KitchenMenuListComponent implements OnInit {
 		this.kitchenMenuItemService.editSubAddOnUpdate(this.editableChoiceDetail.value).subscribe(data => {	
 			this.loadAllAddons(this.editableChoiceDetail.value._id);
 			this.clearCancel();
-			//document.getElementById(id).className = 'in';
-			//this.getAllAddonDetail();
-			////console.log(id)
 			toastr.success('Choice Updated','Success!');
 		})
 	}
@@ -1835,9 +1794,7 @@ export class KitchenMenuListComponent implements OnInit {
 	   }
 	}
    	private showDayOption(user,type){
-   		//console.log("user,type");
-   		//console.log(user,type);
-   		this.mondayCheck = false; 
+   		this.mondayCheck = false;
 		this.tuesdayCheck = false;
 		this.wednesdayCheck = false;
 		this.thursdayCheck = false;
@@ -1964,15 +1921,9 @@ export class KitchenMenuListComponent implements OnInit {
    	}
    	private showMenu(id){
    		var divId = 'days'+id;
-   		//console.log(divId)
    		document.getElementById(divId).style.display = 'block';
    		this.hideMenuOption = false;
    		this.showMenuOption = true;
-
-   		//console.log(this.hideMenuOption);
-   		//console.log("this.hideMenuOption");
-   		//console.log(this.showMenuOption);
-   		//console.log("this.showMenuOption");
    	}
    	private checkMon(){
    		this.mondayCheck = !this.mondayCheck;
@@ -2049,8 +2000,6 @@ export class KitchenMenuListComponent implements OnInit {
    		//console.log(this.openinghours);
    	}
    	private saveOpeningTimings(type){
-   		//console.log("this.hideMenuOption");
-   		//console.log(this.hideMenuOption);
    		if (this.hideMenuOption == true) {
    			this.menuObj.isHidden = true;
    			this.menuObj.isSpecific = false;
@@ -2111,7 +2060,6 @@ export class KitchenMenuListComponent implements OnInit {
 	   		});
    		}
    	}
-
    	private deleteMenuImage(user,type){
    		if (user.image != null) {
    			if (confirm("Delete Image?")) {
