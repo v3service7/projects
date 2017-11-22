@@ -112,4 +112,35 @@ export class FriendService {
       );
   } 
 
+
+
+  myfriends(data) {
+    return this.http.post(globalVariable.url+'friend/myfriends',data)
+    .map(
+      (response: Response) => response.json()
+      );
+  }
+  
+  mypendingrequest(data) {
+    return this.http.post(globalVariable.url+'friend/mypendingrequest',data)
+    .map(
+      (response: Response) => response.json()
+      );
+  }
+
+
+ myblocked(data) {
+    return this.http.post(globalVariable.url+'friend/myblocked',data)
+    .map(
+      (response: Response) => response.json()
+      );
+  }
+
+updateFriendunlock(data){
+    return this.http.post(globalVariable.url+'friend/myunblocked',data)
+    .map(
+      (response: Response) => response.json()
+      );
+  }
+
 }

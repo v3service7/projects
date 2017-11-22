@@ -58,8 +58,8 @@ allowCrossDomain = function(req, res, next) {
 
 var storage = multer.diskStorage({ //multers disk storage settings
   destination: function (req, file, cb) {
-   //cb(null, '/home/nodeapp/dating/public/uploads/');
-  cb(null, './public/uploads/');
+   cb(null, '/home/nodeapp/dating/public/uploads/');
+   //cb(null, './public/uploads/');
   },
   filename: function (req, file, cb) {
     var datetimestamp = Date.now();

@@ -1,22 +1,17 @@
 // grab the things we need
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
-
 var passportLocalMongoose = require('passport-local-mongoose');
 
 // create a schema
 var customerSchema = new Schema({
   firstname: String,
   lastname: String,
+  name: String,
   phone: String,
-  gender: String,
   email: { type: String, required: true, unique: true },
   password: { type: String, required: true },
   dateofbirth: String,
-  cityName:String,
-  countryName:String,
-  lat:String,
-  lng:String,
   sexualorient : String,
   interests : [],
   profilePic: String,
@@ -55,7 +50,23 @@ var customerSchema = new Schema({
   featured : {type : Boolean, default : false},
   country: { type: Schema.ObjectId, ref: 'Country' },
   isprivate : {type : Boolean, default : false},
-  isbusyspeed : {type : Boolean, default : false}
+  isbusyspeed : {type : Boolean, default : false},
+  cityName:String,
+  countryName:String,
+  lat:String,
+  lng:String,
+  height : String, 
+  haircolor : String,
+  bodyshape : String,
+  maritalStatus : {type : Boolean, default : false},
+  haveChildren : {type : Boolean, default : false},
+  smoke : String,
+  drink : String,
+  qualification : String,
+  profession : String,
+  profilePercent: String,
+  interestedin : String,
+  profileCompletePercent : String
 });
 
 customerSchema.plugin(passportLocalMongoose);
