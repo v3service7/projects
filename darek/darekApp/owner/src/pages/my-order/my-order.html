@@ -32,13 +32,15 @@
 
             <p *ngIf="order.status == 'Missed'"><ion-icon name="remove-circle" color="danger"></ion-icon> {{order.status}}</p>
 
-            <p *ngIf="order.status == 'Driver Assigned'"><ion-icon name="timer" color="secondary"></ion-icon> {{order.status}}</p>
+            <p *ngIf="order.status == 'Pending' && order.driverStatus == 'Accepted'"><ion-icon name="car" color="danger"></ion-icon> {{order.status}}</p>
 
-            <p *ngIf="order.status == 'Driver Rejected'"><ion-icon name="create" color="danger"></ion-icon> {{order.status}}</p>
+            <p *ngIf="order.driverStatus == 'Assigned'"><ion-icon name="timer" class = "energized"></ion-icon>Driver {{order.driverStatus}}</p>
 
-            <p *ngIf="order.status == 'Pending'"><ion-icon name="car" color="danger"></ion-icon> {{order.status}}</p>
+            <!-- <p *ngIf=""><ion-icon name="timer" color="secondary"></ion-icon>Driver {{order.driverStatus}}</p> -->
 
-            <p *ngIf="order.status == 'Completed'"><ion-icon name="done-all"></ion-icon> {{order.status}}</p>
+            <p *ngIf="order.driverStatus == 'Rejected'"><ion-icon name="create" color="danger"></ion-icon>Driver {{order.driverStatus}}</p>
+
+            <p *ngIf="order.status == 'Delivered'"><ion-icon name="done-all" color="secondary"></ion-icon> {{order.status}}</p>
 
             <span class="fontSize12px"><ion-icon name="clock" ios="ios-clock" md="md-clock"></ion-icon> {{order.created_at | date:'medium' }}</span>
 

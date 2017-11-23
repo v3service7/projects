@@ -9,27 +9,54 @@
 </ion-header>
 
 
-<ion-content padding>
+<ion-content>
 	<ion-refresher (ionRefresh)="doRefresh($event)">
 		<ion-refresher-content></ion-refresher-content>
 	</ion-refresher>
 	
-	<ion-list>
-		<ion-item text-right>
-            <button ion-button clear (click)="presentActionSheet()">  <ion-icon name="funnel"></ion-icon></button>
-        </ion-item>
-		<ion-item *ngFor="let order of orders" (click)="cleintDetail(order)">
-			<ion-avatar item-start>
-                <img src="https://d30y9cdsu7xlg0.cloudfront.net/png/50992-200.png">
-            </ion-avatar>
-            <ion-icon name="pin"></ion-icon> <span class="font14px whiteSpaceInitial"> {{order.orderMethod.streetName}}, {{order.orderMethod.city}} </span>
-            
-            <p *ngIf="order.status == 'Driver Assigned'"><ion-icon name="timer" color="secondary"></ion-icon> {{order.status}}</p>
+    <ion-item class="headingClass">
+        <ion-row>Summary :</ion-row>
+    </ion-item>
+        
+    <ion-row class="summaryClass">
+        <ion-col col-6 text-center class="borderRight">
+            <!-- <ion-row> -->
+                <div>${{totalCash |number : '1.2-2'}}</div>
+                <div class="amountDescription">Cash Due From Driver</div>
+            <!-- </ion-row> -->
+        </ion-col>
+        <ion-col col-6 text-center>
+            <!-- <ion-row> -->
+                <div>${{totalTip |number : '1.2-2'}}</div>
+                <div class="amountDescription">Total Driver Earnings</div>
+            <!-- </ion-row> -->
+        </ion-col>
+    </ion-row>
 
-            <p *ngIf="order.status == 'Pending'"><ion-icon name="car" color="danger"></ion-icon> {{order.status}}</p>
+	<ion-item class="headingClass">
+        Detail :
+        <button float-right no-margin ion-button clear (click)="presentActionSheet()">  <ion-icon name="funnel"></ion-icon></button>
+    </ion-item>
 
-            <p *ngIf="order.status == 'Completed'"><ion-icon name="done-all"></ion-icon> {{order.status}}</p>
-
+    <ion-list>	
+        <ion-item *ngFor="let order of orders" (click)="cleintDetail(order)" [ngStyle] = "detailBackground(order)">
+            <ion-row>
+                <ion-col no-padding class="fontWeight500 paddingBottom3">
+                    <ion-icon name="pin"></ion-icon>
+                    <span *ngIf = "order.orderMethod" class="font14px whiteSpaceInitial"> {{order.orderMethod.streetName}}, {{order.orderMethod.city}} </span>
+                </ion-col>
+                <ion-col col-3 text-right>
+                    <ion-badge item-end>${{order.gTotal}}</ion-badge>
+                </ion-col>
+            </ion-row>
+            <ion-row  class="font14px whiteSpaceInitial">
+                {{order.created_at | date:'short' }}, 
+                <span *ngIf = "order.orderPayment">
+                    <span *ngIf = "order.orderPayment.cash">CASH</span>
+                    <span *ngIf = "order.orderPayment.cardinternet">CARD VIA INTERNET</span>
+                    <span *ngIf = "order.orderPayment.cardpickup">CARD AT PICKUP</span>
+                </span>
+            </ion-row>
 		</ion-item>
 	</ion-list>
 </ion-content>

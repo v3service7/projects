@@ -1,0 +1,44 @@
+page-order-detail {
+	ion-item{     
+        padding-left: 0px !important ;    
+    } 
+    p{
+        margin-bottom: 10px;
+    }
+    .white{
+        color:#fff !important;
+    }
+    ion-label {
+        margin: 0px !important;
+    }
+    .label-ios {
+        margin: 0px !important;
+    }
+    .label-md {
+        margin: 0px !important;
+    }
+    .statusButton{
+        height: auto;
+        padding: 5% !important;
+        font-size: 10px;
+    }
+
+    .changeOrderStatus{
+        font-size: 12px;
+        text-decoration: underline;
+        color: #32db64;
+        padding: 2%;
+    }
+
+    .font12px{
+        font-size : 12px;
+    }
+    .tipAmount{
+        border: none;
+        float: right;
+    }
+
+    .paddingTopBottom8px{
+        padding : 8px 0 !important;
+    }
+}

@@ -32,7 +32,16 @@
             </div>
         </ion-card-content>
     </ion-card>
-        
+
+    <ion-card *ngIf = "selectedOrder.tip">
+        <ion-card-header>
+            Tip Information
+        </ion-card-header>
+        <ion-card-content>
+            <h2>Tip : $ {{selectedOrder.tip}}</h2>
+        </ion-card-content>
+    </ion-card>
+
     <ion-card>
         <ion-card-header>
             Customer Detail

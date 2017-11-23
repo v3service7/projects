@@ -15,8 +15,10 @@ import { ForgetPasswordPage } from '../pages/forget-password/forget-password';
 import { ChangePasswordPage } from '../pages/change-password/change-password';
 import { ProfilePage } from '../pages/profile/profile';
 import { InfoPage } from '../pages/profile/info';
+
 import { MyOrderPage } from '../pages/my-order/my-order';
 import { OrderDetailPage } from '../pages/my-order/order-detail';
+import { ChangeOrderStatusPage } from '../pages/my-order/change-order-status';
 
 
 /*Services*/
@@ -29,7 +31,7 @@ import {  AuthService, UsersService, RestaurantsService, OrderService, DriversSe
         ForgetPasswordPage,
         ChangePasswordPage,
         ProfilePage,InfoPage,
-        MyOrderPage,OrderDetailPage,
+        MyOrderPage,OrderDetailPage,ChangeOrderStatusPage
     ],
     imports: [
         BrowserModule,
@@ -43,7 +45,7 @@ import {  AuthService, UsersService, RestaurantsService, OrderService, DriversSe
         MyApp,
         LoginPage,ForgetPasswordPage,
         ProfilePage,ChangePasswordPage,InfoPage,
-        MyOrderPage, OrderDetailPage
+        MyOrderPage, OrderDetailPage,ChangeOrderStatusPage
     ],
     providers: [
         AuthService,

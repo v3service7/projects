@@ -61,7 +61,7 @@ import { OrderDetailPage } from './order-detail';
         var objUpdate = {};
         objUpdate['_id'] = this.selectedOrder._id;
         objUpdate['driverId'] = this.driverForm.value.driverId;
-        objUpdate['status'] = 'Driver Assigned';
+        objUpdate['driverStatus'] = 'Assigned';
 
         let loading = this.loadingCtrl.create({
             content: 'Please wait...'
