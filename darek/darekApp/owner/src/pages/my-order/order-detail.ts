@@ -136,7 +136,7 @@ export class OrderDetailPage {
             (data) => {
                 /*console.log(data.message);*/
                 this.getOrderDetail(obj);
-                this.getToast('Order '+status+' successfully');
+                this.getToast('Order '+ obj.status +' successfully');
             }
         );
     }

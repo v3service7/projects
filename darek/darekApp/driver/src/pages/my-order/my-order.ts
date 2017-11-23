@@ -19,21 +19,28 @@ export class MyOrderPage {
 
 	currentDriver:any={};
 	restaurants:any ={};
-  orders: Array<{}>;
+    orders: Array<{}>;
 	tempOrdr: Array<{}>;
 	loading:any;
     
     constructor(public actionSheetCtrl: ActionSheetController, public menuCtrl: MenuController,public driversService: DriversService,public navCtrl: NavController, public loadingCtrl: LoadingController, public navParams: NavParams,private restaurantsService: RestaurantsService,private orderService: OrderService) {
- 		this.loading = this.loadingCtrl.create({
+ 		/*this.loading = this.loadingCtrl.create({
             content: 'Please wait...'
         });
-        this.loading.present();
+        this.loading.present();*/
 		this.currentDriver = JSON.parse(localStorage.getItem('currentDriver'));
-        this.getOrders();
+        /*this.getOrders();*/
         this.menuCtrl.enable(true);
     }
 
-	ionViewDidLoad() {}
+	ionViewDidEnter() {
+        this.loading = this.loadingCtrl.create({
+            content: 'Please wait...'
+        });
+        this.loading.present();
+        this.getOrders();
+        
+    }
 
     private getOrders(){
         this.driversService.myOrder(JSON.parse(localStorage.getItem('currentDriver'))._id).subscribe(users => {

@@ -59,8 +59,9 @@ import { OrderDetailPage } from './order-detail';
 
     doSubmit(event) {
         var objUpdate = {};
-        objUpdate['_id'] = this.selectedOrder._id
-        objUpdate['driverId'] = this.driverForm.value.driverId
+        objUpdate['_id'] = this.selectedOrder._id;
+        objUpdate['driverId'] = this.driverForm.value.driverId;
+        objUpdate['status'] = 'Driver Assigned';
 
         let loading = this.loadingCtrl.create({
             content: 'Please wait...'

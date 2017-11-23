@@ -62,11 +62,16 @@ export class OrderDetailPage {
         var objUpdate = {};
         objUpdate['_id'] = obj._id;
         objUpdate['status'] = status;
+        objUpdate['driverId'] = null;
         this.orderService.getUpdate(objUpdate).subscribe(
             (data) => {
                 loading.dismiss();
                 this.navCtrl.pop(MyOrderPage);
-                this.getToast('Order '+status+' successfully');
+                if (status == 'Pending') {
+                    this.getToast('Order Accepted successfully');
+                }else{
+                    this.getToast('Order Rejected successfully');
+                }
             }
         );
 	}

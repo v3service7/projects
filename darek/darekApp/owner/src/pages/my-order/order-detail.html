@@ -25,7 +25,7 @@
                     <ion-icon name="close" ios="ios-close" md="md-close"> Reject</ion-icon>
                 </button>
             </div>
-            <div *ngIf="!selectedOrder.driverId && selectedOrder.status == 'Accepted' && selectedOrder.orderMethod.mType == 'Delivery'">
+            <div *ngIf="!selectedOrder.driverId && (selectedOrder.status == 'Accepted'|| selectedOrder.status == 'Driver Rejected') && selectedOrder.orderMethod.mType == 'Delivery'">
                 <button ion-button full (click)="assignOrder($event,selectedOrder)">
                     <ion-icon name="car" ios="ios-car" md="md-car"></ion-icon> &nbsp; Assign Driver
                 </button>

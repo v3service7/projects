@@ -16,11 +16,11 @@
         </ion-card-header>
         <ion-card-content>
             <h2>{{selectedOrder.status}}</h2>
-            <div *ngIf="selectedOrder.status == 'Received'">
+            <div *ngIf="selectedOrder.status == 'Driver Assigned'">
                 <button ion-button icon-only color="secondary" class="statusButton" (click)="updateStatus(selectedOrder,'Pending')">
 					<ion-icon name="checkmark" ios="ios-checkmark" md="md-checkmark" no-padding> Accept</ion-icon>
 				</button>
-                <button ion-button icon-only color="danger" class="statusButton" (click)="updateStatus(selectedOrder,'Rejected')">
+                <button ion-button icon-only color="danger" class="statusButton" (click)="updateStatus(selectedOrder,'Driver Rejected')">
 					<ion-icon name="close" ios="ios-close" md="md-close" no-padding> Reject</ion-icon>
 				</button>
             </div>

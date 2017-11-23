@@ -3,156 +3,121 @@
    <!-- <alert></alert> -->
    <div class="screen screen-form js-screen-address-form ng-scope" id="Menu18" style="min-height: 0;padding: 0;">
    <div class="settings-panel">
-    <form [formGroup]="restaurantAddModel"  (ngSubmit)="notificationUpdate()">        
+    
+    <form [formGroup]="notificationForm"  (ngSubmit)="notificationUpdate()">        
         <div class="settings-heading">
-        	<span class="settings-title ng-binding">Notifications</span>
-            <input type="submit" [disabled]="!restaurantAddModel.valid" class="btn btn-next ng-binding" value="Next" *ngIf="!edited">
+            <span class="settings-title ng-binding">Notifications</span>
+            <input type="submit" [disabled]="!notificationForm.valid" class="btn btn-next ng-binding" value="Next" *ngIf="!edited">
             <input type="button" class="btn btn-next ng-binding" value="Update" *ngIf="edited" (click)="edit()">
         </div>
 
-        <div class="emailAdded col-lg-12 col-md-12 col-sm-12 col-xs-12" style="padding-bottom: 3%; padding-top: 3%;">
-	        <div *ngFor="let restaurant of restaurants.notification; let i=index;" id="{{restaurant._id}}">
-	        	{{restaurant.email}}
-	        	<a href="javascript:void(0)"  (click) = "get(restaurant,i)"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
-				<a href="javascript:void(0)" (click) = "remove(restaurants._id, i)">
-                    <i class="fa fa-times-circle-o" aria-hidden="true"></i>
-                </a>
-	        </div>
-        </div>
-        
-        <div class="settings-content">
-            <div class="col-xs-12" style="padding: 0;">
-                <h4 > Add New Email </h4>
+
+        <div *ngIf = "notification.length > 0" class="emailAdded col-lg-12 col-md-12 col-sm-12 col-xs-12" style="    padding: 2%; background: #F4F2EF;">
+            <div *ngFor="let noti of notification; let i=index; " class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            	{{noti.email}}
+            	<a href="javascript:void(0)"  (click) = "get(noti,i)"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+    			<a href="javascript:void(0)" (click) = "remove(noti, i)"><i class="fa fa-times-circle-o" aria-hidden="true"></i></a>
             </div>
+        </div>
+
+        <div *ngIf = "!addEmail" class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="padding: 15px;">
+            <button style="color: #fff;background-color: #999; padding: 5px 10px;" (click) = "addEmailFunction()">Add New Email</button>
+        </div>
+
+        <div *ngIf = "addEmail" class="settings-content">
 
 			<div class="row">
-                <div class="col-xs-7 ng-binding">
+                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 ng-binding">
                     Email
                 </div>
-                <div class="col-xs-5">
-                    <input formControlName="email" type="email">
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                    <input formControlName="email" type="email" class="width100">
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+                    <button style="color: #fff;background-color: #999; padding: 5px 10px; float: right;" (click)="cancelButton()">Cancel</button>
                 </div>
             </div>
 
             <div class="row">
                 <div class="col-xs-7 ng-binding">
-                	Rozvozeni Confirmed
+                	Delivery Confirmed
                 </div>
                 <div class="col-xs-5">
                     <div class="btn-group" data-toggle="buttons">
-                        <label class="btn btn-info2" [ngStyle]="rozConfirmi == true ? forgreen : forwhite"  (click)="intialoption2('rozConfirm',true)">
+                        <label class="btn btn-info2" [ngStyle]="deliveryConfirm == true ? forgreen : forwhite"  (click)="intialoption2('deliveryConfirm',true)">
                             <input type="radio" id="optionsRadios2" value="true">Yes
                         </label>
-                        <label class="btn btn-info2 btn_red" [ngStyle]="rozConfirmi == false ? forred : forwhite" (click)="intialoption2('rozConfirm',false)">
+                        <label class="btn btn-info2 btn_red" [ngStyle]="deliveryConfirm == false ? forred : forwhite" (click)="intialoption2('deliveryConfirm',false)">
                             <input type="radio" id="optionsRadios2" value="false"  checked="">No
                         </label>
                     </div>
                 </div>
             </div>
+
             <div class="row">
                 <div class="col-xs-7 ng-binding">
                 	Pickup Confirmed
                 </div>
                 <div class="col-xs-5">
                     <div class="btn-group" data-toggle="buttons">
-                        <label class="btn btn-info2" [ngStyle]="pickupConfirmi == true ? forgreen : forwhite"  (click)="intialoption2('pickupConfirm',true)">
+                        <label class="btn btn-info2" [ngStyle]="pickupConfirm == true ? forgreen : forwhite"  (click)="intialoption2('pickupConfirm',true)">
                             <input type="radio" id="optionsRadios2" value="true">Yes
                         </label>
-                        <label class="btn btn-info2 btn_red" [ngStyle]="pickupConfirmi == false ? forred : forwhite"  (click)="intialoption2('pickupConfirm',false)">
+                        <label class="btn btn-info2 btn_red" [ngStyle]="pickupConfirm == false ? forred : forwhite"  (click)="intialoption2('pickupConfirm',false)">
                             <input type="radio" id="optionsRadios2" value="false" checked="">No
                         </label>
                     </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-xs-7 ng-binding">
-                	Rozvozeni Confirmed Text
-                </div>
-                <div class="col-xs-5">
-                    <div class="btn-group" data-toggle="buttons">
-                        <label class="btn btn-info2" [ngStyle]="rozConfirmTexti == true ? forgreen : forwhite"  (click)="intialoption2('rozConfirmText',true)">
-                            <input type="radio" id="optionsRadios2" value="true">Yes</label>
-                        <label class="btn btn-info2 btn_red" [ngStyle]="rozConfirmTexti == false ? forred : forwhite"  (click)="intialoption2('rozConfirmText',false)">
-                            <input type="radio" id="optionsRadios2"  value="false" checked="">No</label>
-                    </div>
-                </div>
-            </div>
+
             <div class="row">
                 <div class="col-xs-7 ng-binding">
                 	Order Reject
                 </div>
                 <div class="col-xs-5">
                     <div class="btn-group" data-toggle="buttons">
-                        <label class="btn btn-info2" [ngStyle]="orderRejecti == true ? forgreen : forwhite"  (click)="intialoption2('orderReject',true)">
+                        <label class="btn btn-info2" [ngStyle]="orderReject == true ? forgreen : forwhite"  (click)="intialoption2('orderReject',true)">
                             <input type="radio" id="optionsRadios2" value="true">Yes
                         </label>
-                        <label class="btn btn-info2 btn_red" [ngStyle]="orderRejecti == false ? forred : forwhite"  (click)="intialoption2('orderReject',false)">
+                        <label class="btn btn-info2 btn_red" [ngStyle]="orderReject == false ? forred : forwhite"  (click)="intialoption2('orderReject',false)">
                             <input type="radio" id="optionsRadios2" value="false" checked="">No
                         </label>
                     </div>
                 </div>
             </div>
+
             <div class="row">
                 <div class="col-xs-7 ng-binding">
-                	Order Error
+                    Order Missed
                 </div>
                 <div class="col-xs-5">
                     <div class="btn-group" data-toggle="buttons">
-                        <label class="btn btn-info2" [ngStyle]="orderErrori == true ? forgreen : forwhite"  (click)="intialoption2('orderError',true)">
+                        <label class="btn btn-info2" [ngStyle]="orderMissed == true ? forgreen : forwhite"  (click)="intialoption2('orderMissed',true)">
                             <input type="radio" id="optionsRadios2" value="true">Yes
                         </label>
-                        <label class="btn btn-info2 btn_red" [ngStyle]="orderErrori == false ? forred : forwhite"  (click)="intialoption2('orderError',false)">
+                        <label class="btn btn-info2 btn_red" [ngStyle]="orderMissed == false ? forred : forwhite"  (click)="intialoption2('orderMissed',false)">
                             <input type="radio" id="optionsRadios2" value="false" checked="">No
                         </label>
                     </div>
                 </div>
             </div>
-			<div class="row">
-                <div class="col-xs-7  ng-binding">
-                	Order Unfinished
-                </div>
-                <div class="col-xs-5">
-                    <div class="btn-group" data-toggle="buttons">
-                        <label class="btn btn-info2" [ngStyle]="orderUnfinishedi == true ? forgreen : forwhite"  (click)="intialoption2('orderUnfinished',true)">
-                            <input type="radio" id="optionsRadios2" value="true">Yes</label>
-                        <label class="btn btn-info2 btn_red" [ngStyle]="orderUnfinishedi == false ? forred : forwhite"  (click)="intialoption2('orderUnfinished',false)">
-                            <input type="radio" id="optionsRadios2" value="false" checked="">No</label>
-                    </div>
-                </div>
-            </div>
-			<div class="row">
+
+            <div class="row">
                 <div class="col-xs-7 ng-binding">
-                	Low Battery
+                	Order Not Placed
                 </div>
                 <div class="col-xs-5">
                     <div class="btn-group" data-toggle="buttons">
-                        <label class="btn btn-info2" [ngStyle]="lowBetteryi == true ? forgreen : forwhite"  (click)="intialoption2('lowBettery',true)">
+                        <label class="btn btn-info2" [ngStyle]="orderNotPlaced == true ? forgreen : forwhite"  (click)="intialoption2('orderNotPlaced',true)">
                             <input type="radio" id="optionsRadios2" value="true">Yes
                         </label>
-                        <label class="btn btn-info2 btn_red" [ngStyle]="lowBetteryi == false ? forred : forwhite"  (click)="intialoption2('lowBettery',false)">
+                        <label class="btn btn-info2 btn_red" [ngStyle]="orderNotPlaced == false ? forred : forwhite"  (click)="intialoption2('orderNotPlaced',false)">
                             <input type="radio" id="optionsRadios2" value="false" checked="">No
                         </label>
                     </div>
                 </div>
             </div>
-			<div class="row">
-                <div class="col-xs-7 ng-binding">
-                	Bad Connection
-                </div>
-                <div class="col-xs-5">
-                    <div class="btn-group" data-toggle="buttons">
-                        <label class="btn btn-info2" [ngStyle]="badConnectioni == true ? forgreen : forwhite"  (click)="intialoption2('badConnection',true)">
-                            <input type="radio" id="optionsRadios2" value="true">
-                            Yes
-                        </label>
-                        <label class="btn btn-info2 btn_red" [ngStyle]="badConnectioni == false ? forred : forwhite"  (click)="intialoption2('badConnection',false)">
-                            <input type="radio" id="optionsRadios2" value="false" checked="">
-                            No
-                        </label>
-                    </div>
-                </div>
-            </div>
-            <div class="clearfix"></div>
+
         </div>
     </form>
 </div>

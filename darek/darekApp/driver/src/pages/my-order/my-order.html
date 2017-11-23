@@ -23,8 +23,13 @@
                 <img src="https://d30y9cdsu7xlg0.cloudfront.net/png/50992-200.png">
             </ion-avatar>
             <ion-icon name="pin"></ion-icon> <span class="font14px whiteSpaceInitial"> {{order.orderMethod.streetName}}, {{order.orderMethod.city}} </span>
-			 <p *ngIf="order.status == 'Accepted'"><ion-icon name="thumbs-up" color="secondary"></ion-icon> {{order.status}}</p>
-            <p *ngIf="order.status != 'Accepted'"><ion-icon name="thumbs-down" color="danger"></ion-icon> {{order.status}}</p>
+            
+            <p *ngIf="order.status == 'Driver Assigned'"><ion-icon name="timer" color="secondary"></ion-icon> {{order.status}}</p>
+
+            <p *ngIf="order.status == 'Pending'"><ion-icon name="car" color="danger"></ion-icon> {{order.status}}</p>
+
+            <p *ngIf="order.status == 'Completed'"><ion-icon name="done-all"></ion-icon> {{order.status}}</p>
+
 		</ion-item>
 	</ion-list>
 </ion-content>
