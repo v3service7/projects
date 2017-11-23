@@ -45,6 +45,9 @@ export class ProfileUpdatePage {
 	typeOfWorkPref : String;
 
 	BasicInfoForm :FormGroup;
+    dob: any = '1990-02-19' ;
+    citycountry : any;
+    sexualorient: any;
 
 	constructor(
 		public nav: Nav,
@@ -62,11 +65,14 @@ export class ProfileUpdatePage {
 	        _id: ['', Validators.required],
 	        email: ['', Validators.required],
 	        username: ['', Validators.required],
-	        firstname: ['', Validators.required],
-	        lastname: ['', Validators.required],
-	        phone: ['', Validators.required],
+	        name: ['', Validators.required],
 	        cityName: [],
+	        dateofbirth: [],
 	        countryName: [],
+	        description: [],
+	        interests: [],
+	        sexualorient: [],
+	        gender: [],
 	        lat: [],
 	        lng: []
 	    });
@@ -81,15 +87,23 @@ export class ProfileUpdatePage {
 		this.customerService.getOneCustomer(this.currentCustomer['_id']).subscribe(cust=>{
     		localStorage.setItem('currentCustomer', JSON.stringify(cust.message));
     		this.currentCustomer = JSON.parse(localStorage.getItem('currentCustomer'));
+    		console.log(this.currentCustomer);
+    		this.citycountry = this.currentCustomer.cityName +','+ this.currentCustomer.countryName;
     	});
+	}
+
+	private chooseDOB(){
+		this.BasicInfoForm.controls['dateofbirth'].setValue(this.dob);
+
 	}
 
 	private editBasicInfo(){
 		this.editBasic = true;
+		this.citycountry = this.currentCustomer.cityName +','+ this.currentCustomer.countryName;
 		setTimeout(()=>{
     		this.initMap();
     	},1000) 
-	}
+	  }
 
 	private initMap() {
         var input = <HTMLInputElement>document.getElementById('pac-input');
@@ -137,37 +151,42 @@ export class ProfileUpdatePage {
 		}
 		this.smoke = this.currentCustomer['smoke'];
 		this.drink = this.currentCustomer['drink'];
-		this.education = this.currentCustomer['qualification'];
 		this.typeOfWork = this.currentCustomer['profession'];
 	}
 
+
 	private editAboutPref(){
+
 		this.editPref = true;
 
-		if (this.currentCustomer['preferences']) {		
+		if (this.currentCustomer['preferences']){		
 			this.colorSelectPref = this.currentCustomer['preferences']['haircolor'];
 			this.bodySelectPref = this.currentCustomer['preferences']['bodyshape'];
 			this.maritalStatusPref = this.currentCustomer['preferences']['maritalStatus'];
-			if (this.currentCustomer['preferences']['maritalStatus']) {
-				this.haveChildrenPref = this.currentCustomer['preferences']['haveChildren']
-			}
+			this.haveChildrenPref = this.currentCustomer['preferences']['haveChildren'];
+			this.sexualorient = this.currentCustomer["preferences"]["sexualorient"];
 			this.smokePref = this.currentCustomer['preferences']['smoke'];
 			this.drinkPref = this.currentCustomer['preferences']['drink'];
-			this.educationPref = this.currentCustomer['preferences']['qualification'];
+			//this.Pref = this.currentCustomer['preferences']['drink'];
 			this.typeOfWorkPref = this.currentCustomer['preferences']['profession'];
-		}else{
+		    }else{
 			this.colorSelectPref = "";
 			this.bodySelectPref = "";
 			this.maritalStatusPref = "";
 			this.haveChildrenPref = "";
 			this.smokePref = "";
-			this.drinkPref = "";
-			this.educationPref = "";
+			this.drinkPref = "";		
 			this.typeOfWorkPref = "";
-		}
-	}
+		    }
+
+
+	     }
+
+
 
 	update(){
+		console.log(this.BasicInfoForm.value);
+
 		this.customerService.updateCustomer(this.BasicInfoForm.value).subscribe(data => {
 			if (!data.error) {
 				this.getToast("Information Updated");
@@ -175,10 +194,12 @@ export class ProfileUpdatePage {
 				this.getOne();
 			}
 		});
-	}
+	   }
 
 	updateInfo(){
 		if (this.currentCustomer['preferences']) {
+			console.log("preff");
+			console.log(this.currentCustomer['preferences']);
 			this.customerService.updateCustomer(this.currentCustomer).subscribe(data => {
 				if (!data.error) {
 					this.getToast("Information Updated");
@@ -200,27 +221,32 @@ export class ProfileUpdatePage {
 		}
 	}
 
-	private height(event,type){
+	private height(event,type, mm){
 		if (type == 'self') {
 			this.currentCustomer['height'] = event.target.value;
-		}else{
-			if (this.currentCustomer['preferences']) {
-				this.currentCustomer['preferences']['height'] = event.target.value;
+	     	}else{
+
+			console.log("event,type")
+			console.log(event,type, mm);
+
+			if(mm == 'min' && this.currentCustomer['preferences']){
+            this.currentCustomer['preferences']['minheight'] = event.target.value;
 			}else{
-				this.preferences['height'] = event.target.value;
+		    this.currentCustomer['preferences']['maxheight'] = event.target.value;
 			}
+			//	this.preferences['height'] = event.target.value;
 		}
 	}
 
 	private hairColorFunction(type){
-		if (type == 'self') {
-			this.currentCustomer['haircolor'] = this.colorSelect;
+		if(type == 'self') {
+		this.currentCustomer['haircolor'] = this.colorSelect;
 		}else{
-			if (this.currentCustomer['preferences']) {
-				this.currentCustomer['preferences']['haircolor'] = this.colorSelectPref;
-			}else{
-				this.preferences['haircolor'] = this.colorSelectPref;
-			}
+		if (this.currentCustomer['preferences']) {
+			this.currentCustomer['preferences']['haircolor'] = this.colorSelectPref;
+		}else{
+			this.preferences['haircolor'] = this.colorSelectPref;
+		}
 		}
 	}
 
@@ -335,18 +361,6 @@ export class ProfileUpdatePage {
 	    }
 	}
 
-    private qualification(type){
-    	if (type == 'self') {
-    		this.currentCustomer['qualification'] = this.education;
-    	}else{
-    		if (this.currentCustomer['preferences']) {
-    			this.currentCustomer['preferences']['qualification'] = this.educationPref;
-    		}else{
-    			this.preferences['qualification'] = this.educationPref;
-    		}
-    	}
-    }
-
     private profession(type){
     	if (type == 'self') {
     		this.currentCustomer['profession'] = this.typeOfWork;
@@ -357,7 +371,13 @@ export class ProfileUpdatePage {
     			this.preferences['profession'] = this.typeOfWorkPref;
     		}
     	}
-    }
+       }
+
+
+     private sexualorientf(){
+      this.preferences['sexualorient'] = this.sexualorient;	
+     }
+
 
 	private getToast(msg){
 		let toast = this.toastCtrl.create({

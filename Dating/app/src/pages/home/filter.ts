@@ -27,7 +27,7 @@ export class FilterPage {
 	mininch : any;
 	maxfeet : any;
 	maxinch : any;
-	filterBy : any = { gender : [], online : "xyz", minage: "", maxage: "", country: [], sexualorient: [], minheight: "", maxheight: "", haircolor: [], bodyshape: [], maritalstatus: [], smoke: [], drink: [], qualification:[], profession: []};
+	filterBy : any = { gender : [], online : "xyz", minage: "", maxage: "", country: [], sexualorient: [], minheight: "", maxheight: "", haircolor: [], bodyshape: [], maritalstatus: [], smoke: [], drink: [], profession: []};
 
 	constructor(
 		public navCtrl: NavController,
@@ -43,21 +43,28 @@ export class FilterPage {
 		if (typeof fltr !== 'undefined') {
 			this.filterBy = fltr;;
 		}*/
+
+		console.log("this.filterBy");
+		console.log(this.filterBy);
 	}
+
 
 	ionViewDidEnter() {
 		this.getuserCountry();
 	}
 
+
 	resetFilter(){
+
 		this.filterBy = { gender : [], online : "xyz", minage: "", maxage: "", country: [], sexualorient: [], minheight: "", maxheight: "", haircolor: [], bodyshape: [], maritalstatus: [], smoke: [], drink: [], qualification:[], profession: []};
 
 		setTimeout(()=>{
 			this.navCtrl.push(TabsPage,{
 	        	filterBy : this.filterBy,
 	        })
-		},1000)
-	}
+		},1000);
+		
+	  }
 
 	private getuserCountry(){
         this.customerService.getUserCountry().subscribe((country) =>{  
@@ -65,7 +72,11 @@ export class FilterPage {
         });
     }
 
+
 	private selectOption(type){
+
+		console.log("Select Option", type);
+
 		if (type == 'maritalstatus') {
 			console.log("this.maritalstatus");
 			console.log(this.maritalstatus);
@@ -132,25 +143,37 @@ export class FilterPage {
 			console.log("this.maxinch");
 			console.log(this.maxinch);
 		}
-
 	}
 
-	private age(event,type){
+
+	/*private age(event,type){
+
 		if (type == 'min') {
 			this.filterBy['minage'] = event.target.value;
 		}
+
 		if (type == 'max') {
 			this.filterBy['maxage'] = event.target.value;
 		}
-	}
+
+	}*/
 
 
 	private showAfterFilter(){
+
 		let loading = this.loadingCtrl.create({
 			content: 'Please wait...'
 		});
 		loading.present();
-		if (typeof this.minfeet != 'undefined') {
+		
+		setTimeout(()=>{
+			loading.dismiss();
+			this.nav.setRoot(TabsPage,{
+	        	filterBy : this.filterBy,
+	        })
+		},1000);
+
+		/*if (typeof this.minfeet != 'undefined') {
 			if (typeof this.mininch == 'undefined') {
 				this.filterBy['minheight'] = this.minfeet + '.0';
 			}else{
@@ -164,15 +187,8 @@ export class FilterPage {
 			}else{
 				this.filterBy['maxheight'] = this.maxfeet + '.' + this.maxinch;
 			}
-		}
-
-		setTimeout(()=>{
-			loading.dismiss();
-			this.nav.setRoot(TabsPage,{
-	        	filterBy : this.filterBy,
-	        })
-		},1000)
-
+		}*/
 
 	}
+
 }

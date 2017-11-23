@@ -15,12 +15,14 @@
 				<img class="customerImage width100" [src]="customerImage(customer.profilePic)"/>
 			</ion-row>
 			<ion-row text-capitalize class="custDetail white padding5px0px width100">
-				<ion-col col-12 no-padding padding-horizontal>{{customer.firstname}} {{customer.lastname}} 
+				<ion-col col-12 no-padding padding-horizontal>
+
 					<ion-icon float-right class="onlineMark" *ngIf="customer.online == 'Y'" name="checkmark-circle" color="secondary"></ion-icon>
 					<ion-icon float-right class="onlineMark" *ngIf="customer.online != 'Y'" name="checkmark-circle" style="color:#9c9797;" clear></ion-icon>
+
 				</ion-col>
 				<ion-col col-12 no-padding padding-horizontal>
-					<span>{{customer.age}}, </span><span>{{customer.countryName}}</span>
+					<span> {{customer.username}} , {{customer.age}}, </span><span>{{customer.countryName}}</span>
 				</ion-col>
 			</ion-row>
 		</ion-row>
@@ -128,7 +130,7 @@
 					<ion-icon name="person" ios="ios-person" md="md-person"></ion-icon> {{customer.haircolor}}
 				</ion-col>
 				<ion-col col-12>
-					<ion-icon name="beer" ios="ios-beer" md="md-beer"></ion-icon> <span *ngIf = "customer.drink"> Drink : Yes</span> <span *ngIf = "!customer.drink"> Drink : No</span>
+					<ion-icon name="beer" ios="ios-beer" md="md-beer"></ion-icon> <span *ngIf = "customer.drink"> Drink : Yes</span> <span *ngIf = "!customer.drink"> <DATA></DATA>rink : No</span>
 				</ion-col>
 				<ion-col col-12>
 					<ion-icon name="no-smoking" ios="ios-no-smoking" md="md-no-smoking"></ion-icon> <span *ngIf = "customer.smoke"> Smoke : Yes </span> <span *ngIf = "!customer.smoke"> Smoke : No </span>
@@ -142,7 +144,7 @@
 		<ion-row *ngIf = "customer.description" padding class="basicDetail width100 bgWhite marginBottom4">
 			<ion-col col-12><h5>Summary</h5></ion-col>
 			<ion-col col-12>
-				{{customer.description}}
+		    {{customer.description}}
 			</ion-col>
 		</ion-row>
 
@@ -167,7 +169,7 @@
 				<ion-icon name="person" ios="ios-person" md="md-person"></ion-icon> {{customer.preferences.haircolor}}
 			</ion-col>
 			<ion-col col-12>
-				<ion-icon name="beer" ios="ios-beer" md="md-beer"></ion-icon> <span *ngIf = "customer.preferences.drink"> Drink : Yes</span> <span *ngIf = "!customer.preferences.drink"> Drink : No</span>
+				<ion-icon name="beer" ios="ios-beer" md="md-beer"></ion-icon> <span *ngIf = "customer.preferences.drink"> Drink : Yes </span> <span *ngIf = "!customer.preferences.drink"> Drink : No </span>
 			</ion-col>
 			<ion-col col-12>
 				<ion-icon name="no-smoking" ios="ios-no-smoking" md="md-no-smoking"></ion-icon> <span *ngIf = "customer.preferences.smoke"> Smoke : Yes </span> <span *ngIf = "!customer.preferences.smoke"> Smoke : No </span>

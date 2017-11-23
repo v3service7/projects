@@ -20,10 +20,12 @@
 				<img [src]="selectedFemale('choosePreference')">
 			</ion-col>
 		</ion-row>
+
 		<ion-row padding-top>
 			<ion-col>Date of Birth</ion-col>
 			<ion-col text-right><ion-datetime no-padding displayFormat="MMM DD YYYY" [(ngModel)]="event.month" (ionChange)="chooseDOB()"></ion-datetime></ion-col>
 		</ion-row>
+
 		<form role="form" [formGroup]="signUpForm" (ngSubmit)="moveForward()">
 			<ion-item no-padding>
 				<ion-label floating>Username</ion-label>
@@ -39,6 +41,7 @@
 			</ion-item>
 			<button margin-top ion-button full class="bcColor" [disabled]="!signUpForm.valid">Submit</button>
 		</form>
+		
 	</div>
 
 	<div *ngIf = "userRegistered">
@@ -54,4 +57,5 @@
 		</ion-row>
 		<button margin-top ion-button full class="bcColor" [disabled]="!haveImage && !haveAddress" (click)="register()">Submit</button>
 	</div>
+	
 </ion-content>

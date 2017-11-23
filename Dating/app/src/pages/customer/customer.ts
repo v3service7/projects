@@ -36,6 +36,7 @@ export class CustomerPage  implements OnInit{
         ) {
         if(localStorage.getItem("currentCustomer")){
             this.customerInfo = JSON.parse(localStorage.getItem("currentCustomer"));      
+            console.log(this.customerInfo)
         }
         this.getAllAllow();
     }

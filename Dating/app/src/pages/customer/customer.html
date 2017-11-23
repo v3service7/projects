@@ -7,9 +7,9 @@
 					<img class="customerImage" [src]="customerImage(profile.profilePic)"/>
 				</ion-row>
 				<ion-row text-capitalize class="custDetail white padding2-0">
-					<ion-col col-12 no-padding padding-horizontal> {{profile.firstname}} {{profile.lastname}} 
-						<ion-icon float-right class="onlineMark" *ngIf="myonline.indexOf(profile._id) != -1" name="checkmark-circle" color="secondary"></ion-icon>
-					</ion-col>
+				<ion-col col-12 no-padding padding-horizontal>                    {{profile.username}} 
+				<ion-icon float-right class="onlineMark" *ngIf="myonline.indexOf(profile._id) != -1" name="checkmark-circle" color="secondary"></ion-icon>
+			    </ion-col>
 					<ion-col col-12 no-padding padding-horizontal>
 						<span>{{profile.age}}, </span><span>{{profile.countryName}}</span>
 					</ion-col>

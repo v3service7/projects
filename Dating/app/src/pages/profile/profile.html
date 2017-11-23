@@ -14,15 +14,14 @@
             <ion-avatar item-start>
                 <img [src]="customerImage(currentCustomer.image)">
             </ion-avatar>
-            <h2>{{currentCustomer.firstname}}</h2>
-            <h2 *ngIf = "!currentCustomer.firstname">{{currentCustomer.username}}</h2>
+            <h2>{{currentCustomer.username}}</h2>
+            <h2 *ngIf = "!currentCustomer.username">{{currentCustomer.username}}</h2>
             <div>
                 <span class="editProfile" (click)="goToUpdateProfile()"><ion-icon name="create" ios="ios-create" md="md-create"></ion-icon></span>
                 <span class="setting" (click)="goToSettingPage()"><ion-icon name="settings" ios="ios-settings" md="md-settings"></ion-icon></span>
             </div>
         </ion-item>
     </ion-row>
-
     <!-- <ion-row>
         <ion-col text-center class="margin5-0">
             <label class="fileContainer">
@@ -31,7 +30,6 @@
             </label>
         </ion-col>
     </ion-row> -->
-
     <ion-row class="padding6-12">
         <ion-col no-padding col-12 padding-bottom>Profile Complete : {{currentCustomer.profileCompletePercent}} %</ion-col>
         <ion-col no-padding col-12 class="profile100">
@@ -42,7 +40,6 @@
     <ion-row>
         <ion-col text-center col-12 class="headingMyPhotos">Gallery</ion-col>
     </ion-row>
-
     <ion-segment [(ngModel)]="gallery">
         <ion-segment-button value="myPhotos">
             My Photos
@@ -89,8 +86,6 @@
                         <source src="{{url.imageUrl}}{{currentCustomer.profileVideo}}" type="video/wmv">
                       Your browser does not support HTML5 video.
                     </video>
-
-
 
                     <span (click)="deleteVideo(i)">x</span>
                 </ion-col>

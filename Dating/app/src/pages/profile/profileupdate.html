@@ -17,7 +17,7 @@
         <ion-row *ngIf = "!editBasic" class="width100">
             <ion-row class="width100">
                 <ion-col col-4>Name : </ion-col>
-                <ion-col>{{currentCustomer.firstname}} {{currentCustomer.lastname}}</ion-col>
+                <ion-col>{{currentCustomer.name}}</ion-col>
             </ion-row>
             <ion-row class="width100">
                 <ion-col col-4>Email : </ion-col>
@@ -26,50 +26,98 @@
             <ion-row class="width100">
                 <ion-col col-4>Username : </ion-col>
                 <ion-col>{{currentCustomer.username}}</ion-col>
-            </ion-row>
-            <ion-row class="width100">
-                <ion-col col-4>Contact No : </ion-col>
-                <ion-col>{{currentCustomer.phone}}</ion-col>
-            </ion-row>
+            </ion-row>          
             <ion-row class="width100">
                 <ion-col col-4>Address : </ion-col>
-                <ion-col>{{currentCustomer.cityName}}, {{currentCustomer.countryName}}</ion-col>
+                <ion-col> {{currentCustomer.cityName}}, {{currentCustomer.countryName}} </ion-col>
+            </ion-row>
+            <ion-row class="width100">
+                <ion-col col-4>DOB : </ion-col>
+                <ion-col>{{currentCustomer.dateofbirth}}</ion-col>
+            </ion-row> 
+            <ion-row class="width100">
+                <ion-col col-4>Gender : </ion-col>
+                <ion-col>{{currentCustomer.gender}}</ion-col>
+            </ion-row>            
+            <ion-row class="width100">
+                <ion-col col-4> Interests : </ion-col>
+                <ion-col>{{currentCustomer.interests}}</ion-col>
+            </ion-row>
+            <ion-row class="width100">
+                <ion-col col-4> Interests In : </ion-col>
+                <ion-col>{{currentCustomer.interestedin}}</ion-col>
+            </ion-row>
+             <ion-row class="width100">
+                <ion-col col-4>Description : </ion-col>
+                <ion-col>{{currentCustomer.description}}</ion-col>
             </ion-row>
         </ion-row>
         <ion-row class="padding1" *ngIf = "editBasic">
             <form role="form" [formGroup]="BasicInfoForm" (ngSubmit)="update()" class="width100">
+                
                 <ion-item>
                     <ion-label>
-                        <ion-icon name="mail" ios="ios-mail" md="md-mail"></ion-icon>
+                        <ion-icon name="person" ios="ios-person" md="md-person"></ion-icon>
                     </ion-label>
-                    <ion-input formControlName="email" type="text" disabled="true" placeholder="Email"></ion-input>
+                    <ion-input formControlName="name" type="text" placeholder="Name"></ion-input>
                 </ion-item>
+
                 <ion-item>
                     <ion-label>
                         <ion-icon name="person" ios="ios-person" md="md-person"></ion-icon>
                     </ion-label>
                     <ion-input formControlName="username" type="text" disabled="true" placeholder="Username"></ion-input>
                 </ion-item>
+
                 <ion-item>
                     <ion-label>
-                        <ion-icon name="person" ios="ios-person" md="md-person"></ion-icon>
+                        <ion-icon name="mail" ios="ios-mail" md="md-mail"></ion-icon>
                     </ion-label>
-                    <ion-input formControlName="firstname" type="text" placeholder="First Name"></ion-input>
+                    <ion-input formControlName="email" type="text" disabled="true" placeholder="Email"></ion-input>
                 </ion-item>
+              
+                <ion-row padding-left>
+                <ion-col>Date of Birth</ion-col>
+                <ion-col text-right><ion-datetime no-padding displayFormat="MMM DD YYYY" [(ngModel)]="dob" (ionChange)="chooseDOB()" [ngModelOptions]="{standalone: true}"></ion-datetime></ion-col>
+                </ion-row>
+
+                <ion-row class="colorWhite" padding-left>
+                <ion-label> Gender : </ion-label>
+                <ion-select formControlName="gender" submitText="Ok" cancelText="Cancel">
+                <ion-option value="male">Male</ion-option>
+                <ion-option value="female">Female</ion-option>                  
+                </ion-select>
+                </ion-row>
+
+                <ion-row class="colorWhite" padding-left>
+                <ion-label> Interests : </ion-label>
+                <ion-select formControlName="interests" submitText="Ok" cancelText="Cancel" multiple="true">
+                <ion-option value="Sports">Sports</ion-option>
+                <ion-option value="Shopping">Shopping</ion-option>
+                <ion-option value="Book">Book</ion-option>
+                <ion-option value="Movies">Movies</ion-option>
+                <ion-option value="Others">Others</ion-option>                    
+                </ion-select>
+                </ion-row>
+
+                <ion-row class="colorWhite" padding-left>
+                <ion-label> Interest In : </ion-label>
+                <ion-select formControlName="sexualorient" submitText="Ok" cancelText="Cancel">
+                    <ion-option value="straight">Straight</ion-option>  
+                    <ion-option value="lesbian">Lesbian</ion-option>  
+                    <ion-option value="gay">Gay</ion-option>  
+                    <ion-option value="other">Other</ion-option>
+                </ion-select>
+                </ion-row>
+
+                <ion-row class="colorWhite">
                 <ion-item>
-                    <ion-label>
-                        <ion-icon name="person" ios="ios-person" md="md-person"></ion-icon>
-                    </ion-label>
-                    <ion-input formControlName="lastname" type="text" placeholder="Last Name"></ion-input>
+                <ion-label>Description</ion-label>
+                <ion-textarea formControlName="description"></ion-textarea>
                 </ion-item>
+                </ion-row>
                 <ion-item>
-                    <ion-label>
-                        <ion-icon name="call" ios="ios-call" md="md-call"></ion-icon>
-                    </ion-label>
-                    <ion-input formControlName="phone" type="text" placeholder="Phone no."></ion-input>
-                </ion-item>
-                <ion-item>
-                    <input id="pac-input" type="text" placeholder="Enter your city">
+                    <input id="pac-input" type="text" placeholder="Enter your city" [(ngModel)]="citycountry" [ngModelOptions]="{ standalone: true }">
                 </ion-item>
                 <button ion-button full class="bcColor" [disabled]="!BasicInfoForm.valid">Submit</button>
             </form>
@@ -86,7 +134,7 @@
         <ion-row *ngIf = "!editSelf" class="width100">
             <ion-row *ngIf = "currentCustomer.height" class="width100">
                 <ion-col col-5>Height : </ion-col>
-                <ion-col>{{currentCustomer.height}}</ion-col>
+                <ion-col>{{currentCustomer.height}} cm</ion-col>
             </ion-row>
 
             <ion-row *ngIf = "currentCustomer.haircolor" class="width100">
@@ -110,20 +158,17 @@
             </ion-row>
 
             <ion-row class="width100">
-                <ion-col col-5>Smoke : </ion-col>
-                <ion-col><span *ngIf = "currentCustomer.smoke">Yes</span><span *ngIf = "!currentCustomer.smoke">No</span></ion-col>
+                <ion-col col-5> Smoke : </ion-col>
+                <ion-col><span *ngIf="currentCustomer.smoke">{{currentCustomer.smoke}}</span>
+                </ion-col>
             </ion-row>
 
             <ion-row class="width100">
-                <ion-col col-5>Drink : </ion-col>
-                <ion-col><span *ngIf = "currentCustomer.drink">Yes</span><span *ngIf = "!currentCustomer.drink">No</span></ion-col>
+                <ion-col col-5> Drink : </ion-col>
+                <ion-col>
+                    <span *ngIf="currentCustomer.drink"> {{currentCustomer.drink}} </span> 
+                </ion-col>
             </ion-row>
-
-            <ion-row *ngIf = "currentCustomer.qualification" class="width100">
-                <ion-col col-5>Qualification : </ion-col>
-                <ion-col>{{currentCustomer.qualification}}</ion-col>
-            </ion-row>
-
             <ion-row *ngIf = "currentCustomer.profession" class="width100">
                 <ion-col col-5>Profession : </ion-col>
                 <ion-col>{{currentCustomer.profession}}</ion-col>
@@ -168,7 +213,7 @@
                 </ion-select>
             </ion-item>
 
-            <ion-item no-padding *ngIf = "currentCustomer['maritalStatus']">
+            <ion-item no-padding>
                 <ion-label>Have Children : </ion-label>
                 <ion-select [(ngModel)]="haveChildren" (ionChange)="haveChild('self')">
                     <ion-option value=true>Yes</ion-option>
@@ -179,29 +224,20 @@
             <ion-item no-padding>
                 <ion-label>Smoke : </ion-label>
                 <ion-select [(ngModel)]="smoke" (ionChange)="smoker('self')">
-                    <ion-option value = false>No</ion-option>
-                    <ion-option value = true>Yes</ion-option>
+                    <ion-option value ="occasionally">Occasionally</ion-option>
+                    <ion-option value ="never">Never</ion-option>
+                    <ion-option value ="rarely">Rarely</ion-option>
+                    <ion-option value ="regularly">Regularly</ion-option>
                 </ion-select>
             </ion-item>
 
             <ion-item no-padding>
                 <ion-label>Drink : </ion-label>
                 <ion-select [(ngModel)]="drink" (ionChange)="drinker('self')">
-                    <ion-option value = false>No</ion-option>
-                    <ion-option value = true>Yes</ion-option>
-                </ion-select>
-            </ion-item>
-
-            <ion-item no-padding>
-                <ion-label>Qualification</ion-label>
-                <ion-select [(ngModel)]="education" (ionChange)="qualification('self')">
-                    <ion-option value = "Student">Student</ion-option>
-                    <ion-option value = "High School">High School</ion-option>
-                    <ion-option value = "Some College">Some College</ion-option>
-                    <ion-option value = "College Graduate">College Graduate</ion-option>
-                    <ion-option value = "Some Post-College">Some Post-College</ion-option>
-                    <ion-option value = "Master’s">Master’s</ion-option>
-                    <ion-option value = "Professional Qualification">Professional Qualification</ion-option>
+                    <ion-option value ="occasionally">Occasionally</ion-option>
+                    <ion-option value ="never">Never</ion-option>
+                    <ion-option value ="rarely">Rarely</ion-option>
+                    <ion-option value ="regularly">Regularly</ion-option>
                 </ion-select>
             </ion-item>
 
@@ -264,7 +300,6 @@
                     <ion-option value = "Ski Instructor">Ski Instructor</ion-option>
                     <ion-option value = "Waiter">Waiter</ion-option>
                     <ion-option value = "Wedding Planner">Wedding Planner</ion-option>
-                    <ion-option value = "Teaching">Teaching</ion-option>
                     <ion-option value = "Career Counselor">Career Counselor</ion-option>
                     <ion-option value = "School Jobs">School Jobs</ion-option>
                     <ion-option value = "Substitute Teacher">Substitute Teacher</ion-option>
@@ -296,7 +331,10 @@
         <ion-row *ngIf = "!editPref" class="width100">
             <ion-row class="width100">
                 <ion-col col-5>Height : </ion-col>
-                <ion-col *ngIf = "currentCustomer.preferences && currentCustomer.preferences.height">{{currentCustomer.preferences.height}}</ion-col>
+                <ion-col *ngIf = "currentCustomer.preferences">
+                ({{currentCustomer.preferences.minheight}} cm &nbsp; -  
+                &nbsp; {{currentCustomer.preferences.maxheight}} cm)
+               </ion-col>
             </ion-row>
 
             <ion-row class="width100">
@@ -321,17 +359,16 @@
 
             <ion-row class="width100">
                 <ion-col col-5>Smoke : </ion-col>
-                <ion-col><span *ngIf = "currentCustomer.preferences && currentCustomer.preferences.smoke">Yes</span><span *ngIf = "currentCustomer.preferences && !currentCustomer.preferences.smoke">No</span></ion-col>
+                <ion-col>
+                    <span *ngIf = "currentCustomer.preferences && currentCustomer.preferences.smoke">{{currentCustomer.preferences.smoke}}</span>
+                    </ion-col>
             </ion-row>
 
             <ion-row class="width100">
                 <ion-col col-5>Drink : </ion-col>
-                <ion-col><span *ngIf = "currentCustomer.preferences && currentCustomer.preferences.drink">Yes</span><span *ngIf = "currentCustomer.preferences && !currentCustomer.preferences.drink">No</span></ion-col>
-            </ion-row>
-
-            <ion-row class="width100">
-                <ion-col col-5>Qualification : </ion-col>
-                <ion-col *ngIf = "currentCustomer.preferences && currentCustomer.preferences.qualification">{{currentCustomer.preferences.qualification}}</ion-col>
+                <ion-col>
+                    <span *ngIf = "currentCustomer.preferences && currentCustomer.preferences.drink">{{currentCustomer.preferences.drink}}</span>
+                </ion-col>
             </ion-row>
 
             <ion-row class="width100">
@@ -339,12 +376,18 @@
                 <ion-col *ngIf = "currentCustomer.preferences && currentCustomer.preferences.profession">{{currentCustomer.preferences.profession}}</ion-col>
             </ion-row>
         </ion-row>
-        <ion-row class="padding1" *ngIf = "editPref">
+
+        <ion-row class="padding1" *ngIf="editPref">
+
             <ion-item no-padding>
-                <ion-label>Height : </ion-label>
-                
-                <ion-input *ngIf="currentCustomer.preferences" type="text" placeholder="Height" value="{{currentCustomer.preferences.height}}" (keyup)="height($event,'Pref')"></ion-input>
-                
+                <ion-label> Min Height : </ion-label>
+                <ion-input *ngIf="currentCustomer.preferences" type="text" placeholder="Height" value="{{currentCustomer.preferences.minheight}}" (keyup)="height($event,'Pref', 'min')"></ion-input>
+                <ion-input *ngIf="!currentCustomer.preferences" type="text" placeholder="Height" value="" (keyup)="height($event,'Pref')"></ion-input>
+            </ion-item>
+
+             <ion-item no-padding>
+                <ion-label> Max Height : </ion-label>
+                <ion-input *ngIf="currentCustomer.preferences" type="text" placeholder="Height" value="{{currentCustomer.preferences.maxheight}}" (keyup)="height($event,'Pref','max')"></ion-input>
                 <ion-input *ngIf="!currentCustomer.preferences" type="text" placeholder="Height" value="" (keyup)="height($event,'Pref')"></ion-input>
             </ion-item>
 
@@ -392,30 +435,31 @@
             <ion-item no-padding>
                 <ion-label>Smoke : </ion-label>
                 <ion-select [(ngModel)]="smokePref" (ionChange)="smoker('Pref')">
-                    <ion-option value = false>No</ion-option>
-                    <ion-option value = true>Yes</ion-option>
+                    <ion-option value ="occasionally">Occasionally</ion-option>
+                    <ion-option value ="never">Never</ion-option>
+                    <ion-option value ="rarely">Rarely</ion-option>
+                    <ion-option value ="regularly">Regularly</ion-option>
                 </ion-select>
             </ion-item>
 
             <ion-item no-padding>
                 <ion-label>Drink : </ion-label>
                 <ion-select [(ngModel)]="drinkPref" (ionChange)="drinker('Pref')">
-                    <ion-option value = false>No</ion-option>
-                    <ion-option value = true>Yes</ion-option>
+                    <ion-option value ="occasionally">Occasionally</ion-option>
+                    <ion-option value ="never">Never</ion-option>
+                    <ion-option value ="rarely">Rarely</ion-option>
+                    <ion-option value ="regularly">Regularly</ion-option>
                 </ion-select>
             </ion-item>
 
             <ion-item no-padding>
-                <ion-label>Qualification</ion-label>
-                <ion-select [(ngModel)]="educationPref" (ionChange)="qualification('Pref')">
-                    <ion-option value = "Student">Student</ion-option>
-                    <ion-option value = "High School">High School</ion-option>
-                    <ion-option value = "Some College">Some College</ion-option>
-                    <ion-option value = "College Graduate">College Graduate</ion-option>
-                    <ion-option value = "Some Post-College">Some Post-College</ion-option>
-                    <ion-option value = "Master’s">Master’s</ion-option>
-                    <ion-option value = "Professional Qualification">Professional Qualification</ion-option>
-                </ion-select>
+            <ion-label>Sex Orientation : </ion-label>
+            <ion-select [(ngModel)]="sexualorient" (ionChange)="sexualorientf()">
+                <ion-option value="straight">Straight</ion-option>
+                <ion-option value="lesbian">Lesbian</ion-option>  
+                <ion-option value="gay">Gay</ion-option>  
+                <ion-option value="other">Other</ion-option>
+            </ion-select>
             </ion-item>
 
             <ion-item no-padding>
@@ -477,7 +521,6 @@
                     <ion-option value = "Ski Instructor">Ski Instructor</ion-option>
                     <ion-option value = "Waiter">Waiter</ion-option>
                     <ion-option value = "Wedding Planner">Wedding Planner</ion-option>
-                    <ion-option value = "Teaching">Teaching</ion-option>
                     <ion-option value = "Career Counselor">Career Counselor</ion-option>
                     <ion-option value = "School Jobs">School Jobs</ion-option>
                     <ion-option value = "Substitute Teacher">Substitute Teacher</ion-option>

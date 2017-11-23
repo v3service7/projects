@@ -53,13 +53,13 @@ export class LoginPage {
     }
 
     private login(){
+
         this.loading = this.loadingCtrl.create({
             content: 'Please wait...'
         });
 
         this.loading.present();
-        this.customerService.getCustomer(this.loginForm.value).subscribe(
-            (data) => {
+        this.customerService.getCustomer(this.loginForm.value).subscribe((data) => {
                 this.loading.dismiss();
                 if (!data.error) {
                     this.socketService.customerOnline(); 
@@ -67,18 +67,19 @@ export class LoginPage {
                     //localStorage.setItem('currentCustomer', JSON.stringify(data.data));
                     this.menuCtrl.enable(true);
                     this.nav.setRoot(TabsPage);
-                }else{
+                    }
+                    else{
                     this.getToast('Bad Credential');
                     this.loginForm.reset();
-                }
-            },
-            (err)=>{
-                this.loading.dismiss();
-                this.getToast('Bad Credential');
-                this.loginForm.reset();
-            }
-            );
-    }
+                    }
+                },
+                (err)=>{
+                    this.loading.dismiss();
+                    this.getToast('Bad Credential');
+                    this.loginForm.reset();
+                });
+
+         }
 
     private getToast(msg){
         let toast = this.toastCtrl.create({

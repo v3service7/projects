@@ -60,7 +60,7 @@ export class StepPage {
     }
 
     private stringifyNumber(){
-        this.profileCompletePercent = this.profileCompletePercent + 5;
+        this.profileCompletePercent = this.profileCompletePercent + 8;
     }
 
     private showNextStep(index){
@@ -75,7 +75,7 @@ export class StepPage {
             }
             (<HTMLInputElement>step[index]).style.display = "block";
             this.loading.dismiss();
-        }, 1000)
+        }, 1000);
     }
 
     private height(event){
@@ -123,18 +123,12 @@ export class StepPage {
             this.showNextStep(6);
         }
 
-        if (type == 'edu') {
-            this.qualification();
-            this.stringifyNumber();
-            this.showNextStep(7);
-        }
-
         if (type == 'prof') {
             this.profession();
             this.stringifyNumber();
-            this.showNextStep(8);
+            this.showNextStep(7);
         }
-    }
+       }
 
     private skipStep(type){
         if (type == 'height') {
@@ -161,21 +155,17 @@ export class StepPage {
         if (type == 'drink') {
             this.user['drink'] = null;
             this.showNextStep(6);
-        }
-        if (type == 'edu') {
-            this.user['qualification'] = null;
-            this.showNextStep(7);
-        }
+        }        
         if (type == 'prof') {
             this.user['profession'] = null;
-            this.showNextStep(8);
+            this.showNextStep(7);
         }
-    }
+       }
 
     private hairColorFunction(){
         console.log(this.colorSelect);
-        this.user['haircolor'] = this.colorSelect;
-    }
+        this.user['haircolor'] = this.colorSelect;       
+        }
 
     private bodyFunction(){
         this.user['bodyshape'] = this.bodySelect;
@@ -184,7 +174,7 @@ export class StepPage {
     private  maritalS(type){
         this.married = type;
         this.user['maritalStatus'] = this.married;
-    }
+        }
 
     private haveChildren(){
         if (this.married) {
@@ -194,7 +184,7 @@ export class StepPage {
                 this.user['haveChildren'] = true;
             }
         }
-    }
+       }
 
     private smoker(){
         if(this.smoke == 'false'){
@@ -202,7 +192,7 @@ export class StepPage {
         }else{
             this.user['smoke'] = true;
         }
-    }
+        }
 
     private drinker(){
         if(this.drink == 'false'){
@@ -210,18 +200,20 @@ export class StepPage {
         }else{
             this.user['drink'] = true;
         }
-    }
-
-    private qualification(){
-        this.user['qualification'] = this.education;
-    }
+        }
 
     private profession(){
         this.user['profession'] = this.typeOfWork;
-    }
+        }
 
-    private heightPref(event){
-        this.preference['height'] = event.target.value;
+
+   /* Start Preferences  */
+
+    private minheightPref(event){
+        this.preference['minheight'] = event.target.value;
+    } 
+    private maxheightPref(event){
+        this.preference['maxheight'] = event.target.value;
     }
 
     private hairColorFunctionPref(){
@@ -231,135 +223,59 @@ export class StepPage {
     private bodyFunctionPref(){
         this.preference['bodyshape'] = this.bodySelectPref;
     }
-
-    private  maritalSPref(type){
-        this.marriedPref = type;
-        this.preference['maritalStatus'] = this.marriedPref;
-    }
-
-    private haveChildrenPref(){
-        if (this.marriedPref) {
-            if(this.childrenPref == 'false'){
-                this.preference['haveChildren'] = false;
-            }else{
-                this.preference['haveChildren'] = true;
-            }
-        }
-    }
-
-    private smokerPref(){
-        if(this.smokePref == 'false'){
-            this.preference['smoke'] = false;
-        }else{
-            this.preference['smoke'] = true;
-        }
-    }
-
-    private drinkerPref(){
-        if(this.drinkPref == 'false'){
-            this.preference['drink'] = false;
-        }else{
-            this.preference['drink'] = true;
-        }
-    }
-
-    private qualificationPref(){
-        this.preference['qualification'] = this.educationPref;
-    }
-
-    private professionPref(){
-        this.preference['profession'] = this.typeOfWorkPref;
-    }
+   
 
     private addDataPref(type){
-        if (type == 'height') {
-            if (typeof this.preference['height'] == 'undefined' || this.preference['height'] == "") {
-                this.preference['height'] = null;
+
+         console.log(type);
+
+        if (type == 'minheight') {
+            if (typeof this.preference['minheight'] == 'undefined' || this.preference['minheight'] == "") {
+            this.preference['minheight'] = null;
             }else{
-                this.stringifyNumber();
+            this.stringifyNumber();
+            }  
+            this.showNextStep(8);          
+          }
+
+        if (type == 'maxheight') {
+            if (typeof this.preference['maxheight'] == 'undefined' || this.preference['maxheight'] == "") {
+            this.preference['maxheight'] = null;
+            }else{
+            this.stringifyNumber();
             }
-            this.showNextStep(9);
+            this.showNextStep(8);
         }
 
         if (type == 'haircolor') {
             this.hairColorFunctionPref();
             this.stringifyNumber();
-            this.showNextStep(10);
+            this.showNextStep(9);
         }
 
         if (type == 'bodyshape') {
             this.bodyFunctionPref();
             this.stringifyNumber();
-            this.showNextStep(11);
-        }
-
-        if (type == 'maritalStatus') {
-            this.preference['maritalStatus'] = this.marriedPref;
-            this.haveChildrenPref();
-            this.stringifyNumber();
-            this.showNextStep(12);
-        }
-
-        if (type == 'smoke') {
-            this.smokerPref();
-            this.stringifyNumber();
-            this.showNextStep(13);
-        }
-
-        if (type == 'drink') {
-            this.drinkerPref();
-            this.stringifyNumber();
-            this.showNextStep(14);
-        }
-
-        if (type == 'edu') {
-            this.qualificationPref();
-            this.stringifyNumber();
-            this.showNextStep(15);
-        }
-
-        if (type == 'prof') {
-            this.professionPref();
-            this.stringifyNumber();
-            this.activateAccount();
-            this.showNextStep(16);
+            this.showNextStep(10);
         }
     }
 
     private skipStepPref(type){
-        if (type == 'height') {
-            this.preference['height'] = null;
-            this.showNextStep(9);
+        if (type == 'minheight') {
+            this.preference['minheight'] = null;
+            this.showNextStep(8);
+        }
+        if (type == 'maxheight') {
+            this.preference['maxheight'] = null;
+            this.showNextStep(8);
         }
         if (type == 'haircolor') {
             this.preference['haircolor'] = null;
-            this.showNextStep(10);
+            this.showNextStep(9);
         }
         if (type == 'bodyshape') {
             this.preference['bodyshape'] = null;
-            this.showNextStep(11);
-        }
-        if (type == 'maritalStatus') {
-            this.preference['maritalStatus'] = null;
-            this.preference['haveChildren'] = null;
-            this.showNextStep(12);
-        }
-        if (type == 'smoke') {
-            this.preference['smoke'] = null;
-            this.showNextStep(13);
-        }
-        if (type == 'drink') {
-            this.preference['drink'] = null;
-            this.showNextStep(14);
-        }
-        if (type == 'edu') {
-            this.preference['qualification'] = null;
-            this.showNextStep(15);
-        }
-        if (type == 'prof') {
-            this.preference['profession'] = null;
-            this.activateAccount();
-            this.showNextStep(16);
+            this.showNextStep(10);
         }
     }
 
@@ -377,9 +293,9 @@ export class StepPage {
             }
         })
     }
-
-    /*private goToLoginPage(){
+   
+    private goToLoginPage(){
     this.nav.setRoot(LoginPage);
-    }*/
+    }
 
 }
