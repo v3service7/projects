@@ -1,0 +1,57 @@
+page-driver-detail {
+    div.item-inner{
+        padding : 0 !important;
+        border : none !important;
+
+    }
+
+    ion-badge{
+        margin : 0 !important;
+        background-color: #32db64 !important;
+    }
+
+    .headingClass{
+        background: lightgray;
+        margin-bottom: 2%;
+        font-weight: 500;
+    }
+
+    .headingClass .item-inner{
+        border: none;
+    }
+
+    .summaryClass{
+        padding: 4% 0;
+        background: white;
+    }
+
+    .amountDescription{
+        padding-top: 5%;
+        font-size: 12px;
+    }
+
+    .borderRight{
+        border-right: 1px solid lightgray
+    }
+
+    .fontWeight500{
+        font-weight : 500;
+    }
+
+    .paddingBottom3{
+        padding-bottom : 3%;
+    }
+
+    .font14px{
+        font-size : 14px;
+    }
+
+    .whiteSpaceInitial{
+        white-space: initial;
+    }
+
+    .iconClass{
+        position: absolute;
+        right: 16px;
+    }
+}

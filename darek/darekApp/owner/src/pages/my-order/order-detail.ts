@@ -16,34 +16,6 @@ import { AssignOrderPage } from './assign-order';
 @Component({
   selector: 'page-order-detail',
   templateUrl: 'order-detail.html',
-  styles: [` 
-  ion-item{     
-  padding-left: 0px !important ;    
-    } 
-    p{
-        margin-bottom: 10px;
-    }
-    .white{
-        color:#fff;
-    }
-    ion-label {
-        margin: 0px !important;
-    }
-    .label-ios {
-        margin: 0px !important;
-    }
-    .label-md {
-        margin: 0px !important;
-    }
-    .wrap{
-        white-space: normal;
-    }
-    .statusButton{
-        height: auto;
-        padding: 5%;
-        font-size: 10px;
-    }
-    `],
 })
 export class OrderDetailPage {
 

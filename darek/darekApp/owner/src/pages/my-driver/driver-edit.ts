@@ -4,6 +4,7 @@ import { ModalController,ToastController, LoadingController, Nav, IonicPage, Nav
 import { OrderService, RestaurantsService, DriversService } from '../../app/service/index';
 
 import { MyDriverPage } from './my-driver';
+import { DriverDetailPage } from './driver-detail';
 
 /**
  * Generated class for the Add Driver page.
@@ -53,12 +54,6 @@ import { MyDriverPage } from './my-driver';
         });
     }
 
-    private getDriver() {
-        this.restaurantsService.getOwnerRestaurants(JSON.parse(localStorage.getItem('currentOwner'))._id).subscribe(users => {
-            this.restaurants = users.message;
-        });
-    }
-
     private updatedriver() {
         let loading = this.loadingCtrl.create({
             content: 'Please wait...'
@@ -68,15 +63,11 @@ import { MyDriverPage } from './my-driver';
         this.driversService.updateDriver(this.updateDriver.value).subscribe(
             (data) => {
                 loading.dismiss();
-                this.navCtrl.setRoot(MyDriverPage);
+                this.navCtrl.pop(DriverDetailPage);
                 this.getToast('Driver Updated successfully')
 
             }
         );
-    }
-
-    private goToLogin(){
-        this.navCtrl.setRoot(MyDriverPage);
     }
 
     private getToast(msg){
@@ -87,7 +78,6 @@ import { MyDriverPage } from './my-driver';
         });
         toast.present();
     }
-
 
     ionViewDidLoad() {
         console.log('ionViewDidLoad Add Driver');

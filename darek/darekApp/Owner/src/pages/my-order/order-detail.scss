@@ -17,13 +17,14 @@ page-order-detail {
     .label-md {
         margin: 0px !important;
     }
-    .wrap{
-        white-space: normal;
-    }
     .statusButton{
         height: auto;
         padding: 5% !important;
         font-size: 10px;
+    }
+
+    .wrap{
+        white-space: normal;
     }
 
     .changeOrderStatus{

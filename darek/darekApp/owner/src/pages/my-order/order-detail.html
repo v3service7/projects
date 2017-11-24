@@ -10,14 +10,18 @@
 </ion-header>
 
 <ion-content padding>
+    
     <ion-card>
         <ion-card-header>
             Order Status
         </ion-card-header>
         <ion-card-content>
-            <h2>{{selectedOrder.status}}</h2>
+            <div>
+                {{selectedOrder.status}}
+                <span *ngIf ="selectedOrder.status == 'Accepted' && selectedOrder.orderMethod && selectedOrder.orderMethod.mType == 'Pickup'" float-right class="changeOrderStatus" (click)="changeStatus()">change</span>
+            </div>
+
             <div *ngIf="selectedOrder.status == 'Received'">
-                <!-- <div> -->
                 <button ion-button icon-only color="secondary" class="statusButton" (click)="acceptPrompt(selectedOrder,'Accepted')">
                     <ion-icon name="checkmark" ios="ios-checkmark" md="md-checkmark"> Accept</ion-icon>
                 </button>
@@ -25,11 +29,20 @@
                     <ion-icon name="close" ios="ios-close" md="md-close"> Reject</ion-icon>
                 </button>
             </div>
-            <div *ngIf="!selectedOrder.driverId && (selectedOrder.status == 'Accepted'|| selectedOrder.status == 'Driver Rejected') && selectedOrder.orderMethod.mType == 'Delivery'">
+            <div *ngIf="(!selectedOrder.driverStatus || selectedOrder.driverStatus == 'Rejected') && selectedOrder.status == 'Accepted' && selectedOrder.orderMethod.mType == 'Delivery'">
                 <button ion-button full (click)="assignOrder($event,selectedOrder)">
                     <ion-icon name="car" ios="ios-car" md="md-car"></ion-icon> &nbsp; Assign Driver
                 </button>
             </div>
+        </ion-card-content>
+    </ion-card>
+
+    <ion-card *ngIf = "selectedOrder.driverStatus">
+        <ion-card-header>
+            Driver Status
+        </ion-card-header>
+        <ion-card-content>
+            {{selectedOrder.driverStatus}}
         </ion-card-content>
     </ion-card>
 
@@ -61,18 +74,13 @@
 
     <ion-card *ngIf="selectedOrder.driverId">
         <ion-card-header>
-            <ion-list>
-                <ion-item style="background: #e7e7e7;">
-                    Driver Detail
-                    <button  item-end  (click)="assignOrder($event,selectedOrder)">
-                        <ion-icon name="create" ios="ios-create" md="md-create"></ion-icon>
-                    </button>
-                </ion-item>
-            </ion-list>
-
+            Driver Detail
+            <button  item-end  (click)="assignOrder($event,selectedOrder)">
+                <ion-icon name="create" ios="ios-create" md="md-create"></ion-icon>
+            </button>
         </ion-card-header>
         <ion-card-content>
-            <h2>Name : {{selectedOrder.driverId.firstname}} {{selectedOrder.driverId.lastname}}</h2>
+            <h2>{{selectedOrder.driverId.firstname}} {{selectedOrder.driverId.lastname}}</h2>
             <p>Phone No. :{{selectedOrder.driverId.phoneNo}}</p>
             <p>Email : {{selectedOrder.driverId.email}}</p>
             <p>Address : {{selectedOrder.driverId.address}}</p>
