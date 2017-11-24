@@ -17,6 +17,10 @@ body {
     }
 }
 
+.wordBreak{
+    word-break: break-all;
+}
+
 #wrapper {
     padding-left: 0;
 }
@@ -716,4 +720,8 @@ margin-bottom: 36px;
 
 .paddingRight0{
     padding-right: 0;
+}
+
+.width100{
+    width: 100% !important;
 }

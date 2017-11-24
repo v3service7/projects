@@ -3,6 +3,9 @@ import { Router,ActivatedRoute,Params  } from '@angular/router';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { FlashMessagesService } from 'angular2-flash-messages';
 import { PagesService} from '../../services/pages.service';
+import { TinymceModule } from 'angular2-tinymce';
+
+declare var tinymce: any;
 
 @Component({
   selector: 'app-admin-pages',
@@ -179,6 +182,7 @@ export class PagesEditComponent implements OnInit {
         this.planAddForm.valueChanges
             .subscribe(data => this.onValueChanged(data));
         this.onValueChanged();
+
     }
 
     planUpdate(){

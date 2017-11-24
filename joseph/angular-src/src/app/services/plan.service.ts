@@ -15,8 +15,14 @@ export class PlanService {
     }
 
     loadToken(){
-        const token = localStorage.getItem('id_token_admin');
-        this.authToken = token;
+        if(localStorage.getItem('id_token_admin')){
+            const token = localStorage.getItem('id_token_admin');
+                this.authToken = token;
+        }
+        if(localStorage.getItem('id_token')){
+            const token = localStorage.getItem('id_token');
+                this.authToken = token;
+        }
     }
 
     public planList(){

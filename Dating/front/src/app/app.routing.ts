@@ -1,104 +1,116 @@
-﻿import { Routes, RouterModule } from '@angular/router';
-
-import { DashboardComponent } from './dashboard/dashboard.component';
-import { UsersComponent, UsersupdateComponent, UsersaddComponent} from './users/index';
-import { PageComponent,PagelistComponent,PageaddComponent,PageupdateComponent } from './page/page.component';
-import { CountryComponent,CountrylistComponent,CountryaddComponent,CountryupdateComponent } from './country/country.component';
-import { PromotionComponent,PromotionlistComponent,PromotionaddComponent,PromotionupdateComponent } from './promotion/promotion.component';
-import { BannerComponent,BannerlistComponent,BanneraddComponent,BannerupdateComponent} from './banner/banner.component'
-import { BannerTimeComponent,BannerlistTimeComponent,BanneraddTimeComponent,BannerupdateTimeComponent, BanneraddTimeImageComponent} from './bannersetting/banner.component'
-import { PackageComponent,PackagelistComponent,PackageaddComponent,PackageupdateComponent } from './package/package.component'
-import { HomeComponent } from './home/home.component';
-import { ProfileComponent,AdminChangePasswordComponent } from './profile/profile.component';
-import { LoginComponent,UserRegistrationComponent } from './login/login.component';
-import { AdminLoginComponent,AdminRegistrationComponent, AdminResetPasswordComponent} from './admin-login/admin-login.component';
-import { CustomerComponent,CustomerlistComponent,CustomeraddComponent,CustomerupdateComponent, AdminShowBlockedUserComponent,AdminViewAbuseReportComponent } from './customer/customer.component';
-import { AuthGuard,CustomerAuthGuard } from './guards/index';
-import { FrontendComponent,FrontenddashboardComponent,FrontendProfileComponent, FrontendPageComponent,FrontendCustomerAccountComponent,FrontendCustomerViewsComponent, FrontendPublicProfileComponent, FrontendAllProfileComponent,FrontendFriendComponent, FrontendCustomerMessageComponent, FrontendVideoCallComponent, FrontendLiveNowComponent, FrontendLiveNowListComponent , CustomermailactivateComponent, CustomerResetPasswordComponent, FrontendContactUsComponent, FrontendReportComponent, FrontendSpeedDatingComponent, FrontenNotificationsComponent} from './frontend/frontend.component';
+import { BrowserModule } from '@angular/platform-browser';
+import { NgModule } from '@angular/core';
+import { Routes, RouterModule } from '@angular/router';
+import { AuthGuard,CustomerAuthGuard} from './guards/index';
 
 
-const appRoutes: Routes = [
-	{ path: 'home', component: HomeComponent, canActivate: [AuthGuard]  },
-    { path: '', component: LoginComponent },    
-    { path: 'login', component: LoginComponent },
-    { path: 'admin', component: AdminLoginComponent },
-    { path: 'admin/login', component: AdminLoginComponent },
-    { path: 'admin/profile', component: ProfileComponent, canActivate: [AuthGuard]  },
-  	{ path: 'userRegistration', component: UserRegistrationComponent, canActivate: [] },
-    { path: 'admin/signup', component: AdminRegistrationComponent, canActivate: [] },
-    { path: 'admin/changepassword/:id', component: AdminChangePasswordComponent, canActivate: [] },
-    { path: 'admin/blockeduser/:id', component: AdminShowBlockedUserComponent, canActivate: [] },
-    { path: 'admin/viewabusereport/:id', component: AdminViewAbuseReportComponent, canActivate: [] },
+/*Admin*/
 
-    { path: 'admin/reset-password/:id', component: AdminResetPasswordComponent},
-    { path: 'admin/dashboard', component: DashboardComponent, canActivate: [AuthGuard]  },  	
-    { path: 'admin/users', component: UsersComponent, canActivate: [AuthGuard] },
-  	{ path: 'admin/users/:id', component: UsersupdateComponent, canActivate: [AuthGuard]  },
-  	{ path: 'admin/user/add', component: UsersaddComponent, canActivate: [AuthGuard]  },  
-    	
-    { path: 'admin/promotion', component: PromotionComponent, canActivate: [AuthGuard],children :[
-        { path: 'list', component: PromotionlistComponent, canActivate: [AuthGuard]  },
-        { path: 'add', component: PromotionaddComponent, canActivate: [AuthGuard]  },
-        { path: 'edit/:id', component: PromotionupdateComponent, canActivate: [AuthGuard]  },
-    ]},
-    { path: 'admin/page', component: PageComponent, canActivate: [AuthGuard],children :[
-      { path: 'list', component: PagelistComponent, canActivate: [AuthGuard]  },
-        { path: 'add', component: PageaddComponent, canActivate: [AuthGuard]  },
-        { path: 'edit/:id', component: PageupdateComponent, canActivate: [AuthGuard]  },
-    ]},
-    { path: 'admin/country', component: CountryComponent, canActivate: [AuthGuard],children :[
-      { path: 'list', component: CountrylistComponent, canActivate: [AuthGuard]  },
-        { path: 'add', component: CountryaddComponent, canActivate: [AuthGuard]  },
-        { path: 'edit/:id', component: CountryupdateComponent, canActivate: [AuthGuard]  },
-    ]},
-    { path: 'admin/customer', component: CustomerComponent, canActivate: [AuthGuard],children :[
-      { path: 'list', component: CustomerlistComponent, canActivate: [AuthGuard]  },
-        { path: 'add', component: CustomeraddComponent, canActivate: [AuthGuard]  },
-        { path: 'edit/:id', component: CustomerupdateComponent, canActivate: [AuthGuard]  },
-    ]},
-    { path: 'admin/banner', component: BannerComponent, canActivate: [AuthGuard],children :[
-      { path: 'list', component: BannerlistComponent, canActivate: [AuthGuard]  },
-        { path: 'add', component: BanneraddComponent, canActivate: [AuthGuard]  },        
-        { path: 'edit/:id', component: BannerupdateComponent, canActivate: [AuthGuard]  },
-    ]},
-    { path: 'admin/bannersetting', component: BannerTimeComponent, canActivate: [AuthGuard],children :[
-      { path: 'list', component: BannerlistTimeComponent, canActivate: [AuthGuard]  },
-        { path: 'add', component: BanneraddTimeComponent, canActivate: [AuthGuard]  },        
-        { path: 'addimage', component: BanneraddTimeImageComponent, canActivate: [AuthGuard]  },        
-        { path: 'edit/:id', component: BannerupdateTimeComponent, canActivate: [AuthGuard]  },
-    ]},
+import { AdminCommonComponent } from './admin/common/common.component';
+import { AdminLoginComponent,AdminRegistrationComponent, AdminResetPasswordComponent} from './admin/admin-login/admin-login.component';
+import { ProfileComponent,AdminChangePasswordComponent } from './admin/profile/profile.component';
+import { DashboardComponent } from './admin/dashboard/dashboard.component';
+import { UsersComponent, UsersupdateComponent, UsersaddComponent} from './admin/users/users.component';
+import { CustomerComponent,CustomerlistComponent,CustomeraddComponent,CustomerupdateComponent, AdminShowBlockedUserComponent,AdminViewAbuseReportComponent } from './admin/customer/customer.component';
+import { PackageComponent,PackagelistComponent,PackageaddComponent,PackageupdateComponent } from './admin/package/package.component';
+import { BannerComponent,BannerlistComponent,BanneraddComponent,BannerupdateComponent} from './admin/banner/banner.component';
+import { BannerTimeComponent,BannerlistTimeComponent,BanneraddTimeComponent,BanneraddTimeImageComponent} from './admin/bannersetting/banner.component';
+import { PageComponent,PagelistComponent,PageaddComponent,PageupdateComponent } from './admin/page/page.component';
+import { CountryComponent,CountrylistComponent,CountryaddComponent} from './admin/country/country.component';
 
-    { path: 'admin/package', component: PackageComponent, canActivate: [AuthGuard],children :[
-      { path: 'list', component: PackagelistComponent, canActivate: [AuthGuard]  },
-        { path: 'add', component: PackageaddComponent, canActivate: [AuthGuard]  },
-        { path: 'edit/:id', component: PackageupdateComponent, canActivate: [AuthGuard]  },
-    ]},
-    
-    
-    { path: 'customer', component: FrontendComponent,children :[
-        { path: 'dashboard', component: FrontenddashboardComponent,canActivate: [CustomerAuthGuard] },
-        { path: 'profile', component: FrontendProfileComponent,canActivate: [CustomerAuthGuard] },
-        { path: 'my-account', component: FrontendCustomerAccountComponent,canActivate: [CustomerAuthGuard] },
-        { path: 'my-views', component: FrontendCustomerViewsComponent,canActivate: [CustomerAuthGuard] },
-        { path: 'message', component: FrontendCustomerMessageComponent,canActivate: [CustomerAuthGuard] },   
-        { path: 'friend', component: FrontendFriendComponent,canActivate: [CustomerAuthGuard] },     
-        { path: 'allprofile', component: FrontendAllProfileComponent,canActivate: [CustomerAuthGuard] },
-        { path: 'notifications', component: FrontenNotificationsComponent,canActivate: [CustomerAuthGuard] },
-        { path: 'publicprofile/:vid', component: FrontendPublicProfileComponent, canActivate: [CustomerAuthGuard] },
-        { path: 'page/:page', component: FrontendPageComponent },
-        { path: 'speeddating', component: FrontendSpeedDatingComponent },
-        { path: 'video-call/:sessionid/:tokenid/:connectedTo', component: FrontendVideoCallComponent, canActivate: [CustomerAuthGuard] },
-        { path: 'live-now/:sessionid/:tokenid', component: FrontendLiveNowComponent, canActivate: [CustomerAuthGuard] },
-        { path: 'live-now-list', component: FrontendLiveNowListComponent, canActivate: [CustomerAuthGuard] },
-        { path: 'mailactivate/:activationid', component: CustomermailactivateComponent},
-        { path: 'reset-password/:id', component: CustomerResetPasswordComponent},
-        { path: 'contactus', component: FrontendContactUsComponent},
-        { path: 'report', component: FrontendReportComponent, canActivate: [CustomerAuthGuard] },
 
-        
-    ]},
-  	
-    { path: '**', redirectTo: '' }
-];
+
+/* Customer Component*/
+import { LoginComponent} from './frontend/login/login.component';
+import { FrontendCommonComponent } from './frontend/common/common.component';
+import { ActivateAccountComponent } from './frontend/activateaccount/activateaccount.component';
+import { CustomerCommonComponent } from './frontend/customer/customer.component';
+import { CustomerProfileComponent } from './frontend/customer/profile/profile.component';
+import { CustomerProfilesListComponent } from './frontend/customer/profiles-list/profile-list.component';
+import { PublicProfileComponent } from './frontend/customer/public-profile/public-profile.component';
+import { VideoCallComponent } from './frontend/customer/video-call/video-call.component';
+import { SpeedDatingComponent } from './frontend/customer/speed-dating/speed-dating.component';
+import { ContactUsComponent } from './frontend/customer/contact-us/contact-us.component';
+import { FrontendPageComponent } from './frontend/customer/page/page.component';
+import { ResetPasswordComponent } from './frontend/reset-password/reset-password.component';
+
+
+import { AppComponent } from './app.component';
+
+
+
+
+
+const appRoutes: Routes =   [{ path: '', component: LoginComponent }, 
+
+                            { path: 'admin', component: AdminCommonComponent, children : [ 
+							{ path: '', component: AdminLoginComponent},
+							{ path: 'register', component: AdminRegistrationComponent},
+							{ path: 'resetpassword/:id', component: AdminResetPasswordComponent},
+							{ path: 'profile', component: ProfileComponent, canActivate: [AuthGuard]  },
+    						{ path: 'changepassword/:id', component: AdminChangePasswordComponent, canActivate: [] },
+							{ path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard]},
+
+
+							{ path: 'users', component: UsersComponent, canActivate: [AuthGuard] },
+							{ path: 'users/:id', component: UsersupdateComponent, canActivate: [AuthGuard]  },
+							{ path: 'user/add', component: UsersaddComponent, canActivate: [AuthGuard]  },
+
+							{ path: 'customer', component: CustomerComponent, canActivate: [AuthGuard], children :[                             
+							{ path: 'list', component: CustomerlistComponent, canActivate: [AuthGuard]  },
+							{ path: 'add', component: CustomeraddComponent, canActivate: [AuthGuard]  },
+							{ path: 'edit/:id', component: CustomerupdateComponent, canActivate: [AuthGuard]  },
+							{ path: 'blockeduser/:id', component: AdminShowBlockedUserComponent, canActivate: [] },
+							{ path: 'viewabusereport/:id', component: AdminViewAbuseReportComponent, canActivate: [] },
+							]},
+
+							{ path: 'package', component: PackageComponent, canActivate: [AuthGuard],children :[
+							{ path: 'list', component: PackagelistComponent, canActivate: [AuthGuard]  },
+							{ path: 'add', component: PackageaddComponent, canActivate: [AuthGuard]  },
+							{ path: 'edit/:id', component: PackageupdateComponent, canActivate: [AuthGuard]  },
+							]},	
+
+							{ path: 'banner', component: BannerComponent, canActivate: [AuthGuard],children :[
+							{ path: 'list', component: BannerlistComponent, canActivate: [AuthGuard]  },
+							{ path: 'add', component: BanneraddComponent, canActivate: [AuthGuard]  },        
+							{ path: 'edit/:id', component: BannerupdateComponent, canActivate: [AuthGuard]  },
+							]},
+
+							{ path: 'bannersetting', component: BannerTimeComponent, canActivate: [AuthGuard],children :[
+							{ path: 'list', component: BannerlistTimeComponent, canActivate: [AuthGuard]  },
+							{ path: 'add', component: BanneraddTimeComponent, canActivate: [AuthGuard]  },        
+							{ path: 'addimage', component: BanneraddTimeImageComponent, canActivate: [AuthGuard]}
+							]},
+
+							{ path: 'page', component: PageComponent, canActivate: [AuthGuard],children :[
+							{ path: 'list', component: PagelistComponent, canActivate: [AuthGuard]  },
+							{ path: 'add', component: PageaddComponent, canActivate: [AuthGuard]  },
+							{ path: 'edit/:id', component: PageupdateComponent, canActivate: [AuthGuard]  },
+							]},
+
+							{ path: 'country', component: CountryComponent, canActivate: [AuthGuard],children :[
+							{ path: 'list', component: CountrylistComponent, canActivate: [AuthGuard]  },
+							{ path: 'add', component: CountryaddComponent, canActivate: [AuthGuard]  }
+							]},]},
+
+							{ path: 'frontend', component: FrontendCommonComponent, children : [
+ 							{ path: '', component: LoginComponent},
+ 							{ path: 'activate-account/:activationid', component: ActivateAccountComponent},
+							]}, 
+
+                            { path: 'customer', component: CustomerCommonComponent, children : [
+                            { path: '', component: LoginComponent},
+                            { path: 'profile', component: CustomerProfileComponent, canActivate: [CustomerAuthGuard]},
+                            { path: 'public-profile/:vid', component: PublicProfileComponent, canActivate: [CustomerAuthGuard]},
+						    { path: 'profiles-list', component: CustomerProfilesListComponent, canActivate: [CustomerAuthGuard]},
+                            { path: 'video-call/:sessionid/:tokenid/:connectedTo', component: VideoCallComponent, canActivate: [CustomerAuthGuard] },
+		                    { path: 'speeddating', component: SpeedDatingComponent,canActivate: [CustomerAuthGuard] },
+		                    { path: 'contactus', component: ContactUsComponent },
+		                    { path: 'page/:page', component: FrontendPageComponent },
+		                    { path: 'reset-password/:id', component: ResetPasswordComponent}
+							]},
+
+							{ path: '**', redirectTo: '' }];
+
 
 export const routing = RouterModule.forRoot(appRoutes);

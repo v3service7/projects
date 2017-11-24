@@ -189,15 +189,8 @@ export class FrontendPromoDetailComponent implements OnInit {
     date : any;
     time : any;
     day : any;
-    mandDefaultCount: number=0;
-    mandCheckedCount: boolean;
-    mandStatus: boolean=true;
-    mand: number = 0;
     tempGroup=[];
-    mandatoryItemId=[];
-    mandatoryItemIdList=[];
     detailShow: String;
-    /*spicyLevel: String = '0%';*/
     promotionStorage : string;
     customerStorage : string;
     cartStorage : string;
@@ -216,6 +209,11 @@ export class FrontendPromoDetailComponent implements OnInit {
     promoGroup: any;
     currentCustomerId: any;
     currentCustomer: any;
+
+
+    mandatoryItemId=[];
+    mandatoryItemArray=[];
+    requiredAddonArray : any;
 
     imageURL: string = globalVariable.imageUrl;
 
@@ -301,31 +299,17 @@ export class FrontendPromoDetailComponent implements OnInit {
         if (group == 'ig2') {
             menu = '#menuItem_ig2_' + id;
         }
+
+        console.log("menu");
+        console.log(menu);
         /*$(menu).attr("tabindex",1).focus();*/
 
         var $target = $(menu);
         let top = $target.offset().top;
         $('html, body').stop().animate({
-            'scrollTop': top
-        }, 900, 'swing', function () {
-            window.location.hash = menu;
-        });
+            'scrollTop': top-65
+        }, 900);
     }
-
-    /*private showThisMenuItems(id, type){
-        if (type == 'ig2') {
-            var id1 = 'menuItem_ig2_'+id;
-            $('#'+id1).toggle();   
-        }
-        if (type == 'ig1') {
-            var id1 = 'menuItem_ig1_'+id;
-            $('#'+id1).toggle();   
-        }
-    }*/
-
-    /*private spicylevel(num){
-        this.spicyLevel = num;
-    }*/
 
     private getCurrentCustomer(id){
         this.customerService.getOneCustomer(id).subscribe(
@@ -529,34 +513,33 @@ export class FrontendPromoDetailComponent implements OnInit {
 
     private loadThisItem(itemSent){
         this.mandatoryItemId = [];
-        this.mandDefaultCount = 0;
-        if (itemSent.options.length > 0) {
+        this.mandatoryItemArray = [];
+        delete this.requiredAddonArray;
+
+        if (itemSent.options && itemSent.options.length > 0) {
             for (var j = 0; j < itemSent.options.length; j++) {
-                if (itemSent.options[j].groupType) {
-                    if (itemSent.options[j].groupType.gType == 'mandatory') {
-                        this.mandDefaultCount++;
-                    }
+                if (itemSent.options[j].groupType && itemSent.options[j].groupType.gType == 'mandatory') {
+                    this.mandatoryItemId.push(itemSent.options[j]);
+                    var obj = {};
+                    obj['min'] = itemSent.options[j].groupType.min;
+                    obj['max'] = itemSent.options[j].groupType.max;
+                    obj['total'] = 0;
+                    this.mandatoryItemArray[itemSent.options[j]._id] = obj;
                 }
+
+                console.log("this.mandatoryItemId");
+                console.log(this.mandatoryItemId);
             }
-        }else{
-            this.mandCheckedCount = true;
         }
     }
 
     private showDetail(itemObj,itemMultiSizeObj) {
-        /*this.spicyLevel = '0%';*/
 
         $("div[id^='changeBg_']").removeClass('changeBg');
         $('#changeBg_ig1_'+itemObj._id).addClass('changeBg');
         $('#changeBg_ig2_'+itemObj._id).addClass('changeBg');
 
-        this.mandCheckedCount = false;
         this.loadThisItem(itemObj);
-
-        if (this.mandDefaultCount == 0) {
-            this.mandCheckedCount = true;
-        }
-
 
         this.detailShow = itemObj._id;
         this.multiSizePrice = 0;
@@ -586,10 +569,14 @@ export class FrontendPromoDetailComponent implements OnInit {
         this.detailShow=''; 
         this.addonUncheck();
         $("div[id^='changeBg_']").removeClass('changeBg');
+
+        delete this.requiredAddonArray;
+        delete this.mandatoryItemId;
+        delete this.mandatoryItemArray;
     }
 
     private addonUncheck(){
-        $('.subAddOnDetail').css('background','white');
+        $('.subAddOnDetail').css('background','');
         $('.subAddOnDetail').attr('data-addon','check');
     }
 
@@ -601,67 +588,9 @@ export class FrontendPromoDetailComponent implements OnInit {
         this.orderItem.quantity = this.quantity;
     }
 
-    private mandatory(data, option, group,type){
-        if (group.groupType.gType == "mandatory") {
-            var num = 0;
-            var manda = [];
-            for (var j = 0; j < data.length; j++) {
-                num = data.reduce(function (n, x) {
-                    return n + (x.groupId == group._id);
-                }, 0);
-            }
-            manda[group._id] = num;
-
-            this.mand = 0;
-                if (type == 'add') {                    
-                    if((group.groupType.min <= num) && (group.groupType.max >= num)) {
-                        this.mand ++;
-                        this.addRemoveGroup(type,group._id);
-                    }
-                    else{
-                        type = 'remove'
-                        this.mand --;
-                        this.addRemoveGroup(type,group._id);
-                    }
-                }
-
-                else if (type == 'remove') {                    
-                    if((group.groupType.min <= num) && (group.groupType.max >= num)) {
-                        type = 'add'
-                        this.mand ++;
-                        this.addRemoveGroup(type,group._id);
-                    }
-                    else{
-                        this.mand --;
-                        this.addRemoveGroup(type,group._id);
-                    }
-                }
-            if (this.mand != 1 && this.mandatoryItemId.length != this.mandDefaultCount) {
-                toastr.remove();
-                toastr.warning('Please ensure Minimum and Maximum Addons for this Item',null, {'positionClass' : 'toast-top-full-width'});
-            }
-        }
-    }
-
-    private addRemoveGroup(type,id){
-        if (this.mandatoryItemId.indexOf(id) > -1) {
-            if (type == 'remove') {
-                this.mandatoryItemId.splice(this.mandatoryItemId.indexOf(id), 1);
-            }
-        }
-        else if (type == 'add') {
-            this.mandatoryItemId.push(id);
-        }
-    }
-
     private addonPriceInfo(addonObj,addonDetail,group,option) {
-        if (this.mandDefaultCount != 0) {
-            this.mandCheckedCount = false;
-        }
-        if (this.mandDefaultCount == 0) {
-            this.mandCheckedCount = true;
-        }
-        
+        delete this.requiredAddonArray;
+
         var isCheck = addonDetail.getAttribute('data-addon');
         var id = addonDetail.getAttribute('id');
 
@@ -675,6 +604,10 @@ export class FrontendPromoDetailComponent implements OnInit {
             document.getElementById(id).style.backgroundColor = '#e1eef5';
             document.getElementById(id).setAttribute('data-addon','uncheck');
             addonObj.groupId = groupId;
+
+            if (this.mandatoryItemArray[groupId]) {
+                this.mandatoryItemArray[groupId].total=this.mandatoryItemArray[groupId].total+1;
+            }
 
             if (group.groupType.gType == 'mandatory') {
                 if (group.groupType.min == group.groupType.max && group.groupType.min == '1') {
@@ -694,6 +627,9 @@ export class FrontendPromoDetailComponent implements OnInit {
                                 var idz = tempLocationId+'_'+tempItemId+'_'+this.orderItem.addon[indx]._id;
                                 this.addonPrice = this.addonPrice - parseInt(this.orderItem.addon[indx].price);
                                 this.finalPrice = (this.multiSizePrice + this.price+ this.addonPrice)* this.quantity;
+                                if (this.mandatoryItemArray[groupId]) {
+                                    this.mandatoryItemArray[groupId].total=this.mandatoryItemArray[groupId].total-1;
+                                }
                                 this.orderItem.addon.splice(indx,1);
                                 document.getElementById(idz).style.backgroundColor = '#fff';
                                 document.getElementById(idz).setAttribute('data-addon','check');
@@ -703,16 +639,15 @@ export class FrontendPromoDetailComponent implements OnInit {
                 }
             }
 
-
-
             this.orderItem.addon.push(addonObj);
-            this.mandatory(this.orderItem.addon,option, group,'add');
             this.addonPrice = this.addonPrice + parseInt(addonObj.price);
             this.finalPrice = (this.multiSizePrice + this.price+ this.addonPrice)* this.quantity;
         }else{
+            if (this.mandatoryItemArray[groupId]) {
+                this.mandatoryItemArray[groupId].total=this.mandatoryItemArray[groupId].total-1;
+            }
             var addonIndex = this.orderItem.addon.findIndex(item => item._id == addonObj._id);
             this.orderItem.addon.splice(addonIndex, 1);
-            this.mandatory(this.orderItem.addon,option, group,'remove');
             document.getElementById(id).style.backgroundColor = '#fff';
             document.getElementById(id).setAttribute('data-addon','check');
             this.addonPrice = this.addonPrice - parseInt(addonObj.price);
@@ -720,10 +655,6 @@ export class FrontendPromoDetailComponent implements OnInit {
         }
         this.orderItem.totalPrice = this.finalPrice;
         this.orderItem.quantity = this.quantity;
-
-        if (this.mand == 1 && this.mandatoryItemId.length == this.mandDefaultCount) {
-            this.mandCheckedCount = true;
-        }
     }
 
     private addToCart(id,type) {
@@ -745,104 +676,135 @@ export class FrontendPromoDetailComponent implements OnInit {
     private addCart(id,type){
         var discountOn = this.promotion.discountOn;
 
-        if (type == 'itemG1') {
+        $('.errMsgDiv').hide();
+        this.requiredAddonArray = [];
 
-            var id1 = 'Location_' + id + '_specialInstructionIG1';
-            var idG1 = <HTMLInputElement>document.getElementById(id1);
-            this.orderItem['itemInstruction'] = idG1.value;
-            /*this.orderItem['spicyLevel'] = this.spicyLevel;
-            this.spicyLevel = '0%';*/
-
-            if (typeof discountOn[1] == 'undefined') {
-                var discountedPrice = ((100 - this.promotion.discountPercent)/100)*this.orderItem.totalPrice;
-                this.orderItem.totalPrice = discountedPrice;
-                this.promotionItem['itemGroup1'] = this.orderItem;
-                this.promotionItem['total'] = this.orderItem.totalPrice;
-                this.promoGroup = this.promotionItem;
-                localStorage.setItem(this.promotionStorage, JSON.stringify(this.promoGroup));
-                localStorage.removeItem(this.coupon);
-                toastr.remove();
-                toastr.success("Deal Added",null, {'positionClass' : 'toast-top-full-width'});
-                this.router.navigate(['/frontend',this.restaurants._id]);
-                this.orderItem = {}
-                this.hideDiv();
-            }
-            
-            if (typeof discountOn[1] != 'undefined' && discountOn[1]['itemGroup2'].length > 0 && (this.promotionItem['itemGroup2'] == null || typeof this.promotionItem['itemGroup2'] == 'undefined')) {
-                this.promotionItem['itemGroup1'] = this.orderItem;
-                toastr.remove();
-                toastr.warning("Please select another item to get this deal",null, {'positionClass' : 'toast-top-full-width'});
-                this.orderItem = {}
-                this.hideDiv();
-                this.selectItem(2);
-            }
-
-
-            if (typeof discountOn[1] != 'undefined' && discountOn[1]['itemGroup2'].length > 0 && (this.promotionItem['itemGroup2'] != null || typeof this.promotionItem['itemGroup2'] != 'undefined')) {
-                this.promotionItem['itemGroup1'] = this.orderItem;
-                if (this.promotionItem['itemGroup1'].totalPrice <= this.promotionItem['itemGroup2'].totalPrice) {
-                    var discountedPrice = ((100 - this.promotion.discountPercent)/100)*this.promotionItem['itemGroup1'].totalPrice;
-                    this.promotionItem['itemGroup1'].totalPrice = discountedPrice;
-                    this.promotionItem['total'] = this.promotionItem['itemGroup1'].totalPrice + this.promotionItem['itemGroup2'].totalPrice;
+        var count = 0
+        if (this.mandatoryItemId.length > 0) {
+            for (var i = 0; i < this.mandatoryItemId.length; i++) {
+                let id : String;
+                if (type == 'itemG1') {
+                    id = '#group_ig1_'+this.mandatoryItemId[i]._id;
                 }else{
-                    var discountedPrice = ((100 - this.promotion.discountPercent)/100)*this.promotionItem['itemGroup2'].totalPrice;
-                    this.promotionItem['itemGroup2'].totalPrice = discountedPrice;
-                    this.promotionItem['total'] = this.promotionItem['itemGroup1'].totalPrice + this.promotionItem['itemGroup2'].totalPrice;
+                    id = '#group_ig2_'+this.mandatoryItemId[i]._id;
                 }
-
-                this.promoGroup = this.promotionItem;
-
-                localStorage.setItem(this.promotionStorage, JSON.stringify(this.promoGroup));
-                localStorage.removeItem(this.coupon);
-                toastr.remove();
-                toastr.success("Deal Added",null, {'positionClass' : 'toast-top-full-width'});
-
-                this.router.navigate(['/frontend',this.restaurants._id]);
-                this.orderItem = {}
-                this.hideDiv();
-
+                if (this.mandatoryItemArray[this.mandatoryItemId[i]._id].total >= parseInt(this.mandatoryItemArray[this.mandatoryItemId[i]._id].min) && this.mandatoryItemArray[this.mandatoryItemId[i]._id].total <= parseInt(this.mandatoryItemArray[this.mandatoryItemId[i]._id].max) ) {
+                    $(id + ' div.subAddOn').removeClass('errBoxShadow');
+                    $(id + ' div.subAddOnDetail').removeClass('errBackground');
+                    count++;
+                }else{
+                    count--;
+                    $(id + ' div.subAddOn').addClass('errBoxShadow');
+                    $(id + ' div.subAddOnDetail').addClass('errBackground');
+                    this.requiredAddonArray.push(this.mandatoryItemId[i]);
+                }
             }
         }
 
-        if (type == 'itemG2') {
-
-            var id2 = 'Location_' + id + '_specialInstructionIG2';
-            var idG2 = <HTMLInputElement>document.getElementById(id2);
-            this.orderItem['itemInstruction'] = idG2.value;
-            
-            /*this.orderItem['spicyLevel'] = this.spicyLevel;
-            this.spicyLevel = '0%';*/
-
-            this.promotionItem['itemGroup2'] = this.orderItem;
-
-            if (typeof discountOn[0] != 'undefined' && discountOn[0]['itemGroup1'].length > 0 && (this.promotionItem['itemGroup1'] == null || typeof this.promotionItem['itemGroup1'] == 'undefined')) {
-                toastr.remove();
-                toastr.warning("Please select another item to get this deal",null, {'positionClass' : 'toast-top-full-width'});
-                this.orderItem = {}
-                this.hideDiv();
-                this.selectItem(1);
-            }
-            if (typeof discountOn[0] != 'undefined' && discountOn[0]['itemGroup1'].length > 0 && (this.promotionItem['itemGroup1'] != null || typeof this.promotionItem['itemGroup1'] != 'undefined')) {
-                if (this.promotionItem['itemGroup1'].totalPrice <= this.promotionItem['itemGroup2'].totalPrice) {
-                    var discountedPrice = ((100 - this.promotion.discountPercent)/100)*this.promotionItem['itemGroup1'].totalPrice;
-                    this.promotionItem['itemGroup1'].totalPrice = discountedPrice;
-                    this.promotionItem['total'] = this.promotionItem['itemGroup1'].totalPrice + this.promotionItem['itemGroup2'].totalPrice;
-                }else{
-                    var discountedPrice = ((100 - this.promotion.discountPercent)/100)*this.promotionItem['itemGroup2'].totalPrice;
-                    this.promotionItem['itemGroup2'].totalPrice = discountedPrice;
-                    this.promotionItem['total'] = this.promotionItem['itemGroup1'].totalPrice + this.promotionItem['itemGroup2'].totalPrice;
-                }
-                this.promoGroup = this.promotionItem;
-                localStorage.setItem(this.promotionStorage, JSON.stringify(this.promoGroup));
-                localStorage.removeItem(this.coupon);
-
-                toastr.remove();
-                toastr.success("Deal Added",null, {'positionClass' : 'toast-top-full-width'});
-                this.router.navigate(['/frontend',this.restaurants._id]);
-                this.orderItem = {}
-                this.hideDiv();
-            }
+        if (this.requiredAddonArray.length > 0) {
+            $('.errMsgDiv').fadeIn(1500);
+            setTimeout(()=>{            
+                $('.errMsgDiv').fadeOut(3000);
+                //delete this.requiredAddonArray;
+            },30000);
         }
+
+        setTimeout(()=>{
+            if (count == this.mandatoryItemId.length){
+                if (type == 'itemG1') {
+                    var id1 = 'Location_' + id + '_specialInstructionIG1';
+                    var idG1 = <HTMLInputElement>document.getElementById(id1);
+                    this.orderItem['itemInstruction'] = idG1.value;
+
+                    if (typeof discountOn[1] == 'undefined') {
+                        var discountedPrice = ((100 - this.promotion.discountPercent)/100)*this.orderItem.totalPrice;
+                        this.orderItem.totalPrice = discountedPrice;
+                        this.promotionItem['itemGroup1'] = this.orderItem;
+                        this.promotionItem['total'] = this.orderItem.totalPrice;
+                        this.promoGroup = this.promotionItem;
+                        localStorage.setItem(this.promotionStorage, JSON.stringify(this.promoGroup));
+                        localStorage.removeItem(this.coupon);
+                        toastr.remove();
+                        toastr.success("Deal Added",null, {'positionClass' : 'toast-top-full-width'});
+                        this.router.navigate(['/frontend',this.restaurants._id]);
+                        this.orderItem = {}
+                        this.hideDiv();
+                    }
+                    
+                    if (typeof discountOn[1] != 'undefined' && discountOn[1]['itemGroup2'].length > 0 && (this.promotionItem['itemGroup2'] == null || typeof this.promotionItem['itemGroup2'] == 'undefined')) {
+                        this.promotionItem['itemGroup1'] = this.orderItem;
+                        toastr.remove();
+                        toastr.warning("Please select another item to get this deal",null, {'positionClass' : 'toast-top-full-width'});
+                        this.orderItem = {}
+                        this.hideDiv();
+                        this.selectItem(2);
+                    }
+
+
+                    if (typeof discountOn[1] != 'undefined' && discountOn[1]['itemGroup2'].length > 0 && (this.promotionItem['itemGroup2'] != null || typeof this.promotionItem['itemGroup2'] != 'undefined')) {
+                        this.promotionItem['itemGroup1'] = this.orderItem;
+                        if (this.promotionItem['itemGroup1'].totalPrice <= this.promotionItem['itemGroup2'].totalPrice) {
+                            var discountedPrice = ((100 - this.promotion.discountPercent)/100)*this.promotionItem['itemGroup1'].totalPrice;
+                            this.promotionItem['itemGroup1'].totalPrice = discountedPrice;
+                            this.promotionItem['total'] = this.promotionItem['itemGroup1'].totalPrice + this.promotionItem['itemGroup2'].totalPrice;
+                        }else{
+                            var discountedPrice = ((100 - this.promotion.discountPercent)/100)*this.promotionItem['itemGroup2'].totalPrice;
+                            this.promotionItem['itemGroup2'].totalPrice = discountedPrice;
+                            this.promotionItem['total'] = this.promotionItem['itemGroup1'].totalPrice + this.promotionItem['itemGroup2'].totalPrice;
+                        }
+
+                        this.promoGroup = this.promotionItem;
+
+                        localStorage.setItem(this.promotionStorage, JSON.stringify(this.promoGroup));
+                        localStorage.removeItem(this.coupon);
+                        toastr.remove();
+                        toastr.success("Deal Added",null, {'positionClass' : 'toast-top-full-width'});
+
+                        this.router.navigate(['/frontend',this.restaurants._id]);
+                        this.orderItem = {}
+                        this.hideDiv();
+
+                    }
+                }
+
+                if (type == 'itemG2') {
+                    var id2 = 'Location_' + id + '_specialInstructionIG2';
+                    var idG2 = <HTMLInputElement>document.getElementById(id2);
+                    this.orderItem['itemInstruction'] = idG2.value;
+
+                    this.promotionItem['itemGroup2'] = this.orderItem;
+
+                    if (typeof discountOn[0] != 'undefined' && discountOn[0]['itemGroup1'].length > 0 && (this.promotionItem['itemGroup1'] == null || typeof this.promotionItem['itemGroup1'] == 'undefined')) {
+                        toastr.remove();
+                        toastr.warning("Please select another item to get this deal",null, {'positionClass' : 'toast-top-full-width'});
+                        this.orderItem = {}
+                        this.hideDiv();
+                        this.selectItem(1);
+                    }
+                    if (typeof discountOn[0] != 'undefined' && discountOn[0]['itemGroup1'].length > 0 && (this.promotionItem['itemGroup1'] != null || typeof this.promotionItem['itemGroup1'] != 'undefined')) {
+                        if (this.promotionItem['itemGroup1'].totalPrice <= this.promotionItem['itemGroup2'].totalPrice) {
+                            var discountedPrice = ((100 - this.promotion.discountPercent)/100)*this.promotionItem['itemGroup1'].totalPrice;
+                            this.promotionItem['itemGroup1'].totalPrice = discountedPrice;
+                            this.promotionItem['total'] = this.promotionItem['itemGroup1'].totalPrice + this.promotionItem['itemGroup2'].totalPrice;
+                        }else{
+                            var discountedPrice = ((100 - this.promotion.discountPercent)/100)*this.promotionItem['itemGroup2'].totalPrice;
+                            this.promotionItem['itemGroup2'].totalPrice = discountedPrice;
+                            this.promotionItem['total'] = this.promotionItem['itemGroup1'].totalPrice + this.promotionItem['itemGroup2'].totalPrice;
+                        }
+                        this.promoGroup = this.promotionItem;
+                        localStorage.setItem(this.promotionStorage, JSON.stringify(this.promoGroup));
+                        localStorage.removeItem(this.coupon);
+
+                        toastr.remove();
+                        toastr.success("Deal Added",null, {'positionClass' : 'toast-top-full-width'});
+                        this.router.navigate(['/frontend',this.restaurants._id]);
+                        this.orderItem = {}
+                        this.hideDiv();
+                    }
+                }
+            }
+        },2000)
+
     }
 
     private selectItem(i){
@@ -859,7 +821,7 @@ export class FrontendPromoDetailComponent implements OnInit {
         this.hideDiv();
     }
 
-    private showPos(id, type) {
+    showPos(id, type) {
         if (this.detailShow == id) {
             let divId : String;
             if (type == 'ig1') {
@@ -868,17 +830,19 @@ export class FrontendPromoDetailComponent implements OnInit {
             if (type == 'ig2') {
                 divId = '#changeBg_ig2_'+id
             }
+
             let left = '';
             let itemP = '#itemPop_'+id;
 
-            /*$(itemP).attr("tabindex",1).focus();*/
-            var $target = $(itemP);
+            $(itemP).attr("tabindex",1).focus();
+
+            /*var $target = $(itemP);
             let top = $target.offset().top;
             $('html, body').stop().animate({
                 'scrollTop': top
             }, 20, 'linear', function () {
                 window.location.hash = itemP;
-            });
+            });*/
 
             var offset = $(divId).offset();
 
@@ -886,9 +850,9 @@ export class FrontendPromoDetailComponent implements OnInit {
             
             
             if (offsetLeft < 150) {
-                left = '102%';
+                left = '95%';
             }else{
-                left = '-102%';
+                left = '-95%';
             }
             return left;
         }
@@ -932,18 +896,16 @@ export class FrontendComponent implements OnInit {
     date : any;
     time : any;
     day : any;
-    mandDefaultCount: number=0;
-    mandCheckedCount: boolean;
     offerAvailable: boolean = false;
-    mandStatus: boolean=true;
-    mand: number = 0;
     tempGroup=[];
+
     mandatoryItemId=[];
-    mandatoryItemIdList=[];
+    mandatoryItemArray=[];
 
     spicyArray : any = [1,2,3];
 
-    /*spicyLevel : string = '0%';*/
+    requiredAddonArray : any;
+
     constructor(
         private masterService: MasterService,
         private restaurantsService: RestaurantsService,
@@ -1002,25 +964,14 @@ export class FrontendComponent implements OnInit {
         this.day = days[this.currentDate.getDay()];
     }
 
-    /*private showThisMenuItems(id){
-        var id1 = 'menuItem_'+id;
-        $('#'+id1).toggle();   
-    }*/
-
     private scrollToMenu(id){
         let menu = '#menuItem_' + id;
         var $target = $(menu);
         let top = $target.offset().top;
         $('html, body').stop().animate({
-            'scrollTop': top
-        }, 900, 'swing', function () {
-            window.location.hash = menu;
-        });
+            'scrollTop': top-65
+        }, 900);
     }
-
-    /*private spicylevel(num){
-        this.spicyLevel = num;
-    }*/
 
     resImage(img){
         if (img != null && img != "") {
@@ -1154,29 +1105,30 @@ export class FrontendComponent implements OnInit {
         }
     }
 
-    private showPos(id) {
+    showPos(id) {
         if (this.detailShow == id) {
             let divId = '#changeBg_'+id
             let left = '';
             let itemP = '#itemPop_'+id;
 
-            //$(itemP).attr("tabindex",1).focus();
-            var $target = $(itemP);
+            $(itemP).attr("tabindex",1).focus();
+            
+            /*var $target = $(itemP);
             let top = $target.offset().top;
             $('html, body').stop().animate({
                 'scrollTop': top
             }, 20, 'linear', function () {
                 window.location.hash = itemP;
-            });
+            });*/
 
             //$('html, body').animate({ scrollTop: $(itemP).offset().top }, 'slow');
             var offset = $(divId).offset();
 
             let offsetLeft = offset.left;
             if (offsetLeft < 150) {
-                left = '102%';
+                left = '95%';
             }else{
-                left = '-102%';
+                left = '-95%';
             }
             return left;
         }
@@ -1186,102 +1138,72 @@ export class FrontendComponent implements OnInit {
         this.detailShow='';
         this.addonUncheck();
         $("div[id^='changeBg_']").removeClass('changeBg');
+
+        delete this.requiredAddonArray;
+        delete this.mandatoryItemId;
+        delete this.mandatoryItemArray;
     }
 
     private addonUncheck(){
-        $('.subAddOnDetail').css('background','white');
+        $('.subAddOnDetail').css('background','');
         $('.subAddOnDetail').attr('data-addon','check');
     }
 
+    deleteErrMsg(i){
+        this.requiredAddonArray.splice(i,1);
+    }
+
     private addToCart(id) {
-        var itemId = 'Location_' + id + '_specialInstruction'
-        var itemInstruction = <HTMLInputElement>document.getElementById(itemId);
-        this.orderItem['itemInstruction'] = itemInstruction.value;
-        /*this.orderItem['spicyLevel'] = this.spicyLevel;
+        $('.errMsgDiv').hide();
+        this.requiredAddonArray = [];
 
-        this.spicyLevel = '0%';*/
-
-        this.totalOrder = JSON.parse(localStorage.getItem(this.cartStorage));
-        this.totalOrder.push(this.orderItem);
-        localStorage.setItem(this.cartStorage, JSON.stringify(this.totalOrder));
-        toastr.remove();
-        toastr.info(null, this.totalOrder.length+' Items Added', {'positionClass' : 'toast-top-full-width'});
-        this.hideDiv();
-    }
-
-    private cartItemCompare(obj1,obj2,index){
-        if (((obj1.item._id == obj2.item._id) && (obj1.addon.length == obj2.addon.length)) ) {
-            if ((typeof obj1.multisize != 'undefined') && (typeof obj2.multisize != 'undefined') && (obj1.item.multisize.size == obj2.item.multisize.size)) {
-                    this.totalOrder[index].quantity = this.totalOrder[index].quantity+obj2.quantity
-                    this.totalOrder[index].totalPrice = this.totalOrder[index].totalPrice+obj2.totalPrice
-                    localStorage.setItem(this.cartStorage, JSON.stringify(this.totalOrder));
-                    return true;
-                
+        var count = 0
+        if (this.mandatoryItemId.length > 0) {
+            for (var i = 0; i < this.mandatoryItemId.length; i++) {
+                let id = '#group_'+this.mandatoryItemId[i]._id;
+                if (this.mandatoryItemArray[this.mandatoryItemId[i]._id].total >= parseInt(this.mandatoryItemArray[this.mandatoryItemId[i]._id].min) && this.mandatoryItemArray[this.mandatoryItemId[i]._id].total <= parseInt(this.mandatoryItemArray[this.mandatoryItemId[i]._id].max) ) {
+                    $(id + ' div.subAddOn').removeClass('errBoxShadow');
+                    $(id + ' div.subAddOnDetail').removeClass('errBackground');
+                    count++;
+                }else{
+                    count--;
+                    $(id + ' div.subAddOn').addClass('errBoxShadow');
+                    $(id + ' div.subAddOnDetail').addClass('errBackground');
+                    this.requiredAddonArray.push(this.mandatoryItemId[i]);
+                }
             }
         }
-    }
-    
-    private mandatory(data, option, group,type){
-        if (group.groupType.gType == "mandatory") {
-            var num = 0;
-            var manda = [];
-            for (var j = 0; j < data.length; j++) {
-                num = data.reduce(function (n, x) {
-                    return n + (x.groupId == group._id);
-                }, 0);
-            }
-            manda[group._id] = num;
 
-            this.mand = 0;
-                if (type == 'add') {                    
-                    if((group.groupType.min <= num) && (group.groupType.max >= num)) {
-                        this.mand ++;
-                        this.addRemoveGroup(type,group._id);
-                    }
-                    else{
-                        type = 'remove'
-                        this.mand --;
-                        this.addRemoveGroup(type,group._id);
-                    }
-                }
+        if (this.requiredAddonArray.length > 0) {
+            $('.errMsgDiv').fadeIn(1500);
+            setTimeout(()=>{            
+                $('.errMsgDiv').fadeOut(3000);
+                //delete this.requiredAddonArray;
+            },30000);
+        }
 
-                else if (type == 'remove') {                    
-                    if((group.groupType.min <= num) && (group.groupType.max >= num)) {
-                        type = 'add'
-                        this.mand ++;
-                        this.addRemoveGroup(type,group._id);
-                    }
-                    else{
-                        this.mand --;
-                        this.addRemoveGroup(type,group._id);
-                    }
-                }
-            if (this.mand != 1 && this.mandatoryItemId.length != this.mandDefaultCount) {
+        setTimeout(()=>{
+
+            if (count == this.mandatoryItemId.length) {
+                var itemId = 'Location_' + id + '_specialInstruction';
+                var itemInstruction = <HTMLInputElement>document.getElementById(itemId);
+                this.orderItem['itemInstruction'] = itemInstruction.value;
+
+                this.totalOrder = JSON.parse(localStorage.getItem(this.cartStorage));
+                this.totalOrder.push(this.orderItem);
+                localStorage.setItem(this.cartStorage, JSON.stringify(this.totalOrder));
                 toastr.remove();
-                toastr.warning('Please ensure Minimum and Maximum Addons for this Item',null, {'positionClass' : 'toast-top-full-width'});
+                toastr.info(null, this.totalOrder.length+' Items Added', {'positionClass' : 'toast-top-full-width'});
+                this.hideDiv();
+            }else{
+                console.log("addon left");
             }
-        }
-    }
-
-    private addRemoveGroup(type,id){
-        if (this.mandatoryItemId.indexOf(id) > -1) {
-            if (type == 'remove') {
-                this.mandatoryItemId.splice(this.mandatoryItemId.indexOf(id), 1);
-            }
-        }
-        else if (type == 'add') {
-            this.mandatoryItemId.push(id);
-        }
+        },2000);
     }
 
     private addonPriceInfo(addonObj,addonDetail,group,option) {
-        if (this.mandDefaultCount != 0) {
-            this.mandCheckedCount = false;
-        }
-        if (this.mandDefaultCount == 0) {
-            this.mandCheckedCount = true;
-        }
-        
+        delete this.requiredAddonArray;
+
         var isCheck = addonDetail.getAttribute('data-addon');
         var id = addonDetail.getAttribute('id');
 
@@ -1294,6 +1216,9 @@ export class FrontendComponent implements OnInit {
             document.getElementById(id).setAttribute('data-addon','uncheck');
             addonObj.groupId = groupId;
 
+            if (this.mandatoryItemArray[groupId]) {
+                this.mandatoryItemArray[groupId].total=this.mandatoryItemArray[groupId].total+1;
+            }
 
             if (group.groupType.gType == 'mandatory') {
                 if (group.groupType.min == group.groupType.max && group.groupType.min == '1') {
@@ -1313,6 +1238,9 @@ export class FrontendComponent implements OnInit {
                                 var idz = 'Location_'+tempItemId+'_'+this.orderItem.addon[indx]._id;
                                 this.addonPrice = this.addonPrice - parseInt(this.orderItem.addon[indx].price);
                                 this.finalPrice = (this.multiSizePrice + this.price+ this.addonPrice)* this.quantity;
+                                if (this.mandatoryItemArray[groupId]) {
+                                    this.mandatoryItemArray[groupId].total=this.mandatoryItemArray[groupId].total-1;
+                                }
                                 this.orderItem.addon.splice(indx,1);
                                 document.getElementById(idz).style.backgroundColor = '#fff';
                                 document.getElementById(idz).setAttribute('data-addon','check');
@@ -1322,15 +1250,15 @@ export class FrontendComponent implements OnInit {
                 }
             }
 
-
             this.orderItem.addon.push(addonObj);
-            this.mandatory(this.orderItem.addon,option, group,'add');
             this.addonPrice = this.addonPrice + parseInt(addonObj.price);
             this.finalPrice = (this.multiSizePrice + this.price+ this.addonPrice)* this.quantity;
         }else{
+            if (this.mandatoryItemArray[groupId]) {
+                this.mandatoryItemArray[groupId].total=this.mandatoryItemArray[groupId].total-1;
+            }
             var addonIndex = this.orderItem.addon.findIndex(item => item._id == addonObj._id);
             this.orderItem.addon.splice(addonIndex, 1);
-            this.mandatory(this.orderItem.addon,option, group,'remove');
             document.getElementById(id).style.backgroundColor = '#fff';
             document.getElementById(id).setAttribute('data-addon','check');
             this.addonPrice = this.addonPrice - parseInt(addonObj.price);
@@ -1338,10 +1266,6 @@ export class FrontendComponent implements OnInit {
         }
         this.orderItem.totalPrice = this.finalPrice;
         this.orderItem.quantity = this.quantity;
-
-        if (this.mand == 1 && this.mandatoryItemId.length == this.mandDefaultCount) {
-            this.mandCheckedCount = true;
-        }
     }
 
     private multiSizePriceInfo(itemMultiSizeObj) {
@@ -1370,36 +1294,34 @@ export class FrontendComponent implements OnInit {
     }
 
     private loadThisItem(itemSent){
+        $('div.subAddOn').removeClass('errBoxShadow');
+        $('div.subAddOnDetail').removeClass('errBackground');
         this.mandatoryItemId = [];
-        this.mandDefaultCount = 0;
-        if (itemSent.options.length > 0) {
+        this.mandatoryItemArray = [];
+        delete this.requiredAddonArray;
+
+        if (itemSent.options && itemSent.options.length > 0) {
             for (var j = 0; j < itemSent.options.length; j++) {
-                if (itemSent.options[j].groupType) {
-                    if (itemSent.options[j].groupType.gType == 'mandatory') {
-                        this.mandDefaultCount++;
-                    }
+                if (itemSent.options[j].groupType && itemSent.options[j].groupType.gType == 'mandatory') {
+                    this.mandatoryItemId.push(itemSent.options[j]);
+                    var obj = {};
+                    obj['min'] = itemSent.options[j].groupType.min;
+                    obj['max'] = itemSent.options[j].groupType.max;
+                    obj['total'] = 0;
+                    this.mandatoryItemArray[itemSent.options[j]._id] = obj;
                 }
+
+                console.log("this.mandatoryItemId");
+                console.log(this.mandatoryItemId);
             }
-        }else{
-            this.mandCheckedCount = true;
         }
     }
 
     private showDetail(itemObj,itemMultiSizeObj) {
-
-        /*this.spicyLevel = '0%';*/
-
         $("div[id^='changeBg_']").removeClass('changeBg');
         $('#changeBg_'+itemObj._id).addClass('changeBg');
 
-
-        this.mandCheckedCount = false;
         this.loadThisItem(itemObj);
-
-        if (this.mandDefaultCount == 0) {
-            this.mandCheckedCount = true;
-        }
-
 
         this.detailShow = itemObj._id;
         this.multiSizePrice = 0;  

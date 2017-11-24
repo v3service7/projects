@@ -80,15 +80,13 @@ import * as globalVariable from "../global";
           }
 
           filter(data){
-
             return this.http.post(globalVariable.url+'customer/filters',data)
             .map(
               (response: Response) => response.json());
           } 
 
-          unreadMessage(id){
-            var obj = {cid : id};
-            return this.http.post(globalVariable.url+'customer/unreadmessage',obj)
+          unreadMessage(data){
+            return this.http.post(globalVariable.url+'customer/unreadmessage',data)
             .map(
               (response: Response) => response.json()
               );
@@ -200,6 +198,17 @@ import * as globalVariable from "../global";
               (response: Response) => response.json()
               );
        }
+       getUserCountry(){
+                  return this.http.get(globalVariable.url+'customer/userscountry')
+                  .map(
+                    (response: Response) => response.json()
+                    );
+             }
+       
+      checkCustomerExists(data) {
+        return this.http.post(globalVariable.url+'customer/checkuseroremail',data)
+          .map((response: Response) => response.json());
+      }  
 
       }
 

@@ -102,14 +102,15 @@
 					<div *ngIf = "menu.description" class="col-lg-12 col-md-12 col-sm-12 col-xs-12 fontSize14"><strong>{{menu.description}}</strong></div>
 				</div>
 
-				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0">					
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0">
+					
 					<div *ngIf="menu.image" class="col-lg-6 col-md-6 col-sm-6 col-xs-12 pull-right">
 						<div class="menuImage" [ngStyle]="{'background-image': 'url(' + imageURL + menu.image + ')'}" style="z-index: -1;"></div>
 					</div>
 
 					<div *ngFor="let item of items;">
 						<div *ngIf="item.menuId == menu._id && !item.isHidden">
-						<div  class="col-lg-6 col-md-6 col-sm-6 col-xs-12 " style="height: 60px;">
+						<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 " style="height: 60px;">
 							<!-- <div class="itemDetailListDiv col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0"> -->
 								<div class="subMenuItem col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0" [ngClass]="checkItemShow(item)">
 									
@@ -170,7 +171,7 @@
 
 											<!-- items addOns -->
 											<div class="addOnsDetail col-lg-12 col-md-12 col-sm-12 col-xs-12" *ngIf = "item.options">
-												<div class=" col-lg-12 col-md-12 col-sm-12 col-xs-12 add padding0" *ngFor = "let group of item.options">
+												<div class=" col-lg-12 col-md-12 col-sm-12 col-xs-12 add padding0" *ngFor = "let group of item.options" id="group_{{group._id}}">
 													<div class=" col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0">
 														<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 wordBreak">{{group.name}}
 															<span *ngIf="group.groupType">({{group.groupType.gType | uppercase}})
@@ -219,10 +220,20 @@
 											<!-- items quantity end-->
 										</div>
 
-										<div class="pos-footer">
+										
+										<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0 errMsgDiv">
+											<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 alertnew" *ngFor = "let grp of requiredAddonArray; let i = index ">
+												
+												<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0">{{grp.name}} requires atleast {{grp.groupType.min}} item and atmost {{grp.groupType.max}} item to be selected</div>
+												
+												<span (click)="deleteErrMsg(i)">&times;</span>
+											</div>
+										</div>
+
+										<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0 pos-footer">
 											<div class="pos-footer-shadow"></div>
 											<div class="pos-footer-inner" >
-												<button class="btn saveButton" style="padding: 15px 20px;text-align: justify;" (click)="addToCart(item._id)" [disabled]="!mandCheckedCount">
+												<button class="btn saveButton" style="padding: 15px 20px;text-align: justify;" (click)="addToCart(item._id)">
 													<div class="col-lg-12  col-md-12 col-sm-12 col-xs-12 btn btn-action-primary checkout-button">
 														<div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
 															<div class="checkout-button">{{finalPrice | number : '1.2-2'}}</div>

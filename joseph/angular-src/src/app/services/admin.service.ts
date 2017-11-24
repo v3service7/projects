@@ -46,6 +46,33 @@ export class AdminService {
       .map(res => res.json());
   }
 
+  userAdd(user){
+    let headers = new Headers();
+    this.loadToken();
+    headers.append('Authorization', this.authToken);
+    headers.append('Content-Type','application/json');    
+    return this.http.post(globalVariable.url+'users/', user, {headers: headers})
+      .map(res => res.json());
+  }
+
+  userList(){
+    let headers = new Headers();
+    this.loadToken();
+    headers.append('Authorization', this.authToken);
+    headers.append('Content-Type','application/json');    
+    return this.http.get(globalVariable.url+'users/', {headers: headers})
+      .map(res => res.json());
+  }
+
+  deleteUserById(id){
+    let headers = new Headers();
+    this.loadToken();
+    headers.append('Authorization', this.authToken);
+    headers.append('Content-Type','application/json');    
+    return this.http.delete(globalVariable.url+'users/'+id, {headers: headers})
+      .map(res => res.json());
+  } 
+
   changePassword(user){
     let headers = new Headers();
     this.loadToken();
@@ -57,8 +84,6 @@ export class AdminService {
 
   resetPassword(user){
     let headers = new Headers();
-    this.loadToken();
-    headers.append('Authorization', this.authToken);
     headers.append('Content-Type','application/json'); 
     return this.http.put(globalVariable.url+'users/resetPassword/'+user._id, user, {headers: headers})
       .map(res => res.json());

@@ -10,13 +10,36 @@ export class ExchangeService {
     authToken: any;
     
     constructor(private http: Http) { 
-        const token = localStorage.getItem('id_token_admin');
-        this.authToken = token;
-    }
+        if(localStorage.getItem('id_token_admin')){
+            const token = localStorage.getItem('id_token_admin');
+                this.authToken = token;
+            }
+       if(localStorage.getItem('id_token')){
+            const token = localStorage.getItem('id_token');
+                this.authToken = token;
+            } 
+        }   
 
     loadToken(){
-        const token = localStorage.getItem('id_token_admin');
-        this.authToken = token;
+        if(localStorage.getItem('id_token_admin')){
+            const token = localStorage.getItem('id_token_admin');
+                this.authToken = token;
+        }
+        if(localStorage.getItem('id_token')){
+            const token = localStorage.getItem('id_token');
+                this.authToken = token;
+        }
+    } 
+     public customerexchangeList(id){
+        let headers = new Headers();
+        this.loadToken();
+        headers.append('Authorization', this.authToken);
+        headers.append('Content-Type','application/json');
+        return this.http.get(globalVariable.url+'exchange/custexchange/'+id, {headers: headers})
+        .map((response: Response) => {
+            let user = response.json();
+            return user;
+        });
     }
 
     public exchangeList(){

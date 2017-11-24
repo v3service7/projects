@@ -42,6 +42,7 @@ module.exports = function(io) {
                               singleUser : true ,
                               chatList : onlinec
                             });
+                            
                         });
                     }
                 });
@@ -169,6 +170,17 @@ module.exports = function(io) {
                 });
             });
         });
+
+          socket.on('getAllonline4', (data) => {          
+            Customer.find({'online': 'Y' , socketId : { $ne : data.cid }}, function(err, onlinec){
+                //console.log("getAllonline", data);
+                io.sockets.to(clients[data.cid]).emit('chat-list-response4',{
+                    error : false ,
+                    singleUser : false ,
+                    chatList : onlinec
+                });
+            });
+        });
         
         /*socket.on('chat-list-r', (data) => {
             //console.log("chat-list");      	
@@ -198,9 +210,15 @@ module.exports = function(io) {
             var fromSocketId = data.fromSocketId;           
             var socket = clients[data.fromSocketId];
             var existsocket = Object.keys(io.sockets.sockets);
-            if(existsocket.indexOf(toSocketId) != -1){
+            Customer.findById({_id : data.toCustId}, function(err, msgpos){
+                console.log("msgpos");
+                console.log(msgpos);
+            if((existsocket.indexOf(toSocketId) != -1) && (msgpos.online == "Y")){
                 data.isread = true;
-            }
+                }else{
+                data.isread = false;
+               }
+            });
             var smessage = new Message(data);
             smessage.save(function(err, data){
                 if (err) {
@@ -303,6 +321,30 @@ module.exports = function(io) {
                  if((typeof datas.socketId !== 'undefined') && (datas.socketId != '') && (clients[data.ToId] == datas.socketId)){
                     Notification.find({ToId : data.ToId, isread: false}).populate("ToId").populate("FromId").sort({created_at: -1}).exec(function(err, notificatons){
                     io.sockets.connected[datas.socketId].emit(`viewby-response`,notificatons);
+                    }); 
+                  }
+                });       
+                }
+             });
+          });
+
+             socket.on('viewby2', (data) => {
+            var notification = new Notification(data);
+            notification.save(function(err, data){
+                if (err) {
+                    //console.log(err);
+                }else{
+                 Customer.findById({_id : data.ToId}, function(err, datas){
+
+
+              /*   //console.log("undefinedloo"); 
+                 //console.log(clients[data.ToId] , typeof clients[data.ToId] , datas); 
+                 //console.log("undefinedlo2"); */
+
+
+                 if((typeof datas.socketId !== 'undefined') && (datas.socketId != '') && (clients[data.ToId] == datas.socketId)){
+                    Notification.find({ToId : data.ToId, isread: false}).populate("ToId").populate("FromId").sort({created_at: -1}).exec(function(err, notificatons){
+                    io.sockets.connected[datas.socketId].emit(`viewby-response2`,notificatons);
                     }); 
                   }
                 });       

@@ -10,8 +10,9 @@ var itemModel  =  require("../model/Item.js");
 var addOnModel  =  require("../model/addon.js");
 var languageModel  =  require("../model/Language.js");
 var promotionDetailModel  =  require("../model/PromotionDetail.js");
-
-
+var restaurantModel  =  require("../model/Restaurant.js");
+var order = require('../model/Order.js');
+var driverModel  =  require("../model/Driver.js");
 
 router.put('/item-update-by-menu/:id',function(req, res){
 	var response={};
@@ -602,21 +603,103 @@ router.get('/owner/:id',function(req,res){
 });
 
 router.delete('/owner/:id',function(req,res){
-	if (!req.isAuthenticated()) {
+	/*if (!req.isAuthenticated()) {
         return res.status(200).json({
             status: false,
             message:'Access Denied'
         });
-    }
+    }*/
 	var response={};
 	console.log(req.params.id);
 	ownerModel.remove({_id:req.params.id},function(err,data){
 		if (err) {
 			response = {"error" : true,"message" : "Error fetching data"};
+			return(res.json(response));
 		} else{
-			response = {"error" : false,"message" : "Deleted Successfully"};
-		};
-		res.json(response);
+			restaurantModel.findOne({ownerId:req.params.id},function(err,data1){
+				if(err){
+					response = {"error" : true,"message" : "Error fetching data"};
+					return(res.json(response));
+				}else{
+
+					console.log("data1");
+					console.log(data1);
+
+					if (data1) {
+						let resID = data1._id;
+
+						console.log("resID");
+						console.log(resID);
+
+						restaurantModel.remove({ownerId:req.params.id},function(err,data2){
+							if(err){
+								response = {"error" : true,"message" : "Error fetching data"};
+								return(res.json(response));
+							}else{
+
+								kitchenMenuModel.remove({kitchenId:resID},function(err,data){
+									if (err) {
+										response = {"error" : true,"message" : "Error fetching data"};
+									}else{
+										console.log("All Menu Deleted Successfully");
+									};
+								});
+
+								itemModel.remove({kitchenId:resID},function(err,data){
+									if (err) {
+										response = {"error" : true,"message" : "Error fetching data"};
+									}else{
+										console.log('All Items Deleted Successfully');
+									}
+								});
+
+								addOnModel.remove({restaurantId:resID},function(err,data){
+									if (err) {
+										response = {"error" : true,"message" : "Error fetching data"};
+									}else{
+										console.log('All Addons Deleted Successfully');
+									}
+								});
+
+								promotionDetailModel.remove({restaurantId:resID},function(err,data){
+									if (err) {
+										response = {"error" : true,"message" : "Error fetching data"};
+									}else{
+										console.log('All Promotions Deleted Successfully');
+									}
+								});
+
+								deliveryZone.remove({restaurantId:resID},function(err,data){
+									if (err) {
+										response = {"error" : true,"message" : "Error fetching data"};
+									}else{
+										console.log('All Delivery Zones Deleted Successfully');
+									}
+								});
+
+								order.remove({restaurantId:resID},function(err,data){
+									if (err) {
+										response = {"error" : true,"message" : "Error fetching data"};
+									}else{
+										console.log('All Orders Deleted Successfully');
+									}
+								});
+
+								driverModel.remove({restaurantId:resID},function(err,data){
+									if (err) {
+										response = {"error" : true,"message" : "Error fetching data"};
+									}else{
+										console.log('All Driver Details related this restaurant Deleted Successfully');
+									}
+								});
+
+								return(res.json(response));
+							}
+						});
+					}
+				}
+			});
+		}
 	});	
 });
 

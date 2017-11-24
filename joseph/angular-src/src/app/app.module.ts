@@ -4,6 +4,8 @@ import { FormsModule,ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import {RouterModule, Routes} from '@angular/router';
 import { AppComponent } from './app.component';
+import { TinymceModule } from 'angular2-tinymce';
+import { SelectModule } from 'angular2-select';
 
 // Admin Component
 import { AdminComponent } from './admin/admin.component';
@@ -17,26 +19,37 @@ import { AdminCustomerComponent,CustomerListComponent,CustomerAddComponent,Custo
 import { AdminPlanComponent, PlanListComponent, PlanAddComponent, PlanEditComponent } from './admin/plan/plan.component';
 import { AdminPagesComponent, PagesListComponent , PagesAddComponent, PagesEditComponent } from './admin/pages/pages.component';
 import { AdminExchangeComponent, ExchangeListComponent, ExchangeAddComponent, ExchangeEditComponent } from './admin/exchanges/exchange.component';
+import { AdminExchangeapiComponent, ExchangeapiListComponent, ExchangeapiAddComponent, ExchangeapiEditComponent } from './admin/exchangeapi/exchangeapi.component';
+import { AdminAccountdetailComponent,AccountdetailListComponent } from './admin/accountdetail/accountdetail.component';
 
 // Frontend Component
 import { FrontendComponent } from './frontend/frontend.component';
 import { HomeComponent } from './frontend/home/home.component';
-import { UserComponent } from './frontend/user/user.component';
 import { SignupComponent } from './frontend/signup/signup.component';
 import { UserloginComponent } from './frontend/userlogin/userlogin.component';
 import { FrontheaderComponent } from './frontend/frontheader/frontheader.component';
 import { FrontfooterComponent } from './frontend/frontfooter/frontfooter.component';
-
+import { MyprofileComponent } from './frontend/myprofile/myprofile.component';
+import { ForgotComponent, ResetComponent } from './frontend/forgot/forgot.component';
+import { UserdashboardComponent } from './frontend/userdashboard/userdashboard.component';
 
 import {ValidateService} from './services/validate.service';
 import {AdminService} from './services/admin.service';
 import {UserService} from './services/user.service';
 import {PlanService} from './services/plan.service';
 import { PagesService} from './services/pages.service';
+import { PurchaseplanService} from './services/purchaseplan.service';
 import { ExchangeService} from './services/exchange.service';
-import {FlashMessagesModule} from 'angular2-flash-messages';
-import {AuthGuard} from './guards/auth.guard';
+import { ExchangeapiService} from './services/exchangeapi.service';
+import { BittrexService} from './services/bittrex.service';
 
+import {FlashMessagesModule} from 'angular2-flash-messages';
+import {AuthGuard} from './guards/admin.guard';
+import {UserGuard} from './guards/user.guard';
+import { Ng2OrderModule } from 'ng2-order-pipe';
+import { SocketIoModule, SocketIoConfig } from 'ng-socket-io';
+import * as globalVariable from "./global";
+const config: SocketIoConfig = { url: globalVariable.url, options: {} };
 
 const appRoutes: Routes =  [
     {
@@ -66,13 +79,25 @@ const appRoutes: Routes =  [
             { path: '', component: ExchangeListComponent, },
             { path: 'add', component: ExchangeAddComponent, },
             { path: ':id', component: ExchangeEditComponent, },
-        ]},        
+        ]},  
+        { path: 'exchangeapi', component: AdminExchangeapiComponent, canActivate: [AuthGuard], children :[
+            { path: '', component: ExchangeapiListComponent, },
+            { path: 'add', component: ExchangeapiAddComponent, },
+            { path: ':id', component: ExchangeapiEditComponent, },
+        ]},  
+        { path: 'accountdetail', component: AdminAccountdetailComponent, canActivate: [AuthGuard], children :[
+            { path: '', component: AccountdetailListComponent, },
+        ]},    
     ]},
     {
     path:'', component: FrontendComponent, children :[ 
         { path: '', component: HomeComponent },     
         { path: 'login', component: UserloginComponent },
-        { path: 'signup', component: SignupComponent }     
+        { path: 'signup', component: SignupComponent },
+        { path: 'dashboard', component: UserdashboardComponent, canActivate: [UserGuard] },
+        { path: 'forgotpassword', component: ForgotComponent },
+        { path: 'profile', component: MyprofileComponent, canActivate: [UserGuard] },
+        { path: 'resetpassword/:id', component: ResetComponent },       
     ]}
 ]
 
@@ -86,26 +111,33 @@ const appRoutes: Routes =  [
     ProfileComponent,
     AdminCustomerComponent,CustomerListComponent,CustomerAddComponent,CustomerEditComponent,
     ForgotPasswordComponent,AdminResetPasswordComponent,
+    AdminAccountdetailComponent,AccountdetailListComponent,
     SidebarComponent,
     AdminPlanComponent, PlanListComponent, PlanAddComponent, PlanEditComponent,
     AdminPagesComponent, PagesListComponent , PagesAddComponent, PagesEditComponent,
     AdminExchangeComponent, ExchangeListComponent, ExchangeAddComponent, ExchangeEditComponent, 
+    AdminExchangeapiComponent, ExchangeapiListComponent, ExchangeapiAddComponent, ExchangeapiEditComponent,
     FrontendComponent, 
     FrontheaderComponent,
-    HomeComponent, 
-    UserComponent, 
+    HomeComponent,  
     SignupComponent, 
-    UserloginComponent, FrontfooterComponent
+    ResetComponent,
+    UserloginComponent, FrontfooterComponent, MyprofileComponent, ForgotComponent,
+    UserdashboardComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
+    TinymceModule.withConfig({}),
     ReactiveFormsModule,
     HttpModule,
     RouterModule.forRoot(appRoutes),
     FlashMessagesModule, 
+    SelectModule,
+    Ng2OrderModule,
+    SocketIoModule.forRoot(config)
   ],
-  providers: [ValidateService, AdminService, AuthGuard, UserService, PlanService, PagesService, ExchangeService],
+  providers: [BittrexService, ValidateService, AdminService, AuthGuard, UserGuard, UserService, PlanService, PagesService, ExchangeService,ExchangeapiService,PurchaseplanService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

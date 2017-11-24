@@ -9,7 +9,28 @@ var Report = require('../model/Report.js');
 var Notification = require('../model/Notification.js');
 
 var OpenTok = require('opentok'), 
-opentok = new OpenTok('45956382', 'e8a3c7252bc4f514867b16708d5dfa63622c8a39');
+opentok = new OpenTok('46002262', 'b61fe5bf3b279e4ef736031d7d2f112fb31c820b');
+
+
+
+router.post('/checkuseroremail', function(req, res) {
+  //console.log(req.body);  
+  var response={};
+  var customer = new Customer(req.body);
+  Customer.find({ $or:[ {email:req.body.email}, {username: req.body.username}]}, function(err, emailmatch){
+ if(err){
+     response = {"error" : true,"message" : "Something went wrong occured Error!"};
+     res.json(response);
+    }else{
+    if(emailmatch.length > 0){
+      response = {"error" : true,"message" : "Username Or EmailId already exist"};      
+    }else{
+      response = {"error" : false,"message" : "No exists"};       
+    }
+     res.json(response);    
+    }
+  });
+  });
 
 
 router.post('/', function(req, res) {
@@ -18,12 +39,7 @@ router.post('/', function(req, res) {
 
   var response={};
   var customer = new Customer(req.body);
-  Customer.find({email:req.body.email}, function(err, emailmatch){
-  if(emailmatch.length > 0){
-      response = {"error" : true,"message" : "Already exist"};
-       res.json(response);
-  }else{
-      customer.save(function(err, data){
+   customer.save(function(err, data){
         if(err) {
            response = {"error" : true,"message" : err};
         } else {
@@ -31,9 +47,8 @@ router.post('/', function(req, res) {
         }
         res.json(response);
       });
-  }  
-  });
 });
+
 
 router.get('/featured', function(req, res, next) { 
     //console.log("dfdsh");  
@@ -272,13 +287,11 @@ var condition2 = {
     response = {"error" : false,"message" : data};
      }
 };
-res.status(200).json(response);
-   
+res.status(200).json(response);   
+});
 });
 
-});
-
-
+/*
 
 router.post('/unreadmessage', function(req, res, next) { 
  var messagelist = [];      
@@ -304,7 +317,7 @@ router.post('/unreadmessage', function(req, res, next) {
                var obj = { "id" : data[i].fromCustId, "messages" : [] };               
                obj.messages.push(data[i]); 
                messagelist.push(obj);                     
-           }else{                    
+              }else{                    
               var index = d.findin(messagelist, "id" , data[i].fromCustId);
               if(index != -1)
               {
@@ -323,7 +336,8 @@ router.post('/unreadmessage', function(req, res, next) {
 
 var respnse = {};
 var id = req.body.cid;  
-Message.find({toCustId : id , isread : false}, null, {sort: {created_at: 1}}).populate('fromCustId').exec(function(err,data){
+
+Message.find({ $or: [{'fromCustId':req.body.id},{'toCustId':req.body.id}]}, null, {sort: {created_at: 1}}).populate('fromCustId').exec(function(err,data){
     if (err) {
         response = {"error" : true,"message" : "Error fetching data"};
         res.status(200).json(response);  
@@ -339,11 +353,109 @@ Message.find({toCustId : id , isread : false}, null, {sort: {created_at: 1}}).po
 
 }); 
 });
+*/
 
+
+
+
+
+
+
+router.post('/unreadmessage', function(req, res, next) { 
+
+
+ var messagelist = [];      
+ var d = {
+    findin:   function(arraytosearch, key, valuetosearch) {
+        for (var i = 0; i < arraytosearch.length; i++) {
+            var io = arraytosearch[i][key];
+            var op = valuetosearch;                            
+            //console.log('"'+io+'"', '"'+op+'"');
+            //console.log('"'+io+'"' == '"'+op+'"');
+            if ('"'+io+'"' == '"'+op+'"') {
+                return i;
+            }
+        }
+        return -1;
+    },
+    msgpush : function(data){ 
+
+       var dlength = data.length;
+       for(var i=0; i<dlength; i++){    
+        var single = {};  
+       if(data[i].fromCustId._id == req.body.id){
+
+         if(messagelist.length == 0){                
+           var obj = { "id" : data[i].toCustId, "messages" : [] };               
+           obj.messages.push(data[i]); 
+           messagelist.push(obj);                     
+          }else{                    
+              var index = d.findin(messagelist, "id" , data[i].toCustId);
+              if(index != -1)
+              {
+               messagelist[index].messages.push(data[i]);                     
+               }else{                      
+               single.id = data[i].toCustId;
+               single.messages = [];
+               single.messages.push(data[i]);
+               messagelist.push(single); 
+           }
+          }
+
+         }  
+
+       if(data[i].toCustId._id == req.body.id){
+
+       if(messagelist.length == 0){                
+           var obj = { "id" : data[i].fromCustId, "messages" : [] };               
+           obj.messages.push(data[i]); 
+           messagelist.push(obj);                     
+          }else{                    
+              var index = d.findin(messagelist, "id" , data[i].fromCustId);
+              if(index != -1)
+              {
+               messagelist[index].messages.push(data[i]);                     
+               }else{                      
+               single.id = data[i].fromCustId;
+               single.messages = [];
+               single.messages.push(data[i]);
+               messagelist.push(single); 
+           }
+          }
+
+         }
+
+
+   } 
+   return messagelist;
+
+}
+};
+
+var respnse = {};
+var id = req.body.cid;  
+
+Message.find({ $or: [{'fromCustId': req.body.id},{'toCustId': req.body.id}] }, null, {sort: {created_at: 1}}).populate('fromCustId').populate('toCustId').exec(function(err,data){
+    if (err) {
+        response = {"error" : true,"message" : "Error fetching data"};
+        res.status(200).json(response);  
+    } else{       
+     //console.log(data); 
+     if(data.length > 0) {
+         
+         response = {"error" : false,"message" : d.msgpush(data)};  
+     }else{
+        response = {"error" : false,"message" : []}; 
+     }    
+    res.status(200).json(response);             
+};
+
+}); 
+});
 
 
 router.post('/login', function(req, res, next) {
-    Customer.find({email:req.body.email,password:req.body.password, activate: true}, null, {sort: {created_at: 1}},function(err,data){
+    Customer.find({username:req.body.email,password:req.body.password, activate: true}, null, {sort: {created_at: 1}},function(err,data){
     if (err) {
        res.status(200).json({
        data: {"error" : true,"message" : "Error fetching data"},
@@ -355,11 +467,11 @@ router.post('/login', function(req, res, next) {
     var token = "";
 
     opentok.createSession(function(err, session) {
-
+      console.log('errrrrrrrr',err);
     if (err) return //console.log(err);
     sessionId = session.sessionId;  
     token = opentok.generateToken(sessionId);
-
+console.log('torek',token)
     if(token != "" && data.length > 0)
     {
     var obj = {tokboxsessionid : sessionId, tokboxtoken : token}; 
@@ -651,6 +763,7 @@ router.get('/live-now-list/:id', function(req, res, next) {
 
 router.post('/filters', function(req, res, next) {
 
+
     // if (!req.isAuthenticated()) {
     //     return res.status(200).json({
     //         status: false,
@@ -658,57 +771,123 @@ router.post('/filters', function(req, res, next) {
     //     });
     // }
     
-    var reqcondition = {};
-
-    reqcondition.activate = true;
-    reqcondition.isprivate = false;
+        var reqcondition = {};
+        reqcondition.activate = true;
+        reqcondition.isprivate = false;
 
     //console.log(req.body);
 
-    if(req.body.gender.length > 0){
-       reqcondition.gender = {$in : req.body.gender};    
-   }
+        if(req.body.gender.length > 0){
+        reqcondition.gender = {$in : req.body.gender};    
+        }   
+
    //console.log(req.body.country.length);
-   if(req.body.country.length > 0){
-       reqcondition["country"] = {$in : req.body.country};    
-   }
+
+        if(req.body.country.length > 0){
+        reqcondition["countryName"] = {$in : req.body.country};    
+        }
+        
+        if(req.body.haircolor.length > 0){
+        reqcondition["haircolor"] = {$in : req.body.haircolor};    
+        }
+
+        if(req.body.bodyshape.length > 0){
+        reqcondition["bodyshape"] = {$in : req.body.bodyshape};    
+        }
+        if(req.body.maritalstatus.length > 0){
+        reqcondition["maritalStatus"] = {$in : req.body.maritalstatus};    
+        }
+        if(req.body.smoke.length > 0){
+        reqcondition["smoke"] = {$in : req.body.smoke};    
+        }
+
+        if(req.body.drink.length > 0){
+        reqcondition["drink"] = {$in : req.body.drink};    
+        }
+
+        if(req.body.profession.length > 0){
+        reqcondition["profession"] = {$in : req.body.profession};    
+        }
+
+        if(req.body.sexualorient.length > 0){
+        reqcondition["sexualorient"] = {$in : req.body.sexualorient};    
+        }
+
+        if(req.body.minage != '' && req.body.maxage != '')
+        {
+        reqcondition.age = {
+        $gte: req.body.minage,
+        $lte: req.body.maxage
+        };   
+        }
    
-   if(req.body.sexualorient.length > 0){
-       reqcondition["sexualorient"] = {$in : req.body.sexualorient};    
-   }
-
-   if(req.body.age.min != '' && req.body.age.max != '')
-   {
-       reqcondition.age = {
-        $gte: req.body.age.min,
-        $lte: req.body.age.max
-       };   
-    }
-
-  if(req.body.online == 'Y')
-  {
-     reqcondition.online = 'Y';   
-  }
-
-var response={};
-//console.log("query");
-//console.log(reqcondition);
-
-Customer.find(reqcondition, null, {sort: {created_at: 1}}).populate('country').exec(function(err,data){
-
-        if (err) {
-           // //console.log(err)
-            response = {"error" : true,"message" : "Error fetching data"};
-        } else{
-         // //console.log(data)
-            response = {"error" : false, "message" : data};
+  /* age */
+        if(req.body.minage != '' && req.body.maxage == ''){
+        reqcondition.age = {
+        $gte: req.body.minage
         };
-       // //console.log(response);
-       res.json(response);
+        }
 
-   }); 
+        if(req.body.minage == '' && req.body.maxage != ''){
+        reqcondition.age = {
+        $lte: req.body.maxage
+        };
+        }
 
-});
+        if(req.body.minage != '' && req.body.maxage != '')
+        {
+        reqcondition.age = {
+        $gte: req.body.minage,
+        $lte: req.body.maxage
+        };   
+        }
+
+
+/* Height */
+
+        if(req.body.minheight != '' && req.body.maxheight == ''){
+          reqcondition.height = {
+          $gte: req.body.minheight
+          };
+        }
+
+        if(req.body.minheight == '' && req.body.maxheight != ''){
+          reqcondition.height = {
+          $lte: req.body.maxheight
+          };
+        }
+
+        if(((req.body.minheight != '') && (req.body.maxheight != '')) && ((typeof req.body.minheight != 'undefined') && (typeof req.body.maxheight != 'undefined')))
+        {
+          reqcondition.height = {
+          $gte: req.body.minheight,
+          $lte: req.body.maxheight
+          };   
+        }
+
+
+        if(req.body.online == 'Y')
+        {
+        reqcondition.online = 'Y';   
+        }
+
+        var response={};
+
+console.log("query");
+console.log(reqcondition);
+
+        Customer.find(reqcondition, null, {sort: {created_at: 1}}).populate('country').exec(function(err,data){
+        if (err) {
+        // //console.log(err)
+        response = {"error" : true,"message" : "Error fetching data"};
+        } else{
+        // //console.log(data)
+        response = {"error" : false, "message" : data};
+        };
+        // //console.log(response);
+        res.json(response);
+        }); 
+        });
 
 
 router.put('/:id',function(req, res){
@@ -728,6 +907,20 @@ router.put('/:id',function(req, res){
         res.json(response);
     });
 });
+
+
+router.get('/userscountry',function(req, res){
+    var response={};
+    Customer.find({}).distinct('countryName', function(err, countrys) {
+        if(err) {
+            response = {"error" : true,"message" : err};
+        } else {
+            response = {"error" : false,"message" : countrys};
+        }
+        res.json(response);
+    });
+});
+
 
 router.get('/:id',function(req,res){
     
@@ -802,7 +995,7 @@ router.post('/account-confirms',function(req, res){
         } else {            
             var loggedUser = dataq;
             var name = loggedUser.firstname+" <"+loggedUser.email+" >";            
-            var content = "Hi,<br><br>Please activate your account with below link:<br><br> <a href='http://34.209.114.118:3005/customer/mailactivate/"+loggedUser._id+"'>Email Activation Link</a><br><br>Speed Dating Team";
+            var content = "Hi,<br><br>Please activate your account with below link:<br><br> <a href='http://34.209.114.118:3005/frontend/activate-account/"+loggedUser._id+"'>Email Activation Link</a><br><br>Speed Dating Team";
             req.mail.sendMail({  //email options
                from: "Speed Dating Team <logindharam@gmail.com>", // sender address.  Must be the same as authenticated user if using GMail.
                to: name, // receiver

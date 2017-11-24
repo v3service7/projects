@@ -1216,17 +1216,18 @@ export class KitchenMenuListComponent implements OnInit {
 	    var baseUrl = this.frontUrl;
 	    var src = baseUrl + 'frontend/' + gfid;
 
-	    console.log(gfid , baseUrl, src)
 	    var height = '680px';
 	    $("#previewModal iframe").attr({'src':src , 'height':height});
-		$('#previewModal iframe').css({'position':'fixed','left': '0','top': '0','width': '100%','padding': '3% 20%','background': 'rgba(0, 0, 0, 0.58)','height':'100%'});
+		$('#previewModal iframe').css({'position':'fixed','left': '0','top': '0','width': '100%','padding': '3% 15%','background': 'rgba(0, 0, 0, 0.58)','height':'100%'});
 		$('#previewModal').css({'display':'block'});
+		$('body').css({'overflow':'hidden'});
 
 		var closeBtn  = $('<a class ="closeBtn" href="javascript:void(0)">Close</a>');
 		$('#previewModal').append(closeBtn);
-		$('.closeBtn').css({'text-decoration-line:':'unset','padding':'10px','border-radius':'3px','background-color':'rgba(0,0,0,.6)','position':'fixed','right':'13%','top':'40px','color':'#fff','box-shadow':'0 2px 10px rgba(0,0,0,.5)'});
+		$('.closeBtn').css({'text-decoration-line:':'unset','padding':'10px','border-radius':'3px','background-color':'rgba(0,0,0,.6)','position':'fixed','right':'10%','top':'40px','color':'#fff','box-shadow':'0 2px 10px rgba(0,0,0,.5)'});
 		$('a.closeBtn').on('click', function(e) {
 			$('#previewModal').css('display','none');
+			$('body').css({'overflow':'auto'});
 		});
 	}
 	private onClicked(event){
@@ -1546,18 +1547,6 @@ export class KitchenMenuListComponent implements OnInit {
 		this.addgroup = {"display" : "none"}; 
 	}
 	private groupDetailAdd(){
-		/*var min=((<HTMLInputElement>document.getElementById("forceMin")).value);
-		var max=((<HTMLInputElement>document.getElementById("forceMax")).value);*/
-
-		/*if (this.groupDetail.gType == 'optional') {
-			this.groupAddModel.controls['groupType'].setValue(this.groupDetail);
-		}*/
-		/*if (this.groupDetail.gType == 'mandatory') {
-			this.groupDetail.min = min;
-			this.groupDetail.max = max;
-			this.groupAddModel.controls['groupType'].setValue(this.groupDetail);
-		}*/
-
 		this.groupAddModel.controls['restaurantId'].setValue(this.restaurants._id);
 		this.kitchenMenuService.adddetailAddOn(this.groupAddModel.value).subscribe(addons => {     
 			this.getAllAddonDetail();
@@ -1574,48 +1563,23 @@ export class KitchenMenuListComponent implements OnInit {
 	private groupDetailEdit(id){
 		this.currentOpen = 'editgroup_' + id;
 		this.kitchenMenuService.groupDetailEditser(id).subscribe(data => {   
-		//console.log("data")     	
-		//console.log(data)
-			/*this.editableDetail.controls['_id'].setValue(data.message._id);
-			this.editableDetail.controls['name'].setValue(data.message.name);*/
-
 			this.editableDetail.patchValue(data.message);
 			
 			this.groupDetail = data.message.groupType;
 			if (data.message.groupType.gType == 'mandatory') {
 				this.btn_class1 = 'btn-default';
 				this.btn_class2 = 'btn-success';
-				/*if (typeof this.groupDetail.min != 'undefined' && typeof this.groupDetail.max != 'undefined' && this.groupDetail.min != "" && this.groupDetail.max != "") {
-					this.groupAddModel.controls['groupType'].setValue(this.groupDetail);
-				}else{
-					this.groupAddModel.controls['groupType'].setValue(null);
-				}*/
 
 				document.getElementById('mandatoryFields').style.display = 'block';
-				//this.mandatoryUpdate();
-				/*(<HTMLInputElement>document.getElementById("forceMinEdit")).value = data.message.groupType.min;
-				(<HTMLInputElement>document.getElementById("forceMaxEdit")).value = data.message.groupType.max;*/
 			}else{
 				this.btn_class2 = 'btn-default';
 				this.btn_class1 = 'btn-success';
 
 				document.getElementById('mandatoryFields').style.display = 'none';
-				/*this.optionalUpdateEdit();*/
 			}
 		});
 	}
 	private groupDetailEditUpdate(){
-		/*var min=((<HTMLInputElement>document.getElementById("forceMinEdit")).value);
-		var max=((<HTMLInputElement>document.getElementById("forceMaxEdit")).value);*/
-
-		/*if (this.groupDetail.gType == 'optional') {
-			this.editableDetail.controls['groupType'].setValue(this.groupDetail);
-		}
-		if (this.groupDetail.gType == 'mandatory') {
-			this.groupDetail.min = min;
-			this.groupDetail.max = max;
-			this.editableDetail.controls['groupType'].setValue(this.groupDetail);
-		}*/
 		this.kitchenMenuService.groupEditUpdate(this.editableDetail.value).subscribe(data => {
 			this.getAllAddonDetail();
 			this.clearCancel();
@@ -1632,8 +1596,6 @@ export class KitchenMenuListComponent implements OnInit {
 	private loadAllUsers() {
 		this.kitchenMenuService.getAll(this.restaurants._id).subscribe(users => { 			
 			this.users = users.message;
-			//console.log("this.users");
-			//console.log(this.users);
 		});
 	}
 	private loadAllItem() {
@@ -1672,7 +1634,7 @@ export class KitchenMenuListComponent implements OnInit {
 	private addMultisizeAddOn(id){
 		this.multisizeAddModel.controls['sid'].setValue(id);	
 	}
-	multisizeAddUpdate(){	 
+	multisizeAddUpdate(){
 		var allvalue :any = {}; 
 		allvalue._id = this.multisizeAddModel.value.sid;	
 		allvalue.multisize = {size: this.multisizeAddModel.value.sizename, price: this.multisizeAddModel.value.sizeprice};	 		
@@ -1773,9 +1735,6 @@ export class KitchenMenuListComponent implements OnInit {
 		this.kitchenMenuItemService.editSubAddOnUpdate(this.editableChoiceDetail.value).subscribe(data => {	
 			this.loadAllAddons(this.editableChoiceDetail.value._id);
 			this.clearCancel();
-			//document.getElementById(id).className = 'in';
-			//this.getAllAddonDetail();
-			////console.log(id)
 			toastr.success('Choice Updated','Success!');
 		})
 	}
@@ -1835,9 +1794,7 @@ export class KitchenMenuListComponent implements OnInit {
 	   }
 	}
    	private showDayOption(user,type){
-   		//console.log("user,type");
-   		//console.log(user,type);
-   		this.mondayCheck = false; 
+   		this.mondayCheck = false;
 		this.tuesdayCheck = false;
 		this.wednesdayCheck = false;
 		this.thursdayCheck = false;
@@ -1964,15 +1921,9 @@ export class KitchenMenuListComponent implements OnInit {
    	}
    	private showMenu(id){
    		var divId = 'days'+id;
-   		//console.log(divId)
    		document.getElementById(divId).style.display = 'block';
    		this.hideMenuOption = false;
    		this.showMenuOption = true;
-
-   		//console.log(this.hideMenuOption);
-   		//console.log("this.hideMenuOption");
-   		//console.log(this.showMenuOption);
-   		//console.log("this.showMenuOption");
    	}
    	private checkMon(){
    		this.mondayCheck = !this.mondayCheck;
@@ -2049,8 +2000,6 @@ export class KitchenMenuListComponent implements OnInit {
    		//console.log(this.openinghours);
    	}
    	private saveOpeningTimings(type){
-   		//console.log("this.hideMenuOption");
-   		//console.log(this.hideMenuOption);
    		if (this.hideMenuOption == true) {
    			this.menuObj.isHidden = true;
    			this.menuObj.isSpecific = false;
@@ -2111,7 +2060,6 @@ export class KitchenMenuListComponent implements OnInit {
 	   		});
    		}
    	}
-
    	private deleteMenuImage(user,type){
    		if (user.image != null) {
    			if (confirm("Delete Image?")) {
@@ -2214,23 +2162,21 @@ export class LegacycodeComponent implements OnInit {
 })
 export class NotificationComponent implements OnInit {
 	restaurants: any = {};
-	user = [];
-	notification = [];
+	notification : any = [];
+
+	deliveryConfirm: boolean = true;
+	pickupConfirm: boolean = true;
+	orderReject: boolean = true;
+	orderMissed: boolean = true;
+	orderNotPlaced: boolean = true;
+
+	editNoti: boolean = false;
 	
-	notificationObj: any = { "rozConfirm": false, "pickupConfirm": false, "rozConfirmText": false, "orderReject": false, "orderError": false, "orderUnfinished": false, "lowBettery": false, "badConnection": false };
+	addEmail: boolean = false;
 
-	rozConfirmi: any;
-	notiIndex:Number;
-	pickupConfirmi: any;
-	rozConfirmTexti: any;
-	orderRejecti: any;
-	orderErrori: any;
-	orderUnfinishedi: any;
-	lowBetteryi: any;
-	badConnectioni: any;
-	restaurantAddModel: FormGroup;
-	public edited = false;
+	notiIndex : number;
 
+	notificationForm: FormGroup;
 
 	forgreen: any = { "background-color": "green", "color": "white" };
 	forred: any = { "background-color": "red", "color": "white" };
@@ -2245,163 +2191,156 @@ export class NotificationComponent implements OnInit {
 
 	ngOnInit() {
 		this.getRestaurants();
-		this.restaurantAddModel = this.lf.group({
-			email: ['', Validators.required],
+		this.notificationForm = this.lf.group({
+			email : ['', Validators.required],
+			deliveryConfirm : ['', Validators.required],
+			pickupConfirm : ['', Validators.required],
+			orderReject : ['', Validators.required],
+			orderMissed: ['', Validators.required],
+			orderNotPlaced: ['', Validators.required]
 		});
-		this.intialoption();
-	}
-
-	intialoption() {
-		if (this.notificationObj.rozConfirm) { this.rozConfirmi = true; } else { this.rozConfirmi = false; }
-		if (this.notificationObj.pickupConfirm) { this.pickupConfirmi = true; } else { this.pickupConfirmi = false; }
-		if (this.notificationObj.rozConfirmText) { this.rozConfirmTexti = true; } else { this.rozConfirmTexti = false; }
-		if (this.notificationObj.orderReject) { this.orderRejecti = true; } else { this.orderRejecti = false; }
-		if (this.notificationObj.orderError) { this.orderErrori = true; } else { this.orderErrori = false; }
-		if (this.notificationObj.orderUnfinished) { this.orderUnfinishedi = true; } else { this.orderUnfinishedi = false; }
-		if (this.notificationObj.lowBettery) { this.lowBetteryi = true; } else { this.lowBetteryi = false; }
-		if (this.notificationObj.badConnection) { this.badConnectioni = true; } else { this.badConnectioni = false; }
 	}
 
 	intialoption2(fors, selectoption) {
-		if (fors == 'rozConfirm' && selectoption == true) {
-			this.rozConfirmi = true;
+		if (fors == 'deliveryConfirm' && selectoption == true) {
+			this.deliveryConfirm = true;
 		}
 
-		if (fors == 'rozConfirm' && selectoption == false) {
-			this.rozConfirmi = false;
+		if (fors == 'deliveryConfirm' && selectoption == false) {
+			this.deliveryConfirm = false;
 		}
 
 		if (fors == 'pickupConfirm' && selectoption == true) {
-			this.pickupConfirmi = true;
+			this.pickupConfirm = true;
 		}
 
 		if (fors == 'pickupConfirm' && selectoption == false) {
-			this.pickupConfirmi = false;
+			this.pickupConfirm = false;
 		}
 
-		if (fors == 'rozConfirmText' && selectoption == true) {
-			this.rozConfirmTexti = true;
-		}
-
-		if (fors == 'rozConfirmText' && selectoption == false) {
-			this.rozConfirmTexti = false;
-		}
 		if (fors == 'orderReject' && selectoption == true) {
-			this.orderRejecti = true;
+			this.orderReject = true;
 		}
 
 		if (fors == 'orderReject' && selectoption == false) {
-			this.orderRejecti = false;
+			this.orderReject = false;
 		}
 
-		if (fors == 'orderError' && selectoption == true) {
-			this.orderErrori = true;
+		if (fors == 'orderMissed' && selectoption == true) {
+			this.orderMissed = true;
 		}
 
-		if (fors == 'orderError' && selectoption == false) {
-			this.orderErrori = false;
+		if (fors == 'orderMissed' && selectoption == false) {
+			this.orderMissed = false;
 		}
 
-		if (fors == 'orderUnfinished' && selectoption == true) {
-			this.orderUnfinishedi = true;
+		if (fors == 'orderNotPlaced' && selectoption == true) {
+			this.orderNotPlaced = true;
 		}
 
-		if (fors == 'orderUnfinished' && selectoption == false) {
-			this.orderUnfinishedi = false;
-		}
-
-		if (fors == 'lowBettery' && selectoption == true) {
-			this.lowBetteryi = true;
-		}
-
-		if (fors == 'lowBettery' && selectoption == false) {
-			this.lowBetteryi = false;
-		}
-
-		if (fors == 'badConnection' && selectoption == true) {
-			this.badConnectioni = true;
-		}
-
-		if (fors == 'badConnection' && selectoption == false) {
-			this.badConnectioni = false;
+		if (fors == 'orderNotPlaced' && selectoption == false) {
+			this.orderNotPlaced = false;
 		}
 	}
 
 	getRestaurants() {
 		this.restaurantsService.getOwnerRestaurants(JSON.parse(localStorage.getItem('currentOwner'))._id).subscribe(users => {
 			this.restaurants = users.message;
-			//console.log(this.restaurants);
+			this.notification = users.message.notification;
+
+			this.notificationForm.controls['deliveryConfirm'].setValue(this.deliveryConfirm);
+			this.notificationForm.controls['pickupConfirm'].setValue(this.pickupConfirm);
+			this.notificationForm.controls['orderReject'].setValue(this.orderReject);
+			this.notificationForm.controls['orderMissed'].setValue(this.orderMissed);
+			this.notificationForm.controls['orderNotPlaced'].setValue(this.orderNotPlaced);
+
 		});
 	}
 
-	notificationUpdate() {
-		var objForUpdate: any = {};
-		objForUpdate._id = this.restaurants._id;
-		objForUpdate.notification = {}
-		objForUpdate.notification.rozConfirm = this.rozConfirmi;
-		objForUpdate.notification.pickupConfirm = this.pickupConfirmi;
-		objForUpdate.notification.rozConfirmText = this.rozConfirmTexti;
-		objForUpdate.notification.orderReject = this.orderRejecti;
-		objForUpdate.notification.orderError = this.orderErrori;
-		objForUpdate.notification.orderUnfinished = this.orderUnfinishedi;
-		objForUpdate.notification.lowBettery = this.lowBetteryi;
-		objForUpdate.notification.badConnection = this.badConnectioni;
-		objForUpdate.notification.email = this.restaurantAddModel.controls['email'].value;
+	addEmailFunction(){
+		this.addEmail = true;
+	}
 
-		//console.log(objForUpdate);
-		this.restaurantsService.updateNotification(objForUpdate).subscribe(
-			(data) => {
-				//console.log(data);
-				//this.user = data.message;
-				toastr.success('Notification Settings Updated');
-				this.router.navigate(['/owner/supported-languages']);
-			});
+	cancelButton(){
+		this.addEmail = false;
+		this.notificationForm.reset();
+	}
+
+	notificationUpdate() {
+		this.notificationForm.controls['deliveryConfirm'].setValue(this.deliveryConfirm);
+		this.notificationForm.controls['pickupConfirm'].setValue(this.pickupConfirm);
+		this.notificationForm.controls['orderReject'].setValue(this.orderReject);
+		this.notificationForm.controls['orderMissed'].setValue(this.orderMissed);
+		this.notificationForm.controls['orderNotPlaced'].setValue(this.orderNotPlaced);
+
+		let objForUpdate = {};
+
+		objForUpdate['_id'] = this.restaurants._id;
+
+		if (!this.editNoti) {
+			objForUpdate['notification'] = this.notificationForm.value;
+			
+			this.restaurantsService.updateNotification(objForUpdate).subscribe(
+				(data) => {
+					toastr.success('Notification Settings Updated');
+					this.notificationForm.reset();
+					this.resetForm();
+					this.getRestaurants();
+					this.editNoti = false;
+					this.addEmail = false;
+				});
+		}else{
+			this.notification[this.notiIndex] = this.notificationForm.value;
+			objForUpdate['notification'] = this.notification;
+			this.updateRestro(objForUpdate);
+			this.editNoti = false;
+		}
+	}
+
+	resetForm(){
+		this.deliveryConfirm = true;
+		this.pickupConfirm = true;
+
+		this.orderReject = true;
+		this.orderMissed = true;
+		this.orderNotPlaced = true;
+
 	}
 
 	remove(id, index){
 		if (confirm("Are you sure to delete ?")) {
-		    this.restaurantsService.deleteNotification(id,index).subscribe(users => {
-				if (!users.error) {
-					this.getRestaurants();
-					toastr.success('Removed Successfully');
-				}
-			});
+			this.notification.splice(index,1);
+			let objUpdate = {};
+			objUpdate['_id'] = this.restaurants._id;
+			objUpdate['notification'] = this.notification;
+			this.updateRestro(objUpdate);
+			toastr.success('Removed Successfully');
 		}
 	}
 
-	get(notiFyObj,index){
-		this.edited = true;
-		this.restaurantAddModel.controls['email'].setValue(notiFyObj.email);
-		this.rozConfirmi = notiFyObj.rozConfirm;
-		this.pickupConfirmi = notiFyObj.pickupConfirm;
-		this.rozConfirmTexti = notiFyObj.rozConfirmText;
-		this.orderRejecti = notiFyObj.orderReject;
-		this.orderErrori = notiFyObj.orderError;
-		this.orderUnfinishedi = notiFyObj.orderUnfinished;
-		this.lowBetteryi = notiFyObj.lowBettery;
-		this.badConnectioni = notiFyObj.badConnection;
-		this.notiIndex = index;
-	}
-
-	edit(){
-		var objForUpdateNew: any = {};
-		objForUpdateNew._id = this.restaurants._id;
-		objForUpdateNew.notification = {}
-		objForUpdateNew.notification.rozConfirm = this.rozConfirmi;
-		objForUpdateNew.notification.pickupConfirm = this.pickupConfirmi;
-		objForUpdateNew.notification.rozConfirmText = this.rozConfirmTexti;
-		objForUpdateNew.notification.orderReject = this.orderRejecti;
-		objForUpdateNew.notification.orderError = this.orderErrori;
-		objForUpdateNew.notification.orderUnfinished = this.orderUnfinishedi;
-		objForUpdateNew.notification.lowBettery = this.lowBetteryi;
-		objForUpdateNew.notification.badConnection = this.badConnectioni;
-		objForUpdateNew.notification.email = this.restaurantAddModel.controls['email'].value;
-
-	    this.restaurantsService.editNotification(this.notiIndex,objForUpdateNew).subscribe(users => {
+	updateRestro(obj){
+	    this.restaurantsService.updateRestaurant(obj).subscribe(users => {
 			if (!users.error) {
+				this.notificationForm.reset();
+				this.resetForm();
 				this.getRestaurants();
+				this.addEmail = false;
 			}
 		});
+	}
+
+	get(notiFyObj,index){
+		this.addEmailFunction();
+		this.editNoti = true;
+		this.notificationForm.patchValue(notiFyObj);
+		this.deliveryConfirm = notiFyObj.deliveryConfirm;
+		this.pickupConfirm = notiFyObj.pickupConfirm;
+
+		this.orderReject = notiFyObj.orderReject;
+		this.orderMissed = notiFyObj.orderMissed;
+		this.orderNotPlaced = notiFyObj.orderNotPlaced;
+
+		this.notiIndex = index;
 	}
 }
 

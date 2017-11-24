@@ -46,7 +46,7 @@ export class PlanListComponent implements OnInit {
                 }
             },
             (err)=>{
-                console.log('kfgbhj')
+                console.log(err)
             }
         );
     }
@@ -72,6 +72,7 @@ export class PlanAddComponent implements OnInit {
     formErrors = {
         'name': '',
         'amount': '',
+        'planType': '',
     };
 
     validationMessages = {
@@ -80,6 +81,9 @@ export class PlanAddComponent implements OnInit {
         },
         'amount': {
             'required':      'Amount is required.',
+        },
+        'planType': {
+            'required':      'Plan Type is required.',
         },
     };
 
@@ -95,6 +99,7 @@ export class PlanAddComponent implements OnInit {
         this.planAddForm = this.lf.group({
             name: ['', Validators.required],
             amount: ['', Validators.required],
+            planType: ['', Validators.required],
             desc: [''],
         });
         this.planAddForm.valueChanges
@@ -111,7 +116,7 @@ export class PlanAddComponent implements OnInit {
                 }
             },
             (err)=>{
-                console.log('kfgbhj')
+                console.log(err)
             }
         );
     }
@@ -146,6 +151,7 @@ export class PlanEditComponent implements OnInit {
     formErrors = {
         'name': '',
         'amount': '', 
+        'planType': '',
     };
 
     validationMessages = {
@@ -154,6 +160,9 @@ export class PlanEditComponent implements OnInit {
         },
         'amount': {
             'required':      'Amount is required.',
+        },
+        'planType': {
+            'required':      'Plan Type is required.',
         },
     };
 
@@ -170,6 +179,7 @@ export class PlanEditComponent implements OnInit {
             _id: ['', Validators.required],
             name: ['', Validators.required],
             amount: ['', Validators.required],
+            planType: ['', Validators.required],
             desc: [''],
         });
 
@@ -192,7 +202,7 @@ export class PlanEditComponent implements OnInit {
                 }
             },
             (err)=>{
-                console.log('kfgbhj')
+                console.log(err)
             }
         );
     }
@@ -206,7 +216,7 @@ export class PlanEditComponent implements OnInit {
                 }
             },
             (err)=>{
-                console.log('kfgbhj')
+                console.log(err)
             }
         );
     }

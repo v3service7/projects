@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ExchangeService} from '../../services/exchange.service';
-import { UserService} from '../../services/user.service';
+import { AdminService} from '../../services/admin.service';
 import { PagesService} from '../../services/pages.service';
 import { PlanService} from '../../services/plan.service';
 
@@ -20,7 +20,7 @@ export class DashboardComponent implements OnInit {
   	private planService: PlanService,
   	private exchangeService: ExchangeService,
   	private pagesService: PagesService,
-  	private userService: UserService,
+  	private adminService: AdminService,
   	) { }
 
   ngOnInit() {
@@ -70,7 +70,7 @@ export class DashboardComponent implements OnInit {
     }
 
     getUserList(){
-        this.userService.userList().subscribe(
+        this.adminService.userList().subscribe(
             (data) => {
               if (!data.error) {
                     this.userCount = data.message.length;

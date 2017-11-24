@@ -3,7 +3,7 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 // create a schema
 var ExchnageSchema = new Schema({
-  	exchangeName: String,
+  	exchangeName: { type: Schema.Types.ObjectId, ref: 'ExchnageApi' },
   	exchangeType: String,
   	nickName: String,
   	apiKey: String,

@@ -34,7 +34,7 @@
                             <div class="form-group">
                                 <label class="control-label">Exchange API <span>*</span></label>
                                 <select  formControlName="exchangeName" class="form-control">
-                                    <option *ngFor="let exchangeName of exchangeNames" [value]="exchangeName">{{exchangeName}}</option>
+                                    <option *ngFor="let exchangeName of exchangeNames" [value]="exchangeName._id">{{exchangeName.exchangeapiName}}</option>
                                 </select>
                             </div>
                             <div *ngIf="formErrors.exchangeName" class="alert alert-danger">

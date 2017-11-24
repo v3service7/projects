@@ -3,6 +3,7 @@ import { Router,ActivatedRoute, Params } from '@angular/router';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import {AdminService} from '../../services/admin.service';
 import {FlashMessagesService} from 'angular2-flash-messages';
+
 @Component({
   selector: 'app-forgot-password',
   templateUrl: './forgot-password.component.html',
@@ -31,10 +32,13 @@ currentAdmin: any = {};
         });
     }
 
-    forgetPassword(){
+
+    forgotPassword(){
+
         this.adminService.forgotPassword(this.loginForm.value).subscribe(
             (data) => {
-                if (data.status) {
+                if(!data.error){
+                    this.flashMessage.show("Please check your email to reset the password", {cssClass: 'alert-success', timeout: 5000});
                     this.router.navigate(['admin/login']);
                 }else{
                     this.router.navigate(['admin/login']);
@@ -43,7 +47,7 @@ currentAdmin: any = {};
             (err)=>{
                 this.router.navigate(['admin/login']);
             }
-            );
+        );
     }
 }
 

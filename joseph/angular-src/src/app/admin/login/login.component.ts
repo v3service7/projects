@@ -19,6 +19,9 @@ export class LoginComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    if(this.adminService.loggedIn()){
+      this.router.navigate(['/admin/dashboard']);
+    } 
   }
 
   onLoginSubmit(){

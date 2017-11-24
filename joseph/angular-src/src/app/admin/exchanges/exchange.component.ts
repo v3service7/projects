@@ -3,7 +3,8 @@ import { Router,ActivatedRoute,Params  } from '@angular/router';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { FlashMessagesService } from 'angular2-flash-messages';
 import { ExchangeService} from '../../services/exchange.service';
-import { UserService} from '../../services/user.service';
+import { AdminService} from '../../services/admin.service';
+import { ExchangeapiService} from '../../services/exchangeapi.service';
 
 @Component({
   selector: 'app-admin-exchange',
@@ -41,6 +42,7 @@ export class ExchangeListComponent implements OnInit {
     getList(){
         this.exchangeService.exchangeList().subscribe(
             (data) => {
+                console.log(data);
               if (!data.error) {
                      this.plans = data.message
                 }
@@ -68,7 +70,7 @@ export class ExchangeListComponent implements OnInit {
 })
 export class ExchangeAddComponent implements OnInit {
     users: any = [];
-    exchangeNames = ['API1', 'API2', 'API3', 'API4', 'API5'];
+    exchangeNames: any = [];
     exchangeTypes = ['Exchange', 'Margin Trading', 'Deposit'];
     planAddForm: FormGroup;
 
@@ -105,7 +107,8 @@ export class ExchangeAddComponent implements OnInit {
     constructor(
         private lf: FormBuilder, 
         private exchangeService: ExchangeService,
-        private userService: UserService,
+        private exchangeapiService: ExchangeapiService,
+        private adminService: AdminService,
         private router: Router,
         private route: ActivatedRoute,
         private _flashMessagesService: FlashMessagesService
@@ -124,14 +127,19 @@ export class ExchangeAddComponent implements OnInit {
             .subscribe(data => this.onValueChanged(data));
         this.onValueChanged();
         this.getUserList();
+        this.getApiList();
     }
 
     planAdd(){
+        console.log(this.planAddForm.value);
         this.exchangeService.exchangeAdd(this.planAddForm.value).subscribe(
             (data) => {
+                console.log(data);
               if (!data.error) {
                   this._flashMessagesService.show('Exchange Account Added Successfully', { cssClass: 'alert-success', timeout: 3000 });
                   this.router.navigate(['admin/exchange']);
+                }else{
+                    this._flashMessagesService.show('Exchange API Already exists', { cssClass: 'danger-alert', timeout: 3000 });
                 }
             },
             (err)=>{
@@ -141,10 +149,23 @@ export class ExchangeAddComponent implements OnInit {
     }
 
     getUserList(){
-        this.userService.userList().subscribe(
+        this.adminService.userList().subscribe(
             (data) => {
               if (!data.error) {
                      this.users = data.message
+                }
+            },
+            (err)=>{
+                console.log('kfgbhj')
+            }
+        );
+    }
+
+    getApiList(){
+        this.exchangeapiService.exchangeapiList().subscribe(
+            (data) => {
+              if (!data.error) {
+                     this.exchangeNames = data.message
                 }
             },
             (err)=>{
@@ -180,7 +201,7 @@ export class ExchangeEditComponent implements OnInit {
 	currentCustomer: any = {};
     planAddForm: FormGroup;
     users: any = [];
-    exchangeNames = ['API1', 'API2', 'API3', 'API4', 'API5'];
+    exchangeNames: any = [];
     exchangeTypes = ['Exchange', 'Margin Trading', 'Deposit'];
 
     formErrors = {
@@ -217,7 +238,8 @@ export class ExchangeEditComponent implements OnInit {
         private lf: FormBuilder, 
         private exchangeService: ExchangeService,
         private router: Router,
-        private userService: UserService,
+        private exchangeapiService: ExchangeapiService,
+        private adminService: AdminService,
         private route: ActivatedRoute,
         private _flashMessagesService: FlashMessagesService
     ){}
@@ -237,6 +259,7 @@ export class ExchangeEditComponent implements OnInit {
             let id = params['id'];  
             this.plan(id);
             this.getUserList();
+            this.getApiList();
         });    
 
         this.planAddForm.valueChanges
@@ -246,7 +269,7 @@ export class ExchangeEditComponent implements OnInit {
 
 
     getUserList(){
-        this.userService.userList().subscribe(
+        this.adminService.userList().subscribe(
             (data) => {
               if (!data.error) {
                      this.users = data.message
@@ -258,12 +281,27 @@ export class ExchangeEditComponent implements OnInit {
         );
     }
 
-    planUpdate(){
+    getApiList(){
+        this.exchangeapiService.exchangeapiList().subscribe(
+            (data) => {
+              if (!data.error) {
+                     this.exchangeNames = data.message
+                }
+            },
+            (err)=>{
+                console.log('kfgbhj')
+            }
+        );
+    }
+    planUpdate(){ console.log(this.planAddForm.value);
         this.exchangeService.exchangeUpdate(this.planAddForm.value).subscribe(
+
             (data) => {
               if (!data.error) {
                   this._flashMessagesService.show('Exchange Account Updated Successfully', { cssClass: 'alert-success', timeout: 3000 });
                   this.router.navigate(['admin/exchange']);
+                }else{
+                   this._flashMessagesService.show('Exchange API Already Exists', { cssClass: 'danger-alert', timeout: 3000 }); 
                 }
             },
             (err)=>{

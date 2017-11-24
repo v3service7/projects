@@ -4,6 +4,7 @@ import { ModalController,ToastController, LoadingController, Nav, IonicPage, Nav
 import { RestaurantsService, OrderService } from '../../app/service/index';
 
 import { MyOrderPage } from './my-order';
+import { ChangeOrderStatusPage } from './change-order-status';
 
 /**
  * Generated class for the MyOrderPage page.
@@ -15,31 +16,6 @@ import { MyOrderPage } from './my-order';
 @Component({
   selector: 'page-order-detail',
   templateUrl: 'order-detail.html',
-  styles: [` 
-    ion-item{     
-        padding-left: 0px !important ;    
-    } 
-    p{
-        margin-bottom: 10px;
-    }
-    .white{
-        color:#fff;
-    }
-    ion-label {
-        margin: 0px !important;
-    }
-    .label-ios {
-        margin: 0px !important;
-    }
-    .label-md {
-        margin: 0px !important;
-    }
-    .statusButton{
-        height: auto;
-        padding: 5%;
-        font-size: 10px;
-    }
-    `],
 })
 export class OrderDetailPage {
 
@@ -47,26 +23,41 @@ export class OrderDetailPage {
     
     constructor(public toastCtrl: ToastController, public navCtrl: NavController, public loadingCtrl: LoadingController, public navParams: NavParams,private restaurantsService: RestaurantsService,private orderService: OrderService) {
         this.selectedOrder = navParams.get('item');
-
-        console.log("this.selectedOrder");
-        console.log(this.selectedOrder);
+        this.getOrders();
     }
 
-	ionViewDidLoad() {}
+    ionViewDidEnter() {
+        this.getOrders();
+    }
 
-	private updateStatus(obj,status){
+    private getOrders(){
+        this.orderService.getDetail(this.selectedOrder._id).subscribe(users => {
+            this.selectedOrder = users.message;
+        });
+    }
+
+	private updateStatus(obj,driverStatus){
 		let loading = this.loadingCtrl.create({
             content: 'Please wait...'
         });
         loading.present();
         var objUpdate = {};
         objUpdate['_id'] = obj._id;
-        objUpdate['status'] = status;
+        objUpdate['driverStatus'] = driverStatus;
+        if (driverStatus == 'Accepted') {
+            objUpdate['status'] = 'Pending';
+        }else{
+            objUpdate['driverId'] = null;
+        }
         this.orderService.getUpdate(objUpdate).subscribe(
             (data) => {
                 loading.dismiss();
                 this.navCtrl.pop(MyOrderPage);
-                this.getToast('Order '+status+' successfully');
+                if (driverStatus == 'Accepted') {
+                    this.getToast('Order Accepted successfully');
+                }else{
+                    this.getToast('Order Rejected successfully');
+                }
             }
         );
 	}
@@ -79,4 +70,11 @@ export class OrderDetailPage {
 	    });
 	    toast.present();
  	}
+
+    private changeStatus(){
+        this.navCtrl.push(ChangeOrderStatusPage,{
+            order : this.selectedOrder
+        });
+        /*console.log("change clicked");*/
+    }
 }
