@@ -88,13 +88,12 @@ export class DriverOrdersComponent implements OnInit {
 
   private loadDriver(driverId){
     this.driversService.getDriverOrders(driverId).subscribe(data => {
-
-      console.log("data");
-      console.log(data);
       this.orders = data.message;
-      console.log("this.orders");
-      console.log(this.orders);
     });
+  }
+
+  orderDetail(id){
+    this.router.navigate(['/owner/reports/detail',id]);
   }
 
   private getRestaurants() {
