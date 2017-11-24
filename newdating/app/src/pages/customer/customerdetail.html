@@ -1,0 +1,177 @@
+<ion-header>
+  <ion-navbar>
+  	<ion-buttons end>
+      <button ion-button icon-only>
+        <ion-icon class="whiteButton" name="more" ios="ios-more" md="md-more"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+	<ion-row *ngIf="customer" no-margin class="width100">
+		<ion-row class="width100">
+			<ion-row class="width100">
+				<img class="customerImage width100" [src]="customerImage(customer.profilePic)"/>
+			</ion-row>
+			<ion-row text-capitalize class="custDetail white padding5px0px width100">
+				<ion-col col-12 no-padding padding-horizontal>
+
+					<ion-icon float-right class="onlineMark" *ngIf="customer.online == 'Y'" name="checkmark-circle" color="secondary"></ion-icon>
+					<ion-icon float-right class="onlineMark" *ngIf="customer.online != 'Y'" name="checkmark-circle" style="color:#9c9797;" clear></ion-icon>
+
+				</ion-col>
+				<ion-col col-12 no-padding padding-horizontal>
+					<span> {{customer.username}} , {{customer.age}}, </span><span>{{customer.countryName}}</span>
+				</ion-col>
+			</ion-row>
+		</ion-row>
+
+		<ion-row class="width100 bgWhite" *ngIf="customer.myPhotos">
+			<ion-col no-padding class="paddingRight5px" col-2 *ngFor = "let pic of customer.myPhotos">
+				<img src="{{url.imageUrl}}{{pic}}">
+			</ion-col>
+		</ion-row>
+
+		<!-- <ion-row class="padding5px0px"> -->
+			<ul class="ulIcon">
+				<span *ngFor="let friend of friends" class="spanIcon">
+					
+					<li *ngIf="(customer._id == friend.FromId._id) && friend.status == 0">
+						<ion-icon class="font20 fontWeight600 purple" name="code-download" ios="ios-code-download" md="md-code-download" (click)="acceptrequest(friend._id, customer._id)">
+						</ion-icon>
+					</li>
+
+
+					<li *ngIf="(customer._id == friend.FromId._id)  && friend.status == 0" >
+						<ion-icon class="font20 fontWeight600 red" name="close" ios="ios-close" md="md-close" (click)="deleteBlock(friend._id)">
+						</ion-icon>
+					</li>
+
+					<li *ngIf="(customer._id == friend.FromId._id || customer._id == friend.ToId._id) && friend.status == 1">
+						<ion-icon class="font20 orange" name="contacts" ios="ios-contacts" md="md-contacts" (click)="deleteBlock(friend._id)">
+						</ion-icon>
+					</li>
+
+
+					<li *ngIf="(this.customerInfo._id == friend.FromId._id && customer._id == friend.ToId._id) && friend.status == 0">
+						<ion-icon class="font20 green" name="send" ios="ios-send" md="md-send"></ion-icon>
+					</li>
+
+
+					<li *ngIf="(this.customerInfo._id == friend.FromId._id && customer._id == friend.ToId._id) && friend.status == 0">
+						<ion-icon class="font20 purple" name="trash" ios="ios-trash" md="md-trash" (click)="deleteBlock(friend._id)">
+						</ion-icon>
+					</li>
+
+
+					<li  *ngIf="(this.customerInfo._id == friend.FromId._id && customer._id == friend.ToId._id) && friend.status == 2">
+						<ion-icon class="font20 red" name="remove-circle" ios="ios-remove-circle" md="md-remove-circle" (click)="unblockrequest(friend, 2)">
+						</ion-icon>
+					</li>
+
+					<li  *ngIf="(this.customerInfo._id == friend.FromId._id && customer._id == friend.ToId._id) && friend.status == 4">
+						<ion-icon class="font20 purple" name="unlock" ios="ios-unlock" md="md-unlock" (click)="unblockrequest(friend, 4)">
+						</ion-icon>
+					</li>
+
+				</span> 
+
+
+				<li *ngIf="checkforinvite(customer._id)">
+					<ion-icon class="font20 purple" name="person-add" ios="ios-person-add" md="md-person-add" (click)="sendRequest(customer._id)">
+					</ion-icon>
+				</li>
+
+
+				<li *ngIf="checkforinvite(customer._id)" >
+					<ion-icon class="font20 red" name="remove-circle" ios="ios-remove-circle" md="md-remove-circle" (click)="anyBlockRequest(customer._id)">
+					</ion-icon>
+				</li>
+
+				<li>
+					<ion-icon class="font20 blue"  name="chatbubbles" ios="ios-chatbubbles" md="md-chatbubbles" (click)="selectNewChat(customer._id);">
+					</ion-icon>
+				</li>
+				
+				<li *ngIf="customerInfo.mypackage && (customerInfo.mypackage.remaincalls > 0) && (myonline.indexOf(customer._id) != -1)">
+					<ion-icon class="font20 green" name="videocam" ios="ios-videocam" md="md-videocam" (click)="vediocall(customer._id,customerInfo._id)">
+					</ion-icon >
+				</li>
+			</ul>
+
+			<!-- </ion-row> -->
+
+
+
+
+		<ion-row padding class="basicDetail width100 bgWhite marginBottom4">
+			<ion-col col-12><h5>About</h5></ion-col>
+			<ion-col col-12>
+				<img src="/assets/images/ring.png" class="height10">
+				<span *ngIf = "customer.maritalStatus">Married</span>
+				<span *ngIf = "!customer.maritalStatus">Never Married</span>
+			</ion-col>
+			<ion-col col-12 *ngIf = "customer.height">
+				<img src="/assets/images/arrow.png" class="height10"> {{customer.height}}
+			</ion-col>
+			<ion-col col-12 *ngIf = "customer.bodyshape">
+				<ion-icon name="person" ios="ios-person" md="md-person"></ion-icon> {{customer.bodyshape}}
+			</ion-col>
+			<ion-col *ngIf = "!showBasic" col-12 text-center (click) = "showMoreDetail()">
+				<ion-icon name="arrow-dropdown-circle" ios="ios-arrow-dropdown-circle" md="md-arrow-dropdown-circle"></ion-icon>
+			</ion-col>
+			<ion-row *ngIf = "showBasic" class="width100">
+				<ion-col col-12 *ngIf = "customer.profession">
+					<img src="/assets/images/profession.png" class="height10"> {{customer.profession}}
+				</ion-col>
+				<ion-col col-12 *ngIf = "customer.haircolor">
+					<ion-icon name="person" ios="ios-person" md="md-person"></ion-icon> {{customer.haircolor}}
+				</ion-col>
+				<ion-col col-12>
+					<ion-icon name="beer" ios="ios-beer" md="md-beer"></ion-icon>  <span *ngIf = "!customer.drink"> Drink : {{customer.drink}}</span>
+				</ion-col>
+				<ion-col col-12>
+					<ion-icon name="no-smoking" ios="ios-no-smoking" md="md-no-smoking"><span *ngIf = "customer.smoke"> Smoke : 
+					{{customer.smoke}} </span>
+				</ion-col>
+				<ion-col col-12 text-center (click) = "hideMoreDetail()">
+					<ion-icon name="arrow-dropup-circle" ios="ios-arrow-dropup-circle" md="md-arrow-dropup-circle"></ion-icon>
+				</ion-col>
+			</ion-row>
+		</ion-row>
+
+		<ion-row *ngIf = "customer.description" padding class="basicDetail width100 bgWhite marginBottom4">
+			<ion-col col-12><h5>Summary</h5></ion-col>
+			<ion-col col-12>
+		    {{customer.description}}
+			</ion-col>
+		</ion-row>
+
+		<ion-row padding class="basicDetail width100 bgWhite marginBottom4" *ngIf = "customer.preferences">
+			<ion-col col-12><h5>Whom <span *ngIf = "customer.gender=='female'">She</span><span *ngIf = "customer.gender=='male'">He</span> is looking for</h5></ion-col>
+			<ion-col col-12>
+				<img src="/assets/images/ring.png" class="height10"> <span *ngIf = "customer.preferences.maritalStatus">Married</span><span *ngIf = "!customer.preferences.maritalStatus">Never Married</span>
+			</ion-col>
+			<ion-col col-12 *ngIf = "customer.preferences.height">
+				<img src="/assets/images/arrow.png" class="height10">({{customer.preferences.minheight}} - {{customer.preferences.maxheight}})
+			</ion-col>
+			<ion-col col-12 *ngIf = "customer.preferences.bodyshape">
+				<ion-icon name="person" ios="ios-person" md="md-person"></ion-icon> {{customer.preferences.bodyshape}}
+			</ion-col>
+			<ion-col col-12 *ngIf = "customer.preferences.profession">
+				<img src="/assets/images/profession.png" class="height10"> {{customer.preferences.profession}}
+			</ion-col>
+			<ion-col col-12 *ngIf = "customer.preferences.haircolor">
+				<ion-icon name="person" ios="ios-person" md="md-person"></ion-icon> {{customer.preferences.haircolor}}
+			</ion-col>
+			<ion-col col-12>
+				<ion-icon name="beer" ios="ios-beer" md="md-beer"></ion-icon> <span *ngIf = "customer.preferences.drink"> Drink : {{customer.preferences.drink}} </span> 
+			</ion-col>
+			<ion-col col-12>
+				<ion-icon name="no-smoking" ios="ios-no-smoking" md="md-no-smoking"></ion-icon> <span *ngIf = "customer.preferences.smoke"> Smoke :  {{customer.preferences.drink}} </span> 
+			</ion-col>
+		</ion-row>
+
+	</ion-row>
+</ion-content>

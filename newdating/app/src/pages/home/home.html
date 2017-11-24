@@ -1,0 +1,26 @@
+<ion-header>
+    <ion-navbar>
+        <ion-title>Home</ion-title>
+    </ion-navbar>
+</ion-header>
+
+<ion-content>
+    <ion-refresher (ionRefresh)="doRefresh($event)">
+        <ion-refresher-content></ion-refresher-content>
+    </ion-refresher>
+    <ion-row class="bcColor">
+        
+        <!--<ion-col text-center [ngClass] = "activeTab1" (click)="getGlobal()">All</ion-col>-->
+        <ion-col text-center [ngClass] = "activeTab3" (click)="getLocal('default')"> LOCAL </ion-col>
+        <ion-col text-center [ngClass] = "activeTab2" (click)="getGlobal('default')"> GLOBAL </ion-col>
+        <ion-col text-center [ngClass] = "activeTab4" (click)="getMatch('default')"> MATCH </ion-col>
+
+    </ion-row>
+
+    <ion-row>
+        <ion-col text-left padding-left>Filter By</ion-col>
+        <ion-col text-right padding-right><ion-icon name="funnel" ios="ios-funnel" md="md-funnel" (click)="filterResults()"></ion-icon></ion-col>
+    </ion-row>
+
+     <page-customer [customers]="customerList" (changeSomething)="someEvent($event)"></page-customer>
+</ion-content>

@@ -31,7 +31,7 @@ export class VideocallPage  implements OnInit, OnDestroy  {
     profiles = [];
     callsessionid : any;
     publishedUser:any ={};
-    apiKey = '45956382';
+    apiKey = '46002262';
     publisher:any;
     session:any;
     sessionOBJ:any;
@@ -302,6 +302,8 @@ export class VideocallPage  implements OnInit, OnDestroy  {
     }
 
     private initializeSession(sessionId,token) {
+        console.log("sessionId, token, this.apiKey");
+        console.log(sessionId, token, this.apiKey);
         var session = OT.initSession(this.apiKey, sessionId);
         this.sessionOBJ = session;
         session.connect(token, (error) => {

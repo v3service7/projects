@@ -1,0 +1,61 @@
+<ion-content padding>
+	<h3 text-center class="labelColorOrange margin8">Registration</h3>
+	<div *ngIf ="!userRegistered">
+		<ion-row>
+			<ion-col padding-top col-6>I am :</ion-col>
+			<ion-col text-center (click)="selectGender('male')">
+				<img [src]="selectedMale('chooseGender')">
+			</ion-col>
+			<ion-col text-center (click)="selectGender('female')">
+				<img [src]="selectedFemale('chooseGender')">
+			</ion-col>
+		</ion-row>
+
+		<ion-row>
+			<ion-col padding-top col-6>Looking For :</ion-col>
+			<ion-col text-center (click)="selectGender('maleP')">
+				<img [src]="selectedMale('choosePreference')">
+			</ion-col>
+			<ion-col text-center (click)="selectGender('femaleP')">
+				<img [src]="selectedFemale('choosePreference')">
+			</ion-col>
+		</ion-row>
+
+		<ion-row padding-top>
+			<ion-col>Date of Birth</ion-col>
+			<ion-col text-right><ion-datetime no-padding displayFormat="MMM DD YYYY" [(ngModel)]="event.month" (ionChange)="chooseDOB()"></ion-datetime></ion-col>
+		</ion-row>
+
+		<form role="form" [formGroup]="signUpForm" (ngSubmit)="moveForward()">
+			<ion-item no-padding>
+				<ion-label floating>Username</ion-label>
+				<ion-input formControlName="username" class="form-control" type="text" autofocus></ion-input>
+			</ion-item>
+			<ion-item no-padding>
+				<ion-label floating>Email</ion-label>
+				<ion-input formControlName="email" class="form-control" type="email"></ion-input>
+			</ion-item>
+			<ion-item no-padding>
+				<ion-label floating>Password </ion-label>
+				<ion-input formControlName="password" class="form-control" type="password"></ion-input>
+			</ion-item>
+			<button margin-top ion-button full class="bcColor" [disabled]="!signUpForm.valid">Submit</button>
+		</form>
+		
+	</div>
+
+	<div *ngIf = "userRegistered">
+		<ion-row>
+			<ion-label>Choose Location :</ion-label>
+			<ion-col no-padding col-12 class="locationField"><input id="pac-input" type="text" placeholder="Enter your city"></ion-col>
+		</ion-row>
+		<ion-row>
+			<ion-label>Upload Profile Photo :</ion-label>
+			<ion-col col-12 class="profilePic">
+				<input type="file" class="form-control" name="single" ng2FileSelect [uploader]="uploader" (change)="onChange($event)"/>
+			</ion-col>
+		</ion-row>
+		<button margin-top ion-button full class="bcColor" [disabled]="!haveImage && !haveAddress" (click)="register()">Submit</button>
+	</div>
+	
+</ion-content>

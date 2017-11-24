@@ -1,0 +1,90 @@
+<ion-row *ngIf="customers.length > 0">
+
+	<ion-col *ngFor="let profile of customers" col-6>
+		<ion-card no-margin class="width100">
+			<ion-row (click)="deatilPage(profile._id)">
+				<ion-row>
+					<img class="customerImage" [src]="customerImage(profile.profilePic)"/>
+				</ion-row>
+				<ion-row text-capitalize class="custDetail white padding2-0">
+				<ion-col col-12 no-padding padding-horizontal>                    {{profile.username}} 
+				<ion-icon float-right class="onlineMark" *ngIf="myonline.indexOf(profile._id) != -1" name="checkmark-circle" color="secondary"></ion-icon>
+			    </ion-col>
+					<ion-col col-12 no-padding padding-horizontal>
+						<span>{{profile.age}}, </span><span>{{profile.countryName}}</span>
+					</ion-col>
+				</ion-row>
+			</ion-row>
+
+
+			<!-- <ion-row class="padding5px0px"> -->
+			<ul class="ulIcon">
+				<span *ngFor="let friend of friends" class="spanIcon">
+					
+					<li *ngIf="(profile._id == friend.FromId._id) && friend.status == 0">
+						<ion-icon class="font20 fontWeight600 purple" name="code-download" ios="ios-code-download" md="md-code-download" (click)="acceptrequest(friend._id, profile._id)">
+						</ion-icon>
+					</li>
+
+
+					<li *ngIf="(profile._id == friend.FromId._id)  && friend.status == 0" >
+						<ion-icon class="font20 fontWeight600 red" name="close" ios="ios-close" md="md-close" (click)="deleteBlock(friend._id)">
+						</ion-icon>
+					</li>
+
+					<li *ngIf="(profile._id == friend.FromId._id || profile._id == friend.ToId._id) && friend.status == 1">
+						<ion-icon class="font20 orange" name="contacts" ios="ios-contacts" md="md-contacts" (click)="deleteBlock(friend._id)">
+						</ion-icon>
+					</li>
+
+					<li *ngIf="(this.customerInfo._id == friend.FromId._id && profile._id == friend.ToId._id) && friend.status == 0">
+						<ion-icon class="font20 green" name="send" ios="ios-send" md="md-send"></ion-icon>
+					</li>
+
+
+					<li *ngIf="(this.customerInfo._id == friend.FromId._id && profile._id == friend.ToId._id) && friend.status == 0">
+						<ion-icon class="font20 purple" name="trash" ios="ios-trash" md="md-trash" (click)="deleteBlock(friend._id)">
+						</ion-icon>
+					</li>
+
+
+					<li  *ngIf="(this.customerInfo._id == friend.FromId._id && profile._id == friend.ToId._id) && friend.status == 2">
+						<ion-icon class="font20 red" name="remove-circle" ios="ios-remove-circle" md="md-remove-circle" (click)="unblockrequest(friend, 2)">
+						</ion-icon>
+					</li>
+
+					<li  *ngIf="(this.customerInfo._id == friend.FromId._id && profile._id == friend.ToId._id) && friend.status == 4">
+						<ion-icon class="font20 purple" name="unlock" ios="ios-unlock" md="md-unlock" (click)="unblockrequest(friend, 4)">
+						</ion-icon>
+					</li>
+					
+				</span> 
+
+
+				<li *ngIf="checkforinvite(profile._id)">
+					<ion-icon class="font20 purple" name="person-add" ios="ios-person-add" md="md-person-add" (click)="sendRequest(profile._id)">
+					</ion-icon>
+				</li>
+
+
+				<li *ngIf="checkforinvite(profile._id)" >
+					<ion-icon class="font20 red" name="remove-circle" ios="ios-remove-circle" md="md-remove-circle" (click)="anyBlockRequest(profile._id)">
+					</ion-icon>
+				</li>
+				<li>
+					<ion-icon class="font20 blue" name="chatbubbles" ios="ios-chatbubbles" md="md-chatbubbles" (click)="selectNewChat(profile._id);">
+					</ion-icon>
+				</li>
+				<!-- *ngIf="customerInfo.mypackage && (customerInfo.mypackage.remaincalls > 0) && (myonline.indexOf(profile._id) != -1)" -->
+				<li>
+					<ion-icon class="font20 green" name="videocam" ios="ios-videocam" md="md-videocam" (click)="videoCallConfirmbox(profile._id)">
+					</ion-icon >
+				</li>
+
+			</ul>
+
+			<!-- </ion-row> -->
+		</ion-card>
+	</ion-col>
+
+</ion-row>

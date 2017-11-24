@@ -19,7 +19,7 @@ import { MessageDetailPage } from '../pages/messages/messagedetail';
 
 import { PlanPage } from '../pages/setting/plan';
 
-import { HomePage } from '../pages/home/home';
+import { HomePage, ModalContentPage } from '../pages/home/home';
 import { FilterPage } from '../pages/home/filter';
 
 import { TabsPage} from '../pages/tabs/tabs';
@@ -59,7 +59,7 @@ const config: SocketIoConfig = { url: globalVariable.url, options: {} };
     TabsPage,
     LoginPage,ForgetPasswordPage,RegisterPage,StepPage,
     ProfilePage, 
-    ProfileUpdatePage,CustomerPage, CustomerDetailPage, VideoCallOutgoingPage, VideoCallIncomingPage, VideocallPage
+    ProfileUpdatePage,CustomerPage, CustomerDetailPage, VideoCallOutgoingPage, VideoCallIncomingPage, VideocallPage, ModalContentPage
   ],
   imports: [
     BrowserModule,
@@ -78,7 +78,7 @@ const config: SocketIoConfig = { url: globalVariable.url, options: {} };
     TabsPage,CustomerPage, CustomerDetailPage, VideoCallOutgoingPage, VideoCallIncomingPage,VideocallPage,
     LoginPage,ForgetPasswordPage,RegisterPage,StepPage,
     ProfilePage,
-    ProfileUpdatePage
+    ProfileUpdatePage,ModalContentPage
   ],
   providers: [
     StatusBar,
