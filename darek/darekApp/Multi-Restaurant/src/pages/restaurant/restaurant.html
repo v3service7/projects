@@ -16,6 +16,14 @@
         <ion-refresher-content></ion-refresher-content>
     </ion-refresher>
 
+    <ion-searchbar placeholder = "Search by Menu" (ionInput)="getItems($event)"></ion-searchbar>
+
+    <ion-row class="searchCuisine">
+        <ion-col col-12 *ngFor="let item of menuName" (click) = "openMenu(item)">
+            {{ item.name }}
+        </ion-col>
+    </ion-row>
+
     <ion-row *ngIf = "restaurantsList.length > 0" class="margin4">
         <ion-col col-12 no-padding *ngFor = "let restaurant of restaurantsList" (click)="goToRestaurant(restaurant._id)" class="marginBottom3 box-shadow">
             <ion-row class = "width100">
@@ -23,7 +31,7 @@
                 <ion-col col-9 no-padding class="bgWhite">
                     <ion-row class = "width100">
                         <ion-col col-8 class="font16"><b>{{restaurant.name}}</b></ion-col>
-                        <ion-col col-4 class="paddingLeftRight0"><ion-icon class="black" name="pin" ios="ios-pin" md="md-pin"></ion-icon><b>{{restaurant.city}}</b></ion-col>
+                        <ion-col col-4 class="paddingLeftRight0"><ion-icon class="black" name="pin" ios="ios-pin" md="md-pin"></ion-icon>&nbsp;<b>{{restaurant.city}}</b></ion-col>
                     </ion-row>
                 </ion-col>
             </ion-row>

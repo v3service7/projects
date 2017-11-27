@@ -3,9 +3,10 @@ import { NavController, NavParams, LoadingController, ToastController, Nav, Aler
 
 import * as globalVariable from "../../app/global";
 
-import { RestaurantsService } from '../../app/service/index';;
+import { RestaurantsService, KitchenMenuService } from '../../app/service/index';;
 
 import { MenuPage } from '../menu/menu';
+import { ItemPage } from '../item/item';
 import { CartPage } from '../cart/cart';
 
 @Component({
@@ -13,7 +14,9 @@ import { CartPage } from '../cart/cart';
 	templateUrl: 'restaurant.html'
 })
 export class RestaurantPage {
-	restaurantsList : any = [];
+    restaurantsList : any = [];
+    allMenu : any = [];
+	menuName : any = [];
     loading: any;
 	currentCustomer: any = {};
 	imageURL: string = globalVariable.imageUrl;
@@ -27,7 +30,8 @@ export class RestaurantPage {
 		public loadingCtrl: LoadingController,
 		public toastCtrl: ToastController,
         public alertCtrl: AlertController,
-		public restaurantsService : RestaurantsService
+        public restaurantsService : RestaurantsService,
+		public kitchenMenuService : KitchenMenuService
 		) {}
 
 	ionViewDidEnter() {
@@ -78,7 +82,7 @@ export class RestaurantPage {
     	let toast = this.toastCtrl.create({
 	        message: msg,
 	        duration: 3000,
-	        position:'middle' //top,middle,bottom
+	        position:'top' //top,middle,bottom
 	    });
 	    toast.present();
     }
@@ -116,6 +120,33 @@ export class RestaurantPage {
             });
             alert.present();
         }
+    }
+
+    private getAllMenu(){
+        this.menuName = [];
+        this.kitchenMenuService.getAllRestaurantMenu().subscribe((data)=>{
+            this.allMenu = data.message;
+        })
+    }
+
+    getItems(ev) {
+        this.getAllMenu();
+        var val = ev.target.value;
+
+        console.log("val");
+        console.log(val);
+
+        if (val && val.trim() != '') {
+            this.menuName = this.allMenu.filter((item) => {
+                return (item.name.toLowerCase().indexOf(val.toLowerCase()) > -1);
+            })
+        }
+    }
+
+    openMenu(menu){
+        this.navCtrl.push(ItemPage, {
+            menu : menu, resId : menu.kitchenId
+        });
     }
 
 }

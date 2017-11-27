@@ -20,8 +20,15 @@ export class KitchenMenuService {
       );
     }
     
-  	getAll(id) {
-  		return this.http.get(globalVariable.url+'menu-list/'+id)
+    getAll(id) {
+      return this.http.get(globalVariable.url+'menu-list/'+id)
+        .map(
+          (response: Response) => response.json()
+        );
+    }
+
+  	getAllRestaurantMenu() {
+  		return this.http.get(globalVariable.url+'menu')
   			.map(
   				(response: Response) => response.json()
   			);

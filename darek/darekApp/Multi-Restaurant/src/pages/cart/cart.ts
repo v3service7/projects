@@ -230,7 +230,7 @@ export class CartPage {
     	let toast = this.toastCtrl.create({
 	        message: msg,
 	        duration: 3000,
-	        position:'middle' //top,middle,bottom
+	        position:'top' //top,middle,bottom
 	    });
 	    toast.present();
 	}
@@ -745,7 +745,7 @@ export class CartPage {
                     localStorage.removeItem(this.promotionString);
                     localStorage.removeItem(this.coupon);
                     localStorage.removeItem('resID');
-                    localStorage.clear();
+                    /*localStorage.clear();*/
                     
                     localStorage.setItem('cartLength','0');
                     

@@ -73,8 +73,10 @@ export class CartPage {
 
         this.currentDateTime();
         this.getRestaurants();
+        
         this.cartString = 'cart_' + this.resId;
         this.subTotalString = 'subTotal_' + this.resId;
+        
         this.cartStorageString = 'cartStorage_' + this.resId;
 		this.promotionString = 'promotion_' + this.resId;
 		this.coupon = 'coupon_' + this.resId;
