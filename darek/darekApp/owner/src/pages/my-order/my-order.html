@@ -28,6 +28,8 @@
 
             <p *ngIf="order.status == 'Accepted'"><ion-icon name="thumbs-up" color="secondary"></ion-icon> {{order.status}}</p>
             
+            <p *ngIf="order.status == 'Canceled'"><ion-icon name="radio-button-on"  ios="ios-radio-button-on" md="md-radio-button-on" color = "danger"></ion-icon> {{order.status}}</p>
+            
             <p *ngIf="order.status == 'Rejected'"><ion-icon name="thumbs-down" color="danger"></ion-icon> {{order.status}}</p>
 
             <p *ngIf="order.status == 'Missed'"><ion-icon name="remove-circle" color="danger"></ion-icon> {{order.status}}</p>
