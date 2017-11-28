@@ -20,6 +20,8 @@ var OrderSchema = new Schema({
 	deliveryTax: Number,
 	orders:{},
 	status : String,
+	driverStatus : String,
+	tip : Number,
 	custMessage : String,
 	custTime : String,
 	discountAmount : Number,

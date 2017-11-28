@@ -25,13 +25,43 @@
     </ion-row>
 
     <ion-row *ngIf = "restaurantsList.length > 0" class="margin4">
-        <ion-col col-12 no-padding *ngFor = "let restaurant of restaurantsList" (click)="goToRestaurant(restaurant._id)" class="marginBottom3 box-shadow">
+        <ion-col col-12 no-padding *ngFor = "let restaurant of restaurantsList" class="marginBottom3 box-shadow">
             <ion-row class = "width100">
                 <ion-col col-3 [ngStyle]="{'background-image': 'url(' + restroImage(restaurant.image) + ')'}" class="restaurantInfo"></ion-col>
                 <ion-col col-9 no-padding class="bgWhite">
                     <ion-row class = "width100">
-                        <ion-col col-8 class="font16"><b>{{restaurant.name}}</b></ion-col>
+                        <ion-col col-8 class="font16" (click)="goToRestaurant(restaurant._id)"><b>{{restaurant.name}}</b></ion-col>
                         <ion-col col-4 class="paddingLeftRight0"><ion-icon class="black" name="pin" ios="ios-pin" md="md-pin"></ion-icon>&nbsp;<b>{{restaurant.city}}</b></ion-col>
+                    </ion-row>
+
+                    <ion-row class = "width100" *ngIf = "restaurant.rating">
+                        <ion-row class = "width100" *ngFor = "let res of rating; let j = index; ">
+                            <ion-row class = "width100" *ngIf = "res._id == restaurant._id">
+                                <ion-col col-6 class="font16" class="starSize">
+                                    <span *ngFor = "let x of ratingArray; let i=index; ">
+                                        <span *ngIf = "i < res.rating">
+                                            <ion-icon name="star" ios="ios-star" md="md-star" color = "danger"></ion-icon>
+                                        </span>
+                                        <span *ngIf = "i >= res.rating">
+                                            <ion-icon name="star-outline" ios="ios-star-outline" md="md-star-outline"></ion-icon>
+                                        </span>
+                                    </span>
+                                </ion-col>
+                                <ion-col text-right col-6>
+                                    <a href="javascript:void(0)" (click)="goToReviewPage(restaurant._id)">{{res.totalReview}} reviews</a>
+                                </ion-col>
+                            </ion-row>
+                        </ion-row>
+                        <!-- <ion-row class = "width100" *ngIf = "findReview(restaurant._id) == true">
+                            <ion-col col-6 class="font16" class="starSize">
+                                <span *ngFor = "let x of ratingArray;">
+                                    <ion-icon name="star-outline" ios="ios-star-outline" md="md-star-outline"></ion-icon>
+                                </span>
+                            </ion-col>
+                            <ion-col text-right col-6>
+                                <a href="javascript:void(0)" (click)="goToReviewPage(restaurant._id)">Add Review</a>
+                            </ion-col>
+                        </ion-row> -->
                     </ion-row>
                 </ion-col>
             </ion-row>

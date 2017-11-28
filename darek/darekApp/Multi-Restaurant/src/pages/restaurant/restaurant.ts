@@ -3,11 +3,13 @@ import { NavController, NavParams, LoadingController, ToastController, Nav, Aler
 
 import * as globalVariable from "../../app/global";
 
-import { RestaurantsService, KitchenMenuService } from '../../app/service/index';;
+import { RestaurantsService, KitchenMenuService, RatingService } from '../../app/service/index';;
 
 import { MenuPage } from '../menu/menu';
 import { ItemPage } from '../item/item';
 import { CartPage } from '../cart/cart';
+
+import { RatingPage } from '../rating/rating';
 
 @Component({
 	selector: 'page-restaurant',
@@ -16,9 +18,11 @@ import { CartPage } from '../cart/cart';
 export class RestaurantPage {
     restaurantsList : any = [];
     allMenu : any = [];
-	menuName : any = [];
+    menuName : any = [];
+	ratingArray : any = [1,2,3,4,5];
     loading: any;
-	currentCustomer: any = {};
+    currentCustomer: any = {};
+	rating : any;
 	imageURL: string = globalVariable.imageUrl;
 
     cartLength : number;
@@ -31,7 +35,8 @@ export class RestaurantPage {
 		public toastCtrl: ToastController,
         public alertCtrl: AlertController,
         public restaurantsService : RestaurantsService,
-		public kitchenMenuService : KitchenMenuService
+        public kitchenMenuService : KitchenMenuService,
+		public ratingService : RatingService,
 		) {}
 
 	ionViewDidEnter() {
@@ -52,8 +57,32 @@ export class RestaurantPage {
         if (localStorage.getItem('cartLength') == null) {
             localStorage.setItem('cartLength','0');
         }
-
     }
+
+    getAllRating(){
+        this.ratingService.getAllRating().subscribe((data)=>{
+            console.log("data");
+            console.log(data);
+            this.rating = data.message;
+        });
+    }
+
+    goToReviewPage(id){
+        this.navCtrl.push(RatingPage,{
+            id:id
+        })
+    }
+
+    /*findReview(id){
+        if (this.rating) {
+            var index = this.rating.findIndex(mn=> mn.restaurantId == id)
+            if (index == -1) {
+                return true;
+            }else{
+                return false;
+            }
+        }
+    }*/
 
     doRefresh(refresher) {
         setTimeout(() => {
@@ -75,6 +104,8 @@ export class RestaurantPage {
     		}else{
     			this.getToast('Unable to load data! Try Later')
     		}
+
+            this.getAllRating();
     	});
     }
 

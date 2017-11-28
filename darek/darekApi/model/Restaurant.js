@@ -43,6 +43,7 @@ var RestaurantSchema = new Schema({
                     saturday: {type:Boolean}, saturdaytime: {opentime : String, closetime : String},
                     sunday: {type:Boolean}, sundaytime: {opentime : String, closetime : String}},
     status: { type: Boolean, default: true },
+    rating: { type: Boolean, default: true },
     created_at: Date,
     updated_at: Date
 

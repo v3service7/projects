@@ -81,17 +81,17 @@ export class OrderDetailPage {
         if (restaurantID != null && restaurantID == resId ) {
             this.cartString = 'cart_' + resId;
             this.subTotalString = 'subTotal_' + resId;
-            this.cartStorageString = 'cartStorage_' + this.resId;
-            this.promotionString = 'promotion_' + this.resId;
-            this.coupon = 'coupon_' + this.resId;
+            this.cartStorageString = 'cartStorage_' + resId;
+            this.promotionString = 'promotion_' + resId;
+            this.coupon = 'coupon_' + resId;
         }
 
         if (restaurantID != null && restaurantID != resId ) {
             this.cartString = 'cart_' + restaurantID;
             this.subTotalString = 'subTotal_' + restaurantID;
-            this.cartStorageString = 'cartStorage_' + this.restaurantID;
-            this.promotionString = 'promotion_' + this.restaurantID;
-            this.coupon = 'coupon_' + this.restaurantID;
+            this.cartStorageString = 'cartStorage_' + restaurantID;
+            this.promotionString = 'promotion_' + restaurantID;
+            this.coupon = 'coupon_' + restaurantID;
         }
 
         if (restaurantID == null){

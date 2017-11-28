@@ -35,6 +35,31 @@ function sendOrderMail(req,name,subject,content){
     });
 }
 
+
+function sendUnplacedOrderMail(req,name,subject,content){
+    var html = ejs.renderFile(templateDir + '/orders/unplacedOrder.ejs', { order: content },
+    function(err, data) {
+        if (err) {
+            console.log(err);
+        }
+        return data;
+    });
+
+    req.mail.sendMail({  //email options
+       from: "Restaurant Team <noreply@abcpos.com>", // sender address.  Must be the same as authenticated user if using GMail.
+       to: name, // receiver
+       subject: subject, // subject
+       html: html
+    }, function(error, response){  //callback
+       if(error){
+           console.log(error);
+       }else{
+           console.log("Message sent: " + response.message);
+       }
+       req.mail.close();
+    });
+}
+
 router.get('/', function(req, res, next) {
     var response={};
     Order.find({}, null, {sort: {created_at: -1}},function(err,data){
@@ -111,6 +136,25 @@ router.post('/add', function(req, res) {
     var orderObj = new Order(req.body);
     orderObj.save(function(err,data){
         if(err) {
+            restaurantModel.findById(req.body.restaurantId , function(err,resData1){
+                if (resData1) {
+                    customerModel.findById(req.body.customerId , function(err,resData2){
+                        if (resData2) {
+                            req.body.restaurantId = resData1;
+                            req.body.customerId = resData2;
+                            let notification = resData1.notification;
+                            if (notification && notification.length > 0) {
+                                for (var i = 0; i < notification.length; i++) {
+                                    if(notification[i].orderNotPlaced){
+                                        var name = notification[i].email;
+                                        sendUnplacedOrderMail(req,name,'Order Not Placed',req.body);
+                                    }
+                                }
+                            }
+                        }
+                    });
+                }
+            });
             response = {"error" : true,"message" : err};
         } else {
             restaurantModel.findById(req.body.restaurantId).populate('ownerId').exec(function(err,resData){
@@ -126,10 +170,34 @@ router.post('/add', function(req, res) {
                         if (err) {
                             response = {"error" : true,"message" : "Error fetching data"};
                         } else{
-                            if (data1.status == 'Accepted' || data1.status == 'Rejected') {
+                            if (data1.status == 'Accepted' || data1.status == 'Rejected' || data1.status == 'Canceled') {
                                 var name = data1.customerId.firstname +" <"+ data1.customerId.email+" >";
                                 sendOrderMail(req,name,'Order Notification',data1);
                                 clearInterval(loopCount);
+                            }
+
+                            if (data1.status == 'Rejected') {                                
+                                let notification = data1.restaurantId.notification;
+                                if (notification && notification.length > 0) {
+                                    for (var i = 0; i < notification.length; i++) {
+                                        if(notification[i].orderReject){
+                                            var name = notification[i].email;
+                                            sendOrderMail(req,name,'Order Rejected',data1);
+                                        }
+                                    }
+                                }
+                            }
+
+                            if (data1.status == 'Accepted' && data1.orderMethod && data1.orderMethod.mType == 'Pickup') {
+                                let notification = data1.restaurantId.notification;
+                                if (notification && notification.length > 0) {
+                                    for (var i = 0; i < notification.length; i++) {
+                                        if(notification[i].pickupConfirm){
+                                            var name = notification[i].email;
+                                            sendOrderMail(req,name,'Order Accepted for Pickup',data1);
+                                        }
+                                    }
+                                }
                             }
                         }
                     });
@@ -151,6 +219,18 @@ router.post('/add', function(req, res) {
                                     var name = data2.customerId.firstname +" <"+ data2.customerId.email+" >";
                                     sendOrderMail(req,name,'Order Notification',data2);
                                     clearInterval(loopCount);
+
+                                    let notification = data2.restaurantId.notification;
+                                    if (notification && notification.length > 0) {
+                                        for (var i = 0; i < notification.length; i++) {
+                                            if(notification[i].pickupConfirm){
+                                                var name2 = notification[i].email;
+                                                console.log("name2");
+                                                console.log(name2);
+                                                sendOrderMail(req,name2,'Order Missed',data2);
+                                            }
+                                        }
+                                    }
                                 }
                             });
                         }

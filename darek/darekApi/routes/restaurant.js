@@ -13,6 +13,8 @@ var promotionDetailModel  =  require("../model/PromotionDetail.js");
 var order = require('../model/Order.js');
 var driverModel  =  require("../model/Driver.js");
 
+var ratingModel = require("../model/Rating.js");
+
 
 var options = {
     provider: 'google',
@@ -267,6 +269,14 @@ router.delete('/restaurant/:id',function(req,res){
                     response = {"error" : true,"message" : "Error fetching data"};
                 }else{
                     console.log('All Driver Details related this restaurant Deleted Successfully');
+                }
+            });
+
+            ratingModel.remove({restaurantId:req.params.id},function(err,data){
+                if (err) {
+                    response = {"error" : true,"message" : "Error fetching data"};
+                }else{
+                    console.log('All Ratings Deleted Successfully');
                 }
             });
             response = {"error" : false,"message" : "Deleted Successfully"};

@@ -4,113 +4,36 @@
 	<title></title>
 </head>
 <body style="color: #4c4c4c">
-	<div style="font-size: larger;text-align: center; padding: 3%;border-bottom: 3px solid #08d008;"><b><%= order.restaurantId.name %></b>
+	<div style="font-size: larger;text-align: center; padding: 3%;border-bottom: 3px solid #08d008;">
+		<b><%= order.restaurantId.name %></b>
 	</div>
-	
+
 	<div>
 		<div style="background: #f2f0ed;padding: 15px;">
-			
-			<% if(order.status =='Missed') { %>
-
-				<div style="background: #ef4e4b;padding: 24px;text-align: center;color: white;margin-bottom: 30px;">
-					<div style="font-size: 24px;"><b>Order Missed</b></div>
-				</div>
-			<% } %>
-
-			<% if(order.status =='Canceled') { %>
-
-				<div style="background: #ef4e4b;padding: 24px;text-align: center;color: white;margin-bottom: 30px;">
-					<div style="font-size: 24px;"><b>Order Canceled</b></div>
-				</div>
-			<% } %>
-
-			<% if(order.status =='Received') { %>
-				<div style="background: #40b5f7;padding: 24px;text-align: center;color: white;margin-bottom: 30px;">
-					<div style="font-size: 24px;"><b>Order Received</b></div>
-				</div>
-			<% } %>
-			
-			<% if(order.status =='Accepted') { %>
-
-				<div style="background: green;padding: 24px;text-align: center;color: white;margin-bottom: 30px;">
-					<div style="font-size: 24px;"><b>Order Accepted</b></div>
-				</div>
-			<% } %>
-
-			<% if(order.status =='Rejected') { %>
-
-				<div style="background: yellow;padding: 24px;text-align: center;color: white;margin-bottom: 30px;">
-					<div style="font-size: 24px;"><b>Order Rejected</b></div>
-				</div>
-			<% } %>
+			<div style="background: #ef4e4b;padding: 24px;text-align: center;color: white;margin-bottom: 30px;font-size: 24px;">
+				<div><b>Order Not Placed</b></div>
+			</div>
 
 			<div style="background: #fff;padding: 14px;">
-				<p>Dear <%= order.customerId.firstname%>,</p>
-				
-				<% if(order.status =='Missed') {%>	
-					<p>
-						Unfortunately your online order to <%= order.restaurantId.name %> was not confirmed in a timely manner, so you're getting this status update.
-					</p>
-					<p>
-						This unlikely situation happens if:
-					</p>
-					<ul>
-						<li style="margin-bottom: 10px;"><b>the restaurant staff is super busy and unable to handle your order fast enough</b></li>
-						<li style="margin-bottom: 10px;"><b>the restaurant experiences severe connectivity issues</b></li>
-						<li style="margin-bottom: 10px;"><b>there are other technical difficulties (e.g. power blackout)</b></li>
-					</ul>
-				<% } %>
-
-				<% if(order.status =='Canceled') {%>
-					<p>
-						You canceled your online order to <%= order.restaurantId.name %>
+				<p>Unable to add the last order with following detail:</p>
+				<p>This Order was made for <%= order.orderMethod.mType %> with following details :
+				<% if(order.orderMethod.mType == 'Delivery') { %>
+					<p>Location : <%= order.orderMethod.streetName %>, <%= order.orderMethod.city %>, <%= order.orderMethod.postcode %>
 					</p>
 				<% } %>
 
-				<% if(order.status =='Accepted') {%>
-					<p>
-						Your online order to <%= order.restaurantId.name %> is Accepted in a timely manner, so you're getting this status update.
-					</p>
+				<p>Time : <%= order.orderTime.time %></p>
+
+				<% if(order.orderTime.tType == 'Later') { %>
+					<p>Day : <%= order.orderTime.day %></p>
 				<% } %>
 
-				<% if(order.status =='Rejected') {%>
-					<p>
-						Unfortunately your online order to <%= order.restaurantId.name %> is Rejected in a timely manner, so you're getting this status update.
-					</p>
-				<% } %>
-
-				<p>Your Order is made for <%= order.orderMethod.mType %> with following details :
-					<% if(order.orderMethod.mType == 'Delivery') { %>
-						<p>Location : <%= order.orderMethod.streetName %>, <%= order.orderMethod.city %>, <%= order.orderMethod.postcode %>
-						</p>
-					<% } %>
-
-					<p>Time : <%= order.orderTime.time %></p>
-
-					<% if(order.orderTime.tType == 'Later') { %>
-						<p>Day : <%= order.orderTime.day %></p>
-					<% } %>
-
-					<p>Payment Method :
-						<% if(order.orderPayment.cash) { %> Cash <% } %>
-						<% if(order.orderPayment.cardpickup) { %> Card Pickup <% } %>
-						<% if(order.orderPayment.cardinternet) { %> Card via Internet <% } %>
-					</p>
+				<p>Payment Method :
+					<% if(order.orderPayment.cash) { %> Cash <% } %>
+					<% if(order.orderPayment.cardpickup) { %> Card Pickup <% } %>
+					<% if(order.orderPayment.cardinternet) { %> Card via Internet <% } %>
 				</p>
-
-				<% if(order.status =='Accepted'){ %>
-					<p>
-						Your order will reach you at <%= order.custTime %>
-					</p>
-				<% } %>
-
-				<% if(order.status =='Rejected'){ %>
-					<p>
-						Your order was rejected due to <%= order.custMessage %>
-					</p>
-				<% } %>
-
-
+				</p>
 
 				<table cellspacing="0" style="width: 100%">
 					<tbody>
@@ -347,27 +270,14 @@
 						<% } %>
 					</tbody>
 				</table>
-
-				<% if(order.status =='Missed') {%>
-					<p>
-						We suggest you call <%= order.restaurantId.name %> to see what happened with your order.<br><br>
-
-						<span style="border: 1px solid gray;padding: 10px;"><%= order.restaurantId.phoneNo%></span>
-					</p>
-					<p>On behalf of <%= order.restaurantId.name %>, we apologize for any inconvenience this might have caused you.</p>
-					<p>Thank you for your understanding, <%= order.customerId.firstname%>!</p>
-				<% } %>
-
-				<% if(order.status =='Canceled') {%>
-					<p>On behalf of <%= order.restaurantId.name %>, we apologize for any inconvenience this might have caused you.</p>
-				<% } %>
-
 			</div>
-
+			
 			<p style="text-align: center">
 				<b>This ordering experience is brought to you by <br><br> <%= order.restaurantId.name %> </b>
 			</p>
 		</div>
 	</div>
+
+
 </body>
 </html>

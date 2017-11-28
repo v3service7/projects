@@ -45,7 +45,9 @@ import { CheckoutPage } from '../pages/cart/checkout';
 import { CheckoutPageModule } from '../pages/cart/checkout.module';
 import { AwaitPage } from '../pages/cart/await';
 
-import {  CustomersService, KitchenMenuService, KitchenItemService, RestaurantsService, PromotionsService, OrderService } from './service/index';
+import { RatingPage } from '../pages/rating/rating';
+
+import {  CustomersService, KitchenMenuService, KitchenItemService, RestaurantsService, PromotionsService, OrderService, RatingService } from './service/index';
 
 const cloudSettings: CloudSettings = {
     'core': {
@@ -63,6 +65,7 @@ const cloudSettings: CloudSettings = {
     PaymentinfoPage,
     IconTextPage,
     AwaitPage,
+    RatingPage,
     MyOrderPage,OrderDetailPage
   ],
   imports: [
@@ -83,11 +86,11 @@ const cloudSettings: CloudSettings = {
     ProfilePage,ProfileUpdatePage,ChangePasswordPage,WishlistPage,
     MenuPage,PaymentinfoPage,
     ItemPage,ItemDetailPage,IconTextPage,
-    CartPage,CheckoutPage,AwaitPage,
+    CartPage,CheckoutPage,AwaitPage,RatingPage,
     MyOrderPage,OrderDetailPage
   ],
   providers: [
-    CustomersService,KitchenMenuService, KitchenItemService, RestaurantsService,PromotionsService,OrderService,
+    CustomersService,KitchenMenuService, KitchenItemService, RestaurantsService,PromotionsService,OrderService,RatingService,
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler}

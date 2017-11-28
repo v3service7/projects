@@ -1,0 +1,34 @@
+<ion-header>
+    <ion-navbar>
+        <button ion-button menuToggle class="colorWhite">
+            <ion-icon name="menu" ios="ios-menu" md="md-menu"></ion-icon>
+        </button>
+        <ion-title>Rating</ion-title>
+    </ion-navbar>
+</ion-header>
+
+<ion-content>
+    <ion-refresher (ionRefresh)="doRefresh($event)">
+        <ion-refresher-content></ion-refresher-content>
+    </ion-refresher>
+
+    <ion-row class="margin4" *ngIf = "rating">
+        <ion-col col-12>
+            <span *ngFor = "let x of ratingArray; let i=index; ">
+                <span *ngIf = "i < rating.rat">
+                    <ion-icon name="star" ios="ios-star" md="md-star" color = "danger"></ion-icon>
+                </span>
+                <span *ngIf = "i >= rating.rat">
+                    <ion-icon name="star-outline" ios="ios-star-outline" md="md-star-outline"></ion-icon>
+                </span>
+            </span>
+        </ion-col>
+        <ion-col col-12 no-padding *ngFor = "let ratng of rating.review">
+            <!-- <ion-row class = "width100"> -->
+                {{ratng.review}}
+
+            <!-- </ion-row> -->
+        </ion-col>
+    </ion-row>
+
+</ion-content>

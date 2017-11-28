@@ -17,6 +17,7 @@ var owners = require('./routes/owners');
 var customer = require('./routes/customer');
 var order = require('./routes/order');
 var reporting = require('./routes/reporting');
+var rating = require('./routes/rating');
 
 
 var User = require('./model/User.js');
@@ -105,6 +106,7 @@ app.use('/owners', owners);
 app.use('/customer', customer);
 app.use('/order', order);
 app.use('/reporting', reporting);
+app.use('/', rating);
 
 
 var upload = multer({ //multer settings
