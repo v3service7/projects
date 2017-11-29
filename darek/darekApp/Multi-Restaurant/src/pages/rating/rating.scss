@@ -1,46 +1,11 @@
-page-restaurant {
-
-	.restaurantInfo{
-	    background-position: center;
-	    background-size: cover;
-        height: 70px !important;
+page-rating {
+	.customerName{
+		text-align : right;
+        font-size: 12px;
 	}
 
-	.box-shadow{
-        border: 1px solid #c5c5c5;
+	ion-label{
+		white-space: initial !important;
 	}
-
-	ion-content{
-		background: lightgray !important;
-		color : dimgray !important;
-	}
-
-	.bgWhite{
-		background : white;
-	}
-
-	.paddingLeftRight0{
-		padding-left : 0;
-		padding-right : 0;
-	}
-
-	.searchCuisine ion-col{
-	    border-bottom: 1px solid #e6e5e5;
-	    cursor : pointer;
-	}
-
-	.searchCuisine ion-col:hover{
-	    background : #e6e5e5;
-	}
-
-	.searchCuisine{
-	    padding: 0 16px;
-	    background: white;
-	}
-
-	.starSize{
-		font-size: 1em;
-	}
-
 
 }

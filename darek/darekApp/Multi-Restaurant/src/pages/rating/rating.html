@@ -12,23 +12,37 @@
         <ion-refresher-content></ion-refresher-content>
     </ion-refresher>
 
-    <ion-row class="margin4" *ngIf = "rating">
+    <ion-row class="margin4" *ngIf = "rating && rating.length > 0">
         <ion-col col-12>
             <span *ngFor = "let x of ratingArray; let i=index; ">
-                <span *ngIf = "i < rating.rat">
+                <span *ngIf = "i < rating.avgRating">
                     <ion-icon name="star" ios="ios-star" md="md-star" color = "danger"></ion-icon>
                 </span>
-                <span *ngIf = "i >= rating.rat">
+                <span *ngIf = "i >= rating.avgRating">
                     <ion-icon name="star-outline" ios="ios-star-outline" md="md-star-outline"></ion-icon>
                 </span>
             </span>
         </ion-col>
-        <ion-col col-12 no-padding *ngFor = "let ratng of rating.review">
-            <!-- <ion-row class = "width100"> -->
-                {{ratng.review}}
+        <ion-col col-12 no-padding *ngFor = "let ratng of rating">
+            <ion-card>
 
-            <!-- </ion-row> -->
+                <ion-item>
+                    <ion-avatar item-start *ngIf = "ratng.customerId">
+                        <img *ngIf = "!ratng.customerId.image" src="assets/img/profile.png">
+                        <img *ngIf = "ratng.customerId.image" [src]="imageURL + ratng.customerId.image">
+                    </ion-avatar>
+                    <h4>{{ratng.review}}</h4>
+                    <div text-right *ngIf = "ratng.customerId" class="customerName">-{{ratng.customerId.firstname}} {{ratng.customerId.lastname}}</div>
+                </ion-item>
+            </ion-card>
         </ion-col>
+    </ion-row>
+
+    <ion-row *ngIf = "currentCustomer">
+        <form>
+            
+        </form>
+        
     </ion-row>
 
 </ion-content>

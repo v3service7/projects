@@ -63,7 +63,7 @@ export class RestaurantPage {
         this.ratingService.getAllRating().subscribe((data)=>{
             console.log("data");
             console.log(data);
-            this.rating = data.message;
+            this.rating = data;
         });
     }
 
@@ -73,16 +73,16 @@ export class RestaurantPage {
         })
     }
 
-    /*findReview(id){
+    findReview(id){
         if (this.rating) {
-            var index = this.rating.findIndex(mn=> mn.restaurantId == id)
+            var index = this.rating.findIndex(mn=> mn._id == id);
             if (index == -1) {
                 return true;
             }else{
                 return false;
             }
         }
-    }*/
+    }
 
     doRefresh(refresher) {
         setTimeout(() => {

@@ -35,24 +35,26 @@
                     </ion-row>
 
                     <ion-row class = "width100" *ngIf = "restaurant.rating">
+                        
                         <ion-row class = "width100" *ngFor = "let res of rating; let j = index; ">
                             <ion-row class = "width100" *ngIf = "res._id == restaurant._id">
                                 <ion-col col-6 class="font16" class="starSize">
                                     <span *ngFor = "let x of ratingArray; let i=index; ">
-                                        <span *ngIf = "i < res.rating">
+                                        <span *ngIf = "i < res.avgRating">
                                             <ion-icon name="star" ios="ios-star" md="md-star" color = "danger"></ion-icon>
                                         </span>
-                                        <span *ngIf = "i >= res.rating">
+                                        <span *ngIf = "i >= res.avgRating">
                                             <ion-icon name="star-outline" ios="ios-star-outline" md="md-star-outline"></ion-icon>
                                         </span>
                                     </span>
                                 </ion-col>
                                 <ion-col text-right col-6>
-                                    <a href="javascript:void(0)" (click)="goToReviewPage(restaurant._id)">{{res.totalReview}} reviews</a>
+                                    <a href="javascript:void(0)" (click)="goToReviewPage(restaurant._id)">{{res.reviewCount}} reviews</a>
                                 </ion-col>
                             </ion-row>
                         </ion-row>
-                        <!-- <ion-row class = "width100" *ngIf = "findReview(restaurant._id) == true">
+
+                        <ion-row class = "width100" *ngIf = "findReview(restaurant._id) == true">
                             <ion-col col-6 class="font16" class="starSize">
                                 <span *ngFor = "let x of ratingArray;">
                                     <ion-icon name="star-outline" ios="ios-star-outline" md="md-star-outline"></ion-icon>
@@ -61,7 +63,7 @@
                             <ion-col text-right col-6>
                                 <a href="javascript:void(0)" (click)="goToReviewPage(restaurant._id)">Add Review</a>
                             </ion-col>
-                        </ion-row> -->
+                        </ion-row>
                     </ion-row>
                 </ion-col>
             </ion-row>

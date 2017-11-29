@@ -60,7 +60,7 @@ router.put('/rating/:id',function(req, res){
 
 router.get('/rating/:id',function(req,res){
     var response={};
-    ratingModel.find({restaurantId:req.params.id}).populate(restaurantId).populate(customerId).exec(function(err,data){
+    ratingModel.find({restaurantId:req.params.id}).populate('restaurantId').populate('customerId').exec(function(err,data){
         if (err) {
             response = {"error" : true,"message" : "Error fetching data"};
         } else{

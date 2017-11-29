@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams, LoadingController, ToastController, Nav, AlertController } from 'ionic-angular';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import * as globalVariable from "../../app/global";
 
@@ -12,25 +13,34 @@ import { RestaurantPage } from '../restaurant/restaurant';
 	templateUrl: 'rating.html'
 })
 export class RatingPage {
+    ratingForm: FormGroup;
 	ratingArray : any = [1,2,3,4,5];
     id: string;
     loading: any;
 	rating : any;
-    currentCustomer: any = {};
+    imageURL: string = globalVariable.imageUrl;
+    currentCustomer: any;
 
 	constructor(
 		public navCtrl: NavController,
         public navParams: NavParams,
 		public nav: Nav,
 		public loadingCtrl: LoadingController,
+        private lf: FormBuilder,
 		public toastCtrl: ToastController,
         public alertCtrl: AlertController,
         public restaurantsService : RestaurantsService,
         public kitchenMenuService : KitchenMenuService,
 		public ratingService : RatingService,
 		) {
+        
+        this.ratingForm = this.lf.group({
+            restaurantId: ['', Validators.required],
+            customerId: ['', [Validators.required]],
+            review: ['', [Validators.required]],
+            rating: ['', [Validators.required]],
+        });
         this.id = navParams.get('id');
-        //this.getAllRating();
     }
 
 	ionViewDidEnter() {
@@ -54,21 +64,22 @@ export class RatingPage {
 
             if (!data.error) {
                 this.loading.dismiss();
-                this.rating = data.message[0];
+
+                this.rating = data.message;
                 let rate = 0;
-                if (this.rating.review) {
-                    for (var j = 0; j < this.rating.review.length; j++) {
-                        rate = rate + this.rating.review[j].rating;
+                if (this.rating.length > 0) {
+                    for (var j = 0; j < this.rating.length; j++) {
+                        rate = rate + this.rating[j].rating;
                     }
+                    this.rating['avgRating'] = Math.floor(rate/this.rating.length);
+                    this.rating['totalReview'] = this.rating.length;
                 }
-                this.rating['rat'] = Math.floor(rate/this.rating['review'].length);
-                this.rating['totalReview'] = this.rating['review'].length;
             }
         });
     }
 
     goToRestroPage(id){
-        this.navCtrl.push(RestaurantPage)
+        this.navCtrl.pop(RestaurantPage)
     }
 
     doRefresh(refresher) {
