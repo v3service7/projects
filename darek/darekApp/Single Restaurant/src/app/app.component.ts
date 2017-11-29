@@ -20,6 +20,7 @@ import { CheckoutPage } from '../pages/cart/checkout';
 
 import { PaymentinfoPage } from '../pages/paymentinfo/paymentinfo';
 
+import { RatingPage } from '../pages/rating/rating';
 
 import { RestaurantsService } from './service/index';
 
@@ -50,8 +51,9 @@ export class MyApp {
             this.pages.push(
                 { iconA : 'flame' , iconI : 'ios-flame' , iconW : 'md-flame' , title: 'Hot Deals', component: PromotionPage },
                 { iconA : 'clipboard' , iconI : 'ios-clipboard' , iconW : 'md-clipboard' , title: 'Menu', component: MenuPage },
-                { iconA : 'cart' , iconI : 'ios-cart' , iconW : 'md-cart' , title: 'Shopping Cart', component: CartPage },            
+                { iconA : 'cart' , iconI : 'ios-cart' , iconW : 'md-cart' , title: 'Shopping Cart', component: CartPage },
                 { iconA : 'book' , iconI : 'ios-book' , iconW : 'md-book' , title: 'My Orders', component: MyOrderPage },
+                { iconA : 'star-half' , iconI : 'ios-star-half' , iconW : 'md-star-half' , title: 'Rating', component: RatingPage },
                 { iconA : 'heart' , iconI : 'ios-heart' , iconW : 'md-heart' , title: 'My WishList', component: WishlistPage },
                 { iconA : 'person' , iconI : 'ios-person' , iconW : 'md-person' , title: 'My Profile', component: ProfilePage },
                 { iconA : 'log-out' , iconI : 'ios-log-out' , iconW : 'md-log-out' , title: 'Logout', component: 'logout' }
@@ -84,6 +86,7 @@ export class MyApp {
             { iconA : 'flame' , iconI : 'ios-flame' , iconW : 'md-flame' , title: 'Hot Deals', component: PromotionPage },
             { iconA : 'clipboard' , iconI : 'ios-clipboard' , iconW : 'md-clipboard' , title: 'Menu', component: MenuPage },
             { iconA : 'cart' , iconI : 'ios-cart' , iconW : 'md-cart' , title: 'Shopping Cart', component: CartPage },
+            { iconA : 'star-half' , iconI : 'ios-star-half' , iconW : 'md-star-half' , title: 'Rating', component: RatingPage },
             { iconA : 'person' , iconI : 'ios-person' , iconW : 'md-person' , title: 'My Profile', component: LoginPage }
         ];
         //this.currentCustomer = JSON.parse(localStorage.getItem('currentCustomer'));
@@ -120,6 +123,7 @@ export class MyApp {
                             { iconA : 'flame' , iconI : 'ios-flame' , iconW : 'md-flame' , title: 'Hot Deals', component: PromotionPage },
                             { iconA : 'clipboard' , iconI : 'ios-clipboard' , iconW : 'md-clipboard' , title: 'Menu', component: MenuPage },
                             { iconA : 'cart' , iconI : 'ios-cart' , iconW : 'md-cart' , title: 'Shopping Cart', component: CartPage },
+                            { iconA : 'star-half' , iconI : 'ios-star-half' , iconW : 'md-star-half' , title: 'Rating', component: RatingPage },
                             { iconA : 'person' , iconI : 'ios-person' , iconW : 'md-person' , title: 'My Profile', component: LoginPage }
                         ]
                         localStorage.removeItem('currentCustomer');

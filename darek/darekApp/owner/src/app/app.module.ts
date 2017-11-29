@@ -28,8 +28,10 @@ import { AddDriverPage } from '../pages/my-driver/add-driver';
 import { EditDriverPage } from '../pages/my-driver/driver-edit';
 import { MyNotificationPage } from '../pages/my-notification/my-notification';
 
+import { RatingPage } from '../pages/rating/rating';
+
 /*Services*/
-import {  AuthService, UsersService, RestaurantsService, OrderService, DriversService } from './service/index';
+import {  AuthService, UsersService, RestaurantsService, OrderService, DriversService, RatingService } from './service/index';
 
 @NgModule({
     declarations: [
@@ -45,6 +47,7 @@ import {  AuthService, UsersService, RestaurantsService, OrderService, DriversSe
         MyOrderPage,
         OrderDetailPage,AssignOrderPage,
         MyNotificationPage,
+        RatingPage
     ],
     imports: [
         BrowserModule,
@@ -68,10 +71,12 @@ import {  AuthService, UsersService, RestaurantsService, OrderService, DriversSe
         MyDriverPage, AddDriverPage, DriverDetailPage, EditDriverPage,
         MyOrderPage, OrderDetailPage, AssignOrderPage,
         MyNotificationPage,
+        RatingPage
     ],
     providers: [
         AuthService,
         DriversService,
+        RatingService,
         UsersService,
         RestaurantsService,
         OrderService,

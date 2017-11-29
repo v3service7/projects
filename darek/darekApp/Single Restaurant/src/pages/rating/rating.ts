@@ -6,7 +6,7 @@ import * as globalVariable from "../../app/global";
 
 import { RestaurantsService, KitchenMenuService, RatingService } from '../../app/service/index';;
 
-import { RestaurantPage } from '../restaurant/restaurant';
+//import { RestaurantPage } from '../restaurant/restaurant';
 
 @Component({
 	selector: 'page-rating',
@@ -19,6 +19,7 @@ export class RatingPage {
     loading: any;
 	rating : any;
     imageURL: string = globalVariable.imageUrl;
+    resID: string = globalVariable.resId;
     currentCustomer: any;
 
 	constructor(
@@ -40,9 +41,9 @@ export class RatingPage {
             review: [''],
             rating: ['', [Validators.required]],
         });
-        this.id = navParams.get('id');
+        //this.id = navParams.get('id');
 
-        this.ratingForm.controls['restaurantId'].setValue(this.id);
+        this.ratingForm.controls['restaurantId'].setValue(this.resID);
     }
 
 	ionViewDidEnter() {
@@ -68,8 +69,16 @@ export class RatingPage {
             let abc = document.getElementsByClassName(starShowClass);
             let xyz = document.getElementsByClassName(starHideClass);
 
-            abc[0].style.display='block';
-            xyz[0].style.display='none';
+            /*console.log(typeof abc);
+            console.log(abc);
+            console.log(xyz);*/
+
+            /*abc[0].style.display='block';
+            xyz[0].style.display='none';*/
+            
+            abc[0].setAttribute("style", "display:block");
+            xyz[0].setAttribute("style", "display:none");
+
 
         }
         this.ratingForm.controls['rating'].setValue(x);
@@ -86,8 +95,14 @@ export class RatingPage {
             let abc = document.getElementsByClassName(starShowClass);
             let xyz = document.getElementsByClassName(starHideClass);
 
-            abc[0].style.display='none';
-            xyz[0].style.display='block';
+            console.log(abc);
+            console.log(xyz);
+
+            /*abc[0].style.display='none';
+            xyz[0].style.display='block';*/
+
+            abc[0].setAttribute("style", "display:none");
+            xyz[0].setAttribute("style", "display:block");
         }
 
         this.ratingForm.controls['rating'].setValue(x);
@@ -96,7 +111,7 @@ export class RatingPage {
     }
 
     getAllRating(){
-        this.ratingService.getAllRatingById(this.id).subscribe((data)=>{
+        this.ratingService.getAllRatingById(this.resID).subscribe((data)=>{
 
             console.log("data");
             console.log(data);
@@ -125,9 +140,9 @@ export class RatingPage {
         }
     }
 
-    goToRestroPage(id){
+    /*goToRestroPage(id){
         this.navCtrl.pop(RestaurantPage)
-    }
+    }*/
 
     doRefresh(refresher) {
         setTimeout(() => {

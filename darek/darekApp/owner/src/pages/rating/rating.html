@@ -8,11 +8,20 @@
 </ion-header>
 
 <ion-content>
+
+    <ion-row>
+        <ion-item>
+            <ion-label>Review Setting</ion-label>
+            <ion-toggle [(ngModel)]="settingTrue" (ionChange)="notify($event)" color="secondary"></ion-toggle>
+        </ion-item>
+    </ion-row>
+
+
     <ion-refresher (ionRefresh)="doRefresh($event)">
         <ion-refresher-content></ion-refresher-content>
     </ion-refresher>
 
-    <ion-row *ngIf = "currentCustomer" class="rowClass">
+    <!-- <ion-row *ngIf = "currentCustomer" class="rowClass">
         <form role="form" [formGroup]="ratingForm" (ngSubmit)="rateRestro()" class="width100">
             <div class="displayFlex margin3">
                 <span *ngFor = "let x of ratingArray; let i=index; ">
@@ -28,7 +37,7 @@
             </div>
             <input class="inputReview margin3" type="text" name="" formControlName = "review" placeholder="Review...">
         </form>        
-    </ion-row>
+    </ion-row> -->
 
     <ion-row class="margin4" *ngIf = "rating && rating.length > 0">
         <ion-col col-12 text-right>

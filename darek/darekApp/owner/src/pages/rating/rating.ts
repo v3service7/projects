@@ -1,48 +1,48 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams, LoadingController, ToastController, Nav, AlertController } from 'ionic-angular';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+/*import { FormBuilder, FormGroup, Validators } from '@angular/forms';*/
 
 import * as globalVariable from "../../app/global";
 
 import { RestaurantsService, KitchenMenuService, RatingService } from '../../app/service/index';;
 
-import { RestaurantPage } from '../restaurant/restaurant';
+//import { RestaurantPage } from '../restaurant/restaurant';
 
 @Component({
 	selector: 'page-rating',
 	templateUrl: 'rating.html'
 })
 export class RatingPage {
-    ratingForm: FormGroup;
+    /*ratingForm: FormGroup;*/
 	ratingArray : any = [1,2,3,4,5];
-    id: string;
+    /*id: string;*/
     loading: any;
+    restaurants : any = {};
+    settingTrue: boolean;
 	rating : any;
     imageURL: string = globalVariable.imageUrl;
-    currentCustomer: any;
+    resID: string;
+    /*currentCustomer: any;*/
 
 	constructor(
 		public navCtrl: NavController,
         public navParams: NavParams,
 		public nav: Nav,
 		public loadingCtrl: LoadingController,
-        private lf: FormBuilder,
-		public toastCtrl: ToastController,
-        public alertCtrl: AlertController,
         public restaurantsService : RestaurantsService,
-        public kitchenMenuService : KitchenMenuService,
 		public ratingService : RatingService,
 		) {
-        
-        this.ratingForm = this.lf.group({
-            restaurantId: ['', Validators.required],
-            customerId: ['', [Validators.required]],
-            review: [''],
-            rating: ['', [Validators.required]],
-        });
-        this.id = navParams.get('id');
+        this.getRestaurants();
+    }
 
-        this.ratingForm.controls['restaurantId'].setValue(this.id);
+    private getRestaurants() {
+        this.restaurantsService.getOwnerRestaurants(JSON.parse(localStorage.getItem('currentOwner'))._id).subscribe(users => {
+            this.restaurants = users.message;
+
+            this.settingTrue = this.restaurants.rating;
+            this.resID = this.restaurants._id;
+            this.getAllRating();
+        });
     }
 
 	ionViewDidEnter() {
@@ -50,27 +50,42 @@ export class RatingPage {
             content: 'Please wait...'
         });
         this.loading.present();
-
-        this.getAllRating();
-
-        if(localStorage.getItem('currentCustomer')){
-            this.currentCustomer = JSON.parse(localStorage.getItem('currentCustomer'));
-            this.ratingForm.controls['customerId'].setValue(this.currentCustomer._id);
-            this.ratingForm.controls['rating'].setValue(0);
-        }
     }
 
-    addRating(x){
+    notify(event){
+        console.log(event.checked);
+        this.settingTrue = event.checked;
+        this.loading = this.loadingCtrl.create({
+            content: 'Please wait...'
+        });
+        this.loading.present();
+        
+        this.updateRestro();
+    }
+
+    updateRestro(){
+        let obj = {};
+        obj['_id'] = this.restaurants._id;
+        obj['rating'] = this.settingTrue;
+
+        this.restaurantsService.updateRestaurant(obj).subscribe((data)=>{
+            if (!data.error) {
+                this.getRestaurants();
+            }
+        })
+
+    }
+
+    /*addRating(x){
         for (var i = 1; i <= x ; i++) {
             let starShowClass = "showStar_"+i;
             let starHideClass = "hideStar_"+i;
 
             let abc = document.getElementsByClassName(starShowClass);
             let xyz = document.getElementsByClassName(starHideClass);
-
-            abc[0].style.display='block';
-            xyz[0].style.display='none';
-
+            
+            abc[0].setAttribute("style", "display:block");
+            xyz[0].setAttribute("style", "display:none");
         }
         this.ratingForm.controls['rating'].setValue(x);
 
@@ -86,20 +101,20 @@ export class RatingPage {
             let abc = document.getElementsByClassName(starShowClass);
             let xyz = document.getElementsByClassName(starHideClass);
 
-            abc[0].style.display='none';
-            xyz[0].style.display='block';
+            console.log(abc);
+            console.log(xyz);
+
+            abc[0].setAttribute("style", "display:none");
+            xyz[0].setAttribute("style", "display:block");
         }
 
         this.ratingForm.controls['rating'].setValue(x);
         console.log("this.ratingForm.value");
         console.log(this.ratingForm.value);
-    }
+    }*/
 
     getAllRating(){
-        this.ratingService.getAllRatingById(this.id).subscribe((data)=>{
-
-            console.log("data");
-            console.log(data);
+        this.ratingService.getAllRatingById(this.resID).subscribe((data)=>{
 
             if (!data.error) {
                 this.loading.dismiss();
@@ -117,26 +132,22 @@ export class RatingPage {
         });
     }
 
-    checkDisable(){
+    /*checkDisable(){
         if (!this.ratingForm.valid || this.ratingForm.value['rating'] == 0) {
             return true;
         }else{
             return false;
         }
-    }
-
-    goToRestroPage(id){
-        this.navCtrl.pop(RestaurantPage)
-    }
+    }*/
 
     doRefresh(refresher) {
         setTimeout(() => {
-            this.getAllRating();
+            this.getRestaurants();
             refresher.complete();
         }, 2000);
     }
 
-    rateRestro(){
+    /*rateRestro(){
         this.ratingService.addRating(this.ratingForm.value).subscribe((data)=>{
             if (!data.error) {
                 console.log(data);
@@ -149,6 +160,6 @@ export class RatingPage {
     resetForm(){
         this.ratingForm.controls['review'].setValue(null);
         this.removeRating(0);
-    }
+    }*/
 
 }
