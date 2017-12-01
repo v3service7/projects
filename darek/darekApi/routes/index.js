@@ -13,6 +13,39 @@ var promotionDetailModel  =  require("../model/PromotionDetail.js");
 var restaurantModel  =  require("../model/Restaurant.js");
 var order = require('../model/Order.js');
 var driverModel  =  require("../model/Driver.js");
+var tempModel  =  require("../model/tempModal.js");
+
+router.get('/tempData', function(req, res, next) {
+	var response={};
+	tempModel.find({}, null, {sort: {created_at: 1}},function(err,data){
+		if (err) {
+			response = {"error" : true,"message" : "Error fetching data"};
+		} else{
+			response = {"error" : false,"message" : data};
+		};
+		res.json(response);
+	});	
+});
+
+router.post('/temp',function(req, res){
+	var response={};
+    var obj = new tempModel(req.body);
+    obj.save(function(err){
+    	if(err) {
+            response = {"error" : true,"message" : err};
+        } else {
+            response = {"error" : false,"message" : "Data added"};
+        }
+        res.json(response);
+    });
+});
+
+
+
+
+
+
+
 
 router.put('/item-update-by-menu/:id',function(req, res){
 	var response={};

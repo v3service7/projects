@@ -11,7 +11,7 @@ import { MyApp } from './app.component';
 
 import { LoginPage } from '../pages/login/login';
 
-/*import { HomePage } from '../pages/home/home';*/
+import { HomePage } from '../pages/home/home';
 
 import { ForgetPasswordPage } from '../pages/forget-password/forget-password';
 import { ChangePasswordPage } from '../pages/change-password/change-password';
@@ -20,6 +20,7 @@ import { InfoPage } from '../pages/profile/info';
 
 import { MyOrderPage } from '../pages/my-order/my-order';
 import { OrderDetailPage } from '../pages/my-order/order-detail';
+import { ModalContentPage } from '../pages/my-order/filter-page';
 import { ChangeOrderStatusPage } from '../pages/my-order/change-order-status';
 
 
@@ -34,11 +35,11 @@ import { Geolocation } from '@ionic-native/geolocation';
     declarations: [
         MyApp,
         LoginPage,
-        /*HomePage,*/
+        HomePage,
         ForgetPasswordPage,
         ChangePasswordPage,
         ProfilePage,InfoPage,
-        MyOrderPage,OrderDetailPage,ChangeOrderStatusPage
+        MyOrderPage,OrderDetailPage,ModalContentPage,ChangeOrderStatusPage
     ],
     imports: [
         BrowserModule,
@@ -51,10 +52,10 @@ import { Geolocation } from '@ionic-native/geolocation';
     entryComponents: [
         MyApp,
         LoginPage,
-        /*HomePage,*/
+        HomePage,
         ForgetPasswordPage,
         ProfilePage,ChangePasswordPage,InfoPage,
-        MyOrderPage, OrderDetailPage,ChangeOrderStatusPage
+        MyOrderPage, OrderDetailPage,ModalContentPage,ChangeOrderStatusPage
     ],
     providers: [
         AuthService,

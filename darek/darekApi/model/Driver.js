@@ -16,9 +16,12 @@ var DriverSchema = new Schema({
     vehicleType : String,
     vehicleName : String,
     vehicleNo: String,
+    driverStatus : {type: String,default: 'Available',enum:['Available', 'onDuty']},
     status: { type: Boolean, default: true },
     created_at: Date,
     updated_at: Date,
+    lat : String,
+    lng : String,
     orderIds : [{  type: Schema.Types.ObjectId, ref:'Order' }],
     restaurantId : {  type: Schema.Types.ObjectId, ref:'Restaurant', required: true },
 });

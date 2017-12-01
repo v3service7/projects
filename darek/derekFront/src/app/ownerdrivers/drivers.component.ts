@@ -30,7 +30,11 @@ export class OwnerDriversComponent implements OnInit {
 
 
   private loadAllDrivers(id) {
-    this.driversService.getRestaurantDrivers(id).subscribe(users => { this.drivers = users.message; });
+    this.driversService.getRestaurantDrivers(id).subscribe(users => {
+      this.drivers = users.message;
+      console.log("this.drivers");
+      console.log(this.drivers);
+    });
 
   }
 
@@ -93,7 +97,8 @@ export class DriverOrdersComponent implements OnInit {
   }
 
   orderDetail(id){
-    this.router.navigate(['/owner/reports/detail',id]);
+    var currentUrl1 = window.location.pathname;
+    this.router.navigate(['/owner/reports/detail',id], { queryParams: { backurl: currentUrl1 }});
   }
 
   private getRestaurants() {

@@ -21,6 +21,10 @@ body {
     word-break: break-all;
 }
 
+.textAlignRight{
+    text-align: right;
+}
+
 #wrapper {
     padding-left: 0;
 }

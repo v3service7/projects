@@ -73,6 +73,19 @@ router.get('/', function(req, res, next) {
     }); 
 });
 
+router.get('/pending-orders/:id', function(req, res, next) {
+    var response={};
+    Order.find({restaurantId:req.params.id,driverStatus:'Accepted'}, null, {sort: {created_at: -1}}).populate('customerId').populate('restaurantId').populate('driverId').exec(function(err,data){
+        if (err) {
+            response = {"error" : true,"message" : "Error fetching data"};
+        } else{
+
+            response = {"error" : false,"message" : data};
+        };
+        res.json(response);
+    }); 
+});
+
 router.get('/driver/:id', function(req, res, next) {
     var response={};
     Order.find({driverId:req.params.id}, null, {sort: {created_at: -1}}).populate('customerId').populate('restaurantId').populate('driverId').exec(function(err,data){

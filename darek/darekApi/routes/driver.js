@@ -108,7 +108,7 @@ router.post('/driver',function(req, res){
 
 router.put('/driver/:id',function(req, res){
     var response={};
-    driverModel.findByIdAndUpdate(req.params.id, req.body, function(err, country) {
+    driverModel.findByIdAndUpdate(req.params.id, req.body, function(err, data) {
         if(err) {
             response = {"error" : true,"message" : err};
         } else {
@@ -121,7 +121,7 @@ router.put('/driver/:id',function(req, res){
 router.get('/driver/:id',function(req,res){
     var response={};
     console.log(req.params.id);
-    driverModel.findById(req.params.id,function(err,data){
+    driverModel.findById({_id:req.params.id}).populate('restaurantId').exec(function(err,data){
         if (err) {
             response = {"error" : true,"message" : "Error fetching data"};
         } else{

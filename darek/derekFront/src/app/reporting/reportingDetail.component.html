@@ -1,6 +1,7 @@
 <app-reporting-nav></app-reporting-nav>
 
 <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 minheight585">
+	<button class="btn btn-success" style="margin-top: 2%;margin-left: 3%;" (click) = "goBack()">Back</button>
 	<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="padding: 3%">
 		<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 minHeight20px colorWhite padding19px" style="background-color:#737373;">
 			<b>Order ID : {{orderID.substr(18,6)}} -</b> <span class="fontSize14px" style="color: #5AB26E;">Accepted on {{detail.created_at }}</span>
@@ -70,7 +71,7 @@
 							<div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
 								{{order.multisize.size}}
 							</div>
-							<div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 textAlignCenter">
+							<div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 textAlignRight">
 								<span class="fontSize14px"> <b>(+{{order.multisize.price | number : '1.2-2'}})</b></span>
 							</div>
 						</div>
@@ -79,10 +80,10 @@
 								<strong>Addons</strong>
 							</div>
 							<div *ngFor = "let addon of order.addon">
-								<div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
+								<div class="col-lg-8 col-md-8 col-sm-8 col-xs-8 wordBreak">
 									{{addon.name}}
 								</div>
-								<div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 textAlignCenter">
+								<div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 textAlignRight">
 									<span class="fontSize14px"> <b>(+{{addon.price | number : '1.2-2'}})</b></span>
 								</div>
 							</div>
@@ -116,7 +117,7 @@
 							<div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
 								{{detail.promotion.itemGroup1.multisize.size}}
 							</div>
-							<div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 textAlignCenter">
+							<div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 textAlignRight">
 								<span class="fontSize14px"> <b>(+{{detail.promotion.itemGroup1.multisize.price | number : '1.2-2'}})</b></span>
 							</div>
 						</div>
@@ -125,10 +126,10 @@
 								<strong>Addons</strong>
 							</div>
 							<div *ngFor = "let addon of detail.promotion.itemGroup1.addon">
-								<div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
+								<div class="col-lg-8 col-md-8 col-sm-8 col-xs-8 wordBreak">
 									{{addon.name}}
 								</div>
-								<div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 textAlignCenter">
+								<div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 textAlignRight">
 									<span class="fontSize14px"> <b>(+{{addon.price | number : '1.2-2'}})</b></span>
 								</div>
 							</div>
@@ -160,7 +161,7 @@
 								<div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
 									{{detail.promotion.itemGroup2.multisize.size}}
 								</div>
-								<div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 textAlignCenter">
+								<div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 textAlignRight">
 									<span class="fontSize14px"> <b>(+{{detail.promotion.itemGroup2.multisize.price | number : '1.2-2'}})</b></span>
 								</div>
 							</div>
@@ -169,10 +170,10 @@
 									<strong>Addons</strong>
 								</div>
 								<div *ngFor = "let addon of detail.promotion.itemGroup2.addon">
-									<div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
+									<div class="col-lg-8 col-md-8 col-sm-8 col-xs-8 wordBreak">
 										{{addon.name}}
 									</div>
-									<div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 textAlignCenter">
+									<div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 textAlignRight">
 										<span class="fontSize14px"> <b>(+{{addon.price | number : '1.2-2'}})</b></span>
 									</div>
 								</div>

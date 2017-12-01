@@ -38,7 +38,11 @@
         <button float-right no-margin ion-button clear (click)="presentActionSheet()">  <ion-icon name="funnel"></ion-icon></button>
     </ion-item>
 
-    <ion-list>	
+    <ion-list>
+        <ion-item *ngIf="orders && orders.length == 0" text-center>
+            No Item!
+        </ion-item>
+        
         <ion-item *ngFor="let order of orders" (click)="cleintDetail(order)" [ngStyle] = "detailBackground(order)">
             <ion-row>
                 <ion-col no-padding class="fontWeight500 paddingBottom3">

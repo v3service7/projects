@@ -746,7 +746,8 @@ export class ReportingOrderComponent implements OnInit {
     }
 
     private showOrderDetail(id){
-        this.router.navigate(['/owner/reports/detail',id]);
+        var currentUrl1 = window.location.pathname;
+        this.router.navigate(['/owner/reports/detail',id], { queryParams: { backurl: currentUrl1 }});
     }
 }
 
@@ -760,6 +761,7 @@ export class ReportingDetailComponent implements OnInit {
 	restaurants:any ={};
 	detail:any = [];
 	orderID :String;
+    returnUrl: string;
 
     spicyArray : any = [1,2,3];
 	constructor(
@@ -767,8 +769,25 @@ export class ReportingDetailComponent implements OnInit {
         private orderService: OrderService,
         private router: Router,
         private activatedRoute:ActivatedRoute
-        ) {}
+        ) {
+        this.activatedRoute.queryParamMap.subscribe((params: Params) => {
+            console.log("queryParams");
+            console.log(params.params.backurl);
+            this.returnUrl = params.params.backurl;
+        })
+    }
+
+    goBack(){
+        console.log("button Clicked")
+        this.router.navigate([this.returnUrl]);
+    }
+
 	ngOnInit() {
+        /*this.returnUrl = this.activatedRoute.snapshot.queryParams['returnUrl'];
+
+        console.log("this.returnUrl");
+        console.log(this.returnUrl);*/
+
 		this.activatedRoute.params.subscribe((params: Params) => {
             let id = params['id'];
             this.orderID = id;
