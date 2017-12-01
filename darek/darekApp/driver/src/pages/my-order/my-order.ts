@@ -48,6 +48,9 @@ export class MyOrderPage {
             this.orders = users.message;
             this.tempOrdr = users.message;
 
+            this.totalCash = 0;
+            this.totalTip = 0;
+
             console.log("this.orders");
             console.log(this.orders);
 
@@ -77,7 +80,7 @@ export class MyOrderPage {
                 return {'background' : 'rgba(5, 245, 76, 0.13)'};
             }
 
-            if (order.driverStatus == 'Delivered' || order.status == 'Delivered') {
+            if (order.driverStatus == 'Delivered' || order.status == 'Completed') {
                 return {'background' : 'white'};
             }
         }else{

@@ -55,8 +55,8 @@ import { OrderDetailPage } from './order-detail';
 
      private getOrders(id){
          this.orderService.orders(id).subscribe(users => { 
-             /*console.log("users.message");
-             console.log(users.message);*/
+             console.log("users.message");
+             console.log(users.message);
              this.orders = users.message;
              this.tempOrdr = users.message;
              this.loading.dismiss();

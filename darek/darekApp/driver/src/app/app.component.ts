@@ -4,6 +4,7 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { LoginPage } from '../pages/login/login';
+/*import { HomePage } from '../pages/home/home';*/
 import { InfoPage } from '../pages/profile/info';
 import { MyOrderPage } from '../pages/my-order/my-order';
 
@@ -13,6 +14,7 @@ import { MyOrderPage } from '../pages/my-order/my-order';
 export class MyApp {
     @ViewChild(Nav) nav: Nav;
 
+    /*rootPage: any = MyOrderPage;*/
     rootPage: any = LoginPage;
     currentDriver:any;
     pages: Array<{title: string, icon:string, component: any}>;
@@ -23,6 +25,7 @@ export class MyApp {
         this.pages = [
             { title: ' Account', icon: 'contact', component: InfoPage },
             { title: 'Orders', icon: 'cart', component: MyOrderPage },
+            /*{ title: 'My Location', icon: 'home', component: HomePage },*/
         ];
 
         this.currentDriver = JSON.parse(localStorage.getItem('currentDriver'));

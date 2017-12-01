@@ -1,29 +1,45 @@
 <ion-header>
     <ion-navbar color="secondary">
         <button ion-button menuToggle>
-			<ion-icon name="menu"></ion-icon>
-		</button>
+            <ion-icon name="menu"></ion-icon>
+        </button>
         <ion-title><ion-icon name="people"></ion-icon> &nbsp;Drivers</ion-title>
     </ion-navbar>
 </ion-header>
 
 
 <ion-content padding>
-    <button ion-button full icon-only margin-vertical (click)="goToAddDriver()">
-		<ion-icon name="person" ios="ios-person" md="md-person"> </ion-icon> Add Driver 
-	</button>
-    
-    <ion-refresher (ionRefresh)="doRefresh($event)">
-        <ion-refresher-content></ion-refresher-content>
-    </ion-refresher>
+    <!-- <ion-card> -->
+        <ion-list>
+            <button ion-item color="primary" (click) = "viewDriverPosition()">
+                <ion-icon name="cart" item-start></ion-icon>
+                Show Drivers Location
+            </button>
+        </ion-list>
 
-    <ion-list>
-        <ion-item *ngFor="let driver of drivers" (click)="driverDetail($event,driver)">
-            <ion-avatar item-start>
-                <img src="http://dsi-vd.github.io/patternlab-vd/images/fpo_avatar.png">
-            </ion-avatar>
-            <h2>{{driver.firstname}} {{driver.lastname}}</h2>
-            <p>{{driver.phoneNo}}</p>
-        </ion-item>
-    </ion-list>
-</ion-content>
+        <ion-list>
+            <button ion-item color="primary" (click)="goToAddDriver()">
+                <ion-icon name="person" ios="ios-person" md="md-person" item-start> </ion-icon> Add Driver
+            </button>
+        </ion-list>
+    <!-- </ion-card> -->
+
+
+            <!-- <button ion-button full icon-only margin-vertical>
+                 
+            </button> -->
+
+            <ion-refresher (ionRefresh)="doRefresh($event)">
+                <ion-refresher-content></ion-refresher-content>
+            </ion-refresher>
+
+            <ion-list>
+                <ion-item *ngFor="let driver of drivers" (click)="driverDetail($event,driver)">
+                    <ion-avatar item-start>
+                        <img src="http://dsi-vd.github.io/patternlab-vd/images/fpo_avatar.png">
+                    </ion-avatar>
+                    <h2>{{driver.firstname}} {{driver.lastname}}</h2>
+                    <p>{{driver.phoneNo}}</p>
+                </ion-item>
+            </ion-list>
+        </ion-content>

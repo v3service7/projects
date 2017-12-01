@@ -24,8 +24,16 @@ export class OrderDetailPage {
     constructor(public alertCtrl: AlertController, public toastCtrl: ToastController, public navCtrl: NavController, public loadingCtrl: LoadingController, public navParams: NavParams,private restaurantsService: RestaurantsService,private orderService: OrderService) {
         this.selectedOrder = navParams.get('item');
 
+        this.getOrders();
+
         console.log("this.selectedOrder");
         console.log(this.selectedOrder);
+    }
+
+    private getOrders(){
+        this.orderService.getDetail(this.selectedOrder._id).subscribe(users => {
+            this.selectedOrder = users.message;
+        });
     }
     
     ionViewDidEnter() {
@@ -111,6 +119,37 @@ export class OrderDetailPage {
                 this.getToast('Order '+ obj.status +' successfully');
             }
         );
+    }
+
+    changeStatus(){
+        let confirm = this.alertCtrl.create({
+            title: 'Order Completed?',
+            message: "Update Order Status from 'Accepted' to 'Completed'?",
+            buttons: [
+            {
+                text: 'Disagree',
+                handler: () => {
+                    console.log('Disagree clicked');
+                }
+            },
+            {
+                text: 'Agree',
+                handler: () => {
+                    var objUpdate = {};
+                    objUpdate['_id'] = this.selectedOrder._id;
+                    objUpdate['status'] = 'Completed';
+                    this.orderService.getUpdate(objUpdate).subscribe(
+                        (data) => {
+                            this.getOrders();
+                            this.getToast('Order Status Updated successfully');
+                        }
+                    );
+                }
+            }
+            ]
+        });
+        confirm.present();
+        console.log("change clicked");
     }
 
 	private getOrderDetail(obj){

@@ -48,24 +48,24 @@
 
 			<ion-card-content no-padding>
 				<ion-row *ngIf="crt.multisize" class="width100">
-					<ion-col col-4 class="fontWeight600">Size : </ion-col>
-					<ion-col col-4>{{crt.multisize.size}} </ion-col>
-					<ion-col col-4> + {{crt.multisize.price}}</ion-col>
+					<ion-col col-3 text-left class="fontWeight600">Size : </ion-col>
+					<ion-col col-5 text-left>{{crt.multisize.size}} </ion-col>
+					<ion-col col-4 text-right> + {{crt.multisize.price}}</ion-col>
 				</ion-row>
 
 				<ion-row *ngIf="crt.addon && crt.addon.length > 0" class="displayFlex">
-					<ion-col col-4 class="fontWeight600">Addon : </ion-col>
-					<ion-col col-8>
-						<ion-row *ngFor = "let addon of crt.addon">
-							<ion-col no-padding>{{addon.name}} </ion-col>
-							<ion-col no-padding> + {{addon.price}}</ion-col>
+					<ion-col col-3 class="fontWeight600">Addon : </ion-col>
+					<ion-col col-9>
+						<ion-row *ngFor = "let addon of crt.addon" class="borderBottomAddon">
+							<ion-col col-9 text-left no-padding>{{addon.name}} </ion-col>
+							<ion-col col-3 text-right no-padding> + {{addon.price}}</ion-col>
 						</ion-row>
 					</ion-col>
 				</ion-row>
 
 				<ion-row *ngIf = "crt.quantity" class="width100">
 					<ion-col col-4 class="fontWeight600">Quantity :</ion-col>
-					<ion-col col-4 class="displayInherit">
+					<ion-col col-6 class="displayInherit">
 						<ion-col col-4 no-padding>
 							<button class="decreaseQuantity width100" (click)="decreaseQuantity(i)">
 								<ion-icon name="remove" ios="ios-remove" md="md-remove" class="qtyButton"></ion-icon>
@@ -130,7 +130,7 @@
 					<ion-row *ngIf="promotion.itemGroup1.addon && promotion.itemGroup1.addon.length > 0 " class="displayFlex width100">
 						<ion-col col-4 class="fontWeight600">Addon : </ion-col>
 						<ion-col col-8>
-							<ion-row *ngFor = "let addon of promotion.itemGroup1.addon">
+							<ion-row *ngFor = "let addon of promotion.itemGroup1.addon" class="borderBottomAddon">
 								<ion-col no-padding>{{addon.name}} </ion-col>
 								<ion-col no-padding> + {{addon.price}}</ion-col>
 							</ion-row>
@@ -192,7 +192,7 @@
 					<ion-row *ngIf="promotion.itemGroup2.addon && promotion.itemGroup2.addon.length > 0" class="displayFlex width100">
 						<ion-col col-4 class="fontWeight600">Addon : </ion-col>
 						<ion-col col-8>
-							<ion-row *ngFor = "let addon of promotion.itemGroup2.addon">
+							<ion-row *ngFor = "let addon of promotion.itemGroup2.addon" class="borderBottomAddon">
 								<ion-col no-padding>{{addon.name}} </ion-col>
 								<ion-col no-padding> + {{addon.price}}</ion-col>
 							</ion-row>
@@ -273,46 +273,49 @@
 	<ion-row class="width100" *ngIf = "currentCustomer ">
 		<ion-row class="width100">
 			<ion-col class="fontWeight600">Name</ion-col>
-			<ion-col>: {{currentCustomer.firstname}} {{currentCustomer.lastname}}</ion-col>
+			<ion-col col-8>: {{currentCustomer.firstname}} {{currentCustomer.lastname}}</ion-col>
 		</ion-row>
 		<ion-row class="width100">
 			<ion-col class="fontWeight600">Contact No.</ion-col>
-			<ion-col>: {{currentCustomer.phonenumber}}</ion-col>
+			<ion-col col-8>: {{currentCustomer.phonenumber}}</ion-col>
 		</ion-row>
 	</ion-row>
 
 	<ion-row *ngIf = "cartStorage && cartStorage.orderMethod">
 		<ion-row class="width100">
 			<ion-col class="fontWeight600">Type</ion-col>
-			<ion-col>: {{cartStorage.orderMethod.mType}}</ion-col>
+			<ion-col col-8>: {{cartStorage.orderMethod.mType}}</ion-col>
 		</ion-row>
 		<ion-row class="width100" *ngIf = "cartStorage.orderMethod.mType == 'Delivery'">
 			<ion-col class="fontWeight600">Address</ion-col> 
-			<ion-col>: {{cartStorage.orderMethod.streetName}}, {{cartStorage.orderMethod.city}}, {{cartStorage.orderMethod.postcode}}</ion-col>
+			<ion-col col-8>: {{cartStorage.orderMethod.streetName}}, {{cartStorage.orderMethod.city}}, {{cartStorage.orderMethod.postcode}}</ion-col>
 		</ion-row>
 	</ion-row>
 
 	<ion-row *ngIf = "cartStorage && cartStorage.orderTime">
 		<ion-row class="width100">
 			<ion-col class="fontWeight600">When</ion-col>
-			<ion-col >: {{cartStorage.orderTime.tType}}</ion-col>
+			<ion-col col-8>: {{cartStorage.orderTime.tType}}</ion-col>
 		</ion-row>
 		<ion-row class="width100" *ngIf = "cartStorage.orderTime.tType == 'Later'">
 			<ion-col class="fontWeight600">Day</ion-col> 
-			<ion-col>: {{cartStorage.orderTime.day}}</ion-col>
+			<ion-col col-8>: {{cartStorage.orderTime.day}}</ion-col>
 		</ion-row>
 		<ion-row class="width100">
 			<ion-col class="fontWeight600">Time</ion-col> 
-			<ion-col>: {{cartStorage.orderTime.time}}</ion-col>
+			<ion-col col-8>: 
+				<span *ngIf = "cartStorage.orderTime.tType == 'Later'">{{cartStorage.orderTime.time}}</span>
+				<span *ngIf = "cartStorage.orderTime.tType == 'Now'">{{cartStorage.orderTime.time | date : "EEEE, MMMM d, y - h:mm a"}}</span>
+			</ion-col>
 		</ion-row>
 	</ion-row>
 
 	<ion-row *ngIf = "cartStorage && cartStorage.orderPayment">
 		<ion-row class="width100">
 			<ion-col class="fontWeight600">Payment Type</ion-col>
-			<ion-col *ngIf = "cartStorage.orderPayment.cash">: Cash</ion-col>
-			<ion-col *ngIf = "cartStorage.orderPayment.cardpickup">: Card Pickup</ion-col>
-			<ion-col *ngIf = "cartStorage.orderPayment.cardinternet">: Card via Internet</ion-col>
+			<ion-col *ngIf = "cartStorage.orderPayment.cash" col-7>: Cash</ion-col>
+			<ion-col *ngIf = "cartStorage.orderPayment.cardpickup" col-7>: Card Pickup</ion-col>
+			<ion-col *ngIf = "cartStorage.orderPayment.cardinternet" col-7>: Card via Internet</ion-col>
 		</ion-row>
 	</ion-row>
 

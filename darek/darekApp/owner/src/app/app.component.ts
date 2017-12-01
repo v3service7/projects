@@ -2,6 +2,7 @@ import { Component, ViewChild } from '@angular/core';
 import { Nav, Platform, NavController,ViewController,AlertController   } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
+import { LocalNotifications } from '@ionic-native/local-notifications';
 
 import { HomePage } from '../pages/home/home';
 import { ListPage } from '../pages/list/list';
@@ -29,13 +30,33 @@ import { MyNotificationPage } from '../pages/my-notification/my-notification';
 export class MyApp {
     @ViewChild(Nav) nav: Nav;
 
-   /* rootPage: any = MyOrderPage;*/
+    /*rootPage: any = MyDriverPage;*/
     rootPage: any = LoginPage;
     currentOwner:any;
     pages: Array<{title: string, icon:string, component: any}>;
 
-    constructor(public alertCtrl: AlertController, public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen) {
+    constructor(
+        public alertCtrl: AlertController,
+        public platform: Platform,
+        public statusBar: StatusBar,
+        public splashScreen: SplashScreen,
+        private localNotifications: LocalNotifications
+        ) {
         this.initializeApp();
+
+        // Schedule multiple notifications
+        /*this.localNotifications.schedule([{
+                id: 1,
+                text: 'Multi ILocalNotification 1',
+                //sound: isAndroid ? 'file://sound.mp3': 'file://beep.caf',
+                //data: { secret:key }
+            },{
+                id: 2,
+                title: 'Local ILocalNotification Example',
+                text: 'Multi ILocalNotification 2',
+                icon: 'http://example.com/icon.png'
+            }
+        ]);*/
 
         // used for an example of ngFor and navigation
         this.pages = [

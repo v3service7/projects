@@ -5,6 +5,7 @@ import { RestaurantsService, DriversService } from '../../app/service/index';
 
 import { AddDriverPage } from './add-driver';
 import { DriverDetailPage } from './driver-detail';
+import { DriversPositionPage } from './drivers-position';
 
 /**
  * Generated class for the MyDriverPage page.
@@ -57,7 +58,11 @@ import { DriverDetailPage } from './driver-detail';
     }
 
     private goToAddDriver(){
- 		this.navCtrl.push(AddDriverPage);
+         this.navCtrl.push(AddDriverPage);
+     }
+
+    private viewDriverPosition(){
+ 		this.navCtrl.push(DriversPositionPage);
  	}
 
     private driverDetail(event,obj){

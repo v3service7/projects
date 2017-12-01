@@ -14,6 +14,13 @@ export class OrderService {
 			(response: Response) => response.json()
 		);
 	}
+  	
+  	getPendingOrders(id) {
+		return this.http.get(globalVariable.url+'order/pending-orders/'+id)
+		.map(
+			(response: Response) => response.json()
+		);
+	}
 
   	overview(id) {
 		return this.http.get(globalVariable.url+'reporting/overview/'+id)

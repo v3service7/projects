@@ -4,10 +4,10 @@
 			<ion-icon name="menu"></ion-icon>
 		</button>
         <ion-title>
-            <ion-icon name="cart" item-start></ion-icon> &nbsp;Orders</ion-title>
+            <ion-icon name="cart" item-start></ion-icon> &nbsp;Orders
+        </ion-title>
     </ion-navbar>
 </ion-header>
-
 
 <ion-content>
 	<ion-refresher (ionRefresh)="doRefresh($event)">
@@ -46,7 +46,7 @@
                     <span *ngIf = "order.orderMethod" class="font14px whiteSpaceInitial"> {{order.orderMethod.streetName}}, {{order.orderMethod.city}} </span>
                 </ion-col>
                 <ion-col col-3 text-right>
-                    <ion-badge item-end>${{order.gTotal}}</ion-badge>
+                    <ion-badge item-end>${{order.gTotal | number : '1.2-2'}}</ion-badge>
                 </ion-col>
             </ion-row>
             <ion-row  class="font14px whiteSpaceInitial">

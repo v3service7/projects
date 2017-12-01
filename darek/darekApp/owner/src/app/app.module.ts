@@ -6,6 +6,7 @@ import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
+import { LocalNotifications } from '@ionic-native/local-notifications';
 
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
@@ -26,6 +27,7 @@ import { MyDriverPage } from '../pages/my-driver/my-driver';
 import { DriverDetailPage } from '../pages/my-driver/driver-detail';
 import { AddDriverPage } from '../pages/my-driver/add-driver';
 import { EditDriverPage } from '../pages/my-driver/driver-edit';
+import { DriversPositionPage } from '../pages/my-driver/drivers-position';
 import { MyNotificationPage } from '../pages/my-notification/my-notification';
 
 import { RatingPage } from '../pages/rating/rating';
@@ -43,7 +45,7 @@ import {  AuthService, UsersService, RestaurantsService, OrderService, DriversSe
         ProfilePage,InfoPage,
         MyCustomerPage,
         CustomerDetailPage,
-        MyDriverPage,AddDriverPage,DriverDetailPage,EditDriverPage,
+        MyDriverPage,AddDriverPage,DriverDetailPage,EditDriverPage,DriversPositionPage,
         MyOrderPage,
         OrderDetailPage,AssignOrderPage,
         MyNotificationPage,
@@ -68,7 +70,7 @@ import {  AuthService, UsersService, RestaurantsService, OrderService, DriversSe
         ProfilePage,InfoPage,
         MyCustomerPage,
         CustomerDetailPage,
-        MyDriverPage, AddDriverPage, DriverDetailPage, EditDriverPage,
+        MyDriverPage, AddDriverPage, DriverDetailPage, EditDriverPage, DriversPositionPage,
         MyOrderPage, OrderDetailPage, AssignOrderPage,
         MyNotificationPage,
         RatingPage
@@ -82,6 +84,7 @@ import {  AuthService, UsersService, RestaurantsService, OrderService, DriversSe
         OrderService,
         StatusBar,
         SplashScreen,
+        LocalNotifications,
         {provide: ErrorHandler, useClass: IonicErrorHandler}
     ]
 })

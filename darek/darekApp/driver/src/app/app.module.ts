@@ -11,6 +11,8 @@ import { MyApp } from './app.component';
 
 import { LoginPage } from '../pages/login/login';
 
+/*import { HomePage } from '../pages/home/home';*/
+
 import { ForgetPasswordPage } from '../pages/forget-password/forget-password';
 import { ChangePasswordPage } from '../pages/change-password/change-password';
 import { ProfilePage } from '../pages/profile/profile';
@@ -24,10 +26,15 @@ import { ChangeOrderStatusPage } from '../pages/my-order/change-order-status';
 /*Services*/
 import {  AuthService, UsersService, RestaurantsService, OrderService, DriversService } from './service/index';
 
+/*import { LocationTrackerProvider } from '../providers/location-tracker/location-tracker';*/
+import { BackgroundGeolocation } from '@ionic-native/background-geolocation';
+import { Geolocation } from '@ionic-native/geolocation';
+
 @NgModule({
     declarations: [
         MyApp,
         LoginPage,
+        /*HomePage,*/
         ForgetPasswordPage,
         ChangePasswordPage,
         ProfilePage,InfoPage,
@@ -43,7 +50,9 @@ import {  AuthService, UsersService, RestaurantsService, OrderService, DriversSe
     bootstrap: [IonicApp],
     entryComponents: [
         MyApp,
-        LoginPage,ForgetPasswordPage,
+        LoginPage,
+        /*HomePage,*/
+        ForgetPasswordPage,
         ProfilePage,ChangePasswordPage,InfoPage,
         MyOrderPage, OrderDetailPage,ChangeOrderStatusPage
     ],
@@ -55,7 +64,10 @@ import {  AuthService, UsersService, RestaurantsService, OrderService, DriversSe
         OrderService,
         StatusBar,
         SplashScreen,
-        {provide: ErrorHandler, useClass: IonicErrorHandler}
+        {provide: ErrorHandler, useClass: IonicErrorHandler},
+        /*LocationTrackerProvider,*/
+        BackgroundGeolocation,
+        Geolocation,
     ]
 })
 export class AppModule {}

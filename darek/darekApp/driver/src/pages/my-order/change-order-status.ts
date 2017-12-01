@@ -66,7 +66,7 @@ export class ChangeOrderStatusPage {
                     var objUpdate = {};
                     objUpdate['_id'] = this.selectedOrder._id;
                     objUpdate['driverStatus'] = 'Delivered';
-                    objUpdate['status'] = 'Delivered';
+                    objUpdate['status'] = 'Completed';
                     this.orderService.getUpdate(objUpdate).subscribe(
                         (data) => {
                             this.getOrders();

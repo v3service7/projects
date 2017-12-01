@@ -42,7 +42,7 @@
 
             <p *ngIf="order.driverStatus == 'Rejected'"><ion-icon name="create" color="danger"></ion-icon>Driver {{order.driverStatus}}</p>
 
-            <p *ngIf="order.status == 'Delivered'"><ion-icon name="done-all" color="secondary"></ion-icon> {{order.status}}</p>
+            <p *ngIf="order.status == 'Completed'"><ion-icon name="done-all" color="secondary"></ion-icon> {{order.status}}</p>
 
             <span class="fontSize12px"><ion-icon name="clock" ios="ios-clock" md="md-clock"></ion-icon> {{order.created_at | date:'medium' }}</span>
 

@@ -4,6 +4,7 @@ import { ModalController,ToastController, LoadingController,AlertController, Nav
 import { RestaurantsService, OrderService } from '../../app/service/index';
 
 import { MyOrderPage } from './my-order';
+import { CartPage } from '../cart/cart';
 
 import * as globalVariable from "../../app/global";
 
@@ -53,6 +54,7 @@ export class OrderDetailPage {
         public alertCtrl: AlertController,
         public toastCtrl: ToastController,
         public navCtrl: NavController,
+        public nav: Nav,
         public loadingCtrl: LoadingController,
         public navParams: NavParams,
         private restaurantsService: RestaurantsService,
@@ -140,7 +142,8 @@ export class OrderDetailPage {
             localStorage.setItem(this.subTotalString,JSON.stringify(cartTotalAmount))
         }
         this.getToast('Order Added to your Cart');
-        this.navCtrl.pop(MyOrderPage);
+        /*this.navCtrl.pop(MyOrderPage);*/
+        this.nav.setRoot(CartPage);
     }
 
     cancelOrder(id){
