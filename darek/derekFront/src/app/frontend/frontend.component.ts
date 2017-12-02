@@ -570,6 +570,9 @@ export class FrontendPromoDetailComponent implements OnInit {
         this.addonUncheck();
         $("div[id^='changeBg_']").removeClass('changeBg');
 
+        $("textarea[id$='_specialInstructionIG1']").val('');
+        $("textarea[id$='_specialInstructionIG2']").val('');
+
         delete this.requiredAddonArray;
         delete this.mandatoryItemId;
         delete this.mandatoryItemArray;
@@ -1142,6 +1145,8 @@ export class FrontendComponent implements OnInit {
         this.detailShow='';
         this.addonUncheck();
         $("div[id^='changeBg_']").removeClass('changeBg');
+
+        $("textarea[id$='_specialInstruction']").val('');
 
         delete this.requiredAddonArray;
         delete this.mandatoryItemId;
