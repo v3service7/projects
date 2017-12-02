@@ -7,8 +7,7 @@
     <form [formGroup]="notificationForm"  (ngSubmit)="notificationUpdate()">        
         <div class="settings-heading">
             <span class="settings-title ng-binding">Notifications</span>
-            <input type="submit" [disabled]="!notificationForm.valid" class="btn btn-next ng-binding" value="Next" *ngIf="!edited">
-            <input type="button" class="btn btn-next ng-binding" value="Update" *ngIf="edited" (click)="edit()">
+            <input type="submit" [disabled]="!notificationForm.valid" class="btn btn-next ng-binding" value="Next">
         </div>
 
 

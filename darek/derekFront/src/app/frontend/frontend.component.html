@@ -28,20 +28,20 @@
 				<div class="deal-special-background col-lg-12 col-md-12 col-xs-12 col-sm-12" ></div>
 				<div class="deal col-lg-6 col-md-6 col-xs-6 col-sm-6" [ngStyle]="{'background-image': 'url(' + imageURL + promo.image + ')'}">
 					<div class="deal-details col-lg-12 col-md-12 col-xs-12 col-sm-12">
-						<div class="deal-title" col-lg-12 col-md-12 col-xs-12 col-sm-12> {{promo.promoname}}
-							<div class="deal-description" col-lg-12 col-md-12 col-xs-12 col-sm-12>{{promo.description}}</div>
+						<div class="deal-title textCenter col-lg-12 col-md-12 col-xs-12 col-sm-12"> {{promo.promoname}}
+							<div *ngIf = "promo.description" class="deal-description col-lg-12 col-md-12 col-xs-12 col-sm-12">{{promo.description}}</div>
 						</div>
 					</div>
 				</div>
 
 
 				<div *ngIf="fullfilment(promo) == true">
-					<div class="" style="position: absolute; left: 38%;margin-top: 26vh;" *ngIf = "promo.discountOn != null">
-						<a class="btn offerButton fontWeight700 fontLarge col-lg-12 col-md-12 col-xs-12 col-sm-12" [routerLink]="['/frontend-promotion', restaurants._id, promo._id]" >Get it now</a>
+					<div class="" style="position: absolute;left: 50%;margin-top: 20vh;transform: translateX(-50%);" *ngIf = "promo.discountOn != null">
+						<a class="btn offerButton fontWeight700 font2-25vw col-lg-12 col-md-12 col-xs-12 col-sm-12" [routerLink]="['/frontend-promotion', restaurants._id, promo._id]" >Get it now</a>
 					</div>
 
-					<div class="col-lg-3 col-md-3 col-xs-3 col-sm-3" style="position: absolute; left: 38%;margin-top: 180px;" *ngIf = "promo.discountOn == null">
-						<a class="deal-conditions cursorDefault colorWhite fontWeight700 fontLarge padding12px textCenter col-lg-12 col-md-12 col-xs-12 col-sm-12" >{{promo.couponcode.code}}</a>
+					<div class="col-lg-3 col-md-3 col-xs-3 col-sm-3" style="position: absolute;left: 50%;margin-top: 20vh;transform: translateX(-50%);" *ngIf = "promo.discountOn == null">
+						<a class="deal-conditions cursorDefault colorWhite fontWeight700 font2-25vw padding12px textCenter col-lg-12 col-md-12 col-xs-12 col-sm-12" >{{promo.couponcode.code}}</a>
 					</div>
 				</div>
 
@@ -54,27 +54,27 @@
 
 
 
-				<div class="deal-conditions col-lg-1 col-md-1 col-xs-1 col-sm-1">Learn more</div>
+				<div class="deal-conditions col-lg-1 col-md-1 col-xs-2 col-sm-2">Learn more</div>
 			</div>
 		</div>
 	</div>
 
 	<div class="deal-list col-lg-12 col-md-12 col-xs-12 col-sm-12" *ngIf = "restroPromotions.length > 1">
 		<div *ngFor = "let promo of restroPromotions; let j = index ">
-			<div class="deal-special oddEven" [ngClass]="promotionClass(j)" style="width: 48%">
+			<div class="deal-special oddEven width48Specl" [ngClass]="promotionClass(j)">
 				<div class="deal2 col-lg-12 col-md-12 col-xs-12 col-sm-12" [ngStyle]="{'background-image': 'url(' + imageURL + promo.image + ')'}">
 					<div class="deal-details col-lg-12 col-md-12 col-xs-12 col-sm-12">
-						<div class="deal-title" col-lg-12 col-md-12 col-xs-12 col-sm-12> {{promo.promoname}}
-							<div class="deal-description" col-lg-12 col-md-12 col-xs-12 col-sm-12>{{promo.description}}</div>
+						<div class="deal-title textCenter col-lg-12 col-md-12 col-xs-12 col-sm-12"> {{promo.promoname}}
+							<div *ngIf = "promo.description" class="deal-description col-lg-12 col-md-12 col-xs-12 col-sm-12">{{promo.description}}</div>
 						</div>
 					</div>
 				</div>
 				<div *ngIf="fullfilment(promo) == true">
-					<div class="col-lg-5 col-md-5 col-xs-5 col-sm-5" style="position: absolute; right: 0; ;margin-top: 180px;" *ngIf = "promo.discountOn != null">
-						<a class="btn offerButton fontWeight700 fontLarge col-lg-12 col-md-12 col-xs-12 col-sm-12" [routerLink]="['/frontend-promotion', restaurants._id, promo._id]" >Get it now</a>
+					<div class="" style="position: absolute;left: 50%;margin-top: 20vh;transform: translateX(-50%);" *ngIf = "promo.discountOn != null">
+						<a class="btn offerButton fontWeight700 font2-25vw col-lg-12 col-md-12 col-xs-12 col-sm-12" [routerLink]="['/frontend-promotion', restaurants._id, promo._id]" >Get it now</a>
 					</div>
-					<div class="" style="position: absolute; right: 15px; margin-top: 180px;" *ngIf = "promo.discountOn == null">
-						<a class="deal-conditions cursorDefault colorWhite fontWeight700 fontLarge padding12px textCenter col-lg-12 col-md-12 col-xs-12 col-sm-12" style="position: initial;">{{promo.couponcode.code}}</a>
+					<div class="" style="position: absolute;left: 50%;margin-top: 20vh;transform: translateX(-50%);" *ngIf = "promo.discountOn == null">
+						<a class="deal-conditions cursorDefault colorWhite fontWeight700 font2-25vw padding12px textCenter col-lg-12 col-md-12 col-xs-12 col-sm-12" style="position: initial;">{{promo.couponcode.code}}</a>
 					</div>
 				</div>
 				<div class="deal-available col-lg-10 col-md-10 col-xs-10 col-sm-10" *ngIf = "offerAvailable" style="text-align: center;">
@@ -133,7 +133,7 @@
 											<div class="col-lg-2 col-md-2 col-sm-2 col-xs-2" style="height: inherit;text-align: -webkit-right;">
 												<h5><strong>{{item.price | number : '1.2-2'}}</strong></h5>
 											</div>
-											<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 wordBreak">
+											<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 wordBreak itemDescription">
 												<div *ngIf="item.description.length >= 45">
 													{{item.description.substr(0,45)}}...	
 												</div>

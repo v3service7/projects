@@ -38,6 +38,197 @@
 	</div>
 
 	<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 container-fluid padding0">
+
+		<div class="col-lg-7 col-md-7 col-sm-7 col-xs-7 pull-right rightCartDetail padding0">
+			<div class="pull-right col-lg-12 col-md-12 col-sm-12 col-xs-12">
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 cart-header well well-sm">
+					<div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 cart-header-quantity">Qty</div>
+					<div class="col-lg-7 col-md-7 col-sm-7 col-xs-7 cart-header-name">{{'Item' | translate}}</div>
+					<div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 cart-header-price">{{'Price' | translate}}</div>
+				</div>
+				
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0" style="background: white;border: 1px solid rgba(128, 128, 128, 0.39);">
+					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 cart-items" *ngIf="cart || promotionOrder">
+						<div *ngIf="cart.length == 0 && !promotionOrder" class="col-lg-12 col-md-12 col-sm-12 col-xs-12 cart-empty fontWeight700 textCenter">{{'Cart' | translate}} {{'is' | translate}} {{'empty' | translate}}
+						</div>
+
+						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0" *ngIf="cart.length > 0">
+							<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0 cartItemList" *ngFor="let crt of cart; let i = index ">
+								
+								<div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 cart-price cnt-input-buttons padding0" style="position: inherit;">
+									<div class="padding0" style="display: flex;border-top: 1px solid #ccc;border-bottom: 1px solid #ccc;">
+										<button class="cnt-input-decrease col-lg-4 col-md-4 col-sm-4 col-xs-4" id="minus" style="margin: 0;padding: 1%;" (click)="quantityDecrement(i)">
+											<i class=" fa fa-minus" ></i>
+										</button>
+										<label class="col-lg-4 col-md-4 col-sm-4 col-xs-4 textCenter" style="padding: 1%;;margin: 0;">{{crt.quantity}}</label>
+										<button class="cnt-input-increase col-lg-4 col-md-4 col-sm-4 col-xs-4"  id="plus" style="margin: 0;padding: 1%;" (click)="quantityIncrement(i)">
+											<i class=" fa fa-plus"></i>
+										</button>
+									</div>
+								</div>
+
+								<div class="col-lg-7 col-md-7 col-sm-7 col-xs-7 padding0">
+									<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 cart-item-name wordBreak">
+										<strong>
+											{{crt.item.name}}
+											<span *ngFor = "let chilly of spicyArray;">
+				                            	<span *ngIf = "chilly <= crt.item.spicyLevel">
+				                                	<img src="assets/images/chilly.PNG" width="15px">
+					                            </span>
+				                           </span>
+										</strong>
+									</div>
+									<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 cart-item-option" style="font-size: 12px;">
+										<div *ngIf="crt.multisize">
+											<div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 wordBreak">{{crt.multisize.size}}</div>
+											<div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 padding0" style="text-align: right;">(+{{crt.multisize.price | number : '1.2-2'}})</div>
+										</div>
+										<div *ngIf="crt.addon">
+											<div *ngFor="let adn of crt.addon">
+												<div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 wordBreak">{{adn.name}}</div>
+												<div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 padding0" style="text-align: right;">(+{{adn.price | number : '1.2-2'}})</div>
+											</div>
+										</div>
+									</div>
+								</div>
+
+								<div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 cart-price ng-binding fontWeight700" style="text-align: right;">{{crt.totalPrice | number : '1.2-2'}}</div>
+								<div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 label cart-item-remove padding0">
+									<a href="javascript:void(0)" (click)="deleteCart(i)"><i class="fa fa-trash"></i></a>
+								</div>
+								<br>
+								<div *ngIf="crt.itemInstruction" class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0 cartItemInstruction wordBreak"><strong>Instruction : </strong>{{crt.itemInstruction}}</div>
+							</div>
+						</div>
+
+						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding10px15px" *ngIf="promotionOrder">
+							<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 promoDiv">
+								<span class = "cursorPointer deletePromotion" (click) = "deleteDeal()">&times;</span>
+
+								<div *ngIf = "promotionOrder.promotion" class="col-lg-12 col-md-12 col-sm-12 col-xs-12 paddingX10px fontWeight700 promotionName">{{promotionOrder.promotion.promoname}}</div>
+
+								<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding5px15px" *ngIf="promotionOrder.itemGroup1">
+									<div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 padding0">
+										<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 cart-item-name padding0 wordBreak">
+											<!-- {{promotionOrder.itemGroup1.item.name}} -->
+											<strong>
+												{{promotionOrder.itemGroup1.item.name}}
+												<span *ngFor = "let chilly of spicyArray;">
+					                            	<span *ngIf = "chilly <= promotionOrder.itemGroup1.item.spicyLevel">
+					                                	<img src="assets/images/chilly.PNG" width="15px">
+						                            </span>
+					                           </span>
+											</strong>
+										</div>
+										<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 cart-item-option" style="font-size: 12px;">
+											<div *ngIf="promotionOrder.itemGroup1.multisize">
+												<div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 padding0 wordBreak">{{promotionOrder.itemGroup1.multisize.size}}</div>
+												<div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 padding0" style="text-align: right;">(+{{promotionOrder.itemGroup1.multisize.price | number : '1.2-2'}})</div>
+											</div>
+											<div *ngIf="promotionOrder.itemGroup1.addon">
+												<div *ngFor="let adn of promotionOrder.itemGroup1.addon" class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0">
+													<div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 padding0 wordBreak">{{adn.name}}</div>
+													<div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 padding0" style="text-align: right;">(+{{adn.price | number : '1.2-2'}})</div>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 cart-price ng-binding padding0 fontWeight700" style="text-align: right;">
+										{{promotionOrder.itemGroup1.totalPrice | number : '1.2-2'}}
+									</div>
+									<div *ngIf = "promotionOrder.itemGroup1.itemInstruction" class="col-lg-12 col-md-12 col-sm-12 col-xs-12 cartItemInstruction promotionSpecialInstruction wordBreak">
+										Instruction : {{promotionOrder.itemGroup1.itemInstruction}}
+									</div>
+								</div>
+
+								<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding5px15px" *ngIf="promotionOrder.itemGroup2">
+									<div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 padding0">
+										<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 cart-item-name padding0 wordBreak">
+											<strong>
+												{{promotionOrder.itemGroup2.item.name}}
+												<span *ngFor = "let chilly of spicyArray;">
+					                            	<span *ngIf = "chilly <= promotionOrder.itemGroup2.item.spicyLevel">
+					                                	<img src="assets/images/chilly.PNG" width="15px">
+						                            </span>
+					                           </span>
+											</strong>
+										</div>
+										<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 cart-item-option" style="font-size: 12px;">
+											<div *ngIf="promotionOrder.itemGroup2.multisize">
+												<div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 padding0 wordBreak">{{promotionOrder.itemGroup2.multisize.size}}</div>
+												<div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 padding0" style="text-align: right;">(+{{promotionOrder.itemGroup2.multisize.price | number : '1.2-2'}})</div>
+											</div>
+											<div *ngIf="promotionOrder.itemGroup2.addon">
+												<div *ngFor="let adn of promotionOrder.itemGroup2.addon" class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0">
+													<div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 padding0 wordBreak">{{adn.name}}</div>
+													<div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 padding0" style="text-align: right;">(+{{adn.price | number : '1.2-2'}})</div>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 cart-price ng-binding padding0" style="text-align: right;">
+										{{promotionOrder.itemGroup2.totalPrice | number : '1.2-2'}}
+									</div>
+									<div *ngIf = "promotionOrder.itemGroup2.itemInstruction" class="col-lg-12 col-md-12 col-sm-12 col-xs-12 promotionSpecialInstruction cartItemInstruction wordBreak">
+										Instruction : {{promotionOrder.itemGroup2.itemInstruction}}
+									</div>
+								</div>
+
+								<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding5px15px fontWeight700">
+									<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 padding0">
+										Total : 
+									</div>
+									<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 padding0" style="text-align: right;">{{promotionOrder.total | number : '1.2-2'}}</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					
+					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 cart-footer">
+						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 sub-total">
+							<div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">{{'Sub' | translate}} {{'Total' | translate}}</div>
+							<div class="col-lg-3 col-md-3 col-sm-3 col-xs-3" style="text-align: right;">
+								{{grandTotal | number : '1.2-2'}}
+							</div>
+						</div>
+						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 discount " *ngIf = "this.discountAmount" style="    font-size: 12px;">
+							<div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">Discount</div>
+							<div class="col-lg-3 col-md-3 col-sm-3 col-xs-3" style="text-align: right;">
+								-{{discountAmount | number : '1.2-2'}}
+							</div>
+						</div>
+						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 discount " *ngIf = "this.cartTotal" style="    font-size: 12px;">
+							<div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">Total</div>
+							<div class="col-lg-3 col-md-3 col-sm-3 col-xs-3" style="text-align: right;">
+								{{cartTotal | number : '1.2-2'}}
+							</div>
+						</div>
+						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 deliveryFee" *ngIf = "cartDetail.deliveryfee >= 0">
+							<div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">{{'DeliveryFee' | translate}}</div>
+							<div class="col-lg-3 col-md-3 col-sm-3 col-xs-3" style="text-align: right;">
+								{{deliveryFee | number : '1.2-2'}}
+							</div>
+						</div>
+						<div *ngIf="cart.length > 0 || promotionOrder">
+							<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 tax" *ngIf="restaurants.taxation">
+								<div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">Tax</div>
+								<div class="col-lg-8 col-md-8 col-sm-8 col-xs-8" style="text-align: right;">
+									<span *ngIf = "cartDetail.tax && restaurants.taxation.menuTax == 'Apply Tax'">{{restaurants.taxation.name}} - {{restaurants.taxation.tax}} %</span>
+									<span *ngIf = "cartDetail.deliveryTax > 0 && restaurants.taxation.deliveryTax != null"><br>
+									Delivery Tax - {{restaurants.taxation.deliveryTax}} %
+									</span>
+								</div>
+							</div>
+						</div>
+						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 grand-total">
+							<div class="col-lg-9 col-md-9 col-sm-9 col-xs-9"><h4>{{'Total' | translate}}</h4></div>
+							<div class="col-lg-3 col-md-3 col-sm-3 col-xs-3" style="text-align: right;"><h4>{{grandTotalWithTax |number : '1.2-2'}}</h4></div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
 		<div class="col-lg-5 col-md-5 col-sm-5 col-xs-5 leftCartDetail padding0">
 			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 pull-left" *ngIf="!currentCustomer">
 				<div class="col-lg-12 col-md-12 col-sm-12 padding0"> 
@@ -104,7 +295,7 @@
 					</div>
 					<div *ngIf="!editOrderMethod">
 						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" *ngIf="!showHideOrderingMethod" (click)="changeShowOrderingStatus()">
-							<div class="btn btn-default pointer" style="width: 100%;padding: 4%">
+							<div class="btn btn-default pointer" style="width: 100%;">
 								<span><strong><i class="fa fa-pencil" aria-hidden="true"></i>&nbsp;&nbsp;{{'Select' | translate}} {{'Order' | translate}} {{'Type' | translate}}</strong></span>
 							</div>
 						</div>
@@ -118,7 +309,7 @@
 										<input type="radio"  name="order" id="delivery"  value="" (click)="addressButton('delivery')" [checked]="this.orderMethod.mType == 'Delivery'">  {{'delivery' | translate}}
 									</div>
 									<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" *ngIf="this.orderMethod.mType == 'Delivery'" (click)="addressInfo()">
-										<div class="btn btn-default pointer" style="width: 100%;padding: 4%"><span><strong><i class="fa fa-pencil" aria-hidden="true"></i>&nbsp;&nbsp;{{'Add' | translate}} {{'your' | translate}} {{'address' | translate}}</strong></span>
+										<div class="btn btn-default pointer" style="width: 100%;"><span><strong><i class="fa fa-pencil" aria-hidden="true"></i>&nbsp;&nbsp;{{'Add' | translate}} {{'your' | translate}} {{'address' | translate}}</strong></span>
 										</div>
 									</div>
 								</div>
@@ -171,8 +362,8 @@
 					</div>
 					<div *ngIf="!editTimeMethod">
 						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" *ngIf="!showHideTime" (click)="changeShowTimingStatus()" >
-							<div class="btn btn-default" style="width: 100%;padding: 4%">
-								<span><strong><i class="fa fa-pencil" aria-hidden="true"></i>&nbsp;&nbsp;{{'Add' | translate}} a {{'time' | translate}}</strong></span>
+							<div class="btn btn-default" style="width: 100%;">
+								<span><strong><i class="fa fa-pencil" aria-hidden="true"></i>&nbsp;&nbsp;{{'Add' | translate}} {{'time' | translate}}</strong></span>
 							</div>
 						</div>
 						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" *ngIf="showHideTime">
@@ -231,7 +422,7 @@
 					</div>
 					<div *ngIf="!editPaymentMethod">
 						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" *ngIf="!showHidePaymentMethod" (click)="changeShowPaymentStatus()">
-							<div class="btn btn-default" style="width: 100%;padding: 4%">
+							<div class="btn btn-default" style="width: 100%;">
 								<span><strong><i class="fa fa-pencil" aria-hidden="true"></i>&nbsp;&nbsp;{{'Select' | translate}} {{'Payment' | translate}} {{'Method' | translate}}</strong></span>
 							</div>
 						</div>
@@ -334,200 +525,10 @@
 			</div>
 		</div>
 
-		<div class="col-lg-7 col-md-7 col-sm-7 col-xs-7 rightCartDetail padding0">
-			<div class="pull-right col-lg-12 col-md-12 col-sm-12 col-xs-12">
-				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 cart-header well well-sm">
-					<div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 cart-header-quantity">{{'Quantity' | translate}}</div>
-					<div class="col-lg-7 col-md-7 col-sm-7 col-xs-7 cart-header-name">{{'Item' | translate}}</div>
-					<div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 cart-header-price">{{'Price' | translate}}</div>
-				</div>
-				
-				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0" style="background: white;border: 1px solid rgba(128, 128, 128, 0.39);">
-					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 cart-items" *ngIf="cart || promotionOrder">
-						<div *ngIf="cart.length == 0 && !promotionOrder" class="col-lg-12 col-md-12 col-sm-12 col-xs-12 cart-empty fontWeight700 textCenter">{{'Cart' | translate}} {{'is' | translate}} {{'empty' | translate}}
-						</div>
-
-						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0" *ngIf="cart.length > 0">
-							<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0 cartItemList" *ngFor="let crt of cart; let i = index ">
-								
-								<div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 cart-price cnt-input-buttons" style="position: inherit;padding-left: 0;padding-right: 0;">
-									<div class="padding0" style="display: flex;border-top: 1px solid #ccc;border-bottom: 1px solid #ccc;">
-										<button class="cnt-input-decrease col-lg-4 col-md-4 col-sm-4 col-xs-4" id="minus" style="margin: 0;padding: 1%;" (click)="quantityDecrement(i)">
-											<i class=" fa fa-minus" ></i>
-										</button>
-										<label class="col-lg-4 col-md-4 col-sm-4 col-xs-4 textCenter" style="padding: 1%;;margin: 0;">{{crt.quantity}}</label>
-										<button class="cnt-input-increase col-lg-4 col-md-4 col-sm-4 col-xs-4"  id="plus" style="margin: 0;padding: 1%;" (click)="quantityIncrement(i)">
-											<i class=" fa fa-plus"></i>
-										</button>
-									</div>
-								</div>
-
-								<div class="col-lg-7 col-md-7 col-sm-7 col-xs-7 padding0">
-									<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 cart-item-name wordBreak">
-										<strong>
-											{{crt.item.name}}
-											<span *ngFor = "let chilly of spicyArray;">
-				                            	<span *ngIf = "chilly <= crt.item.spicyLevel">
-				                                	<img src="assets/images/chilly.PNG" width="15px">
-					                            </span>
-				                           </span>
-										</strong>
-									</div>
-									<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 cart-item-option" style="font-size: 12px;">
-										<div *ngIf="crt.multisize">
-											<div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 wordBreak">{{crt.multisize.size}}</div>
-											<div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 padding0" style="text-align: right;">(+{{crt.multisize.price | number : '1.2-2'}})</div>
-										</div>
-										<div *ngIf="crt.addon">
-											<div *ngFor="let adn of crt.addon">
-												<div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 wordBreak">{{adn.name}}</div>
-												<div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 padding0" style="text-align: right;">(+{{adn.price | number : '1.2-2'}})</div>
-											</div>
-										</div>
-									</div>
-
-								</div>
-								<div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 cart-price ng-binding fontWeight700" style="text-align: right;">{{crt.totalPrice | number : '1.2-2'}}</div>
-								<div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 label cart-item-remove padding0" style="position: absolute;">
-									<a href="javascript:void(0)" (click)="deleteCart(i)"><i class="fa fa-trash"></i></a>
-									<span class="glf-loader"><div class="glf-loader-circle"></div></span>
-								</div>
-								<br>
-								<div *ngIf="crt.itemInstruction" class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0 wordBreak">Instruction : {{crt.itemInstruction}}</div>
-							</div>
-						</div>
-
-						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding10px15px" *ngIf="promotionOrder">
-							<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 promoDiv">
-								<span class = "cursorPointer deletePromotion" (click) = "deleteDeal()">&times;</span>
-
-								<div *ngIf = "promotionOrder.promotion" class="col-lg-12 col-md-12 col-sm-12 col-xs-12 paddingX10px fontWeight700 promotionName">{{promotionOrder.promotion.promoname}}</div>
-
-								<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding5px15px" *ngIf="promotionOrder.itemGroup1">
-									<div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 padding0">
-										<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 cart-item-name padding0 wordBreak">
-											<!-- {{promotionOrder.itemGroup1.item.name}} -->
-											<strong>
-												{{promotionOrder.itemGroup1.item.name}}
-												<span *ngFor = "let chilly of spicyArray;">
-					                            	<span *ngIf = "chilly <= promotionOrder.itemGroup1.item.spicyLevel">
-					                                	<img src="assets/images/chilly.PNG" width="15px">
-						                            </span>
-					                           </span>
-											</strong>
-										</div>
-										<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 cart-item-option" style="font-size: 12px;">
-											<div *ngIf="promotionOrder.itemGroup1.multisize">
-												<div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 padding0 wordBreak">{{promotionOrder.itemGroup1.multisize.size}}</div>
-												<div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 padding0" style="text-align: right;">(+{{promotionOrder.itemGroup1.multisize.price | number : '1.2-2'}})</div>
-											</div>
-											<div *ngIf="promotionOrder.itemGroup1.addon">
-												<div *ngFor="let adn of promotionOrder.itemGroup1.addon" class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0">
-													<div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 padding0 wordBreak">{{adn.name}}</div>
-													<div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 padding0" style="text-align: right;">(+{{adn.price | number : '1.2-2'}})</div>
-												</div>
-											</div>
-										</div>
-									</div>
-									<div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 cart-price ng-binding padding0 fontWeight700" style="text-align: right;">
-										{{promotionOrder.itemGroup1.totalPrice | number : '1.2-2'}}
-									</div>
-									<div *ngIf = "promotionOrder.itemGroup1.itemInstruction" class="col-lg-12 col-md-12 col-sm-12 col-xs-12 promotionSpecialInstruction wordBreak">
-										Instruction : {{promotionOrder.itemGroup1.itemInstruction}}
-									</div>
-								</div>
-
-								<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding5px15px" *ngIf="promotionOrder.itemGroup2">
-									<div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 padding0">
-										<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 cart-item-name padding0 wordBreak">
-											<strong>
-												{{promotionOrder.itemGroup2.item.name}}
-												<span *ngFor = "let chilly of spicyArray;">
-					                            	<span *ngIf = "chilly <= promotionOrder.itemGroup2.item.spicyLevel">
-					                                	<img src="assets/images/chilly.PNG" width="15px">
-						                            </span>
-					                           </span>
-											</strong>
-										</div>
-										<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 cart-item-option" style="font-size: 12px;">
-											<div *ngIf="promotionOrder.itemGroup2.multisize">
-												<div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 padding0 wordBreak">{{promotionOrder.itemGroup2.multisize.size}}</div>
-												<div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 padding0" style="text-align: right;">(+{{promotionOrder.itemGroup2.multisize.price | number : '1.2-2'}})</div>
-											</div>
-											<div *ngIf="promotionOrder.itemGroup2.addon">
-												<div *ngFor="let adn of promotionOrder.itemGroup2.addon" class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0">
-													<div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 padding0 wordBreak">{{adn.name}}</div>
-													<div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 padding0" style="text-align: right;">(+{{adn.price | number : '1.2-2'}})</div>
-												</div>
-											</div>
-										</div>
-									</div>
-									<div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 cart-price ng-binding padding0" style="text-align: right;">
-										{{promotionOrder.itemGroup2.totalPrice | number : '1.2-2'}}
-									</div>
-									<div *ngIf = "promotionOrder.itemGroup2.itemInstruction" class="col-lg-12 col-md-12 col-sm-12 col-xs-12 promotionSpecialInstruction wordBreak">
-										Instruction : {{promotionOrder.itemGroup2.itemInstruction}}
-									</div>
-								</div>
-
-								<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding5px15px fontWeight700">
-									<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 padding0">
-										Total : 
-									</div>
-									<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 padding0" style="text-align: right;">{{promotionOrder.total | number : '1.2-2'}}</div>
-								</div>
-							</div>
-						</div>
-					</div>
-					
-					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 cart-footer">
-						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 sub-total">
-							<div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">{{'Sub' | translate}} {{'Total' | translate}}</div>
-							<div class="col-lg-3 col-md-3 col-sm-3 col-xs-3" style="text-align: right;">
-								{{grandTotal | number : '1.2-2'}}
-							</div>
-						</div>
-						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 discount " *ngIf = "this.discountAmount" style="    font-size: 12px;">
-							<div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">Discount</div>
-							<div class="col-lg-3 col-md-3 col-sm-3 col-xs-3" style="text-align: right;">
-								-{{discountAmount | number : '1.2-2'}}
-							</div>
-						</div>
-						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 discount " *ngIf = "this.cartTotal" style="    font-size: 12px;">
-							<div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">Total</div>
-							<div class="col-lg-3 col-md-3 col-sm-3 col-xs-3" style="text-align: right;">
-								{{cartTotal | number : '1.2-2'}}
-							</div>
-						</div>
-						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 deliveryFee" *ngIf = "cartDetail.deliveryfee >= 0">
-							<div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">{{'DeliveryFee' | translate}}</div>
-							<div class="col-lg-3 col-md-3 col-sm-3 col-xs-3" style="text-align: right;">
-								{{deliveryFee | number : '1.2-2'}}
-							</div>
-						</div>
-						<div *ngIf="cart.length > 0 || promotionOrder">
-							<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 tax" *ngIf="restaurants.taxation">
-								<div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">Tax</div>
-								<div class="col-lg-8 col-md-8 col-sm-8 col-xs-8" style="text-align: right;">
-									<span *ngIf = "cartDetail.tax && restaurants.taxation.menuTax == 'Apply Tax'">{{restaurants.taxation.name}} - {{restaurants.taxation.tax}} %</span>
-									<span *ngIf = "cartDetail.deliveryTax > 0 && restaurants.taxation.deliveryTax != null"><br>
-									Delivery Tax - {{restaurants.taxation.deliveryTax}} %
-									</span>
-								</div>
-							</div>
-						</div>
-						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 grand-total">
-							<div class="col-lg-9 col-md-9 col-sm-9 col-xs-9"><h4>{{'Total' | translate}}</h4></div>
-							<div class="col-lg-3 col-md-3 col-sm-3 col-xs-3" style="text-align: right;"><h4>{{grandTotalWithTax |number : '1.2-2'}}</h4></div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
 	</div>
 
 	<footer class="col-lg-12 col-md-12 col-sm-12 col-xs-12 footer container-fluid footer navbar-fixed-bottom">
-		<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pull-right footerButton">
+		<div class="pull-right footerButton">
 			<button class="btn saveButton" style="padding: 15px 20px;text-align: justify;" [disabled]="this.all==false" (click)="placeOrder()">
 				<div style="display: -webkit-inline-box;">
 					<div class="total">

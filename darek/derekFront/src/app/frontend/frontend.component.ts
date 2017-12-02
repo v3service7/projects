@@ -716,6 +716,8 @@ export class FrontendPromoDetailComponent implements OnInit {
                     var idG1 = <HTMLInputElement>document.getElementById(id1);
                     this.orderItem['itemInstruction'] = idG1.value;
 
+                    idG1.value = "";
+
                     if (typeof discountOn[1] == 'undefined') {
                         var discountedPrice = ((100 - this.promotion.discountPercent)/100)*this.orderItem.totalPrice;
                         this.orderItem.totalPrice = discountedPrice;
@@ -771,6 +773,8 @@ export class FrontendPromoDetailComponent implements OnInit {
                     var id2 = 'Location_' + id + '_specialInstructionIG2';
                     var idG2 = <HTMLInputElement>document.getElementById(id2);
                     this.orderItem['itemInstruction'] = idG2.value;
+
+                    idG2.value = "";
 
                     this.promotionItem['itemGroup2'] = this.orderItem;
 
@@ -850,9 +854,9 @@ export class FrontendPromoDetailComponent implements OnInit {
             
             
             if (offsetLeft < 150) {
-                left = '95%';
+                left = '100%';
             }else{
-                left = '-95%';
+                left = '-100%';
             }
             return left;
         }
@@ -1126,9 +1130,9 @@ export class FrontendComponent implements OnInit {
 
             let offsetLeft = offset.left;
             if (offsetLeft < 150) {
-                left = '95%';
+                left = '100%';
             }else{
-                left = '-95%';
+                left = '-100%';
             }
             return left;
         }
@@ -1188,6 +1192,8 @@ export class FrontendComponent implements OnInit {
                 var itemId = 'Location_' + id + '_specialInstruction';
                 var itemInstruction = <HTMLInputElement>document.getElementById(itemId);
                 this.orderItem['itemInstruction'] = itemInstruction.value;
+
+                itemInstruction.value = "";
 
                 this.totalOrder = JSON.parse(localStorage.getItem(this.cartStorage));
                 this.totalOrder.push(this.orderItem);
