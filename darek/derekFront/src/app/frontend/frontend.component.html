@@ -41,7 +41,7 @@
 					</div>
 
 					<div class="col-lg-3 col-md-3 col-xs-3 col-sm-3" style="position: absolute;left: 50%;margin-top: 20vh;transform: translateX(-50%);" *ngIf = "promo.discountOn == null">
-						<a class="deal-conditions cursorDefault colorWhite fontWeight700 font2-25vw padding12px textCenter col-lg-12 col-md-12 col-xs-12 col-sm-12" >{{promo.couponcode.code}}</a>
+						<a class="promoCode-condition cursorDefault colorWhite fontWeight700 font2-25vw padding12px textCenter col-lg-12 col-md-12 col-xs-12 col-sm-12">{{promo.couponcode.code}}</a>
 					</div>
 				</div>
 
@@ -74,7 +74,7 @@
 						<a class="btn offerButton fontWeight700 font2-25vw col-lg-12 col-md-12 col-xs-12 col-sm-12" [routerLink]="['/frontend-promotion', restaurants._id, promo._id]" >Get it now</a>
 					</div>
 					<div class="" style="position: absolute;left: 50%;margin-top: 20vh;transform: translateX(-50%);" *ngIf = "promo.discountOn == null">
-						<a class="deal-conditions cursorDefault colorWhite fontWeight700 font2-25vw padding12px textCenter col-lg-12 col-md-12 col-xs-12 col-sm-12" style="position: initial;">{{promo.couponcode.code}}</a>
+						<a class="promoCode-condition cursorDefault colorWhite fontWeight700 font2-25vw padding12px textCenter col-lg-12 col-md-12 col-xs-12 col-sm-12">{{promo.couponcode.code}}</a>
 					</div>
 				</div>
 				<div class="deal-available col-lg-10 col-md-10 col-xs-10 col-sm-10" *ngIf = "offerAvailable" style="text-align: center;">

@@ -196,6 +196,13 @@ a.selected {
     transition: background-color .4s ease-out;
 }
 
+.promoCode-condition {
+    background-color: rgba(46,46,51,.5);
+    border-radius: 0 5px 0 0;
+    cursor: pointer;
+    transition: background-color .4s ease-out;
+}
+
 .buttonPosition{
     position: absolute;
     bottom: 0;
@@ -739,7 +746,10 @@ div.deal-list div.oddEven:nth-child(odd) {
 
 #selectItem1 , #selectItem2{
     text-align: center;
-    font-size: x-large;
+    font-size: 3vw;
+    position: absolute;
+    bottom: 2vh;
+    left: 0;
     /*margin-top: 37px;*/
 }
 
@@ -1139,6 +1149,14 @@ div:focus{
     margin: 2vh 0;
 }
 
+.padding2vh{
+    padding: 2vh;
+}
+
+.paddingTop0{
+    padding-top: 0;
+}
+
 /*@keyframes fadein {
   0%,100% { opacity: 0; }
   5%, 50%, 90% { opacity: 1; }
@@ -1204,7 +1222,7 @@ div:focus{
 
 /* Portrait phones and smaller */
 @media (max-width: 667px) {
-    .subAddOnDetail {
+    .subAddOnDetail, .sizeOption{
         font-size: 12px;
     }
     .leftCartDetail, .rightCartDetail{
@@ -1248,8 +1266,17 @@ div:focus{
     }*/
 }
 @media (max-width: 480px) {
-    .subAddOnDetail {
+    .subAddOnDetail, .sizeOption, .itemSelectedDetail, .promoDescription{
         font-size: 12px;
+    }
+    .itemSelectedDetail2{
+        margin-top: 1vh;
+    }
+    #selectItem1 , #selectItem2{
+        font-size: 5vw;
+    }
+    .itemSelectedDetail .itemSelectedDetail1 , .itemSelectedDetail .itemSelectedDetail2{
+        width: 100%;
     }
     .subAddOnDetailPrice {
         width: 30%;
