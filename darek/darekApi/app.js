@@ -18,6 +18,7 @@ var customer = require('./routes/customer');
 var order = require('./routes/order');
 var reporting = require('./routes/reporting');
 var rating = require('./routes/rating');
+var cuisine = require('./routes/cuisine');
 
 
 var User = require('./model/User.js');
@@ -107,6 +108,7 @@ app.use('/customer', customer);
 app.use('/order', order);
 app.use('/reporting', reporting);
 app.use('/', rating);
+app.use('/', cuisine);
 
 
 var upload = multer({ //multer settings

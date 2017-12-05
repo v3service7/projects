@@ -82,7 +82,7 @@ router.delete('/rating/restaurant/:id',function(req,res){
     });
 });
 
-router.delete('/rating/:id',function(req,res){
+/*router.delete('/rating/:id',function(req,res){
     var response={};
     ratingModel.find(req.params.id,function(err,data){
         if (err) {
@@ -92,7 +92,7 @@ router.delete('/rating/:id',function(req,res){
         }
         res.json(response);
     });
-});
+});*/
 
 
 
