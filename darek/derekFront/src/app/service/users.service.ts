@@ -41,6 +41,7 @@ export class UsersService {
           (response: Response) => response.json()
         );
     }
+
   	getAll() {
   		return this.http.get(globalVariable.url+'users/')
   			.map(
@@ -71,9 +72,11 @@ export class UsersService {
 
     deleteAdminOne(id) {
       return this.http.delete(globalVariable.url+'users/'+'admin/'+id)
-        .map(
-          (response: Response) => response.json()
-        );}
+      .map(
+        (response: Response) => response.json()
+      );
+    }
+      
     deleteOne(id) {
   		return this.http.delete(globalVariable.url+'users/'+id)
   			.map(

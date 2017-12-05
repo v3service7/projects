@@ -1,0 +1,70 @@
+.floatRight{
+	float: right;
+}
+
+.rightMainDiv{
+	background-color: #E9E9E8;
+    min-height: 585px;
+}
+
+.rightBox{
+	box-shadow: 0 1px 6px rgba(0,1,1,.35);
+    border: none;
+    /*width : 60%;
+    margin: auto;*/
+}
+
+.padding8-16vw{
+	padding: 8vw 16vw;
+}
+
+.firstDiv{
+	background: white;
+	box-shadow: 0 -1px 0 #d5d5d3, inset 0 1px 0 rgba(0, 0, 0, .04);
+}
+
+.secondDiv{
+	box-shadow: 0 -1px 0 #d5d5d3, inset 0 1px 0 rgba(0, 0, 0, .04);
+	border-bottom: 1px solid #d5d5d3;
+}
+
+hr{
+    border: 0.5px solid #cacaca36 !important;
+}
+
+img{
+	width: inherit;
+}
+
+.cuisineList{
+	border: 1px solid #d4d0cd;
+    border-radius: 3px;
+}
+
+.cuisineName{
+	position: absolute;
+    bottom: 0;
+    background: #ffffffde;
+    padding: 3%;
+    font-weight: 600;
+}
+
+.fa-times-circle:hover{
+	color: red;
+}
+
+.font1vw{
+	font-size: 1vw;
+}
+
+.fontWeight600{
+	font-weight: 600;
+}
+
+.marginBottom20px{
+	margin-bottom: 20px;
+}
+
+.addCuisineIcon{
+    margin-right: 0.5vw;
+}

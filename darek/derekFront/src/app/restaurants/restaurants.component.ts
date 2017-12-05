@@ -1,13 +1,15 @@
 import {Component, NgZone, OnInit, ViewChild} from '@angular/core';
 import {Router, ActivatedRoute, Params} from '@angular/router';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
-//import { FlashMessagesService } from 'angular2-flash-messages';
-import {AlertService, RestaurantsService, UsersService } from '../service/index';
+import {RestaurantsService, UsersService, CuisinesService } from '../service/index';
+
 import { FileUploader } from 'ng2-file-upload';
+
 import * as globalVariable from "../global";
 
 declare var google: any;
 declare var toastr: any;
+declare var $: any;
 
 @Component({
 	selector: 'app-restaurants',
@@ -23,8 +25,7 @@ export class RestaurantsComponent implements OnInit {
 	
 	constructor(
 		private restaurantsService: RestaurantsService,
-		private router: Router,
-		private alertService: AlertService) { }
+		private router: Router) { }
 	
 	ngOnInit() {
 		this.loadAllRestaurants();
@@ -44,7 +45,6 @@ export class RestaurantsComponent implements OnInit {
 			console.log(data);
 			this.loadAllRestaurants();
 			toastr.success('Restaurant Deleted successful','Success!');
-			//this.alertService.success('Restaurant Deleted successful', true);
 		});
 
 	}
@@ -69,7 +69,6 @@ export class RestaurantaddComponent implements OnInit {
 	constructor(
 		private restaurantsService: RestaurantsService,
 		private router: Router,
-		private alertService: AlertService,
 		private lf: FormBuilder
 		) { }
 
@@ -90,7 +89,6 @@ export class RestaurantaddComponent implements OnInit {
 		this.restaurantsService.addRestaurant(this.restaurantAddModel.value).subscribe(
 			(data) => {
 				toastr.success('Restaurant Added successful','Success!');
-				//this.alertService.success('Restaurant Add successful', true);
 				this.router.navigate(['/admin/restaurants']);
 			}
 		);
@@ -111,7 +109,6 @@ export class RestaurantupdateComponent implements OnInit {
 
 	constructor(
 		private lf: FormBuilder,
-		private alertService: AlertService,
 		private restaurantsService: RestaurantsService,
 		private router: Router,
 		private activatedRoute: ActivatedRoute) { }
@@ -148,13 +145,246 @@ export class RestaurantupdateComponent implements OnInit {
 		this.restaurantsService.updateRestaurantLocation(this.restaurantAddModel.value).subscribe(
 			(data) => {
 				toastr.success('Restaurant Updated successful','Success');
-				//this.alertService.success('Restaurant Updated successful', true);
 				this.router.navigate(['/admin/restaurants']);
 			}
 			);
 	}
 }
 /*Admin End Restaurant Update End*/
+
+/*Admin End Cuisine Update*/
+@Component({
+	selector: 'app-cuisine',
+	templateUrl: './cuisine.component.html',
+	styles: []
+})
+export class CuisinesComponent implements OnInit {
+
+	cuisineAddModel : FormGroup;
+	currentType: string;
+	currentID: string;
+
+	order: string = 'name';
+	userFilter: any = { name: '' };
+	reverse: boolean = false;
+	cuisines= [];
+
+	imageUrl: string = globalVariable.url+'uploads/';
+
+	public uploader: FileUploader = new FileUploader({ url: globalVariable.url+'upload' });
+
+	constructor(
+		private cuisinesService: CuisinesService,
+		private router: Router,
+		private lf: FormBuilder
+		) {
+		this.cuisineAddModel = this.lf.group({
+			name : ['', Validators.required],
+			image : ['', Validators.required]
+		});
+
+		this.loadAllCuisines();
+	}
+
+	ngOnInit() {
+	}
+
+	hideModal(){
+		$('#addModal').modal('hide');
+		$("#image").val('');
+	}
+
+	addData(data, type){
+		if (type == 'add') {
+			this.currentType = 'Add';
+			$("#addModal").modal('show');
+		}
+
+		if (type == 'edit') {
+			this.currentType = 'Edit';
+			this.currentID = data._id;
+			$("#addModal").modal('show');
+			this.cuisineAddModel.patchValue(data);
+		}
+	}
+
+	sortBy(data) {
+		this.order = data;
+		if (this.reverse == false) {
+			this.reverse = true;
+		}else{
+			this.reverse = false;
+		}
+	}
+
+	onChange(event) {
+		var files = event.srcElement.files;
+		this.uploader.uploadAll();
+		this.uploader.onCompleteItem = (item: any, response: any, status: any, headers: any) => {
+			var responsePath = JSON.parse(response);
+
+			console.log("responsePath");
+			console.log(responsePath);
+
+			this.cuisineAddModel.controls['image'].setValue(responsePath.filename);
+			toastr.success('Image Uploaded Successfully');
+		};
+	}
+
+	addCuisine(){
+		if (this.currentType == 'Add') {
+			this.cuisinesService.addCuisine(this.cuisineAddModel.value).subscribe((data)=>{
+				console.log("data added");
+				console.log(data);
+				if (!data.error) {
+					toastr.success('Cuisine Added!');
+					this.loadAllCuisines();
+					this.hideModal();
+					this.cuisineAddModel.reset();
+				}else{
+					toastr.error('Unable to add Cuisine. Try Later!');
+					this.hideModal();
+					this.cuisineAddModel.reset();
+				}
+			});
+		}
+
+		if (this.currentType == 'Edit') {
+			let obj4Update = {};
+			obj4Update = this.cuisineAddModel.value;
+			obj4Update['id'] = this.currentID;
+
+			console.log("obj4Update");
+			console.log(obj4Update);
+
+			this.cuisinesService.updateCuisine(obj4Update).subscribe((data)=>{
+				console.log("data updated");
+				console.log(data);
+				if (!data.error) {
+					toastr.success('Cuisine Updated!');
+					this.loadAllCuisines();
+					this.hideModal();
+					this.cuisineAddModel.reset();
+				}else{
+					toastr.error('Unable to add Cuisine. Try Later!');
+					this.hideModal();
+					this.cuisineAddModel.reset();
+				}
+			});
+		}
+	}
+
+	loadAllCuisines(){
+		this.cuisinesService.getAll().subscribe((data)=>{
+			console.log("data");
+			console.log(data);
+			this.cuisines = data.message;
+		})
+	}
+
+	deleteCuisine(id){
+		if (confirm("Delete Cuisine?")) {
+			this.cuisinesService.deleteOne(id).subscribe((data)=>{
+				if (!data.error) {
+					toastr.success('Deleted Successfully');
+					this.loadAllCuisines();
+				}else{
+					toastr.error('Unable to delete. Try Later!')
+				}
+			})
+		}
+	}
+}
+/*Admin End Cuisine Update End*/
+
+
+@Component({
+	selector: 'app-restaurant-cuisine',
+	templateUrl: './restaurantcuisine.component.html',
+	styleUrls: ['../../assets/css/restaurant.component.css']
+})
+export class RestaurantCuisinesComponent implements OnInit {
+
+	cuisines= [];
+	restaurantCuisines= [];
+	restaurants:any;
+
+	imageUrl: string = globalVariable.url+'uploads/';
+
+	public uploader: FileUploader = new FileUploader({ url: globalVariable.url+'upload' });
+
+	constructor(
+		private restaurantsService: RestaurantsService,
+		private cuisinesService: CuisinesService,
+		private router: Router,
+		private lf: FormBuilder
+		) {
+		this.getRestaurants();
+		this.loadAllCuisines();
+	}
+
+	ngOnInit() {
+	}
+
+	private getRestaurants() {
+		this.restaurantsService.getOwnerRestaurants(JSON.parse(localStorage.getItem('currentOwner'))._id).subscribe(users => {
+			this.restaurants = users.message;
+			if (this.restaurants.cuisine && this.restaurants.cuisine.length > 0) {
+				this.restaurantCuisines = this.restaurants.cuisine;
+			}
+		});
+	}
+
+	loadAllCuisines(){
+		this.cuisinesService.getAll().subscribe((data)=>{
+			console.log("data");
+			console.log(data);
+			this.cuisines = data.message;
+		})
+	}
+
+	addCuisineToRestro(obj){
+		let indx = this.restaurantCuisines.findIndex(mn=>mn._id == obj._id)
+		if (indx == -1) {
+			this.restaurantCuisines.push(obj);
+		}else{
+			this.restaurantCuisines.splice(indx,1);
+		}
+	}
+
+	deleteCuisine(i){
+		this.restaurantCuisines.splice(i,1);
+	}
+
+	checkColor(id){
+		let indx = this.restaurantCuisines.findIndex(mn=>mn._id == id);
+		if (indx == -1) {
+			return {'color' : '#777'};
+		}else{
+			return {'color': '#5AC15E'};
+		}
+	}
+
+	addCuisinesToRestaurant(){
+		let obj4Update = {};
+		obj4Update['_id'] = this.restaurants._id;
+		obj4Update['cuisine'] = this.restaurantCuisines;
+
+		this.restaurantsService.updateRestaurant(obj4Update).subscribe((data)=>{
+			console.log("data");
+			console.log(data);
+
+			if (!data.error) {
+				toastr.success('Cuisines Updated Successfully');
+				this.router.navigate(['/owner/restaurant-confirm']);
+			}else{
+				toastr.error('Unable to update Cuisine. Try Later!');
+			}
+		})
+	}
+
+
+}
 
 @Component({
 	selector: 'app-ownerprofile',
@@ -169,10 +399,8 @@ export class OwnermailactivateComponent implements OnInit {
 	currentOwner : any = {};
 
 	constructor(
-		private alertService: AlertService,
 		private restaurantsService: RestaurantsService,
 		private router: Router,
-		//private _flashMessagesService: FlashMessagesService,
 		private activatedRoute: ActivatedRoute
 		) { }
 
@@ -230,7 +458,6 @@ export class RestaurantupdateownerComponent implements OnInit {
 	constructor(
 		private restaurantsService: RestaurantsService,
 		private router: Router,
-		private alertService: AlertService,
 		private lf: FormBuilder
 		) { }
 
@@ -334,7 +561,6 @@ export class RestaurantlocationComponent implements OnInit {
 	constructor(
 		private restaurantsService: RestaurantsService,
 		private router: Router,
-		private alertService: AlertService,
 		private lf: FormBuilder,
 		private ngZone: NgZone
 		) { }
@@ -471,7 +697,8 @@ export class RestaurantlocationComponent implements OnInit {
 			(data) => {
 				if (!data.error) {
 					toastr.success('Restaurant Location Updated Successfully','Success!');
-					this.router.navigate(['/owner/restaurant-confirm']);
+					this.router.navigate(['/owner/restaurant-cuisine']);
+					/*this.router.navigate(['/owner/restaurant-confirm']);*/
 				}else{
 					toastr.error('Unable to Update Location','Error!');
 				}
@@ -494,7 +721,6 @@ export class RestaurantconfirmationComponent implements OnInit {
 		private restaurantsService: RestaurantsService,
 		private usersService: UsersService,
 		private router: Router,
-		private alertService: AlertService,
 		private lf: FormBuilder
 		) { }
 
@@ -531,7 +757,6 @@ export class RestaurantconfirmationComponent implements OnInit {
 				console.log("data");
 				console.log(data);
 				toastr.info('Email Sent Successfully','Email Sent');
-				//this.alertService.success('Email Sent Successfully', true);
 				//this.router.navigate(['/owner/basic-detail']);
 			}
 		);
@@ -543,4 +768,3 @@ export class RestaurantconfirmationComponent implements OnInit {
 		});
 	}*/
 }
-

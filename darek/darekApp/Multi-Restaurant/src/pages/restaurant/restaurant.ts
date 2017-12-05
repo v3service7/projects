@@ -3,7 +3,7 @@ import { NavController, NavParams, LoadingController, ToastController, Nav, Aler
 
 import * as globalVariable from "../../app/global";
 
-import { RestaurantsService, KitchenMenuService, RatingService } from '../../app/service/index';;
+import { RestaurantsService, KitchenMenuService, RatingService, CuisinesService } from '../../app/service/index';;
 
 import { MenuPage } from '../menu/menu';
 import { ItemPage } from '../item/item';
@@ -17,6 +17,8 @@ import { RatingPage } from '../rating/rating';
 })
 export class RestaurantPage {
     restaurantsList : any = [];
+    searchResultArray : any = [];
+    allCuisines : any = [];
     allMenu : any = [];
     menuName : any = [];
 	ratingArray : any = [1,2,3,4,5];
@@ -36,7 +38,8 @@ export class RestaurantPage {
         public alertCtrl: AlertController,
         public restaurantsService : RestaurantsService,
         public kitchenMenuService : KitchenMenuService,
-		public ratingService : RatingService,
+        public ratingService : RatingService,
+		public cuisinesService : CuisinesService
 		) {}
 
 	ionViewDidEnter() {
@@ -46,6 +49,7 @@ export class RestaurantPage {
         this.loading.present();
 
         this.getAllRestaurants();
+        this.getAllCuisines();
 
         if(localStorage.getItem('currentCustomer')){
             this.currentCustomer = JSON.parse(localStorage.getItem('currentCustomer'));
@@ -109,6 +113,52 @@ export class RestaurantPage {
     	});
     }
 
+    getAllCuisines(){
+        this.cuisinesService.getAll().subscribe((data)=>{
+            if (!data.error) {
+                this.allCuisines = data.message;
+            }
+        })
+    }
+
+    showCuisine(){
+        let alert = this.alertCtrl.create();
+        alert.setTitle('Choose Cuisines');
+
+        for (var i = 0; i < this.allCuisines.length; i++) {
+            alert.addInput({
+                type: 'checkbox',
+                label: this.allCuisines[i].name,
+                value: this.allCuisines[i]
+            });
+        }
+
+
+        alert.addButton('Cancel');
+        alert.addButton({
+            text: 'Search',
+            handler: data => {
+                console.log('Checkbox data:', data);
+                this.searchResultArray = [];
+
+                for (var i = 0; i < data.length; i++) {
+                    let obj = {'type':data[i].name , 'restaurant' : []};
+                    this.searchResultArray.push(obj);
+                }
+
+
+                this.searchRestaurant(data);
+                /*this.testCheckboxOpen = false;
+                this.testCheckboxResult = data;*/
+            }
+        });
+        /*alert.present().then(() => {
+            this.testCheckboxOpen = true;
+        });*/
+
+        alert.present()
+    }
+
     private getToast(msg){
     	let toast = this.toastCtrl.create({
 	        message: msg,
@@ -160,7 +210,7 @@ export class RestaurantPage {
         })
     }
 
-    getItems(ev) {
+   /* getItems(ev) {
         this.getAllMenu();
         var val = ev.target.value;
 
@@ -172,12 +222,39 @@ export class RestaurantPage {
                 return (item.name.toLowerCase().indexOf(val.toLowerCase()) > -1);
             })
         }
+    }*/
+
+
+    searchRestaurant(data){
+        for (var j = 0; j < this.restaurantsList.length; j++) {
+            
+            if (this.restaurantsList[j].cuisine && this.restaurantsList[j].cuisine.length > 0) {
+                for (var i = 0; i < data.length; i++) {
+
+                    /*let obj = {'type':data[i].name , 'restaurant' : []};
+                    this.searchResultArray.push(obj);*/
+
+                    let indx = this.restaurantsList[j].cuisine.findIndex(mn=> mn._id == data[i]._id)
+
+                    if (indx > -1) {
+                        let i = this.searchResultArray.findIndex(mn=> mn.type == this.restaurantsList[j].cuisine[indx].name)
+                        this.searchResultArray[i]['restaurant'].push(this.restaurantsList[j])
+                    }
+                        console.log("this.searchResultArray");
+                        console.log(this.searchResultArray);
+                }
+            }
+        }
     }
 
-    openMenu(menu){
+    spliceSearchCusine(i){
+        this.searchResultArray.splice(i,1);
+    }
+
+    /*openMenu(menu){
         this.navCtrl.push(ItemPage, {
             menu : menu, resId : menu.kitchenId
         });
-    }
+    }*/
 
 }

@@ -1,0 +1,93 @@
+<div id="wrapper">
+	<app-header></app-header>
+	<div id="page-wrapper">
+		<router-outlet>
+			<div class="container-fluid">
+				
+				<div class="modal fade" id="addModal" role="dialog">
+					<div class="modal-dialog"> 
+						<div class="modal-content">
+							<form [formGroup]="cuisineAddModel" (ngSubmit)="addCuisine()">
+								<div class="modal-header">
+									<button type="button" class="close" (click)="hideModal()">&times;</button>
+									<h4 class="modal-title">{{currentType}} Cuisine</h4>
+								</div>
+								<div class="modal-body">       
+									<div class="form-group">
+										<label>Name</label>        
+										<input type="text" formControlName="name" class="form-control" placeholder="Name">
+									</div>
+									<div class="form-group">
+										<label>Image</label>
+										<input type="file" id="image" title="your text" class="form-control" name="single" value="" ng2FileSelect [uploader]="uploader"  (change)="onChange($event)" />
+									</div>
+								</div>
+								<div class="modal-footer">
+									<input type="submit" class="btn btn-default" [disabled]="!cuisineAddModel.valid" value="Submit">
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+
+				<div class="row page-header">
+					<div class="col-lg-6">
+						<h1 class="">
+							Cuisine
+						</h1>
+					</div>
+					<div class="col-lg-6" style="padding: 18px 15px;">
+						<a class="btn btn-primary pull-right" (click)="addData('','add')">Add Cuisine</a>
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="col-lg-3 col-sm-4 form-group pull-right">
+						<input type="text" [(ngModel)]="userFilter.name" placeholder="Name" class="form-control">
+					</div>
+					<div class="col-lg-12">
+						<div class="panel panel-default">
+							<div class="panel-heading">
+								<div class="row">
+									<h3 class="panel-title pull-left"><i class="fa fa-life-saver" style="padding-left: 15px;"></i> Cuisine List</h3>
+								</div>
+							</div>
+							<div class="panel-body">
+								<div class="table-responsive">
+									<table class="table table-bordered table-hover table-striped">
+										<thead>
+											<tr>
+												<th><a (click)="sortBy('name')" href="javascript:void(0)">Name</a></th>
+												<th>Action</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr *ngFor="let cuisine of cuisines|orderBy:order : reverse| filterBy: userFilter">
+												<td>
+													<div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 promotionIcon" style="text-align: -webkit-center;font-size: x-large;">
+														<!-- <span><i class="fa fa-{{promotion.image}}"></i></span> -->
+														<img src="{{imageUrl}}{{cuisine.image}}" class="img-responsive">
+													</div>
+													<div class="col-lg-11 col-md-11 col-sm-11 col-xs-11" style="padding: 0;">
+														<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="padding: 0;font-size: larger;">
+															<b>{{cuisine.name}}</b>
+														</div>
+													</div>
+												</td>
+												<!--<td>{{restaurant.ownerId}}</td>-->
+												<td style="text-align: -webkit-center;font-size: large;">
+													<a href="javascript:void(0)" (click) = "addData(cuisine,'edit')"><i class="fa fa-pencil"></i></a>
+													<a href="javascript:void(0)"><i class="fa fa-trash" (click)="deleteCuisine(cuisine._id)"></i></a>
+												</td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</router-outlet>
+	</div>
+</div>

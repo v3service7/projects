@@ -47,7 +47,7 @@ import { AwaitPage } from '../pages/cart/await';
 
 import { RatingPage } from '../pages/rating/rating';
 
-import {  CustomersService, KitchenMenuService, KitchenItemService, RestaurantsService, PromotionsService, OrderService, RatingService } from './service/index';
+import {  CustomersService, KitchenMenuService, KitchenItemService, RestaurantsService, PromotionsService, OrderService, RatingService, CuisinesService } from './service/index';
 
 const cloudSettings: CloudSettings = {
     'core': {
@@ -90,7 +90,7 @@ const cloudSettings: CloudSettings = {
     MyOrderPage,OrderDetailPage
   ],
   providers: [
-    CustomersService,KitchenMenuService, KitchenItemService, RestaurantsService,PromotionsService,OrderService,RatingService,
+    CustomersService,KitchenMenuService, KitchenItemService, RestaurantsService,PromotionsService,OrderService,RatingService, CuisinesService,
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler}

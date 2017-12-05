@@ -19,7 +19,7 @@ import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
 import { AlertComponent } from './directives/index';
 
-import { AlertService, AuthService, UsersService,DriversService,RestaurantsService, PromotionsService, KitchenMenuService,KitchenItemService,MasterService,CustomersService, OrderService} from './service/index';
+import { AlertService, AuthService, UsersService,DriversService,RestaurantsService, PromotionsService, KitchenMenuService,KitchenItemService,MasterService,CustomersService, OrderService, CuisinesService} from './service/index';
 import { AuthGuard , OwnerAuthGuard} from './guards/index';
 import { DashboardComponent,DashboardprofileComponent } from './dashboard/dashboard.component';
 import { UsersComponent, UsersupdateComponent, UsersaddComponent, AdminComponent, AdminaddComponent, AdminupdateComponent} from './users/index';
@@ -27,7 +27,7 @@ import { UsersComponent, UsersupdateComponent, UsersaddComponent, AdminComponent
 import {OrderPipe} from "./order.pipe"
 import {FilterPipe} from "./filter.pipe";
 
-import { RestaurantsComponent , RestaurantaddComponent , RestaurantupdateComponent,RestaurantupdateownerComponent,RestaurantlocationComponent, RestaurantconfirmationComponent,OwnermailactivateComponent} from './restaurants/index';
+import { RestaurantsComponent , RestaurantaddComponent , RestaurantupdateComponent,RestaurantupdateownerComponent,RestaurantlocationComponent, RestaurantconfirmationComponent,OwnermailactivateComponent, CuisinesComponent, RestaurantCuisinesComponent} from './restaurants/index';
 import { RestaurantOwnerPickupComponent, RestaurantOwnerOrderForLaterComponent, RestaurantOwnerTaxationComponent, RestaurantOwnerPaymentOptionComponent, RestaurantOwnerOpeningHoursComponent, RestaurantOwnerDeliveryZoneComponent, KitchenMenuListComponent,LegacyComponent,LegacycodeComponent, NotificationComponent, SupportedLanguagesComponent, DeliveryOutsideComponent, OnlinePaymentComponent, CustomMessageComponent} from './serviceandopening/index';
 import { OwnerDriversComponent, DriverOrdersComponent, OwnerDriversupdateComponent,OwnerDriversaddComponent} from './ownerdrivers/index';
 import { DriversComponent,DriveraddComponent, DriverupdateComponent} from './drivers/index';
@@ -60,7 +60,7 @@ export function HttpLoaderFactory(http: Http) {
     DriveraddComponent,
     DriverupdateComponent,
     OwnerDriversComponent, DriverOrdersComponent, OwnerDriversupdateComponent,OwnerDriversaddComponent,
-    RestaurantsComponent,RestaurantaddComponent,RestaurantupdateComponent,RestaurantupdateownerComponent,RestaurantlocationComponent,RestaurantconfirmationComponent,
+    RestaurantsComponent,RestaurantaddComponent,RestaurantupdateComponent,RestaurantupdateownerComponent,RestaurantlocationComponent,RestaurantconfirmationComponent,CuisinesComponent,RestaurantCuisinesComponent,
     RestaurantOwnerPickupComponent, RestaurantOwnerTaxationComponent, RestaurantOwnerOpeningHoursComponent,
     PromotionsComponent,
     PromotionaddComponent,
@@ -93,7 +93,7 @@ export function HttpLoaderFactory(http: Http) {
         })
   ],
   exports: [FileUploadModule],
-  providers: [AuthGuard,OwnerAuthGuard,AlertService,UsersService,AuthService,DriversService,RestaurantsService,PromotionsService, KitchenMenuService,KitchenItemService,MasterService, CustomersService, OrderService],
+  providers: [AuthGuard,OwnerAuthGuard,AlertService,UsersService,AuthService,DriversService,RestaurantsService,PromotionsService, KitchenMenuService,KitchenItemService,MasterService, CustomersService, OrderService, CuisinesService],
   bootstrap: [AppComponent]
 })
 

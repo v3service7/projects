@@ -4,7 +4,7 @@ import { DashboardComponent,DashboardprofileComponent } from './dashboard/dashbo
 
 import { UsersComponent, UsersupdateComponent, UsersaddComponent, AdminComponent, AdminaddComponent, AdminupdateComponent} from './users/index';
 
-import { RestaurantsComponent, RestaurantaddComponent, RestaurantupdateComponent,  RestaurantupdateownerComponent, RestaurantlocationComponent, RestaurantconfirmationComponent,OwnermailactivateComponent} from './restaurants/index';
+import { RestaurantsComponent, RestaurantaddComponent, RestaurantupdateComponent,  RestaurantupdateownerComponent, RestaurantlocationComponent, RestaurantconfirmationComponent,OwnermailactivateComponent, CuisinesComponent, RestaurantCuisinesComponent} from './restaurants/index';
 
 import {RestaurantOwnerPickupComponent, RestaurantOwnerOrderForLaterComponent, RestaurantOwnerTaxationComponent, RestaurantOwnerPaymentOptionComponent, RestaurantOwnerOpeningHoursComponent, RestaurantOwnerDeliveryZoneComponent, KitchenMenuListComponent,LegacyComponent,LegacycodeComponent, NotificationComponent, SupportedLanguagesComponent,DeliveryOutsideComponent,OnlinePaymentComponent, CustomMessageComponent} from './serviceandopening/index';
 
@@ -50,6 +50,7 @@ const appRoutes: Routes = [
   { path: 'admin/drivers/:id', component: DriverupdateComponent, canActivate: [AuthGuard]  },
   { path: 'admin/driver/add', component: DriveraddComponent, canActivate: [AuthGuard]  },
   { path: 'admin/restaurant', component: RestaurantsComponent, canActivate: [AuthGuard],children :[]  },
+  { path: 'admin/cuisine', component: CuisinesComponent, canActivate: [AuthGuard],children :[]  },
   { path: 'admin/restaurants/:id', component: RestaurantupdateComponent, canActivate: [AuthGuard]  },
 
   { path: 'admin/owner-auto-login/:id', component: OwnerAutologinComponent},
@@ -75,6 +76,7 @@ const appRoutes: Routes = [
     { path: 'profile', component: OwnerprofileComponent, canActivate: [OwnerAuthGuard]  },
     { path: 'basic-detail', component: RestaurantupdateownerComponent, canActivate: [OwnerAuthGuard]  },
     { path: 'restaurant-location', component: RestaurantlocationComponent, canActivate: [OwnerAuthGuard]  },
+    { path: 'restaurant-cuisine', component: RestaurantCuisinesComponent, canActivate: [OwnerAuthGuard]  },
     { path: 'restaurant-confirm', component: RestaurantconfirmationComponent, canActivate: [OwnerAuthGuard]  },
     { path: 'restaurant-pickup', component: RestaurantOwnerPickupComponent, canActivate: [OwnerAuthGuard]},
     { path: 'restaurant-orderforlater', component: RestaurantOwnerOrderForLaterComponent, canActivate: [OwnerAuthGuard]},

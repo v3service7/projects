@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {Router, ActivatedRoute, Params} from '@angular/router';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
-import {AlertService, PromotionsService, RestaurantsService } from '../service/index';
+import {PromotionsService, RestaurantsService } from '../service/index';
 import { FileUploader } from 'ng2-file-upload';
 import * as globalVariable from "../global";
 
@@ -22,8 +22,7 @@ export class PromotionsComponent implements OnInit {
 
   constructor(
     private promotionsService: PromotionsService,
-    private router: Router,
-    private alertService: AlertService) { }
+    private router: Router) { }
 
   ngOnInit() {
     this.loadAllPromotions();
@@ -39,7 +38,6 @@ export class PromotionsComponent implements OnInit {
         console.log(data);
         this.loadAllPromotions();
         toastr.success('Promotion Deleted successful');
-        //this.alertService.success('Promotion Deleted successful', true);
       });
     }
   }
@@ -74,7 +72,6 @@ export class PromotionaddComponent implements OnInit {
     private promotionsService: PromotionsService,
     private restaurantsService: RestaurantsService,
     private router: Router,
-    private alertService: AlertService,
     private lf: FormBuilder
   ) { }
 
@@ -145,7 +142,6 @@ export class PromotionupdateComponent implements OnInit {
 
   constructor(
     private lf: FormBuilder,
-    private alertService: AlertService,
     private promotionsService: PromotionsService,
     private restaurantsService: RestaurantsService,
     private router: Router,
@@ -216,7 +212,6 @@ export class PromotionupdateComponent implements OnInit {
     this.promotionsService.updatePromotion(this.promotionAddModel.value).subscribe(
       (data) => {
         toastr.success('Promotion Updated successful');
-        //this.alertService.success('Promotion Updated successful', true);
         this.router.navigate(['/admin/promotions']);
       }
     );

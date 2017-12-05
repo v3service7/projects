@@ -1,0 +1,56 @@
+<app-headerowner></app-headerowner>
+
+<div class="padding8-16vw rightMainDiv col-lg-9 col-md-9 col-sm-9 col-xs-9">
+	<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 rightBox padding0">
+		<div class="firstDiv col-lg-12 col-md-12 col-sm-12 col-xs-12">  
+			<span class="">Restaurant cuisine</span>
+			<input type="submit" class="btn btn-next floatRight" id="submitButton" value="Next" (click) = "addCuisinesToRestaurant()">
+		</div>
+	
+		<div class="secondDiv col-lg-12 col-md-12 col-sm-12 col-xs-12">
+
+			<div class=" col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0" *ngIf = "restaurantCuisines.length > 0">
+				<div class=" col-lg-12 col-md-12 col-sm-12 col-xs-12 font1vw fontWeight600">
+					Your Selection :
+				</div>
+				<div class=" col-lg-12 col-md-12 col-sm-12 col-xs-12 marginBottom20px padding0">
+					<div *ngFor = "let cuisine of restaurantCuisines, let i=index " class=" col-lg-4 col-md-4 col-sm-4 col-xs-6">
+						<div class=" col-lg-12 col-md-12 col-sm-12 col-xs-12 cuisineList padding0">
+							<div class=" col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0">
+								<img src="{{imageUrl}}{{cuisine.image}}">
+							</div>
+							<div class=" col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0 cuisineName">
+								{{cuisine.name}} <span class="floatRight"><i class="fa fa-times-circle" aria-hidden="true" (click)="deleteCuisine(i)"></i></span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<hr>
+			</div>
+
+			<div class=" col-lg-12 col-md-12 col-sm-12 col-xs-12 marginBottom20px padding0">
+				
+				<div *ngFor = "let cuisine of cuisines, let i=index " class=" col-lg-4 col-md-4 col-sm-4 col-xs-6">
+					<div class=" col-lg-12 col-md-12 col-sm-12 col-xs-12 cuisineList padding0">
+						<div class=" col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0">
+							<img src="{{imageUrl}}{{cuisine.image}}">
+						</div>
+						<div class=" col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0 cuisineName">
+							<span class="addCuisineIcon"><i class="fa fa-check-circle" aria-hidden="true" (click)="addCuisineToRestro(cuisine)" [ngStyle] = checkColor(cuisine._id)></i></span>
+							{{cuisine.name}}
+						</div>
+					</div>
+				</div>
+
+
+
+			</div>
+
+		</div> 
+	</div>
+</div>
+
+
+<!-- 
+    box-shadow: 0 1px 6px rgba(0, 1, 1, .35);
+    background: white; -->
