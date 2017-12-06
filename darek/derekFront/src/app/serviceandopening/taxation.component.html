@@ -1,69 +1,72 @@
 <app-headerowner></app-headerowner>
-<div class="rightMenu1" style="margin-left: 25%;background-color: #E9E9E8;height: 585px;">
-   <!--  <alert></alert> -->
-   <div class="screen screen-form js-screen-address-form ng-scope" id="Menu18" style="min-height: 0;padding: 0;">
-   <div class="settings-panel">
-    <form [formGroup]="taxationAddModel" (ngSubmit)="taxationDetailUpdate()">        
-        <div class="settings-heading"><span class="settings-title ng-binding">Taxation and Currency</span>
-            <input type="submit" class="btn btn-next ng-binding" value="Next" [disabled]="!taxationAddModel.valid">
-        </div>
-        <div class="settings-content">
-            <div class="row">
-                <div class="col-xs-12">
-                    <strong class="ng-binding">Taxation options:</strong>
-                </div>
+<div class="rightMainDiv col-lg-9 col-md-9 col-sm-9 col-xs-9 padding0">
+
+    <div class="profile col-lg-6 col-md-6 col-sm-8 col-xs-8 padding0" id="Menu18">
+        
+        <form [formGroup]="taxationAddModel" (ngSubmit)="taxationDetailUpdate()">        
+            
+            <div class="firstDiv col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <span class="verticalAlignSub">Taxation and Currency</span>
+                <input type="submit" class="btn btn-next ng-binding pull-right" value="Next" [disabled]="!taxationAddModel.valid">
             </div>
-            <div class="row">
-                <div class="col-xs-8">
-                    <input type="text" placeholder="Name of the tax (E.g. Sales Tax)" class="form-control" formControlName="name">
+            
+            <div class="secondDiv col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <strong class="ng-binding">Taxation options:</strong>
+                    </div>
                 </div>
-                <div class="col-xs-4">
-                    <div class="input-group">
-                        <input type="number" placeholder="0" class="form-control" formControlName="tax"><span class="input-group-addon">%</span>
+                <div class="row">
+                    <div class="col-xs-8">
+                        <input type="text" placeholder="Name of the tax (E.g. Sales Tax)" class="form-control" formControlName="name">
+                    </div>
+                    <div class="col-xs-4">
+                        <div class="input-group">
+                            <input type="number" placeholder="0" class="form-control" formControlName="tax"><span class="input-group-addon">%</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12">
+                        <select class="form-control" formControlName="menuTax">
+                            <option value="Already Include">Menu prices already include taxes</option>
+                            <option value="Apply Tax">Apply tax on top of my menu prices</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row tax-subtitle">
+                    <div class="col-xs-12">
+                        <strong class="ng-binding">Taxation for delivery fee:</strong>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-8">
+                        <select class="form-control" formControlName="deliveryTaxType">
+                            <option value="Same Tax">Apply the same tax for the delivery fee</option>
+                            <option value="New Tax">Set Different tax for delivery fee</option>
+                        </select>
+                    </div>
+                    <div class="col-xs-4" *ngIf = "taxationAddModel.controls['deliveryTaxType'].value == 'New Tax' ">
+                        <div class="input-group">
+                            <input type="number" placeholder="0" class="form-control" formControlName="deliveryTax">
+                            <span class="input-group-addon">%</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row tax-subtitle">
+                    <div class="col-xs-12"><strong class="ng-binding">Currency:</strong></div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-8">
+                        <select class="form-control" formControlName="currency">
+                            <option value="USD">USD</option>
+                            <option value="UK">UK</option>
+                            <option value="INR">INR</option>
+                        </select>
                     </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-xs-12">
-                    <select class="form-control" formControlName="menuTax">
-                        <option value="Already Include">Menu prices already include taxes</option>
-                        <option value="Apply Tax">Apply tax on top of my menu prices</option>
-                    </select>
-                </div>
-            </div>
-            <div class="row tax-subtitle">
-                <div class="col-xs-12">
-                    <strong class="ng-binding">Taxation for delivery fee:</strong>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-xs-8">
-                    <select class="form-control" formControlName="deliveryTaxType">
-                        <option value="Same Tax">Apply the same tax for the delivery fee</option>
-                        <option value="New Tax">Set Different tax for delivery fee</option>
-                    </select>
-                </div>
-                <div class="col-xs-4" *ngIf = "taxationAddModel.controls['deliveryTaxType'].value == 'New Tax' ">
-                    <div class="input-group">
-                        <input type="number" placeholder="0" class="form-control" formControlName="deliveryTax">
-                        <span class="input-group-addon">%</span>
-                    </div>
-                </div>
-            </div>
-            <div class="row tax-subtitle">
-                <div class="col-xs-12"><strong class="ng-binding">Currency:</strong></div>
-            </div>
-            <div class="row">
-                <div class="col-xs-8">
-                    <select class="form-control" formControlName="currency">
-                        <option value="USD">USD</option>
-                        <option value="UK">UK</option>
-                        <option value="INR">INR</option>
-                    </select>
-                </div>
-            </div>
-        </div>
-    </form>
-</div>
-</div> 
+        </form>
+
+    </div> 
 </div>

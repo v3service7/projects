@@ -1,16 +1,16 @@
 <app-headerowner></app-headerowner>
 
-<div class="rightMenu1 col-lg-9 col-md-9 col-sm-9 col-xs-9" style="background-color: #E9E9E8;height: 585px;">
+<div class="rightMainDiv col-lg-9 col-md-9 col-sm-9 col-xs-9 padding0">
 	<!-- <alert></alert> -->
 	
-	<div class="profile col-lg-12 col-md-12 col-sm-12 col-xs-12" id="rightMenu1" style="z-index: 1;position: absolute;width: 70%;padding: 0;">
+	<div class="profile col-lg-6 col-md-6 col-sm-8 col-xs-8 padding0" id="rightMenu1">
 		<form>
 			<div class="settings-heading col-lg-12 col-md-12 col-sm-12 col-xs-12" style="box-shadow: 0 -1px 0 #d5d5d3, inset 0 1px 0 rgba(0, 0, 0, .04);">
-				<span class="settings-title ng-binding">Please validate your email address </span>
+				<span class="settings-title ng-binding verticalAlignSub">Please validate your email address </span>
 				<a class="btn btn-next pull-right" id="submitButton" [routerLink]="['/owner/basic-detail']">Next</a>
 			</div>
-			<div class="secondDiv  col-lg-12 col-md-12 col-sm-12 col-xs-12" style="box-shadow: 0 -1px 0 #d5d5d3, inset 0 1px 0 rgba(0, 0, 0, .04);">
-				<div class="settings-content col-lg-12 col-md-12 col-sm-12 col-xs-12" style="padding: 0;">
+			<div class="secondDiv  col-lg-12 col-md-12 col-sm-12 col-xs-12">
+				<div class="settings-content col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0">
 					<div class="settings-content-left settings-content-left-email col-lg-8 col-md-8 col-sm-8 col-xs-8">
 						<div>A moment ago we have sent you an email to <strong class="user-email">{{user.email}}</strong>.<br><br>Please click on the link in order to validate your email address.
 						</div>

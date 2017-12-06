@@ -17,6 +17,10 @@ body {
     }
 }
 
+.displayFlex{
+    display: inline-flex;
+}
+
 .padding0{
     padding: 0;
 }
@@ -239,9 +243,10 @@ ul.alert-dropdown {
 }
 
 .topNav{
-    min-height: 5%;
-    font-size: 15px;
+    /*min-height: 5%;
+    font-size: 15px;*/
     border-bottom: 4px solid #5AC15E;
+    margin: 0 !important;
 }
 /*
 .restaurant-name h1{
@@ -295,11 +300,6 @@ h5{
     letter-spacing: 5px;
 }
 
-.leftMenu{
-    padding: 0px;
-    margin: 0px;
-}
-
 .rightMenu{
     padding-left: 15%;
     padding-right: 15%;
@@ -312,18 +312,6 @@ h5{
 legend{
     font-size: smaller;
     height: 0;
-}
-
-.nameAndAddress , .location, .accountConfirmation , .pickup , .delivery, .openingHours, .orderForLater, .taxation, .paymentOption, .receiveOrders , .menuSetup, .facebook, .salesOptimization, .legacyWebsite, .oninePayment,.notifications, .supportedLanguage, .profile{
-    padding: 3%;
-    box-shadow: 0 1px 6px rgba(0, 1, 1, .35);
-    background: white;
-}
-
-.secondDiv {
-    /*min-height: 75px;
-    padding-top: 20px;*/
-    background: #F4F2EF;
 }
 
 .a1 {
@@ -347,20 +335,16 @@ legend{
     float: right;
 }
 
-.dropdown {
-    position: relative;
-    display: inline-block;
-    border-left: 1px solid #fff;
-}
-
 .dropdown-content {
     display: none;
     position: absolute;
     background-color: #f9f9f9;
     min-width: 160px;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-    z-index: 1;
-    top: 75% ;
+    z-index: 4;
+    top: 50px;
+    right: 0;
+    width: 15vw;
 }
 
 .dropdown-content a {
@@ -379,37 +363,35 @@ legend{
     display: block;
 }
 
+.topLinks li {
+    float: left;
+    padding: 2%
+}
+
 ul.topLinks {
     list-style-type: none;
     padding: 10px;
-/*    margin: 0;
-    padding: 0;
-    overflow: hidden;
-*/
-}
-
-.topLinks li {
-    float: left;
+    margin: 0;
 }
 
 .topLinks li a {
     display: block;
-/*    color: white;*/
+    color: #737373;
+    padding: 0 !important;
+    font-weight: 600;
     text-align: center;
-    padding: 16px;
     text-decoration: none;
 }
-
 
 body > *{
     font-family: 'Open Sans',sans-serif;
 }
 
-.topNav{
+/*.topNav{
     min-height: 5%;
     font-size: 15px;
     border-bottom: 4px solid #5AC15E;
-}
+}*/
 /*
 .restaurant-name h1{
     padding: 2%;
@@ -486,28 +468,62 @@ h5{
 
 
 .firstDiv{
-/*    height: 15%;*/
-    padding: 3%
-}
-
-.nameAndAddress , .location, .accountConfirmation , .pickup , .delivery, .openingHours, .orderForLater, .taxation, .paymentOption, .receiveOrders , .facebook, .salesOptimization, .legacyWebsite, .oninePayment,.notifications, .supportedLanguage, .profile{
-    margin-left: 14%;
-    margin-right: 14%;
-    margin-top: 2%;
-    padding: 3%;
-    box-shadow: 0 1px 6px rgba(0, 1, 1, .35);
     background: white;
-}
-
-.secondDiv div{
-    min-height: 30px;
-    /*margin-bottom: 3%;*/
+    box-shadow: 0 -1px 0 #d5d5d3, inset 0 1px 0 rgba(0, 0, 0, .04);
+    padding: 3%;
 }
 
 .secondDiv{
-    /*min-height: 100px;*/
+    box-shadow: 0 -1px 0 #d5d5d3, inset 0 1px 0 rgba(0, 0, 0, .04);
+    border-bottom: 1px solid #d5d5d3;
     padding: 3%;
     background: #F4F2EF;
+}
+
+.textUnderline{
+    text-decoration: underline !important;
+}
+
+.colorGreen{
+    color: rgb(0, 173, 0);
+}
+
+.floatRight{
+    float: right;
+}
+
+.secondDiv a:focus, .secondDiv a:hover{
+    color: rgb(0, 173, 0);
+}
+
+.fontWeight600{
+    font-weight: 600;
+}
+
+.nameAndAddress , .location, .accountConfirmation , .pickup , .delivery, .openingHours, .orderForLater, .taxation, .paymentOption, .receiveOrders , .facebook, .salesOptimization, .legacyWebsite, .oninePayment,.notifications, .supportedLanguage, .profile{
+    /*margin-left: 14%;
+    margin-top: 2%;
+    margin-bottom: 2%;*/
+    margin-left: 18vw;
+    margin-top: 6vw;
+    margin-bottom: 6vw;
+    box-shadow: 0 1px 6px rgba(0, 1, 1, .35);
+    background: white;
+    z-index: 1;
+}
+
+.positionAbsolute{
+    position: absolute;
+}
+
+.rightMainDiv{
+    background-color: #E9E9E8;
+    min-height: 585px;
+}
+
+
+.verticalAlignSub{
+    vertical-align: sub;
 }
 
 /*.a1 {
@@ -521,70 +537,9 @@ h5{
     float: right;
 }
 
-.dropbtn {
-    background-color: white;
-    color: #4CAF50;
-    padding: 16px;
-    font-size: 16px;
-    border: none;
-    cursor: pointer;
-    float: right;
-}
-
-.dropdown {
-    position: relative;
-    display: inline-block;
-    /*border-left: 2px solid #F4F2EF;*/
-
-}
-
-.dropdown-content {
-    display: none;
-    position: absolute;
-    background-color: #f9f9f9;
-    min-width: 160px;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-    z-index: 1;
-    top: 75% ;
-}
-
-.dropdown-content a {
-    color: black;
-    padding: 12px 16px;
-    text-decoration: none;
-    display: block;
-}
-
-.dropdown-content a:hover {
-    background-color:  #4CAF50;
-    color: white;
-}
-
-.dropdown:hover .dropdown-content {
-    display: block;
-}
-
 .topLinkDiv{
     top: 8px;
     left: -40px;
-}
-
-ul.topLinks {
-    list-style-type: none;
-    padding: 10px;
-}
-
-.topLinks li {
-    float: left;
-}
-
-.topLinks li a {
-    display: block;
-    color: #737373;
-    font-weight: 600;
-    text-align: center;
-    padding: 16px;
-    text-decoration: none;
 }
 
 fieldset{
@@ -668,6 +623,7 @@ fieldset{
 .margin-for-addon{
 margin-bottom: 36px;
 }
+
 .custom_chng_menu{
     padding-left: 0%;
     padding-top:0%;

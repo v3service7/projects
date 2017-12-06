@@ -1,19 +1,20 @@
 <app-headerowner></app-headerowner>
 
-<div class="rightMenu1 col-lg-9 col-md-9 col-sm-9 col-xs-9">
+<div class="rightMenu1 col-lg-9 col-md-9 col-sm-9 col-xs-9 padding0">
 	<!-- <alert></alert> -->
-	<div class="profile" id="Menu18" style="z-index: 1;position: absolute;width: 70%;">
-			<div class="firstDiv">
-				<span class="">Let your customers know your exact location</span>
-				<input type="button" class="btn btn-next" id="submitButton" value="Next" style="float: right;" (click)="restaurantUpdate()">
+	<div class="profile positionAbsolute col-lg-6 col-md-6 col-sm-8 col-xs-8 padding0" id="Menu18">
+			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 firstDiv">
+				<span class="verticalAlignSub">Let your customers know your exact location</span>
+				<input type="button" class="btn btn-next floatRight" id="submitButton" value="Next" (click)="restaurantUpdate()">
 			</div>
-		<div class="secondDiv" style="min-height: 0;">
-		<div id="addressId"></div>
-			<a [routerLink]="['/owner/basic-detail']" style="float: right; color: rgb(0, 173, 0);text-decoration: underline !important;">Do you want to change your restaurant address?</a>
+		<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 secondDiv">
+		<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" id="addressId"></div>
+		<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+			
+			<a [routerLink]="['/owner/basic-detail']" class="floatRight textUnderline colorGreen">Do you want to change your restaurant address?</a>
+		</div>
+			
 		</div>
 	</div>
 	<div id="gmap"></div>
-	<!-- <sebm-google-map [latitude]="lat" [longitude]="lng">
-		<sebm-google-map-marker [latitude]="latt" [longitude]="lngg" [markerDraggable]="true" (dragEnd)="markerDragEnd( $event)"></sebm-google-map-marker>
-	</sebm-google-map> -->
 </div>

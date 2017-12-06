@@ -1,99 +1,129 @@
 <app-headerowner></app-headerowner>
-<div class="rightMenu1" style="margin-left: 25%;background-color: #E9E9E8;height: 585px;">
-   <!-- <alert></alert> -->
-   <div class="screen screen-form js-screen-address-form ng-scope" id="Menu18" style="padding: 0;min-height: 0;">
-   <div class="settings-panel">
-    <form [formGroup]="openingAddModel" (ngSubmit)="openingHourDetailUpdate()">   
-    <div class="settings-heading"><span class="settings-title ng-binding">When you are open?</span>
-        <input type="submit" class="btn btn-next ng-binding" value="Next" [disabled]="!openingAddModel.valid">
-    </div>
-    <div class="settings-content">
-        <div class="open-hours-title ng-binding">Opening Hours</div>
-        <div class="row">
-            <div class="col-sm-12">               
 
-	        <div *ngIf="restaurants.openinghours">
-		        <div *ngIf="restaurants.openinghours.monday">
-		        	<span><b> Monday </b></span><span><b>:</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{restaurants.openinghours.mondaytime.opentime}} &nbsp;-&nbsp;{{restaurants.openinghours.mondaytime.closetime}}</span>
-                    <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                        <a href="javascript:void(0)" (click) = "remove('monday')"><i class="fa fa-times-circle-o" aria-hidden="true"></i></a>
-                    </span>
-		        </div>
-		        <div *ngIf="restaurants.openinghours.tuesday">
-		        	<span><b> Tuesday </b></span><span><b>:</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{restaurants.openinghours.tuesdaytime.opentime}} &nbsp;-&nbsp;{{restaurants.openinghours.tuesdaytime.closetime}}</span>
-                    <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                        <a href="javascript:void(0)" (click) = "remove('tuesday')"><i class="fa fa-times-circle-o" aria-hidden="true"></i></a>
-                    </span>                    
-		        </div>
-		        <div *ngIf="restaurants.openinghours.wednesday">
-		        	<span><b> Wednesday </b></span><span><b>:</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{restaurants.openinghours.wednesdaytime.opentime}} &nbsp;-&nbsp;{{restaurants.openinghours.wednesdaytime.closetime}}</span>
-                    <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                        <a href="javascript:void(0)" (click) = "remove('wednesday')"><i class="fa fa-times-circle-o" aria-hidden="true"></i></a>
-                    </span>
-		        </div>
-		        <div *ngIf="restaurants.openinghours.thursday">
-		        	<span><b> Thursday </b></span><span><b>:</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{restaurants.openinghours.thursdaytime.opentime}} &nbsp;-&nbsp;{{restaurants.openinghours.thursdaytime.closetime}}</span>
-                    <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                        <a href="javascript:void(0)" (click) = "remove('thursday')"><i class="fa fa-times-circle-o" aria-hidden="true"></i></a>
-                    </span>
-		        </div>
-		        <div *ngIf="restaurants.openinghours.friday">
-		        	<span><b> Friday </b></span><span><b>:</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{restaurants.openinghours.fridaytime.opentime}} &nbsp;-&nbsp;{{restaurants.openinghours.fridaytime.closetime}}</span>
-                    <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                        <a href="javascript:void(0)" (click) = "remove('friday')"><i class="fa fa-times-circle-o" aria-hidden="true"></i></a>
-                    </span>
-		        </div>
-		        <div *ngIf="restaurants.openinghours.saturday">
-		        	<span><b> Saturday </b></span><span><b>:</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{restaurants.openinghours.saturdaytime.opentime}} &nbsp;-&nbsp;{{restaurants.openinghours.saturdaytime.closetime}}</span>
-                    <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                        <a href="javascript:void(0)" (click) = "remove('saturday')"><i class="fa fa-times-circle-o" aria-hidden="true"></i></a>
-                    </span>
-		        </div>
-		        <div *ngIf="restaurants.openinghours.sunday">
-		        	<span><b> Sunday </b></span><span><b>:</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{restaurants.openinghours.sundaytime.opentime}} &nbsp;-&nbsp;{{restaurants.openinghours.sundaytime.closetime}}</span>
-                    <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                        <a href="javascript:void(0)" (click) = "remove('sunday')"><i class="fa fa-times-circle-o" aria-hidden="true"></i></a>
-                    </span>
-		        </div>
-	        </div>
-             
-             <!-- <div *ngIf="restaurants.openinghours.monday"><span><b> </b></span><span><b>:</b>{{restaurants.openinghours.mondaytime.opentime}}&nbsp;-&nbsp;{{restaurants.openinghours.mondaytime.closetime}}</span></div>  -->
+<div class="rightMainDiv col-lg-9 col-md-9 col-sm-9 col-xs-9 padding0">
+    <!-- <div class="screen screen-form js-screen-address-form ng-scope" id="Menu18"> -->
+        <!-- <div class="settings-panel"> -->
+        <div class="profile col-lg-6 col-md-6 col-sm-8 col-xs-8 padding0">
+            <form [formGroup]="openingAddModel" (ngSubmit)="openingHourDetailUpdate()">   
+                <div class="firstDiv col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <span class="verticalAlignSub">When you are open?</span>
+                    <input type="submit" class="btn btn-next ng-binding pull-right" value="Next" [disabled]="!openingAddModel.valid">
+                </div>
+                <div class="secondDiv col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 fontWeight600">Opening Hours</div>
 
-	            
-            </div>
-        </div>
-        <div class="settings-query">
-            <div class="open-hours-title ng-binding">Add New Hours</div>
-            <div class="checkbox">
-                <label>
-                    <input type="checkbox" id="optionsRadios2" value="Monday" formControlName="monday"> Mon</label>
-                <label>
-                    <input type="checkbox" name="tue" id="optionsRadios2" value="Tuesday" formControlName="tuesday"> Tue</label>
-                <label>
-                    <input type="checkbox" name="wed" id="optionsRadios2" value="Wednesday" formControlName="wednesday"> Wed</label>
-                <label>
-                    <input type="checkbox" name="thu" id="optionsRadios2" value="Thursday" formControlName="thursday"> Thu</label>
-                <label>
-                    <input type="checkbox" name="fri" id="optionsRadios2" value="Friday" formControlName="friday"> Fri</label>
-                <label>
-                    <input type="checkbox" name="sat" id="optionsRadios2" value="Saturday" formControlName="saturday"> Sat</label>
-                <label>
-                    <input type="checkbox" name="sun" id="optionsRadios2" value="Sunday" formControlName="sunday"> Sun</label>
-            </div>
-            <div class="form-group marginzero">
-                <div class="col-sm-4 lpaddingzero">
-                    <input type="time" class="form-control timepicker hasWickedpicker"  formControlName="opentime" name="open">
+                    <div *ngIf="restaurants.openinghours" class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+
+                        <div *ngIf="restaurants.openinghours.monday" class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0">
+                            <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5"><strong> Monday : </strong></div>
+                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                {{restaurants.openinghours.mondaytime.opentime}} &nbsp;-&nbsp;{{restaurants.openinghours.mondaytime.closetime}}
+                            </div>
+                            <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 padding0">
+                                <a href="javascript:void(0)" (click) = "remove('monday')"><i class="fa fa-times-circle-o" aria-hidden="true"></i></a>
+                            </div>
+                        </div>
+
+                        <div *ngIf="restaurants.openinghours.tuesday" class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0">
+                            <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5"><strong> Tuesday : </strong></div>
+                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6"> 
+                                {{restaurants.openinghours.tuesdaytime.opentime}} &nbsp;-&nbsp;{{restaurants.openinghours.tuesdaytime.closetime}}
+                            </div>
+                            <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 padding0">
+                                <a href="javascript:void(0)" (click) = "remove('tuesday')"><i class="fa fa-times-circle-o" aria-hidden="true"></i></a>
+                            </div>
+                        </div>
+
+                        <div *ngIf="restaurants.openinghours.wednesday" class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0">
+                            <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5"><strong> Wednesday : </strong></div>
+                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                {{restaurants.openinghours.wednesdaytime.opentime}} &nbsp;-&nbsp;{{restaurants.openinghours.wednesdaytime.closetime}}
+                            </div>
+                            <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 padding0">
+                                <a href="javascript:void(0)" (click) = "remove('wednesday')"><i class="fa fa-times-circle-o" aria-hidden="true"></i></a>
+                            </div>
+                        </div>
+
+                        <div *ngIf="restaurants.openinghours.thursday" class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0">
+                            <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5"><strong> Thursday : </strong></div>
+                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                {{restaurants.openinghours.thursdaytime.opentime}} &nbsp;-&nbsp;{{restaurants.openinghours.thursdaytime.closetime}}
+                            </div>
+                            <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 padding0">
+                                <a href="javascript:void(0)" (click) = "remove('thursday')"><i class="fa fa-times-circle-o" aria-hidden="true"></i></a>
+                            </div>
+                        </div>
+
+                        <div *ngIf="restaurants.openinghours.friday" class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0">
+                            <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5"><strong> Friday : </strong></div>
+                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                {{restaurants.openinghours.fridaytime.opentime}} &nbsp;-&nbsp;{{restaurants.openinghours.fridaytime.closetime}}
+                            </div>
+                            <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 padding0">
+                                <a href="javascript:void(0)" (click) = "remove('friday')"><i class="fa fa-times-circle-o" aria-hidden="true"></i></a>
+                            </div>
+                        </div>
+
+                        <div *ngIf="restaurants.openinghours.saturday" class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0">
+                            <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5"><strong> Saturday : </strong></div>
+                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                {{restaurants.openinghours.saturdaytime.opentime}} &nbsp;-&nbsp;{{restaurants.openinghours.saturdaytime.closetime}}
+                            </div>
+                            <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 padding0">
+                                <a href="javascript:void(0)" (click) = "remove('saturday')"><i class="fa fa-times-circle-o" aria-hidden="true"></i></a>
+                            </div>
+                        </div>
+
+                        <div *ngIf="restaurants.openinghours.sunday" class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0">
+                            <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5"><strong> Sunday : </strong></div>
+                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                {{restaurants.openinghours.sundaytime.opentime}} &nbsp;-&nbsp;{{restaurants.openinghours.sundaytime.closetime}}
+                            </div>
+                            <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 padding0">
+                                <a href="javascript:void(0)" (click) = "remove('sunday')"><i class="fa fa-times-circle-o" aria-hidden="true"></i></a>
+                            </div>
+                        </div>
+                    
+                    </div>
+
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0" style="margin-top: 5%;">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 fontWeight600">Add New Hours</div>
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 checkbox">
+                            <label>
+                                <input type="checkbox" id="optionsRadios2" value="Monday" formControlName="monday"> Mon
+                            </label>
+                            <label>
+                                <input type="checkbox" name="tue" id="optionsRadios2" value="Tuesday" formControlName="tuesday"> Tue
+                            </label>
+                            <label>
+                                <input type="checkbox" name="wed" id="optionsRadios2" value="Wednesday" formControlName="wednesday"> Wed
+                            </label>
+                            <label>
+                                <input type="checkbox" name="thu" id="optionsRadios2" value="Thursday" formControlName="thursday"> Thu
+                            </label>
+                            <label>
+                                <input type="checkbox" name="fri" id="optionsRadios2" value="Friday" formControlName="friday"> Fri
+                            </label>
+                            <label>
+                                <input type="checkbox" name="sat" id="optionsRadios2" value="Saturday" formControlName="saturday"> Sat
+                            </label>
+                            <label>
+                                <input type="checkbox" name="sun" id="optionsRadios2" value="Sunday" formControlName="sunday"> Sun
+                            </label>
+                        </div>
+                        <div class="form-group marginzero">
+                            <div class="col-sm-4 lpaddingzero">
+                                <input type="time" class="form-control timepicker hasWickedpicker"  formControlName="opentime" name="open">
+                            </div>
+                        </div>
+                        <div class="form-group marginzero">
+                            <div class="col-sm-4 lpaddingzero">
+                                <input type="time"  formControlName="closetime" class="form-control timepicker1 hasWickedpicker" name="close">
+                            </div>
+                        </div>
+                    </div>
                 </div>
-            </div>
-            <div class="form-group marginzero">
-                <div class="col-sm-4 lpaddingzero">
-                    <input type="time"  formControlName="closetime" class="form-control timepicker1 hasWickedpicker" name="close">
-                </div>
-            </div>
+            </form>
         </div>
-        <div class="clearfix"></div>
-    </div>
-</form>
-</div>
-   </div>  
+    <!-- </div> -->  
 </div>

@@ -169,8 +169,23 @@ inline-editor{
     overflow: hidden;
 }
 
+#deliveryChoice{
+    background: rgba(255, 255, 255, 0.87);
+    padding: 7% 14%;
+    z-index: 1;
+    position: absolute;
+    height: 585px;
+    margin: 0;
+}
+
+#deliveryChoice div.optionDiv{
+        box-shadow: 0 1px 6px rgba(0, 1, 1, .35);
+    }
+
+
+
 .rightDeliveryZoneList{
-    min-height: 635px;
+    min-height: 585px;
     background: #fff;
     border-left: 1px solid #d5d5d3;
     box-shadow: 0 1px 3px rgba(0, 1, 1, .25);

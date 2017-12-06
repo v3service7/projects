@@ -1,11 +1,3 @@
-.floatRight{
-	float: right;
-}
-
-.rightMainDiv{
-	background-color: #E9E9E8;
-    min-height: 585px;
-}
 
 .rightBox{
 	box-shadow: 0 1px 6px rgba(0,1,1,.35);
@@ -14,18 +6,13 @@
     margin: auto;*/
 }
 
-.padding8-16vw{
-	padding: 8vw 16vw;
+.paddingBottom0{
+	padding-bottom: 0 !important;
 }
 
-.firstDiv{
-	background: white;
-	box-shadow: 0 -1px 0 #d5d5d3, inset 0 1px 0 rgba(0, 0, 0, .04);
-}
 
-.secondDiv{
-	box-shadow: 0 -1px 0 #d5d5d3, inset 0 1px 0 rgba(0, 0, 0, .04);
-	border-bottom: 1px solid #d5d5d3;
+.padding4-16vw{
+	padding: 4vw 16vw;
 }
 
 hr{
@@ -34,6 +21,10 @@ hr{
 
 img{
 	width: inherit;
+}
+
+.paddingBottom15px{
+	padding-bottom: 15px;
 }
 
 .cuisineList{

@@ -1,14 +1,14 @@
 <app-headerowner></app-headerowner>
-<div class="rightMenu1 col-lg-9 col-md-9 col-sm-9 col-xs-9">
-	<!-- <alert></alert> -->
-	<div class="profile" id="Menu18" style="z-index: 1;position: absolute; width:70%;">
+<div class="rightMenu1 col-lg-9 col-md-9 col-sm-9 col-xs-9 padding0">
+
+	<div class="profile positionAbsolute col-lg-6 col-md-6 col-sm-8 col-xs-8 padding0" id="Menu18">
 		<form [formGroup]="restaurantAddModel" (ngSubmit)="restaurantUpdate()">
-			<div class="firstDiv">
-				<span class="">Restaurant Basic detail</span>
-				<input type="submit" id="submitButton" class="btn btn-next" value="Next" style="float: right;" [disabled]="!restaurantAddModel.valid">
+			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 firstDiv">
+				<span class="verticalAlignSub">Restaurant Basic detail</span>
+				<input type="submit" id="submitButton" class="btn btn-next floatRight" value="Next" [disabled]="!restaurantAddModel.valid">
 			</div>
 
-			<div class="secondDiv">
+			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 secondDiv">
 				<div class="input-group gfe-input">
 					<span class="input-group-addon">
 	    				<i class="fa fa-info" aria-hidden="true"></i>

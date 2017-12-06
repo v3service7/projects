@@ -1,23 +1,27 @@
-<div class="topNav container-fluid">
-	<div class="restaurant-name col-lg-2 col-md-2 col-sm-2" style="float: left;">
-		<h1><b>LOGO</b></h1>
+<nav class="topNav navbar navbar-default">
+	<div class="container-fluid">
+		<div class="navbar-header col-lg-3 col-md-3 col-sm-3 col-xs-3">
+			<h1 class="restaurant-name"><b>LOGO</b></h1>
+		</div>
+		<div class="col-lg-7 col-md-7 col-sm-7 col-xs-7">
+			<ul class="topLinks nav navbar-nav col-lg-12 col-md-12 col-sm-12 col-xs-12">
+				<li><a [routerLink]="['/owner/basic-detail']">SETUP</a></li>
+				<li><a [routerLink]="['/owner/reports/overview']">REPORTS</a></li>
+				<li><a [routerLink]="['/owner/marketing/promotions']">MARKETING</a></li>
+			</ul>
+		</div>
+		<div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+			<div class="dropdown">
+			  	<button class="dropbtn">{{currentOwner.username}} <i class="fa fa-caret-down"></i></button>
+			  	<div class="dropdown-content" style="z-index: 4;">
+			    	<a [routerLink]="['/owner/profile']" ><i class="fa fa-user" aria-hidden="true"></i>&nbsp;&nbsp;My Profile</a>
+			    	<a [routerLink]="['/owner/change-password']"><i class="fa fa-key" aria-hidden="true"></i>&nbsp;&nbsp;Password Change</a>
+			    	<a [routerLink]="['/owner/login/']" (click)="signOut()"><i class="fa  fa-power-off"></i>&nbsp;&nbsp;Sign Out</a>
+			  	</div>
+			</div>
+		</div>
 	</div>
-	<div class="col-lg-7 col-md-7 col-sm-7 col-xs-7">
-		<ul class="topLinks">
-			<li><a [routerLink]="['/owner/basic-detail']">SETUP</a></li>
-			<li><a [routerLink]="['/owner/reports/overview']">REPORTS</a></li>
-			<li><a [routerLink]="['/owner/marketing/promotions']">MARKETING</a></li>
-		</ul>
-	</div>
-	<div class="dropdown col-lg-2 col-md-2 col-sm-2">
-	  	<button class="dropbtn">{{currentOwner.username}} <i class="fa fa-caret-down"></i></button>
-	  	<div class="dropdown-content" style="z-index: 4;">
-	    	<a [routerLink]="['/owner/profile']" ><i class="fa fa-user" aria-hidden="true"></i>&nbsp;&nbsp;My Profile</a>
-	    	<a [routerLink]="['/owner/change-password']"><i class="fa fa-key" aria-hidden="true"></i>&nbsp;&nbsp;Password Change</a>
-	    	<a [routerLink]="['/owner/login/']"><i class="fa  fa-power-off"></i>&nbsp;&nbsp;Sign Out</a>
-	  	</div>
-	</div>
-</div>
+</nav>
 
 <div class="leftMenu col-lg-3 col-md-3 col-sm-3" style="vertical-align: middle;">
 	<ul class="list-group list-group-flush leftMenuUl">
