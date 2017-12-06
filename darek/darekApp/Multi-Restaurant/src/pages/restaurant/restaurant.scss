@@ -41,5 +41,30 @@ page-restaurant {
 		font-size: 1em;
 	}
 
+	.padding1vh{
+	    padding: 0.5vh 1vh;
+	}
+
+	.cuisineRow span{
+	    border: 2px solid #cac7c7;
+	    border-radius: 5px
+	}
+
+	.cuisineRow strong{
+	    border: 2px solid transparent;
+	}
+
+	.padding5px16px{
+		padding: 5px 16px;
+	}
+
+	.padding2prcnt{
+		padding : 2%;
+	}
+
+	.borderBottom{
+		border-bottom: 2px solid #d2d2d2;
+	}
+
 
 }

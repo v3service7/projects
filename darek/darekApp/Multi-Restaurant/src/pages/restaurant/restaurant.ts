@@ -141,8 +141,13 @@ export class RestaurantPage {
                 console.log('Checkbox data:', data);
                 this.searchResultArray = [];
 
-                for (var i = 0; i < data.length; i++) {
+                /*for (var i = 0; i < data.length; i++) {
                     let obj = {'type':data[i].name , 'restaurant' : []};
+                    this.searchResultArray.push(obj);
+                }*/
+
+                for (var i = 0; i < this.restaurantsList.length; i++) {
+                    let obj = {'restaurant' : this.restaurantsList[i], 'cuisines':[]};
                     this.searchResultArray.push(obj);
                 }
 
@@ -226,22 +231,20 @@ export class RestaurantPage {
 
 
     searchRestaurant(data){
-        for (var j = 0; j < this.restaurantsList.length; j++) {
-            
-            if (this.restaurantsList[j].cuisine && this.restaurantsList[j].cuisine.length > 0) {
-                for (var i = 0; i < data.length; i++) {
+        for (var i = 0; i < this.restaurantsList.length; i++) {
+            let cuisine = [];
+            if (this.restaurantsList[i].cuisine && this.restaurantsList[i].cuisine.length > 0) {
+                cuisine = this.restaurantsList[i].cuisine;
+            }
 
-                    /*let obj = {'type':data[i].name , 'restaurant' : []};
-                    this.searchResultArray.push(obj);*/
+            for (var j = 0; j < data.length; j++) {
+                let indx = cuisine.findIndex(mn=>mn._id == data[j]._id)
 
-                    let indx = this.restaurantsList[j].cuisine.findIndex(mn=> mn._id == data[i]._id)
-
-                    if (indx > -1) {
-                        let i = this.searchResultArray.findIndex(mn=> mn.type == this.restaurantsList[j].cuisine[indx].name)
-                        this.searchResultArray[i]['restaurant'].push(this.restaurantsList[j])
+                if (indx > -1) {
+                    let index = this.searchResultArray.findIndex(pq=> pq['restaurant']['_id'] == this.restaurantsList[i]._id);
+                    if (index > -1) {
+                        this.searchResultArray[index]['cuisines'].push(data[j].name)
                     }
-                        console.log("this.searchResultArray");
-                        console.log(this.searchResultArray);
                 }
             }
         }

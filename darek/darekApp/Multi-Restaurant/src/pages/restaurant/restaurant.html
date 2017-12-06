@@ -20,66 +20,27 @@
 
 
     <ion-row>
-        <button ion-button small icon-left block color="secondary" (click)="showCuisine()"><ion-icon name="search" ios="ios-search" md="md-search"></ion-icon>Show By Cuisine</button>
-        <!-- Search By Cuisine -->
+        <button ion-button small icon-left block color="secondary" (click)="showCuisine()"><ion-icon name="search" ios="ios-search" md="md-search"></ion-icon>Search By Cuisine</button>
     </ion-row>
 
-    <ion-row class="searchCuisine" *ngFor="let list of searchResultArray; let i = index ">
-        <ion-col col-12 class="typeHeading">
-            <strong>{{ list.type }}</strong>
-            <ion-icon name="close-circle" ios="ios-close-circle" md="md-close-circle" float-right (click) = "spliceSearchCusine(i)"></ion-icon>
-        </ion-col>
-
-        <ion-row *ngIf = "list.restaurant.length == 0" class="width100">
-            <ion-col col-12 class="marginBottom3 box-shadow">
-                <strong>No Restaurant serve {{ list.type }}!</strong>
-            </ion-col>
-        </ion-row>
-
-        <ion-row *ngIf = "list.restaurant.length > 0" class="width100">
-            <ion-col col-12 no-padding *ngFor = "let restro of list.restaurant" class="marginBottom3 box-shadow">
+    <ion-row *ngFor = "let list of searchResultArray; let i=index ">
+        <ion-row *ngIf = "list.cuisines && list.cuisines.length > 0" class = "width100 bgWhite padding2prcnt borderBottom">
+            <ion-col no-padding>
                 <ion-row class = "width100">
-                    <ion-col no-padding class="bgWhite">
-                        <ion-row class = "width100">
-                            <ion-col col-8 class="font16" (click)="goToRestaurant(restro._id)"><b>{{restro.name}}</b></ion-col>
-                            <ion-col col-4 class="paddingLeftRight0"><ion-icon class="black" name="pin" ios="ios-pin" md="md-pin"></ion-icon>&nbsp;<b>{{restro.city}}</b></ion-col>
-                        </ion-row>
-
-                        <ion-row class = "width100" *ngIf = "restro.rating">
-                            
-                            <ion-row class = "width100" *ngFor = "let res of rating; let j = index; ">
-                                <ion-row class = "width100" *ngIf = "res._id == restro._id">
-                                    <ion-col col-6 class="font16" class="starSize">
-                                        <span *ngFor = "let x of ratingArray; let i=index; ">
-                                            <span *ngIf = "i < res.avgRating">
-                                                <ion-icon name="star" ios="ios-star" md="md-star" color = "danger"></ion-icon>
-                                            </span>
-                                            <span *ngIf = "i >= res.avgRating">
-                                                <ion-icon name="star-outline" ios="ios-star-outline" md="md-star-outline"></ion-icon>
-                                            </span>
-                                        </span>
-                                    </ion-col>
-                                    <ion-col text-right col-6>
-                                        <a href="javascript:void(0)" (click)="goToReviewPage(restro._id)">{{res.reviewCount}} reviews</a>
-                                    </ion-col>
-                                </ion-row>
-                            </ion-row>
-
-                            <ion-row class = "width100" *ngIf = "findReview(restro._id) == true">
-                                <ion-col col-6 class="font16" class="starSize">
-                                    <span *ngFor = "let x of ratingArray;">
-                                        <ion-icon name="star-outline" ios="ios-star-outline" md="md-star-outline"></ion-icon>
-                                    </span>
-                                </ion-col>
-                                <ion-col text-right col-6>
-                                    <a href="javascript:void(0)" (click)="goToReviewPage(restro._id)">Add Review</a>
-                                </ion-col>
-                            </ion-row>
-                        </ion-row>
-                    </ion-col>
+                    <ion-col col-8 class="font16" (click)="goToRestaurant(list.restaurant._id)"><b>{{list.restaurant.name}}</b></ion-col>
+                    <ion-col col-4 class="paddingLeftRight0"><ion-icon class="black" name="pin" ios="ios-pin" md="md-pin"></ion-icon>&nbsp;<b>{{list.restaurant.city}}</b></ion-col>
                 </ion-row>
-                <!-- <div class="card-title positionAbsolute width100 fontWeight500">{{restaurant.name}}</div> -->
+
+                <ion-row class = "width100 cuisineRow">
+                    <strong class="fontWeight600 padding1vh">Cuisines : </strong>
+                    <span class="padding1vh" *ngFor = "let cuisine of list.cuisines">
+                        {{cuisine}}
+                    </span>
+                </ion-row>
             </ion-col>
+            <span float-right>
+                <ion-icon (click)="spliceSearchCusine(i)" name="close-circle" ios="ios-close-circle" md="md-close-circle"></ion-icon>
+            </span>
         </ion-row>
     </ion-row>
 
