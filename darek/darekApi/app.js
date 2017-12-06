@@ -20,10 +20,17 @@ var reporting = require('./routes/reporting');
 var rating = require('./routes/rating');
 var cuisine = require('./routes/cuisine');
 
+var socket_io = require('socket.io');
+
 
 var User = require('./model/User.js');
 
 var app = express();
+
+var io = socket_io();
+app.io = io;
+
+var socketService = require('./routes/socket')(io);
 
 var multer = require('multer');
 // view engine setup
@@ -109,6 +116,8 @@ app.use('/order', order);
 app.use('/reporting', reporting);
 app.use('/', rating);
 app.use('/', cuisine);
+
+app.use('/socket',socketService);
 
 
 var upload = multer({ //multer settings

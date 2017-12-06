@@ -4,6 +4,8 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { LocalNotifications } from '@ionic-native/local-notifications';
 
+import { SocketService } from './service/socket.service';
+
 import { HomePage } from '../pages/home/home';
 import { ListPage } from '../pages/list/list';
 import { LoginPage } from '../pages/login/login';
@@ -13,10 +15,11 @@ import { InfoPage } from '../pages/profile/info';
 import { MyCustomerPage } from '../pages/my-customer/my-customer';
 import { MyOrderPage } from '../pages/my-order/my-order';
 import { MyDriverPage } from '../pages/my-driver/my-driver';
-
 import { RatingPage } from '../pages/rating/rating';
-
 import { MyNotificationPage } from '../pages/my-notification/my-notification';
+
+
+
 
 @Component({
     templateUrl: 'app.html',
@@ -34,13 +37,15 @@ export class MyApp {
     rootPage: any = LoginPage;
     currentOwner:any;
     pages: Array<{title: string, icon:string, component: any}>;
+    orders: any;
 
     constructor(
         public alertCtrl: AlertController,
         public platform: Platform,
         public statusBar: StatusBar,
         public splashScreen: SplashScreen,
-        private localNotifications: LocalNotifications
+        private localNotifications: LocalNotifications,
+        private socketService: SocketService
         ) {
         this.initializeApp();
 
@@ -70,6 +75,8 @@ export class MyApp {
         ];
 
         this.currentOwner = JSON.parse(localStorage.getItem('currentOwner'));
+        this.orderReceivedToCustomer();
+        this.orderResponseDriverToOwner();
 
     }
 
@@ -87,7 +94,26 @@ export class MyApp {
         // we wouldn't want the back button to show in this scenario
         this.nav.setRoot(page.component);
     }
-    
+
+    orderReceivedToCustomer(){
+        this.socketService.orderReceivedToCustomer().subscribe((data) =>{
+            console.log("customer Send Order", data);
+            if(data){
+                this.orders = 1;    
+            }
+        });
+    }
+
+    orderResponseDriverToOwner(){
+        this.socketService.orderResponseDriverToOwner().subscribe((data) =>{
+            console.log("Driver response for Order", data);
+
+
+
+        });
+    }
+
+
     logout(){
         let prompt = this.alertCtrl.create({
             title: 'Logout',

@@ -13,6 +13,7 @@ var customerSchema = new Schema({
 	password: { type: String, required: true },
 	phonenumber: Number,
 	status: { type: Boolean, default: true },
+	socketId: String
 });
 
 customerSchema.plugin(passportLocalMongoose);

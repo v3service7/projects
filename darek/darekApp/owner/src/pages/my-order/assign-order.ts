@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ModalController,ToastController, LoadingController, Nav, IonicPage, NavController, NavParams,ViewController,MenuController  } from 'ionic-angular';
-import { RestaurantsService, OrderService, DriversService } from '../../app/service/index';
+import { RestaurantsService, OrderService, DriversService, SocketService } from '../../app/service/index';
 
 import { MyOrderPage } from './my-order';
 import { OrderDetailPage } from './order-detail';
@@ -26,7 +26,18 @@ import { OrderDetailPage } from './order-detail';
 	loading:any;
     driverForm: FormGroup;
     
-    constructor(public modalCtrl: ModalController,public navCtrl: NavController,public orderService: OrderService, private lf: FormBuilder, public loadingCtrl: LoadingController, public toastCtrl: ToastController,public navParams: NavParams,private restaurantsService: RestaurantsService,private driversService: DriversService) {
+    constructor(
+        public modalCtrl: ModalController,
+        public navCtrl: NavController,
+        public orderService: OrderService,
+        private lf: FormBuilder,
+        public loadingCtrl: LoadingController,
+        public toastCtrl: ToastController,
+        public navParams: NavParams,
+        private restaurantsService: RestaurantsService,
+        private driversService: DriversService,
+        public socketService : SocketService
+        ) {
  		this.selectedOrder = navParams.get('order');
          console.log(this.selectedOrder)
         this.loading = this.loadingCtrl.create({
@@ -70,6 +81,7 @@ import { OrderDetailPage } from './order-detail';
         this.orderService.getUpdate(objUpdate).subscribe(
             (data) => {
                 loading.dismiss();
+                this.socketService.orderActionbyOwnerForDriver(objUpdate);
                  this.navCtrl.pop(OrderDetailPage);
                 this.getToast('Order Assigned to Driver successfully');
             }

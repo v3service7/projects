@@ -24,6 +24,7 @@ var DriverSchema = new Schema({
     lng : String,
     orderIds : [{  type: Schema.Types.ObjectId, ref:'Order' }],
     restaurantId : {  type: Schema.Types.ObjectId, ref:'Restaurant', required: true },
+    socketId: String
 });
 
 // the schema is useless so far

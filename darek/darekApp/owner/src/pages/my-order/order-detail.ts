@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ModalController,ToastController, LoadingController,AlertController, Nav, IonicPage, NavController, NavParams,ViewController,MenuController  } from 'ionic-angular';
-import { RestaurantsService, OrderService } from '../../app/service/index';
+import { RestaurantsService, OrderService, SocketService } from '../../app/service/index';
 
 import { MyOrderPage } from './my-order';
 import { AssignOrderPage } from './assign-order';
@@ -21,7 +21,16 @@ export class OrderDetailPage {
 
 	selectedOrder:any;
     
-    constructor(public alertCtrl: AlertController, public toastCtrl: ToastController, public navCtrl: NavController, public loadingCtrl: LoadingController, public navParams: NavParams,private restaurantsService: RestaurantsService,private orderService: OrderService) {
+    constructor(
+        public socketService : SocketService,
+        public alertCtrl: AlertController,
+        public toastCtrl: ToastController,
+        public navCtrl: NavController,
+        public loadingCtrl: LoadingController,
+        public navParams: NavParams,
+        private restaurantsService: RestaurantsService,
+        private orderService: OrderService
+        ) {
         this.selectedOrder = navParams.get('item');
 
         this.getOrders();
@@ -117,6 +126,10 @@ export class OrderDetailPage {
                 /*console.log(data.message);*/
                 this.getOrderDetail(obj);
                 this.getToast('Order '+ obj.status +' successfully');
+
+                setTimeout(()=>{
+                    this.socketService.orderActionbyOwnerForCustomer(this.selectedOrder);
+                },500)
             }
         );
     }

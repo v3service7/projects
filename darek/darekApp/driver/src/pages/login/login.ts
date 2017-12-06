@@ -3,6 +3,10 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ToastController, LoadingController, Nav, IonicPage, NavController, NavParams,ViewController,MenuController  } from 'ionic-angular';
 import { AuthService } from '../../app/service/auth.service';
 
+
+import { SocketService } from '../../app/service/socket.service';
+
+
 import { MyOrderPage } from '../my-order/my-order';
 import { ForgetPasswordPage } from '../forget-password/forget-password';
 
@@ -33,7 +37,18 @@ import { ForgetPasswordPage } from '../forget-password/forget-password';
  		}        
  	};
 
- 	constructor(public nav: Nav, public loadingCtrl: LoadingController, public menuCtrl: MenuController, private lf: FormBuilder, private authService: AuthService,public toastCtrl: ToastController, public navCtrl: NavController, private viewCtrl: ViewController, public navParams: NavParams) {
+ 	constructor(
+        public socketService : SocketService,
+        public nav: Nav,
+        public loadingCtrl: LoadingController,
+        public menuCtrl: MenuController,
+        private lf: FormBuilder,
+        private authService: AuthService,
+        public toastCtrl: ToastController,
+        public navCtrl: NavController,
+        private viewCtrl: ViewController,
+        public navParams: NavParams
+        ) {
  		this.loginForm = this.lf.group({
  			email: ['', Validators.required],
  			password: ['', [Validators.required]],
@@ -54,6 +69,7 @@ import { ForgetPasswordPage } from '../forget-password/forget-password';
             (data) => {
                 loading.dismiss();
               	if (data.status) {
+                    this.socketService.assignSocketIdToDriver(data.data);
                     localStorage.setItem('currentDriver', JSON.stringify(data.data));
  					this.nav.setRoot(MyOrderPage);
                 }else{

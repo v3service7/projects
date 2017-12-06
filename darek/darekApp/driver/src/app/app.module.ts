@@ -24,8 +24,14 @@ import { ModalContentPage } from '../pages/my-order/filter-page';
 import { ChangeOrderStatusPage } from '../pages/my-order/change-order-status';
 
 
+/* Socket */
+import { SocketIoModule, SocketIoConfig } from 'ng-socket-io';
+import * as globalVariable from "./global";
+const config: SocketIoConfig = { url: globalVariable.url, options: {} };
+
+
 /*Services*/
-import {  AuthService, UsersService, RestaurantsService, OrderService, DriversService } from './service/index';
+import {  AuthService, UsersService, RestaurantsService, OrderService, DriversService, SocketService } from './service/index';
 
 /*import { LocationTrackerProvider } from '../providers/location-tracker/location-tracker';*/
 import { BackgroundGeolocation } from '@ionic-native/background-geolocation';
@@ -47,6 +53,7 @@ import { Geolocation } from '@ionic-native/geolocation';
         HttpModule,
         ReactiveFormsModule,
         IonicModule.forRoot(MyApp),
+        SocketIoModule.forRoot(config)
     ],
     bootstrap: [IonicApp],
     entryComponents: [
@@ -68,6 +75,7 @@ import { Geolocation } from '@ionic-native/geolocation';
         {provide: ErrorHandler, useClass: IonicErrorHandler},
         /*LocationTrackerProvider,*/
         BackgroundGeolocation,
+        SocketService,
         Geolocation,
     ]
 })

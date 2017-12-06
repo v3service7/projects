@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ModalController,ToastController, LoadingController, Nav, IonicPage, NavController, NavParams,ViewController,MenuController  } from 'ionic-angular';
-import { RestaurantsService, OrderService } from '../../app/service/index';
+import { RestaurantsService, OrderService, SocketService } from '../../app/service/index';
 
 import { MyOrderPage } from './my-order';
 import { ChangeOrderStatusPage } from './change-order-status';
@@ -21,7 +21,7 @@ export class OrderDetailPage {
 
 	selectedOrder:any;
     
-    constructor(public toastCtrl: ToastController, public navCtrl: NavController, public loadingCtrl: LoadingController, public navParams: NavParams,private restaurantsService: RestaurantsService,private orderService: OrderService) {
+    constructor(public socketService: SocketService, public toastCtrl: ToastController, public navCtrl: NavController, public loadingCtrl: LoadingController, public navParams: NavParams,private restaurantsService: RestaurantsService,private orderService: OrderService) {
         this.selectedOrder = navParams.get('item');
         this.getOrders();
     }
@@ -51,6 +51,7 @@ export class OrderDetailPage {
         }
         this.orderService.getUpdate(objUpdate).subscribe(
             (data) => {
+                this.getOrders();
                 loading.dismiss();
                 this.navCtrl.pop(MyOrderPage);
                 if (driverStatus == 'Accepted') {
@@ -58,6 +59,13 @@ export class OrderDetailPage {
                 }else{
                     this.getToast('Order Rejected successfully');
                 }
+
+                setTimeout(()=>{
+
+                    console.log("this.selectedOrder after updated");
+                    console.log(this.selectedOrder);
+                    this.socketService.orderActionbyDriverToOwner(this.selectedOrder);
+                },500)
             }
         );
 	}

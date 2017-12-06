@@ -32,8 +32,18 @@ import { MyNotificationPage } from '../pages/my-notification/my-notification';
 
 import { RatingPage } from '../pages/rating/rating';
 
+
+
+/* Socket */
+import { SocketIoModule, SocketIoConfig } from 'ng-socket-io';
+import * as globalVariable from "./global";
+const config: SocketIoConfig = { url: globalVariable.url, options: {} };
+
+
+
+
 /*Services*/
-import {  AuthService, UsersService, RestaurantsService, OrderService, DriversService, RatingService } from './service/index';
+import {  AuthService, UsersService,SocketService, RestaurantsService, OrderService, DriversService, RatingService } from './service/index';
 
 @NgModule({
     declarations: [
@@ -49,7 +59,8 @@ import {  AuthService, UsersService, RestaurantsService, OrderService, DriversSe
         MyOrderPage,
         OrderDetailPage,AssignOrderPage,
         MyNotificationPage,
-        RatingPage
+        RatingPage,
+
     ],
     imports: [
         BrowserModule,
@@ -58,6 +69,7 @@ import {  AuthService, UsersService, RestaurantsService, OrderService, DriversSe
         LoginPageModule,
         ReactiveFormsModule,
         IonicModule.forRoot(MyApp),
+        SocketIoModule.forRoot(config)
     ],
     bootstrap: [IonicApp],
     entryComponents: [
@@ -81,6 +93,7 @@ import {  AuthService, UsersService, RestaurantsService, OrderService, DriversSe
         RatingService,
         UsersService,
         RestaurantsService,
+        SocketService,
         OrderService,
         StatusBar,
         SplashScreen,

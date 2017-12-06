@@ -2,6 +2,9 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ToastController, LoadingController, Nav, IonicPage, NavController, NavParams,ViewController,MenuController  } from 'ionic-angular';
 import { AuthService } from '../../app/service/auth.service';
+
+import { SocketService } from '../../app/service/socket.service';
+
 import { HomePage } from '../home/home';
 import { ForgetPasswordPage } from '../forget-password/forget-password';
 
@@ -34,7 +37,7 @@ import { ForgetPasswordPage } from '../forget-password/forget-password';
  		}        
  	};
 
- 	constructor(public nav: Nav, public loadingCtrl: LoadingController, public menuCtrl: MenuController, private lf: FormBuilder, private authService: AuthService,public toastCtrl: ToastController, public navCtrl: NavController, private viewCtrl: ViewController, public navParams: NavParams) {
+ 	constructor(public nav: Nav,public socketService : SocketService, public loadingCtrl: LoadingController, public menuCtrl: MenuController, private lf: FormBuilder, private authService: AuthService,public toastCtrl: ToastController, public navCtrl: NavController, private viewCtrl: ViewController, public navParams: NavParams) {
  		this.loginForm = this.lf.group({
  			username: ['', Validators.required],
  			password: ['', [Validators.required]],
@@ -56,6 +59,7 @@ import { ForgetPasswordPage } from '../forget-password/forget-password';
                 loading.dismiss();
               	if (data.status) {
                     localStorage.setItem('currentOwner', JSON.stringify(data.data));
+                    this.socketService.assignSocketIdToOwner(data.data);
  					this.nav.setRoot(HomePage);
                 }else{
                 	this.getToast('Bad Credential');

@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ModalController,ToastController, LoadingController, Nav, NavController, NavParams,ViewController,MenuController,AlertController } from 'ionic-angular';
-import { RestaurantsService, OrderService } from '../../app/service/index';
+import { RestaurantsService, OrderService, SocketService } from '../../app/service/index';
 
 import { MyOrderPage } from './my-order';
 
@@ -28,7 +28,8 @@ export class ChangeOrderStatusPage {
         public navParams: NavParams,
         private orderService: OrderService,
         public alertCtrl: AlertController,
-        private lf: FormBuilder
+        private lf: FormBuilder,
+        public socketService: SocketService
         ) {
         this.selectedOrder = navParams.get('order');
         
@@ -71,6 +72,15 @@ export class ChangeOrderStatusPage {
                         (data) => {
                             this.getOrders();
                             this.getToast('Order Status Updated successfully');
+
+                            setTimeout(()=>{
+
+                                console.log("this.selectedOrder after updated");
+                                console.log(this.selectedOrder);
+                                this.socketService.orderActionbyDriverToOwner(this.selectedOrder);
+                            },500)
+
+
                         }
                     );
                 }
