@@ -29,6 +29,7 @@ export class FilterPage {
 	maxinch : any;
 	filterBy : any = { gender : [], online : "xyz", minage: "", maxage: "", country: [], sexualorient: [], minheight: "", maxheight: "", haircolor: [], bodyshape: [], maritalstatus: [], smoke: [], drink: [], profession: []};
 
+
 	constructor(
 		public navCtrl: NavController,
 		public nav: Nav,
@@ -36,17 +37,18 @@ export class FilterPage {
 		public customerService: CustomersService,
 		public loadingCtrl: LoadingController,
 		public alertCtrl: AlertController
-		) {
-
+		){
+		console.log("nnnnn");
+		let fltr = navParams.get('filter');
+		console.log(fltr);
 		/*let fltr = navParams.get('filter');
 
 		if (typeof fltr !== 'undefined') {
 			this.filterBy = fltr;;
 		}*/
-
 		console.log("this.filterBy");
 		console.log(this.filterBy);
-	}
+	      }
 
 
 	ionViewDidEnter() {
@@ -55,15 +57,13 @@ export class FilterPage {
 
 
 	resetFilter(){
-
 		this.filterBy = { gender : [], online : "xyz", minage: "", maxage: "", country: [], sexualorient: [], minheight: "", maxheight: "", haircolor: [], bodyshape: [], maritalstatus: [], smoke: [], drink: [], qualification:[], profession: []};
-
 		setTimeout(()=>{
 			this.navCtrl.push(TabsPage,{
 	        	filterBy : this.filterBy,
 	        })
 		},1000);
-		
+
 	  }
 
 	private getuserCountry(){

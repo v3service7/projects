@@ -389,6 +389,6 @@ export class ProfileUpdatePage {
 	}
 
 	private backToProfile(){
-		this.navCtrl.pop(ProfilePage);
+		this.navCtrl.popTo(ProfilePage);
 	}
 }
