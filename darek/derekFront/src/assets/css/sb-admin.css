@@ -576,7 +576,30 @@ fieldset{
 }
 
 
-.rightMenu .menuSetup .mainMenuItem{
+.mainMenuItem12{
+    box-shadow: 0 1px 6px rgba(0, 1, 1, .35);
+    background: white;
+    margin-top: 2%;
+    padding-top: 2%;
+    padding-bottom: 2%;
+}
+
+.mainMenuItem12:hover .icons .hovericons{
+    display: block;
+}
+
+.mainMenuItem12 .icons .hovericons{
+    display: none;
+    margin-top: 5%;
+    text-align: right;
+}
+
+.mainMenuItem12 .icons .drop{
+    float: right;
+}
+
+
+/*.rightMenu .menuSetup .mainMenuItem{
     box-shadow: 0 1px 6px rgba(0, 1, 1, .35);
     background: white;
     min-height: 80px;
@@ -586,7 +609,7 @@ fieldset{
 
 .rightMenu .menuSetup .mainMenuItem .itemDesc{
     font-size: x-large;
-}
+}*/
 
 .rightMenu .menuSetup .subMenuItem{
     margin-left: 3%;
@@ -600,6 +623,10 @@ fieldset{
 
 .rightMenu .menuSetup .subMenuItem .itemDesc{
     font-size: medium;
+}
+
+.displayFlowRoot{
+    display: flow-root;
 }
 
 .icons a{
@@ -620,6 +647,18 @@ fieldset{
     padding-top: 5px;
 }
 
+.padding3prcnt{
+    padding: 3%;
+}
+
+.marginTopBottom3prcnt{
+    margin: 3% 0;
+}
+
+.marginAuto{
+    margin: auto;
+}
+
 .margin-for-addon{
 margin-bottom: 36px;
 }
@@ -631,10 +670,10 @@ margin-bottom: 36px;
 .custom_menu_color {
     color: #5AC15E;
 }
-.custom_img_size{
+/*.custom_img_size{
     width: 50px;
     height: 50px;
-}
+}*/
 .custom_for_ms{
     border-top: 1px dotted #e2e2e2;
     width:100%;
@@ -665,6 +704,26 @@ margin-bottom: 36px;
     color: black;
 }
 
+.detailTableHeader{
+    color: white;
+    background-color:#737373;
+    min-height: 20px;
+    padding: 19px;
+}
+
+.detailTableData{
+    background: white;
+    min-height: 20px;
+    padding: 19px;
+}
+
+.paddingLeft0{
+    padding-left: 0;
+}
+
+.paddingRight0{
+    padding-right: 0;
+}
 
 .padding10px{
     padding: 10px;

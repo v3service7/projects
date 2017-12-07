@@ -1,14 +1,14 @@
 <app-headerowner></app-headerowner>
 
-<div class="rightMenu" style="margin-left: 25%;background-color: #E9E9E8;height: 585px;">
-	<div class="profile" id="Menu18">
+<div class="rightMainDiv col-lg-9 col-md-9 col-sm-9 col-xs-9 padding0 displayFlowRoot">
+	<div class="profile  col-lg-6 col-md-6 col-sm-8 col-xs-8 padding0" id="Menu18">
 		<form [formGroup]="ownerProfile" (ngSubmit)="ownerUpdate()">
-			<div class="firstDiv">
-				<span class="">My profile</span>
-				<input type="submit" class="btn" value="Next" style="float: right;" [disabled]="!ownerProfile.valid">
+			<div class="firstDiv col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0">
+				<span class="verticalAlignSub">My profile</span>
+				<input type="submit" class="btn btn-next ng-binding pull-right" value="Next" [disabled]="!ownerProfile.valid">
 			</div>
 
-			<div class="secondDiv">
+			<div class="secondDiv col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0">
 				<div class="input-group gfe-input">
 					<span class="input-group-addon">
 	    				<i class="fa fa-info" aria-hidden="true"></i>

@@ -1,6 +1,5 @@
 .topHeading{
 	text-align: center;
-	font-size:40px;
 	color: #4C4C4C;
 	background-color: #F5F4F2;
 	padding-top: 3%;
@@ -21,7 +20,7 @@
 
 
 .section1 , .section2 , .innerSection3, .innerSection4, .innerSection5{
-	padding: 6%;
+	padding: 2vw;
 }
 
 .leftOfSection1 h2{
@@ -29,40 +28,17 @@
 }
 
 .rightOfSection1{
-	margin-top: 30px;
-	padding: 0;
 	color: #737373; 
-}
-
-.rightOfSection1 div.instruction{
-	display: inline-block;
-	width: 100%;
-}
-
-.rightOfSection1 div div.col-lg-11{
-/*	border-left: 1px solid red;
-	border-right: 1px solid red;*/
 }
 
 .container-fluid{
 	color: #4C4C4C;
 	background-color: #F5F4F2;
-/*	padding-top: 3%;
-	padding-bottom: 3%;*/
 }
-
-/*.section2 .innerSection2 {
-	padding: 0 6% 0 6%;
-}*/
 
 .section2 .innerSection2 h2{
 	padding-bottom: 20px;
 }
-
-/*
-.section3{
-	padding:6%; 
-}*/
 
 .bottomBox{
 	text-align: center;
@@ -70,7 +46,11 @@
 	margin-bottom: 10%;
 }
 
-.bottomBox div div a div{
+.lineHeight2{
+	line-height: 2;
+}
+
+/*.bottomBox div div a div{
 	height: 135px;
 	display: -webkit-box;
 	display: -ms-flexbox;
@@ -86,6 +66,56 @@
 	margin: 10px 0;
 	width: 100%;
 	cursor: pointer;
+}
+*/
+
+.bottomBox .bottomImage div img{
+    height: 60px;
+}
+
+.bottomBox .bottomImage div{
+	padding: 15px;
+}
+
+@media (max-width: 991px) {
+    h2{
+    	font-size: 24px;
+    }
+
+
+	.lineHeight2{
+		line-height: 1.5;
+	}
+
+}
+
+@media (max-width: 767px) {
+    img.marginAuto{
+        width: 50%
+    }
+    .rightOfSection1{
+        margin-top: 5vh;
+    }
+
+}
+
+@media (max-width: 1199px){
+    .topHeading, .section1 , .section2 , .section3, .section4, .section5, .section6{
+    	float: left;
+    	width: 95vw;
+
+    }
+}
+
+@media (max-width: 538px){
+    .mainLegacyDiv{
+	    float: left;
+	    width: 95vw;
+    }
+
+    h2{
+    	font-size: 18px;
+    }
 }
 
 

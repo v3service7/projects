@@ -17,7 +17,7 @@ export class HeaderComponent implements OnInit {
 @Component({
   selector: 'app-headerowner',
   templateUrl: './headerowner.component.html',
-  styles: []
+  styleUrls: ['./header.component.css'],
 })
 export class HeaderownerComponent implements OnInit {
 	currentOwner:any={};

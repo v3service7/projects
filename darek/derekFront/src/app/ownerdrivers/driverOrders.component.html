@@ -1,33 +1,33 @@
 <app-headerowner></app-headerowner>
 
-<div  class="col-lg-9 col-md-9 col-sm-9 col-xs-9 minheight585" style="background-color: #E9E9E8;min-height: 585px;">
-	<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="padding: 3%">
-		<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="color: white; background-color:#737373;min-height: 20px;padding: 19px; ">
-			<div class="col-lg-1 col-md-1 col-sm-1 col-xs-1" style="text-align: center;">Order Id</div>
-			<div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">Fulfillment Time</div>
-			<div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">Payment Type</div>
-			<div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">Client</div>
-			<div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">Tip</div>
-			<div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">Total</div>
-			<div class="col-lg-1 col-md-1 col-sm-1 col-xs-1" style="text-align: center;">Driver Status</div>
-			<div class="col-lg-1 col-md-1 col-sm-1 col-xs-1" style="text-align: center;">Order Status</div>
+<div  class="col-lg-9 col-md-9 col-sm-9 col-xs-9 rightMainDiv padding0">
+	<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding5px">
+		<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 detailTableHeader">
+			<div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 paddingLeft0" style="text-align: center;">Order Id</div>
+			<div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 paddingLeft0">Fulfillment Time</div>
+			<div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 paddingLeft0">Payment Type</div>
+			<div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 paddingLeft0">Client</div>
+			<div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 paddingLeft0">Tip</div>
+			<div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 paddingLeft0">Total</div>
+			<div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 paddingLeft0">Driver Status</div>
+			<div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 paddingRight0">Order Status</div>
 			<!-- <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">Detail</div> -->
 		</div>
-		<div  *ngFor="let order of orders" class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="background: white;min-height: 20px;padding: 19px;" (click) = "orderDetail(order._id)">
-			<div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">{{order._id.substr(18,6)}}</div>
-			<div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">{{order.created_at | date :'short'}}</div>
-			<div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+		<div  *ngFor="let order of orders" class="col-lg-12 col-md-12 col-sm-12 col-xs-12 detailTableData" (click) = "orderDetail(order._id)">
+			<div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 paddingLeft0">{{order._id.substr(18,6)}}</div>
+			<div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 paddingLeft0">{{order.created_at | date :'short'}}</div>
+			<div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 paddingLeft0">
 				<div *ngIf="order.orderPayment">
 					<div *ngIf="order.orderPayment.cash">Cash</div>
 					<div *ngIf="order.orderPayment.cardpickup">Card at Delivery</div>
 					<div *ngIf="order.orderPayment.cardinternet">Card via Internet</div>
 				</div>
 			</div>
-			<div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">{{order.customerId.firstname}} {{order.customerId.lastname}}</div>
-			<div class="col-lg-1 col-md-1 col-sm-1 col-xs-1"><span *ngIf = "order.tip">{{order.tip | number : '1.2-2'}}</span><span *ngIf = "!order.tip"> - </span></div>
-			<div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">{{order.gTotal | number : '1.2-2'}}</div>
-			<div class="col-lg-1 col-md-1 col-sm-1 col-xs-1"><span *ngIf = "order.driverStatus">{{order.driverStatus}}</span></div>
-			<div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">{{order.status}}</div>
+			<div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 paddingLeft0">{{order.customerId.firstname}} {{order.customerId.lastname}}</div>
+			<div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 paddingLeft0"><span *ngIf = "order.tip">{{order.tip | number : '1.2-2'}}</span><span *ngIf = "!order.tip"> - </span></div>
+			<div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 padding0 paddingLeft0">{{order.gTotal | number : '1.2-2'}}</div>
+			<div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 paddingLeft0"><span *ngIf = "order.driverStatus">{{order.driverStatus}}</span></div>
+			<div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 paddingRight0">{{order.status}}</div>
 			<!-- <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1"><a [routerLink]="['/owner/reports/detail',order._id]">Detail</a></div> -->
 		</div>
 	</div>

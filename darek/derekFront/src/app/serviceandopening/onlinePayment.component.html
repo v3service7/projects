@@ -1,13 +1,13 @@
 <app-headerowner></app-headerowner>
 
-<div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 minheight585"  id="firstSection">
-	<div id="Menu18" class="profile col-lg-12 col-md-12 col-sm-12 col-xs-12 formatingProfile">
+<div class="rightMainDiv displayFlowRoot col-lg-9 col-md-9 col-sm-9 col-xs-9 padding0"  id="firstSection">
+	<div id="Menu18" class="profile col-lg-6 col-md-6 col-sm-8 col-xs-8 padding0">
 		<form [formGroup]="paymentConfirmModel" (ngSubmit)="acceptOnlinePayment()">
-			<div class="firstDiv col-lg-12 col-md-12 col-sm-12 col-xs-12" style="box-shadow: 0 -1px 0 #d5d5d3, inset 0 1px 0 rgba(0, 0, 0, .04);">  
-				<span class="">Online Payment</span>
-				<input type="submit" class="btn btn-next" id="submitButton" value="Next" style="float: right;" [disabled]="!paymentConfirmModel.valid" />
+			<div class="firstDiv col-lg-12 col-md-12 col-sm-12 col-xs-12">
+				<span class="verticalAlignSub">Online Payment</span>
+				<input type="submit" class="btn btn-next pull-right" id="submitButton" value="Next" [disabled]="!paymentConfirmModel.valid" />
 			</div>
-			<div class="secondDiv col-lg-12 col-md-12 col-sm-12 col-xs-12" style="box-shadow: 0 -1px 0 #d5d5d3, inset 0 1px 0 rgba(0, 0, 0, .04); border-bottom: 1px solid #d5d5d3;">   
+			<div class="secondDiv col-lg-12 col-md-12 col-sm-12 col-xs-12">   
 				<div class="col-sm-8 payment_text"> Accept online / credit card payments? </div>
 				<div class="col-sm-4">
 					<div class="input-group">
@@ -39,8 +39,8 @@
 	</div>
 </div>
 
-<div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 minheight585" id="secondSection">
-	<div id="" class="profile col-lg-12 col-md-12 col-sm-12 col-xs-12 formatingProfile">
+<div class="rightMainDiv displayFlowRoot col-lg-9 col-md-9 col-sm-9 col-xs-9 padding0" id="secondSection">
+	<div id="" class="profile col-lg-6 col-md-6 col-sm-8 col-xs-8 padding0">
 		<form>
 			<div class="firstDiv col-lg-12 col-md-12 col-sm-12 col-xs-12" style="box-shadow: 0 -1px 0 #d5d5d3, inset 0 1px 0 rgba(0, 0, 0, .04);">  
 				<input type="button" class="btn" id="backButton" value="Back" style="float: left;" (click)="goFurther('firstSection')">
@@ -110,8 +110,8 @@
 	</div>
 </div>
 
-<div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 minheight585" id="thirdSection">
-	<div id="" class="profile col-lg-12 col-md-12 col-sm-12 col-xs-12 formatingProfile">
+<div class="rightMainDiv displayFlowRoot col-lg-9 col-md-9 col-sm-9 col-xs-9 padding0" id="thirdSection">
+	<div id="" class="profile col-lg-6 col-md-6 col-sm-8 col-xs-8 padding0">
 		<form>
 			<div class="firstDiv col-lg-12 col-md-12 col-sm-12 col-xs-12" style="box-shadow: 0 -1px 0 #d5d5d3, inset 0 1px 0 rgba(0, 0, 0, .04);">  
 				<input type="button" class="btn" id="backButton" value="Back" style="float: left;" (click)="goFurther('secondSection')">
@@ -158,8 +158,8 @@
 	</div>
 </div>
 
-<div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 minheight585" id="forthSection">
-	<div class="profile col-lg-12 col-md-12 col-sm-12 col-xs-12 formatingProfile">
+<div class="rightMainDiv displayFlowRoot col-lg-9 col-md-9 col-sm-9 col-xs-9 padding0" id="forthSection">
+	<div class="profile col-lg-6 col-md-6 col-sm-8 col-xs-8 padding0">
 		
 		<form [formGroup]="billingDetailModel" (ngSubmit)="goFurther('fifthSection')">
 		
@@ -224,8 +224,8 @@
 	</div>
 </div>
 
-<div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 minheight585" id="fifthSection">
-	<div class="profile col-lg-12 col-md-12 col-sm-12 col-xs-12 formatingProfile">
+<div class="rightMainDiv displayFlowRoot col-lg-9 col-md-9 col-sm-9 col-xs-9 padding0" id="fifthSection">
+	<div class="profile col-lg-6 col-md-6 col-sm-8 col-xs-8 padding0">
 		
 		<form [formGroup]="cardDetailModel" (ngSubmit)="cardDetailSubmit('sixthSection')">
 		
@@ -286,8 +286,8 @@
 	</div>
 </div>
 
-<div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 minheight585" id="sixthSection">
-	<div class="profile col-lg-12 col-md-12 col-sm-12 col-xs-12 formatingProfile">
+<div class="rightMainDiv displayFlowRoot col-lg-9 col-md-9 col-sm-9 col-xs-9 padding0" id="sixthSection">
+	<div class="profile col-lg-6 col-md-6 col-sm-8 col-xs-8 padding0">
 		
 		<form [formGroup]="providerModel" (ngSubmit)="providerSetting()">
 		

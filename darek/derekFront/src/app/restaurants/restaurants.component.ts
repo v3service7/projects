@@ -446,6 +446,7 @@ export class OwnermailactivateComponent implements OnInit {
 @Component({
 	selector: 'app-addrestaurants',
 	templateUrl: './restaurantupdateowner.component.html',
+	styleUrls: ['./restaurantCSS.component.css'],
 	styles: ['#gmap {height: 600px; overflow:hidden;position:relative}']
 })
 export class RestaurantupdateownerComponent implements OnInit {

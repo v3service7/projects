@@ -19,7 +19,7 @@ import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
 import { AlertComponent } from './directives/index';
 
-import { AlertService, AuthService, UsersService,DriversService,RestaurantsService, PromotionsService, KitchenMenuService,KitchenItemService,MasterService,CustomersService, OrderService, CuisinesService} from './service/index';
+import { AlertService, AuthService, UsersService,DriversService,RestaurantsService, PromotionsService, KitchenMenuService,KitchenItemService,MasterService,CustomersService, OrderService, CuisinesService, SocketService} from './service/index';
 import { AuthGuard , OwnerAuthGuard} from './guards/index';
 import { DashboardComponent,DashboardprofileComponent } from './dashboard/dashboard.component';
 import { UsersComponent, UsersupdateComponent, UsersaddComponent, AdminComponent, AdminaddComponent, AdminupdateComponent} from './users/index';
@@ -38,6 +38,14 @@ import { LanguageComponent,LanguagelistComponent, LanguageaddComponent, Language
 import { FrontendHeaderComponent, FrontendComponent, FrontendDetailComponent, FrontendCartComponent, FrontendPromoDetailComponent, FrontendLoginComponent,FrontendForgetPasswordComponent,FrontendResetPasswordComponent,FrontendUserProfileComponent,FrontendChangePasswordComponent, FrontendThankuPageComponent } from './frontend/frontend.component';
 import { MarketingComponent,MarketingNavComponent,MarketingOverviewComponent,MarketingPromotionsComponent, MarketingEditPromotionComponent, MarketingPromotionsListComponent, MarketingPromotionsTemplateComponent, MarketingPromotionsSubscriptionComponent, MarketingStatsComponent } from './marketing/marketing.component';
 import { ReportingComponent,ReportingnavComponent,ReportingoverviewComponent,ReportingMethodComponent,ReportingResultComponent,ReportingTypeComponent,ReportingPaymentMethodComponent,ReportingItemsComponent,ReportingItemCategoriesComponent,ReportingClientComponent,ReportingOrderComponent,ReportingDetailComponent,ReportingSaleDetailComponent} from './reporting/reporting.component';
+
+
+/* Socket */
+import { SocketIoModule, SocketIoConfig } from 'ng-socket-io';
+import * as globalVariable from "./global";
+const config: SocketIoConfig = { url: globalVariable.url, options: {} };
+
+
 
 export function HttpLoaderFactory(http: Http) {
     return new TranslateHttpLoader(http);
@@ -84,6 +92,7 @@ export function HttpLoaderFactory(http: Http) {
     ChartsModule,
     FileUploadModule,
     //TranslateModule.forRoot(),
+    SocketIoModule.forRoot(config),
     TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
@@ -93,7 +102,7 @@ export function HttpLoaderFactory(http: Http) {
         })
   ],
   exports: [FileUploadModule],
-  providers: [AuthGuard,OwnerAuthGuard,AlertService,UsersService,AuthService,DriversService,RestaurantsService,PromotionsService, KitchenMenuService,KitchenItemService,MasterService, CustomersService, OrderService, CuisinesService],
+  providers: [AuthGuard,OwnerAuthGuard,AlertService,UsersService,AuthService,DriversService,RestaurantsService,PromotionsService, KitchenMenuService,KitchenItemService,MasterService, CustomersService, OrderService, CuisinesService, SocketService],
   bootstrap: [AppComponent]
 })
 

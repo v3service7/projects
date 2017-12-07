@@ -1,0 +1,31 @@
+/*
+
+@media (max-width: 781px) {
+	.leftMenu{
+		float: left;
+    	width: 98.5vw;
+	}
+}
+
+
+@media (min-width: 1042px) {
+	.topNav{
+		width: 98.5vw;
+	    float: left;
+	}
+}
+
+
+@media (min-width: 1042px) and (max-width: 1100px) {
+	.topNav{
+		width: 98vw;
+	    float: left;
+	}
+}
+
+@media (max-width: 1042px) {
+	.topNav{
+		width: 97vw;
+	    float: left;
+	}
+}*/

@@ -1,14 +1,12 @@
 <app-headerowner></app-headerowner>
-<div class="rightMenu1 col-lg-9 col-md-9 col-sm-9" style="background-color: #E9E9E8;height: 585px;">
-    <!-- <alert></alert> -->
-   <div class="screen screen-form js-screen-address-form ng-scope" id="Menu18" style="min-height: 0;padding: 0;">
-	   <div class="settings-panel">
-	        <form [formGroup]="restaurantAddLanguage"  (ngSubmit)="languageUpdate()">        
-    		<div class="settings-heading col-lg-12 col-md-12 col-sm-12 col-xs-12">
-	        	<span class="settings-title ng-binding">Supported languages</span>
-	            <input type="submit" class="btn btn-next ng-binding" value="Next">
+<div class="rightMainDiv col-lg-9 col-md-9 col-sm-9 col-xs-9 padding0 displayFlowRoot">
+   <div class="profile col-lg-6 col-md-6 col-sm-8 col-xs-8 padding0">
+        <form [formGroup]="restaurantAddLanguage"  (ngSubmit)="languageUpdate()">        
+			<div class="firstDiv col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0">
+	        	<span class="verticalAlignSub">Supported languages</span>
+	            <input type="submit" class="btn btn-next ng-binding pull-right" value="Next">
 	        </div>
-	        <div class="settings-content col-lg-12 col-md-12 col-sm-12 col-xs-12">
+	        <div class="secondDiv col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0">
 	        	<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 	        		<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12" *ngFor="let user of users" style="padding: 1%;">
 						<div>
@@ -17,7 +15,6 @@
 	        		</div>
 	        	</div>
 	        </div>
-	        </form>
-		</div>
+        </form>
 	</div> 
 </div>
