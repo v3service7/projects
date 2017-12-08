@@ -22,7 +22,7 @@ import { CheckoutPage } from '../pages/cart/checkout';
 import { PaymentinfoPage } from '../pages/paymentinfo/paymentinfo';
 
 
-import { RestaurantsService } from './service/index';
+import { RestaurantsService, SocketService } from './service/index';
 
 import * as globalVariable from "./global";
 
@@ -42,7 +42,8 @@ export class MyApp {
     public events: Events,
     public statusBar: StatusBar,
     public alertCtrl: AlertController,
-    public splashScreen: SplashScreen
+    public splashScreen: SplashScreen,
+     public socketService : SocketService
     ) {
     // used for an example of ngFor and navigation
       events.subscribe('user:created', (user, time) => {
@@ -60,10 +61,28 @@ export class MyApp {
         });
         this.initializeApp();
 
+        this.onReloadPage();
+        this.orderResponseReceived();
+
   }
 
     ionViewDidEnter() {
       this.initializeApp();
+    }
+
+    orderResponseReceived(){
+        this.socketService.orderResponseOwnerToCustomer().subscribe((data) =>{
+            if(localStorage.getItem('currentCustomer')){
+                console.log("orderResponseOwnerToCustomer Status", data);    
+            }
+        })    
+    }  
+
+    onReloadPage(){
+        if(localStorage.getItem('currentCustomer')){
+            var currentCustomer = JSON.parse(localStorage.getItem('currentCustomer'));
+            this.socketService.assignSocketIdToCustomer(currentCustomer);
+        }
     }
 
     initializeApp() {

@@ -128,6 +128,8 @@ export class OrderDetailPage {
                 this.getToast('Order '+ obj.status +' successfully');
 
                 setTimeout(()=>{
+                    console.log("this.selectedOrder noti");
+                    console.log(this.selectedOrder);
                     this.socketService.orderActionbyOwnerForCustomer(this.selectedOrder);
                 },500)
             }
@@ -179,8 +181,6 @@ export class OrderDetailPage {
             order: obj
         });
 	}
-
-
 
     private getToast(msg){
  		let toast = this.toastCtrl.create({

@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { ToastController, LoadingController, Nav, NavController, NavParams ,ViewController,MenuController, Events } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { CustomersService } from '../../app/service/customer.service';
+import { CustomersService, SocketService } from '../../app/service/index';
 
 import { ForgetPasswordPage } from './forgetpassword';
 import { RegisterPage } from './register';
@@ -41,6 +41,7 @@ export class LoginPage {
       private viewCtrl: ViewController,
       public toastCtrl: ToastController,
       private customerService: CustomersService,
+      private socketService: SocketService,
       public navParams: NavParams
       ){
       this.loginForm = this.lf.group({
@@ -71,6 +72,7 @@ export class LoginPage {
             if (data.status) {
                this.createUser(data.data.email)
                localStorage.setItem('currentCustomer', JSON.stringify(data.data));
+               this.socketService.assignSocketIdToCustomer(data.data);
                this.menuCtrl.enable(true);
                //this.nav.setRoot(this.previousPage);
                this.nav.setRoot(MenuPage);

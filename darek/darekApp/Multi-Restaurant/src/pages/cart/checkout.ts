@@ -102,6 +102,7 @@ export class CheckoutPage {
                     this.oMethod = true;
                     this.orderMethod = this.cartStorage['orderMethod'];
                 }
+
                 if(this.cartStorage['orderMethod']['mType'] == 'Delivery'){
                     this.orderMethodSelect = 'delivery';
                     this.del = true;
@@ -357,6 +358,7 @@ export class CheckoutPage {
 
     private orderMethodFunction(){
     	var method = this.orderMethodSelect;
+
     	if (method == 'delivery') {
     		this.del = true;
     		this.oMethod = false;
@@ -366,7 +368,7 @@ export class CheckoutPage {
             
             setTimeout(()=>{
                 this.initMap();
-            },1000)
+            },500)
             if (this.cartStorage['orderPayment']) {
                 delete this.cartStorage['orderPayment'];
                 this.orderPaymentSelect = '';
@@ -378,7 +380,9 @@ export class CheckoutPage {
 
     			this.orderTimeFunction();
     		}
-    	}else{
+    	}
+
+        if (method == 'pickup') {
     		this.del = false;
     		this.enterAddress = false;
     		this.oMethod = true;
@@ -567,6 +571,9 @@ export class CheckoutPage {
     private zoneCalculate(method){
         this.customerService.getLatLng(method).subscribe(data => {
 
+            console.log("data");
+            console.log(data);
+
             this.orderMethod = {"streetName": this.addressForm.value.streetName, "city": this.addressForm.value.city, "state": this.addressForm.value.state, "country": this.addressForm.value.country, "postcode": this.addressForm.value.postcode,"lat": data.message.lat,"lng": data.message.lng,"mType":'Delivery'};
             
             let latLng = new google.maps.LatLng(this.restaurants.lat, this.restaurants.lng);
@@ -635,6 +642,7 @@ export class CheckoutPage {
                             this.minAmount = 0;
                             this.enterAddress = false;
                             this.oMethod = true;
+                            this.cartStorage['orderMethod'] = method;
                             this.cartStorage.deliveryfee = this.deliveryFee;
                             this.cartStorage['gTotal'] = this.totalAmount + this.deliveryFee;
                         }

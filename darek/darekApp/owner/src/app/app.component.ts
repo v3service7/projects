@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { Nav, Platform, NavController,ViewController,AlertController   } from 'ionic-angular';
+import { Nav, Platform, NavController,ViewController,AlertController, Events } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { LocalNotifications } from '@ionic-native/local-notifications';
@@ -43,6 +43,7 @@ export class MyApp {
         public alertCtrl: AlertController,
         public platform: Platform,
         public statusBar: StatusBar,
+        public events: Events,
         public splashScreen: SplashScreen,
         private localNotifications: LocalNotifications,
         private socketService: SocketService
@@ -99,6 +100,7 @@ export class MyApp {
         this.socketService.orderReceivedToCustomer().subscribe((data) =>{
             console.log("customer Send Order", data);
             if(data){
+                this.events.publish('order:receivedorder', data, Date.now());
                 this.orders = 1;    
             }
         });
@@ -107,9 +109,7 @@ export class MyApp {
     orderResponseDriverToOwner(){
         this.socketService.orderResponseDriverToOwner().subscribe((data) =>{
             console.log("Driver response for Order", data);
-
-
-
+            this.events.publish('driver:receivedstatus', data, Date.now());
         });
     }
 

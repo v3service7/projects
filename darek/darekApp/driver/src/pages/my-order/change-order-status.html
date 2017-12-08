@@ -12,7 +12,7 @@
 <ion-content padding>
 
     <ion-card>
-        <ion-card-header>
+        <ion-card-header *ngIf = "selectedOrder.status != 'Completed'">
             <button ion-button full color="secondary" (click)="changeStatus()">
                 Change Order Status
             </button>

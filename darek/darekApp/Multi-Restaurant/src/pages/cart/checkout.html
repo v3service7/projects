@@ -33,7 +33,7 @@
 		<ion-row *ngIf="enterAddress" class="width100">
 			<form role="form" [formGroup]="addressForm" (ngSubmit)="saveAddressInfo()" class="width100">
 				<input type="text" class="siText" formControlName="streetName" placeholder="Enter Street Name *">
-				<input id="pac-input" type="text siText" class="siText" formControlName="city" placeholder="Enter City *">
+				<input id="pac-input" type="text" class="siText" formControlName="city" placeholder="Enter City *">
 				<input type="number" class="siText" formControlName="postcode" placeholder="Enter Postalcode *">
 				<button type="submit" class="width100 orderButton padding3 marginTop5" [disabled]="!addressForm.valid">Save</button>
 			</form>

@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { ToastController, LoadingController, Nav, NavController, NavParams ,ViewController,MenuController,AlertController} from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { RestaurantsService, PromotionsService, CustomersService } from '../../app/service/index';
+import { RestaurantsService, PromotionsService, CustomersService, SocketService } from '../../app/service/index';
 import * as globalVariable from "../../app/global";
 
 import { CheckoutPage } from './checkout';
@@ -61,7 +61,8 @@ export class CartPage {
 	    public toastCtrl: ToastController,
 	    private restaurantsService: RestaurantsService,
 	    private promotionsService: PromotionsService,
-	    private customerService: CustomersService,
+        private customerService: CustomersService,
+	    private socketService: SocketService,
 	    public alertCtrl: AlertController
 		) {
 		//this.resId = '595172e2421a472120e0db5e';
@@ -737,6 +738,9 @@ export class CartPage {
         }else{
             this.customerService.addOrder(this.cartStorage).subscribe((data) => {
                 if (data.error == false) {
+
+                    this.socketService.orderFromCustomer(data.message);
+
                     localStorage.removeItem(this.cartString);
                     localStorage.removeItem(this.subTotalString);
                     localStorage.removeItem(this.cartStorageString);

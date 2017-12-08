@@ -222,6 +222,10 @@ export class CheckoutPage {
                 }
                 this.addressForm.controls['state'].setValue(state);
                 this.addressForm.controls['country'].setValue(country);
+
+
+                console.log("this.addressForm.value in init map");
+                console.log(this.addressForm.value);
             }
         });
     }
@@ -554,6 +558,8 @@ export class CheckoutPage {
     private saveAddressInfo(){
         this.zoneObject=[];
         this.orderMethod = {"streetName": this.addressForm.value.streetName, "city": this.addressForm.value.city, "state": this.addressForm.value.state, "country": this.addressForm.value.country, "postcode": this.addressForm.value.postcode,"mType":'Delivery'};
+        console.log("this.orderMethod");
+        console.log(this.orderMethod);
         this.zoneCalculate(this.orderMethod);
     }
 
@@ -628,6 +634,7 @@ export class CheckoutPage {
                             this.minAmount = 0;
                             this.enterAddress = false;
                             this.oMethod = true;
+                            this.cartStorage['orderMethod'] = method;
                             this.cartStorage.deliveryfee = this.deliveryFee;
                             this.cartStorage['gTotal'] = this.totalAmount + this.deliveryFee;
                         }

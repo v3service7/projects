@@ -7,25 +7,25 @@ import { MyOrderPage } from './my-order';
 import { OrderDetailPage } from './order-detail';
 
 /**
- * Generated class for the MyDriverPage page.
- *
- * See http://ionicframework.com/docs/components/#navigation for more info
- * on Ionic pages and navigation.
- */
+* Generated class for the MyDriverPage page.
+*
+* See http://ionicframework.com/docs/components/#navigation for more info
+* on Ionic pages and navigation.
+*/
 
- @Component({
- 	selector: 'page-assign-order',
- 	templateUrl: 'assign-order.html',
- })
- export class AssignOrderPage {
+@Component({
+    selector: 'page-assign-order',
+    templateUrl: 'assign-order.html',
+})
+export class AssignOrderPage {
 
-	currentOwner:any={};
+    currentOwner:any={};
     restaurants:any ={};
-	selectedOrder:any ={};
-	drivers: Array<{}>;
-	loading:any;
+    selectedOrder:any ={};
+    drivers: Array<{}>;
+    loading:any;
     driverForm: FormGroup;
-    
+
     constructor(
         public modalCtrl: ModalController,
         public navCtrl: NavController,
@@ -38,16 +38,28 @@ import { OrderDetailPage } from './order-detail';
         private driversService: DriversService,
         public socketService : SocketService
         ) {
- 		this.selectedOrder = navParams.get('order');
-         console.log(this.selectedOrder)
+        this.selectedOrder = navParams.get('order');
+
+        //this.getOrders();
+
         this.loading = this.loadingCtrl.create({
             content: 'Please wait...'
         });
         this.loading.present();
-		this.currentOwner = JSON.parse(localStorage.getItem('currentOwner'));
+        this.currentOwner = JSON.parse(localStorage.getItem('currentOwner'));
         this.getDrivers(this.selectedOrder.restaurantId._id);
-       this.driverForm = this.lf.group({
-          driverId: ['', Validators.required],
+        this.driverForm = this.lf.group({
+            driverId: ['', Validators.required],
+        });
+    }
+
+    private getOrders(){
+        this.orderService.getDetail(this.selectedOrder._id).subscribe(users => {
+            this.selectedOrder = users.message;
+
+            this.socketService.orderActionbyOwnerForDriver(this.selectedOrder);
+            this.navCtrl.pop(OrderDetailPage);
+            this.getToast('Order Assigned to Driver successfully');
         });
     }
 
@@ -61,11 +73,6 @@ import { OrderDetailPage } from './order-detail';
     private driverAssign(event,driver) {
         console.log(driver);
         console.log(this.selectedOrder);
-
-        /*this.restaurantsService.getOwnerRestaurants(JSON.parse(localStorage.getItem('currentOwner'))._id).subscribe(users => {
-            this.restaurants = users.message;
-            this.getDrivers(this.restaurants._id);
-        });*/
     }
 
     doSubmit(event) {
@@ -78,49 +85,46 @@ import { OrderDetailPage } from './order-detail';
             content: 'Please wait...'
         });
         loading.present();
-        this.orderService.getUpdate(objUpdate).subscribe(
-            (data) => {
-                loading.dismiss();
-                this.socketService.orderActionbyOwnerForDriver(objUpdate);
-                 this.navCtrl.pop(OrderDetailPage);
-                this.getToast('Order Assigned to Driver successfully');
-            }
-        );
+        this.orderService.getUpdate(objUpdate).subscribe((data) => {
+            loading.dismiss();
+            this.getOrders();
+            
+        });
         /*console.log('Submitting form', objUpdate);*/
     }
 
     private getDrivers(resID){
-    	this.driversService.getRestaurantDrivers(resID).subscribe(
-    	(users) => { 
-    		this.drivers = users.message; 
-    		this.loading.dismiss();
-    	},
-        (err)=>{
-            this.loading.dismiss();
-        	this.getToast('Some thing went wrong! Try Later.');
-        });
+        this.driversService.getRestaurantDrivers(resID).subscribe(
+            (users) => { 
+                this.drivers = users.message; 
+                this.loading.dismiss();
+            },
+            (err)=>{
+                this.loading.dismiss();
+                this.getToast('Some thing went wrong! Try Later.');
+            });
     }
 
 
     private getToast(msg){
- 		let toast = this.toastCtrl.create({
-	      message: msg,
-	      duration: 3000,
-	      position:'top' //top,middle,bottom
-	    });
-	    toast.present();
- 	}
+        let toast = this.toastCtrl.create({
+            message: msg,
+            duration: 3000,
+            position:'top' //top,middle,bottom
+        });
+        toast.present();
+    }
 
 
- 	ionViewDidLoad() {
- 		console.log('ionViewDidLoad MyDriverPage');
- 	}
+    ionViewDidLoad() {
+        console.log('ionViewDidLoad MyDriverPage');
+    }
 
- 	doRefresh(refresher) {
-		setTimeout(() => {
-			this.getDrivers(this.restaurants._id);
-			refresher.complete();
-		}, 2000);
-	}
+    doRefresh(refresher) {
+        setTimeout(() => {
+            this.getDrivers(this.restaurants._id);
+            refresher.complete();
+        }, 2000);
+    }
 
- }
+}

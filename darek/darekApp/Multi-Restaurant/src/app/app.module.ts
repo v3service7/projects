@@ -47,7 +47,16 @@ import { AwaitPage } from '../pages/cart/await';
 
 import { RatingPage } from '../pages/rating/rating';
 
-import {  CustomersService, KitchenMenuService, KitchenItemService, RestaurantsService, PromotionsService, OrderService, RatingService, CuisinesService } from './service/index';
+import {  CustomersService, KitchenMenuService, KitchenItemService, RestaurantsService, PromotionsService, OrderService, RatingService, CuisinesService, SocketService } from './service/index';
+
+
+/* Socket */
+import { SocketIoModule, SocketIoConfig } from 'ng-socket-io';
+import * as globalVariable from "./global";
+const config: SocketIoConfig = { url: globalVariable.url, options: {} };
+
+
+
 
 const cloudSettings: CloudSettings = {
     'core': {
@@ -75,6 +84,7 @@ const cloudSettings: CloudSettings = {
     HttpModule,
     ReactiveFormsModule,
     IonicModule.forRoot(MyApp),
+    SocketIoModule.forRoot(config),
     CloudModule.forRoot(cloudSettings),
   ],
   bootstrap: [IonicApp],
@@ -90,7 +100,7 @@ const cloudSettings: CloudSettings = {
     MyOrderPage,OrderDetailPage
   ],
   providers: [
-    CustomersService,KitchenMenuService, KitchenItemService, RestaurantsService,PromotionsService,OrderService,RatingService, CuisinesService,
+    CustomersService,KitchenMenuService, KitchenItemService, RestaurantsService,PromotionsService,OrderService,RatingService, CuisinesService, SocketService,
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler}

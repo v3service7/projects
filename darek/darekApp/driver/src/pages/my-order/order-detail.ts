@@ -61,9 +61,6 @@ export class OrderDetailPage {
                 }
 
                 setTimeout(()=>{
-
-                    console.log("this.selectedOrder after updated");
-                    console.log(this.selectedOrder);
                     this.socketService.orderActionbyDriverToOwner(this.selectedOrder);
                 },500)
             }

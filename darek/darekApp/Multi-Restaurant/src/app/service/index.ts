@@ -12,3 +12,5 @@ export * from './order.service';
 export * from './rating.service';
 export * from './cuisine.service';
 
+export * from './socket.service';
+

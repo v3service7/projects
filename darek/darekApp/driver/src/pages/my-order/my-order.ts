@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ModalController, LoadingController, Nav, NavController, NavParams,ViewController,MenuController } from 'ionic-angular';
+import { ModalController, LoadingController, Nav, NavController, NavParams,ViewController,MenuController, Events } from 'ionic-angular';
 import { RestaurantsService, OrderService, DriversService  } from '../../app/service/index';
 
 import { OrderDetailPage } from './order-detail';
@@ -38,15 +38,26 @@ export class MyOrderPage {
         public navParams: NavParams,
         private restaurantsService: RestaurantsService,
         private orderService: OrderService,
+        public events: Events,
         public modalCtrl: ModalController
         ) {
  		/*this.loading = this.loadingCtrl.create({
             content: 'Please wait...'
         });
         this.loading.present();*/
+
+        this.getOrderAgain();
+
+
 		this.currentDriver = JSON.parse(localStorage.getItem('currentDriver'));
         /*this.getOrders();*/
         this.menuCtrl.enable(true);
+    }
+
+    getOrderAgain(){
+        this.events.subscribe('order:receivedorder', (order,time) => {
+            this.getOrders();
+        });
     }
 
     presentActionSheet() {
@@ -66,14 +77,15 @@ export class MyOrderPage {
     }
 
 	ionViewDidEnter() {
-        this.loading = this.loadingCtrl.create({
-            content: 'Please wait...'
-        });
-        this.loading.present();
         this.getOrders();
     }
 
     private getOrders(){
+        this.loading = this.loadingCtrl.create({
+            content: 'Please wait...'
+        });
+        this.loading.present();
+
         this.driversService.myOrder(JSON.parse(localStorage.getItem('currentDriver'))._id).subscribe(users => {
             this.orders = users.message;
             this.tempOrdr = users.message;

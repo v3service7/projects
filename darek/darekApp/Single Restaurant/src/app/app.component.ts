@@ -22,7 +22,7 @@ import { PaymentinfoPage } from '../pages/paymentinfo/paymentinfo';
 
 import { RatingPage } from '../pages/rating/rating';
 
-import { RestaurantsService } from './service/index';
+import { RestaurantsService, SocketService } from './service/index';
 
 import * as globalVariable from "./global";
 
@@ -44,7 +44,8 @@ export class MyApp {
         public statusBar: StatusBar,
         public alertCtrl: AlertController,
         private restaurantsService: RestaurantsService,
-        public splashScreen: SplashScreen
+        public splashScreen: SplashScreen,
+        public socketService : SocketService
         ) {
             events.subscribe('user:created', (user, time) => {
             this.pages = [];
@@ -63,6 +64,9 @@ export class MyApp {
             });
         this.initializeApp();
 
+        this.onReloadPage();
+        this.orderResponseReceived();
+
         // used for an example of ngFor and navigation
     }
 
@@ -70,6 +74,21 @@ export class MyApp {
 
         this.loadRestaurant();
         this.initializeApp();
+    }
+
+    orderResponseReceived(){
+        this.socketService.orderResponseOwnerToCustomer().subscribe((data) =>{
+            if(localStorage.getItem('currentCustomer')){
+                console.log("orderResponseOwnerToCustomer Status", data);    
+            }
+        })    
+    }  
+
+    onReloadPage(){
+        if(localStorage.getItem('currentCustomer')){
+            var currentCustomer = JSON.parse(localStorage.getItem('currentCustomer'));
+            this.socketService.assignSocketIdToCustomer(currentCustomer);
+        }
     }
 
     loadRestaurant(){

@@ -1,7 +1,9 @@
 import { Component, ViewChild } from '@angular/core';
-import { Nav, Platform, NavController,ViewController,AlertController   } from 'ionic-angular';
+import { Nav, Platform, NavController,ViewController,AlertController, Events   } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
+
+import { SocketService } from './service/socket.service';
 
 import { LoginPage } from '../pages/login/login';
 import { HomePage } from '../pages/home/home';
@@ -19,7 +21,14 @@ export class MyApp {
     currentDriver:any;
     pages: Array<{title: string, icon:string, component: any}>;
 
-    constructor(public alertCtrl: AlertController, public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen) {
+    constructor(
+        public alertCtrl: AlertController,
+        public platform: Platform,
+        public statusBar: StatusBar,
+        public events: Events,
+        public splashScreen: SplashScreen,
+        private socketService: SocketService
+        ) {
         this.initializeApp();
 
         this.pages = [
@@ -29,12 +38,21 @@ export class MyApp {
         ];
 
         this.currentDriver = JSON.parse(localStorage.getItem('currentDriver'));
+
+        this.orderReceived();
     }
 
     initializeApp() {
         this.platform.ready().then(() => {
             this.statusBar.styleDefault();
             this.splashScreen.hide();
+        });
+    }
+
+    orderReceived(){
+        this.socketService.orderFromOwnerToDriver().subscribe((data) =>{
+            console.log("owner Send Order To driver detail", data);
+            this.events.publish('order:receivedorder', data, Date.now());
         });
     }
 
