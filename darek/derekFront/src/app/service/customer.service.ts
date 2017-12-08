@@ -33,6 +33,7 @@ export class CustomersService {
 
     customerLogout(id) {
         localStorage.removeItem(id);
+        localStorage.removeItem('currentCustomer');
     }
 
     addCustomer(data){

@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewEncapsulation, Input, ElementRef,ViewContainerRef } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
-import { AlertService, RestaurantsService, UsersService, KitchenMenuService, KitchenItemService, MasterService,CustomersService,PromotionsService,OrderService} from '../service/index';
+import { AlertService, RestaurantsService, UsersService, KitchenMenuService, KitchenItemService, MasterService,CustomersService,PromotionsService,OrderService, SocketService} from '../service/index';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import * as globalVariable from "../global";
 import {TranslateService} from '@ngx-translate/core';
@@ -38,6 +38,7 @@ export class FrontendHeaderComponent implements OnInit {
         private customerService: CustomersService,
         private router: Router,
         private activatedRoute:ActivatedRoute,
+        private socketService:SocketService
         ) { }
 
     ngOnInit() {
@@ -52,9 +53,10 @@ export class FrontendHeaderComponent implements OnInit {
             this.cart = JSON.parse(localStorage.getItem(this.cartStorage));
             if (JSON.parse(localStorage.getItem(this.customerStorage))) {
                 this.currentCustomer = {};
-                this.currentCustomerId = JSON.parse(localStorage.getItem(this.customerStorage));            
+                this.currentCustomerId = JSON.parse(localStorage.getItem(this.customerStorage));
                 this.getCurrentCustomer(this.currentCustomerId);
             }
+
         });
 
         this.currentDate = new Date();
@@ -131,14 +133,23 @@ export class FrontendHeaderComponent implements OnInit {
     }
 
     private getCurrentCustomer(id){
-        this.customerService.getOneCustomer(id).subscribe(
-            users => {
+        /*if(localStorage.getItem('currentCustomer')){
+            var currentCustomer = JSON.parse(localStorage.getItem('currentCustomer'));
+            
+        }*/
+        this.customerService.getOneCustomer(id).subscribe(users => {
             this.currentCustomer = users.message;
+            this.socketService.assignSocketIdToCustomer(this.currentCustomer);
+            console.log("this.currentCustomer");
+            console.log(this.currentCustomer);
         });
     }
 
     private logout(){
-        this.customerService.customerLogout(this.customerStorage);
+        if (confirm("Logout?")) {
+            delete this.currentCustomer;
+            this.customerService.customerLogout(this.customerStorage);
+        }
     }
 
     private getRestaurants(id) {
@@ -1738,7 +1749,8 @@ export class FrontendCartComponent implements OnInit {
         private router: Router,
         private activatedRoute:ActivatedRoute,
         private translate: TranslateService,
-        private promotionsService: PromotionsService
+        private promotionsService: PromotionsService,
+        private socketService :  SocketService
         ) {
         this.showHideContactDetail = false;
         this.showHideOrderingMethod = false;
@@ -2907,6 +2919,10 @@ export class FrontendCartComponent implements OnInit {
             }else{
                 this.customerService.addOrder(this.cartDetail).subscribe((data) => {
                     if (data.error == false) {
+
+
+                        this.socketService.orderFromCustomer(data.message);
+
                         if (this.cartDetail.promotion) {
                             this.increaseCount(this.cartDetail.promotion);
                         }
@@ -3202,6 +3218,7 @@ export class FrontendLoginComponent implements OnInit {
         private alertService: AlertService,
         private restaurantsService: RestaurantsService,
         private translate: TranslateService,
+        private socketService: SocketService
         )
     {}
     ngOnInit() {
@@ -3279,6 +3296,7 @@ export class FrontendLoginComponent implements OnInit {
                     localStorage.setItem(this.customerStorage, JSON.stringify(data.data._id));
                     toastr.remove();
                     toastr.success('You are successfully Logged In!', 'Success!', {'positionClass' : 'toast-top-full-width'});
+                    this.socketService.assignSocketIdToCustomer(data.data);
                     this.router.navigate(['/frontend-cart',this.id]);
                 }
                 else{
