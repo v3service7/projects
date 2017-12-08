@@ -1,14 +1,15 @@
 import { Component, Input,OnInit, Output, EventEmitter } from '@angular/core';
-import { NavController, NavParams, Events, LoadingController } from 'ionic-angular';
+import { NavController, NavParams, Events, LoadingController, Nav } from 'ionic-angular';
 import * as globalVariable from "../../app/global";
 import { CustomersService, FriendService, SocketService } from '../../app/service/index';
+import { CustomerPage } from './customer';
+import { VideocallPage } from '../videocall/videocall';
 
 declare var OT: any;
 declare var otCore: any;
 declare var options: any;
 declare var TB: any;
 declare var OT_LayoutContainer: any;
-
 
 @Component({
 	selector: 'page-videocalldetail',
@@ -21,7 +22,7 @@ export class VideoCallOutgoingPage  implements OnInit{
     url= globalVariable;
     callsessionid : any;
     publishedUser:any ={};
-    apiKey = '45956382';
+    apiKey = '46002262';
     publisher:any;
     session:any;
     sessionOBJ:any;
@@ -34,15 +35,19 @@ export class VideoCallOutgoingPage  implements OnInit{
 		public navParams: NavParams,
 		private socketService : SocketService,
         public events: Events,
-        public loadingCtrl: LoadingController
+        public loadingCtrl: LoadingController,
+         public nav : Nav
 	) {
         this.currentcall = navParams.get('callingto');
-	}
+        console.log("ff this.currentcall", this.currentcall);
+	   }
 
 
 	ngOnInit(){		
         this.getCustomer(this.currentcall._id);
+        this.callReceivedResponse();
 	}	
+
 
     private getCustomer(id){
         this.customerService.getOneCustomer(id).subscribe((data) => {
@@ -50,15 +55,30 @@ export class VideoCallOutgoingPage  implements OnInit{
             let sessionId = this.customer.tokboxsessionid;
             let tokenId = this.customer.tokboxtoken;
             let socketId = this.customer.socketId;
-            this.initializeSession(sessionId,tokenId);
-        console.log(JSON.stringify(this.customer))
+            console.log(JSON.stringify(this.customer))
+        });
+       }
+
+  private callReceivedResponse(){
+        this.socketService.callrecivedresponse().subscribe((resp) => {
+                 console.log("callReceivedResponse", resp);
+                 if(resp["status"] == true){
+                 this.nav.setRoot(VideocallPage, {response : resp});
+                 }else{
+                 this.navCtrl.popTo(CustomerPage);
+                 }
         });
     }
 
     private videocallcancel(){
+        console.log("videocallcancel()");
         this.socketService.callcancel(this.currentcall);  
         this.currentcall = {}; 
-        this.navCtrl.pop(VideoCallOutgoingPage);
+
+        /*Hide for Error*/
+        this.navCtrl.popTo(CustomerPage);
+        // this.navCtrl.pop(CustomerPage); 
+
     } 
 
     private customerImage(img){
@@ -196,6 +216,8 @@ export class VideoCallOutgoingPage  implements OnInit{
     private disconnectcall(){
         if(this.sessionOBJ){
             this.sessionOBJ.disconnect(); 
+            
+
             // this.disconnectOther(); 
             //this.router.navigate(['customer/allprofile']);    
         }        

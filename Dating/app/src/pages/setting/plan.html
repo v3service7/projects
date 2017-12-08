@@ -1,0 +1,88 @@
+<ion-header>
+    <ion-navbar>
+        <ion-title>
+            My Plan
+        </ion-title>
+    </ion-navbar>
+</ion-header>
+
+<ion-content *ngIf = "currentCustomer">
+
+    <ion-segment [(ngModel)]="plan">
+        <ion-segment-button value="myPlan">
+            My Plan
+        </ion-segment-button>
+        <ion-segment-button value="browsePlan">
+            Browse Plan
+        </ion-segment-button>
+    </ion-segment>
+
+    <div [ngSwitch]="plan">
+        <ion-list *ngSwitchCase="'myPlan'">
+        	<ion-card class="pkg" *ngIf = "currentCustomer.mypackage">
+        		<ion-card-header text-capitalize>
+        			{{currentCustomer.mypackage.name}}<span float-right>${{currentCustomer.mypackage.price}}</span>
+        		</ion-card-header>
+        		<ion-card-content>
+        			<ion-row><strong>Description : </strong></ion-row>
+        			<ion-row><ion-col>{{currentCustomer.mypackage.description}}</ion-col></ion-row>
+        			<ion-row>
+        				<ion-col><strong>Calls : </strong></ion-col>
+        				<ion-col><strong>{{currentCustomer.mypackage.noofcalls}}</strong></ion-col>
+        			</ion-row>
+        		</ion-card-content>
+        		<!-- <span class="deletePkg" (click) = "deletePkg(currentCustomer.mypackage)">x</span> -->
+        	</ion-card>
+
+            <ion-card class="noPckg" *ngIf = "!currentCustomer.mypackage">
+        		<ion-card-content text-center>
+        			No Package
+        		</ion-card-content>
+        	</ion-card>
+
+        	<ion-row class="width90">
+        		<ion-col><b>Package History : </b></ion-col>
+        	</ion-row>
+
+        	<ion-row class="width90" *ngIf = "currentCustomer.packagesPurchased">
+	        	<ion-row class="width100">
+	        		<ion-col col-6><b>Name</b></ion-col>
+	        		<ion-col col-3><b>Calls</b></ion-col>
+	        		<ion-col col-3><b>Price</b></ion-col>
+	        	</ion-row>
+
+	        	<ion-row class="width100" *ngIf = "currentCustomer.packagesPurchased.length == 0">
+		        	<ion-col class="border" padding text-center>No History Available</ion-col>
+		        </ion-row>
+	        	
+	        	<ion-row class="width100" *ngIf = "currentCustomer.packagesPurchased.length > 0">
+		        	<ion-row class="width100" *ngFor = "let pkg of currentCustomer.packagesPurchased">
+		        		<ion-col col-6>{{pkg.name}}</ion-col>
+		        		<ion-col col-3>{{pkg.noofcalls}}</ion-col>
+		        		<ion-col col-3>${{pkg.price}}</ion-col>
+		        	</ion-row>
+		        </ion-row>
+	        </ion-row>
+        </ion-list>
+
+        <ion-list *ngSwitchCase="'browsePlan'">
+        	<ion-card *ngFor = "let pkg of packages">
+        		<ion-card-header text-capitalize>
+        			{{pkg.name}}<span float-right>${{pkg.price}}</span>
+        		</ion-card-header>
+        		<ion-card-content>
+        			<ion-row><strong>Description : </strong></ion-row>
+        			<ion-row><ion-col>{{pkg.description}}</ion-col></ion-row>
+        			<ion-row>
+        				<ion-col><strong>Calls : </strong></ion-col>
+        				<ion-col><strong>{{pkg.noofcalls}}</strong></ion-col>
+        			</ion-row>
+        			<ion-row text-center>
+        				<ion-col><button class="bcColor" (click) = "buyPackage(pkg)">Buy Now</button></ion-col>
+        			</ion-row>
+        		</ion-card-content>
+        	</ion-card>
+        </ion-list>
+
+    </div>
+</ion-content>
