@@ -64,7 +64,7 @@ export class BusinessListComponent implements OnInit {
     
     private deleteBusiness(id) {
         if(confirm("Are you sure to delete ?")) {
-            this.businessService.businessDelete(id).subscribe(data => {
+            this.businessService.businessDeleteAdmin(id).subscribe(data => {
                 if (!data.error) {
                     this._flashMessagesService.show('Business deleted Successfully', { cssClass: 'alert-success', timeout: 5000 });
                     this.getList(this.currentCustomer._id);
@@ -89,7 +89,7 @@ export class BusinessListComponent implements OnInit {
     }
 
     getList(id){
-        this.businessService.businessList(id).subscribe(
+        this.businessService.businessListAdmin(id).subscribe(
             (data) => {
                 if (!data.error) {
                     this.businesses = data.message;
@@ -117,6 +117,7 @@ export class BusinessViewComponent implements OnInit {
     currentAdmin: any = {};
     business: any = {};
     id : any;
+    imgUrl = globalVariable.imageUrl;
 
     constructor(
         private lf: FormBuilder, 
@@ -135,7 +136,7 @@ export class BusinessViewComponent implements OnInit {
     }
 
     getBusiness(id){
-        this.businessService.business(id).subscribe(
+        this.businessService.businessAdmin(id).subscribe(
             (data) => {
                 if (!data.error) {
                     this.business = data.message;
@@ -253,13 +254,13 @@ export class BusinessEditComponent implements OnInit {
             siteVisit: [''],
             noDaysRequired: [''],
 
-            passportFile: ['', Validators.required],
-            visaFile: ['', Validators.required],
-            emiRatesIdFile: ['', Validators.required],
-            tradeLicenseFile: ['', Validators.required],
-            articleAndPartnershipFile: ['', Validators.required],
-            certificateOfIncorporationFile: ['', Validators.required],
-            bankStatementFile: ['', Validators.required],
+            passportFile: [],
+            visaFile: [],
+            emiRatesIdFile: [],
+            tradeLicenseFile: [],
+            articleAndPartnershipFile: [],
+            certificateOfIncorporationFile: [],
+            bankStatementFile: [],
         });
         this.route.params.subscribe((params: Params) => {
             let id = params['id'];  
@@ -294,7 +295,7 @@ export class BusinessEditComponent implements OnInit {
     }
 
     businessUpdate(){
-        this.businessService.businessUpdate(this.businessEditForm.value).subscribe(
+        this.businessService.businessUpdateAdmin(this.businessEditForm.value).subscribe(
             (data) => {
                 if (!data.error) {
                     this._flashMessagesService.show('Business Updated Successfully', { cssClass: 'alert-success', timeout: 5000 });
@@ -327,7 +328,7 @@ export class BusinessEditComponent implements OnInit {
     }
 
     business(id){
-        this.businessService.business(id).subscribe(
+        this.businessService.businessAdmin(id).subscribe(
             (data) => {
                 if (!data.error) {
                     this.businessDetail = data.message;

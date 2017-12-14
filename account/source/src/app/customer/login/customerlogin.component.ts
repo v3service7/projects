@@ -438,6 +438,10 @@ export class CustomerAccountVerifyComponent implements OnInit {
     verify(){
         this.customerService.otpUdate(this.loginForm.value).subscribe(
             (data) => {
+                
+                this.currentCustomer.email = this.loginForm.value['email'];
+                this.currentCustomer.phonenumber = this.loginForm.value['phonenumber'];
+
                 if (!this.currentCustomer.status) {
                     this.generateEmailLink(this.currentCustomer);
                 }

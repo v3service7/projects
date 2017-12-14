@@ -25,12 +25,36 @@ export class BusinessService {
     }
 
     /*Business list of particular Customer*/
+    public businessListAdmin(id){
+        let headers = new Headers();
+        this.loadToken();
+        headers.append('Authorization', localStorage.getItem('id_token_admin'));
+        headers.append('Content-Type','application/json');
+        return this.http.get(globalVariable.url+'api/business-list/'+ id, {headers: headers})
+        .map((response: Response) => {
+            let user = response.json();
+            return user;
+        });
+    }
+
     public businessList(id){
         let headers = new Headers();
         this.loadToken();
         headers.append('Authorization', this.authToken);
         headers.append('Content-Type','application/json');
         return this.http.get(globalVariable.url+'api/business-list/'+ id, {headers: headers})
+        .map((response: Response) => {
+            let user = response.json();
+            return user;
+        });
+    }
+
+    public businessAdmin(id){
+        let headers = new Headers();
+        this.loadToken();
+        headers.append('Authorization', localStorage.getItem('id_token_admin'));
+        headers.append('Content-Type','application/json');
+        return this.http.get(globalVariable.url+'api/business/'+ id, {headers: headers})
         .map((response: Response) => {
             let user = response.json();
             return user;
@@ -72,11 +96,35 @@ export class BusinessService {
             return user;
         });
     }
+
+    public businessUpdateAdmin(data){
+        let headers = new Headers();
+        this.loadToken();
+        headers.append('Authorization', localStorage.getItem('id_token_admin'));
+        headers.append('Content-Type','application/json');
+        return this.http.put(globalVariable.url+'api/business/'+data._id, data, {headers: headers})
+        .map((response: Response) => {
+            let user = response.json();
+            return user;
+        });
+    }
     
     public businessDelete(id){
         let headers = new Headers();
         this.loadToken();
         headers.append('Authorization', this.authToken);
+        headers.append('Content-Type','application/json');
+        return this.http.delete(globalVariable.url+'api/business/'+ id, {headers: headers})
+        .map((response: Response) => {
+            let user = response.json();
+            return user;
+        });
+    }
+    
+    public businessDeleteAdmin(id){
+        let headers = new Headers();
+        this.loadToken();
+        headers.append('Authorization', localStorage.getItem('id_token_admin'));
         headers.append('Content-Type','application/json');
         return this.http.delete(globalVariable.url+'api/business/'+ id, {headers: headers})
         .map((response: Response) => {

@@ -343,13 +343,14 @@ export class CustomerBusinessDocumentComponent implements OnInit {
             noDaysRequired: [],
 
 
-            passportFile: ['', Validators.required],
-            visaFile: ['', Validators.required],
-            emiRatesIdFile: ['', Validators.required],
-            tradeLicenseFile: ['', Validators.required],
-            articleAndPartnershipFile: ['', Validators.required],
-            certificateOfIncorporationFile: ['', Validators.required],
-            bankStatementFile: ['', Validators.required],
+            passportFile: [],
+            visaFile: [],
+            emiRatesIdFile: [],
+            tradeLicenseFile: [],
+            articleAndPartnershipFile: [],
+            certificateOfIncorporationFile: [],
+            bankStatementFile: [],
+            test: ['', Validators.required],
         });
 
         let bID = 'business_'+this.currentCustomer._id
@@ -364,6 +365,7 @@ export class CustomerBusinessDocumentComponent implements OnInit {
         this.uploader.onCompleteItem = (item: any, response: any, status: any, headers: any) => {
             var responsePath = JSON.parse(response);
             console.log(fileType,responsePath.filename);
+            this.businessAddForm.controls['test'].setValue(1);
             this.businessAddForm.controls[fileType].setValue(responsePath.filename);
         };
     }
@@ -485,13 +487,13 @@ export class CustomerBusinessEditComponent implements OnInit {
             siteVisit: [''],
             noDaysRequired: [''],
 
-            passportFile: ['', Validators.required],
-            visaFile: ['', Validators.required],
-            emiRatesIdFile: ['', Validators.required],
-            tradeLicenseFile: ['', Validators.required],
-            articleAndPartnershipFile: ['', Validators.required],
-            certificateOfIncorporationFile: ['', Validators.required],
-            bankStatementFile: ['', Validators.required],
+            passportFile: [],
+            visaFile: [],
+            emiRatesIdFile: [],
+            tradeLicenseFile: [],
+            articleAndPartnershipFile: [],
+            certificateOfIncorporationFile: [],
+            bankStatementFile: [],
         });
         this.route.params.subscribe((params: Params) => {
             let id = params['id'];  

@@ -272,7 +272,7 @@ module.exports = (function() {
         var token = randomstring.generate()
         //req.body.email_token = token;
         console.log('token',token);
-        customerModel.findByIdAndUpdate(req.body._id, { email_token: token }, function(err, customer) {
+        customerModel.findByIdAndUpdate(req.body._id, { email:req.body.email,email_token: token }, function(err, customer) {
             if (err) {
                 res.json({ error: true, message: 'Unable to get data. Please Try Later!'});
             }else{
