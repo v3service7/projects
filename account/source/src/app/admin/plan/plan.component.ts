@@ -12,20 +12,12 @@ import { PlanService} from '../../service/index';
     styleUrls: ['./plan.component.css'],
 })
 export class AdminPlanComponent implements OnInit {
-    currentAdmin: any = {};
-    loginForm: FormGroup;
-    returnUrl: string;
-    err:any;
-
     constructor(
         private lf: FormBuilder, 
         private router: Router,
         private route: ActivatedRoute
         )
-    { 
-        this.currentAdmin = JSON.parse(localStorage.getItem('currentAdmin'));
-    }
-
+    {}
     ngOnInit() {}
 }
 
@@ -35,10 +27,7 @@ export class AdminPlanComponent implements OnInit {
     styleUrls: ['./plan.component.css'],
 })
 export class PlanListComponent implements OnInit {
-    currentAdmin: any = {};
-    plans: any=[];
-    returnUrl: string;
-    err:any;
+    plans: any;
 
     constructor(
         private lf: FormBuilder, 
@@ -46,23 +35,25 @@ export class PlanListComponent implements OnInit {
         private router: Router,
         private route: ActivatedRoute,
         private _flashMessagesService: FlashMessagesService
-        ){ 
-        //this.currentAdmin = JSON.parse(localStorage.getItem('currentAdmin'));
-    }
-
-    ngOnInit() {
+        ){
         this.getList()
     }
+
+    ngOnInit() {}
 
     getList(){
         this.planService.planList().subscribe(
             (data) => {
                 if (!data.error) {
                     this.plans = data.message;
+                }else{
+                    this.plans = [];
+                    this._flashMessagesService.show('Unable to load Plans!', { cssClass: 'danger-alert', timeout: 5000 });
                 }
             },
             (err)=>{
-                console.log('kfgbhj')
+                this.plans = [];
+                this._flashMessagesService.show('Server Error. Try Later!', { cssClass: 'danger-alert', timeout: 5000 });
             }
             );
     }

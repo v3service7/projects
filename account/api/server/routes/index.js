@@ -33,21 +33,20 @@ module.exports = (function() {
                 return res.json(response);
             } else {
                 console.log(customer)
-                /*var registerTime = moment(customer.created_at).format('YYYY-MM-DD HH:mm:ss');
-                var currentTime = moment().format('YYYY-MM-DD HH:mm:ss');
-                if (moment(currentTime).diff(moment(registerTime), 'days') >= 1) {
-                    response = { "error": true, "message": 'Email Activation Link Expire.' };
-                    return res.json(response);
-                } else {*/
+                if (customer) {
                     customerModel.findByIdAndUpdate(customer._id, { status: true }, function(err, customer) {
                         if (err) {
                             response = { "error": true, "message": 'Update Unsuccessful! Please Try Again' };
+                            return res.json(response);
                         } else {
                             response = { "error": false, "message": 'Your account successfully activated, please click here to login' };
+                            return res.json(response);
                         }
-                        return res.json(response);
                     });
-                /*}*/
+                }else{
+                    response = { "error": true, "message": 'Email Activation Link Expire.' };
+                    return res.json(response);
+                }
             };
         });
     });
@@ -274,7 +273,7 @@ module.exports = (function() {
         console.log('token',token);
         customerModel.findByIdAndUpdate(req.body._id, { email:req.body.email,email_token: token }, function(err, customer) {
             if (err) {
-                res.json({ error: true, message: 'Unable to get data. Please Try Later!'});
+                res.json({ error: true, message: 'Unable to Update'});
             }else{
                 emails.emailShoot(req.body.email, req.body.email, token);
                 res.json({ error: false, message: 'Email sent Successfully. Please access your Email ID to activate your account' });

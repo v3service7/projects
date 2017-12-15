@@ -14,36 +14,29 @@ import { AdminService, CustomerService, BusinessService, PlanService} from '../.
   styleUrls: ['./business.component.css'],
 })
 export class AdminBusinessComponent implements OnInit {
-    currentAdmin: any = {};
-    loginForm: FormGroup;
-    returnUrl: string;
-    err:any;
-
-      constructor(
+    constructor(
         private lf: FormBuilder, 
         private router: Router,
         private route: ActivatedRoute
-    ){ 
-          this.currentAdmin = JSON.parse(localStorage.getItem('currentAdmin'));
-      }
+    ){}
 
-      ngOnInit() {
-      }
+    ngOnInit() {
+    }
 }
 
 @Component({
-  selector: 'app-admin-business-list',
-  templateUrl: './businesslist.component.html',
-  styleUrls: ['./business.component.css'],
+    selector: 'app-admin-business-list',
+    templateUrl: './businesslist.component.html',
+    styleUrls: ['./business.component.css'],
 })
 export class BusinessListComponent implements OnInit {
     currentAdmin: any = {};
-    currentCustomer: any = {};
-    businesses: any=[];
+    currentCustomer: any;
+    businesses: any;
     returnUrl: string;
     err:any;
 
-      constructor(
+    constructor(
         private lf: FormBuilder, 
         private businessService: BusinessService,
         private adminService: AdminService,
@@ -56,8 +49,7 @@ export class BusinessListComponent implements OnInit {
 
     ngOnInit() {
         this.route.params.subscribe((params: Params) => {
-            let id = params['id'];  
-            this.getList(id);
+            let id = params['id'];
             this.customer(id);
         }); 
     }
@@ -78,11 +70,16 @@ export class BusinessListComponent implements OnInit {
     customer(id){
         this.adminService.customer(id).subscribe(
             (data) => {
-              if (!data.error) {
-                  this.currentCustomer = data.message;
+                if (!data.error) {
+                    this.currentCustomer = data.message;
+                    this.getList(id);
+                }else{
+                    this._flashMessagesService.show('Unable to load Customer', { cssClass: 'danger-alert', timeout: 5000 });
+
                 }
             },
             (err)=>{
+                this._flashMessagesService.show('Network/ Server Issue. Please Try Again!', { cssClass: 'alert-success', timeout: 5000 });
                 console.log('kfgbhj')
             }
         );
@@ -93,12 +90,14 @@ export class BusinessListComponent implements OnInit {
             (data) => {
                 if (!data.error) {
                     this.businesses = data.message;
-                    console.log("this.businesses");
-                    console.log(this.businesses);
+                }else{
+                    this.businesses = [];
+                    this._flashMessagesService.show('Unable to load Business!', { cssClass: 'danger-alert', timeout: 5000 });
                 }
             },
             (err)=>{
-                console.log('kfgbhj')
+                this.businesses = [];
+                this._flashMessagesService.show('Server Error. Please Try Later!', { cssClass: 'danger-alert', timeout: 5000 });
             }
         );
     }
@@ -115,7 +114,7 @@ export class BusinessListComponent implements OnInit {
 })
 export class BusinessViewComponent implements OnInit {
     currentAdmin: any = {};
-    business: any = {};
+    business: any;
     id : any;
     imgUrl = globalVariable.imageUrl;
 
@@ -123,7 +122,8 @@ export class BusinessViewComponent implements OnInit {
         private lf: FormBuilder, 
         private router: Router,
         private businessService: BusinessService,
-        private route: ActivatedRoute
+        private route: ActivatedRoute,
+        private _flashMessagesService: FlashMessagesService
     ){ 
         this.currentAdmin = JSON.parse(localStorage.getItem('currentAdmin'));
     }
@@ -140,16 +140,18 @@ export class BusinessViewComponent implements OnInit {
             (data) => {
                 if (!data.error) {
                     this.business = data.message;
+                }else{
+                    this._flashMessagesService.show('Unable to load Business!', { cssClass: 'danger-alert', timeout: 5000 });
                 }
             },
             (err)=>{
-                console.log('kfgbhj')
+                this._flashMessagesService.show('Internet/Server Issue! Please Try Later.', { cssClass: 'danger-alert', timeout: 5000 });
             }
         );
     }
 
     goToBusinessList(){
-        this.router.navigate(['/admin/business',this.id]);
+        this.router.navigate(['/admin/business',this.business.ownerId]);
     }
 }
 
@@ -254,9 +256,9 @@ export class BusinessEditComponent implements OnInit {
             siteVisit: [''],
             noDaysRequired: [''],
 
-            passportFile: [],
-            visaFile: [],
-            emiRatesIdFile: [],
+            passportFile: ['', Validators.required],
+            visaFile: ['', Validators.required],
+            emiRatesIdFile: ['', Validators.required],
             tradeLicenseFile: [],
             articleAndPartnershipFile: [],
             certificateOfIncorporationFile: [],

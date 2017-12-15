@@ -1,4 +1,4 @@
-<div class="card card-nav-tabs">
+<div class="card card-nav-tabs" *ngIf = "currentCustomer">
     <div class="card-header brandingColor">
         <div class="nav-tabs-navigation">
             <div class="nav-tabs-wrapper">
@@ -11,8 +11,8 @@
             </div>
         </div>
     </div>
-    <div class="card-content table-responsive">
-        <table class="table" *ngIf="businesses.length >0">
+    <div class="card-content table-responsive" *ngIf = "businesses">
+        <table class="table" *ngIf="businesses.length > 0">
             <thead class="text-warning">
                 <th>Name</th>
                 <th>Type of Organisation</th>
@@ -23,13 +23,13 @@
                     <td class="padding0">{{bsns.businessName}}</td>
                     <td class="padding0">{{bsns.typeOfOrg}}</td>
                     <td class="padding0 td-actions text-right">
-                        <a [routerLink]="['/admin/business/view',bsns._id]" rel="tooltip" title="Business Detail" class="btn btn-primary btn-simple btn-xs">
+                        <a [routerLink]="['/admin/business/view',bsns._id]" rel="tooltip" title="view" class="btn btn-primary btn-simple btn-xs">
                             <i class="material-icons">business</i>
                         </a>
-                        <a [routerLink]="['/admin/business/edit',bsns._id]" rel="tooltip" title="Edit Task" class="btn btn-primary btn-simple btn-xs">
+                        <a [routerLink]="['/admin/business/edit',bsns._id]" rel="tooltip" title="edit" class="btn btn-primary btn-simple btn-xs">
                             <i class="material-icons">edit</i>
                         </a>
-                        <a rel="tooltip" title="Remove" class="btn btn-danger btn-simple btn-xs" (click)="deleteBusiness(bsns._id)">
+                        <a rel="tooltip" title="remove" class="btn btn-danger btn-simple btn-xs" (click)="deleteBusiness(bsns._id)">
                             <i class="material-icons">close</i>
                         </a>
                     </td>

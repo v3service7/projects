@@ -15,19 +15,12 @@ import { CustomerService, BusinessService, PlanService} from '../../service/inde
   styleUrls: ['./business.component.css'],
 })
 export class CustomerBusinessComponent implements OnInit {
-    currentCustomer: any = {};
-    loginForm: FormGroup;
-    returnUrl: string;
-    err:any;
 
     constructor(
         private lf: FormBuilder, 
         private router: Router,
         private route: ActivatedRoute
-    ){ 
-        this.currentCustomer = JSON.parse(localStorage.getItem('currentCustomer'));
-    }
-
+    ){}
     ngOnInit() {}
 }
 
@@ -38,11 +31,11 @@ export class CustomerBusinessComponent implements OnInit {
 })
 export class CustomerBusinessListComponent implements OnInit {
     currentCustomer: any = {};
-    businesses: any=[];
+    businesses: any;
     returnUrl: string;
     err:any;
 
-      constructor(
+    constructor(
         private lf: FormBuilder, 
         private businessService: BusinessService,
         private customerService: CustomerService,
@@ -76,12 +69,16 @@ export class CustomerBusinessListComponent implements OnInit {
     getList(id){
         this.businessService.businessList(id).subscribe(
             (data) => {
-              if (!data.error) {
-                     this.businesses = data.message
+                if (!data.error) {
+                    this.businesses = data.message;
+                }else{
+                    this.businesses = [];
+                    this._flashMessagesService.show('Unable to load Business!', { cssClass: 'danger-alert', timeout: 5000 });
                 }
             },
             (err)=>{
-                console.log('kfgbhj')
+                this.businesses = [];
+                this._flashMessagesService.show('Server Error. Try Later!', { cssClass: 'danger-alert', timeout: 5000 });
             }
         );
     }
@@ -343,14 +340,14 @@ export class CustomerBusinessDocumentComponent implements OnInit {
             noDaysRequired: [],
 
 
-            passportFile: [],
-            visaFile: [],
-            emiRatesIdFile: [],
+            passportFile: ['', Validators.required],
+            visaFile: ['', Validators.required],
+            emiRatesIdFile: ['', Validators.required],
             tradeLicenseFile: [],
             articleAndPartnershipFile: [],
             certificateOfIncorporationFile: [],
             bankStatementFile: [],
-            test: ['', Validators.required],
+            /*test: ['', Validators.required],*/
         });
 
         let bID = 'business_'+this.currentCustomer._id
@@ -365,7 +362,7 @@ export class CustomerBusinessDocumentComponent implements OnInit {
         this.uploader.onCompleteItem = (item: any, response: any, status: any, headers: any) => {
             var responsePath = JSON.parse(response);
             console.log(fileType,responsePath.filename);
-            this.businessAddForm.controls['test'].setValue(1);
+            /*this.businessAddForm.controls['test'].setValue(1);*/
             this.businessAddForm.controls[fileType].setValue(responsePath.filename);
         };
     }
@@ -487,9 +484,9 @@ export class CustomerBusinessEditComponent implements OnInit {
             siteVisit: [''],
             noDaysRequired: [''],
 
-            passportFile: [],
-            visaFile: [],
-            emiRatesIdFile: [],
+            passportFile: ['', Validators.required],
+            visaFile: ['', Validators.required],
+            emiRatesIdFile: ['', Validators.required],
             tradeLicenseFile: [],
             articleAndPartnershipFile: [],
             certificateOfIncorporationFile: [],

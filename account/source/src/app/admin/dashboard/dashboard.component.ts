@@ -13,9 +13,9 @@ import { AdminService, CustomerService, StaffService, PlanService} from '../../s
 })
 export class DashboardComponent implements OnInit {
     currentAdmin: any = {};
-    staffs: any = [];
-    plans: any = [];
-    customers: any = [];
+    staffs: any;
+    plans: any;
+    customers: any;
     loginForm: FormGroup;
     returnUrl: string;
     err:any;
@@ -42,10 +42,13 @@ export class DashboardComponent implements OnInit {
         this.adminService.customerList().subscribe(
             (data) => {
                 if (!data.error) {
-                    this.customers = data.message
+                    this.customers = data.message;
+                }else{
+                    this.customers = [];
                 }
             },
             (err)=>{
+                this.customers = [];
                 console.log('kfgbhj')
             }
         );
@@ -55,10 +58,13 @@ export class DashboardComponent implements OnInit {
         this.adminService.staffList().subscribe(
             (data) => {
                 if (!data.error) {
-                    this.staffs = data.message
+                    this.staffs = data.message;
+                }else{
+                    this.staffs = [];
                 }
             },
             (err)=>{
+                this.staffs = [];
                 console.log('kfgbhj')
             }
         );
@@ -68,10 +74,13 @@ export class DashboardComponent implements OnInit {
         this.planService.planList().subscribe(
             (data) => {
                 if (!data.error) {
-                    this.plans = data.message
+                    this.plans = data.message;
+                }else{
+                    this.plans = [];
                 }
             },
             (err)=>{
+                this.plans = [];
                 console.log('kfgbhj')
             }
         );
@@ -88,10 +97,8 @@ export class AdminProfileComponent implements OnInit {
 	err = '';
     customerAddForm: FormGroup;
 	cpForm: FormGroup;
-    passwordRegex = /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,16}$/;
-    phoneRegx = /^[0-9]*$/
-    passwordp : any = '';
-    newo : any = false;
+    passwordRegex = /^(?=.*[0-9])[a-zA-Z0-9!@#$%^&*]{6,16}$/;
+    phoneRegx = /^[0-9]*$/;
     MutchPassword : any = false;
 
     formErrors = {
@@ -120,7 +127,7 @@ export class AdminProfileComponent implements OnInit {
     cpValidationMessages = {
         'newpassword' : {
             'required':    'Password is required.',
-            'pattern' :    'Please enter at least one letter, number and a special character',
+            'pattern' :    'Please enter at least one letter and a number',
             'minlength':    'Password should contain 6 characters',
         }  
     }

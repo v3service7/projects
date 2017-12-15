@@ -13,12 +13,7 @@ import { CustomerService, BusinessService} from '../../service/index';
 })
 export class CustomerDashboardComponent implements OnInit {
     currentCustomer: any = {};
-    staffs: any = [];
-    plans: any = [];
-    business: any = [];
-    loginForm: FormGroup;
-    returnUrl: string;
-    err:any;
+    business: any;
 
       constructor(
         private lf: FormBuilder, 
@@ -28,16 +23,18 @@ export class CustomerDashboardComponent implements OnInit {
         private route: ActivatedRoute
     ){ 
         this.currentCustomer = JSON.parse(localStorage.getItem('currentCustomer'));
+        this.getBusinessList();
       }
 
     ngOnInit() {
-        this.getBusinessList();
     }
 
     getBusinessList(){
         this.businessService.businessList(this.currentCustomer._id).subscribe((bsns)=>{
             if (!bsns.error) {
                 this.business = bsns.message;
+            }else{
+                this.business  = [];
             }
         });
     }
@@ -50,14 +47,11 @@ export class CustomerDashboardComponent implements OnInit {
 })
 export class CustomerProfileComponent implements OnInit {
     currentCustomer: any = {};
-	err = '';
     customerAddForm: FormGroup;
 	cpForm: FormGroup;
-    passwordRegex = /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,16}$/;
+    passwordRegex = /^(?=.*[0-9])[a-zA-Z0-9!@#$%^&*]{6,16}$/;
     phoneRegex = /^[(]{0,1}[2-9]{1}[0-9]{1,2}[)]{0,1}[-\s\.]{0,1}[0-9]{2}[-\s\.]{0,1}[0-9]{7}$/;
     passwordp : any = '';
-    newo : any = false;
-    MutchPassword : any = false;
 
     formErrors = {
         'firstname': '',
@@ -88,7 +82,7 @@ export class CustomerProfileComponent implements OnInit {
     cpValidationMessages = {
         'newpassword' : {
             'required':    'Password is required.',
-            'pattern' :    'Please enter at least one letter, number and a special character',
+            'pattern' :    'Please enter at least one letter and a number',
             'minlength':   'Password should contain 6 characters',
         }
     }

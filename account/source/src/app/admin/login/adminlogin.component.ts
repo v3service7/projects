@@ -149,7 +149,7 @@ export class AdminResetPasswordComponent implements OnInit {
     resetPassForm: FormGroup;
     id : any;
     err = '';
-    passwordRegex = /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,16}$/;
+    passwordRegex = /^(?=.*[0-9])[a-zA-Z0-9!@#$%^&*]{6,16}$/;
 
     formErrors = {
         'password' : '',
@@ -159,12 +159,12 @@ export class AdminResetPasswordComponent implements OnInit {
     validationMessages = {
         'password' : {
             'required':    'Password is required.',
-            'pattern' :    'Please enter at least one letter, number and a special character',
+            'pattern' :    'Please enter at least one letter and a number',
             'minlength':   'Password should contain 6 characters',
         },
         'newpassword' : {
             'required':    'Password is required.',
-            'pattern' :    'Please enter at least one letter, number and a special character',
+            'pattern' :    'Please enter at least one letter and a number',
             'minlength':   'Password should contain 6 characters',
         }
     };
