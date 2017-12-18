@@ -32,12 +32,14 @@
     "cordova-ios": "4.5.3",
     "cordova-plugin-background-mode": "^0.7.2",
     "cordova-plugin-badge": "^0.8.5",
+    "cordova-plugin-console": "^1.0.5",
     "cordova-plugin-device": "^1.1.4",
     "cordova-plugin-geolocation": "^3.0.0",
     "cordova-plugin-ionic-webview": "^1.1.16",
     "cordova-plugin-local-notification": "^0.9.0-beta.1",
     "cordova-plugin-mauron85-background-geolocation": "^2.3.3",
     "cordova-plugin-splashscreen": "^4.0.3",
+    "cordova-plugin-statusbar": "^2.2.2",
     "cordova-plugin-whitelist": "^1.3.1",
     "ionic-angular": "3.8.0",
     "ionic-plugin-keyboard": "^2.2.1",
@@ -64,7 +66,9 @@
         "ALWAYS_USAGE_DESCRIPTION": "This app always requires location tracking"
       },
       "cordova-plugin-local-notification": {},
-      "cordova-plugin-background-mode": {}
+      "cordova-plugin-background-mode": {},
+      "cordova-plugin-console": {},
+      "cordova-plugin-statusbar": {}
     },
     "platforms": [
       "ios",

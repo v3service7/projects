@@ -72,7 +72,7 @@ export class LoginPage {
             if (data.status) {
                this.createUser(data.data.email)
                localStorage.setItem('currentCustomer', JSON.stringify(data.data));
-               this.socketService.assignSocketIdToCustomer(data.data);
+               //this.socketService.assignSocketIdToCustomer(data.data);
                this.menuCtrl.enable(true);
                //this.nav.setRoot(this.previousPage);
                this.nav.setRoot(RestaurantPage);

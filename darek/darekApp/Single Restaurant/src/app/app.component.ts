@@ -68,7 +68,7 @@ export class MyApp {
             });
         this.initializeApp();
 
-        this.onReloadPage();
+        //this.onReloadPage();
         this.orderResponseReceived();
 
         // used for an example of ngFor and navigation
@@ -80,31 +80,30 @@ export class MyApp {
         this.initializeApp();
     }
 
-    pushNot(){
+    pushNot(status){
         this.platform.ready().then(() => {
             this.localNotifications.schedule({
                 id:1,
                 title:'Order Status',
-                text: 'your order is accepted successfully'
+                text: 'Your Order is '+ status
             });
         });
     }
 
     orderResponseReceived(){
         this.socketService.orderResponseOwnerToCustomer().subscribe((data) =>{
-            if(localStorage.getItem('currentCustomer')){
-                this.pushNot()
-                console.log("orderResponseOwnerToCustomer Status", data);    
+            if((data) && (data['status']['customerId']['_id'] == this.currentCustomer['_id'])){
+                this.pushNot(data['status']['status']);
             }
         })    
     }  
 
-    onReloadPage(){
+    /*onReloadPage(){
         if(localStorage.getItem('currentCustomer')){
             var currentCustomer = JSON.parse(localStorage.getItem('currentCustomer'));
             this.socketService.assignSocketIdToCustomer(currentCustomer);
         }
-    }
+    }*/
 
     loadRestaurant(){
         this.restaurantsService.getOne(this.resID).subscribe(users => {

@@ -46,12 +46,12 @@ export class MyApp {
         this.orderReceived();
     }
 
-    pushNot(){
+    pushNot(title){
         this.platform.ready().then(() => {
             this.localNotifications.schedule({
                 id:1,
-                title:'Order Invetation',
-                text: 'owner Send Order To you'
+                title:title,
+                text: 'Order Received'
             });
         });
     }
@@ -71,9 +71,11 @@ export class MyApp {
 
     orderReceived(){
         this.socketService.orderFromOwnerToDriver().subscribe((data) =>{
-            this.pushNot();
-            console.log("owner Send Order To driver detail", data);
-            this.events.publish('order:receivedorder', data, Date.now());
+            if((data) && (data['driverdetail']['driverId']['_id'] == this.currentDriver['_id'])){
+                this.pushNot(data['driverdetail']['restaurantId']['name']);
+                console.log("owner Send Order To driver detail", data);
+                this.events.publish('order:receivedorder', data, Date.now());
+            }
         });
     }
 
