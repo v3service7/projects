@@ -65,8 +65,6 @@ export class MyOrderPage {
     ionViewDidEnter() {
         this.currentOwner = JSON.parse(localStorage.getItem('currentOwner'));
         this.getRestaurants();
-
-       
     }
 
     ionViewDidLoad() {

@@ -2,6 +2,8 @@ import { Component, ViewChild } from '@angular/core';
 import { Nav, Platform, NavController,ViewController,AlertController, Events } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
+import { BackgroundMode } from '@ionic-native/background-mode';
+import { LocalNotifications } from '@ionic-native/local-notifications';
 
 import { LoginPage } from '../pages/login/login';
 
@@ -45,7 +47,9 @@ export class MyApp {
         public alertCtrl: AlertController,
         private restaurantsService: RestaurantsService,
         public splashScreen: SplashScreen,
-        public socketService : SocketService
+        public socketService : SocketService,
+        public localNotifications: LocalNotifications,
+        public backgroundMode: BackgroundMode
         ) {
             events.subscribe('user:created', (user, time) => {
             this.pages = [];
@@ -76,9 +80,20 @@ export class MyApp {
         this.initializeApp();
     }
 
+    pushNot(){
+        this.platform.ready().then(() => {
+            this.localNotifications.schedule({
+                id:1,
+                title:'Order Status',
+                text: 'your order is accepted successfully'
+            });
+        });
+    }
+
     orderResponseReceived(){
         this.socketService.orderResponseOwnerToCustomer().subscribe((data) =>{
             if(localStorage.getItem('currentCustomer')){
+                this.pushNot()
                 console.log("orderResponseOwnerToCustomer Status", data);    
             }
         })    
@@ -100,6 +115,8 @@ export class MyApp {
         });
     }
 
+    
+
     initializeApp() {
         this.pages = [
             { iconA : 'flame' , iconI : 'ios-flame' , iconW : 'md-flame' , title: 'Hot Deals', component: PromotionPage },
@@ -117,6 +134,12 @@ export class MyApp {
             // Okay, so the platform is ready and our plugins are available.
             this.statusBar.styleDefault();
             this.splashScreen.hide();
+            this.backgroundMode.enable();
+            // if(localStorage.getItem("currentCustomer")){
+            //     this.rootPage = MenuPage;
+            // }else{
+            //     this.rootPage = LoginPage;
+            // }
         });
     }
 

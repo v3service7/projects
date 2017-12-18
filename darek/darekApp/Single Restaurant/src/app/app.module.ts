@@ -4,6 +4,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { IonicApp, IonicErrorHandler, IonicModule, Nav, Platform, NavController,ViewController,AlertController } from 'ionic-angular';
 import { CloudSettings, CloudModule } from '@ionic/cloud-angular';
+import { BackgroundMode } from '@ionic-native/background-mode';
+import { LocalNotifications } from '@ionic-native/local-notifications';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -102,6 +104,8 @@ const cloudSettings: CloudSettings = {
         CustomersService,KitchenMenuService, KitchenItemService, RestaurantsService,PromotionsService,OrderService, RatingService,SocketService,
         StatusBar,
         SplashScreen,
+        BackgroundMode,
+        LocalNotifications,
         {provide: ErrorHandler, useClass: IonicErrorHandler}
     ]
 })

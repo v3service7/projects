@@ -2,6 +2,7 @@ import { Component, ViewChild } from '@angular/core';
 import { Nav, Platform, NavController,ViewController,AlertController, Events } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
+import { BackgroundMode } from '@ionic-native/background-mode';
 import { LocalNotifications } from '@ionic-native/local-notifications';
 
 import { SocketService } from './service/socket.service';
@@ -34,7 +35,7 @@ export class MyApp {
     @ViewChild(Nav) nav: Nav;
 
     /*rootPage: any = MyDriverPage;*/
-    rootPage: any = LoginPage;
+    rootPage: any ;
     currentOwner:any;
     pages: Array<{title: string, icon:string, component: any}>;
     orders: any;
@@ -46,7 +47,8 @@ export class MyApp {
         public events: Events,
         public splashScreen: SplashScreen,
         private localNotifications: LocalNotifications,
-        private socketService: SocketService
+        private socketService: SocketService,
+        public backgroundMode: BackgroundMode
         ) {
         this.initializeApp();
 
@@ -87,6 +89,22 @@ export class MyApp {
             // Here you can do any higher level native things you might need.
             this.statusBar.styleDefault();
             this.splashScreen.hide();
+            this.backgroundMode.enable();
+            if(localStorage.getItem("currentOwner")){
+                this.rootPage = HomePage;
+            }else{
+                this.rootPage = LoginPage;
+            }
+        });
+    }
+
+    pushNot(title,text){
+        this.platform.ready().then(() => {
+            this.localNotifications.schedule({
+                id:1,
+                title:title,
+                text: text
+            });
         });
     }
 
@@ -99,7 +117,9 @@ export class MyApp {
     orderReceivedToCustomer(){
         this.socketService.orderReceivedToCustomer().subscribe((data) =>{
             console.log("customer Send Order", data);
+            
             if(data){
+                this.pushNot('Order recieved','one new order revived');
                 this.events.publish('order:receivedorder', data, Date.now());
                 this.orders = 1;    
             }
@@ -109,6 +129,7 @@ export class MyApp {
     orderResponseDriverToOwner(){
         this.socketService.orderResponseDriverToOwner().subscribe((data) =>{
             console.log("Driver response for Order", data);
+            this.pushNot('Driver response','Driver send response');
             this.events.publish('driver:receivedstatus', data, Date.now());
         });
     }

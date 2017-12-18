@@ -2,6 +2,8 @@ import { Component, ViewChild } from '@angular/core';
 import { Nav, Platform, NavController,ViewController,AlertController, Events } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
+import { BackgroundMode } from '@ionic-native/background-mode';
+import { LocalNotifications } from '@ionic-native/local-notifications';
 
 import { RestaurantPage } from '../pages/restaurant/restaurant';
 import { LoginPage } from '../pages/login/login';
@@ -43,7 +45,9 @@ export class MyApp {
     public statusBar: StatusBar,
     public alertCtrl: AlertController,
     public splashScreen: SplashScreen,
-     public socketService : SocketService
+     public socketService : SocketService,
+        public localNotifications: LocalNotifications,
+        public backgroundMode: BackgroundMode
     ) {
     // used for an example of ngFor and navigation
       events.subscribe('user:created', (user, time) => {
@@ -73,10 +77,20 @@ export class MyApp {
     orderResponseReceived(){
         this.socketService.orderResponseOwnerToCustomer().subscribe((data) =>{
             if(localStorage.getItem('currentCustomer')){
-                console.log("orderResponseOwnerToCustomer Status", data);    
+              this.pushNot()
+              console.log("orderResponseOwnerToCustomer Status", data);    
             }
         })    
     }  
+    pushNot(){
+        this.platform.ready().then(() => {
+            this.localNotifications.schedule({
+                id:1,
+                title:'Order Status',
+                text: 'your order is accepted successfully'
+            });
+        });
+    }
 
     onReloadPage(){
         if(localStorage.getItem('currentCustomer')){
@@ -96,6 +110,12 @@ export class MyApp {
         this.platform.ready().then(() => {
             this.statusBar.styleDefault();
             this.splashScreen.hide();
+            this.backgroundMode.enable();
+            // if(localStorage.getItem("currentCustomer")){
+            //     this.rootPage = MyOrderPage;
+            // }else{
+            //     this.rootPage = LoginPage;
+            // }
         });
     }
 

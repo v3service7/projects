@@ -17,7 +17,7 @@ export class SocketService {
 		if(this.socket.ioSocket.id){
 			var sid = this.socket.ioSocket.id;
 			data["socketId"] = sid;
-			console.log("owner",data );			          
+			console.log("owner",data );
 			localStorage.setItem('currentOwner', JSON.stringify(data));
 			this.socket.emit('assignSocketIdToOwner', data);
 		}

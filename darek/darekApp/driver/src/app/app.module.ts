@@ -3,6 +3,8 @@ import { ErrorHandler, NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
+import { BackgroundMode } from '@ionic-native/background-mode';
+import { LocalNotifications } from '@ionic-native/local-notifications';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -73,6 +75,8 @@ import { Geolocation } from '@ionic-native/geolocation';
         StatusBar,
         SplashScreen,
         {provide: ErrorHandler, useClass: IonicErrorHandler},
+        BackgroundMode,
+        LocalNotifications,
         /*LocationTrackerProvider,*/
         BackgroundGeolocation,
         SocketService,

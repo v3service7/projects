@@ -2,6 +2,8 @@ import { Component, ViewChild } from '@angular/core';
 import { Nav, Platform, NavController,ViewController,AlertController, Events   } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
+import { BackgroundMode } from '@ionic-native/background-mode';
+import { LocalNotifications } from '@ionic-native/local-notifications';
 
 import { SocketService } from './service/socket.service';
 
@@ -27,7 +29,9 @@ export class MyApp {
         public statusBar: StatusBar,
         public events: Events,
         public splashScreen: SplashScreen,
-        private socketService: SocketService
+        private socketService: SocketService,
+        public localNotifications: LocalNotifications,
+        public backgroundMode: BackgroundMode
         ) {
         this.initializeApp();
 
@@ -42,15 +46,32 @@ export class MyApp {
         this.orderReceived();
     }
 
+    pushNot(){
+        this.platform.ready().then(() => {
+            this.localNotifications.schedule({
+                id:1,
+                title:'Order Invetation',
+                text: 'owner Send Order To you'
+            });
+        });
+    }
+
     initializeApp() {
         this.platform.ready().then(() => {
             this.statusBar.styleDefault();
             this.splashScreen.hide();
+            this.backgroundMode.enable();
+            if(localStorage.getItem("currentDriver")){
+                this.rootPage = MyOrderPage;
+            }else{
+                this.rootPage = LoginPage;
+            }
         });
     }
 
     orderReceived(){
         this.socketService.orderFromOwnerToDriver().subscribe((data) =>{
+            this.pushNot();
             console.log("owner Send Order To driver detail", data);
             this.events.publish('order:receivedorder', data, Date.now());
         });

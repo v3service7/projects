@@ -6,6 +6,7 @@ import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
+import { BackgroundMode } from '@ionic-native/background-mode';
 import { LocalNotifications } from '@ionic-native/local-notifications';
 
 import { MyApp } from './app.component';
@@ -97,6 +98,7 @@ import {  AuthService, UsersService,SocketService, RestaurantsService, OrderServ
         OrderService,
         StatusBar,
         SplashScreen,
+        BackgroundMode,
         LocalNotifications,
         {provide: ErrorHandler, useClass: IonicErrorHandler}
     ]
