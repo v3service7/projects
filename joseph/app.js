@@ -34,6 +34,7 @@ const app = express();
 var io = socket_io();
 app.io = io;
 const bittrex = require('./routes/bittrex')(io);
+const binance = require('./routes/binance')(io);
 
 // Port Number
 const port = 3000;
@@ -59,6 +60,7 @@ app.use('/exchange', exchanges);
 app.use('/purchaseplan', purchaseplans);
 app.use('/exchangeapi', exchangeapis);
 app.use("/bittrexApi", bittrex);
+app.use("/binance", binance);
 
 // Index Route
 app.get('/', (req, res) => {

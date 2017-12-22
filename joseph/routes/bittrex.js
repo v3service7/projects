@@ -56,7 +56,7 @@ module.exports = function (io) {
                 cusObj['h'].push(history['result'][i]['High']);
                 cusObj['l'].push(history['result'][i]['Low']);
                 cusObj['v'].push(history['result'][i]['Volume']);
-/*                cusObj['t'].push(history['result'][i]['TimeStamp']);
+                /*cusObj['t'].push(history['result'][i]['TimeStamp']);
                 cusObj['c'].push(history['result'][i]['TimeStamp']);
                 cusObj['h'].push(history['result'][i]['Total']);
                 cusObj['l'].push(history['result'][i]['Quantity']);

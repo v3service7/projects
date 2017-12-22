@@ -1,0 +1,35 @@
+Ref:			https://www.coinigy.com
+			https://www.bitfinex.com/trading
+
+Trade APIs
+
+1) Binance		https://www.binance.com/tradeDetail.html?symbol=NEO_ETH
+API doc1:		https://www.binance.com/restapipub.html
+API doc2:		https://github.com/binance-exchange/node-binance-api
+Username:		info@v3xperts.com
+Password:		P@ssw0rd1111
+API Key:		3tBZmj5B643wHy8CZuI9vH3Ad4NWBuW9jbOGuWjQfzaqE8Ikeg4NNLEq6TSzx2yy
+Secret:			edHmGPi1swwNERvuef4o8WjUe1DcH6km4Iz582QBV9Xo6LZJr7F4l4AIAyNvFmJj
+
+ 
+2) Bittrex		https://bittrex.com/Market/Index?MarketName=BTC-POWR
+Username:		testforaltcoinapi@gmail.com 
+Password: 		Bittrex_Test_For_Arteymoney1!
+Key:			42ac5b5c0f5c431a831c7dc0ae4776cd 
+Secret:			4501a1dc096548e395a652871ad53642
+
+
+3) bitfinex
+
+
+4) poloniex
+
+
+Coinbase payment API: 		https://developers.coinbase.com/docs/merchants/
+
+Graph API:			https://github.com/tradingview/charting_library
+
+Wordpress:			https://www.arteymoney.com/
+
+
+
