@@ -11,8 +11,8 @@
 <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
 
 <!-- Custom styles for this template -->
-<link *ngIf="checkUrl!='/dashboard'" href="/assets/frontend/css/style.css" rel="stylesheet">
-<app-frontheader *ngIf="checkUrl!='/dashboard'"></app-frontheader>
+<link *ngIf="router.url !== '/dashboard'" href="/assets/frontend/css/style.css" rel="stylesheet">
+<app-frontheader *ngIf="router.url !== '/dashboard'" ></app-frontheader>
 <flash-messages></flash-messages>
 <router-outlet></router-outlet>
-<app-frontfooter *ngIf="checkUrl!='/dashboard'"></app-frontfooter>
+<app-frontfooter *ngIf="router.url !== '/dashboard'"></app-frontfooter>

@@ -1,0 +1,93 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+
+		<title>TradingView Charting Library demo</title>
+
+		<!-- Fix for iOS Safari zooming bug -->
+		<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0">
+		<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+
+		<!-- jQuery is not required to use Charting Library. It is used only for sample datafeed ajax requests. -->
+		<script type="text/javascript" src="http://code.jquery.com/jquery-1.11.2.min.js"></script>
+		<script>window.jQuery || document.write('<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"><\/script>')</script>
+		<script type="text/javascript" src="charting_library/charting_library.min.js"></script>
+		<script type="text/javascript" src="charting_library/datafeed/udf/datafeed.js"></script>
+
+		<script type="text/javascript">
+
+            function getParameterByName(name) {
+                name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+                var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+                        results = regex.exec(location.search);
+                return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+            }
+
+            var obj = {"supports_search":true,"supports_group_request":false,"supports_marks":true,"supports_timescale_marks":true,"supports_time":true,"exchanges":[{"value":"","name":"All Exchanges","desc":""},{"value":"NasdaqNM","name":"NasdaqNM","desc":"NasdaqNM"},{"value":"NYSE","name":"NYSE","desc":"NYSE"},{"value":"NCM","name":"NCM","desc":"NCM"},{"value":"NGM","name":"NGM","desc":"NGM"}],"symbols_types":[{"name":"All types","value":""},{"name":"Stock","value":"stock"},{"name":"Forex","value":"forex"}],"supported_resolutions":["D","2D","3D","W","3W","M","6M"]};
+
+            var apiUrl = 'https://demo_feed.tradingview.com';
+            var apiUrl = 'http://localhost:3000/bittrexApi';
+            var datafeedObj = new Datafeeds.UDFCompatibleDatafeed(apiUrl);
+            datafeedObj._setupWithConfiguration(obj);
+            /*datafeedObj.getBars(dataArr, 'S', 1512897041, 1513761041, function(response){
+            		console.log(response)
+            	},
+            	function(err){});*/
+            
+           /* datafeedObj._historyURL='';
+            datafeedObj._symbolResolveURL='/getmarkets';
+            datafeedObj._symbolResolveURL='/getmarketsummary';
+            */
+
+            /*datafeedObj.resolveSymbol("AAPL", function(symbolInfo) {
+	            datafeedObj.getBars(symbolInfo, "D", time1, time2, function(bars) {
+	                        bars.forEach(function(bar) {
+	                            if (bar.time / 1000 >= time1 && bar.time / 1000 <= time2) {
+	                                if (bar.high > maxPrice) {
+	                                    maxPrice = bar.high;
+	                                    maxPriceTime = bar.time / 1000;
+	                                }
+	                                if (bar.low < minPrice) {
+	                                    minPrice = bar.low;
+	                                    minPriceTime = bar.time / 1000;
+	                                }
+	                            }
+	                        });
+	                        callback(minPrice, maxPrice, minPriceTime, maxPriceTime);
+	                    },
+	                    function(err) {
+	                    });
+	        },
+	        function(err) {
+	        });*/
+
+			TradingView.onready(function()
+			{
+				var widget = window.tvWidget = new TradingView.widget({
+					fullscreen: true,
+					symbol: 'BTC-LTC',
+					interval: 'D',
+					symbolsTypes:[{name:"All types"}],
+					container_id: "tv_chart_container",
+					datafeed: datafeedObj,
+					library_path: "charting_library/",
+					locale: getParameterByName('lang') || "en",
+					drawings_access: { type: 'black', tools: [ { name: "Regression Trend" } ] },
+					disabled_features: ["header_widget", "left_toolbar", "use_localstorage_for_settings"],
+					enabled_features: ["study_templates"],
+					charts_storage_url: 'http://saveload.tradingview.com',
+                    charts_storage_api_version: "1.1",
+					client_id: 'tradingview.com',
+					user_id: 'public_user_id'
+				});
+			});
+
+		</script>
+
+	</head>
+
+	<body style="margin:0px;">
+		<div id="tv_chart_container"></div>
+	</body>
+
+</html>

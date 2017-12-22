@@ -2,20 +2,52 @@
 @import 'https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css';
 @import './../../../assets/frontend/css/dashboard.css';
 
-/* style.css */
+a{
+    cursor: pointer;
+}
+.currency-search-field{
+    height: 22px;
+    margin-right: 12px;
+    background-color: #7a7f8473;
+    border: 1px solid #343a40;
+    padding: 0px 8px;
+    width: 100px;
+    color: #fff;
 
+}
+
+.px-15{
+    padding: 0 15px;
+}
 * {
     font-size: 14px;
     line-height: 2;
 }
+label{
+  font-size: 13px;
+  padding: 7px 12px;
+  display: inline-block;
+  margin-bottom: 0rem;
+}
+
 
 .navbar-brand {
     padding: 0px;
 }
+.nav-link.active
+{
+    color: #fff !important;
+}
+
+
 
 .custom-navbar {
     padding: 0;
     background-color: rgba(0, 0, 0, 0.35) !important;
+}
+.currency-dropdown{
+    min-width: 400px;
+    min-height: 300px;
 }
 
 html,
@@ -815,7 +847,17 @@ input.highcharts-range-selector {
 .bid-area {
     overflow-y: scroll;
     overflow-x: hidden;
-    height: 195px;
+    height: 79.6vh;
+}
+.bidask-area {
+    overflow-y: scroll;
+    overflow-x: hidden;
+    height: 28.8vh;
+}
+.currency-dropdown-area {
+    overflow-y: scroll;
+    overflow-x: hidden;
+    height: 28.8vh;
 }
   ng-select>div>div.single>div.value,
 ng-select>div>div.single>div.placeholder {
@@ -863,13 +905,22 @@ ng-select>div>div.single>div.placeholder {
 }
 
 .dashboard-card>.card-header {
-    padding: .3rem 1rem;
+    padding: .2rem .7rem;
+    font-size: 12px;
 }
 
 .custom-form-control {
     padding: 0.2rem .5rem;
     border-radius: 0;
+    font-size: 10px;
 }
+.btn-sm {
+  padding: .1rem .3rem;
+  font-size: .8rem;
+  line-height: 1.5;
+  border-radius: 0rem;
+}
+
 
 .custom-label {
     font-size: 13px;
@@ -913,22 +964,48 @@ ng-select>div>div.single>div.placeholder {
 }
 
 .left {
-    width: 49%;
+    width: 60%;
     padding-left: 1rem;
 }
 
 .right {
-    width: 49%;
+    width: 38%;
 }
 
 .fixed-top2 {
-    margin-top: 44px;
+    margin-top: 40px;
 }
 
 .custom-navbar2 .navbar-nav .active>.nav-link {
     font-size: 12px;
     padding: 0;
 }
+  .currencyChnage-tabs>li>a.nav-link {
+
+        font-size: 12px;
+        padding: 0;
+
+}
+    .open-order-tabs>li>a.nav-link,
+  .data-alert-tabs>li>a.nav-link {
+
+
+    font-size: 12px;
+    padding: 0 10px;
+}
+
+.nav-tabs .nav-link {
+  border: 1px solid transparent;
+  border-top-left-radius: 0rem;
+  border-top-right-radius: 0rem;
+}
+.openCloseArea{
+    overflow-y: scroll;
+    overflow-x: hidden;
+    height: 24.9vh;
+}
+
+
 
 .custom-navbar2 {
     padding: 0;
@@ -942,6 +1019,12 @@ ng-select>div>div.single>div.placeholder {
 ng-select > div {
     border: 0px solid #ddd !important;
 }
+.bidAskArea{
+        height: 200px;
+        overflow: scroll;
+        overflow-x: hidden;
+
+}
 ng-select>div>div.single>div.value,
 ng-select>div>div.single>div.placeholder {
   flex: 1;
@@ -950,4 +1033,7 @@ ng-select>div>div.single>div.placeholder {
   padding: 0 10px;
   white-space: nowrap;
   color: #fff;
+}
+.ripple-container{
+    display: none !important;
 }

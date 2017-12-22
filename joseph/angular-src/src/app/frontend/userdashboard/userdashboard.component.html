@@ -1,23 +1,23 @@
 <style>
-ng-select > div {
-    border: 0px !important;
-}
-ng-select > div > div.single > div.placeholder {
-    color: #fff !important;
-}
-ng-select > div > div.single > div.value, ng-select > div > div.single > div.placeholder {
-    flex: 1;
-    color: #fff;
-}
+    ng-select > div {
+        border: 0px !important;
+    }
+    ng-select > div > div.single > div.placeholder{
+        color: #fff !important;
+    }
+    ng-select > div > div.single > div.value, ng-select > div > div.single > div.placeholder {
+        flex: 1;
+        color: #fff;
+    }
 </style>
-<nav class="navbar navbar-expand-lg navbar-dark  fixed-top custom-navbar" id="main-navbar">
+<nav class="navbar navbar-expand-lg navbar-dark  fixed-top custom-navbar" id="main-navbar2">
     <div class="container">
         <a class="navbar-brand" href="#">
             <img src="./../../../assets/frontend/img/Bitcoin.png" width="30" height="30" class="d-inline-block align-top mt-1" alt="">
         </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-                  <span class="navbar-toggler-icon"></span>
-              </button>
+            <span class="navbar-toggler-icon"></span>
+        </button>
         <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav ml-auto">
                 <!-- <li class="nav-item active">
@@ -48,17 +48,7 @@ ng-select > div > div.single > div.value, ng-select > div > div.single > div.pla
                         <a class="dropdown-item" href="#"><i class="fa fa-ticket"></i>&nbsp;&nbsp;Submit Ticket</a>
                         <a class="dropdown-item" href="#"><i class="fa fa-bug"></i>&nbsp;&nbsp;Bug Report</a>
                     </div>
-                </li> 
-                <li class="nav-item dropdown active">
-                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" id="Preview" href="#" role="button" aria-haspopup="true" aria-expanded="false">
-                        <i class="fa fa-cog" aria-hidden="true"></i> Setting
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="Preview">
-                        <a class="dropdown-item" href="#"><i class="fa fa-user"></i>&nbsp;&nbsp;My Account</a>
-                        <a class="dropdown-item" href="#"><i class="fa fa-key"></i>&nbsp;&nbsp;API Setting</a>
-                        <a class="dropdown-item" href="#"><i class="fa fa-star"></i>&nbsp;&nbsp;Favorites</a>
-                    </div>
-                </li>-->
+                </li> -->
                 <li class="nav-item active">
                     <a class="nav-link" [routerLink]="['/profile']"><i class="fa fa-user" aria-hidden="true"></i> Profile</a>
                 </li>
@@ -69,55 +59,113 @@ ng-select > div > div.single > div.value, ng-select > div > div.single > div.pla
         </div>
     </div>
 </nav>
-<nav class="navbar navbar-expand-sm bg-dark navbar-dark  fixed-top  custom-navbar2 fixed-top2">
-    <div class="container-fluid ">
-
+<nav class="navbar navbar-expand-sm bg-dark navbar-dark  fixed-top custom-navbar2 fixed-top2">
+    <div class="container-fluid">
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive1" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarResponsive1">
             <ul class="navbar-nav nav-fill w-100 align-items-start">
-
-            
-
-               
-             
-                <li class="nav-item active" *ngIf="markets">
-                  <form [formGroup]="form1">
-<ng-select  highlightColor="#9575cd" highlightTextColor="#fff" [options]="markets"  formControlName="marketBox"  placeholder="{{form1.value['marketBox']}}" [allowClear]="true"
-     (selected)="marketSelected($event)">
-</ng-select>
-</form>
-
+                <li class="nav-item dropdown active">
+                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" id="Preview" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                        {{chooseMarket}}
+                    </a>
+                    <div class="dropdown-menu  bg-dark px-15" aria-labelledby="Preview">
+                        <table class="table table-striped text-white custom-table">
+                            <tbody>
+                                <tr *ngFor="let market of markets">
+                                    <td><a (click)='marketSelected(market)'>{{market}}</a></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </li>
-                 <li class="nav-item active" *ngIf="markets">
-                  <form [formGroup]="form1">
-<ng-select  highlightColor="#9575cd" highlightTextColor="#fff" [options]="markets"  formControlName="selectBox"  placeholder="{{form1.value['selectBox']}}" [allowClear]="true"
-     (selected)="marketSelected($event)">
-</ng-select>
-</form>
-
+                <li class="nav-item dropdown active">
+                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" id="Preview" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                        {{chooseCurrency}}
+                    </a>
+                    <div class="dropdown-menu  bg-dark" aria-labelledby="Preview" style="width:300px;">
+                        <ul class="nav nav-tabs currencyChnage-tabs" role="tablist">
+                            <li class="nav-item active">
+                                <a class="nav-link " data-toggle="tab" href="#BTC">BTC</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link " data-toggle="tab" href="#ETH">ETH</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" data-toggle="tab" href="#USDT">USDT</a>
+                            </li>
+                            <li>
+                                 <input type="text" [(ngModel)]="term" placeholder="serach " class="currency-search-field">
+                            </li>
+                        </ul>                    
+                        <!-- Tab panes -->
+                        <div class="tab-content">
+                            <div id="BTC" class="container tab-pane  active currency-dropdown-area ">
+                                <table class="table table-striped text-white custom-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Pair</th>
+                                            <th>Price</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let btc of btcList | filter:term">
+                                            <td><a (click)='currencySelected(btc.MarketName)'>{{btc.MarketName}}</a></td>
+                                            <td><a>{{btc.Last}}</a></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div id="ETH" class="container tab-pane  currency-dropdown-area  ">
+                                <table class="table table-striped text-white custom-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Pair</th>
+                                            <th>Price</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                            <tr *ngFor="let eth of ethList |filter:term">
+                                            <td><a (click)='currencySelected(eth.MarketName)'>{{eth.MarketName}}</a></td>
+                                            <td><a (click)='currencySelected(eth.MarketName)'>{{eth.Last}}</a></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div id="USDT" class="container tab-pane  currency-dropdown-area ">
+                                <table class="table table-striped text-white custom-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Pair</th>
+                                            <th>Price</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                            <tr *ngFor="let usdt of usdtList |filter:term">
+                                            <td><a (click)='currencySelected(usdt.MarketName)'>{{usdt.MarketName}}</a></td>
+                                            <td><a (click)='currencySelected(usdt.MarketName)'>{{usdt.Last}}</a></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
                 </li>
-
                 <li class="nav-item active" *ngIf="high">
-                    <a class="nav-link" href="./">
-                        <i class="fa fa-chevron-up text-success"></i>&nbsp;&nbsp;HIGH {{high}}</a>
+                    <a class="nav-link" href="./"><i class="fa fa-chevron-up text-success"></i>&nbsp;&nbsp;HIGH {{high}}</a>
                 </li>
                 <li class="nav-item active" *ngIf="low">
-                    <a class="nav-link" href="./">
-                        <i class="fa fa-chevron-down text-danger"></i>&nbsp;&nbsp;Last {{low}}</a>
+                    <a class="nav-link" href="./"><i class="fa fa-chevron-down text-danger"></i>&nbsp;&nbsp;Last {{low}}</a>
                 </li>
                 <li class="nav-item active" *ngIf="bid">
-                    <a class="nav-link" href="./">
-                        <span class="text-success">BID</span>&nbsp;&nbsp; {{bid}}</a>
+                    <a class="nav-link" href="./"><span class="text-success">BID</span>&nbsp;&nbsp; {{bid}}</a>
                 </li>
                 <li class="nav-item active" *ngIf="ask">
-                    <a class="nav-link" href="./">
-                        <span class="text-danger">ASK</span>&nbsp;&nbsp; {{ask}}</a>
+                    <a class="nav-link" href="./"><span class="text-danger">ASK</span>&nbsp;&nbsp; {{ask}}</a>
                 </li>
                 <li class="nav-item active" *ngIf="vol">
-                    <a class="nav-link" href="./">
-                        <span class="text-info">VOL</span>&nbsp;&nbsp; {{vol}}</a>
+                    <a class="nav-link" href="./"><span class="text-info">VOL</span>&nbsp;&nbsp; {{vol}}</a>
                 </li>
             </ul>
         </div>
@@ -126,114 +174,181 @@ ng-select > div > div.single > div.value, ng-select > div > div.single > div.pla
 <div class="container-fluid">
     <div class="row">
         <div class="left">
-
             <ul class="nav nav-tabs graph-side-tabs" role="tablist">
-
                 <li class="nav-item">
                     <a class="nav-link active" href="#home" id="home-tab" role="tab" data-toggle="tab" aria-controls="home" aria-expanded="true"><i class="fa fa-line-chart" aria-hidden="true"></i> BITS</a>
                 </li>
-
                 <li class="nav-item">
-                    <a class="nav-link" href="#hats" role="tab" id="hats-tab" data-toggle="tab" aria-controls="hats"><i class="fa fa-line-chart" aria-hidden="true"></i> SERIES</a>
+                    <a class="nav-link" href="#hats" role="tab" id="hats-tab" data-toggle="tab" aria-controls="hats"><i class="fa fa-line-chart" aria-hidden="true"></i> DEPTH</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#chart" role="tab" id="chart-tab" data-toggle="tab" aria-controls="chart"><i class="fa fa-bar-chart" aria-hidden="true"></i> 534</a>
-                </li>
-                <li class="ml-auto">
+               <!--  <li class="ml-auto">
                     <div class="dropdown ">
-                        <button class="btn btn-light btn-sm dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Change Chart
-        </button>
-                        <div class="dropdown-menu" style="    left: unset;
-                                                                right: 0;" aria-labelledby="dropdownMenuButton">
+                        <button class="btn btn-light btn-sm dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Change Chart</button>
+                        <div class="dropdown-menu" style="left: unset; right: 0;" aria-labelledby="dropdownMenuButton">
                             <a class="dropdown-item" href="#">Bars</a>
                             <a class="dropdown-item" href="#">Chart</a>
                             <a class="dropdown-item" href="#">Line </a>
                         </div>
                     </div>
-                </li>
-
-
+                </li> -->
             </ul>
-
             <!-- Content Panel -->
             <div id="clothing-nav-content" class="tab-content">
-
                 <div role="tabpanel" class="tab-pane fade show active" id="home" aria-labelledby="home-tab">
-                    <div id="container" style="width:100%; height:300px;"></div>
-                    <div class="card dashboard-card mt-2">
+                    <div id="tv_chart_container"></div>
+                    <div class="card dashboard-card mt-2 mb-2">
                         <div class="card-body">
-                            <div class="row">
-                                <div class="col-lg-6 col-md-6 pr-0">
-                                    <div class="bid-area">
-                                        <div id="bids_container_label_left">
-                                            BIDS<!--  (1510.9950 BTC) • WALLS (6114.84, 6084.42, 6117.19, 6121.75, 6088.26) -->
-                                        </div>
-                                        <table class="table table-striped custom-table text-center" style="background-color: #194606;" *ngIf="buyMarketHistory">
-                                            <thead>
+                            <div class="">
+                                <div class="row">
+                                    <div class="col-lg-6 bidask-area">
+                                        <h5 class="bg-dark text-white mb-0 px-3">ASK</h5>
+                                        <table class="table table-striped custom-table text-center" *ngIf="buyMarketHistory">
+                                            <thead class="bg-dark">
                                                 <tr>
-                                                    <th>Price</th>
+                                                    <th>Price ({{chooseCurrency}})</th>
                                                     <th>Quantity</th>
                                                     <th>Total</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr class="text-white"  *ngFor="let buymarket of buyMarketHistory">
-                                                    <td>{{buymarket.Price}}</td>
-                                                    <td>{{buymarket.Quantity}}</td>
-                                                    <td>{{buymarket.Total}}</td>
+                                                <tr class="bg-dark" *ngFor="let buymarket of buyMarketHistory | orderBy: 'buyMarketHistory.Price'">
+                                                    <td class="text-danger">{{buymarket.Price}}</td>
+                                                    <td class="text-danger">{{buymarket.Quantity}}</td>
+                                                    <td class="text-danger">{{buymarket.Total}}</td>
                                                 </tr>
-
                                             </tbody>
                                         </table>
-                                        <p class="text-white mb-0 pl-4">1 to {{buyMarketHistory ? buyMarketHistory.length : ''}}</p>
                                     </div>
-                                </div>
-                                <div class="col-lg-6  col-md-6 pl-0">
-                                    <div class="bid-area">
-                                        <div id="bids_container_label_right">
-                                            ASK <!-- (1510.9950 BTC) • WALLS (6114.84, 6084.42, 6117.19, 6121.75, 6088.26) -->
-                                        </div>
-                                        <table class="table table-striped custom-table text-center" style="    background-color: rgb(121, 15, 15);" *ngIf="sellMarketHistory">
-                                            <thead style="background-color: #942323;">
+                                    <div class="col-lg-6 bidask-area">
+                                        <h5 class="bg-dark text-white mb-0 px-3">BIDS</h5>
+                                        <table class="table table-striped custom-table text-center" *ngIf="sellMarketHistory">
+                                            <thead class="bg-dark">
                                                 <tr>
-                                                    <th>Price</th>
+                                                    <th>Price ({{chooseCurrency}})</th>
                                                     <th>Quantity</th>
                                                     <th>Total</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr class="text-white" *ngFor="let sellmarket of sellMarketHistory ">
-                                                    <td>{{sellmarket.Price}}</td>
-                                                    <td>{{sellmarket.Quantity}}</td>
-                                                    <td>{{sellmarket.Total}}</td>
+                                                <tr class="bg-dark  " *ngFor="let sellmarket of sellMarketHistory   | orderBy: 'sellMarketHistory.Price'">
+                                                    <td class="text-success">{{sellmarket.Price}}</td>
+                                                    <td class="text-success">{{sellmarket.Quantity}}</td>
+                                                    <td class="text-success">{{sellmarket.Total}}</td>
                                                 </tr>
                                             </tbody>
-                                           
                                         </table>
-                                        <p class="text-white mb-0 pl-4">1 to {{sellMarketHistory ? sellMarketHistory.length : ''}}</p>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+                    <div class="card dashboard-card mt-2 mb-2">
+                        <div class="card-body">
+                            <!-- Nav tabs -->
+                            <ul class="nav nav-tabs open-order-tabs" role="tablist">
+                                <li class="nav-item ">
+                                    <a class="nav-link text-white active" data-toggle="tab" href="#openOrder">Open Order</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-white" data-toggle="tab" href="#closeOrder">Close Order</a>
+                                </li>
+                            </ul>
+                            <!-- Tab panes -->
+                            <div class="tab-content mt-2">
+                                <div class="tab-pane active  openCloseArea p-0" id="openOrder">
+                                    <table class="table text-white custom-table">
+                                        <thead class="bg-dark">
+                                            <tr>
+                                                <th>Pair</th>
+                                                <th>Type</th>
+                                                <th>Amount</th>
+                                                <th>Filled</th>
+                                                <th>Price</th>
+                                                <th>Date</th>
+                                                <th>Faild %</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>John</td>
+                                                <td>Doe</td>
+                                                <td>john@example.com</td>
+                                                <td>John</td>
+                                                <td>Doe</td>
+                                                <td>john@example.com</td>
+                                                <td>john@example.com</td>
+                                            </tr>
+                                            <tr>
+                                                <td>John</td>
+                                                <td>Doe</td>
+                                                <td>john@example.com</td>
+                                                <td>John</td>
+                                                <td>Doe</td>
+                                                <td>john@example.com</td>
+                                                <td>john@example.com</td>
+                                            </tr>
+                                            <tr>
+                                                <td>John</td>
+                                                <td>Doe</td>
+                                                <td>john@example.com</td>
+                                                <td>John</td>
+                                                <td>Doe</td>
+                                                <td>john@example.com</td>
+                                                <td>john@example.com</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="tab-pane  openCloseArea  p-0" id="closeOrder">
+                                    <table class="table text-white custom-table">
+                                        <thead class="bg-dark">
+                                            <tr>
+                                                <th>Pair</th>
+                                                <th>Type</th>
+                                                <th>Amount</th>
+                                                <th>Filled</th>
+                                                <th>Price</th>
+                                                <th>Date</th>
+                                                <th>Faild %</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>dsfds</td>
+                                                <td>Dsdfdsfoe</td>
+                                                <td>johsdfsdf</td>
+                                                <td>Jodsfdsfhn</td>
+                                                <td>Dodsfdsfe</td>
+                                                <td>john@example.com</td>
+                                                <td>john@example.com</td>
+                                            </tr>
+                                            <tr>
+                                                <td>dsfdsf</td>
+                                                <td>Dodsfsdfe</td>
+                                                <td>john@example.com</td>
+                                                <td>John</td>
+                                                <td>Doe</td>
+                                                <td>john@example.com</td>
+                                                <td>john@example.com</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-
                 <div role="tabpanel" class="tab-pane fade" id="hats" aria-labelledby="hats-tab">
-
                     <div id="container2" style="width:100%; height:546px;"></div>
                 </div>
-
                 <div role="tabpanel" class="tab-pane fade" id="chart" aria-labelledby="dropdown-shoes-tab">
                     <div id="container3" style="width:100%; height:300px;"></div>
-                    <div class="card dashboard-card mt-2">
-                        <div class="card-body">
-                            <div class="row">
+                        <div class="card dashboard-card mt-2">
+                            <div class="card-body">
+                                <div class="row">
                                 <div class="col-lg-6 col-md-6 pr-0">
                                     <div class="bid-area">
-                                        <div id="bids_container_label_left">
-                                            BIDS (1510.9950 BTC) • WALLS (6114.84, 6084.42, 6117.19, 6121.75, 6088.26)
-                                        </div>
+                                        <div id="bids_container_label_left">BIDS (1510.9950 BTC) • WALLS (6114.84, 6084.42, 6117.19, 6121.75, 6088.26)</div>
                                         <table class="table table-striped custom-table text-center" style="background-color: #194606;">
                                             <thead>
                                                 <tr>
@@ -258,142 +373,13 @@ ng-select > div > div.single > div.value, ng-select > div > div.single > div.pla
                                                     <td>545</td>
                                                     <td>878</td>
                                                 </tr>
-                                                <tr class="text-white">
-                                                    <td>234</td>
-                                                    <td>656</td>
-                                                    <td>233</td>
-                                                </tr>
-                                                <tr class="text-white">
-                                                    <td>864</td>
-                                                    <td>324</td>
-                                                    <td>765</td>
-                                                </tr>
-                                                <tr class="text-white">
-                                                    <td>325</td>
-                                                    <td>752</td>
-                                                    <td>542</td>
-                                                </tr>
-                                                <tr class="text-white">
-                                                    <td>244</td>
-                                                    <td>563</td>
-                                                    <td>456</td>
-                                                </tr>
-                                                <tr class="text-white">
-                                                    <td>345</td>
-                                                    <td>757</td>
-                                                    <td>254</td>
-                                                </tr>
-                                                <tr class="text-white">
-                                                    <td>864</td>
-                                                    <td>324</td>
-                                                    <td>765</td>
-                                                </tr>
-                                                <tr class="text-white">
-                                                    <td>325</td>
-                                                    <td>752</td>
-                                                    <td>542</td>
-                                                </tr>
-                                                <tr class="text-white">
-                                                    <td>244</td>
-                                                    <td>563</td>
-                                                    <td>456</td>
-                                                </tr>
-                                                <tr class="text-white">
-                                                    <td>345</td>
-                                                    <td>757</td>
-                                                    <td>254</td>
-                                                </tr>
-                                                <tr class="text-white">
-                                                    <td>864</td>
-                                                    <td>324</td>
-                                                    <td>765</td>
-                                                </tr>
-                                                <tr class="text-white">
-                                                    <td>325</td>
-                                                    <td>752</td>
-                                                    <td>542</td>
-                                                </tr>
-                                                <tr class="text-white">
-                                                    <td>244</td>
-                                                    <td>563</td>
-                                                    <td>456</td>
-                                                </tr>
-                                                <tr class="text-white">
-                                                    <td>345</td>
-                                                    <td>757</td>
-                                                    <td>254</td>
-                                                </tr>
-                                                <tr class="text-white">
-                                                    <td>864</td>
-                                                    <td>324</td>
-                                                    <td>765</td>
-                                                </tr>
-                                                <tr class="text-white">
-                                                    <td>325</td>
-                                                    <td>752</td>
-                                                    <td>542</td>
-                                                </tr>
-                                                <tr class="text-white">
-                                                    <td>244</td>
-                                                    <td>563</td>
-                                                    <td>456</td>
-                                                </tr>
-                                                <tr class="text-white">
-                                                    <td>345</td>
-                                                    <td>757</td>
-                                                    <td>254</td>
-                                                </tr>
-                                                <tr class="text-white">
-                                                    <td>864</td>
-                                                    <td>324</td>
-                                                    <td>765</td>
-                                                </tr>
-                                                <tr class="text-white">
-                                                    <td>325</td>
-                                                    <td>752</td>
-                                                    <td>542</td>
-                                                </tr>
-                                                <tr class="text-white">
-                                                    <td>244</td>
-                                                    <td>563</td>
-                                                    <td>456</td>
-                                                </tr>
-                                                <tr class="text-white">
-                                                    <td>345</td>
-                                                    <td>757</td>
-                                                    <td>254</td>
-                                                </tr>
-                                                <tr class="text-white">
-                                                    <td>864</td>
-                                                    <td>324</td>
-                                                    <td>765</td>
-                                                </tr>
-                                                <tr class="text-white">
-                                                    <td>325</td>
-                                                    <td>752</td>
-                                                    <td>542</td>
-                                                </tr>
-                                                <tr class="text-white">
-                                                    <td>244</td>
-                                                    <td>563</td>
-                                                    <td>456</td>
-                                                </tr>
-                                                <tr class="text-white">
-                                                    <td>345</td>
-                                                    <td>757</td>
-                                                    <td>254</td>
-                                                </tr>
-
                                             </tbody>
                                         </table>
                                     </div>
                                 </div>
-
                                 <div class="col-lg-6 col-md-6 pl-0">
                                     <div class="bid-area">
-                                        <div id="bids_container_label_right">
-                                            ASK (1510.9950 BTC) • WALLS (6114.84, 6084.42, 6117.19, 6121.75, 6088.26)
-                                        </div>
+                                        <div id="bids_container_label_right">ASK (1510.9950 BTC) • WALLS (6114.84, 6084.42, 6117.19, 6121.75, 6088.26)</div>
                                         <table class="table table-striped custom-table text-center" style="    background-color: rgb(121, 15, 15);">
                                             <thead style="background-color: #942323;">
                                                 <tr>
@@ -418,79 +404,6 @@ ng-select > div > div.single > div.value, ng-select > div > div.single > div.pla
                                                     <td>545</td>
                                                     <td>878</td>
                                                 </tr>
-                                                <tr class="text-white">
-                                                    <td>234</td>
-                                                    <td>656</td>
-                                                    <td>233</td>
-                                                </tr>
-                                                <tr class="text-white">
-                                                    <td>864</td>
-                                                    <td>324</td>
-                                                    <td>765</td>
-                                                </tr>
-                                                <tr class="text-white">
-                                                    <td>325</td>
-                                                    <td>752</td>
-                                                    <td>542</td>
-                                                </tr>
-                                                <tr class="text-white">
-                                                    <td>244</td>
-                                                    <td>563</td>
-                                                    <td>456</td>
-                                                </tr>
-                                                <tr class="text-white">
-                                                    <td>345</td>
-                                                    <td>757</td>
-                                                    <td>254</td>
-                                                </tr>
-
-                                                <tr class="text-white">
-                                                    <td>121</td>
-                                                    <td>434</td>
-                                                    <td>5454</td>
-                                                </tr>
-                                                <tr class="text-white">
-                                                    <td>454</td>
-                                                    <td>545</td>
-                                                    <td>5665</td>
-                                                </tr>
-                                                <tr class="text-white">
-                                                    <td>233</td>
-                                                    <td>545</td>
-                                                    <td>878</td>
-                                                </tr>
-                                                <tr class="text-white">
-                                                    <td>234</td>
-                                                    <td>656</td>
-                                                    <td>233</td>
-                                                </tr>
-                                                <tr class="text-white">
-                                                    <td>864</td>
-                                                    <td>324</td>
-                                                    <td>765</td>
-                                                </tr>
-                                                <tr class="text-white">
-                                                    <td>325</td>
-                                                    <td>752</td>
-                                                    <td>542</td>
-                                                </tr>
-                                                <tr class="text-white">
-                                                    <td>244</td>
-                                                    <td>563</td>
-                                                    <td>456</td>
-                                                </tr>
-                                                <tr class="text-white">
-                                                    <td>345</td>
-                                                    <td>757</td>
-                                                    <td>254</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>454</td>
-                                                    <td>245</td>
-                                                    <td>765</td>
-                                                </tr>
-
-
                                             </tbody>
                                         </table>
                                     </div>
@@ -499,98 +412,115 @@ ng-select > div > div.single > div.value, ng-select > div > div.single > div.pla
                         </div>
                     </div>
                 </div>
-
             </div>
-
-
         </div>
-
-
-        <div class="part-divider my-auto">
-            <a href="javascript:void(0)" id="right-full-arrow">
-                <i class="fa fa-chevron-right text-white divider-arrow" id="right-arrow"></i>
-            </a>
-        </div>
+        <div class="part-divider my-auto"><a href="javascript:void(0)" id="right-full-arrow"><!-- x --></a></div>
         <div class="right">
-
-            <ul class="nav nav-tabs graph-side-tabs" role="tablist">
+            <ul class="nav nav-tabs data-alert-tabs" role="tablist">
                 <li class="nav-item">
                     <a class="nav-link active" href="#data" id="data-tab" role="tab" data-toggle="tab" aria-controls="data" aria-expanded="true" aria-selected="true">Data</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#alerts" role="tab" id="alerts-tab" data-toggle="tab" aria-controls="alerts" aria-selected="false">Alerts</a>
+                    <a class="nav-link text-white" href="#alerts" role="tab" id="alerts-tab" data-toggle="tab" aria-controls="alerts" aria-selected="false">Alerts</a>
                 </li>
-                <li class=" ml-auto ">
+                <!--  <li class=" ml-auto ">
                     <div class="dropdown ">
-                        <button class="btn btn-light btn-sm dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Options
-            </button>
-                        <div class="dropdown-menu" style="    left: unset;
-                        right: 0;" aria-labelledby="dropdownMenuButton">
+                        <button class="btn btn-light btn-sm dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Options</button>
+                        <div class="dropdown-menu" style="left: unset; right: 0;" aria-labelledby="dropdownMenuButton">
                             <a class="dropdown-item" href="#">Action</a>
                             <a class="dropdown-item" href="#">Another action</a>
                             <a class="dropdown-item" href="#">Something </a>
                         </div>
                     </div>
-                </li>
+                </li> -->
             </ul>
-
             <!-- Content Panel -->
             <div class="tab-content">
                 <div role="tabpanel" class="tab-pane fade active show" id="data" aria-labelledby="data-tab">
-
-
                     <div class="card dashboard-card">
+                        <div class="card-body">
+                            <div class="bid-area">
+                                <div class="row">
+                                    <div class="col-lg-12 col-md-12 pl-0">
+                                        <table class="table table-striped custom-table text-center" *ngIf="allMarketHistory">
+                                            <thead class="bg-dark">
+                                                <tr>
+                                                    <th> Price ({{chooseCurrency}})</th>
+                                                    <th>Quantity</th>
+                                                    <th>Time</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr class=" text-white" *ngFor="let allmarket of allMarketHistory ">
+                                                    <td>
+                                                        <i class="fa fa-arrow-up text-success" *ngIf="allmarket.OrderType=='BUY'"></i>
+                                                        <i class="fa fa-arrow-down text-danger" *ngIf="allmarket.OrderType=='SELL'"></i> {{allmarket.Price}}</td>
+                                                    <td>{{allmarket.Quantity}}</td>
+                                                    <td>{{allmarket.TimeStamp | date:'medium' }}</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card mt-2 dashboard-card">
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-lg-6 col-md-6 col-sm-6 pr-0">
                                     <div class="card text-white dashboard-card">
-                                        <div class="card-header ">BUY BTC</div>
+                                        <div class="card-header ">BUY {{BuySellCurrency}}</div>
                                         <div class="card-body bg-success">
                                             <form>
-                                                <div class="form-group custom-form-group">
-                                                    <label class="custom-label" for="exampleInputEmail1">USD to spend</label>
-                                                    <input type="email" class="form-control custom-form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="">
-
+                                                <div class="form-group custom-form-group row">
+                                                    <label class="custom-label" for="exampleInputEmail1" class="col-sm-5 col-form-label">USD to spend</label>
+                                                    <div class="col-sm-7">
+                                                        <input type="email" class="form-control custom-form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="">
+                                                    </div>
                                                 </div>
-                                                <div class="form-group custom-form-group">
-                                                    <label class="custom-label" for="exampleInput1">USD Price per BTC</label>
-                                                    <input type="" class="form-control custom-form-control" id="exampleInput1" placeholder="">
+                                                <div class="form-group custom-form-group row">
+                                                    <label class="custom-label" for="exampleInputEmail1" class="col-sm-5 col-form-label">USD Price BTC</label>
+                                                    <div class="col-sm-7">
+                                                        <input type="email" class="form-control custom-form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="">
+                                                    </div>
                                                 </div>
-                                                <div class="form-group custom-form-group">
-                                                    <label class="custom-label" for="exampleInput1">BTC to buy</label>
-                                                    <input type="" class="form-control custom-form-control" id="exampleInput1" placeholder="">
+                                                <div class="form-group custom-form-group row">
+                                                    <label class="custom-label" for="exampleInputEmail1" class="col-sm-5 col-form-label">BTC to buy</label>
+                                                    <div class="col-sm-7">
+                                                        <input type="email" class="form-control custom-form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="">
+                                                    </div>
                                                 </div>
-
                                             </form>
                                         </div>
                                         <div class="card-footer sell-footer ">
                                             <button type="submit" class="btn btn-sm btn-success">Buy now</button>
                                         </div>
                                     </div>
-
-
-
                                 </div>
                                 <div class="col-lg-6 col-md-6 col-sm-6 pl-0">
                                     <div class="card text-white  dashboard-card">
-                                        <div class="card-header">SELL BTC</div>
+                                        <div class="card-header">SELL {{BuySellCurrency}}</div>
                                         <div class="card-body bg-danger">
                                             <form>
-                                                <div class="form-group custom-form-group">
-                                                    <label class="custom-label" for="exampleInputEmail1">USD to spend</label>
-                                                    <input type="email" class="form-control  custom-form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="">
-
+                                                <div class="form-group custom-form-group row">
+                                                    <label class="custom-label" for="exampleInputEmail1" class="col-sm-5 col-form-label">USD to spend</label>
+                                                    <div class="col-sm-7">
+                                                        <input type="email" class="form-control custom-form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="">
+                                                    </div>
                                                 </div>
-                                                <div class="form-group custom-form-group">
-                                                    <label class="custom-label" for="exampleInput1">USD Price per BTC</label>
-                                                    <input type="" class="form-control  custom-form-control" id="exampleInput1" placeholder="">
+                                                <div class="form-group custom-form-group row">
+                                                    <label class="custom-label" for="exampleInputEmail1" class="col-sm-5 col-form-label">USD to spend</label>
+                                                    <div class="col-sm-7">
+                                                        <input type="email" class="form-control custom-form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="">
+                                                    </div>
                                                 </div>
-                                                <div class="form-group custom-form-group">
-                                                    <label class="custom-label" for="exampleInput1">BTC to buy</label>
-                                                    <input type="" class="form-control  custom-form-control" id="exampleInput1" placeholder="">
+                                                <div class="form-group custom-form-group row">
+                                                    <label class="custom-label" for="exampleInputEmail1" class="col-sm-5 col-form-label">USD to spend</label>
+                                                    <div class="col-sm-7">
+                                                        <input type="email" class="form-control custom-form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="">
+                                                    </div>
                                                 </div>
-
                                             </form>
                                         </div>
                                         <div class="card-footer sell-footer ">
@@ -601,77 +531,7 @@ ng-select > div > div.single > div.value, ng-select > div > div.single > div.pla
                             </div>
                         </div>
                     </div>
-                    <div class="card mt-2 dashboard-card">
-                        <div class="card-body">
-                            <div class="bid-area">
-                                <div class="row">
-                                    <div class="col-lg-6 col-md-6 pr-0">
-
-                                        <table class="table table-striped custom-table text-center" *ngIf="buyMarketHistory">
-                                            <thead class="bg-dark">
-                                                <tr>
-                                                    <th>Price</th>
-                                                    <th>Quantity</th>
-                                                    <th>Total</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr class="bg-danger text-white" *ngFor="let buymarket of buyMarketHistory | slice:0:10 | orderBy: 'buyMarketHistory.Price'">
-                                                    <td>{{buymarket.Price}}</td>
-                                                    <td>{{buymarket.Quantity}}</td>
-                                                    <td>{{buymarket.Total}}</td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                        <ul class="list-inline-mb-0 d-flex justify-content-around pl-0">
-                                            <li class="list-inline-item text-success"><b>Item 1</b></li>
-                                            <li class="list-inline-item  text-white"><b>Item 2</b></li>
-                                            <li class="list-inline-item  text-danger"><b>Item 2</b></li>
-                                        </ul>
-                                        <table class="table table-striped custom-table text-center" *ngIf="sellMarketHistory">
-                                            <tfoot class="bg-dark">
-                                                <tr>
-                                                    <th>Price</th>
-                                                    <th>Quantity</th>
-                                                    <th>Total</th>
-                                                </tr>
-                                            </tfoot>
-                                            <tbody>
-                                                <tr class="bg-success text-white" *ngFor="let sellmarket of sellMarketHistory | slice:0:10  | orderBy: 'sellMarketHistory.Price'">
-                                                    <td>{{sellmarket.Price}}</td>
-                                                    <td>{{sellmarket.Quantity}}</td>
-                                                    <td>{{sellmarket.Total}}</td>
-                                                </tr>
-                                            </tbody>
-                                          
-                                        </table>
-                                    </div>
-                                    <div class="col-lg-6 col-md-6 pl-0">
-                                    <table class="table table-striped custom-table text-center" *ngIf="allMarketHistory">
-                                        <thead class="bg-dark">
-                                            <tr>
-                                                <th>Price</th>
-                                                <th>Quantity</th>
-                                                <th>Total</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr class=" text-white" *ngFor="let allmarket of allMarketHistory ">
-                                                <td><i class="fa fa-arrow-up text-success" *ngIf="allmarket.OrderType=='BUY'"></i><i class="fa fa-arrow-down text-danger" *ngIf="allmarket.OrderType=='SELL'"></i> {{allmarket.Price}}</td>
-                                                <td>{{allmarket.Quantity}}</td>
-                                                <td>{{allmarket.Total}}</td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                 </div>
-
-
-
                 <div role="tabpanel" class="tab-pane fade" id="alerts" aria-labelledby="alerts-tab">
                     <div class="card dashboard-card">
                         <div class="card-body ">
@@ -684,7 +544,6 @@ ng-select > div > div.single > div.value, ng-select > div > div.single > div.pla
                                                 <div class="form-group custom-form-group">
                                                     <label class="custom-label" for="exampleInputEmail1">Price</label>
                                                     <input type="email" class="form-control custom-form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="">
-
                                                 </div>
                                                 <div class="form-group custom-form-group">
                                                     <label class="custom-label" for="exampleInput1">Notes</label>
@@ -694,22 +553,15 @@ ng-select > div > div.single > div.value, ng-select > div > div.single > div.pla
                                                     <label class="custom-label" for="exampleInput1">Sound</label>
                                                     <input type="" class="form-control custom-form-control" id="exampleInput1" placeholder="">
                                                 </div>
-
                                             </form>
                                         </div>
                                         <div class="card-footer sell-footer ">
                                             <button type="submit" class="btn btn-sm btn-info">Set alerts</button>
                                         </div>
                                     </div>
-
-
-
-
                                 </div>
                                 <div class="col-lg-4 col-md-4 pl-0">
                                     <div class="card text-white dashboard-card">
-
-
                                         <div class="card-body">
                                             <button type="submit" class="btn btn-block btn-info btn-sm mb-2">All Time High</button>
                                             <button type="submit" class="btn btn-block btn-info btn-sm mb-2">Monthly High</button>
@@ -718,13 +570,11 @@ ng-select > div > div.single > div.value, ng-select > div > div.single > div.pla
                                             <button type="submit" class="btn btn-block btn-info btn-sm mb-2">Monthly Low</button>
                                             <button type="submit" class="btn btn-block btn-info btn-sm mb-2">All Time Low</button>
                                         </div>
-
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-
                     <div class="card mt-2 dashboard-card">
                         <div class="card-body">
                             <div class="row">
@@ -772,118 +622,15 @@ ng-select > div > div.single > div.value, ng-select > div > div.single > div.pla
                                                     <td>Dropped below 5654. </td>
                                                     <td>2017-10-24 09:33:46</td>
                                                 </tr>
-                                                <tr>
-                                                    <td>Bistamp</td>
-                                                    <td>USD/STC</td>
-                                                    <td>Dropped below 5654. </td>
-                                                    <td>2017-10-24 09:33:46</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Bistamp</td>
-                                                    <td>USD/STC</td>
-                                                    <td>Dropped below 5654. </td>
-                                                    <td>2017-10-24 09:33:46</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Bistamp</td>
-                                                    <td>USD/STC</td>
-                                                    <td>Dropped below 5654. </td>
-                                                    <td>2017-10-24 09:33:46</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Bistamp</td>
-                                                    <td>USD/STC</td>
-                                                    <td>Dropped below 5654. </td>
-                                                    <td>2017-10-24 09:33:46</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Bistamp</td>
-                                                    <td>USD/STC</td>
-                                                    <td>Dropped below 5654. </td>
-                                                    <td>2017-10-24 09:33:46</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Bistamp</td>
-                                                    <td>USD/STC</td>
-                                                    <td>Dropped below 5654. </td>
-                                                    <td>2017-10-24 09:33:46</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Bistamp</td>
-                                                    <td>USD/STC</td>
-                                                    <td>Dropped below 5654. </td>
-                                                    <td>2017-10-24 09:33:46</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Bistamp</td>
-                                                    <td>USD/STC</td>
-                                                    <td>Dropped below 5654. </td>
-                                                    <td>2017-10-24 09:33:46</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Bistamp</td>
-                                                    <td>USD/STC</td>
-                                                    <td>Dropped below 5654. </td>
-                                                    <td>2017-10-24 09:33:46</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Bistamp</td>
-                                                    <td>USD/STC</td>
-                                                    <td>Dropped below 5654. </td>
-                                                    <td>2017-10-24 09:33:46</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Bistamp</td>
-                                                    <td>USD/STC</td>
-                                                    <td>Dropped below 5654. </td>
-                                                    <td>2017-10-24 09:33:46</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Bistamp</td>
-                                                    <td>USD/STC</td>
-                                                    <td>Dropped below 5654. </td>
-                                                    <td>2017-10-24 09:33:46</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Bistamp</td>
-                                                    <td>USD/STC</td>
-                                                    <td>Dropped below 5654. </td>
-                                                    <td>2017-10-24 09:33:46</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Bistamp</td>
-                                                    <td>USD/STC</td>
-                                                    <td>Dropped below 5654. </td>
-                                                    <td>2017-10-24 09:33:46</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Bistamp</td>
-                                                    <td>USD/STC</td>
-                                                    <td>Dropped below 5654. </td>
-                                                    <td>2017-10-24 09:33:46</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Bistamp</td>
-                                                    <td>USD/STC</td>
-                                                    <td>Dropped below 5654. </td>
-                                                    <td>2017-10-24 09:33:46</td>
-                                                </tr>
-
                                             </tbody>
                                         </table>
                                     </div>
                                 </div>
                             </div>
                         </div>
-
                     </div>
                 </div>
-
-
-
             </div>
-
-
         </div>
     </div>
 </div>

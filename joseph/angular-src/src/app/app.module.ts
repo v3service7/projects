@@ -6,6 +6,7 @@ import {RouterModule, Routes} from '@angular/router';
 import { AppComponent } from './app.component';
 import { TinymceModule } from 'angular2-tinymce';
 import { SelectModule } from 'angular2-select';
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
 
 // Admin Component
 import { AdminComponent } from './admin/admin.component';
@@ -135,7 +136,8 @@ const appRoutes: Routes =  [
     FlashMessagesModule, 
     SelectModule,
     Ng2OrderModule,
-    SocketIoModule.forRoot(config)
+    SocketIoModule.forRoot(config),
+    Ng2SearchPipeModule
   ],
   providers: [BittrexService, ValidateService, AdminService, AuthGuard, UserGuard, UserService, PlanService, PagesService, ExchangeService,ExchangeapiService,PurchaseplanService],
   bootstrap: [AppComponent]

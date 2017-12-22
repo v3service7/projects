@@ -21,7 +21,6 @@ module.exports = (function() {
             res.json(response);
         });
     });    
-    
 
     router.post('/', passport.authenticate('jwt', {session:false}), function(req, res) {
         var response = {};
@@ -43,8 +42,7 @@ module.exports = (function() {
                 }
          };
         res.json(response);
-        }); 
-        
+        });
     });
 
     /*router.put('/:id', passport.authenticate('jwt', {session:false}), function(req, res) {
@@ -58,7 +56,8 @@ module.exports = (function() {
             res.json(response);
         });
     });*/
-     router.get('/custexchange/:id', passport.authenticate('jwt', {session:false}), function(req, res) {
+
+    router.get('/custexchange/:id', passport.authenticate('jwt', {session:false}), function(req, res) {
         var response = {};
         exchangeModel.find({"user":req.params.id}).populate('exchangeName').exec(function(err, plan) {
             if (err) {
@@ -69,7 +68,6 @@ module.exports = (function() {
             res.json(response);
         });
     });
-
 
     router.put('/:id', passport.authenticate('jwt', {session:false}), function(req, res) {
         var response = {};

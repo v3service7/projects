@@ -1,17 +1,32 @@
 import { Injectable } from '@angular/core';
-import { Http } from "@angular/http";
+import { Http, Response, Headers } from '@angular/http';
 import 'rxjs/add/operator/map';
 import { Observable } from 'rxjs/Observable';
 import { Socket } from 'ng-socket-io';
+import * as globalVariable from "../global";
 
 @Injectable()
 export class BittrexService {
-  constructor(private http: Http, private socket: Socket) {}
+  authToken: any;
+  constructor(private http: Http, private socket: Socket) {
+    const token = localStorage.getItem('id_token_admin');
+    this.authToken = token;
+  }
     customerOnline(){ 
         if (typeof this.socket.ioSocket.id !== 'undefined') {
             console.log(this.socket.ioSocket);   
         }
     }
+  loadToken() {
+    if (localStorage.getItem('id_token_admin')) {
+      const token = localStorage.getItem('id_token_admin');
+      this.authToken = token;
+    }
+    if (localStorage.getItem('id_token')) {
+      const token = localStorage.getItem('id_token');
+      this.authToken = token;
+    }
+  }
 
   getMarketName(data){    
     this.socket.emit('marketName', data);
@@ -40,8 +55,19 @@ export class BittrexService {
   }
 
   getMarkets() {
+    let headers = new Headers();
+    this.loadToken();
+    headers.append('Authorization', this.authToken);
+    headers.append('Content-Type', 'application/json');
+    return this.http.get(globalVariable.url + 'exchangeapi', { headers: headers })
+      .map((response: Response) => {
+        let data = response.json();
+        return data;
+      });
+  }
+  getCurrency() {
     let observable = new Observable(observer => {
-      this.socket.on('allmarketname', (data) => {
+      this.socket.on('allCurrency', (data) => {
         observer.next(data);
       });
       return () => {
@@ -49,6 +75,22 @@ export class BittrexService {
       };
     });
     return observable;
+  }
+  tradeSell() {
+    var data={
+      marketName: 'BTC-ZEC',
+      quantity: 1.00000000,
+      rate: 0.04423432
+    }
+    let headers = new Headers();
+    this.loadToken();
+    headers.append('Authorization', this.authToken);
+    headers.append('Content-Type', 'application/json');
+    return this.http.post(globalVariable.url + 'bittrexApi/tradesell',data, { headers: headers })
+      .map((response: Response) => {
+        let data = response.json();
+        return data;
+      });
   }
 
 }

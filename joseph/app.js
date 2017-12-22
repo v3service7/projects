@@ -65,9 +65,9 @@ app.get('/', (req, res) => {
 	res.send('Invalid End Point');
 });
 
-app.get('*', (req, res) => {
+/*app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, 'public/index.html'));
-});
+});*/
 
 const server = http.createServer(app);
 var io = app.io;

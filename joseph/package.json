@@ -23,5 +23,8 @@
     "serve-favicon": "*",
     "node.bittrex.api": "^1.0.0",
     "socket.io": "^2.0.4"
+  },
+  "devDependencies": {
+    "@angular/cli": "^1.5.3"
   }
 }

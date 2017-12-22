@@ -7,11 +7,11 @@ declare var $: any;
   styleUrls: ["./frontend.component.css"]
 })
 export class FrontendComponent implements OnInit {
-  checkUrl: any;
-  constructor(private router: Router) {}
+  checkUrl: Boolean = true;
+  constructor(private router: Router) { 
+  }
 
   ngOnInit() {
-    this.checkUrl = this.router.url;
-    console.log(this.checkUrl)
+    
   }
 }
