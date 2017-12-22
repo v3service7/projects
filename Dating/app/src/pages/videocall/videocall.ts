@@ -4,27 +4,28 @@ import { Diagnostic } from '@ionic-native/diagnostic';
 import * as globalVariable from "../../app/global";
 import { CustomersService, SocketService, BannerService} from '../../app/service/index';
 declare var OT: any;
-import { HomePage } from "../home/home";
+import { TabsPage } from "../tabs/tabs";
+
 
 @Component({
   selector: 'page-videocall',
   templateUrl: 'videocall.html',
-  styleUrls: ["/videocall.scss"]
+  styles: ['./videocall.scss']
 })
 export class VideocallPage {
 
-  session: any;
-  publisher: any;
-  sessionId: string;
-  token: string;
-  cameraSource = 0;
-  devices: any[];
-  apiKey:any = "46010992";
-  currentcall: any;
-  connectedTo: any;
-  cid: any;
-  profile: any;
-  url = globalVariable.url+'uploads/';   
+    session: any;
+    publisher: any;
+    sessionId: string;
+    token: string;
+    cameraSource = 0;
+    devices: any[];
+    apiKey:any = "46018952";
+    currentcall: any;
+    connectedTo: any;
+    cid: any;
+    profile: any;
+    url = globalVariable.url+'uploads/';   
     // banner variables
 
     banner : any = [];
@@ -66,8 +67,6 @@ export class VideocallPage {
     }
 
     ionViewDidLoad(){
-      
-
       let requestCameraCallback = (isAvailable) => { if(!isAvailable){this.diagnostic.requestCameraAuthorization();} };
       let requestMicrophoneaCallback = (isAvailable) => { if(!isAvailable){this.diagnostic.requestMicrophoneAuthorization();} };
       let errorCallback = (e) => console.error(e);
@@ -80,9 +79,23 @@ export class VideocallPage {
       
     }
 
-    ionViewWillUnload(){
-        this.endCall();
+
+  ionViewWillLeave(){
+      console.log("ionViewWillLeave"); 
     }
+
+  ionViewWillUnload(){
+      console.log("ionViewWillUnload"); 
+       var obj = {_id: this.cid, isbusyvideo: false};
+      this.updateCustomerForVideo(obj);
+      this.endCall();
+  }
+
+     updateCustomerForVideo(obj){
+        this.customerService.updateCustomer(obj).subscribe(data => {
+         console.log(data);
+        });
+    } 
 
 
     ngOnDestroy(){
@@ -243,7 +256,7 @@ export class VideocallPage {
   endCall() {
     if (!!this.session) {
       this.session.disconnect();
-      this.nav.setRoot(HomePage);
+      this.nav.setRoot(TabsPage);
     }
   }
 

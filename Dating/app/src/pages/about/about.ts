@@ -8,20 +8,24 @@ import { CustomersService } from '../../app/service/index';
   templateUrl: 'about.html'
 })
 export class AboutPage {
+	
 	customerList:any=[];
+	
 	loading:any;
 	customerInfo:any;
 	
-  constructor(public navCtrl: NavController,public customerService: CustomersService, public loadingCtrl: LoadingController) {
+  	constructor(public navCtrl: NavController,public customerService: CustomersService, public loadingCtrl: LoadingController) {
+  		
+  	}
 
-  }
-  ionViewDidEnter() {
+  	ionViewDidEnter() {
 		if(localStorage.getItem("currentCustomer")){
             this.customerInfo = JSON.parse(localStorage.getItem("currentCustomer"));
 			this.getCustomer(this.customerInfo._id);
         }
 	}
 
+	
 	private getCustomer(id){
 		this.loading = this.loadingCtrl.create({
 			content: 'Please wait...'

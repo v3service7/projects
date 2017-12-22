@@ -6,7 +6,7 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { Diagnostic } from '@ionic-native/diagnostic';
 import { MyApp } from './app.component';
 import { Camera} from '@ionic-native/camera';
-import { FileSelectDirective, FileDropDirective } from 'ng2-file-upload';
+import { FileDropDirective,FileUploadModule } from 'ng2-file-upload';
 import { SocketIoModule, SocketIoConfig } from 'ng-socket-io';
 import { HttpModule } from '@angular/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -43,8 +43,7 @@ const config: SocketIoConfig = { url: globalVariable.url, options: {} };
   declarations: [
     MyApp,
     HomePage,
-    FileSelectDirective,
-    AboutPage,
+        AboutPage,
     SettingPage,
     ChangePasswordPage,
     PlanPage,
@@ -69,10 +68,12 @@ const config: SocketIoConfig = { url: globalVariable.url, options: {} };
     BrowserModule,
     FormsModule,
     HttpModule,
+    FileUploadModule,
     ReactiveFormsModule,
     IonicModule.forRoot(MyApp,{tabsPlacement:'bottom'}),
     SocketIoModule.forRoot(config)
   ],
+  exports: [FileUploadModule],
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,

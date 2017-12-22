@@ -76,34 +76,32 @@ export class VideoCallIncomingPage  implements OnInit{
            }
 
                 private receivemodel(action){
-                if(action == 'yes'){
-                var obj1  = {status : true, share : this.call_resp};
-                this.callreceived(obj1);
-                this.call_resp = {};
-                 //this.close();
-                }else{
-                var obj2  = {status : false, share : this.call_resp};
-                this.callreceived(obj2);
-                this.call_resp = {};               
-                 // this.close();
-                }
+                    if(action == 'yes'){
+                        var obj1  = {status : true, share : this.call_resp};
+                        this.callreceived(obj1);
+                        this.call_resp = {};
+                    }else{
+                        var obj2  = {status : false, share : this.call_resp};
+                        this.callreceived(obj2);
+                        this.call_resp = {};               
+                    }
                 }
 
                 private callreceived(response){                            
-                if(response.status){              
-                var nid = response.share.connectedTo;
-                response.share.connectedTo = this.customerInfo._id;
-                this.socketService.vediocallaccept(response);
-                console.log("Connected user", response);
-                
-                //localStorage.setItem("searchedlist", JSON.stringify(window.location.href));
-                //this.router.navigate(['customer/video-call/', response.share.sessionid, response.share.tokenid, nid]);           
-
-                this.nav.setRoot(VideocallPage, {response : response});
-                }else{
-                response.share.connectedTo = this.customerInfo._id;
-                this.socketService.vediocallaccept(response);
-                this.navCtrl.popTo(CustomerPage);
-                }           
+                    if(response.status){
+                        var nid = response.share.connectedTo;
+                        response.share.connectedTo = this.customerInfo._id;
+                        response.share.connectedFrom = nid;
+                        this.socketService.vediocallaccept(response);
+                        this.nav.setRoot(VideocallPage, {response : response});
+                    }else{
+                        var redy = response.share.connectedTo;
+                        response.share.connectedFrom = redy;
+                        response.share.connectedTo = this.customerInfo._id;
+                        this.socketService.vediocallaccept(response);
+                        this.navCtrl.popTo(CustomerPage);                
+                    }           
                 } 
+
+
 }

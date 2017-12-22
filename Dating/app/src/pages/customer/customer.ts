@@ -53,6 +53,9 @@ export class CustomerPage  implements OnInit{
         this.offlinenew2();
         //this.getCustomer(this._id);
     }
+    ionViewWillEnter() {
+    /**/
+    }
     ionViewDidEnter() {
         this.onlinenew();
         this.onlinenew2();
@@ -115,8 +118,8 @@ export class CustomerPage  implements OnInit{
         } 
     }
 
-    /* Some Action on list Accept  */
 
+    /* Some Action on list Accept  */
     private acceptrequest(id, pid) {
         var friendobj={_id: id, status:1};
         this.friendService.updateFriend(friendobj).subscribe((data) => {
@@ -265,13 +268,28 @@ let prompt = this.alertCtrl.create({
 
             /* Video call */
 
-            private vediocall(id){
-            console.log("vediocall send")
-            this.currentcall = {_id :  id, cid : this.customerInfo._id};
-            this.socketService.video(this.currentcall);
-            this.navCtrl.push(VideoCallOutgoingPage, {
-                    callingto :  this.currentcall
-            });
+                private vediocall(id){
+                this.customerService.getOne(id).subscribe((selectedid) => {
+                if(selectedid.message.isbusyvideo == false){ 
+                this.videocallmamke(id);
+                }else{
+                alert(selectedid.message.username +": Now is Busy!");   
+                }
+                });
+                }    
+
+            public videocallmamke(id){
+            this.customerService.getOne(this.customerInfo._id).subscribe((customers) => {
+            if(typeof customers.message.mypackage !== 'undefined' && (customers.message.mypackage.remaincalls > 0)){            
+                this.currentcall = {_id :  id, cid : this.customerInfo._id};
+                this.socketService.video(this.currentcall);
+                this.navCtrl.push(VideoCallOutgoingPage, {
+                callingto :  this.currentcall
+                });
+            }else{
+                alert("You are not Able to make call? Please Purchase Plan.");
+            }
+            });   
             }
 
           
