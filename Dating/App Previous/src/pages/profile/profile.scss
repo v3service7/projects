@@ -1,0 +1,179 @@
+page-profile {
+
+	ion-content .scroll-content , ion-content .fixed-content{
+	    margin-top: 63px;
+	    margin-bottom: 49px;
+	}
+
+	ion-item ion-label div{
+	    position: absolute;
+	    right: 5%;
+	    top: 20%;
+	}
+
+	ion-item{
+		color : white !important;
+	}
+
+	ion-item .item-inner{
+		border : none !important; 
+	}
+
+	.customerDetail{
+	    padding: 10% 0 5% 0;
+	}
+
+	.profile100{
+		background : #FDC7A8;
+	}
+
+	.profilePercent{
+		border : 3px solid #E65100;
+	}
+
+	.padding6-12{
+		padding: 6% 12%;
+	}
+
+	.photoBtn{
+		padding: 3% 5%;
+	    font-size: 14px;
+	    background: #E65100;
+	    margin-top: 5%;
+	    color: white;
+        box-shadow: 2px 2px 5px #888888;
+	}
+
+	.fileContainer {
+	    overflow: hidden;
+	    position: relative;
+	    height: 100%;
+	    width: 100%;
+	}
+
+	.fileContainer [type=file] {
+		filter: alpha(opacity=0);
+		width: 100%;
+	    height: 100%;
+		opacity: 0;
+		position: absolute;
+		right: 0;
+		text-align: right;
+		top: 0;
+	}
+
+	/* Example stylistic flourishes */
+
+	.fileContainer {
+		padding: 3% 5%;
+        background: black;
+	    opacity: 0.65;
+	    color: white;
+        box-shadow: 2px 2px 5px #888888;
+	}
+
+	.fileContainer [type=file] {
+		cursor: pointer;
+	}
+
+	.margin5-0{
+		margin : 5% 0;
+	}
+
+	.height60px{
+		height : 60px;
+		display : flex;
+	}
+
+	.height60px img{
+		width : 100%;
+		height : 100%;
+	}
+
+	.height60px span{
+		position: absolute;
+	    right: 0;
+	    background: #e65100;
+	    border-radius: 7px;
+	    top: 0;
+	    padding: 0px 4px;
+	    font-size: 12px;
+	    color: white;
+	}
+
+	.headingMyPhotos{
+		font-weight : 500;
+		font-size : 16px;
+	}
+
+	ion-navbar button.back-button{
+		color : white !important;
+	}
+
+	ion-navbar button.back-button span.button-inner span.back-button-text{
+		display : none !important;
+	}
+
+	.gallery ion-list{
+	    width: 90%;
+	    margin: 6% auto !important;
+	}
+
+	.addButton{
+	    width: 100%;
+	    padding-top: 20%;
+        font-size: 26px;
+	}
+
+	.video-container {
+	    position: relative;
+	    padding-bottom: 56.25%;
+	    padding-top: 30px; height: 0; overflow: hidden;
+	}
+
+	.video-container iframe, .video-container object, .video-container embed {
+	    position: absolute;
+	    top: 0;
+	    left: 0;
+	    width: 100%;
+	    height: 100%;
+	}
+
+	.textWhite{
+		color : white;
+	}
+
+	.form-control{
+	    width: 100%;
+	    font-size: 14px;
+	    padding: 2%;
+	    border-radius: 3px;
+	}
+
+	.padding3-5{
+		padding : 3% 5%;
+	}
+
+	.youtubeVideos .item-inner{
+		padding: 0 !important;
+	}
+
+	.youtubeVideos .item-inner ion-label{
+		margin : 0 !important;
+	}
+
+	.youtubeVideos .item-inner ion-label div{
+		right : 0 !important;
+	}
+
+	.video-utube span{
+		position: absolute;
+	    right: 0;
+	    background: #e65100;
+	    border-radius: 7px;
+	    top: 0;
+	    padding: 0px 4px;
+	    font-size: 12px;
+	    color: white;
+	}
+}
