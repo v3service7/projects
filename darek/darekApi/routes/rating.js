@@ -35,14 +35,33 @@ router.get('/rating', function(req, res, next) {
 
 router.post('/rating',function(req, res){
     var response={};
-    var rating = new ratingModel(req.body);
-    rating.save(function(err,data){
-        if(err) {
-            response = {"error" : true,"message" : err};
-        } else {
-            response = {"error" : false,"message" : data};
+
+    ratingModel.findOne({customerId:req.body.customerId , restaurantId:req.body.restaurantId },function(err,obj){
+        if(err){
+            response = {"error" : true,"message" : "Error fetching data"};
+            return(res.json(response));
+        }else{
+            if (obj) {
+                ratingModel.findByIdAndUpdate(obj._id, req.body, function(err, data) {
+                    if(err) {
+                        response = {"error" : true,"message" : err};
+                    } else {
+                        response = {"error" : false,"message" : "Data Update"};
+                    }
+                    return res.json(response);
+                });
+            }else{
+                var rating = new ratingModel(req.body);
+                rating.save(function(err,data){
+                    if(err) {
+                        response = {"error" : true,"message" : err};
+                    } else {
+                        response = {"error" : false,"message" : "Data Added"};
+                    }
+                    return res.json(response);
+                });
+            }
         }
-        res.json(response);
     });
 });
 

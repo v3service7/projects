@@ -73,7 +73,7 @@ export class MyApp {
         this.socketService.orderFromOwnerToDriver().subscribe((data) =>{
             if((data) && (data['driverdetail']['driverId']['_id'] == this.currentDriver['_id'])){
                 this.pushNot(data['driverdetail']['restaurantId']['name']);
-                console.log("owner Send Order To driver detail", data);
+                //console.log("owner Send Order To driver detail", data);
                 this.events.publish('order:receivedorder', data, Date.now());
             }
         });

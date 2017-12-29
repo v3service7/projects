@@ -75,7 +75,6 @@ export class MyApp {
     }
 
     ionViewDidEnter() {
-
         this.loadRestaurant();
         this.initializeApp();
     }
@@ -92,11 +91,17 @@ export class MyApp {
 
     orderResponseReceived(){
         this.socketService.orderResponseOwnerToCustomer().subscribe((data) =>{
+            
+            this.currentCustomer = JSON.parse(localStorage.getItem('currentCustomer'));
+
+            console.log("data --- ", JSON.stringify(data));
+            console.log("this.currentCustomer  ",this.currentCustomer)
+
             if((data) && (data['status']['customerId']['_id'] == this.currentCustomer['_id'])){
                 this.pushNot(data['status']['status']);
             }
-        })    
-    }  
+        })
+    }
 
     /*onReloadPage(){
         if(localStorage.getItem('currentCustomer')){

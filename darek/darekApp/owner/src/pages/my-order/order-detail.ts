@@ -131,7 +131,7 @@ export class OrderDetailPage {
                     console.log("this.selectedOrder noti");
                     console.log(this.selectedOrder);
                     this.socketService.orderActionbyOwnerForCustomer(this.selectedOrder);
-                },500)
+                },2000)
             }
         );
     }

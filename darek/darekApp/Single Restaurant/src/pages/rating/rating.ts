@@ -75,16 +75,10 @@ export class RatingPage {
 
             /*abc[0].style.display='block';
             xyz[0].style.display='none';*/
-            
             abc[0].setAttribute("style", "display:block");
             xyz[0].setAttribute("style", "display:none");
-
-
         }
         this.ratingForm.controls['rating'].setValue(x);
-
-        console.log("this.ratingForm.value");
-        console.log(this.ratingForm.value);
     }
 
     removeRating(x){
@@ -95,19 +89,13 @@ export class RatingPage {
             let abc = document.getElementsByClassName(starShowClass);
             let xyz = document.getElementsByClassName(starHideClass);
 
-            console.log(abc);
-            console.log(xyz);
-
             /*abc[0].style.display='none';
             xyz[0].style.display='block';*/
 
             abc[0].setAttribute("style", "display:none");
             xyz[0].setAttribute("style", "display:block");
         }
-
         this.ratingForm.controls['rating'].setValue(x);
-        console.log("this.ratingForm.value");
-        console.log(this.ratingForm.value);
     }
 
     getAllRating(){

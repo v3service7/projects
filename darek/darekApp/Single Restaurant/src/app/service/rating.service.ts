@@ -26,4 +26,11 @@ export class RatingService {
       (response: Response) => response.json()
     );
   }
+
+  /*updateRating(data){
+    return this.http.put(globalVariable.url+'rating/'+data._id,data)
+    .map(
+      (response: Response) => response.json()
+    );
+  }*/
 }
