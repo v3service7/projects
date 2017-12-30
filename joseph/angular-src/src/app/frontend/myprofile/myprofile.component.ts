@@ -276,10 +276,18 @@ export class MyprofileComponent implements OnInit {
 	      obj['expireddate'] = threeMonthsInTheFuture;
 	      obj['user'] = this.id;
 	  		if(confirm("Are you sure to purchase plan?")) {
-				this.flashMessage.show('Exchange Purchase Successfully', { cssClass: 'alert-success', timeout: 3000 });
-				this.purchaseplanService.puchaseplan(obj).subscribe(data => {
-				this.accountgetList();
-	            });
+				this.purchaseplanService.paymentplan(data).subscribe(
+		            (data) => {
+		            	if(!data.error){
+		            		window.location.href = data.paymentlink;
+		            		this.purchaseplanService.puchaseplan(obj).subscribe(data => {
+	            			});
+		            	}
+		            },
+		            (err)=>{
+		                console.log('kfgbhj')
+		            }
+		        );
 	        }
   	}
 

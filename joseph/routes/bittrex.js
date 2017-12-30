@@ -7,7 +7,6 @@ module.exports = function (io) {
     const APISECRET = '4501a1dc096548e395a652871ad53642';
     /*const APIKEY = '2e6c90b726e24b1ba145297c6a56240f';
     const APISECRET = 'aa8a9e47dff246a395f33af55570d047';*/
-    /* GET home page. */
     
     /*bittrex API*/
     bittrex.options({
@@ -81,11 +80,11 @@ module.exports = function (io) {
                 }
             })
         });
-    })
+    });
 
     router.get('/time', (req,res)=>{
             res.json(Date.now());
-    })
+    });
 
     router.get('/symbols', (req,res)=>{
         var name = req.query.symbol;
@@ -94,44 +93,6 @@ module.exports = function (io) {
                 res.json(summary.result[0]);
             }
         });
-    })
-
-    io.on("connection", function (socket) {
-        var existsocket = Object.keys(io.sockets.sockets);
-        console.log('user connected');
-        console.log(existsocket);
-
-        
-        socket.on('marketName', (name) => {
-            bittrex.websockets.client(function () {
-                bittrex.websockets.subscribe(['BTC-LTC'], function (data) {
-                    if (data.M === 'updateExchangeState') {
-                        data.A.forEach(function (data_for) {
-                            bittrex.getmarketsummaries(function (data) {                           
-                                 socket.emit("allCurrency", {
-                                     error: false,
-                                     list: data
-                                 });                               
-                            });
-
-                            bittrex.getmarketsummary({ market: name }, function (summary) {
-                                socket.emit("getmarketsummary", {
-                                    error: false,
-                                    list: summary
-                                });
-                            });
-
-                            bittrex.getmarkethistory({ market: name }, function (history) {                                
-                                socket.emit("getmarkethistory", {
-                                    error: false,
-                                    list: history
-                                });
-                            });
-                        });
-                    }
-                });
-            });
-        });         
     });
     return router;
 }

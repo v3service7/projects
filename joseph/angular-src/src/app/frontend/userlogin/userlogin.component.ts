@@ -33,6 +33,8 @@ export class UserloginComponent implements OnInit {
 
 	    this.userService.validateUser(user).subscribe(data => {
 	      if(data.success){
+	      	localStorage.setItem('market', 'Binance');
+			localStorage.setItem('currency', 'ETHBTC');
 	        this.userService.storeUser(data.token, data.user);
 	        this.flashMessage.show('You are now logged in', {cssClass: 'alert-success', timeout: 5000});
 	        this.router.navigate(['dashboard']);

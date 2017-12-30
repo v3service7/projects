@@ -10,10 +10,17 @@ const config = require('./config/database');
 const users = require('./routes/users');
 const pages = require('./routes/pages');
 const plans = require('./routes/plans');
+const pays = require('./routes/pays');
 const exchanges = require('./routes/exchanges');
 const purchaseplans = require('./routes/purchaseplans');
 const exchangeapis = require('./routes/exchangeapis');
 const http = require('http');
+const paypal = require('paypal-rest-sdk');
+paypal.configure({
+	'mode': 'sandbox', //sandbox or live
+	'client_id': 'AXQ4KzD4fT04eSGQb_0ZHPBAo8DbwPYa7mWM-X9jPEZztcjb7SDcfWGPD1dKtif8fEUoSa5CNAXMIl3k',
+	'client_secret': 'EGAzn6qHMgtGxDqU3OzTWGkTLF-WI22fBBpWabbxRyy0U1d3TzhDcdiZjSTBtEYp7tChOBVeX9Dx5X2X'
+});
 
 var socket_io = require('socket.io');
 
@@ -35,6 +42,7 @@ var io = socket_io();
 app.io = io;
 const bittrex = require('./routes/bittrex')(io);
 const binance = require('./routes/binance')(io);
+const socket = require('./routes/socket')(io);
 
 // Port Number
 const port = 3000;
@@ -61,15 +69,16 @@ app.use('/purchaseplan', purchaseplans);
 app.use('/exchangeapi', exchangeapis);
 app.use("/bittrexApi", bittrex);
 app.use("/binance", binance);
+app.use('/pay', pays);
 
 // Index Route
 app.get('/', (req, res) => {
 	res.send('Invalid End Point');
 });
 
-/*app.get('*', (req, res) => {
+app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, 'public/index.html'));
-});*/
+});
 
 const server = http.createServer(app);
 var io = app.io;
@@ -79,5 +88,3 @@ io.attach(server);
 server.listen(port, () => {
 	console.log('Server started on port '+port);
 });
-
-

@@ -270,25 +270,25 @@
                                 <!-- for Account Detail -->
                                 <div class="tab-pane fade show" id="v-pills-account" role="tabpanel" aria-labelledby="v-pills-account-tab">
                                     <div class="card profile-card change-password-card">
-                                        <h4 class="card-header text-white">My Account Detail</h4>
+                                        <h4 class="card-header text-white">My Account Details</h4>
                                         <div class="card-body  " >                                       
                                            <!--  <flash-messages></flash-messages>       --> 
                                             <div class="card-content table-responsive">
                                                 <table class="table text-white" *ngIf="accountplansType.length >0">
                                                     <thead class="">
                                                         <th>Plan Name</th>
-                                                        <th>Plan price</th>
+                                                        <th>Plan Price</th>
                                                         <th>Start End</th>
                                                         <th>End Date</th>
-                                                        <th>Validation</th>
+                                                        <th>Status</th>
                                                     </thead>
                                                     <tbody>
                                                         <tr *ngFor="let customer of accountplansType">
-                                                             <td class="padding0">{{customer.plan.name}}</td>
+                                                             <td class="padding0">{{customer.plan.name}} ({{customer.plan.planType}} Months)</td>
                                                              <td class="padding0">{{customer.plan.amount}}</td>
                                                               <td class="padding0">{{customer.created_at | date: 'dd/MM/yyyy'}}</td>
                                                               <td class="padding0">{{customer.expireddate | date: 'dd/MM/yyyy'}}</td>
-                                                              <td class="padding0">{{customer.plan.planType}} Months</td>
+                                                              <td class="padding0">{{customer.status}}</td>
                                                         </tr>
                                                     </tbody>
                                                 </table>

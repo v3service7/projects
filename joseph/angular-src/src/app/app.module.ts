@@ -33,6 +33,8 @@ import { FrontfooterComponent } from './frontend/frontfooter/frontfooter.compone
 import { MyprofileComponent } from './frontend/myprofile/myprofile.component';
 import { ForgotComponent, ResetComponent } from './frontend/forgot/forgot.component';
 import { UserdashboardComponent } from './frontend/userdashboard/userdashboard.component';
+import { SuccessComponent } from './frontend/success/success.component';
+import { CancelComponent } from './frontend/cancel/cancel.component';
 
 import {ValidateService} from './services/validate.service';
 import {AdminService} from './services/admin.service';
@@ -43,6 +45,7 @@ import { PurchaseplanService} from './services/purchaseplan.service';
 import { ExchangeService} from './services/exchange.service';
 import { ExchangeapiService} from './services/exchangeapi.service';
 import { BittrexService} from './services/bittrex.service';
+import { BinanceService} from './services/binance.service';
 
 import {FlashMessagesModule} from 'angular2-flash-messages';
 import {AuthGuard} from './guards/admin.guard';
@@ -98,7 +101,9 @@ const appRoutes: Routes =  [
         { path: 'dashboard', component: UserdashboardComponent, canActivate: [UserGuard] },
         { path: 'forgotpassword', component: ForgotComponent },
         { path: 'profile', component: MyprofileComponent, canActivate: [UserGuard] },
-        { path: 'resetpassword/:id', component: ResetComponent },       
+        { path: 'resetpassword/:id', component: ResetComponent },  
+        { path: 'success', component: SuccessComponent, canActivate: [UserGuard]},
+        { path: 'cancel', component: CancelComponent, canActivate: [UserGuard]},     
     ]}
 ]
 
@@ -123,7 +128,7 @@ const appRoutes: Routes =  [
     HomeComponent,  
     SignupComponent, 
     ResetComponent,
-    UserloginComponent, FrontfooterComponent, MyprofileComponent, ForgotComponent,
+    UserloginComponent, FrontfooterComponent, MyprofileComponent, ForgotComponent, SuccessComponent, CancelComponent,
     UserdashboardComponent
   ],
   imports: [
@@ -139,7 +144,7 @@ const appRoutes: Routes =  [
     SocketIoModule.forRoot(config),
     Ng2SearchPipeModule
   ],
-  providers: [BittrexService, ValidateService, AdminService, AuthGuard, UserGuard, UserService, PlanService, PagesService, ExchangeService,ExchangeapiService,PurchaseplanService],
+  providers: [BittrexService,BinanceService, ValidateService, AdminService, AuthGuard, UserGuard, UserService, PlanService, PagesService, ExchangeService,ExchangeapiService,PurchaseplanService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -40,13 +40,13 @@ module.exports = {
     forgetEmailShoot: function(user) {
         if(user.role=='Admin')
         {
-            //user['resetPassLink'] = 'http://34.209.114.118:3000/admin/resetpassword/'+user._id;
-            user['resetPassLink'] = 'http://localhost:4200/admin/resetpassword/'+user._id;
+            user['resetPassLink'] = 'http://34.209.114.118:3000/admin/resetpassword/'+user._id;
+            //user['resetPassLink'] = 'http://localhost:4200/admin/resetpassword/'+user._id;
         }
         else
         {
-            //user['resetPassLink'] = 'http://34.209.114.118:3000/resetpassword/'+user._id;
-            user['resetPassLink'] = 'http://localhost:4200/resetpassword/'+user._id;
+            user['resetPassLink'] = 'http://34.209.114.118:3000/resetpassword/'+user._id;
+            //user['resetPassLink'] = 'http://localhost:4200/resetpassword/'+user._id;
         }
     
         // rendering html template (same way can be done for subject, text)

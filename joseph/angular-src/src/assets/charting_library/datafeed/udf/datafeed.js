@@ -20,6 +20,7 @@ var Datafeeds = {};
 Datafeeds.UDFCompatibleDatafeed = function(datafeedURL, updateFrequency) {
 	this._datafeedURL = datafeedURL;
 	this._configuration = undefined;
+
 	this._symbolSearch = null;
 	this._symbolsStorage = null;
 	this._barsPulseUpdater = new Datafeeds.DataPulseUpdater(this, updateFrequency || 10 * 1000);
@@ -29,21 +30,20 @@ Datafeeds.UDFCompatibleDatafeed = function(datafeedURL, updateFrequency) {
 	this._initializationFinished = false;
 	this._callbacks = {};
 
-	this._initialize();
+	//this._initialize();
 };
 
 Datafeeds.UDFCompatibleDatafeed.prototype.defaultConfiguration = function() {
 	return {
-		supports_search: true,
+		supports_search: false,
 		supports_group_request: true,
 		supported_resolutions: ['1', '5', '15', '30', '60', '1D', '1W', '1M'],
 		supports_marks: false,
 		supports_timescale_marks: false
-		
 	};
 };
 
-Datafeeds.UDFCompatibleDatafeed.prototype.getServerTime = function(callback) {
+/*Datafeeds.UDFCompatibleDatafeed.prototype.getServerTime = function(callback) {
 	if (this._configuration.supports_time) {
 		this._send(this._datafeedURL + '/time', {})
 			.done(function(response) {
@@ -55,7 +55,7 @@ Datafeeds.UDFCompatibleDatafeed.prototype.getServerTime = function(callback) {
 			.fail(function() {
 			});
 	}
-};
+};*/
 
 Datafeeds.UDFCompatibleDatafeed.prototype.on = function(event, callback) {
 	if (!this._callbacks.hasOwnProperty(event)) {
@@ -78,7 +78,6 @@ Datafeeds.UDFCompatibleDatafeed.prototype._fireEvent = function(event, argument)
 };
 
 Datafeeds.UDFCompatibleDatafeed.prototype.onInitialized = function() {
-	
 	this._initializationFinished = true;
 	this._fireEvent('initialized');
 };
@@ -111,11 +110,10 @@ Datafeeds.UDFCompatibleDatafeed.prototype._send = function(url, params) {
 
 Datafeeds.UDFCompatibleDatafeed.prototype._initialize = function() {
 	var that = this;
-
 	this._send(this._datafeedURL + '/config')
 		.done(function(response) {
+			//console.log(response)
 			var configurationData = parseJSONorNot(response);
-			
 			that._setupWithConfiguration(configurationData);
 		})
 		.fail(function(reason) {
@@ -137,7 +135,6 @@ Datafeeds.UDFCompatibleDatafeed.prototype.onReady = function(callback) {
 };
 
 Datafeeds.UDFCompatibleDatafeed.prototype._setupWithConfiguration = function(configurationData) {
-	
 	this._configuration = configurationData;
 
 	if (!configurationData.exchanges) {
@@ -177,7 +174,7 @@ Datafeeds.UDFCompatibleDatafeed.prototype._setupWithConfiguration = function(con
 Datafeeds.UDFCompatibleDatafeed.prototype.getMarks = function(symbolInfo, rangeStart, rangeEnd, onDataCallback, resolution) {
 	if (this._configuration.supports_marks) {
 		this._send(this._datafeedURL + '/marks', {
-			symbol: symbolInfo.ticker.toUpperCase(),
+			symbol: symbolInfo.MarketName,
 			from: rangeStart,
 			to: rangeEnd,
 			resolution: resolution
@@ -194,7 +191,7 @@ Datafeeds.UDFCompatibleDatafeed.prototype.getMarks = function(symbolInfo, rangeS
 Datafeeds.UDFCompatibleDatafeed.prototype.getTimescaleMarks = function(symbolInfo, rangeStart, rangeEnd, onDataCallback, resolution) {
 	if (this._configuration.supports_timescale_marks) {
 		this._send(this._datafeedURL + '/timescale_marks', {
-			symbol: symbolInfo.ticker.toUpperCase(),
+			symbol: symbolInfo.MarketName,
 			from: rangeStart,
 			to: rangeEnd,
 			resolution: resolution
@@ -217,7 +214,6 @@ Datafeeds.UDFCompatibleDatafeed.prototype.searchSymbols = function(searchString,
 	}
 
 	if (this._configuration.supports_search) {
-		
 		this._send(this._datafeedURL + '/search', {
 			limit: MAX_SEARCH_RESULTS,
 			query: searchString.toUpperCase(),
@@ -331,16 +327,16 @@ Datafeeds.UDFCompatibleDatafeed.prototype.getBars = function(symbolInfo, resolut
 	if (rangeStartDate > 0 && (rangeStartDate + '').length > 10) {
 		throw new Error(['Got a JS time instead of Unix one.', rangeStartDate, rangeEndDate]);
 	}
-
+	//console.log('symbolInfo',symbolInfo)
 	this._send(this._datafeedURL + this._historyURL, {
-		symbol: symbolInfo.ticker.toUpperCase(),
+		symbol: symbolInfo.MarketName,
 		resolution: resolution,
 		from: rangeStartDate,
 		to: rangeEndDate
 	})
 	.done(function(response) {
 		var data = parseJSONorNot(response);
-
+		
 		var nodata = data.s === 'no_data';
 
 		if (data.s !== 'ok' && !nodata) {
@@ -380,6 +376,7 @@ Datafeeds.UDFCompatibleDatafeed.prototype.getBars = function(symbolInfo, resolut
 
 			bars.push(barValue);
 		}
+		//console.log(bars)
 
 		onDataCallback(bars, { noData: nodata, nextTime: data.nb || data.nextTime });
 	})
@@ -667,6 +664,7 @@ Datafeeds.DataPulseUpdater = function(datafeed, updateFrequency) {
 		}
 
 		for (var listenerGUID in that._subscribers) {
+			//console.log(listenerGUID, that._subscribers)
 			var subscriptionRecord = that._subscribers[listenerGUID];
 			var resolution = subscriptionRecord.resolution;
 
@@ -679,7 +677,6 @@ Datafeeds.DataPulseUpdater = function(datafeed, updateFrequency) {
 			that._requestsPending++;
 
 			(function(_subscriptionRecord) { // eslint-disable-line
-				//console.log('_subscriptionRecord',_subscriptionRecord)
 				that._datafeed.getBars(_subscriptionRecord.symbolInfo, resolution, datesRangeLeft, datesRangeRight, function(bars) {
 					that._requestsPending--;
 

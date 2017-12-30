@@ -6,7 +6,13 @@ var PurchaseplanSchema = new Schema({
   	plan: { type: Schema.Types.ObjectId, ref: 'plan' },
   	user: { type: Schema.Types.ObjectId, ref: 'User' },
   	expireddate:{type: Date},
-  	status: { type: Boolean, default: true },
+  	paymentId:String,
+  	PayerID: String,
+  	status: {
+        type: String,
+        enum : ['Pending','Failed','Success'],
+        default: 'Pending'
+    },
   	created_at: { type: Date, default: Date.now },
   	updated_at: { type: Date, default: Date.now }
 });

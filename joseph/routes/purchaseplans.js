@@ -47,6 +47,17 @@ module.exports = (function() {
         });
     });
 
+    router.put('/:id', passport.authenticate('jwt', {session:false}), function(req, res) {
+        var response = {};
+        purchaseplanModel.findOneAndUpdate({"user":req.params.id,"status":"Pending"}, req.body).exec(function(err, plan) {
+            if (err) {
+                response = { "error": true, "message": err };
+            } else {
+                response = { "error": false, "message": plan };
+            }
+            res.json(response);
+        });
+    });
     /*-------------------------------END EXCHANGE--------------------------------------------------------*/
 
     return router;
