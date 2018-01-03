@@ -177,12 +177,7 @@ export class HomePage {
 		    console.log(this.filterBy);
 
 			this.customerService.filter(this.filterBy).subscribe((data) => {
-
-				//console.log("data match");
-				//console.log(data);
-
 				this.loading.dismiss();
-
 				this.customerList = [];	
 				var x = data.message.findIndex(mn=>mn._id == this.customerInfo._id);
 				if (x > -1) {

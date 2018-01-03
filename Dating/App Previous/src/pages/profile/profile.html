@@ -6,8 +6,6 @@
     <ion-title>Profile</ion-title>
   </ion-navbar>
 </ion-header>
-
-
 <ion-content *ngIf = "currentCustomer">
     <ion-row class="colorWhite bcColor customerDetail">
         <ion-item class="bcColor">
@@ -22,16 +20,6 @@
             </div>
         </ion-item>
     </ion-row>
-   
-    <!-- <ion-row>
-        <ion-col text-center class="margin5-0">
-            <label class="fileContainer">
-                Add Photo
-                <input type="file" name="single" ng2FileSelect [uploader]="uploader" (change)="addPhoto($event)"/>
-            </label>
-        </ion-col>
-    </ion-row> -->
-
     <ion-row class="padding6-12">
         <ion-col no-padding col-12 padding-bottom>Profile Complete : {{currentCustomer.profileCompletePercent}} %</ion-col>
         <ion-col no-padding col-12 class="profile100">

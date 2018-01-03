@@ -81,7 +81,7 @@ export class ProfileUpdatePage {
 		console.log(this.currentCustomer);
 	}
 
-	ionViewDidLoad() {}
+	ionViewDidLoad(){}
 
 	private getOne(){
 		this.customerService.getOneCustomer(this.currentCustomer['_id']).subscribe(cust=>{
@@ -89,8 +89,8 @@ export class ProfileUpdatePage {
     		this.currentCustomer = JSON.parse(localStorage.getItem('currentCustomer'));
     		console.log(this.currentCustomer);
     		this.citycountry = this.currentCustomer.cityName +','+ this.currentCustomer.countryName;
-    	});
-	}
+    	    });
+	   }
 
 	private chooseDOB(){
 		this.BasicInfoForm.controls['dateofbirth'].setValue(this.dob);

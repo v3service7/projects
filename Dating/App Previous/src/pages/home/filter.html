@@ -3,18 +3,11 @@
         <ion-title>Filter</ion-title>
     </ion-navbar>
 </ion-header>
-
 <ion-content>
-
 <ion-list>
-
-
-
-    <ion-item>
-        <ion-label text-right><span float-right class="resetButton" (click)="resetFilter()"> Reset </span></ion-label>
-    </ion-item>
-
-
+<ion-item>
+<ion-label text-right><span float-right class="resetButton" (click)="resetFilter()"> Reset </span></ion-label>
+</ion-item>
     <ion-item>
         <ion-label>Hair Color</ion-label>
         <ion-select [(ngModel)]="filterBy.haircolor" multiple="true" submitText="Ok" cancelText="Cancel" (ionChange)="selectOption('haircolor')">
