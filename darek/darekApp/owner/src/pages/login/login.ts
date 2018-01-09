@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ToastController, LoadingController, Nav, IonicPage, NavController, NavParams,ViewController,MenuController  } from 'ionic-angular';
+import { ToastController, LoadingController, Nav, NavController, NavParams,ViewController,MenuController  } from 'ionic-angular';
 import { AuthService } from '../../app/service/auth.service';
 
 import { SocketService } from '../../app/service/socket.service';
@@ -15,8 +15,6 @@ import { ForgetPasswordPage } from '../forget-password/forget-password';
  * See http://ionicframework.com/docs/components/#navigation for more info
  * on Ionic pages and navigation.
  */
-
- @IonicPage()
  @Component({
  	selector: 'page-login',
  	templateUrl: 'login.html',

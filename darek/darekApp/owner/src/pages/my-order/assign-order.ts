@@ -58,7 +58,7 @@ export class AssignOrderPage {
             this.selectedOrder = users.message;
 
             this.socketService.orderActionbyOwnerForDriver(this.selectedOrder);
-            this.navCtrl.pop(OrderDetailPage);
+            this.navCtrl.pop();
             this.getToast('Order Assigned to Driver successfully');
         });
     }

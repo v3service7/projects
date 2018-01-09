@@ -108,7 +108,7 @@ export class MyOrderPage {
 
     private presentActionSheet() {
         let actionSheet = this.actionSheetCtrl.create({
-            title: 'Status',
+            title: 'Order Status',
             buttons: [
             {
                 text: 'Accepted',
@@ -125,6 +125,21 @@ export class MyOrderPage {
                 handler: () => {
                     this.filterItems('Missed');
                 }
+            },{
+                text: 'Pending',
+                handler: () => {
+                    this.filterItems('Pending');
+                }
+            },{
+                text: 'Completed',
+                handler: () => {
+                    this.filterItems('Completed');
+                }
+            },{
+                text: 'Any',
+                handler: () => {
+                    this.filterItems('Any');
+                }
             }
             ]
         });
@@ -132,11 +147,15 @@ export class MyOrderPage {
     }
 
     private filterItems(searchTerm){
-        this.orders = this.tempOrdr
-        let ordr = this.orders.filter((item) => {
-            /*console.log(item['status'].toLowerCase() == searchTerm.toLowerCase());*/
-            return item['status'].toLowerCase() == searchTerm.toLowerCase();
-        });
-        this.orders = ordr;
+        if (searchTerm == 'Any') {
+            this.orders = this.tempOrdr;
+        }else{        
+            this.orders = this.tempOrdr;
+            let ordr = this.orders.filter((item) => {
+                /*console.log(item['status'].toLowerCase() == searchTerm.toLowerCase());*/
+                return item['status'].toLowerCase() == searchTerm.toLowerCase();
+            });
+            this.orders = ordr;
+        }
     }
 }

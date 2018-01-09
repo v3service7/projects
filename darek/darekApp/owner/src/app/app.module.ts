@@ -13,7 +13,6 @@ import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { ListPage } from '../pages/list/list';
 import { LoginPage } from '../pages/login/login';
-import { LoginPageModule } from '../pages/login/login.module';
 import { ForgetPasswordPage } from '../pages/forget-password/forget-password';
 import { ChangePasswordPage } from '../pages/change-password/change-password';
 import { ProfilePage } from '../pages/profile/profile';
@@ -29,7 +28,6 @@ import { DriverDetailPage } from '../pages/my-driver/driver-detail';
 import { AddDriverPage } from '../pages/my-driver/add-driver';
 import { EditDriverPage } from '../pages/my-driver/driver-edit';
 import { DriversPositionPage } from '../pages/my-driver/drivers-position';
-import { MyNotificationPage } from '../pages/my-notification/my-notification';
 
 import { RatingPage } from '../pages/rating/rating';
 
@@ -51,6 +49,7 @@ import {  AuthService, UsersService,SocketService, RestaurantsService, OrderServ
         MyApp,
         HomePage,
         ListPage,
+        LoginPage,
         ForgetPasswordPage,
         ChangePasswordPage,
         ProfilePage,InfoPage,
@@ -59,7 +58,6 @@ import {  AuthService, UsersService,SocketService, RestaurantsService, OrderServ
         MyDriverPage,AddDriverPage,DriverDetailPage,EditDriverPage,DriversPositionPage,
         MyOrderPage,
         OrderDetailPage,AssignOrderPage,
-        MyNotificationPage,
         RatingPage,
 
     ],
@@ -67,7 +65,6 @@ import {  AuthService, UsersService,SocketService, RestaurantsService, OrderServ
         BrowserModule,
         FormsModule,
         HttpModule,
-        LoginPageModule,
         ReactiveFormsModule,
         IonicModule.forRoot(MyApp),
         SocketIoModule.forRoot(config)
@@ -85,7 +82,6 @@ import {  AuthService, UsersService,SocketService, RestaurantsService, OrderServ
         CustomerDetailPage,
         MyDriverPage, AddDriverPage, DriverDetailPage, EditDriverPage, DriversPositionPage,
         MyOrderPage, OrderDetailPage, AssignOrderPage,
-        MyNotificationPage,
         RatingPage
     ],
     providers: [

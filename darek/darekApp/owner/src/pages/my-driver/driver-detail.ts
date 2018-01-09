@@ -184,7 +184,7 @@ export class DriverDetailPage {
                     text: 'oK',
                     handler: data => {
                         this.driverService.deleteOne(id).subscribe(data => {   
-                            this.navCtrl.pop(MyDriverPage);
+                            this.navCtrl.pop();
                             this.getToast('Driver Deleted Successfully');
                         });
                     }

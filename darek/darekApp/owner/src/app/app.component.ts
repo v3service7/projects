@@ -17,7 +17,6 @@ import { MyCustomerPage } from '../pages/my-customer/my-customer';
 import { MyOrderPage } from '../pages/my-order/my-order';
 import { MyDriverPage } from '../pages/my-driver/my-driver';
 import { RatingPage } from '../pages/rating/rating';
-import { MyNotificationPage } from '../pages/my-notification/my-notification';
 
 @Component({
     templateUrl: 'app.html',
@@ -56,8 +55,7 @@ export class MyApp {
             { title: 'Customers', icon: 'people', component: MyCustomerPage },
             { title: 'Orders', icon: 'cart', component: MyOrderPage },
             { title: 'Drivers', icon: 'people', component: MyDriverPage },
-            { title: 'Rating', icon: 'star-half', component: RatingPage },
-            { title: 'Notifications', icon: 'notifications', component: MyNotificationPage },
+            { title: 'Rating', icon: 'star-half', component: RatingPage }
         ];
 
         this.currentOwner = JSON.parse(localStorage.getItem('currentOwner'));

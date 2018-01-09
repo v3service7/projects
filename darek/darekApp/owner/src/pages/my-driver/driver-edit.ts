@@ -63,7 +63,7 @@ import { DriverDetailPage } from './driver-detail';
         this.driversService.updateDriver(this.updateDriver.value).subscribe(
             (data) => {
                 loading.dismiss();
-                this.navCtrl.pop(DriverDetailPage);
+                this.navCtrl.pop();
                 this.getToast('Driver Updated successfully')
 
             }

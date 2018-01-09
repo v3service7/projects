@@ -12,6 +12,8 @@
 // To declare rules for a specific mode, create a child rule
 // for the .md, .ios, or .wp mode classes. The mode class is
 // automatically applied to the <body> element in the app.
+
+
 .side>.scroll-content {
     background: #2f2f2f;
 }
@@ -78,4 +80,25 @@ ion-card-header {
 }
 .width100{
  width: 100%;   
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.action-sheet-container button.action-sheet-button{
+    padding: 1px 6px !important;
+    min-height: 3.6rem !important;
+    font-size: 1.5rem !important;
 }
