@@ -5,6 +5,11 @@
 a{
     cursor: pointer;
 }
+
+#tv_chart_container{
+    height: 82.6vh;
+}
+
 .currency-search-field{
     height: 22px;
     margin-right: 12px;

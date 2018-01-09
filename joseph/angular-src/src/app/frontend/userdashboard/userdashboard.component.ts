@@ -294,8 +294,8 @@ export class UserdashboardComponent implements OnInit {
     }
 
     chartLoad(selectedCurrency,url){
-        console.log(selectedCurrency,url)
-        //$(document).ready(function(){
+        //console.log(selectedCurrency,url)
+        $(document).ready(function(){
             var obj = {"supports_search":true,"supports_group_request":false,"supports_marks":true,"supports_timescale_marks":true,"supports_time":true,"exchanges":[{"value":"","name":"All Exchanges","desc":""},{"value":"NasdaqNM","name":"NasdaqNM","desc":"NasdaqNM"},{"value":"NYSE","name":"NYSE","desc":"NYSE"},{"value":"NCM","name":"NCM","desc":"NCM"},{"value":"NGM","name":"NGM","desc":"NGM"}],"symbols_types":[{"name":"All types","value":""},{"name":"Stock","value":"stock"},{"name":"Forex","value":"forex"}],"supported_resolutions":["D","2D","3D","W","3W","M","6M"]};
             var datafeedObj = new Datafeeds.UDFCompatibleDatafeed(url)
             datafeedObj._setupWithConfiguration(obj);
@@ -310,18 +310,30 @@ export class UserdashboardComponent implements OnInit {
                     interval: 'D',
                     container_id: "tv_chart_container",
                     datafeed: datafeedObj,
+                    timezone: "America/New_York",
                     library_path: "/assets/charting_library/",
                     locale: "en",
                     drawings_access: { type: 'black', tools: [ { name: "Regression Trend" } ] },
-                    disabled_features: ["header_widget", "left_toolbar", "use_localstorage_for_settings"],
+                    disabled_features: ["header_settings","header_screenshot","header_saveload","use_localstorage_for_settings"],
                     enabled_features: ["study_templates"],
                     charts_storage_url: 'http://saveload.tradingview.com',
                     charts_storage_api_version: "1.1",
                     client_id: 'tradingview.com',
-                    user_id: 'public_user_id'
+                    user_id: 'public_user_id',
+                    toolbar_bg: '#222222',
+                    overrides: {
+                        "volumePaneSize": "medium",
+                        "paneProperties.background": "#222222",
+                        "paneProperties.vertGridProperties.color": "#454545",
+                        "paneProperties.horzGridProperties.color": "#454545",
+                        "symbolWatermarkProperties.transparency": 90,
+                        "scalesProperties.textColor" : "#AAA",
+                        "scalesProperties.backgroundColor": "#222222"
+                    }
                 });
             //});
-        //});
+            document.querySelector('#tv_chart_container iframe')['style']['height'] = 'inherit';
+        });
     }
 
     getMinAndMaxPrice(udf_datafeed, time1, time2, callback) {
