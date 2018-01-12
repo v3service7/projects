@@ -14,6 +14,7 @@ const pays = require('./routes/pays');
 const exchanges = require('./routes/exchanges');
 const purchaseplans = require('./routes/purchaseplans');
 const exchangeapis = require('./routes/exchangeapis');
+const tradealert = require('./routes/tradealert');
 const http = require('http');
 const paypal = require('paypal-rest-sdk');
 paypal.configure({
@@ -70,15 +71,16 @@ app.use('/exchangeapi', exchangeapis);
 app.use("/bittrexApi", bittrex);
 app.use("/binance", binance);
 app.use('/pay', pays);
+app.use('/tradealert', tradealert);
 
 // Index Route
 app.get('/', (req, res) => {
 	res.send('Invalid End Point');
 });
 
-app.get('*', (req, res) => {
+/*app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, 'public/index.html'));
-});
+});*/
 
 const server = http.createServer(app);
 var io = app.io;

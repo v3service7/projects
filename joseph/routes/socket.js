@@ -1,6 +1,8 @@
 module.exports = function (io) {
     var express = require('express');
 
+    let tradealertModel = require("../models/tradealerts.js");
+
     /* Bittrex Configuration*/
     var bittrex = require("./../node_modules/node.bittrex.api/node.bittrex.api.js");
     const APIKEY = '42ac5b5c0f5c431a831c7dc0ae4776cd';
@@ -10,6 +12,14 @@ module.exports = function (io) {
         'apisecret': APISECRET,
         'baseUrl': 'https://bittrex.com/api/v1.1',
     });
+
+    function tradeAlertCheck(name,price,cb){
+        //console.log(name,price)
+        tradealertModel.find({},function(err,tradealerts){
+            let list = tradealerts.filter((item) => {return (item['exchangeMarket'] == name) && (item['alertPrice'] == price);});
+            cb(list);
+        });
+    }
 
     /* Binance Configuration*/
     const binance = require('node-binance-api');
@@ -74,6 +84,10 @@ module.exports = function (io) {
 	                    list: depth
 	                });
 		        });
+
+                tradeAlertCheck(name,obj['open'],function(data){
+                    socket.emit("binanceAlert", {error: false,list: data});
+                });
 	            /*console.log(symbol+" "+interval+" candlestick update");
 	            console.log("open: "+open);
 	            console.log("high: "+high);

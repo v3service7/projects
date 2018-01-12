@@ -10,6 +10,94 @@ a{
     height: 82.6vh;
 }
 
+.padding0{
+    padding: 0 !important;
+}
+
+.inner-alert{
+    padding: 10px;
+    text-align: center;
+    background: #4a4d5066;
+    color: white;
+}
+/*
+.font10px{
+    font-size: 10px;
+}*/
+
+.lineheight0{
+    line-height: 0 !important;
+}
+
+.marginTop10vh{
+    margin-top: 7vh;
+}
+
+.alert-gray{
+    position: fixed !important;
+    bottom: 0px !important;
+    right: 1vw !important; 
+    width: 25% !important;
+    color: white !important;
+    background-color: #343a40 !important;
+    border-color: #343a40 !important;
+}
+
+.fontBold{
+    font-weight: bold;
+}
+
+.pr-5px{
+    padding-right: 5px !important;
+}
+
+.pl-5px{
+    padding-left: 5px !important;
+}
+
+.displayFlex{
+    display: flex;
+}
+
+.sellCurrency, .buyCurrency{
+    margin-bottom: 3vh;
+}
+
+.sellCurrency .form-control, .buyCurrency .form-control{
+    line-height: 2 !important;
+}
+
+.sellCurrency .caretDiv{
+    text-align: center;
+    background: #e65b69;
+    cursor: pointer;
+}
+
+.buyCurrency .caretDiv{
+    text-align: center;
+    background: #38c157;
+    cursor: pointer;
+}
+
+.buyCurrency ul , .sellCurrency ul{
+    padding : 0 !important;
+    left: -50% !important;
+}
+
+.buyCurrency ul li , .sellCurrency ul li{
+    padding: 4% 6% !important;
+}
+
+.buyCurrency ul li a, .sellCurrency ul li a{
+    text-decoration: none !important;
+}
+
+.buyCurrency ul li:hover , .sellCurrency ul li:hover{
+    background: #444c;
+}
+
+
+
 .currency-search-field{
     height: 22px;
     margin-right: 12px;
@@ -857,7 +945,8 @@ input.highcharts-range-selector {
 .bidask-area {
     overflow-y: scroll;
     overflow-x: hidden;
-    height: 28.8vh;
+    height: 36.4vh; 
+
 }
 .currency-dropdown-area {
     overflow-y: scroll;
@@ -969,12 +1058,12 @@ ng-select>div>div.single>div.placeholder {
 }
 
 .left {
-    width: 60%;
+    width: 52%;
     padding-left: 1rem;
 }
 
 .right {
-    width: 38%;
+    width: 46%;
 }
 
 .fixed-top2 {
@@ -1042,3 +1131,24 @@ ng-select>div>div.single>div.placeholder {
 .ripple-container{
     display: none !important;
 }
+ /*Extra small devices (portrait phones, less than 576px)*/
+@media (max-width: 575px) {
+
+}
+
+/* Small devices (landscape phones, 576px and up)*/
+@media (min-width: 576px) and (max-width: 767px) { }
+
+/*Medium devices (tablets, 768px and up)*/
+@media (min-width: 768px) and (max-width: 991px) { 
+.bidask-area {margin-bottom: 10px;
+
+}
+ }
+
+/*Large devices (desktops, 992px and up)*/
+@media (min-width: 992px) and (max-width: 1199px) { 
+ }
+
+/*Extra large devices (large desktops, 1200px and up)*/
+@media (min-width: 1200px) {  }

@@ -5,8 +5,10 @@ import {FlashMessagesService} from 'angular2-flash-messages';
 import {Router} from '@angular/router';
 import { ExchangeService} from '../../services/exchange.service';
 import { PlanService} from '../../services/plan.service';
+import { TradeAlertService } from '../../services/tradealert.service';
 import { PurchaseplanService} from '../../services/purchaseplan.service';
 import { ExchangeapiService} from '../../services/exchangeapi.service';
+import { BinanceService } from '../../services/binance.service';
 
 @Component({
   selector: 'app-myprofile',
@@ -36,6 +38,9 @@ export class MyprofileComponent implements OnInit {
   	sid:string;
   	newex : any = false;
   	isActive : any = 'profile';
+  	isChildActive : any = 'alertRequest';
+    alertRequestList: any = [];
+    alertHistoryList: any = [];
 
   	constructor(
   		private validateService: ValidateService,
@@ -44,7 +49,9 @@ export class MyprofileComponent implements OnInit {
 	    private exchangeapiService: ExchangeapiService,
 	    private userService:UserService,
 	    private planService: PlanService,
+	    private binanceService: BinanceService,
 	    private purchaseplanService: PurchaseplanService,
+        private tradeAlertService: TradeAlertService,
 	    private router: Router
   	) { }
 
@@ -61,6 +68,7 @@ export class MyprofileComponent implements OnInit {
 			this.accountgetList();
 			this.getList() ;
 			this.getApiList();
+			this.myAlertList();
 	    },
 	    err => {
 	      console.log(err);
@@ -69,10 +77,32 @@ export class MyprofileComponent implements OnInit {
 		 this.user = JSON.parse(localStorage.getItem('user'));
     }
 
-   setActive(current,my){
+    myAlertList(){
+        this.tradeAlertService.tradeAlertList(JSON.parse(localStorage.getItem('user'))['_id']).subscribe(data => {
+            let alertList
+
+            alertList = data['message'];
+
+            this.alertRequestList = alertList.filter((item) => { return item['isOpen'] == true; });
+            this.alertHistoryList = alertList.filter((item) => { return item['isOpen'] == false; });
+            //console.log(this.alertList)
+        });
+    }
+
+   	setActiveChild(current,my){
     	if (current == my) {
       		return 'activeClass';
      	}
+    }
+
+   	setActive(current,my){
+    	if (current == my) {
+      		return 'activeClass';
+     	}
+    }
+
+    setActiveChildClass(name){
+       this.isChildActive = name;
     }
 
     setActiveClass(name){
@@ -153,6 +183,7 @@ export class MyprofileComponent implements OnInit {
             }
         );
     }
+
     getApiList(){
         this.exchangeapiService.exchangeapiList().subscribe(
             (data) => {
@@ -165,6 +196,34 @@ export class MyprofileComponent implements OnInit {
             }
         );
     }
+
+    apiValidate(name,data1){
+    	if (name == 'Binance') {
+    		console.log(data1)
+    		this.binanceService.getAuthenticate(data1).subscribe((data)=>{
+    			if (data['orders'].length >= 0) {
+		    	this.exchangeService.exchangeAdd(data1).subscribe(
+		            (data) => {
+		              if (!data.error) {
+		              		this.getList();
+							document.getElementById('v-pills-exchange-tab').click();
+							this.flashMessage.show('Exchange Account Added Successfully', { cssClass: 'alert-success', timeout: 3000 });
+							this.router.navigate(['/profile']);
+		                }else{
+		                    this.flashMessage.show('Exchange API Already exists', { cssClass: 'alert-danger', timeout: 3000 });
+		                }
+		            },
+		            (err)=>{
+		                console.log('kfgbhj')
+		            }
+		        );
+	    	}else{
+	    		this.flashMessage.show('Invalid API Key', { cssClass: 'alert-danger', timeout: 3000 });
+	    	}
+    		});
+    	}
+    }
+
     planAdd(){
     	const Addplan = {
 			  nickName: this.nickName,
@@ -178,21 +237,17 @@ export class MyprofileComponent implements OnInit {
 	      this.flashMessage.show('Please fill in all fields', {cssClass: 'alert-danger', timeout: 3000});
 	      return false;
 	    }
-        this.exchangeService.exchangeAdd(Addplan).subscribe(
-            (data) => {
-              if (!data.error) {
-              		this.getList();
-					document.getElementById('v-pills-exchange-tab').click();
-					this.flashMessage.show('Exchange Account Added Successfully', { cssClass: 'alert-success', timeout: 3000 });
-					this.router.navigate(['/profile']);
-                }else{
-                    this.flashMessage.show('Exchange API Already exists', { cssClass: 'alert-danger', timeout: 3000 });
-                }
-            },
-            (err)=>{
-                console.log('kfgbhj')
-            }
-        );
+
+	    this.exchangeapiService.exchangeapi(this.exchangeName).subscribe((data)=> {
+	    	this.apiValidate(data.message.exchangeapiName,Addplan);
+	    	
+
+	    },
+        (err)=>{
+            console.log('kfgbhj')
+        })
+
+        /**/
     }
 
     editPlan(data) {

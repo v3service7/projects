@@ -176,10 +176,10 @@
         <div class="left">
             <ul class="nav nav-tabs graph-side-tabs" role="tablist">
                 <li class="nav-item">
-                    <a class="nav-link active" href="#home" id="home-tab" role="tab" data-toggle="tab" aria-controls="home" aria-expanded="true"><i class="fa fa-line-chart" aria-hidden="true"></i> BITS</a>
+                    <a [ngClass]="setActiveChart(isActiveChart,'chart')" (click)="setActiveClassChart('chart')" class="nav-link" href="#home" id="home-tab" role="tab" data-toggle="tab" aria-controls="home" aria-expanded="true"><i class="fa fa-line-chart" aria-hidden="true"></i> BITS</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#hats" role="tab" id="hats-tab" data-toggle="tab" aria-controls="hats"><i class="fa fa-line-chart" aria-hidden="true"></i> DEPTH</a>
+                    <a [ngClass]="setActiveChart(isActiveChart,'depth')" (click)="setActiveClassChart('depth')" class="nav-link " href="#hats" role="tab" id="hats-tab" data-toggle="tab" aria-controls="hats"><i class="fa fa-line-chart" aria-hidden="true"></i> DEPTH</a>
                 </li>
                <!--  <li class="ml-auto">
                     <div class="dropdown ">
@@ -247,10 +247,10 @@
                             <!-- Nav tabs -->
                             <ul class="nav nav-tabs open-order-tabs" role="tablist">
                                 <li class="nav-item ">
-                                    <a class="nav-link text-white active" data-toggle="tab" href="#openOrder">Open Order</a>
+                                    <a [ngClass]="setActiveOrder(isActiveOrder,'open')" (click)="setActiveClassOrder('open')" class="nav-link text-white" data-toggle="tab" href="#openOrder">Open Order</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link text-white" data-toggle="tab" href="#closeOrder">Close Order</a>
+                                    <a [ngClass]="setActiveOrder(isActiveOrder,'close')" (click)="setActiveClassOrder('close')" class="nav-link text-white" data-toggle="tab" href="#closeOrder">Close Order</a>
                                 </li>
                             </ul>
                             <!-- Tab panes -->
@@ -262,39 +262,26 @@
                                                 <th>Pair</th>
                                                 <th>Type</th>
                                                 <th>Amount</th>
-                                                <th>Filled</th>
-                                                <th>Price</th>
+                                                <th>Buy/Sell</th>
+                                                <th>Original Qty</th>
+                                                <th>Executed Qty</th>
                                                 <th>Date</th>
                                                 <th>Faild %</th>
                                             </tr>
                                         </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>John</td>
-                                                <td>Doe</td>
-                                                <td>john@example.com</td>
-                                                <td>John</td>
-                                                <td>Doe</td>
-                                                <td>john@example.com</td>
-                                                <td>john@example.com</td>
-                                            </tr>
-                                            <tr>
-                                                <td>John</td>
-                                                <td>Doe</td>
-                                                <td>john@example.com</td>
-                                                <td>John</td>
-                                                <td>Doe</td>
-                                                <td>john@example.com</td>
-                                                <td>john@example.com</td>
-                                            </tr>
-                                            <tr>
-                                                <td>John</td>
-                                                <td>Doe</td>
-                                                <td>john@example.com</td>
-                                                <td>John</td>
-                                                <td>Doe</td>
-                                                <td>john@example.com</td>
-                                                <td>john@example.com</td>
+                                        <tbody *ngIf="openOrders.length == 0">
+                                            <tr>No Open Order</tr>
+                                        </tbody>
+                                        <tbody *ngIf="openOrders.length > 0">
+                                            <tr  *ngFor="let openOrder of openOrders">
+                                                <td>{{openOrder.symbol}}</td>
+                                                <td>{{openOrder.type}}</td>
+                                                <td>{{openOrder.price}}</td>
+                                                <td>{{openOrder.side}}</td>
+                                                <td>{{openOrder.origQty}}</td>
+                                                <td>{{openOrder.executedQty}}</td>
+                                                <td>{{openOrder.time|date}}</td>
+                                                <td>{{openOrder.status}}</td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -306,30 +293,26 @@
                                                 <th>Pair</th>
                                                 <th>Type</th>
                                                 <th>Amount</th>
-                                                <th>Filled</th>
-                                                <th>Price</th>
+                                                <th>Buy/Sell</th>
+                                                <th>Orignal Qty</th>
+                                                <th>Executed Qty</th>
                                                 <th>Date</th>
                                                 <th>Faild %</th>
                                             </tr>
                                         </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>dsfds</td>
-                                                <td>Dsdfdsfoe</td>
-                                                <td>johsdfsdf</td>
-                                                <td>Jodsfdsfhn</td>
-                                                <td>Dodsfdsfe</td>
-                                                <td>john@example.com</td>
-                                                <td>john@example.com</td>
-                                            </tr>
-                                            <tr>
-                                                <td>dsfdsf</td>
-                                                <td>Dodsfsdfe</td>
-                                                <td>john@example.com</td>
-                                                <td>John</td>
-                                                <td>Doe</td>
-                                                <td>john@example.com</td>
-                                                <td>john@example.com</td>
+                                        <tbody *ngIf="closeOrders.length == 0">
+                                            <tr>No Close Order</tr>
+                                        </tbody>
+                                        <tbody *ngIf="closeOrders.length > 0">
+                                            <tr  *ngFor="let closeOrder of closeOrders ">
+                                                <td>{{closeOrder.symbol}}</td>
+                                                <td>{{closeOrder.type}}</td>
+                                                <td>{{closeOrder.price}}</td>
+                                                <td>{{closeOrder.side}}</td>
+                                                <td>{{closeOrder.origQty}}</td>
+                                                <td>{{closeOrder.executedQty}}</td>
+                                                <td>{{closeOrder.time| date:'medium'}}</td>
+                                                <td>{{closeOrder.status}}</td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -418,10 +401,10 @@
         <div class="right">
             <ul class="nav nav-tabs data-alert-tabs" role="tablist">
                 <li class="nav-item">
-                    <a class="nav-link active" href="#data" id="data-tab" role="tab" data-toggle="tab" aria-controls="data" aria-expanded="true" aria-selected="true">Data</a>
+                    <a [ngClass]="setActiveAlert(isActiveAlert,'data')" (click)="setActiveClassAlert('data')" class="nav-link text-white" href="#data" id="data-tab" role="tab" data-toggle="tab" aria-controls="data" aria-expanded="true" aria-selected="true">Data</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-white" href="#alerts" role="tab" id="alerts-tab" data-toggle="tab" aria-controls="alerts" aria-selected="false">Alerts</a>
+                    <a [ngClass]="setActiveAlert(isActiveAlert,'alert')" (click)="setActiveClassAlert('alert')" class="nav-link text-white" href="#alerts" role="tab" id="alerts-tab" data-toggle="tab" aria-controls="alerts" aria-selected="false">Alerts</a>
                 </li>
                 <!--  <li class=" ml-auto ">
                     <div class="dropdown ">
@@ -465,102 +448,36 @@
                             </div>
                         </div>
                     </div>
-                    <div class="card mt-2 dashboard-card">
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="col-lg-6 col-md-6 col-sm-6 pr-0">
-                                    <div class="card text-white dashboard-card">
-                                        <div class="card-header ">BUY {{BuySellCurrency}}</div>
-                                        <div class="card-body bg-success">
-                                            <form>
-                                                <div class="form-group custom-form-group row">
-                                                    <label class="custom-label" for="exampleInputEmail1" class="col-sm-5 col-form-label">USD to spend</label>
-                                                    <div class="col-sm-7">
-                                                        <input type="email" class="form-control custom-form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="">
-                                                    </div>
-                                                </div>
-                                                <div class="form-group custom-form-group row">
-                                                    <label class="custom-label" for="exampleInputEmail1" class="col-sm-5 col-form-label">USD Price BTC</label>
-                                                    <div class="col-sm-7">
-                                                        <input type="email" class="form-control custom-form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="">
-                                                    </div>
-                                                </div>
-                                                <div class="form-group custom-form-group row">
-                                                    <label class="custom-label" for="exampleInputEmail1" class="col-sm-5 col-form-label">BTC to buy</label>
-                                                    <div class="col-sm-7">
-                                                        <input type="email" class="form-control custom-form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="">
-                                                    </div>
-                                                </div>
-                                            </form>
-                                        </div>
-                                        <div class="card-footer sell-footer ">
-                                            <button type="submit" class="btn btn-sm btn-success">Buy now</button>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-6 col-md-6 col-sm-6 pl-0">
-                                    <div class="card text-white  dashboard-card">
-                                        <div class="card-header">SELL {{BuySellCurrency}}</div>
-                                        <div class="card-body bg-danger">
-                                            <form>
-                                                <div class="form-group custom-form-group row">
-                                                    <label class="custom-label" for="exampleInputEmail1" class="col-sm-5 col-form-label">USD to spend</label>
-                                                    <div class="col-sm-7">
-                                                        <input type="email" class="form-control custom-form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="">
-                                                    </div>
-                                                </div>
-                                                <div class="form-group custom-form-group row">
-                                                    <label class="custom-label" for="exampleInputEmail1" class="col-sm-5 col-form-label">USD to spend</label>
-                                                    <div class="col-sm-7">
-                                                        <input type="email" class="form-control custom-form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="">
-                                                    </div>
-                                                </div>
-                                                <div class="form-group custom-form-group row">
-                                                    <label class="custom-label" for="exampleInputEmail1" class="col-sm-5 col-form-label">USD to spend</label>
-                                                    <div class="col-sm-7">
-                                                        <input type="email" class="form-control custom-form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="">
-                                                    </div>
-                                                </div>
-                                            </form>
-                                        </div>
-                                        <div class="card-footer sell-footer ">
-                                            <button type="submit" class="btn btn-danger btn-sm">Sell now</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                 </div>
-                <div role="tabpanel" class="tab-pane fade" id="alerts" aria-labelledby="alerts-tab">
+                <div role="tabpanel" class="tab-pane" id="alerts" aria-labelledby="alerts-tab">
                     <div class="card dashboard-card">
                         <div class="card-body ">
                             <div class="row ">
                                 <div class="col-lg-8 col-md-8 pr-0">
                                     <div class="card text-white dashboard-card ">
-                                        <div class="card-header sell-header">NEW PRICE ALERT - EUR/BTC (BITSTAMP</div>
-                                        <div class="card-body bg-info">
-                                            <form>
+                                        <div class="card-header sell-header">NEW PRICE ALERT - {{chooseCurrency}} ({{chooseMarket}})</div>
+                                        <form [formGroup]="alertForm" (ngSubmit)="setAlert()">
+                                            <div class="card-body bg-info">
                                                 <div class="form-group custom-form-group">
                                                     <label class="custom-label" for="exampleInputEmail1">Price</label>
-                                                    <input type="email" class="form-control custom-form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="">
+                                                    <input type="text" formControlName="alertPrice" class="form-control custom-form-control" placeholder="">
                                                 </div>
                                                 <div class="form-group custom-form-group">
                                                     <label class="custom-label" for="exampleInput1">Notes</label>
-                                                    <input type="" class="form-control custom-form-control" id="exampleInput1" placeholder="">
+                                                    <input type="text" formControlName="notes" class="form-control custom-form-control" placeholder="Notes">
                                                 </div>
                                                 <div class="form-group custom-form-group">
                                                     <label class="custom-label" for="exampleInput1">Sound</label>
-                                                    <input type="" class="form-control custom-form-control" id="exampleInput1" placeholder="">
+                                                    <input type="text" formControlName="sound" class="form-control custom-form-control" placeholder="">
                                                 </div>
-                                            </form>
-                                        </div>
-                                        <div class="card-footer sell-footer ">
-                                            <button type="submit" class="btn btn-sm btn-info">Set alerts</button>
-                                        </div>
+                                            </div>
+                                            <div class="card-footer sell-footer ">
+                                                <button [disabled]="!alertForm.valid" class="btn btn-sm btn-info">Set alerts</button>
+                                            </div>
+                                        </form>
                                     </div>
                                 </div>
-                                <div class="col-lg-4 col-md-4 pl-0">
+                                <!-- <div class="col-lg-4 col-md-4 pl-0">
                                     <div class="card text-white dashboard-card">
                                         <div class="card-body">
                                             <button type="submit" class="btn btn-block btn-info btn-sm mb-2">All Time High</button>
@@ -571,7 +488,7 @@
                                             <button type="submit" class="btn btn-block btn-info btn-sm mb-2">All Time Low</button>
                                         </div>
                                     </div>
-                                </div>
+                                </div> -->
                             </div>
                         </div>
                     </div>
@@ -580,17 +497,17 @@
                             <div class="row">
                                 <div class="col-lg-12">
                                     <div class="btn-toolbar mb-2 d-flex justify-content-around" role="toolbar" aria-label="Toolbar with button groups">
-                                        <div class="btn-group mr-2 " role="group" aria-label="First group ">
-                                            <button type="button" class="btn btn-font7 btn-light">Bistmap</button>
-                                            <button type="button" class="btn btn-font7 btn-light">All Exchange</button>
+                                        <div class="btn-group " role="group" aria-label="First group ">
+                                            <button class="btn btn-font7 btn-light" (click)="alertListFilter('exchange',chooseMarket)">{{chooseMarket}}</button>
+                                            <button class="btn btn-font7 btn-light" (click)="alertListFilter('exchange','all')">All Exchange</button>
                                         </div>
-                                        <div class="btn-group mr-2" role="group" aria-label="Second group">
-                                            <button type="button" class="btn btn-font7 btn-light">USD/BTC</button>
-                                            <button type="button" class="btn  btn-font7 btn-light">All Markets</button>
+                                        <div class="btn-group" role="group" aria-label="Second group">
+                                            <button class="btn btn-font7 btn-light" (click)="alertListFilter('market',chooseCurrency)">{{chooseCurrency}}</button>
+                                            <button class="btn  btn-font7 btn-light"  (click)="alertListFilter('market','all')">All Markets</button>
                                         </div>
                                         <div class="btn-group" role="group" aria-label="Third group">
-                                            <button type="button" class="btn btn-font7 btn-light">Open Alerts</button>
-                                            <button type="button" class="btn btn-font7 btn-light">Alerts History</button>
+                                            <button class="btn btn-font7 btn-light"  (click)="alertListFilter('alert',true)">Open Alerts</button>
+                                            <button class="btn btn-font7 btn-light"  (click)="alertListFilter('alert',false)">Alerts History</button>
                                         </div>
                                     </div>
                                     <div class="alert-list-area">
@@ -604,23 +521,11 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr>
-                                                    <td>Bistamp</td>
-                                                    <td>USD/STC</td>
-                                                    <td>Dropped below 5654. </td>
-                                                    <td>2017-10-24 09:33:46</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Bistamp</td>
-                                                    <td>USD/STC</td>
-                                                    <td>Dropped below 5654. </td>
-                                                    <td>2017-10-24 09:33:46</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Bistamp</td>
-                                                    <td>USD/STC</td>
-                                                    <td>Dropped below 5654. </td>
-                                                    <td>2017-10-24 09:33:46</td>
+                                                <tr *ngFor="let alert of alertList ">
+                                                    <td>{{alert.exchangeName}}</td>
+                                                    <td>{{alert.exchangeMarket}}</td>
+                                                    <td>Dropped below {{alert.alertPrice}} </td>
+                                                    <td>{{alert.created_at| date :'short'}}</td>
                                                 </tr>
                                             </tbody>
                                         </table>
@@ -631,6 +536,201 @@
                     </div>
                 </div>
             </div>
+
+            <ul class="nav nav-tabs data-alert-tabs" role="tablist">
+                <li class="nav-item">
+                    <a [ngClass]="setActiveTrade(isActiveTrade,'limit')" (click)="setActiveClassTrade('limit')" class="nav-link text-white" href="#limit" id="limit-tab" role="tab" data-toggle="tab" aria-controls="limit" aria-expanded="true" aria-selected="true">Limit</a>
+                </li>
+                <li class="nav-item">
+                    <a [ngClass]="setActiveTrade(isActiveTrade,'market')" (click)="setActiveClassTrade('market')" class="nav-link text-white" href="#market" role="tab" id="market-tab" data-toggle="tab" aria-controls="market" aria-selected="false">Market</a>
+                </li>
+            </ul>
+
+            <div class="tab-content">
+                <div role="tabpanel" class="tab-pane fade active show" id="limit" aria-labelledby="limit-tab">
+                    <div class="card mt-2 dashboard-card">
+                        <div class="card-body">
+                            <div class="row padding0 displayFlex">
+                                <div class="col-lg-6 col-md-12  col-sm-6 col-xs-6 ">
+                                    <div class="card text-white dashboard-card padding0">
+                                        <div class="card-header ">BUY {{BuySellCurrency}} (Limit)</div>
+                                        <div class="card-body bg-success">
+                                            <form class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0" [formGroup]="tradeBuyLimitForm" (submit)="tradeBuyLimit()">
+                                                <div class="form-group buyCurrency displayFlex col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0">
+                                                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 padding0">
+                                                        {{buySellCat}} to spend
+                                                    </div>
+                                                    <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 padding0 caretDiv dropdown-toggle" data-toggle="dropdown"></div>
+                                                    <ul class="dropdown-menu"  style="width: 50%; background-color: #000c; ">
+                                                        <li *ngFor="let balanceStat of buyBalanceStats"><a (click) ="tradeBuySpendSet('limit',balanceStat.amount)"  style="color: white;"  href="javascript:void(0)">{{balanceStat.label}}</a></li>
+                                                    </ul>
+                                                    <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5 padding0">
+                                                        <input type="text" class="form-control custom-form-control" placeholder=""  formControlName="spend" (input) ="onBlurQuntityCalculate('buy')">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group buyCurrency displayFlex col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0">
+                                                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 padding0">{{buySellCat}} Price per {{BuySellCurrency}}</div>
+                                                    <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 padding0 caretDiv dropdown-toggle" data-toggle="dropdown"></div>
+                                                    <ul class="dropdown-menu" style="width: 50%; background-color: #000c; ">
+                                                        <li><a (click)="tradeBuyPriceSet('limit',low)" style="color: white;" href="javascript:void(0)">Last ({{low}})</a></li>
+                                                        <li><a (click)="tradeBuyPriceSet('limit',ask)" style="color: white;" href="javascript:void(0)">Ask ({{ask}})</a></li>
+                                                        <li><a (click)="tradeBuyPriceSet('limit',bid)" style="color: white;" href="javascript:void(0)">Bid ({{bid}})</a></li>
+                                                    </ul>
+                                                    <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5 padding0">
+                                                        <input type="test" class="form-control custom-form-control" placeholder=""  formControlName="price" (input) ="onBlurQuntityCalculate('buy')">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group buyCurrency displayFlex col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0">
+                                                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 padding0">{{BuySellCurrency}} to buy</div>
+                                                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 padding0">
+                                                        <input type="email" class="form-control custom-form-control" placeholder=""  formControlName="buy">
+                                                    </div>
+                                                </div>
+                                                <div class="card-footer sell-footer ">
+                                                    <button  [disabled]="!tradeBuyLimitForm.valid" class="btn btn-sm btn-success">Buy now</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-md-12 col-sm-6 col-xs-6 ">
+                                    <div class="card text-white dashboard-card padding0">
+                                        <div class="card-header">SELL {{BuySellCurrency}} (Limit)</div>
+                                        <div class="card-body bg-danger">
+                                            <form class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0" [formGroup]="tradeSellLimitForm" (submit)="tradeSellLimit()">
+                                                <div class="form-group sellCurrency displayFlex col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0">
+                                                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 padding0">{{BuySellCurrency}} to sell</div>
+                                                    <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 padding0 caretDiv dropdown-toggle" data-toggle="dropdown"></div>
+                                                    <ul class="dropdown-menu" style="width: 50%; background-color: #000c; ">
+                                                        <li *ngFor="let balanceStat of sellBalanceStats"><a (click) ="tradeSellSpendSet('limit',balanceStat.amount)" style="color: white;" href="javascript:void(0)">{{balanceStat.label}}</a></li>
+                                                    </ul>
+
+                                                    <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5 padding0">
+                                                        <input type="text" class="form-control custom-form-control" placeholder=""  formControlName="sell" (input) ="onBlurQuntityCalculate('sell')">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group sellCurrency displayFlex col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0">
+                                                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 padding0">{{buySellCat}} Price per {{ BuySellCurrency}}</div>
+                                                    <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 padding0 caretDiv dropdown-toggle" data-toggle="dropdown"></div>
+                                                    <ul class="dropdown-menu" style="width: 50%; background-color: #000c; ">
+                                                        <li><a (click)="tradeSellPriceSet('limit',low)" style="color: white;" href="javascript:void(0)">Last ({{low}})</a></li>
+                                                        <li><a (click)="tradeSellPriceSet('limit',ask)" style="color: white;" href="javascript:void(0)">Ask ({{ask}})</a></li>
+                                                        <li><a (click)="tradeSellPriceSet('limit',bid)" style="color: white;" href="javascript:void(0)">Bid ({{bid}})</a></li>
+                                                    </ul>
+                                                    <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5 padding0">
+                                                        <input type="text" class="form-control custom-form-control" placeholder=""  formControlName="price" (input) ="onBlurQuntityCalculate('sell')">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group sellCurrency displayFlex col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0">
+                                                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 padding0">{{buySellCat}} to receive</div>
+                                                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 padding0">
+                                                        <input type="email" class="form-control custom-form-control" placeholder=""  formControlName="receive">
+                                                    </div>
+                                                </div>
+                                                <div class="card-footer sell-footer ">
+                                                    <button  [disabled] = "!tradeSellLimitForm.valid" class="btn btn-danger btn-sm">Sell now</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div role="tabpanel" class="tab-pane" id="market" aria-labelledby="market-tab">
+                    <div class="card mt-2 dashboard-card">
+                        <div class="card-body">
+                            <div class="row padding0 displayFlex">
+                                <div class="col-lg-6 col-md-12  col-sm-6 col-xs-6 ">
+                                    <div class="card text-white dashboard-card padding0">
+                                        <div class="card-header ">BUY {{BuySellCurrency}} (Market)</div>
+                                        <div class="card-body bg-success">
+                                            <form class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0" [formGroup]="tradeBuyForm" (submit)="tradeBuy()">
+                                                <div class="form-group buyCurrency displayFlex col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0">
+                                                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 padding0">
+                                                        {{buySellCat}} to spend
+                                                    </div>
+                                                    <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 padding0 caretDiv dropdown-toggle" data-toggle="dropdown"></div>
+                                                    <ul class="dropdown-menu"  style="width: 50%; background-color: #000c; ">
+                                                        <li *ngFor="let balanceStat of buyBalanceStats"><a (click) ="tradeBuySpendSet('market',balanceStat.amount)"  style="color: white;"  href="javascript:void(0)">{{balanceStat.label}}</a></li>
+                                                    </ul>
+                                                    <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5 padding0">
+                                                        <input type="text" class="form-control custom-form-control" placeholder=""  formControlName="spend">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group buyCurrency displayFlex col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0">
+                                                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 padding0">{{buySellCat}} Price per {{BuySellCurrency}}</div>
+                                                    <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5 padding0">
+                                                        {{low}}
+                                                    </div>
+                                                </div>
+                                                <div class="form-group buyCurrency displayFlex col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0">
+                                                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 padding0">{{BuySellCurrency}} to buy</div>
+                                                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 padding0">
+                                                        <input type="email" class="form-control custom-form-control" placeholder=""  formControlName="buy">
+                                                    </div>
+                                                </div>
+                                                <div class="card-footer sell-footer ">
+                                                    <button  [disabled]="!tradeBuyForm.valid" class="btn btn-sm btn-success">Buy now</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-md-12 col-sm-6 col-xs-6 ">
+                                    <div class="card text-white dashboard-card padding0">
+                                        <div class="card-header">SELL {{BuySellCurrency}} (Market)</div>
+                                        <div class="card-body bg-danger">
+                                            <form class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0" [formGroup]="tradeSellForm" (submit)="tradeSell()">
+                                                <div class="form-group sellCurrency displayFlex col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0">
+                                                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 padding0">{{BuySellCurrency}} to sell</div>
+                                                    <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 padding0 caretDiv dropdown-toggle" data-toggle="dropdown"></div>
+                                                    <ul class="dropdown-menu" style="width: 50%; background-color: #000c; ">
+                                                        <li *ngFor="let balanceStat of sellBalanceStats"><a (click) ="tradeSellSpendSet('market',balanceStat.amount)" style="color: white;" href="javascript:void(0)">{{balanceStat.label}}</a></li>
+                                                    </ul>
+
+                                                    <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5 padding0">
+                                                        <input type="text" class="form-control custom-form-control" placeholder=""  formControlName="sell">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group sellCurrency displayFlex col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0">
+                                                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 padding0">{{buySellCat}} Price per {{ BuySellCurrency}}</div>
+                                                    <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5 padding0">
+                                                        {{low}}
+                                                    </div>
+                                                </div>
+                                                <div class="form-group sellCurrency displayFlex col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0">
+                                                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 padding0">{{buySellCat}} to receive</div>
+                                                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 padding0">
+                                                        <input type="email" class="form-control custom-form-control" placeholder=""  formControlName="receive">
+                                                    </div>
+                                                </div>
+                                                <div class="card-footer sell-footer ">
+                                                    <button  [disabled]="!tradeSellForm.valid" class="btn btn-danger btn-sm">Sell now</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
+</div>
+
+<div *ngIf="alertNotice" class="alert alert-gray alert-success alert-dismissible fade show" role="alert">
+    <p><strong class="alert-heading">Price Alert</strong></p>
+    <div class="inner-alert">
+        <div class="fontBold">{{alertNotice.exchangeMarket}}</div>
+        <div class="lineheight0">{{alertNotice.exchangeMarket}} [{{alertNotice.exchangeName}}] @ {{alertNotice.alertPrice}}</div>
+        <p class="marginTop10vh">Click here to Visit</p>
+    </div>
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
 </div>

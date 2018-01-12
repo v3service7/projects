@@ -2,10 +2,21 @@ module.exports = function (io) {
     var express = require('express');
     var router = express.Router();
     const binance = require('node-binance-api');
-	binance.options({
-		'APIKEY':'3tBZmj5B643wHy8CZuI9vH3Ad4NWBuW9jbOGuWjQfzaqE8Ikeg4NNLEq6TSzx2yy',
-		'APISECRET':'edHmGPi1swwNERvuef4o8WjUe1DcH6km4Iz582QBV9Xo6LZJr7F4l4AIAyNvFmJj'
-	});
+    let APIKEY = '01RS4d31dVyg97zGNmMn6xYydQM5NRaHuFHQvbMtY8NmmGID1qbrpDyRCq1buamb';
+    let APISECRET = 'BFmn71vgMsJCw9GHbvNyIJvPKqb15nlCgL4QJqzBC7wNxRJUyAXCpmBilMxfBQHx';
+
+    router.post('/authenticate', (req,res)=>{
+        let apikey = req.body.apiKey;
+        let secretkey = req.body.secretKey;
+        //console.log(req.body)
+        binance.options({'APIKEY':apikey,'APISECRET':secretkey});
+        binance.allOrders('QSPETH', function(orders, symbol) {
+            //console.log(symbol+" trade history", orders);
+            res.json({orders, symbol});
+        });
+    });
+
+	binance.options({'APIKEY':APIKEY,'APISECRET':APISECRET});
 
     router.get('/prices', (req,res)=>{
         binance.prices(function(ticker) {
@@ -15,8 +26,8 @@ module.exports = function (io) {
 
     router.get('/balances', (req,res)=>{
         binance.balance(function(balances) {
-        	res.json(balances);
-		});
+            res.json(balances);
+        });
     });
 
     router.get('/book-tickers', (req,res)=>{
@@ -34,13 +45,81 @@ module.exports = function (io) {
 
     router.get('/market', (req,res)=>{
         let symbol = req.query.symbol
-        console.log(symbol);
+        //console.log(symbol);
         binance.getMarket(symbol,function(data) {
-        	res.json({data});
-		});
+            res.json({data});
+        });
     });
 
+    router.get('/trade-buy-limit', (req,res)=>{
+        let symbol = req.query.symbol;
+        let quantity = req.query.quantity;
+        let price = parseFloat(req.query.price);
+        binance.options({'APIKEY':APIKEY,'APISECRET':APISECRET});
+        binance.buy(symbol, quantity, price, {}, function(trades, symbolData) {
+            res.json({trades, symbolData});
+        });
+    });
 
+    router.get('/trade-sell-limit', (req,res)=>{
+        let symbol = req.query.symbol;
+        let quantity = req.query.quantity;
+        let price = parseFloat(req.query.price);
+        binance.options({'APIKEY':APIKEY,'APISECRET':APISECRET});
+        binance.sell(symbol, quantity, price, function(trades, symbolData) {
+            res.json({trades, symbolData});
+        });
+    });
+
+    router.get('/trade-buy', (req,res)=>{
+        let symbol = req.query.symbol;
+        let quantity = req.query.quantity;
+        binance.options({'APIKEY':APIKEY,'APISECRET':APISECRET});
+        binance.marketBuy(symbol, quantity, function(trades, symbolData) {
+            res.json({trades, symbolData});
+        });
+    });
+
+    router.get('/trade-sell', (req,res)=>{
+        let symbol = req.query.symbol;
+        let quantity = req.query.quantity;
+        binance.options({'APIKEY':APIKEY,'APISECRET':APISECRET});
+        binance.marketSell(symbol, quantity, function(trades, symbolData) {
+            res.json({trades, symbolData});
+        });
+    });
+
+    router.get('/trade-history', (req,res)=>{
+        let symbol = req.query.symbol
+        binance.trades(symbol, function(trades, symbol) {
+            res.json({trades, symbol});
+        });
+    });
+    
+    router.get('/open-order', (req,res)=>{
+        let symbol = req.query.symbol
+        binance.options({'APIKEY':APIKEY,'APISECRET':APISECRET});
+        binance.openOrders(symbol, function(orders, symbol) {
+            res.json(orders);
+        });
+    });
+    
+    router.get('/cancel-order', (req,res)=>{
+        let symbol = req.query.symbol
+        binance.options({'APIKEY':APIKEY,'APISECRET':APISECRET});
+        binance.cancelOrders(symbol, function(ordrs, symbol) {
+            res.json(ordrs);
+        });
+    });
+    
+    router.get('/trade-all-order', (req,res)=>{
+        let symbol = req.query.symbol
+        binance.options({'APIKEY':APIKEY,'APISECRET':APISECRET});
+        binance.allOrders(symbol, function(orders, symbol) {
+            //console.log(symbol+" trade history", orders);
+            res.json({orders, symbol});
+        });
+    });
 
     router.get('/time', (req,res)=>{
             res.json(Date.now());
@@ -73,12 +152,14 @@ module.exports = function (io) {
             cusObj['v'] = [];
             cusObj['o'] = [];
             for (var i = 0; i < history.length; i++) {
-                cusObj['t'].push(history[i][0]);
-                cusObj['c'].push(history[i][4]);
-                cusObj['h'].push(history[i][2]);
-                cusObj['l'].push(history[i][3]);
-                cusObj['v'].push(history[i][5]);
-                cusObj['o'].push(history[i][1]);
+                if (cusObj['t'].length <= 200) {
+                    cusObj['t'].push(history[i][0]);
+                    cusObj['c'].push(history[i][4]);
+                    cusObj['h'].push(history[i][2]);
+                    cusObj['l'].push(history[i][3]);
+                    cusObj['v'].push(history[i][5]);
+                    cusObj['o'].push(history[i][1]);
+                }
             }
             cb(true,cusObj)
         }else{
@@ -93,7 +174,11 @@ module.exports = function (io) {
     }
 
     router.get('/history', (req,res)=>{
-    	let symbol = req.query.symbol;
+        let symbol = req.query.symbol;
+        let from = req.query.from;
+    	let to = req.query.to;
+        //console.log(from,to,symbol);
+
     	// Periods: 1m,3m,5m,15m,30m,1h,2h,4h,6h,8h,12h,1d,3d,1w,1M
         let periods = req.query.periods;
     	periods = '1m';
