@@ -132,10 +132,7 @@ module.exports = function (io) {
         periods = '1m';
         binance.candlesticks(symbol, periods, function(ticks, symbol) {
             let last_tick = ticks[ticks.length - 1];
-            /*console.log(last_tick)*/
             let [time, open, high, low, close, volume, closeTime, assetVolume, trades, buyBaseVolume, buyAssetVolume, ignored] = last_tick;
-            //console.log(time,last_tick)
-            //res.json(last_tick);
             res.json({'MarketName':symbol,'High':high,'Low':low,'Volume':volume,'Open':open,'Close':close});
             
         });

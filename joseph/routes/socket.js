@@ -23,11 +23,15 @@ module.exports = function (io) {
 
     /* Binance Configuration*/
     const binance = require('node-binance-api');
-	binance.options({
-		'APIKEY':'3tBZmj5B643wHy8CZuI9vH3Ad4NWBuW9jbOGuWjQfzaqE8Ikeg4NNLEq6TSzx2yy',
-		'APISECRET':'edHmGPi1swwNERvuef4o8WjUe1DcH6km4Iz582QBV9Xo6LZJr7F4l4AIAyNvFmJj'
-	});
+    binance.options({
+        'APIKEY':'3tBZmj5B643wHy8CZuI9vH3Ad4NWBuW9jbOGuWjQfzaqE8Ikeg4NNLEq6TSzx2yy',
+        'APISECRET':'edHmGPi1swwNERvuef4o8WjUe1DcH6km4Iz582QBV9Xo6LZJr7F4l4AIAyNvFmJj'
+    });
 
+    /* Poloniex Configuration*/
+    const Poloniex = require('./../node_modules/poloniex-api-node/lib/poloniex');;
+    let poloniex = new Poloniex('34YVWM7V-FH54N6DW-4B1N3RWJ-ZPSPVF3P','c476e2218191ffdd8f92cf9eca3aafdc4ea7e1615ea4f2213fd443984f3b3ee07a5a79f63759a655d1ee6eab716054b8e9cb64256b263b81eb3b86ff920d9aa1');
+	
     io.on("connection", function (socket) {
         var existsocket = Object.keys(io.sockets.sockets);
         console.log('user connected');
@@ -99,5 +103,49 @@ module.exports = function (io) {
 	        });
         });
         /* END BINANCE WEB SOCKET */
+
+        /* START BINANCE WEB SOCKET */
+        socket.on('poloniexMarketName', (name) => {
+            
+            poloniex.on('open', () => {
+              console.log(`Poloniex WebSocket connection open`);
+            });
+            poloniex.subscribe(name);
+            poloniex.on('message', (channelName, data, seq) => {
+                /*console.log('channelName',channelName)
+                console.log('seq',seq)
+                if (channelName === 'ticker') {
+                    console.log(`Ticker: ${data}`);
+                }*/
+
+                if (channelName === name) {
+                    poloniex.returnTicker((err, ticker) => {
+                        if (!err) {
+                            socket.emit("poloniexMarketSummary", {
+                                error: false,
+                                list: ticker
+                            });
+                        }
+                    });
+                    if (data[0]['type'] == 'orderBook') {
+                        socket.emit("poloniexMarketHistory", {
+                            error: false,
+                            list: data[0]['data']
+                        });
+                    }
+                }
+            });
+            //poloniex.unsubscribe(name);
+
+            poloniex.on('close', (reason, details) => {
+              console.log(`Poloniex WebSocket connection disconnected`);
+            });
+
+            poloniex.on('error', (error) => {
+              console.log(`An error has occured`);
+            });
+
+            poloniex.openWebSocket({ version: 2 });
+        });
     });
 }

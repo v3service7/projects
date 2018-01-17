@@ -41,11 +41,12 @@ import {AdminService} from './services/admin.service';
 import {UserService} from './services/user.service';
 import {PlanService} from './services/plan.service';
 import { PagesService} from './services/pages.service';
-import { PurchaseplanService} from './services/purchaseplan.service';
-import { ExchangeService} from './services/exchange.service';
-import { ExchangeapiService} from './services/exchangeapi.service';
-import { BittrexService} from './services/bittrex.service';
-import { BinanceService} from './services/binance.service';
+import { PurchaseplanService } from './services/purchaseplan.service';
+import { ExchangeService } from './services/exchange.service';
+import { ExchangeapiService } from './services/exchangeapi.service';
+import { BittrexService } from './services/bittrex.service';
+import { BinanceService } from './services/binance.service';
+import { PoloniexService } from './services/poloniex.service';
 import { TradeAlertService } from './services/tradealert.service';
 
 import {FlashMessagesModule} from 'angular2-flash-messages';
@@ -145,7 +146,7 @@ const appRoutes: Routes =  [
     SocketIoModule.forRoot(config),
     Ng2SearchPipeModule
   ],
-  providers: [BittrexService,BinanceService, TradeAlertService, ValidateService, AdminService, AuthGuard, UserGuard, UserService, PlanService, PagesService, ExchangeService,ExchangeapiService,PurchaseplanService],
+  providers: [BittrexService, BinanceService, PoloniexService, TradeAlertService, ValidateService, AdminService, AuthGuard, UserGuard, UserService, PlanService, PagesService, ExchangeService,ExchangeapiService,PurchaseplanService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

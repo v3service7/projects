@@ -43,6 +43,7 @@ var io = socket_io();
 app.io = io;
 const bittrex = require('./routes/bittrex')(io);
 const binance = require('./routes/binance')(io);
+const poloniex = require('./routes/poloniex')(io);
 const socket = require('./routes/socket')(io);
 
 // Port Number
@@ -70,6 +71,7 @@ app.use('/purchaseplan', purchaseplans);
 app.use('/exchangeapi', exchangeapis);
 app.use("/bittrexApi", bittrex);
 app.use("/binance", binance);
+app.use("/poloniex", poloniex);
 app.use('/pay', pays);
 app.use('/tradealert', tradealert);
 
