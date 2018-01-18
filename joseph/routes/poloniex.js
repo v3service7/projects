@@ -47,12 +47,11 @@ module.exports = function (io) {
 	});
 
     router.get('/time', (req,res)=>{
-            res.json(Date.now());
+        res.json(Date.now());
     });
 
     router.get('/symbols', (req,res)=>{
         let symbol = req.query.symbol;
-    
         poloniex.returnTicker( function(err,data) {
             let obj = data[symbol]
             console.log(obj)
@@ -79,7 +78,40 @@ module.exports = function (io) {
 		});
 	});
 
+    router.get('/trade-buy-limit', (req,res)=>{
+        let symbol = req.query.symbol;
+        let quantity = req.query.quantity;
+        let price = parseFloat(req.query.price);
+        //poloniex.options({'APIKEY':APIKEY,'APISECRET':APISECRET});
+        poloniex.buy(symbol, quantity, price, {}, function(trades, symbolData) {
+            res.json({trades, symbolData});
+        });
+    });
 
+    router.get('/trade-sell-limit', (req,res)=>{
+        let symbol = req.query.symbol;
+        let quantity = req.query.quantity;
+        let price = parseFloat(req.query.price);
+        //binance.options({'APIKEY':APIKEY,'APISECRET':APISECRET});
+        poloniex.sell(symbol, quantity, price, function(trades, symbolData) {
+            res.json({trades, symbolData});
+        });
+    });
+
+    router.get('/trade-history', (req,res)=>{
+        let symbol = req.query.symbol
+        poloniex.returnMyTradeHistory(symbol, function(trades, symbol) {
+            res.json({trades, symbol});
+        });
+    });
+    
+    router.get('/open-order', (req,res)=>{
+        let symbol = req.query.symbol
+        //poloniex.options({'APIKEY':APIKEY,'APISECRET':APISECRET});
+        poloniex.returnOpenOrders(symbol, function(orders, symbol) {
+            res.json(orders);
+        });
+    });
 
     function arrayModify(history,cb){
         var cusObj = {}

@@ -44,6 +44,7 @@ app.io = io;
 const bittrex = require('./routes/bittrex')(io);
 const binance = require('./routes/binance')(io);
 const poloniex = require('./routes/poloniex')(io);
+const gdax = require('./routes/gdax')(io);
 const socket = require('./routes/socket')(io);
 
 // Port Number
@@ -72,6 +73,7 @@ app.use('/exchangeapi', exchangeapis);
 app.use("/bittrexApi", bittrex);
 app.use("/binance", binance);
 app.use("/poloniex", poloniex);
+app.use("/gdax", gdax);
 app.use('/pay', pays);
 app.use('/tradealert', tradealert);
 
@@ -80,9 +82,9 @@ app.get('/', (req, res) => {
 	res.send('Invalid End Point');
 });
 
-/*app.get('*', (req, res) => {
+app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, 'public/index.html'));
-});*/
+});
 
 const server = http.createServer(app);
 var io = app.io;

@@ -31,6 +31,11 @@ module.exports = function (io) {
     /* Poloniex Configuration*/
     const Poloniex = require('./../node_modules/poloniex-api-node/lib/poloniex');;
     let poloniex = new Poloniex('34YVWM7V-FH54N6DW-4B1N3RWJ-ZPSPVF3P','c476e2218191ffdd8f92cf9eca3aafdc4ea7e1615ea4f2213fd443984f3b3ee07a5a79f63759a655d1ee6eab716054b8e9cb64256b263b81eb3b86ff920d9aa1');
+    
+    /* Gdax Configuration*/
+    const Gdax = require('gdax');
+    const publicClient = new Gdax.PublicClient();
+    
 	
     io.on("connection", function (socket) {
         var existsocket = Object.keys(io.sockets.sockets);
@@ -104,9 +109,8 @@ module.exports = function (io) {
         });
         /* END BINANCE WEB SOCKET */
 
-        /* START BINANCE WEB SOCKET */
+        /* START POLONIEX WEB SOCKET */
         socket.on('poloniexMarketName', (name) => {
-            
             poloniex.on('open', () => {
               console.log(`Poloniex WebSocket connection open`);
             });
@@ -146,6 +150,38 @@ module.exports = function (io) {
             });
 
             poloniex.openWebSocket({ version: 2 });
+        });
+        /* END POLONIEX WEB SOCKET */
+
+        /* START GDAX WEB SOCKET */
+
+        socket.on('gdaxMarketName', (name) => {
+            const websocket = new Gdax.WebsocketClient([name]);
+
+            websocket.on('message', data => {
+                console.log(name)
+                console.log(data)
+                console.log('--------------------------------------------')
+                publicClient.getProductTicker(name,(error, response, data) => {
+                    if (!error) {
+                        socket.emit("gdaxMarketSummary", {
+                            error: false,
+                            list: data
+                        });
+                    }
+                });
+
+                publicClient.getProductTrades(name,(error, response, data) => {
+                    if (!error) {
+                        socket.emit("gdaxMarketHistory", {
+                            error: false,
+                            list: data
+                        });
+                    }
+                });
+            });
+            websocket.on('error', err => { /* handle error */ });
+            websocket.on('close', () => { /* ... */ });
         });
     });
 }

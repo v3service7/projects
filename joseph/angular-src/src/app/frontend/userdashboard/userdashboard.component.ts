@@ -3,6 +3,7 @@ import { DatePipe, DecimalPipe } from '@angular/common';
 import { BittrexService } from './../../services/bittrex.service';
 import { BinanceService } from './../../services/binance.service';
 import { PoloniexService } from './../../services/poloniex.service';
+import { GdaxService } from './../../services/gdax.service';
 import { FormControl, FormGroup, FormBuilder,Validators, ReactiveFormsModule } from '@angular/forms';
 import { UserService } from '../../services/user.service';
 import { TradeAlertService } from '../../services/tradealert.service';
@@ -76,6 +77,7 @@ export class UserdashboardComponent implements OnInit {
         private bittrexService: BittrexService,
         private binanceService: BinanceService,
         private poloniexService: PoloniexService,
+        private gdaxService: GdaxService,
         private tradeAlertService: TradeAlertService,
         private fb: FormBuilder,
         public userService:UserService,
@@ -203,6 +205,16 @@ export class UserdashboardComponent implements OnInit {
 
     loadAllFun(){
         this.myAlertList();
+        if (this.chooseMarket == 'Gdax') {
+            console.log('----Gdax---');
+            this.chartUrl = globalVariable.url+'poloniex';
+            this.binanceService.reConnect();
+            this.gdaxService.getMarketName(this.chooseCurrency);
+            this.getGdaxxCurrency();
+            this.getGdaxMarketSummary();
+            this.getGdaxMarketHistory();
+        }
+
         if (this.chooseMarket == 'Poloniex') {
             console.log('----Poloniex---');
             this.chartUrl = globalVariable.url+'poloniex';
@@ -213,8 +225,8 @@ export class UserdashboardComponent implements OnInit {
             this.getPoloniexMarketHistory();
             this.poloniexTradeBalance();
             this.chartLoad(this.chooseCurrency,this.chartUrl)
-
         }
+
         if (this.chooseMarket == 'Binance') {
             console.log('----Binance---');
             this.chartUrl = globalVariable.url+'binance';
@@ -239,6 +251,55 @@ export class UserdashboardComponent implements OnInit {
             this.chartLoad(this.chooseCurrency,this.chartUrl)
         }
     }
+
+
+    /* Gdax Function */
+
+    getGdaxxCurrency(){
+        this.gdaxService.getCurrency().subscribe((data) => {
+            var btclist = [];
+            var ethlist = []; 
+            var usdtlist = []; 
+            for (var i = 0; i < data.length; ++i) {
+                let obj = {}
+                obj['MarketName'] = data[i]['id'];
+                obj['Last'] = data[i]['base_max_size'];
+                if (data[i]['base_currency'] == 'BTC') {
+                    btclist.push(obj);
+                }
+                if (data[i]['base_currency'] == 'ETH') {
+                    ethlist.push(obj);
+                }
+                if (data[i]['base_currency'] == 'USDT') {
+                    usdtlist.push(obj);
+                }
+            }
+            this.btcList = btclist;
+            this.ethList = ethlist;
+            this.usdtList = usdtlist;
+        });
+    }
+
+    getGdaxMarketSummary(){
+        this.gdaxService.getMarketSummary().subscribe((data) => {
+            if (data['error'] == false && data['list']!=null){
+                this.high=data['list'].price;
+                this.low=data['list'].size;
+                this.vol=data['list'].volume;
+                this.ask=data['list'].ask;
+                this.bid=data['list'].bid;
+                this.alertForm.controls['alertPrice'].setValue(this.ask);
+            }
+        });
+    }
+
+    getGdaxMarketHistory(){
+        this.gdaxService.getMarketHistory().subscribe((data) => {
+                    //console.log(data)
+        })
+    }
+
+
 
     /*Poloniex Function*/
 
