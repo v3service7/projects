@@ -90,13 +90,18 @@ export class MyOrderPage {
             this.orders = users.message;
             this.tempOrdr = users.message;
 
-            for (var i = 0; i < this.orders.length; i++) {
-                let startDate = this.tempOrdr[i]['created_at'];
-                let startDate1 = startDate.split('T');
-                this.tempOrdr[i]['created_at'] =  startDate1[0];
+            if (this.orders.length > 0) {
+                for (var i = 0; i < this.orders.length; i++) {
+                    let startDate = this.tempOrdr[i]['created_at'];
+                    let startDate1 = startDate.split('T');
+                    this.tempOrdr[i]['created_at'] =  startDate1[0];
+                }
+
+                this.getCalculation();
+            }else{
+                this.loading.dismiss();
             }
 
-            this.getCalculation();
         });
     }
 

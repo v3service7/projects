@@ -143,17 +143,19 @@ export class HomePage {
             let directionsService = new google.maps.DirectionsService;
             directionsDisplay.setMap(map);
             let origin = {location:new google.maps.LatLng(this.driver.lat, this.driver.lng),stopover: true};
-            directionsService.route({
-                origin: origin['location'],
-                destination: new google.maps.LatLng(lat, lng),
-                travelMode: google.maps.DirectionsTravelMode.WALKING
-            }, function(response, status) {
-                if (status === 'OK') {
-                    directionsDisplay.setDirections(response);
-                } else {
-                    window.alert('Directions request failed due to ' + status);
-                }
-            });
+            if ( (typeof this.driver['lat'] !== "undefined") && (typeof lng !== "undefined") && (typeof lat !== "undefined")) {
+                directionsService.route({
+                    origin: origin['location'],
+                    destination: new google.maps.LatLng(lat, lng),
+                    travelMode: google.maps.DirectionsTravelMode.WALKING
+                }, function(response, status) {
+                    if (status === 'OK') {
+                        directionsDisplay.setDirections(response);
+                    } else {
+                        window.alert('Directions request failed due to ' + status);
+                    }
+                });
+            }
         /*}*/
     }
 

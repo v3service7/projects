@@ -56,16 +56,19 @@ import { MyDriverPage } from './my-driver';
         this.addDriver.controls['restaurantId'].setValue(this.restaurants._id);
         this.driversService.addDriver(this.addDriver.value).subscribe(
             (data) => {
+                if (data.error) {
+                    loading.dismiss();
+                    this.getToast('Driver with this Credential Already Exist!')
+                }else{
+                    loading.dismiss();
+                    this.navCtrl.pop();
+                    this.getToast('Driver added successfully')
+                }
+            },(err)=>{
                 loading.dismiss();
-                this.navCtrl.setRoot(MyDriverPage);
-                this.getToast('Driver added successfully')
-
+                this.getToast('Something went Wrong!')
             }
         );
-    }
-
-    private goToLogin(){
-        this.navCtrl.setRoot(MyDriverPage);
     }
 
     private getToast(msg){

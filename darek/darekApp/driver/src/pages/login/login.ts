@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ToastController, LoadingController, Nav, IonicPage, NavController, NavParams,ViewController,MenuController  } from 'ionic-angular';
 import { AuthService } from '../../app/service/auth.service';
 
-
+import { DriversService} from '../../app/service/index';
 import { SocketService } from '../../app/service/socket.service';
 
 
@@ -24,7 +24,8 @@ import { ForgetPasswordPage } from '../forget-password/forget-password';
  export class LoginPage {
 
  	loginForm: FormGroup;
- 	rootPage: any;
+    rootPage: any;
+ 	loading: any;
 
  	formErrors = {
  		'password'  : ''   
@@ -47,7 +48,8 @@ import { ForgetPasswordPage } from '../forget-password/forget-password';
         public toastCtrl: ToastController,
         public navCtrl: NavController,
         private viewCtrl: ViewController,
-        public navParams: NavParams
+        public navParams: NavParams,
+        public driverService: DriversService
         ) {
  		this.loginForm = this.lf.group({
  			email: ['', Validators.required],
@@ -61,29 +63,56 @@ import { ForgetPasswordPage } from '../forget-password/forget-password';
 	}
 
  	private login(){
- 		let loading = this.loadingCtrl.create({
+ 		this.loading = this.loadingCtrl.create({
             content: 'Please wait...'
         });
-        loading.present();
+        this.loading.present();
  		this.authService.getDriver(this.loginForm.value).subscribe(
             (data) => {
-                loading.dismiss();
               	if (data.status) {
                     this.socketService.assignSocketIdToDriver(data.data);
-                    localStorage.setItem('currentDriver', JSON.stringify(data.data));
- 					this.nav.setRoot(MyOrderPage);
+                    if (typeof data.data.lat == 'undefined' || typeof data.data.lng == 'undefined') {
+                        if(navigator.geolocation){
+                            navigator.geolocation.getCurrentPosition((position) => {
+                                data.data.lat = position.coords.latitude;
+                                data.data.lng = position.coords.longitude;
+                                this.updateDriver(data.data);
+                            });
+                        }
+                    }else{
+                        localStorage.setItem('currentDriver', JSON.stringify(data.data));
+                        this.nav.setRoot(MyOrderPage);
+                        this.loading.dismiss();
+                    }
                 }else{
                 	this.getToast('Bad Credential');
                 	this.loginForm.reset();
+                    this.loading.dismiss();
                 }
             },
             (err)=>{
-                loading.dismiss();
+                this.loading.dismiss();
             	this.getToast('Bad Credential');
             	this.loginForm.reset();
             }
         );
  	}
+
+    private updateDriver(data){
+        this.driverService.updateDriver(data).subscribe((data) => {
+                if (!data.error) {
+                    this.loading.dismiss();
+                    this.getToast('Login Successfully!');
+                    localStorage.setItem('currentDriver', JSON.stringify(data));
+                    this.nav.setRoot(MyOrderPage);
+                }else{
+                    this.loading.dismiss();
+                    this.getToast('Unable to get your location! Please Login again');
+                    this.loginForm.reset();
+                }
+            }
+        );
+    }
 
  	private getToast(msg){
  		let toast = this.toastCtrl.create({

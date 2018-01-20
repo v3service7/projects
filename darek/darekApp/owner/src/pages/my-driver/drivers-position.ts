@@ -134,17 +134,19 @@ export class DriversPositionPage {
             let directionsService = new google.maps.DirectionsService;
             directionsDisplay.setMap(map);
             let origin = {location:new google.maps.LatLng(this.restaurants.lat, this.restaurants.lng),stopover: true};
-            directionsService.route({
-                origin: origin['location'],
-                destination: new google.maps.LatLng(this.drivers[i].lat, this.drivers[i].lng),
-                travelMode: google.maps.DirectionsTravelMode.WALKING
-            }, function(response, status) {
-                if (status === 'OK') {
-                    directionsDisplay.setDirections(response);
-                } else {
-                    window.alert('Directions request failed due to ' + status);
-                }
-            });
+            if ( (typeof this.drivers[i].lat !== "undefined") && (typeof this.restaurants.lat !== "undefined") && (typeof this.restaurants.lng !== "undefined")) {
+                directionsService.route({
+                    origin: origin['location'],
+                    destination: new google.maps.LatLng(this.drivers[i].lat, this.drivers[i].lng),
+                    travelMode: google.maps.DirectionsTravelMode.WALKING
+                }, function(response, status) {
+                    if (status === 'OK') {
+                        directionsDisplay.setDirections(response);
+                    } else {
+                        window.alert('Directions request failed due to ' + status);
+                    }
+                });
+            }
         }
     }
 }
