@@ -35,7 +35,7 @@ export class HomePage {
         this.driver = JSON.parse(localStorage.getItem('currentDriver'));
         this.getDriver();
         //this.initMap();
-        //this.startTracking();
+        this.startTracking();
         /*this.geolocation.getCurrentPosition().then((resp) => {
             console.log("resp");
             console.log(resp);
@@ -159,26 +159,7 @@ export class HomePage {
         /*}*/
     }
 
-
-
-
-    /*private initMap(){
-        let directionsDisplay = new google.maps.DirectionsRenderer({suppressMarkers: true});
-        let directionsService = new google.maps.DirectionsService;
-        let latLng = new google.maps.LatLng(40.7818060697085,-73.96514513029149);
-        let mapOptions = {
-            center: latLng,
-            zoom: 15,
-            mapTypeId: google.maps.MapTypeId.ROADMAP
-        }
-        if (this.mapElement) {
-            this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
-            directionsDisplay.setMap(this.map);
-        }
-        //this.showRoute(directionsService,directionsDisplay);
-    }*/
-
-    /*startTracking() {
+    startTracking() {
         // Background Tracking
         let config = {desiredAccuracy: 0, stationaryRadius: 20, distanceFilter: 10, debug: false, interval: 1000 };
         
@@ -222,7 +203,7 @@ export class HomePage {
 
             });
         });
-    }*/
+    }
 
     /*stopTracking() {
         //console.log('stopTracking');
