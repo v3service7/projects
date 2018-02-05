@@ -43,7 +43,7 @@ import { LoginPage } from '../login/login';
                 if (!data.error) {
                     loading.dismiss();
                 	this.getToast(data.message);
-                    this.navCtrl.pop();
+                    this.navCtrl.pop(LoginPage);
                 }else{
                     loading.dismiss();
                     this.getToast(data.message);
@@ -68,7 +68,7 @@ import { LoginPage } from '../login/login';
  	}
 
  	private goToLogin(){
- 		this.navCtrl.pop();
+ 		this.navCtrl.pop(LoginPage);
  	}
 
  }

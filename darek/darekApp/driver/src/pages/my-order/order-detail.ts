@@ -53,7 +53,7 @@ export class OrderDetailPage {
             (data) => {
                 this.getOrders();
                 loading.dismiss();
-                this.navCtrl.pop();
+                this.navCtrl.pop(MyOrderPage);
                 if (driverStatus == 'Accepted') {
                     this.getToast('Order Accepted successfully');
                 }else{

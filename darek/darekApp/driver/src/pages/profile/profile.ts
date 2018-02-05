@@ -73,7 +73,7 @@ export class ProfilePage {
                 }else{
                     this.getOwner();
                     this.getToast('Profile updated successfully');
-                    this.navCtrl.pop();
+                    this.navCtrl.pop(ProfilePage);
                 }
             }
         );
