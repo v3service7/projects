@@ -6,7 +6,6 @@ import { KitchenItemService,CustomersService } from '../../app/service/index';
 import * as globalVariable from "../../app/global";
 
 import { MenuPage } from '../menu/menu';
-import { RestaurantPage } from '../restaurant/restaurant';
 import { ItemDetailPage } from './itemDetail';
 import { CartPage } from '../cart/cart';
 
@@ -211,12 +210,12 @@ export class ItemPage {
                     this.loading.dismiss();
                 }else{
                     this.loading.dismiss();
-                    this.nav.pop(RestaurantPage);
+                    this.nav.pop();
                     this.getToast('No Item Availavle Now!');
                 }
             }else{
                 this.loading.dismiss();
-                this.nav.pop(RestaurantPage);
+                this.nav.pop();
                 this.getToast('Something Went Wrong!');
             }
         });

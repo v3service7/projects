@@ -3,8 +3,6 @@ import { ToastController, LoadingController, Nav, NavController, NavParams ,View
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CustomersService } from '../../app/service/customer.service';
 
-import { LoginPage } from './login';
-
 @Component({
   selector: 'page-forget-password',
   templateUrl: 'forgetpassword.html',
@@ -42,7 +40,7 @@ export class ForgetPasswordPage {
                 if (!data.error) {            	
 	                loading.dismiss();
 					this.getToast('Email Sent Successfully');
-					this.navCtrl.pop(LoginPage);
+					this.navCtrl.pop();
                 }else{
                 	loading.dismiss();
                 	this.getToast(data.data);

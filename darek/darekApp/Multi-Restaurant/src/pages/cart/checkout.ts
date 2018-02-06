@@ -8,8 +8,6 @@ import { CustomersService,RestaurantsService } from '../../app/service/index';
 
 import { LoginPage } from '../login/login';
 
-import { CartPage } from './cart';
-
 declare var google: any;
 
 @Component({
@@ -720,6 +718,6 @@ export class CheckoutPage {
     private updateInfo(){
         localStorage.removeItem(this.cartStorageString);
         localStorage.setItem(this.cartStorageString,JSON.stringify(this.cartStorage));
-        this.navCtrl.pop(CartPage)
+        this.navCtrl.pop()
     }
 }

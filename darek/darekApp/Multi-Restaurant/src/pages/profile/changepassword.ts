@@ -3,7 +3,6 @@ import { ToastController, NavController} from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CustomersService } from '../../app/service/customer.service';
 
-import { ProfilePage } from './profile';
 
 @Component({
   selector: 'page-change-password',
@@ -44,7 +43,7 @@ export class ChangePasswordPage {
 	            	this.customerService.getOneCustomer(this.currentCustomer['_id']).subscribe(cust=>{
 	            		localStorage.removeItem('currentCustomer');
 	            		localStorage.setItem('currentCustomer', JSON.stringify(cust.message));
-	            		this.navCtrl.pop(ProfilePage);
+	            		this.navCtrl.pop();
 	            	});
             	}else{
             		this.getToast(data.message);

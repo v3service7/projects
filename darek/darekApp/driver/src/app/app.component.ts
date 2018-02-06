@@ -2,8 +2,8 @@ import { Component, ViewChild } from '@angular/core';
 import { Nav, Platform, NavController,ViewController,AlertController, Events   } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
-import { BackgroundMode } from '@ionic-native/background-mode';
-import { LocalNotifications } from '@ionic-native/local-notifications';
+/*import { BackgroundMode } from '@ionic-native/background-mode';*/
+/*import { LocalNotifications } from '@ionic-native/local-notifications';*/
 
 import { SocketService } from './service/socket.service';
 
@@ -30,8 +30,8 @@ export class MyApp {
         public events: Events,
         public splashScreen: SplashScreen,
         private socketService: SocketService,
-        public localNotifications: LocalNotifications,
-        public backgroundMode: BackgroundMode
+        /*public localNotifications: LocalNotifications,*/
+        /*public backgroundMode: BackgroundMode*/
         ) {
         this.initializeApp();
 
@@ -48,11 +48,11 @@ export class MyApp {
 
     pushNot(title){
         this.platform.ready().then(() => {
-            this.localNotifications.schedule({
+            /*this.localNotifications.schedule({
                 id:1,
                 title:title,
                 text: 'Order Received'
-            });
+            });*/
         });
     }
 
@@ -60,7 +60,7 @@ export class MyApp {
         this.platform.ready().then(() => {
             this.statusBar.styleDefault();
             this.splashScreen.hide();
-            this.backgroundMode.enable();
+            /*this.backgroundMode.enable();*/
             if(localStorage.getItem("currentDriver")){
                 this.rootPage = MyOrderPage;
             }else{

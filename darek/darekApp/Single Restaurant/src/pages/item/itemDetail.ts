@@ -31,7 +31,7 @@ export class ItemDetailPage {
     proId : string;
     itemType : string;
     itemGroup : string;
-    previousPage: any;
+    /*previousPage: any;*/
 
     spicyArray : any = [1,2,3];
 
@@ -60,8 +60,8 @@ export class ItemDetailPage {
                 this.promotionItems = JSON.parse(localStorage.getItem(this.proId));
             }
         }
-        var val=this.navCtrl.last();        
-        this.previousPage = val.component
+        /*var val=this.navCtrl.last();        
+        this.previousPage = val.component*/
     }
 
     ionViewDidEnter() {
@@ -384,7 +384,7 @@ export class ItemDetailPage {
             }
         }
 
-        this.navCtrl.pop(this.previousPage);
+        this.navCtrl.pop();
         this.getToast('Item Added');
     }
 

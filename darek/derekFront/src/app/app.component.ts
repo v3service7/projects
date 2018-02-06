@@ -9,7 +9,7 @@ import {SocketService} from './service/socket.service'
 export class AppComponent {
 	title = 'app works!';
 	constructor(public socketService : SocketService){
-		this.onReloadPage();
+		/*this.onReloadPage();*/
 		this.orderResponseReceived();
 	}
 
@@ -21,10 +21,10 @@ export class AppComponent {
 		})	
 	}  
 
-	onReloadPage(){
+	/*onReloadPage(){
 		if(localStorage.getItem('currentCustomer')){
 			var currentCustomer = JSON.parse(localStorage.getItem('currentCustomer'));
 			this.socketService.assignSocketIdToCustomer(currentCustomer);
 		}
-	}
+	}*/
 }

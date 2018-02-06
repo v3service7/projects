@@ -139,7 +139,7 @@ export class FrontendHeaderComponent implements OnInit {
         }*/
         this.customerService.getOneCustomer(id).subscribe(users => {
             this.currentCustomer = users.message;
-            this.socketService.assignSocketIdToCustomer(this.currentCustomer);
+            /*this.socketService.assignSocketIdToCustomer(this.currentCustomer);*/
             console.log("this.currentCustomer");
             console.log(this.currentCustomer);
         });
@@ -3296,7 +3296,7 @@ export class FrontendLoginComponent implements OnInit {
                     localStorage.setItem(this.customerStorage, JSON.stringify(data.data._id));
                     toastr.remove();
                     toastr.success('You are successfully Logged In!', 'Success!', {'positionClass' : 'toast-top-full-width'});
-                    this.socketService.assignSocketIdToCustomer(data.data);
+                    //this.socketService.assignSocketIdToCustomer(data.data);
                     this.router.navigate(['/frontend-cart',this.id]);
                 }
                 else{

@@ -468,6 +468,7 @@ export class CartPage {
 
     private calculateTotal(){
     	this.cartTotal = 0;
+        this.subTotal = 0;
 
     	if (this.promotion) {
     		this.cartStorage['promotion'] = this.promotion;

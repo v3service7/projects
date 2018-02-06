@@ -3,7 +3,6 @@ import { ToastController, LoadingController, Nav, NavController, NavParams ,View
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CustomersService } from '../../app/service/customer.service';
 
-import { LoginPage } from './login';
 
 @Component({
   selector: 'page-register',
@@ -49,7 +48,7 @@ export class RegisterPage {
 	            	console.log(data);
 	            	loading.dismiss();
 					this.getToast('Registered Successfully');
-					this.navCtrl.pop(LoginPage);
+					this.navCtrl.pop();
             	}else{
             		loading.dismiss();
 					this.getToast('Email/Username Already Exist');

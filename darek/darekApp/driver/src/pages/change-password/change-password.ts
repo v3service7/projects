@@ -59,7 +59,7 @@ export class ChangePasswordPage {
                 	this.getToast(data.message)
                 }else{
                 	this.getToast(data.message);
-                    this.navCtrl.pop(ProfilePage)
+                    this.navCtrl.pop()
                 }
             }
         );

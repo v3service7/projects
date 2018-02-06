@@ -312,9 +312,9 @@ export class PromotionDetailPage {
     	console.log("this.promotionItem");
     	console.log(this.promotionItem);
 
-        localStorage.removeItem(this.proId);
-    	localStorage.setItem(this.proId,JSON.stringify(this.promotionItem));
     	localStorage.removeItem('promo');
+        localStorage.removeItem(this.proId);
+        localStorage.setItem(this.proId,JSON.stringify(this.promotionItem));
     	this.nav.setRoot(MenuPage);
     }
 }
