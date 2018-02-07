@@ -54,7 +54,6 @@ module.exports = function (io) {
         let symbol = req.query.symbol;
         poloniex.returnTicker( function(err,data) {
             let obj = data[symbol]
-            console.log(obj)
             res.json({'MarketName':symbol,'High':obj.high24hr,'Low':obj.low24hr,'Volume':obj.baseVolume,'Open':obj.lowestAsk,'Close':obj.highestBid});
         });
     });

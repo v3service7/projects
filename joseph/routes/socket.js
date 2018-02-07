@@ -45,7 +45,7 @@ module.exports = function (io) {
         /* START BITTREX WEB SOCKET */
         socket.on('marketName', (name) => {
             bittrex.websockets.client(function () {
-                bittrex.websockets.subscribe(['BTC-LTC'], function (data) {
+                bittrex.websockets.subscribe([name], function (data) {
                     if (data.M === 'updateExchangeState') {
                         data.A.forEach(function (data_for) {
                             bittrex.getmarketsummaries(function (data) {                           
@@ -97,14 +97,6 @@ module.exports = function (io) {
                 tradeAlertCheck(name,obj['open'],function(data){
                     socket.emit("binanceAlert", {error: false,list: data});
                 });
-	            /*console.log(symbol+" "+interval+" candlestick update");
-	            console.log("open: "+open);
-	            console.log("high: "+high);
-	            console.log("low: "+low);
-	            console.log("close: "+close);
-	            console.log("volume: "+volume);
-	            console.log("isFinal: "+isFinal);
-	            console.log("--------------------------------------------------");*/
 	        });
         });
         /* END BINANCE WEB SOCKET */
@@ -116,12 +108,6 @@ module.exports = function (io) {
             });
             poloniex.subscribe(name);
             poloniex.on('message', (channelName, data, seq) => {
-                /*console.log('channelName',channelName)
-                console.log('seq',seq)
-                if (channelName === 'ticker') {
-                    console.log(`Ticker: ${data}`);
-                }*/
-
                 if (channelName === name) {
                     poloniex.returnTicker((err, ticker) => {
                         if (!err) {
@@ -139,7 +125,6 @@ module.exports = function (io) {
                     }
                 }
             });
-            //poloniex.unsubscribe(name);
 
             poloniex.on('close', (reason, details) => {
               console.log(`Poloniex WebSocket connection disconnected`);
@@ -159,11 +144,18 @@ module.exports = function (io) {
             const websocket = new Gdax.WebsocketClient([name]);
 
             websocket.on('message', data => {
-                console.log(name)
+                if (data['type'] == 'subscriptions') {
                 console.log(data)
-                console.log('--------------------------------------------')
-                publicClient.getProductTicker(name,(error, response, data) => {
-                    if (!error) {
+                console.log(data['channels'])
+                console.log('---------------------------------')
+
+                }
+                /*publicClient.getProductTicker(name,(error, response, data) => {
+                    if (error == null ) {
+                    console.log('---------gdaxMarketSummary---------')
+                    console.log(error)
+                    console.log(response)
+                    console.log(data)
                         socket.emit("gdaxMarketSummary", {
                             error: false,
                             list: data
@@ -172,13 +164,16 @@ module.exports = function (io) {
                 });
 
                 publicClient.getProductTrades(name,(error, response, data) => {
-                    if (!error) {
+                    if (error == null) {
+                    console.log('---------gdaxMarketHistory---------')
+                    console.log(error)
+                    console.log(data)
                         socket.emit("gdaxMarketHistory", {
                             error: false,
                             list: data
                         });
                     }
-                });
+                });*/
             });
             websocket.on('error', err => { /* handle error */ });
             websocket.on('close', () => { /* ... */ });

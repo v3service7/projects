@@ -35,8 +35,14 @@ export class MyprofileComponent implements OnInit {
   	apiKey: String;
   	secretKey: String;
   	id:any;
+  	otp: String;
+  	openType: String;
+  	authFactor:any={};
+  	temp:any={};
   	sid:string;
   	newex : any = false;
+  	authfactor : any = false;
+  	authOpen : any = false;
   	isActive : any = 'profile';
   	isChildActive : any = 'alertRequest';
     alertRequestList: any = [];
@@ -56,8 +62,14 @@ export class MyprofileComponent implements OnInit {
   	) { }
 
   	ngOnInit() {
+  		this.getProfile()
+		this.user = JSON.parse(localStorage.getItem('user'));
+    }
+
+    getProfile(){
 	  	this.userService.getProfile().subscribe(profile => {
 			this.id = profile.user._id;   
+			this.authfactor = profile.user.authfactor;	  
 			this.user = profile.user;	  
 			this.firstname = this.user.firstname; 
 			this.lastname = this.user.lastname; 
@@ -69,12 +81,102 @@ export class MyprofileComponent implements OnInit {
 			this.getList() ;
 			this.getApiList();
 			this.myAlertList();
+			if (!this.authfactor) {
+				this.enable2Factor();
+			}
 	    },
 	    err => {
 	      console.log(err);
 	      return false;
 	    });
-		 this.user = JSON.parse(localStorage.getItem('user'));
+    }
+
+    enable2Factor(){
+        this.userService.enableAuth().subscribe(data => {
+        	this.authFactor = data;
+        });
+    }
+
+    removeAuth(){
+    	let objProfile = {authfactor:false,twofactor:{}, _id: this.id}
+	    this.userService.updateProfile(objProfile).subscribe(data => {		
+	      if(!data.error){
+	      	this.getProfile();
+	        this.flashMessage.show('2 Factor Authentication Disabled Successfully', {cssClass: 'alert-success', timeout: 3000});
+	        this.router.navigate(['/profile']);
+	      } else {
+	        this.flashMessage.show('Invalid Key', {cssClass: 'alert-danger', timeout: 3000});
+	        this.router.navigate(['/profile']);
+	      }
+	    });
+    }
+
+    verifyOtp(){
+    	let obj = {};
+    	obj['token'] = this.otp;
+    	obj['tempSecret'] = this.authFactor.tempSecret;
+        this.userService.verifyAuth(obj).subscribe(data => {
+    		this.authOpen = false;
+        	this.otp = '';
+        	if (data.status) {
+        		let objProfile = {authfactor:true,twofactor:this.authFactor, _id: this.id}
+			    this.userService.updateProfile(objProfile).subscribe(data => {		
+			      if(!data.error){
+			      	this.getProfile();
+			        this.flashMessage.show('2 Factor Authentication Enabled Successfully', {cssClass: 'alert-success', timeout: 3000});
+			        this.router.navigate(['/profile']);
+			      } else {
+			        this.flashMessage.show('Invalid Key', {cssClass: 'alert-danger', timeout: 3000});
+			        this.router.navigate(['/profile']);
+			      }
+			    });
+        	}
+        	console.log(data)
+        });
+    }
+
+    showType(type,data){
+    	this.authOpen = true;
+    	this.openType = type;
+    	this.temp = data;
+    }
+
+    showForm(){
+    	this.authOpen = false;
+    	if (this.openType == 'addExchange') {
+    		document.getElementById('v-pills-addexchng-tab').click();
+    		this.clearform()
+    	}
+    	if (this.openType == 'editExchange') {
+    		setTimeout(() => {
+	    		document.getElementById('v-pills-editexchange-tab').click();	
+	    		this.editPlan(this.temp);
+    		}, 1000);
+    	}
+    	if (this.openType == 'deleteExchange') {
+    		this.deletePlan(this.temp._id)
+    	}
+    }
+
+    verifyAuth(){
+    	let obj = {};
+    	obj['token'] = this.otp;
+    	obj['tempSecret'] = this.user.twofactor.tempSecret;
+        this.userService.verifyAuth(obj).subscribe(data => {
+        	this.otp = '';
+    		this.authOpen = false;
+        	if (data.status) {
+        		this.showForm()
+			    this.flashMessage.show('2 Factor Authentication Successfully', {cssClass: 'alert-success', timeout: 3000});
+        	}else{
+        		this.flashMessage.show('2 Factor Authentication Wrong', {cssClass: 'alert-danger', timeout: 3000});
+        	}
+        	console.log(data)
+        },error => {
+        	this.otp = '';
+    		this.authOpen = false;
+			this.flashMessage.show('2 Factor Authentication Wrong', {cssClass: 'alert-danger', timeout: 3000});        	
+        });
     }
 
     myAlertList(){
@@ -221,6 +323,22 @@ export class MyprofileComponent implements OnInit {
 	    		this.flashMessage.show('Invalid API Key', { cssClass: 'alert-danger', timeout: 3000 });
 	    	}
     		});
+    	}else{
+    		this.exchangeService.exchangeAdd(data1).subscribe(
+		            (data) => {
+		              if (!data.error) {
+		              		this.getList();
+							document.getElementById('v-pills-exchange-tab').click();
+							this.flashMessage.show('Exchange Account Added Successfully', { cssClass: 'alert-success', timeout: 3000 });
+							this.router.navigate(['/profile']);
+		                }else{
+		                    this.flashMessage.show('Exchange API Already exists', { cssClass: 'alert-danger', timeout: 3000 });
+		                }
+		            },
+		            (err)=>{
+		                console.log('kfgbhj')
+		            }
+		        );
     	}
     }
 

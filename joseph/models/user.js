@@ -13,6 +13,8 @@ const UserSchema = new mongoose.Schema({
   username: { type: String, trim: true, required: true, unique: true },
   password: { type: String, required: true, trim: true },
   email_token: { type: String },
+  twofactor:{},
+  authfactor: { type: Boolean, default: false },
   status: { type: Boolean, default: false },
   role : {type: String, enum: ['Admin', 'User'], default: 'User'},
   created_at: { type: Date, default: Date.now }

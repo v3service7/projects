@@ -45,6 +45,7 @@ const bittrex = require('./routes/bittrex')(io);
 const binance = require('./routes/binance')(io);
 const poloniex = require('./routes/poloniex')(io);
 const gdax = require('./routes/gdax')(io);
+const huobi = require('./routes/huobi')(io);
 const socket = require('./routes/socket')(io);
 
 // Port Number
@@ -73,6 +74,7 @@ app.use('/exchangeapi', exchangeapis);
 app.use("/bittrexApi", bittrex);
 app.use("/binance", binance);
 app.use("/poloniex", poloniex);
+app.use("/huobi", huobi);
 app.use("/gdax", gdax);
 app.use('/pay', pays);
 app.use('/tradealert', tradealert);

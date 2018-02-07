@@ -14,6 +14,21 @@ export class UserService {
     this.authToken = token;
   }
 
+  deleteAuth(){
+    return this.http.delete(globalVariable.url+'users/twofactor/setup')
+      .map(res => res.json());
+  }
+
+  enableAuth(){
+    return this.http.post(globalVariable.url+'users/twofactor/setup', {})
+      .map(res => res.json());
+  }
+
+  verifyAuth(data){
+    return this.http.post(globalVariable.url+'users/twofactor/verify', data)
+      .map(res => res.json());
+  }
+
   registerUser(user){
     let headers = new Headers();
     this.loadToken();
