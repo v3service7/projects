@@ -4,9 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import * as globalVariable from "../../app/global";
 
-import { RestaurantsService, KitchenMenuService, RatingService } from '../../app/service/index';;
-
-import { RestaurantPage } from '../restaurant/restaurant';
+import { RestaurantsService, KitchenMenuService, RatingService } from '../../app/service/index';
 
 @Component({
 	selector: 'page-rating',
@@ -132,7 +130,7 @@ export class RatingPage {
     }
 
     goToRestroPage(id){
-        this.navCtrl.pop(RestaurantPage)
+        this.navCtrl.pop()
     }
 
     doRefresh(refresher) {

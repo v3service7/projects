@@ -9,7 +9,7 @@ import { Socket } from 'ng-socket-io';
 export class SocketService {        
 	constructor(private http: Http , private socket: Socket) {}
 
-	assignSocketIdToCustomer(data){
+	/*assignSocketIdToCustomer(data){
 		if(this.socket.ioSocket.id){
 			var sid = this.socket.ioSocket.id;
 			data["socketId"] = sid;
@@ -17,7 +17,7 @@ export class SocketService {
 			localStorage.setItem('currentCustomer', JSON.stringify(data));
 			this.socket.emit('assignSocketIdToCustomer', data);
 		}
-	}
+	}*/
 
 	orderFromCustomer(obj){		
 		console.log("orderFromCustomer", obj)   
