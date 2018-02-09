@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ModalController, LoadingController, Nav, NavController, NavParams,ViewController,MenuController, Events } from 'ionic-angular';
+import { ModalController, LoadingController, Nav, NavController, NavParams,ViewController,MenuController, Events,ToastController } from 'ionic-angular';
 import { RestaurantsService, OrderService, DriversService  } from '../../app/service/index';
 
 import { OrderDetailPage } from './order-detail';
@@ -21,7 +21,7 @@ import { ModalContentPage } from './filter-page';
 })
 export class MyOrderPage {
 
-	currentDriver:any={};
+	currentDriver:any;
 	restaurants:any ={};
     orders: Array<{}>;
 	tempOrdr: Array<{}>;
@@ -39,6 +39,7 @@ export class MyOrderPage {
         private restaurantsService: RestaurantsService,
         private orderService: OrderService,
         public events: Events,
+        public toastCtrl: ToastController,
         public modalCtrl: ModalController
         ) {
  		/*this.loading = this.loadingCtrl.create({
@@ -47,9 +48,6 @@ export class MyOrderPage {
         this.loading.present();*/
 
         this.getOrderAgain();
-
-
-		this.currentDriver = JSON.parse(localStorage.getItem('currentDriver'));
         /*this.getOrders();*/
         this.menuCtrl.enable(true);
     }
@@ -77,6 +75,7 @@ export class MyOrderPage {
     }
 
 	ionViewDidEnter() {
+        this.currentDriver = JSON.parse(localStorage.getItem('currentDriver'));
         this.getOrders();
     }
 
@@ -86,24 +85,38 @@ export class MyOrderPage {
         });
         this.loading.present();
 
-        this.driversService.myOrder(JSON.parse(localStorage.getItem('currentDriver'))._id).subscribe(users => {
-            this.orders = users.message;
-            this.tempOrdr = users.message;
+        this.driversService.myOrder(this.currentDriver['_id']).subscribe(users => {
+            if (!users.error) {
+                this.orders = users.message;
+                this.tempOrdr = users.message;
 
-            if (this.orders.length > 0) {
-                for (var i = 0; i < this.orders.length; i++) {
-                    let startDate = this.tempOrdr[i]['created_at'];
-                    let startDate1 = startDate.split('T');
-                    this.tempOrdr[i]['created_at'] =  startDate1[0];
+                if (this.orders.length > 0) {
+                    for (var i = 0; i < this.orders.length; i++) {
+                        let startDate = this.tempOrdr[i]['created_at'];
+                        let startDate1 = startDate.split('T');
+                        this.tempOrdr[i]['created_at'] =  startDate1[0];
+                    }
+
+                    this.getCalculation();
+                }else{
+                    this.loading.dismiss();
                 }
-
-                this.getCalculation();
             }else{
                 this.loading.dismiss();
+                this.getToast('No Orders Yet!');
             }
-
         });
     }
+
+    private getToast(msg){
+        let toast = this.toastCtrl.create({
+            message: msg,
+            duration: 3000,
+            position:'top' //top,middle,bottom
+        });
+        toast.present();
+    }
+
 
     private detailBackground(order){
         if (order.driverStatus) {

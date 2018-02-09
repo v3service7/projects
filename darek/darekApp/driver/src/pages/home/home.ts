@@ -1,10 +1,11 @@
 import { Component, OnInit, ElementRef, ViewChild, NgZone } from '@angular/core';
 import { NavController, Platform } from 'ionic-angular';
-//import { NavController } from 'ionic-angular';
 
 import { BackgroundGeolocation } from '@ionic-native/background-geolocation';
 import { Geolocation, Geoposition } from '@ionic-native/geolocation';
 import 'rxjs/add/operator/filter';
+
+import { AuthService } from '../../app/service/auth.service';
 
 import { DriversService, OrderService } from '../../app/service/index';
 
@@ -31,40 +32,11 @@ export class HomePage {
         private geolocation: Geolocation,
         public driversService: DriversService,
         public orderService: OrderService,
+        private authService: AuthService,
         ) {
         this.driver = JSON.parse(localStorage.getItem('currentDriver'));
         this.getDriver();
-        //this.initMap();
-        this.startTracking();
-        /*this.geolocation.getCurrentPosition().then((resp) => {
-            console.log("resp");
-            console.log(resp);
-        }).catch((error) => {
-        console.log('Error getting location', error);
-        });
-
-        const subscription = this.geolocation.watchPosition()
-            .filter((p) => p.coords !== undefined) //Filter Out Errors
-            .subscribe(position => {
-                console.log("position");
-                console.log(position);
-                this.lat = position.coords.latitude;
-                this.lng = position.coords.longitude;
-            console.log(position.coords.longitude + ' ' + position.coords.latitude);
-
-            let obj = {};
-            obj['_id'] = this.driver._id;
-            obj['lat'] = this.lat;
-            obj['lng'] = this.lng;
-
-            this.driversService.updateDriver(obj).subscribe((data)=>{
-                console.log("data");
-                console.log(data);
-            })
-        });*/
-
-        // To stop notifications
-        //subscription.unsubscribe();
+        /*this.startTracking();*/
     }
 
     getDriver(){
@@ -94,6 +66,14 @@ export class HomePage {
             draggable: false,
             animation: google.maps.Animation.DROP
         });
+        
+        var infowindow = new google.maps.InfoWindow();
+        infowindow = new google.maps.InfoWindow({
+            content: 'abc'
+        });
+        infowindow.open(map, marker);
+
+
 
         if (this.driver.driverStatus == 'Available') {
             let latLng = new google.maps.LatLng(this.driver.restaurantId.lat, this.driver.restaurantId.lng);
@@ -108,55 +88,46 @@ export class HomePage {
                 draggable: false,
                 animation: google.maps.Animation.DROP
             });
-            this.showRoute(map,this.driver.restaurantId.lat,this.driver.restaurantId.lng)
+            this.showRoute(map,this.driver.restaurantId.lat,this.driver.restaurantId.lng,infowindow)
         }else{
             console.log('Driver is on Duty now');
-            /*this.orderService.getCurrentOrderOfThisDriver(this.driver._id).subscribe((order)=>{
-                console.log("order");
-                console.log(order);
-            });*/
-        }
-
-
-        /*for (var i = 0; i < this.drivers.length; i++) {
-            let latLng = new google.maps.LatLng(this.drivers[i].lat, this.drivers[i].lng);
-            let marker = new google.maps.Marker({
-                position: latLng,
-                title: this.drivers[i].firstname,
-                label: {
-                    fontWeight: 'bold',
-                    text: this.drivers[i].firstname,
-                },
-                icon:'assets/img/green.png',
-                map: map,
-                draggable: false,
-                animation: google.maps.Animation.DROP
-            });
-        }
-        this.showRoute(map);
-        this.loading.dismiss();*/    
+        } 
     }
 
-    private showRoute(map,lat,lng){
-        /*for (let i = 0; i<this.drivers.length; i++) {*/
-            let directionsDisplay = new google.maps.DirectionsRenderer({suppressMarkers: true});
-            let directionsService = new google.maps.DirectionsService;
-            directionsDisplay.setMap(map);
-            let origin = {location:new google.maps.LatLng(this.driver.lat, this.driver.lng),stopover: true};
-            if ( (typeof this.driver['lat'] !== "undefined") && (typeof lng !== "undefined") && (typeof lat !== "undefined")) {
-                directionsService.route({
-                    origin: origin['location'],
-                    destination: new google.maps.LatLng(lat, lng),
-                    travelMode: google.maps.DirectionsTravelMode.WALKING
-                }, function(response, status) {
-                    if (status === 'OK') {
-                        directionsDisplay.setDirections(response);
-                    } else {
-                        window.alert('Directions request failed due to ' + status);
+    private showRoute(map,lat,lng,infowindow){
+        let directionsDisplay = new google.maps.DirectionsRenderer({suppressMarkers: true});
+        let directionsService = new google.maps.DirectionsService;
+        directionsDisplay.setMap(map);
+        let origin = {location:new google.maps.LatLng(this.driver.lat, this.driver.lng),stopover: true};
+        if ( (typeof this.driver['lat'] !== "undefined") && (typeof lng !== "undefined") && (typeof lat !== "undefined")) {
+            directionsService.route({
+                origin: origin['location'],
+                destination: new google.maps.LatLng(lat, lng),
+                travelMode: google.maps.DirectionsTravelMode.DRIVING
+            }, function(response, status) {
+                if (status === 'OK') {
+                    directionsDisplay.setDirections(response);
+                    var totalDist = 0;
+                    var totalTime = 0;
+                    var myroute = response.routes[0];
+                    for (let i = 0; i < myroute.legs.length; i++) {
+                        totalDist += myroute.legs[i].distance.value;
+                        totalTime += myroute.legs[i].duration.value;
                     }
-                });
-            }
-        /*}*/
+                    totalDist = totalDist / 1000;
+                    let time = totalTime/60;
+                    var hours = Math.floor( time / 60);          
+                    var minutes = time % 60;
+
+                    let hour2 = hours > 0 ? hours + ' hrs' : '';
+                    let minutes2 = minutes > 0 ? minutes.toFixed(0) + ' mins' : '';
+
+                    infowindow.setContent(infowindow.getContent()+"<br>Distance = " + (totalDist / 0.621371).toFixed(2) + " miles<br>Time = " + hour2 + minutes2);
+                } else {
+                    window.alert('Directions request failed due to ' + status);
+                }
+            });
+        }
     }
 
     startTracking() {
@@ -175,11 +146,9 @@ export class HomePage {
         }, (err) => {
             console.log(err);
         });
-     
-        // Turn ON the background-geolocation system.
+
         this.backgroundGeolocation.start();
         // Foreground Tracking
-     
         let options = {frequency: 3000, enableHighAccuracy: true};
  
         this.watch = this.geolocation.watchPosition(options).filter((p: any) => p.code === undefined).subscribe((position: Geoposition) => {
@@ -197,18 +166,23 @@ export class HomePage {
                 obj['lng'] = this.lng;
 
                 this.driversService.updateDriver(obj).subscribe((data)=>{
-                    console.log("data");
-                    console.log(data);
-                })
+
+                    let obj2 = {};
+
+                    obj2['email'] = this.driver['email'];
+                    obj2['password'] = this.driver['password'];
+
+                    this.authService.getDriver(obj2).subscribe((data2) => {
+                        console.log("data2");
+                        console.log(data2);
+                        if (data2.status) {
+                            localStorage.removeItem('currentDriver');
+                            localStorage.setItem('currentDriver', JSON.stringify(data2.data));
+                        }
+                    });
+                });
 
             });
         });
     }
-
-    /*stopTracking() {
-        //console.log('stopTracking');
-        this.backgroundGeolocation.finish();
-        this.watch.unsubscribe();
-    }*/
-
 }

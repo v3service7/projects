@@ -41,7 +41,12 @@ export class MyApp {
             { title: 'My Location', icon: 'home', component: HomePage }
         ];
 
-        this.currentDriver = JSON.parse(localStorage.getItem('currentDriver'));
+        if(localStorage.getItem("currentDriver")){
+            this.currentDriver = JSON.parse(localStorage.getItem('currentDriver'));
+            this.rootPage = MyOrderPage;
+        }else{
+            this.rootPage = LoginPage;
+        }
 
         this.orderReceived();
     }
@@ -61,11 +66,6 @@ export class MyApp {
             this.statusBar.styleDefault();
             this.splashScreen.hide();
             /*this.backgroundMode.enable();*/
-            if(localStorage.getItem("currentDriver")){
-                this.rootPage = MyOrderPage;
-            }else{
-                this.rootPage = LoginPage;
-            }
         });
     }
 
