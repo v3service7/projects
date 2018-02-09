@@ -8,10 +8,9 @@ module.exports = function (io) {
     router.post('/authenticate', (req,res)=>{
         let apikey = req.body.apiKey;
         let secretkey = req.body.secretKey;
-        //console.log(req.body)
         binance.options({'APIKEY':apikey,'APISECRET':secretkey});
         binance.allOrders('QSPETH', function(orders, symbol) {
-            //console.log(symbol+" trade history", orders);
+            
             res.json({orders, symbol});
         });
     });

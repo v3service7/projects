@@ -3,8 +3,8 @@ module.exports = function (io) {
     var router = express.Router();
 
     var bittrex = require("./../node_modules/node.bittrex.api/node.bittrex.api.js");
-    const APIKEY = '42ac5b5c0f5c431a831c7dc0ae4776cd';
-    const APISECRET = '4501a1dc096548e395a652871ad53642';
+    const APIKEY = '24a5becb3b454b4584d09dec9005ad49';
+    const APISECRET = 'b8d52d8cadaa45ebb327b6f8d1e85651';
     /*const APIKEY = '2e6c90b726e24b1ba145297c6a56240f';
     const APISECRET = 'aa8a9e47dff246a395f33af55570d047';*/
     
@@ -70,7 +70,6 @@ module.exports = function (io) {
 
     router.get('/history', (req,res)=>{
         var name = req.query.symbol;
-        //bittrex.getmarkethistory({ market: name }, function (history) { 
         bittrex.getmarketsummary({ market: name }, function (history) { 
             arrayModify(history,(status,data)=>{
                 if (status) {
@@ -83,7 +82,7 @@ module.exports = function (io) {
     });
 
     router.get('/time', (req,res)=>{
-            res.json(Date.now());
+        res.json(Date.now());
     });
 
     router.get('/symbols', (req,res)=>{
@@ -94,5 +93,37 @@ module.exports = function (io) {
             }
         });
     });
+
+
+    router.get('/balances', (req,res)=>{
+        let userId = req.query.id
+        bittrex.options({'APIKEY':APIKEY,'APISECRET':APISECRET});
+        bittrex.getbalances(function(data, err) {
+            if(!err)
+            res.json({err,data});
+        });
+    });
+
+
+    router.get('/balance', (req,res)=>{
+        let symbol = req.query.symbol
+        let userId = req.query.id
+        bittrex.options({'APIKEY':APIKEY,'APISECRET':APISECRET});
+        bittrex.getbalance({ currency : symbol },function(data, err) {
+            if(!err)
+            res.json({err,data});
+        });
+    });
+
+
+    router.get('/trade-all-order', (req,res)=>{
+        let symbol = req.query.symbol
+        let userId = req.query.id
+        bittrex.getopenorders({ market : symbol },function(data, err) {
+            if(!err)
+            res.json(data);
+        });
+    });
+
     return router;
 }

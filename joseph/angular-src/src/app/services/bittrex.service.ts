@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+    import { Injectable } from '@angular/core';
 import { Http, Response, Headers } from '@angular/http';
 import 'rxjs/add/operator/map';
 import { Observable } from 'rxjs/Observable';
@@ -76,6 +76,15 @@ export class BittrexService {
     });
     return observable;
   }
+
+    getOpenOrder(coin){
+        return this.http.get(globalVariable.url + 'bittrexApi/trade-all-order?symbol='+coin)
+              .map((response: Response) => {
+            let data = response.json();
+            return data;
+        });
+    }
+
   tradeSell() {
     var data={
       marketName: 'BTC-ZEC',

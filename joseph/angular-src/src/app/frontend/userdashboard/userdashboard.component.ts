@@ -4,6 +4,7 @@ import { BittrexService } from './../../services/bittrex.service';
 import { BinanceService } from './../../services/binance.service';
 import { PoloniexService } from './../../services/poloniex.service';
 import { GdaxService } from './../../services/gdax.service';
+import { HoubiService } from './../../services/huobi.service';
 import { FormControl, FormGroup, FormBuilder,Validators, ReactiveFormsModule } from '@angular/forms';
 import { UserService } from '../../services/user.service';
 import { TradeAlertService } from '../../services/tradealert.service';
@@ -14,6 +15,8 @@ declare var TradingView: any;
 declare var window: { tvWidget };
 declare var Datafeeds: any;
 import * as globalVariable from "../../global";
+import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/observable/interval';
 
 @Component({
     selector: "app-userdashboard",
@@ -78,6 +81,7 @@ export class UserdashboardComponent implements OnInit {
         private binanceService: BinanceService,
         private poloniexService: PoloniexService,
         private gdaxService: GdaxService,
+        private houbiService: HoubiService,
         private tradeAlertService: TradeAlertService,
         private fb: FormBuilder,
         public userService:UserService,
@@ -205,14 +209,27 @@ export class UserdashboardComponent implements OnInit {
 
     loadAllFun(){
         this.myAlertList();
+        if (this.chooseMarket == 'Huobi') {
+            console.log('----Huobi---');
+            this.chartUrl = globalVariable.url+'huobi';
+            this.binanceService.reConnect();
+            //Observable.interval(5000).subscribe(x => {
+                this.getHoubiMarketHistory();                
+            //});
+            this.getHoubiCurrency();
+            this.getHoubiMarketSummary();
+            //this.chartLoad(this.chooseCurrency,this.chartUrl)
+        }
         if (this.chooseMarket == 'Gdax') {
             console.log('----Gdax---');
-            this.chartUrl = globalVariable.url+'poloniex';
+            this.chartUrl = globalVariable.url+'gdax';
             this.binanceService.reConnect();
-            this.gdaxService.getMarketName(this.chooseCurrency);
-            this.getGdaxxCurrency();
-            this.getGdaxMarketSummary();
-            this.getGdaxMarketHistory();
+            //Observable.interval(2000).subscribe(x => {
+                this.getGdaxxCurrency();
+                this.getGdaxMarketSummary();
+                this.getGdaxMarketHistory();
+            //});
+            //this.chartLoad(this.chooseCurrency,this.chartUrl)
         }
 
         if (this.chooseMarket == 'Poloniex') {
@@ -224,7 +241,7 @@ export class UserdashboardComponent implements OnInit {
             this.getPoloniexMarketSummary();
             this.getPoloniexMarketHistory();
             this.poloniexTradeBalance();
-            this.chartLoad(this.chooseCurrency,this.chartUrl)
+            //this.chartLoad(this.chooseCurrency,this.chartUrl)
         }
 
         if (this.chooseMarket == 'Binance') {
@@ -237,7 +254,7 @@ export class UserdashboardComponent implements OnInit {
             this.getBinanceMarketHistory();
             this.binanceOpenOrder();
             this.binanceTradeBalance();
-            this.chartLoad(this.chooseCurrency,this.chartUrl)
+            //this.chartLoad(this.chooseCurrency,this.chartUrl)
         }
 
         if(this.chooseMarket == 'Bittrex'){
@@ -248,10 +265,79 @@ export class UserdashboardComponent implements OnInit {
             this.getCurrency();
             this.getMarketSummary();
             this.getMarketHistory();
-            this.chartLoad(this.chooseCurrency,this.chartUrl)
+            //this.chartLoad(this.chooseCurrency,this.chartUrl)
         }
     }
 
+    /* Houbi Function */
+
+    getHoubiCurrency(){
+        this.houbiService.getCurrency().subscribe((data) => {
+            if (data.status == 'ok') {
+                var btclist = [];
+                var ethlist = []; 
+                var usdtlist = [];
+                for (var i = 0; i < data.data.length; ++i) {
+                    let obj = {}
+                    obj['MarketName'] = data.data[i]['base-currency']+data.data[i]['quote-currency'];
+                    obj['Last'] = data.data[i]['price-precision'];
+                    if (data.data[i]['quote-currency'] == 'btc') {
+                        btclist.push(obj);
+                    }
+                    if (data.data[i]['quote-currency'] == 'eth') {
+                        ethlist.push(obj);
+                    }
+                    if (data.data[i]['quote-currency'] == 'usdt') {
+                        usdtlist.push(obj);
+                    }
+                }
+                this.btcList = btclist;
+                this.ethList = ethlist;
+                this.usdtList = usdtlist;
+            }
+        });
+    }
+
+    getHoubiMarketSummary(){
+        this.houbiService.getMarketSummary(this.chooseCurrency).subscribe((data) => {
+            if (data.status == 'ok') {
+                this.high=data['tick'].high;
+                this.low=data['tick'].low;
+                this.vol=data['tick'].vol;
+                this.ask=data['tick'].ask[0];
+                this.bid=data['tick'].bid[0];
+                this.alertForm.controls['alertPrice'].setValue(this.ask);
+            }
+        });
+    }
+
+    getHoubiMarketHistory(){
+        this.houbiService.getMarketHistory(this.chooseCurrency).subscribe((data) => {
+            if (data['status'] == 'ok') {
+                this.allMarketHistory = [];
+                var sellmarket = [];
+                var buymarket = [];
+                for (var i = 0; i < data['tick']['bids'].length; ++i) {
+                    let total = data['tick']['bids'][i][0] * data['tick']['bids'][i][1];
+                    let obj = {'Price':data['tick']['bids'][i][0],'Quantity':data['tick']['bids'][i][1],'Total':total}
+                    let allObj = {'Price':data['tick']['bids'][i][0],'Quantity':data['tick']['bids'][i][1],'TimeStamp':data['tick']['ts'],'OrderType':'BUY'}
+                    buymarket.push(obj);
+                    this.allMarketHistory.push(allObj);
+                }
+
+                for (var i = 0; i < data['tick']['asks'].length; ++i) {
+                    let total = data['tick']['asks'][i][0] * data['tick']['asks'][i][1];
+                    let obj = {'Price':data['tick']['asks'][i][0],'Quantity':data['tick']['asks'][i][1],'Total':total}
+                    let allObj = {'Price':data['tick']['asks'][i][0],'Quantity':data['tick']['asks'][i][1],'TimeStamp':data['tick']['ts'],'OrderType':'SELL'}
+                    sellmarket.push(obj);
+                    this.allMarketHistory.push(allObj);
+                }
+
+                this.buyMarketHistory = buymarket;
+                this.sellMarketHistory = sellmarket;
+            }
+        })
+    }
 
     /* Gdax Function */
 
@@ -281,25 +367,44 @@ export class UserdashboardComponent implements OnInit {
     }
 
     getGdaxMarketSummary(){
-        this.gdaxService.getMarketSummary().subscribe((data) => {
-            if (data['error'] == false && data['list']!=null){
-                this.high=data['list'].price;
-                this.low=data['list'].size;
-                this.vol=data['list'].volume;
-                this.ask=data['list'].ask;
-                this.bid=data['list'].bid;
+        this.gdaxService.getMarketSummary(this.chooseCurrency).subscribe((data) => {
+            //console.log(data)
+            //if (data['error'] == false && data['list']!=null){
+                this.high=data.price;
+                this.low=data.size;
+                this.vol=data.volume;
+                this.ask=data.ask;
+                this.bid=data.bid;
                 this.alertForm.controls['alertPrice'].setValue(this.ask);
-            }
+            //}
         });
     }
 
     getGdaxMarketHistory(){
-        this.gdaxService.getMarketHistory().subscribe((data) => {
-                    //console.log(data)
+        this.gdaxService.getMarketHistory(this.chooseCurrency).subscribe((data) => {
+            this.allMarketHistory = [];
+            var sellmarket = [];
+            var buymarket = [];
+            for (var i = 0; i < data.length; ++i) {
+                if (data[i]['side'] == 'sell') {
+                    let total = data[i]['price'] * data[i]['size'];
+                    let obj = {'Price':data[i]['price'],'Quantity':data[i]['size'],'Total':total}
+                    let allObj = {'Price':data[i]['price'],'Quantity':data[i]['size'],'TimeStamp':data[i]['time'],'OrderType':'SELL'}
+                    sellmarket.push(obj);
+                    this.allMarketHistory.push(allObj);
+                }
+                if (data[i]['side'] == 'buy') {
+                    let total = data[i]['price'] * data[i]['size'];
+                    let obj = {'Price':data[i]['price'],'Quantity':data[i]['size'],'Total':total}
+                    let allObj = {'Price':data[i]['price'],'Quantity':data[i]['size'],'TimeStamp':data[i]['time'],'OrderType':'BUY'}
+                    buymarket.push(obj);
+                    this.allMarketHistory.push(allObj);
+                }
+            }
+            this.buyMarketHistory = buymarket;
+            this.sellMarketHistory = sellmarket;
         })
     }
-
-
 
     /*Poloniex Function*/
 
@@ -372,7 +477,6 @@ export class UserdashboardComponent implements OnInit {
                         this.allMarketHistory.push(allObj);
                     }
                 }
-
                 this.buyMarketHistory = buymarket;
                 this.sellMarketHistory = sellmarket;
             }
@@ -610,32 +714,6 @@ export class UserdashboardComponent implements OnInit {
         });
     }
 
-    getCurrency(){
-        this.bittrexService.getCurrency().subscribe((data) => {
-            if (data['error'] == false && data['list'] !=null) {
-                let numOptions = data['list'].result;
-                let opts = new Array(numOptions);
-                var btclist = [];
-                var ethlist = []; 
-                var usdtlist = []; 
-                for (let i = 0; i < numOptions.length; i++) {
-                    if (data['list'].result[i].MarketName.startsWith('BTC-')) {
-                        btclist.push(data['list'].result[i]);
-                    }
-                    if (data['list'].result[i].MarketName.startsWith('ETH-')) {
-                        ethlist.push(data['list'].result[i]);
-                    }
-                    if (data['list'].result[i].MarketName.startsWith('USDT')) {
-                        usdtlist.push(data['list'].result[i]);
-                    }
-                }
-                this.btcList = btclist;
-                this.ethList = ethlist;
-                this.usdtList = usdtlist;
-            }
-        });
-    }
-
     getBinanceMarketSummary(){
         this.binanceService.getMarketSummary().subscribe((data) => {
             if (data['error'] == false && data['list']!=null){
@@ -644,19 +722,6 @@ export class UserdashboardComponent implements OnInit {
                 this.vol=data['list'].volume;
                 this.ask=data['list'].open;
                 this.bid=data['list'].close;
-                this.alertForm.controls['alertPrice'].setValue(this.ask);
-            }
-        });
-    }
-
-    getMarketSummary(){
-        this.bittrexService.getMarketSummary().subscribe((data) => {
-            if (data['error'] == false && data['list']!=null){
-                this.high=data['list'].result[0].High;
-                this.low=data['list'].result[0].Low;
-                this.vol=data['list'].result[0].Volume;
-                this.ask=data['list'].result[0].Ask;
-                this.bid=data['list'].result[0].Bid;
                 this.alertForm.controls['alertPrice'].setValue(this.ask);
             }
         });
@@ -697,6 +762,8 @@ export class UserdashboardComponent implements OnInit {
         });
     }
 
+    /* Bittrex Function */
+
     getMarketHistory(){
         this.bittrexService.getMarketHistory().subscribe((data) => {
             if (data['error'] == false && data['list'] != null) {
@@ -718,6 +785,60 @@ export class UserdashboardComponent implements OnInit {
             }
         });
     }
+
+    getMarketSummary(){
+        this.bittrexService.getMarketSummary().subscribe((data) => {
+            if (data['error'] == false && data['list']!=null){
+                this.high=data['list'].result[0].High;
+                this.low=data['list'].result[0].Low;
+                this.vol=data['list'].result[0].Volume;
+                this.ask=data['list'].result[0].Ask;
+                this.bid=data['list'].result[0].Bid;
+                this.alertForm.controls['alertPrice'].setValue(this.ask);
+            }
+        });
+    }
+
+    getCurrency(){
+        this.bittrexService.getCurrency().subscribe((data) => {
+            if (data['error'] == false && data['list'] !=null) {
+                let numOptions = data['list'].result;
+                let opts = new Array(numOptions);
+                var btclist = [];
+                var ethlist = []; 
+                var usdtlist = []; 
+                for (let i = 0; i < numOptions.length; i++) {
+                    if (data['list'].result[i].MarketName.startsWith('BTC-')) {
+                        btclist.push(data['list'].result[i]);
+                    }
+                    if (data['list'].result[i].MarketName.startsWith('ETH-')) {
+                        ethlist.push(data['list'].result[i]);
+                    }
+                    if (data['list'].result[i].MarketName.startsWith('USDT')) {
+                        usdtlist.push(data['list'].result[i]);
+                    }
+                }
+                this.btcList = btclist;
+                this.ethList = ethlist;
+                this.usdtList = usdtlist;
+            }
+        });
+    }
+
+    bittrexOpenOrder(){
+        this.bittrexService.getOpenOrder(this.chooseCurrency).subscribe((data)=>{
+            this.openOrders = [];
+            this.closeOrders = [];
+            if (data['orders'].length > 0) {
+                this.openOrders = data['orders'].filter((item) => { return item['status'] == 'NEW';});
+                this.closeOrders = data['orders'].filter((item) => { return item['status'] == 'FILLED';});
+            }
+        },(err)=>{
+            console.log(err)
+        })
+    }
+
+    /* Common Function */
 
     currencySelected(currencyName: any) {
         localStorage.setItem('currency', currencyName);

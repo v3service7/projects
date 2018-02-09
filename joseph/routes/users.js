@@ -2,6 +2,8 @@ const express = require('express');
 const router = express.Router();
 const passport = require('passport');
 const jwt = require('jsonwebtoken');
+var speakeasy = require('speakeasy');
+var QRCode = require('qrcode');
 const User = require('../models/user.js');
 const config = require('../config/database');
 const emails = require('../mail/emailConfig.js');
@@ -105,6 +107,7 @@ router.get('/', passport.authenticate('jwt', {session:false}), (req, res, next) 
         res.json(response);
     }); 
 });
+
 
 
 // User Add
@@ -234,4 +237,47 @@ router.delete('/:id', passport.authenticate('jwt', {session:false}), (req,res) =
     }); 
 });
 
+router.post('/twofactor/setup', function(req, res){
+    const secret = speakeasy.generateSecret({length: 10});
+    QRCode.toDataURL(secret.otpauth_url, (err, data_url)=>{
+        //save to logged in user.
+        /*user.twofactor = {
+            secret: "",
+            tempSecret: secret.base32,
+            dataURL: data_url,
+            otpURL: secret.otpauth_url
+        };*/
+        return res.json({
+            message: 'Verify OTP',
+            tempSecret: secret.base32,
+            dataURL: data_url,
+            otpURL: secret.otpauth_url
+        });
+    });
+});
+
+//get 2fa details
+router.get('/twofactor/setup', function(req, res){
+    res.json(user.twofactor);
+});
+
+//disable 2fa
+router.delete('/twofactor/setup', function(req, res){
+    delete user.twofactor;
+    res.send('success');
+});
+
+//before enabling totp based 2fa; it's important to verify, so that we don't end up locking the user.
+router.post('/twofactor/verify', function(req, res){
+    var verified = speakeasy.totp.verify({
+        secret: req.body.tempSecret, //secret of the logged in user
+        encoding: 'base32',
+        token: req.body.token
+    });
+    if(verified){
+        return res.send({status:true});
+    }else{
+      return res.send({status:false});
+    }
+});
 module.exports = router;

@@ -8,7 +8,8 @@
                         <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
 
                             <a [ngClass]="setActive(isActive,'profile')" (click)="setActiveClass('profile')" class="nav-link text-white " id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="false">My Profile</a>
-                            <a [ngClass]="setActive(isActive,'changePassword')" (click)="setActiveClass('changePassword')" class="nav-link text-white " id="v-pills-chngpass-tab" data-toggle="pill" href="#v-pills-chngpass" role="tab" aria-controls="v-pills-profile" aria-selected="false">Change Password</a>
+                            <a [ngClass]="setActive(isActive,'2factor')" (click)="setActiveClass('2factor')" class="nav-link text-white " id="v-pills-2factor-tab" data-toggle="pill" href="#v-pills-2factor" role="tab" aria-controls="v-pills-2factor" aria-selected="false">2 Factor Auth</a>
+                            <a [ngClass]="setActive(isActive,'changePassword')" (click)="setActiveClass('changePassword')" class="nav-link text-white " id="v-pills-chngpass-tab" data-toggle="pill" href="#v-pills-chngpass" role="tab" aria-controls="v-pills-chngpass" aria-selected="false">Change Password</a>
                             <a [ngClass]="setActive(isActive,'exchange')" (click)="setActiveClass('exchange')" class="nav-link text-white " id="v-pills-exchange-tab" data-toggle="pill" href="#v-pills-exchange" role="tab" aria-controls="v-pills-exchange" aria-selected="false">Manage Exchange Accounts</a>
                             <a [ngClass]="setActive(isActive,'plan')" (click)="setActiveClass('plan')" class="nav-link text-white " id="v-pills-plan-tab" data-toggle="pill" href="#v-pills-plan" role="tab" aria-controls="v-pills-plan" aria-selected="true">Membership Plans</a>
                             <a [ngClass]="setActive(isActive,'account')" (click)="setActiveClass('account')" class="nav-link text-white " id="v-pills-account-tab" data-toggle="pill" href="#v-pills-account" role="tab" aria-controls="v-pills-account" aria-selected="true">My Account</a>
@@ -29,43 +30,72 @@
                                     <h4 class="card-header text-white">Profile</h4>
                                     <div class="card-body  " >                                       
                                      <!--  <flash-messages></flash-messages>       --> 
-                                     <form (submit)="onProfileSubmit()">
-                                        <div class="form-group row">
-                                            <label class="col-lg-3 col-form-label form-control-label text-white">First Name</label>
-                                            <div class="col-lg-9">
-                                                <input class="form-control" [(ngModel)]="firstname" name="firstname" type="text">
+                                         <form (submit)="onProfileSubmit()">
+                                            <div class="form-group row">
+                                                <label class="col-lg-3 col-form-label form-control-label text-white">First Name</label>
+                                                <div class="col-lg-9">
+                                                    <input class="form-control" [(ngModel)]="firstname" name="firstname" type="text">
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <label class="col-lg-3 col-form-label form-control-label text-white">Last Name</label>
-                                            <div class="col-lg-9">
-                                                <input class="form-control" [(ngModel)]="lastname" name="lastname" type="text">
+                                            <div class="form-group row">
+                                                <label class="col-lg-3 col-form-label form-control-label text-white">Last Name</label>
+                                                <div class="col-lg-9">
+                                                    <input class="form-control" [(ngModel)]="lastname" name="lastname" type="text">
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <label class="col-lg-3 col-form-label form-control-label text-white">Email</label>
-                                            <div class="col-lg-9">
-                                                <input class="form-control" [(ngModel)]="email" name="email" type="email" >
+                                            <div class="form-group row">
+                                                <label class="col-lg-3 col-form-label form-control-label text-white">Email</label>
+                                                <div class="col-lg-9">
+                                                    <input class="form-control" [(ngModel)]="email" name="email" type="email" >
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <label class="col-lg-3 col-form-label form-control-label text-white">Phone</label>
-                                            <div class="col-lg-9">
-                                                <input class="form-control" [(ngModel)]="phonenumber" name="phonenumber" type="text" >
+                                            <div class="form-group row">
+                                                <label class="col-lg-3 col-form-label form-control-label text-white">Phone</label>
+                                                <div class="col-lg-9">
+                                                    <input class="form-control" [(ngModel)]="phonenumber" name="phonenumber" type="text" >
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <label class="col-lg-3 col-form-label form-control-label text-white">Username</label>
-                                            <div class="col-lg-9">
-                                                <input class="form-control" [(ngModel)]="username" name="username" type="text" >
+                                            <div class="form-group row">
+                                                <label class="col-lg-3 col-form-label form-control-label text-white">Username</label>
+                                                <div class="col-lg-9">
+                                                    <input class="form-control" [(ngModel)]="username" name="username" type="text" >
+                                                </div>
                                             </div>
-                                        </div>
 
-                                        <input class="btn btn-sm  btn-success" value="Update" type="submit">
-                                    </form>
+                                            <input class="btn btn-sm  btn-success" value="Update" type="submit">
+                                        </form>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+
+                            <!-- @ FACTOR AUTH -->
+                            <div class="tab-pane fade show" id="v-pills-2factor" role="tabpanel" aria-labelledby="v-pills-2factor-tab">
+                                <div class="card profile-card change-password-card">
+                                    <h4 class="card-header text-white">2 Factor Auth</h4>
+                                    <div class="card-body">
+                                     <!--  <flash-messages></flash-messages>       --> 
+                                        <div class="row" *ngIf="authfactor" >       
+                                            <input class="btn btn-sm  btn-success" value="Distable Auth Factor" type="button" (click)="removeAuth()">
+                                        </div>
+                                        <form  *ngIf="!authfactor && authFactor" (submit)="verifyOtp()">
+                                            <div class="form-group row" style="text-align: center;">
+                                                <div class=" col-lg-12">
+                                                    <p class="text-white">Scan the QR code or enter the secret in Google Authenticator</p>
+                                                    <img [src]="authFactor.dataURL" alt="..." class="img-thumbnail">
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="form-group row">
+                                                <label class="col-lg-3 col-form-label form-control-label text-white" for="otp">Enter Otp:</label>
+                                                 <div class="col-lg-9">
+                                                    <input type="text" [(ngModel)]="otp" name="otp" class="form-control" id="otp">
+                                                </div>
+                                            </div>
+                                            <input class="btn btn-sm  btn-success" value="confirm" type="submit">
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
 
                         <!-- Change Password -->
                         <div class="tab-pane fade show" id="v-pills-chngpass" role="tabpanel" aria-labelledby="v-pills-chngpass-tab">
@@ -95,10 +125,41 @@
                         <!-- Exchange List-->
                         <div class="tab-pane fade show" id="v-pills-exchange" role="tabpanel" aria-labelledby="v-pills-exchange-tab">
                             <div class="card profile-card change-password-card">
-                                <h4 class="card-header text-white">Manage Exchanges<span class="float-right btn-sm btn-primary"><a class="nav-link text-white " id="v-pills-addexchng-tab" data-toggle="pill" href="#v-pills-addexchng" role="tab" aria-controls="v-pills-addexchng" aria-selected="false" (click)= "clearform()">Add Exchange</a></span></h4>
-                                <div class="card-body  " >                                       
+                                <h4 class="card-header text-white">Manage Exchanges<span class="float-right btn-sm btn-primary">
+                                    <a class="nav-link text-white " id="v-pills-addexchng-tab" data-toggle="pill" href="#v-pills-addexchng" role="tab" aria-controls="v-pills-addexchng" aria-selected="false" style="display: none;">Add Exchange</a> 
+                                    <a class="nav-link text-white " data-toggle="pill" href="javascript:void(0)" (click)= "showType('addExchange','add')">Add Exchange</a>
+                                </span>
+                                </h4>
+                                <div class="card-body">                                       
                                  <!--  <flash-messages></flash-messages>       --> 
-                                 <div class="card-content table-responsive">
+
+                                    <form *ngIf="!authfactor && authFactor && authOpen" (submit)="verifyOtp()">
+                                        <div class="form-group row" style="text-align: center;">
+                                            <div class=" col-lg-12">
+                                                <p class="text-white">Scan the QR code or enter the secret in Google Authenticator</p>
+                                                <img [src]="authFactor.dataURL" alt="..." class="img-thumbnail">
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="form-group row">
+                                            <label class="col-lg-3 col-form-label form-control-label text-white" for="otp">Enter Otp:</label>
+                                             <div class="col-lg-9">
+                                                <input type="text" [(ngModel)]="otp" name="otp" class="form-control" id="otp">
+                                            </div>
+                                        </div>
+                                        <input class="btn btn-sm  btn-success" value="confirm" type="submit">
+                                    </form>
+
+                                    <form *ngIf="authfactor && authFactor && authOpen" (submit)="verifyAuth()">
+                                        <div class="form-group row">
+                                            <label class="col-lg-3 col-form-label form-control-label text-white" for="otp">Enter Otp:</label>
+                                             <div class="col-lg-9">
+                                                <input type="text" [(ngModel)]="otp" name="otp" class="form-control" id="otp">
+                                            </div>
+                                        </div>
+                                        <input class="btn btn-sm  btn-success" value="confirm" type="submit">
+                                    </form>
+                                 <div class="card-content table-responsive" *ngIf="!authOpen">
                                     <table class="table text-white" *ngIf="plans.length >0">
                                         <thead class="">
                                             <th>Exchange API</th>
@@ -112,8 +173,9 @@
                                                 <td class="padding0">{{customer.nickName}}</td> 
                                                 <td class="padding0">{{customer.exchangeType}}</td>
                                                 <td class="padding0 td-actions text-right">
-                                                    <a rel="tooltip" title="edit" class="btn btn-success btn-simple btn-xs" id="v-pills-editexchange-tab" data-toggle="pill" href="#v-pills-editexchange" role="tab" aria-controls="v-pills-editexchange" aria-selected="true" (click)="editPlan(customer)"><i class="fa fa-pencil"></i> </a>
-                                                    <a rel="tooltip" title="Remove" class="btn btn-danger btn-simple btn-xs" (click)="deletePlan(customer._id)">
+                                                    <a rel="tooltip" title="edit" class="editExchange btn btn-success btn-simple btn-xs" id="v-pills-editexchange-tab" data-toggle="pill" href="#v-pills-editexchange" role="tab" aria-controls="v-pills-editexchange" aria-selected="true" (click)="editPlan(customer)" style="display: none;"><i class="fa fa-pencil"></i> </a>
+                                                    <a rel="tooltip" title="edit" class="btn btn-success btn-simple btn-xs" href="javascript:void(0)" (click)="showType('editExchange',customer)"><i class="fa fa-pencil"></i> </a>
+                                                    <a rel="tooltip" title="Remove" class="btn btn-danger btn-simple btn-xs" (click)="showType('deleteExchange',customer)">
                                                         <i class="fa fa-trash-o"></i>
                                                     </a>
                                                 </td>

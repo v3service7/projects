@@ -18,7 +18,6 @@ export class GdaxService  {
   		setTimeout(()=>{
   			this.socket.connect();
   		},3000)
-
   	}
 
   	getAuthenticate(data){
@@ -45,7 +44,23 @@ export class GdaxService  {
       	});
   	}
 
-    buyLimit(coin,form){
+    getMarketSummary(data) {
+      return this.http.get(globalVariable.url + 'gdax/ticker?symbol='+data)
+          .map((response: Response) => {
+        let data = response.json();
+        return data;
+      });
+    }
+
+    getMarketHistory(data) {
+      return this.http.get(globalVariable.url + 'gdax/trade?symbol='+data)
+          .map((response: Response) => {
+        let data = response.json();
+        return data;
+      });
+    }
+
+    /*buyLimit(coin,form){
       return this.http.get(globalVariable.url + 'binance/trade-buy-limit?symbol='+coin+'&quantity='+form.buy+'&price='+form.price)
           .map((response: Response) => {
           let data = response.json();
@@ -83,9 +98,9 @@ export class GdaxService  {
         	let data = response.json();
         	return data;
       	});
-  	}
+  	}*/
 	
-	getMarketName(data){
+/*	getMarketName(data){
 		this.socket.emit('gdaxMarketName', data);
 	}
 
@@ -123,5 +138,5 @@ export class GdaxService  {
 			};
 		});
 		return observable;
-	}
+	}*/
 }
