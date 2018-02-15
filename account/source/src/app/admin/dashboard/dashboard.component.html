@@ -12,8 +12,8 @@
                             </div>
                             <div class="card-content">
                                 <p class="category">Customer</p>
-                                <h3 class="title">{{customers.length}}
-                                </h3>
+                                <h3 class="title" *ngIf="customers">{{customers.length}}</h3>
+                                <h3 class="title" *ngIf="!customers">0</h3>
                             </div>
                             <div class="card-footer">
                                 <div class="stats">
@@ -29,7 +29,8 @@
                             </div>
                             <div class="card-content">
                                 <p class="category">Staff</p>
-                                <h3 class="title">{{staffs.length}}</h3>
+                                <h3 class="title" *ngIf="staffs">{{staffs.length}}</h3>
+                                <h3 class="title" *ngIf="!staffs">0</h3>
                             </div>
                             <div class="card-footer">
                                 <div class="stats">
@@ -45,7 +46,8 @@
                             </div>
                             <div class="card-content">
                                 <p class="category">Plan</p>
-                                <h3 class="title">{{plans.length}}</h3>
+                                <h3 class="title" *ngIf="plans">{{plans.length}}</h3>
+                                <h3 class="title" *ngIf="!plans">0</h3>
                             </div>
                             <div class="card-footer">
                                 <div class="stats">

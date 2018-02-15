@@ -209,77 +209,77 @@
                         <div class="col-md-4">
                             <div class="myCard docDiv">
                                 <div class="form-group">
-                                    <input type="file" class="form-control" name="single" ng2FileSelect [uploader]="uploader" (change)="onChange($event,'passportFile')">
+                                    <input type="file" class="form-control" name="single" ng2FileSelect [uploader]="s3Uploader" (change)="onChange($event,'passportFile')">
                                     <a href="javascript:void(0)" class="btn btn-success btn-round btn-block">Upload Passport File</a>
                                 </div>
                                 <div class="textCenter viewFile" *ngIf="businessEditForm.value.passportFile">
-                                    <a target="_blank" href="{{imgUrl}}{{businessEditForm.value.passportFile}}">View</a>
+                                    <a target="_blank" href="{{businessEditForm.value.passportFile}}">View</a>
                                 </div>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="myCard docDiv">
                                 <div class="form-group">
-                                    <input type="file" class="form-control" name="single" ng2FileSelect [uploader]="uploader" (change)="onChange($event,'visaFile')">
+                                    <input type="file" class="form-control" name="single" ng2FileSelect [uploader]="s3Uploader" (change)="onChange($event,'visaFile')">
                                     <a href="javascript:void(0)" class="btn btn-success btn-round btn-block">Upload Visa File</a>
                                 </div>
                                 <div class="textCenter viewFile" *ngIf="businessEditForm.value.visaFile">
-                                    <a target="_blank" href="{{imgUrl}}{{businessEditForm.value.visaFile}}">View</a>
+                                    <a target="_blank" href="{{businessEditForm.value.visaFile}}">View</a>
                                 </div>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="myCard docDiv">
                                  <div class="form-group">
-                                    <input type="file" class="form-control" name="single" ng2FileSelect [uploader]="uploader" (change)="onChange($event,'emiRatesIdFile')">
+                                    <input type="file" class="form-control" name="single" ng2FileSelect [uploader]="s3Uploader" (change)="onChange($event,'emiRatesIdFile')">
                                     <a href="javascript:void(0)" class="btn btn-success btn-round btn-block">UPLOAD EMI Rates Id File</a>
                                 </div>
                                 <div class="textCenter viewFile" *ngIf="businessEditForm.value.emiRatesIdFile">
-                                    <a target="_blank" href="{{imgUrl}}{{businessEditForm.value.emiRatesIdFile}}">View</a>
+                                    <a target="_blank" href="{{businessEditForm.value.emiRatesIdFile}}">View</a>
                                 </div>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="myCard docDiv">
                                  <div class="form-group">
-                                    <input type="file" class="form-control" name="single" ng2FileSelect [uploader]="uploader" (change)="onChange($event,'tradeLicenseFile')">
+                                    <input type="file" class="form-control" name="single" ng2FileSelect [uploader]="s3Uploader" (change)="onChange($event,'tradeLicenseFile')">
                                     <a href="javascript:void(0)" class="btn btn-success btn-round btn-block">UPLOAD Trade License File</a>
                                 </div>
                                 <div class="textCenter viewFile" *ngIf="businessEditForm.value.tradeLicenseFile">
-                                    <a target="_blank" href="{{imgUrl}}{{businessEditForm.value.tradeLicenseFile}}">View</a>
+                                    <a target="_blank" href="{{businessEditForm.value.tradeLicenseFile}}">View</a>
                                 </div>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="myCard docDiv">
                                 <div class="form-group">
-                                    <input type="file" class="form-control" name="single" ng2FileSelect [uploader]="uploader" (change)="onChange($event,'articleAndPartnershipFile')">
+                                    <input type="file" class="form-control" name="single" ng2FileSelect [uploader]="s3Uploader" (change)="onChange($event,'articleAndPartnershipFile')">
                                     <a href="javascript:void(0)" class="btn btn-success btn-round btn-block">UPLOAD Article and Partnership File</a>
                                 </div>
                                 <div class="textCenter viewFile" *ngIf="businessEditForm.value.articleAndPartnershipFile">
-                                    <a target="_blank" href="{{imgUrl}}{{businessEditForm.value.articleAndPartnershipFile}}">View</a>
+                                    <a target="_blank" href="{{businessEditForm.value.articleAndPartnershipFile}}">View</a>
                                 </div>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="myCard docDiv">
                                 <div class="form-group">
-                                    <input type="file" class="form-control" name="single" ng2FileSelect [uploader]="uploader" (change)="onChange($event,'certificateOfIncorporationFile')">
+                                    <input type="file" class="form-control" name="single" ng2FileSelect [uploader]="s3Uploader" (change)="onChange($event,'certificateOfIncorporationFile')">
                                     <a href="javascript:void(0)" class="btn btn-success btn-round btn-block">UPLOAD Certificate of Incorporation File</a>
                                 </div>
                                 <div class="textCenter viewFile" *ngIf="businessEditForm.value.certificateOfIncorporationFile">
-                                    <a target="_blank" href="{{imgUrl}}{{businessEditForm.value.certificateOfIncorporationFile}}">View</a>
+                                    <a target="_blank" href="{{businessEditForm.value.certificateOfIncorporationFile}}">View</a>
                                 </div>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="myCard docDiv">
                                 <div class="form-group">
-                                    <input type="file" class="form-control" name="single" ng2FileSelect [uploader]="uploader" (change)="onChange($event,'bankStatementFile')">
+                                    <input type="file" class="form-control" name="single" ng2FileSelect [uploader]="s3Uploader" (change)="onChange($event,'bankStatementFile')">
                                     <a href="javascript:void(0)" class="btn btn-success btn-round btn-block">UPLOAD Bank Statement File</a>
                                 </div>
                                 <div class="textCenter viewFile" *ngIf="businessEditForm.value.bankStatementFile">
-                                    <a target="_blank" href="{{imgUrl}}{{businessEditForm.value.bankStatementFile}}">View</a>
+                                    <a target="_blank" href="{{businessEditForm.value.bankStatementFile}}">View</a>
                                 </div>
                             </div>
                         </div>

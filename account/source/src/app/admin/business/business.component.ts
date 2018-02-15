@@ -173,6 +173,7 @@ export class BusinessEditComponent implements OnInit {
     processCompletePercent: number = 0;
 
     public uploader: FileUploader = new FileUploader({ url: globalVariable.url+'upload' });
+    s3Uploader: FileUploader ;
 
     formErrors = {
         'businessName': '',
@@ -318,13 +319,13 @@ export class BusinessEditComponent implements OnInit {
     }
 
     onChange(event,fileType) {
-        this.uploader.uploadAll();
-        this.uploader.onProgressItem = (file: any, progress: any) =>{
+        this.s3Uploader.uploadAll();
+        this.s3Uploader.onProgressItem = (file: any, progress: any) =>{
             this.processCompletePercent = progress;
         }
-        this.uploader.onCompleteItem = (item: any, response: any, status: any, headers: any) => {
+        this.s3Uploader.onCompleteItem = (item: any, response: any, status: any, headers: any) => {
             var responsePath = JSON.parse(response);
-            this.businessEditForm.controls[fileType].setValue(responsePath.filename);
+            this.businessEditForm.controls[fileType].setValue(responsePath.filename.location);
             /*this.businesses[fileType]= responsePath.filename;*/
         };
     }
@@ -335,6 +336,7 @@ export class BusinessEditComponent implements OnInit {
                 if (!data.error) {
                     this.businessDetail = data.message;
                     this.businessEditForm.patchValue(data.message);
+                    this.s3Uploader = new FileUploader({ url: globalVariable.url+'s3upload/'+this.businessEditForm.value.businessName })
                 }
             },
             (err)=>{

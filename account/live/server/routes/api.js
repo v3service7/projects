@@ -46,7 +46,7 @@ module.exports = (function() {
         });
     });
 
-    router.post('/resend-activation-link', passport.authenticate('jwt', {session:false}), function(req, res) {
+    router.post('/resend-activation-link', function(req, res) {
         var response = {};
         customerModel.find({ email: req.body.email}, null, function(err,cstmr){
 
@@ -61,22 +61,26 @@ module.exports = (function() {
             }
 
             if(cstmr && cstmr.length > 0){
-                var token = randomstring.generate()
-                cstmr[0].email_token = token;
-        
-                /*response = { "error": false, "message": cstmr[0] };*/
-                customerModel.findByIdAndUpdate(cstmr[0]._id, cstmr[0], function(err, customer) {
-                    customerModel.findById(customer._id, function(err, customer1) {
-                        if (err) {
-                            response = { "error": true, "message": 'Connection Timeout!' };
-                            return res.json(response);
-                        } else {
-                            response = { "error": false, "message": 'Email Sent! Please access your Email ID to Activate your Account' };
-                            emails.emailShoot(cstmr[0].email, cstmr[0].email, token);
-                            return res.json(response);
-                        }
+                if (cstmr[0].status == false) {
+                    var token = randomstring.generate()
+                    cstmr[0].email_token = token;
+                    /*response = { "error": false, "message": cstmr[0] };*/
+                    customerModel.findByIdAndUpdate(cstmr[0]._id, cstmr[0], function(err, customer) {
+                        customerModel.findById(customer._id, function(err, customer1) {
+                            if (err) {
+                                response = { "error": true, "message": 'Connection Timeout!' };
+                                return res.json(response);
+                            } else {
+                                response = { "error": false, "message": 'Email Sent! Please access your Email ID to Activate your Account' };
+                                emails.emailShoot(cstmr[0].email, cstmr[0].email, token);
+                                return res.json(response);
+                            }
+                        });
                     });
-                });
+                }else{
+                    response = { "error": false, "message": 'Account is already Activated' };
+                    return res.json(response);                    
+                }
             }
         });
     });

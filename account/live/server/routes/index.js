@@ -5,6 +5,7 @@ module.exports = (function() {
     const express = require('express');
     const router = express.Router();
     var moment = require('moment');
+    const randomstring = require("randomstring");
     var now = moment();
 
 
@@ -15,6 +16,15 @@ module.exports = (function() {
     var emails = require('../mail/emailConfig.js');
 
 
+    router.post('/testmail', function(req, res) {
+        const tet = emails.emailTest();
+        if (tet) {
+            return res.status(200).json({status: false, message:'Accessed'  });
+        }else{
+            return res.status(403).json({status: false, message:'Access Denied'  });
+        }
+    });
+
     router.post('/customer-verify', function(req, res) {
         let response = {};
         customerModel.findOne({ 'email_token': req.body.token }, function(err, customer) {
@@ -22,28 +32,32 @@ module.exports = (function() {
                 response = { "error": true, "message": 'Connection Lost!' };
                 return res.json(response);
             } else {
-                var registerTime = moment(customer.created_at).format('YYYY-MM-DD HH:mm:ss');
-                var currentTime = moment().format('YYYY-MM-DD HH:mm:ss');
-                if (moment(currentTime).diff(moment(registerTime), 'days') >= 1) {
-                    response = { "error": true, "message": 'Email Activation Link Expire.' };
-                    return res.json(response);
-                } else {
+                console.log(customer)
+                if (customer) {
                     customerModel.findByIdAndUpdate(customer._id, { status: true }, function(err, customer) {
                         if (err) {
                             response = { "error": true, "message": 'Update Unsuccessful! Please Try Again' };
+                            return res.json(response);
                         } else {
                             response = { "error": false, "message": 'Your account successfully activated, please click here to login' };
+                            return res.json(response);
                         }
-                        return res.json(response);
                     });
+                }else{
+                    response = { "error": true, "message": 'Email Activation Link Expire.' };
+                    return res.json(response);
                 }
             };
         });
     });
 
     router.get('/test', function(req, res) {
-        let response = {};
-        return res.status(200).json({ status: true });
+        const tet = emails.emailTest();
+        if (tet) {
+            return res.status(200).json({status: false, message:'Accessed'  });
+        }else{
+            return res.status(200).json({status: false, message:'Access Denied'  });
+        }
     });
 
     router.get('/admin-getall', function(req, res, next) {
@@ -216,9 +230,7 @@ module.exports = (function() {
         };
     });
 
-
     /*Customer Login*/
-
 
     router.post('/customer-login', function(req, res, next) {
         const email = req.body.email;
@@ -227,8 +239,11 @@ module.exports = (function() {
         customerModel.getUserByEmail(email, (err, user) => {
             if(err) throw err;
             if(!user){
-                return res.json({success: false, msg: 'User not found'});
+                return res.json({success: false, msg: 'Invalid Email'});
             }
+            /*if(!user.status){
+                return res.json({success: false, msg: 'Your account is not active'});
+            }*/
             if(user.role == "Admin"){
                 return res.json({success: false, msg: 'Not Authorized'});
             }
@@ -248,6 +263,21 @@ module.exports = (function() {
                     return res.json({success: false, msg: 'Wrong password'});
                 }
             });
+        });
+    });
+
+    router.post('/customer-email-verify', function(req, res) {
+        var response = {};
+        var token = randomstring.generate()
+        //req.body.email_token = token;
+        console.log('token',token);
+        customerModel.findByIdAndUpdate(req.body._id, { email:req.body.email,email_token: token }, function(err, customer) {
+            if (err) {
+                res.json({ error: true, message: 'Unable to Update'});
+            }else{
+                emails.emailShoot(req.body.email, req.body.email, token);
+                res.json({ error: false, message: 'Email sent Successfully. Please access your Email ID to activate your account' });
+            }
         });
     });
 
@@ -349,6 +379,42 @@ module.exports = (function() {
                 }
                 res.json(response);
             });
+        });
+    });
+
+    router.put('/otp-validate/:id', function(req, res) {
+        var response={};
+        customerModel.findById(req.params.id, (err, customerObj) => {
+            console.log(customerObj)
+            if (customerObj.otp == req.body.otp) {
+                let obj = {};
+                obj.otp='';
+                obj.phonestatus=true;
+                customerModel.findByIdAndUpdate(req.params.id, obj, (err, customer) => {
+                    if (err) {
+                        response = { "error": true, "message": err };
+                    } else {
+                        response = { "error": false, "message": "OTP Veryfied" };
+                    }
+                    res.json(response);
+                });
+            }else{
+                response = { "error": true, "message": "Wrong OTP" };
+                res.json(response);
+            }
+        });
+    });
+
+    router.put('/customer-otp/:id', function(req, res) {
+        var response={};
+        var newObject = {};
+        customerModel.findByIdAndUpdate(req.params.id, req.body, (err, customer) => {
+            if (err) {
+                response = { "error": true, "message": err };
+            } else {
+                response = { "error": false, "message": "OTP Update" };
+            }
+            res.json(response);
         });
     });
 
