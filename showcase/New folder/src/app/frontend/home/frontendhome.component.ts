@@ -3,6 +3,7 @@ import { Router,ActivatedRoute, Params } from '@angular/router';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { FlashMessagesService } from 'angular2-flash-messages';
 import { UserService } from '../../services/user.service'
+import { AuthService } from "angular2-social-login";
 
 @Component({
   selector: 'app-frontendhome',
@@ -19,6 +20,8 @@ export class FrontendHomeComponent implements OnInit {
         'email' : '',
         'password' : '',
     };
+    
+    sub: any;
 
     validationMessages = {
       'email' : {
@@ -31,13 +34,16 @@ export class FrontendHomeComponent implements OnInit {
     };
 
   	constructor(
+        public _auth: AuthService,
         private router:Router,
         private lf: FormBuilder,
         private userService : UserService,
-    private _flashMessagesService: FlashMessagesService
+        private _flashMessagesService: FlashMessagesService
     ) {}
 
   	ngOnInit() {
+          this.instaFetchData();
+
         this.customerSignupForm = this.lf.group({
             password: ['', Validators.required],
             email: ['', [Validators.required, Validators.pattern(this.emailp)]],
@@ -54,6 +60,52 @@ export class FrontendHomeComponent implements OnInit {
 
         this.customerLoginForm.valueChanges.subscribe(data => this.onLoginFormValueChanged(data));
         this.customerSignupForm.valueChanges.subscribe(data => this.onLoginFormValueChanged(data));
+    }
+
+    instaFetchData(){
+
+        const queryParams = this.router.routerState.snapshot.root.queryParams;
+        const code = queryParams['code'];
+        const error = queryParams['error'];
+        const error_description = queryParams['error_description'];
+        console.log(code)
+        console.log(error)
+        if (code) {
+            this.userService.instaService(code).subscribe((loggedUser)=>{
+                console.log(loggedUser)
+            })
+        }
+    }
+
+    signIn(provider){
+        this.sub = this._auth.login(provider).subscribe(
+            (data) => {
+                let obj = {};
+                obj['role']= 'User';
+                obj['status']= true;
+                obj['email']= data['email'];
+                obj['password']= data['uid'];
+                obj['uid']= data['uid'];
+                obj['provider']= data['provider'];
+                obj['image']= data['image'];
+                obj['firstname']= data['name'];
+                this.userService.socialValidateUser(obj).subscribe((loggedUser)=>{
+                    if (!loggedUser.success) {
+                        this.userService.socialRegisterUser(obj).subscribe((newUser)=>{
+                            this.userService.storeUserData(loggedUser.token, loggedUser.user);
+                            this.router.navigate(['dashboard']);
+                        });
+                    }else{
+                        this.userService.storeUserData(loggedUser.token, loggedUser.user);
+                        this.router.navigate(['dashboard']);
+                    }
+                })
+            }
+        )
+    }
+
+    onLoginWithInstagram() {
+        window.location.href = `https://api.instagram.com/oauth/authorize/?client_id=98349c5779404c6ea9c9aa59e0e3aeeb&redirect_uri=https://measuremight.com:3002/&response_type=code`;
     }
 
     signup(){
@@ -98,12 +150,11 @@ export class FrontendHomeComponent implements OnInit {
                 console.log(data)
                 this.modelClose('forget')
                 if (!data.success) {
-                    this._flashMessagesService.show(data.msg, { cssClass: 'alert-danger', timeout: 5000 });
+                    this._flashMessagesService.show(data.message, { cssClass: 'alert-danger', timeout: 5000 });
                 }else{
-                    this.userService.storeUserData(data.token, data.user);
-                    this._flashMessagesService.show('Login  Successfully', { cssClass: 'alert-success', timeout: 5000 });
-                    this.router.navigate(['dashboard']);
-
+                    //this.userService.storeUserData(data.token, data.user);
+                    this._flashMessagesService.show(data.message, { cssClass: 'alert-success', timeout: 5000 });
+                    //this.router.navigate(['dashboard']);
                 }
             },
             (err)=>{

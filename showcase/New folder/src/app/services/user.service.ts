@@ -9,36 +9,56 @@ export class UserService {
 	authToken: any;
   user: any;
 
-  constructor(private http:Http) { 
-  	const token = localStorage.getItem('id_token_customer');
-    this.authToken = token;
-  }
+    constructor(private http:Http) { 
+      	const token = localStorage.getItem('id_token_customer');
+        this.authToken = token;
+    }
 
-  registerUser(user){
-    let headers = new Headers();
-    this.loadToken();
-    headers.append('Authorization', this.authToken);
-    headers.append('Content-Type','application/json');    
-    return this.http.post(globalVariable.url+'users/', user, {headers: headers})
-      .map(res => res.json());
-  }
+    registerUser(user){
+        let headers = new Headers();
+        this.loadToken();
+        headers.append('Authorization', this.authToken);
+        headers.append('Content-Type','application/json');    
+        return this.http.post(globalVariable.url+'users/', user, {headers: headers})
+          .map(res => res.json());
+    }
+
+    instaService(code){
+        return this.http.post(globalVariable.url+'users/social-insta',  {code: code})
+          .map(res => res.json());
+    }
+
+    socialRegisterUser(user){
+        let headers = new Headers();
+        this.loadToken();
+        headers.append('Authorization', this.authToken);
+        headers.append('Content-Type','application/json');    
+        return this.http.post(globalVariable.url+'users/social-register', user, {headers: headers})
+          .map(res => res.json());
+    }
+
+    socialValidateUser(user){
+        let headers = new Headers();
+        headers.append('Content-Type','application/json');    
+        return this.http.post(globalVariable.url+'users/social-login', user,{headers: headers})
+          .map(res => res.json());
+    }
     
     storeUserData(token, user){
         localStorage.removeItem('id_token_customer');
-        localStorage.removeItem('user');
+        localStorage.removeItem('customer');
         localStorage.setItem('id_token_customer', token);
-        localStorage.setItem('user', JSON.stringify(user));
-        console.log(localStorage.getItem('user'))
+        localStorage.setItem('customer', JSON.stringify(user));
         this.authToken = token;
         this.user = user;
     }
 
-  validateUser(user){
-    let headers = new Headers();
-    headers.append('Content-Type','application/json');    
-    return this.http.post(globalVariable.url+'users/userlogin', user,{headers: headers})
-      .map(res => res.json());
-  }
+    validateUser(user){
+        let headers = new Headers();
+        headers.append('Content-Type','application/json');    
+        return this.http.post(globalVariable.url+'users/userlogin', user,{headers: headers})
+          .map(res => res.json());
+    }
 
   public customerVerify(data) {
     let headers = new Headers();
@@ -96,7 +116,7 @@ export class UserService {
 
   storeUser(token, user){
     localStorage.setItem('id_token_customer', token);
-    localStorage.setItem('user', JSON.stringify(user));
+    localStorage.setItem('customer', JSON.stringify(user));
     this.authToken = token;
     this.user = user;
   }

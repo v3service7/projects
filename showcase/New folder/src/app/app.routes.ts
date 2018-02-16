@@ -52,8 +52,8 @@ const appRoutes: Routes =  [
         { path: 'resetpassword/:id', component: ResetComponent },
         { path: 'account-active/:token', component: AccountActiveComponent },
         { path: '', component: FrontendHomeComponent },
-        { path: 'dashboard', component: FrontendDashboardComponent },
-        { path: 'profile', component: MyProfileComponent },
+        { path: 'dashboard', component: FrontendDashboardComponent, canActivate: [UserGuard]  },
+        { path: 'profile', component: MyProfileComponent, canActivate: [UserGuard]  },
 
     ]}
 ]

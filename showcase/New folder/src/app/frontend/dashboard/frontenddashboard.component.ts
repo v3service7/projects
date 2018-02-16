@@ -35,7 +35,7 @@ export class MyProfileComponent implements OnInit {
   	constructor(private lf: FormBuilder, public userService : UserService, private _flashMessagesService: FlashMessagesService) {}
 
   	ngOnInit() {
-  		this.customer = JSON.parse(localStorage.getItem('user'));
+  		this.customer = JSON.parse(localStorage.getItem('customer'));
   		this.customerProfileForm = this.lf.group({
             _id: ['', Validators.required],
             firstname: ['', Validators.required],

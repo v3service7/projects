@@ -12,6 +12,12 @@ const pages = require('./routes/pages');
 const plans = require('./routes/plans');
 const purchaseplans = require('./routes/purchaseplans');
 const http = require('http');
+/*var https = require('https');
+var fs = require('fs');
+privateKey = fs.readFileSync('ssl-cert-snakeoil.key', 'utf8');
+certificate = fs.readFileSync('ssl-cert-snakeoil.pem', 'utf8');
+var credentials = {key: privateKey, cert: certificate};*/
+
 var multer = require('multer');
 // Connect to Database
 mongoose.connect(config.database);
@@ -30,6 +36,7 @@ const app = express();
 
 // Port Number
 const port = 3001;
+const httpsPort = 3002;
 
 // CORS Middleware to access API from outside
 app.use(cors());
@@ -77,6 +84,7 @@ app.post('/upload', function(req, res) {
          res.json({error_code:0,err_desc:null,filename:req.file.filename});
     });
 });
+
 // Index Route
 app.get('/', (req, res) => {
 	res.send('Invalid End Point');
@@ -87,8 +95,14 @@ app.get('*', (req, res) => {
 });
 
 const server = http.createServer(app);
-
 // Start Server
 server.listen(port, () => {
-	console.log('Server started on port '+port);
+  console.log('Server started on port '+port);
 });
+
+/*
+const httpsServer = https.createServer(credentials ,app);
+// Start Server
+httpsServer.listen(httpsPort, () => {
+	console.log('Server started on port '+httpsPort);
+});*/

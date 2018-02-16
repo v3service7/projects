@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { UserService } from '../../services/user.service';
 
 @Component({
   selector: 'app-frontendheader',
@@ -8,14 +9,34 @@ import { Router } from '@angular/router';
 })
 export class FrontendHeaderComponent implements OnInit {
 
-	customer:any;
+    customer:any;
+    currentCustomer:any;
+	isHere = false;
 
-  	constructor(
-        private router:Router) { }
+  	constructor(public userService : UserService,private router:Router) { }
 
   	ngOnInit() {
-  		this.customer = JSON.parse(localStorage.getItem('user'));
+  		this.customer = JSON.parse(localStorage.getItem('customer'));
   	}
+
+
+    checkCustomer(){
+      this.customer = JSON.parse(localStorage.getItem('customer'))
+      if (this.customer) {
+          if (!this.isHere) {
+            this.userService.getProfile().subscribe((data)=>{
+                if (data.user) {
+                    this.isHere = true;
+                    this.currentCustomer = data.user
+                }
+            })
+          }
+        return true;
+      }else{
+        return false;
+      }
+    }
+
 
   	logout(){
     	localStorage.clear();

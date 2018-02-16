@@ -5,16 +5,43 @@ var randomstring = require("randomstring");
 // email 
 var emailFrom = 'navaidkitchen@gmail.com';
 var templateDir = __dirname + '/email_template';
-var transporter = nodemailer.createTransport({
-    service: "Gmail",
+/*var transporter = nodemailer.createTransport({
+     service: 'gmail',
+    port: 443,
+    options: {
+      debug: true,
+    },
     auth: {
         user: "navaidkitchen@gmail.com",
         pass: "navaidkitchennavaidkitchen"
     } 
 });
-
-
+*/
+let transporter = nodemailer.createTransport({
+    sendmail: true,
+    newline: 'unix',
+    path: '/usr/sbin/sendmail'
+});
 module.exports = {
+    emailTest: function(emailTo, username) {
+        var html = ejs.renderFile(templateDir + '/register.ejs', { username: username, token: '654654654trdt' },
+            function(err, data) {
+                if (err) {
+                    console.log(err);
+                }
+                return data;
+            });
+
+        //build options
+        var options = {
+            from: emailFrom,
+            to: emailTo,
+            subject: 'ShowCase Register Email Activate Link',
+            html: html,
+            text: 'text'
+        };
+        sendmail(options);
+    },
     emailShoot: function(emailTo, username, token) {
 
         // rendering html template (same way can be done for subject, text)
@@ -40,13 +67,13 @@ module.exports = {
     forgetEmailShoot: function(user) {
         if(user.role=='Admin')
         {
-            user['resetPassLink'] = 'http://34.209.114.118:3001/admin/resetpassword/'+user._id;
-            //user['resetPassLink'] = 'http://localhost:4200/admin/resetpassword/'+user._id;
+            user['resetPassLink'] = 'https://measuremight.com:3002/admin/resetpassword/'+user._id;
+            //user['resetPassLink'] = 'https://localhost:4200/admin/resetpassword/'+user._id;
         }
         else
         {
-            user['resetPassLink'] = 'http://34.209.114.118:3001/resetpassword/'+user._id;
-            //user['resetPassLink'] = 'http://localhost:4200/resetpassword/'+user._id;
+            user['resetPassLink'] = 'https://measuremight.com:3002/resetpassword/'+user._id;
+            //user['resetPassLink'] = 'https://localhost:4200/resetpassword/'+user._id;
         }
     
         // rendering html template (same way can be done for subject, text)

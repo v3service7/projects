@@ -6,10 +6,9 @@ const User = require('../models/user.js');
 const config = require('../config/database');
 const emails = require('../mail/emailConfig.js');
 const randomstring = require("randomstring");
- 
+const nodemailer = require('nodemailer');
 
 
-// Admin Login
 router.post('/login', (req, res, next) => {
   const email = req.body.email;
   const password = req.body.password;
@@ -52,6 +51,7 @@ router.post('/login', (req, res, next) => {
 
 router.post('/customer-verify', function(req, res) {
         let response = {};
+        console.log(req.body.token)
         User.findOne({ 'email_token': req.body.token }, function(err, customer) {
             if (err) {
                 response = { "error": true, "message": 'Connection Lost!' };
@@ -74,7 +74,46 @@ router.post('/customer-verify', function(req, res) {
                 }
             };
         });
+});
+
+// User social-login
+router.post('/social-insta', (req, res, next) => {
+    console.log(req.params.code)
+    console.log(req.body.code)
+    res.json(req.body.code);
+})
+
+router.post('/social-login', (req, res, next) => {
+    const email = req.body.email;
+    User.getUserByUsername(email, (err, user) => {
+        if(err) throw err;
+        if(!user){
+            return res.json({success: false, msg: 'User not found'});
+        }
+        if(err) throw err;
+        if(user){
+            const token = jwt.sign({data:user}, config.secret, {
+                expiresIn: 3600 // 1 hour
+            });
+            res.json({
+                success: true,
+                token: 'JWT '+token,
+                user: {
+                    _id: user._id,
+                    firstname: user.firstname,
+                    lastname: user.lastname,
+                    phonenumber: user.phonenumber,
+                    dob: user.dob,
+                    username: user.username,
+                    email: user.email
+                }
+            });
+        } else {
+            return res.json({success: false, msg: 'Something Went Wrong'});
+        }
     });
+}); 
+
 // User Login
 router.post('/userlogin', (req, res, next) => {
   const email = req.body.email;
@@ -113,7 +152,6 @@ router.post('/userlogin', (req, res, next) => {
   });
 });
 
-
 // User Profile based on Session
 router.get('/profile', passport.authenticate('jwt', {session:false}), (req, res, next) => {
   res.json({user: req.user});
@@ -132,33 +170,43 @@ router.get('/', passport.authenticate('jwt', {session:false}), (req, res, next) 
     }); 
 });
 
-
-
 // User Add
 router.post('/', (req, res, next) => {
-let token = randomstring.generate();
-  let newUser = new User({
-    firstname: req.body.firstname,
-    lastname: req.body.lastname,
-    phonenumber: req.body.phonenumber,
-    email_token: token,
-    dob: req.body.dob,
-    email: req.body.email,
-    username: req.body.username,
-    password: req.body.password,
-    role: req.body.role,
-    status: false
-  });
-
-  User.addUser(newUser, (err, user) => {
-    if(err){          
-      res.json({error: true, msg:err});
-    } else {
-      emails.emailShoot(user.email,user.email,user.email_token);
-      res.json({error: false, msg:'User registered'});
-    }
-  });
+    let token = randomstring.generate();
+    let newUser = new User({
+        firstname: req.body.firstname,
+        lastname: req.body.lastname,
+        phonenumber: req.body.phonenumber,
+        email_token: token.toLowerCase(),
+        dob: req.body.dob,
+        email: req.body.email,
+        username: req.body.username,
+        password: req.body.password,
+        role: req.body.role,
+        status: false
+    });
+    User.addUser(newUser, (err, user) => {
+        if(err){          
+            res.json({error: true, msg:err});
+        } else {
+            emails.emailShoot(user.email,user.email,user.email_token);
+            res.json({error: false, msg:'User registered'});
+        }
+    });
 }); 
+
+// User social-register
+router.post('/social-register', (req, res, next) => {
+    let newUser = new User(req.body);
+    User.addUser(newUser, (err, user) => {
+        if(err){          
+            res.json({error: true, msg:err});
+        } else {
+            res.json({error: false, msg:'User registered'});
+        }
+    });
+}); 
+
 
 
 // User Update

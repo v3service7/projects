@@ -7,6 +7,7 @@ import { TinymceModule } from 'angular2-tinymce';
 import { SelectModule } from 'angular2-select';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { FileUploadModule , FileDropDirective } from 'ng2-file-upload';
+import { Angular2SocialLoginModule,AuthService } from "angular2-social-login";
 
 // Admin Component
 import { AdminComponent } from './admin/admin.component';
@@ -41,6 +42,17 @@ import * as globalVariable from "./global";
 
 import { routing } from './app.routes';
 
+let providers = {
+    
+    "google": {
+      "clientId": "214874028334-4t3q11rlobifpmspvrac9dl6i6k6usq2.apps.googleusercontent.com"
+    },
+    "facebook": {
+      "clientId": "943878335767480",
+      "apiVersion": "v2.4"
+    }
+};
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -73,7 +85,9 @@ import { routing } from './app.routes';
     Ng2OrderModule,
     Ng2SearchPipeModule
   ],
-  providers: [ValidateService, AdminService, AuthGuard, UserGuard, UserService, PlanService, PagesService, PurchaseplanService],
+  providers: [AuthService,ValidateService, AdminService, AuthGuard, UserGuard, UserService, PlanService, PagesService, PurchaseplanService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
+
+Angular2SocialLoginModule.loadProvidersScripts(providers);

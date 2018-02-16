@@ -1,4 +1,4 @@
-<nav *ngIf="!customer" class="navbar navbar-expand-md navbar-dark fixed-top bg-navyblue">
+<nav *ngIf="!checkCustomer()" class="navbar navbar-expand-md navbar-dark fixed-top bg-navyblue">
     <div class="container">
         <a class="navbar-brand" [routerLink]="['/']">Showcase.Social</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse"
@@ -36,15 +36,15 @@
     </div>
 </nav>
 
-<nav *ngIf="customer" class="navbar navbar-expand-md navbar-dark fixed-top bg-navyblue">
+<nav *ngIf="checkCustomer()" class="navbar navbar-expand-md navbar-dark fixed-top bg-navyblue">
     <div class="container-fluid">
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse"
                 aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <a class="navbar-brand"  [routerLink]="['/']">Showcase.Social</a>
-        <a class="navbar-brand p-0" href="javascript:void(0)">
-            <img src="http://www.bobmazzo.com/wp-content/uploads/2009/07/bobmazzoCD.jpg" class="rounded-circle d-none d-sm-block d-md-none d-block d-sm-none" width="30" height="30">
+        <a  *ngIf="currentCustomer != undefined" class="navbar-brand p-0" href="javascript:void(0)">
+            <img [src]="currentCustomer.image" class="rounded-circle d-none d-sm-block d-md-none d-block d-sm-none" width="30" height="30">
         </a>
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav mr-auto ">
@@ -86,7 +86,7 @@
             </form>
             <ul class="navbar-nav d-none d-sm-block ">
                  <li class="nav-item dropdown pl-2">
-                    <a class="nav-link dropdown-toggle p-0" id="dropdown01" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <img src="http://www.bobmazzo.com/wp-content/uploads/2009/07/bobmazzoCD.jpg" class="rounded-circle" width="30" height="30"></a>
+                    <a *ngIf="currentCustomer != undefined" class="nav-link dropdown-toggle p-0" id="dropdown01" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <img [src]="currentCustomer.image" class="rounded-circle" width="30" height="30"></a>
                     <div class="dropdown-menu" aria-labelledby="dropdown01">
                         <a class="dropdown-item" [routerLink]="['/profile']">Profile</a>
                         <a class="dropdown-item" href="javascript:void(0)" (click)="logout()">Logout</a>
