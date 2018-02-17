@@ -7,7 +7,13 @@ const config = require('../config/database');
 const emails = require('../mail/emailConfig.js');
 const randomstring = require("randomstring");
 const nodemailer = require('nodemailer');
-
+const request = require('request');
+const Twitter = require("node-twitter-api");
+const twitter = new Twitter({
+    consumerKey: 'nDNVhhX7f8LOjUvo0TRkBakzD',
+    consumerSecret: 'Yh3lYhukSMtwTdscpsmG5L6Lv5a8nhReq8gpokY5pNxFPLlVaw',
+    callback: 'https://measuremight.com:3002/'
+});
 
 router.post('/login', (req, res, next) => {
   const email = req.body.email;
@@ -76,11 +82,51 @@ router.post('/customer-verify', function(req, res) {
         });
 });
 
+router.get("/request-token", function(req, res) {
+    twitter.getRequestToken(function(err, requestToken, requestSecret) {
+        if (err)
+            res.status(500).send(err);
+        else {
+            let uri = "https://api.twitter.com/oauth/authenticate?oauth_token=" + requestToken;
+            //console.log(uri)
+            res.json({'url':uri,'requestSecret':requestSecret});
+        }
+    });
+});
+
+router.post("/access-token", function(req, res) {
+    var requestToken = req.body.oauth_token,
+    verifier = req.body.oauth_verifier,
+    requestSecret = req.body.requestSecret;
+
+    twitter.getAccessToken(requestToken, requestSecret, verifier, function(err, accessToken, accessSecret) {
+        if (err)
+            res.status(500).send(err);
+        else
+            twitter.verifyCredentials(accessToken, accessSecret, function(err, user) {
+                if (err)
+                    res.status(500).json(err);
+                else
+                    res.json(user);
+            });
+    });
+});
+
 // User social-login
 router.post('/social-insta', (req, res, next) => {
-    console.log(req.params.code)
-    console.log(req.body.code)
-    res.json(req.body.code);
+    let postObj = {};
+    postObj['code'] = req.body.code;
+    postObj['client_id'] = '98349c5779404c6ea9c9aa59e0e3aeeb';
+    postObj['client_secret'] = '7d373b3a6f754a8e8086705ad4738c2b';
+    postObj['redirect_uri'] = 'https://measuremight.com:3002/';
+    postObj['grant_type'] = 'authorization_code';
+    request.post({
+        uri:     'https://api.instagram.com/oauth/access_token',
+        headers: {'content-type' : 'application/x-www-form-urlencoded'},
+        body:    require('querystring').stringify(postObj)
+    },function(err,response,body) {
+       res.json(body);
+    })
 })
 
 router.post('/social-login', (req, res, next) => {
@@ -179,6 +225,7 @@ router.post('/', (req, res, next) => {
         phonenumber: req.body.phonenumber,
         email_token: token.toLowerCase(),
         dob: req.body.dob,
+        provider : 'email',
         email: req.body.email,
         username: req.body.username,
         password: req.body.password,

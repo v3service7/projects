@@ -28,6 +28,18 @@ export class UserService {
           .map(res => res.json());
     }
 
+
+    twitterService(){
+        return this.http.get(globalVariable.url+'users/request-token')
+          .map(res => res.json());
+    }
+
+
+    twitterFetchService(data){
+        return this.http.post(globalVariable.url+'users/access-token',data)
+          .map(res => res.json());
+    }
+
     socialRegisterUser(user){
         let headers = new Headers();
         this.loadToken();

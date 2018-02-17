@@ -42,7 +42,8 @@ export class FrontendHomeComponent implements OnInit {
     ) {}
 
   	ngOnInit() {
-          this.instaFetchData();
+        this.twitterFetchData();
+        this.instaFetchData();
 
         this.customerSignupForm = this.lf.group({
             password: ['', Validators.required],
@@ -63,23 +64,91 @@ export class FrontendHomeComponent implements OnInit {
     }
 
     instaFetchData(){
-
         const queryParams = this.router.routerState.snapshot.root.queryParams;
         const code = queryParams['code'];
         const error = queryParams['error'];
         const error_description = queryParams['error_description'];
-        console.log(code)
-        console.log(error)
         if (code) {
-            this.userService.instaService(code).subscribe((loggedUser)=>{
-                console.log(loggedUser)
+            console.log(code)
+            console.log(error)
+            this.userService.instaService(code).subscribe((instaResponse)=>{
+                let resObj = JSON.parse(instaResponse);
+                console.log(resObj)
+
+                if (typeof resObj.code == 'undefined' && resObj.code != 400) {
+                    let obj = {};
+                    obj['role']= 'User';
+                    obj['status']= true;
+                    obj['email']= resObj['user']['username'];
+                    obj['password']= resObj['user']['id'];
+                    obj['id']= resObj['user']['id'];
+                    obj['provider']= 'instagram';
+                    obj['image']= resObj['user']['profile_picture'];
+                    obj['firstname']= resObj['user']['full_name'];
+                    this.userService.socialValidateUser(obj).subscribe((loggedUser)=>{
+                        if (!loggedUser.success) {
+                            this.userService.socialRegisterUser(obj).subscribe((newUser)=>{
+                                this.userService.socialValidateUser(obj).subscribe((loggedUser)=>{
+                                    this.userService.storeUserData(loggedUser.token, loggedUser.user);
+                                    this.router.navigate(['dashboard']);
+                                });
+                            });
+                        }else{
+                            this.userService.storeUserData(loggedUser.token, loggedUser.user);
+                            this.router.navigate(['dashboard']);
+                        }
+                    })
+                }else{
+                    this._flashMessagesService.show('Something went wrong', { cssClass: 'alert-danger', timeout: 5000 });
+                    this.router.navigate(['/']);
+                }
             })
+        }
+    }
+
+    twitterFetchData(){
+        const queryParams = this.router.routerState.snapshot.root.queryParams;
+        const oauth_token = queryParams['oauth_token'];
+        const oauth_verifier = queryParams['oauth_verifier'];
+        if (oauth_verifier && oauth_token) {
+            console.log(oauth_verifier,oauth_token)
+            let requestSecret = localStorage.getItem('requestSecret');
+            let obj = {};
+            obj['oauth_verifier'] = oauth_verifier;
+            obj['oauth_token'] = oauth_token;
+            obj['requestSecret'] = requestSecret;
+             this.userService.twitterFetchService(obj).subscribe((twitterResponse)=>{
+                 localStorage.removeItem('requestSecret');
+                let obj = {};
+                obj['role']= 'User';
+                obj['status']= true;
+                obj['email']= twitterResponse['name'];
+                obj['password']= twitterResponse['id'];
+                obj['id']= twitterResponse['id'];
+                obj['provider']= 'twitter';
+                obj['image']= twitterResponse['profile_image_url_https'];
+                obj['firstname']= twitterResponse['screen_name'];
+                this.userService.socialValidateUser(obj).subscribe((loggedUser)=>{
+                    if (!loggedUser.success) {
+                        this.userService.socialRegisterUser(obj).subscribe((newUser)=>{
+                            this.userService.socialValidateUser(obj).subscribe((loggedUserOauth)=>{
+                                this.userService.storeUserData(loggedUserOauth.token, loggedUserOauth.user);
+                                this.router.navigate(['dashboard']);
+                            });
+                        });
+                    }else{
+                        this.userService.storeUserData(loggedUser.token, loggedUser.user);
+                        this.router.navigate(['dashboard']);
+                    }
+                })
+             })
         }
     }
 
     signIn(provider){
         this.sub = this._auth.login(provider).subscribe(
             (data) => {
+                //console.log(data)
                 let obj = {};
                 obj['role']= 'User';
                 obj['status']= true;
@@ -89,7 +158,9 @@ export class FrontendHomeComponent implements OnInit {
                 obj['provider']= data['provider'];
                 obj['image']= data['image'];
                 obj['firstname']= data['name'];
+                //console.log(obj)
                 this.userService.socialValidateUser(obj).subscribe((loggedUser)=>{
+                    //console.log(loggedUser)
                     if (!loggedUser.success) {
                         this.userService.socialRegisterUser(obj).subscribe((newUser)=>{
                             this.userService.storeUserData(loggedUser.token, loggedUser.user);
@@ -102,6 +173,15 @@ export class FrontendHomeComponent implements OnInit {
                 })
             }
         )
+    }
+
+    onLoginWithTwitter() {
+        this.userService.twitterService().subscribe(
+            (data) => {
+                localStorage.setItem('requestSecret',data.requestSecret)
+                window.location.href = data.url;
+            }
+        );
     }
 
     onLoginWithInstagram() {

@@ -12,11 +12,13 @@ const pages = require('./routes/pages');
 const plans = require('./routes/plans');
 const purchaseplans = require('./routes/purchaseplans');
 const http = require('http');
-/*var https = require('https');
+var https = require('https');
 var fs = require('fs');
-privateKey = fs.readFileSync('ssl-cert-snakeoil.key', 'utf8');
-certificate = fs.readFileSync('ssl-cert-snakeoil.pem', 'utf8');
-var credentials = {key: privateKey, cert: certificate};*/
+var options = {
+  key: fs.readFileSync('/etc/letsencrypt/live/measuremight.com/privkey.pem'),
+  cert: fs.readFileSync('/etc/letsencrypt/live/measuremight.com/cert.pem'),
+  ca: fs.readFileSync('/etc/letsencrypt/live/measuremight.com/chain.pem')
+};
 
 var multer = require('multer');
 // Connect to Database
@@ -100,9 +102,13 @@ server.listen(port, () => {
   console.log('Server started on port '+port);
 });
 
-/*
-const httpsServer = https.createServer(credentials ,app);
-// Start Server
+// Start Https Server
+const httpsServer = https.createServer(options ,app);
+
 httpsServer.listen(httpsPort, () => {
 	console.log('Server started on port '+httpsPort);
-});*/
+});
+
+/*https.createServer(options, function (req, res) {
+  
+}).listen(8000);*/
