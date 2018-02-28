@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
-
+import { Jsonp } from '@angular/http';
 @Injectable()
 export class ValidateService {
 
-  constructor() { }
+  constructor(private jsonp: Jsonp) { }
 
   validateRegister(user){
     if(user.firstname == undefined || user.lastname == undefined || user.email == undefined || user.username == undefined || user.password == undefined ){
@@ -33,4 +33,15 @@ export class ValidateService {
       return true;
     }
   }
+
+
+    getYoutube(url){
+        let ur = 'https://www.googleapis.com/youtube/v3/videos?part=id&id='+url+'&key=AIzaSyB1IsrsMN22HB_fgAxG0i3Twes60dPF2EA&callback=JSONP_CALLBACK'
+        return this.jsonp.get(ur)  
+        .map(res => {
+          return res.json();
+        },error => {
+            return error;
+        });
+    }
 }

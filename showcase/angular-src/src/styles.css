@@ -39,3 +39,6 @@ select-dropdown>div .filter input {
 .dropdown-submenu:hover .option-menu{
   display: block;
 }
+.pointer{
+    cursor: pointer;
+}

@@ -50,6 +50,28 @@ export class BookmarkService {
             return user;
         });
     }
+    public changePosition(data) {
+        let headers = new Headers();
+        this.loadToken();
+        headers.append('Authorization', this.authToken);
+        headers.append('Content-Type', 'application/json');
+        return this.http.post(globalVariable.url + 'bookmark/change-position/', data, {headers: headers})
+        .map((response: Response) => {
+            let bookmark = response.json();
+            return bookmark;
+        });
+    }
+    public bookmarkDeleteSelected(data) {
+        let headers = new Headers();
+        this.loadToken();
+        headers.append('Authorization', this.authToken);
+        headers.append('Content-Type', 'application/json');
+        return this.http.post(globalVariable.url + 'bookmark/delete-selected/', data, {headers: headers})
+        .map((response: Response) => {
+            let bookmark = response.json();
+            return bookmark;
+        });
+    }
     public bookmarkUpdate(data) {
         let headers = new Headers();
         this.loadToken();

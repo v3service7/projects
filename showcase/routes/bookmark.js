@@ -14,7 +14,7 @@ module.exports = (function () {
     router.get('/category/:id', passport.authenticate('jwt', { session: false }), (req, res) => {
         var response = {};
 
-        bookmarkModel.find({ category_id: req.params.id }, function (err, bookmark) {
+        bookmarkModel.find({ category_id: req.params.id }, null, { sort: { position: 1 } }, function (err, bookmark) {
             if (err) {
                 response = { "error": true, "message": "Error fetching data" };
             } else {
@@ -26,7 +26,7 @@ module.exports = (function () {
     // get bookmark
     router.get('/', passport.authenticate('jwt', { session: false }), function (req, res, next) {
         var response = {};
-        bookmarkModel.find({}, null, { sort: { created_at: 1 } }, function (err, bookmarks) {
+        bookmarkModel.find({}, null, { sort: { position: 1 } }, function (err, bookmarks) {
             if (err) {
                 response = { "error": true, "message": err };
             } else {
@@ -39,15 +39,33 @@ module.exports = (function () {
     // add bookmark
     router.post('/', passport.authenticate('jwt', { session: false }), function (req, res) {
         var response = {};
-        console.log(req.body)
-        var bookmark = new bookmarkModel(req.body);
-        bookmark.save((err, bookmark) => {
+        var lastValuePositions;
+        var newbookmark = new bookmarkModel(req.body);
+        var category_id = req.body.category_id;
+        bookmarkModel.find({ category_id: category_id }, null, { sort: { position: -1 } }, function (err, bookmarks) {
             if (err) {
                 response = { "error": true, "message": err };
             } else {
-                response = { "error": false, "message": 'Bookmarks added successfully.' };
-            }
-            res.json(response);
+                console.log('bookmarks')
+                console.log(bookmarks)
+                if(bookmarks.length > 0){
+                    console.log('in')
+                    lastValuePositions = bookmarks[0].position;
+                    newbookmark.position = lastValuePositions + 1;
+                }
+                else{
+                    console.log('ou')
+                    newbookmark.position = 1;
+                }
+                newbookmark.save((err, bookmark) => {
+                    if (err) {
+                        response = { "error": true, "message": err };
+                    } else {
+                        response = { "error": false, "message": 'Bookmarks added successfully.' };
+                    }
+                    res.json(response);
+                });
+            };
         });
     });
 
@@ -91,7 +109,52 @@ module.exports = (function () {
         });
     });
 
-    
+    // delete bookmark selected
+    router.post('/delete-selected/', passport.authenticate('jwt', { session: false }), function (req, res) {
+        var response = {};
+        bookmarkModel.remove({ _id: { $in: req.body.ids } }, function (err, bookmark) {
+            if (err) {
+                response = { "error": true, "message": err };
+            } else {
+                response = { "error": false, "message": 'bookmark delete successfully.' };
+            };
+            res.json(response);
+        });
+    });
+
+    // change position
+    router.post('/change-position/', passport.authenticate('jwt', { session: false }), function (req, res) {
+        var response = {};
+        var position = req.body.position;
+        var type = req.body.type;
+        var bookmark_id = req.body.bookmark_id;
+        var category_id = req.body.category_id;
+        var secondValue;
+        if (type == 'up') {
+            secondValue = position - 1;
+        }
+        if (type == 'down') {
+            secondValue = position + 1;
+        }
+        bookmarkModel.findOneAndUpdate({ position: secondValue, category_id: category_id }, { position: position }, function (err, bookmark) {
+
+            if (err) {
+                response = { "error": true, "message": err };
+                res.json(response);
+            } else {
+                bookmarkModel.findOneAndUpdate({ _id: bookmark_id, category_id: category_id }, { position: secondValue }, function (err, bookmark) {
+                    if (err) {
+                        response = { "error": true, "message": err };
+                        res.json(response);
+                    } else {
+                        response = { "error": false, "message": 'Position changed successfully.' };
+                        res.json(response);
+                    };
+                });
+            };
+        });
+    });
+
     /*-------------------------------END bookmark--------------------------------------------------------*/
 
     return router;

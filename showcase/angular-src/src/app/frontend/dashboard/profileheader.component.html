@@ -12,9 +12,11 @@
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav mr-auto category-navbar " id="category-navbar">
                 <span *ngFor="let category of categories | orderBy : 'position' ; let i = index">
-                    <li class="nav-item dropdown px-3 " [ngClass]="slugify(category.name)" *ngIf="liCount && i < 3">
-                        <a class="nav-link dropdown-toggle" [id]="category.id" id="dropdown01" href="" data-toggle="dropdown" aria-haspopup="true"
-                            aria-expanded="false"> {{ (category.name.length >= 20) ? (category.name | slice:0:20)+'..':(category.name) }}</a>
+                    
+                    <li class="nav-item dropdown px-3 " [ngClass]="slugify(category.name)" style="display: -webkit-box;" *ngIf="liCount && i < 3">
+                        <a class="nav-link " [id]="category._id"  [routerLink]="['/view/',category._id]"> {{ (category.name.length >= 20) ? (category.name | slice:0:20)+'..':(category.name) }}</a>
+                        <a class="nav-link dropdown-toggle" [id]="category._id" id="dropdown01" href="" data-toggle="dropdown" aria-haspopup="true"
+                            aria-expanded="false"></a>
                         <div class="dropdown-menu" aria-labelledby="dropdown01">
                             <a class="dropdown-item" href="javascript:void(0)">
                                 <i class="fa fa-share"></i> Share</a>
@@ -25,14 +27,6 @@
                         </div>
                     </li>
                 </span>
-                <!--  <li class="nav-item dropdown px-3" *ngIf="categories?.length > 3">
-                    <a class="nav-link dropdown-toggle" id="dropdown01" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">More...</a>
-                    <div class="dropdown-menu" aria-labelledby="dropdown01">
-                        <span *ngFor="let category of categories; let i = index">
-                        <a *ngIf="liCount && i >= 3 " class="dropdown-item" href="javascript:void(0)"> {{ (category.name.length >= 20) ? (category.name | slice:0:20)+'..':(category.name) }}</a>
-                        </span>
-                    </div>
-                </li> -->
                 <li class="nav-item dropdown px-3" *ngIf="categories?.length > 3">
                     <a class="nav-link dropdown-toggle" href="" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         More...
@@ -67,7 +61,7 @@
 
             </ul>
             <form class="form-inline mt-2 mt-md-0" [formGroup]="addLinkForm" (ngSubmit)="addLink()">
-                <input class="form-control addlinkfield" style="width:auto" type="text" formControlName="url" placeholder="Paste link here..."
+                <input class="form-control addlinkfield" style="width:auto" type="text" formControlName="title" placeholder="Paste link here..."
                     aria-label="Search">
                 <button class="btn btn-outline-light my-2 my-sm-0 addlinkfieldbtn" type="submit" [disabled]="!addLinkForm.valid">
                     <i class="fa fa-plus"></i>
@@ -90,6 +84,7 @@
         </div>
     </div>
 </nav>
+
 <!-- The category Modal  -->
 <div id="categoryModal" class="modal dark-bg">
     <span class="close" (click)="modelClose()">&times;</span>
@@ -121,6 +116,88 @@
                                 </form>
                             </div>
                         </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- The bookmark Modal  -->
+<div id="bookmarkModal" class="modal dark-bg">
+    <span class="close" (click)="modelBookmarkClose()">&times;</span>
+    <div class="container">
+        <div class="row justify-content-md-center">
+            <div class="col-lg-7 col-xs-12">
+                <div class="card rounded-1">
+                    <span class="close signupclose" (click)="modelBookmarkClose()">&times;</span>
+                    <div class="card-header text-center bg-white h4 rounded-1 rounded-rl-1">
+                        <i class="fa fa-plus text-warning"></i> Add Bookmark
+                    </div>
+                    <div class="card-body preview-bookmark">
+                     
+                        <div class="row">
+                            <div class="col">
+                                <div class="loading-view text-center" id="loader">
+                                    <img src="./assets/loader.svg">
+                                    <br>
+                                    <h2>Loading...</h2>
+                                </div>
+                                <p class="text-center">Preview your link before adding</p>
+                                <p class="text-center text-danger">Display not quite right ?</p>
+                                <div id="bookMark" class="mx-5"> 
+                                <div class='grid-item'>   <iframe width="100%" id="bookmarkiframe" height="337" src="https://www.youtube.com/embed/2fEKIx04yx0" frameborder="0" allowfullscreen></iframe></div>                                  
+                                </div>
+                                
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <button type="button" class="btn btn-danger float-left px-5 rounded-1" (click)="modelBookmarkClose()">Cancel</button>
+                        <button type="button" class="btn btn-warning float-right px-5 rounded-1"  (click)="openCopyToModel()">Add</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- The copt to showcase Modal  -->
+<div id="copytokModal" class="modal dark-bg">
+    <span class="close" (click)="modelCopyToClose()">&times;</span>
+    <div class="container">
+        <div class="row justify-content-md-center">
+            <div class="col-lg-7 col-xs-12">
+                <div class="card rounded-1">
+                    <span class="close signupclose" (click)="modelCopyToClose()">&times;</span>
+                    <div class="card-header text-center bg-white h4 rounded-1 rounded-rl-1">
+                        <i class="fa fa-files-o text-warning"></i> Copy to showcase
+                    </div>
+                    <div class="card-body preview-bookmark">
+                     
+                        <div class="row">
+                            <div class="col-12">
+                                <form>
+                                    
+                                  
+                                    <div class="form-group">
+                                        <label for="exampleFormControlSelect2">Example multiple select</label>
+                                        <select multiple class="form-control" id="exampleFormControlSelect2">
+                                            <option  *ngFor="let category of categories; let i = index" (click)="categorySelected(category._id)">{{category.name}}</option>
+                                            <option (click)="openNewShowcase()">Create new showcase</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group" *ngIf="showcaseField">
+                                        <label for="exampleFormControlInput1">Name for new showcase</label>
+                                        <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="Type here...">
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="col-6">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <button type="button" class="btn btn-danger float-left px-5 rounded-1" (click)="modelCopyToClose()">Cancel</button>
+                        <button type="button" class="btn btn-warning float-right px-5 rounded-1" (click)="addBoodmark()">Add</button>
                     </div>
                 </div>
             </div>

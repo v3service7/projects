@@ -16,7 +16,7 @@ import { AdminPagesComponent, PagesListComponent , PagesAddComponent, PagesEditC
 import { FrontendComponent } from './frontend/frontend.component';
 import { FrontendHomeComponent,ResetComponent, AccountActiveComponent  } from './frontend/home/frontendhome.component';
 // tslint:disable-next-line:max-line-length
-import { FrontendDashboardComponent, MyProfileComponent, SettingComponent } from './frontend/dashboard/frontenddashboard.component';
+import { FrontendDashboardComponent, MyProfileComponent, SettingComponent, ViewComponent } from './frontend/dashboard/frontenddashboard.component';
 
 /*Auth Gaurds*/
 import {AuthGuard} from './guards/admin.guard';
@@ -49,13 +49,14 @@ const appRoutes: Routes =  [
         ]},
     ]},
     {
-    path: '', component: FrontendComponent, children :[ 
+    path: '', component: FrontendComponent, children :[
         { path: 'resetpassword/:id', component: ResetComponent },
         { path: 'account-active/:token', component: AccountActiveComponent },
         { path: '', component: FrontendHomeComponent },
         { path: 'dashboard', component: FrontendDashboardComponent, canActivate: [UserGuard]  },
         { path: 'profile', component: MyProfileComponent, canActivate: [UserGuard]  },
-        { path: 'setting/:id', component: SettingComponent, canActivate: [UserGuard]  }
+        { path: 'setting/:id', component: SettingComponent, canActivate: [UserGuard]  },
+        { path: 'view/:id', component: ViewComponent, canActivate: [UserGuard]  }
     ]}
 ];
 

@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpModule } from '@angular/http';
+import { HttpModule, JsonpModule } from '@angular/http';
 import { AppComponent } from './app.component';
 import { TinymceModule } from 'angular2-tinymce';
 import { SelectModule } from 'angular2-select';
@@ -28,7 +28,7 @@ import { FrontendComponent } from './frontend/frontend.component';
 import { FrontendHeaderComponent } from './frontend/header/frontendheader.component';
 import { FrontendHomeComponent, ResetComponent, AccountActiveComponent } from './frontend/home/frontendhome.component';
 // tslint:disable-next-line:max-line-length
-import { FrontendDashboardComponent, MyProfileComponent, SettingComponent, ProfileHeaderComponent } from './frontend/dashboard/frontenddashboard.component'
+import { FrontendDashboardComponent, MyProfileComponent, SettingComponent, ProfileHeaderComponent, ViewComponent } from './frontend/dashboard/frontenddashboard.component'
 
 import {ValidateService} from './services/validate.service';
 import {AdminService} from './services/admin.service';
@@ -46,6 +46,7 @@ import { Ng2OrderModule } from 'ng2-order-pipe';
 import * as globalVariable from './global';
 import { ToastModule } from 'ng2-toastr/ng2-toastr';
 import { routing } from './app.routes';
+import { SafePipe } from './safe.pipe';
 
 let providers = {
     'google': {
@@ -76,7 +77,9 @@ let providers = {
     AccountActiveComponent,
     FrontendDashboardComponent, MyProfileComponent,
     SettingComponent,
-    ProfileHeaderComponent
+    ProfileHeaderComponent,
+    ViewComponent,
+    SafePipe
   ],
   imports: [
     ImageCropperModule,
@@ -85,6 +88,7 @@ let providers = {
     TinymceModule.withConfig({}),
     ReactiveFormsModule,
     HttpModule,
+    JsonpModule,
     routing,
     FlashMessagesModule,
     FileUploadModule,

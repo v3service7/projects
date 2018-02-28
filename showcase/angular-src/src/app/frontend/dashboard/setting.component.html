@@ -3,26 +3,26 @@
     <div class="row">
         <div class="col-lg-6 col-md-6 col-sm-6 mb-5 ">
             <div class="row mb-3">
-                <div class="col text-center">
+                <div class="col text-center pointer" (click)="doDelete()" >
                     <i class="fa fa-trash icon-circle"></i> Deleted selected</div>
-                <div class="col text-center">
+                <div class="col text-center pointer">
                     <i class="fa fa-copy icon-circle"></i> Copy selected to showcase</div>
             </div>
-
+            <h3 *ngIf="! bookmarks?.length > 0" class="text-muted text-center pt-5">Bookmarks list empty.</h3>
             <ul class="list-group">
-
-
-                <li class="list-group-item custom-list-group-item" *ngFor="let bookmark of bookmarks;">
+                <li class="list-group-item custom-list-group-item" *ngFor="let bookmark of bookmarks; let i = index;">
                     <div class="row">
                         <div class="col-xl-2 col-lg-6 col-md-6 col-sm-6 col-6 text-center">
-                            <div class="count-circle">1</div>
+                            <div class="count-circle">{{bookmark.position}}</div>
                             <br>
                             <div class="form-check text-center">
-                                <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
+                                <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1" (click)="doSelect(bookmark._id)">
                             </div>
                         </div>
                         <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6 pl-0  col-6 ">
-                            <img src="http://via.placeholder.com/150x120" class="img-fluid">
+                            <div [innerHTML]="bookmark.body"></div>
+                            {{bookmark.body}}
+                             
                         </div>
                         <div class="col-xl-4 col-lg-7 col-md-7 col-sm-7 col-8 mt-4 ">
                             <ul>
@@ -43,8 +43,14 @@
                         </div>
                         <div class="col-xl-3 col-lg-5 col-md-5 col-sm-5 col-4 px-0 mt-4">
                             <ul>
-                                <li class="pb-2">
-                                    <a>
+                                <li class="pb-2 float-right" *ngIf="i!=0">
+                                    <a (click)="changePosition('up',bookmark._id, bookmark.position)">
+                                        <span class="fs-13" >Move up</span>
+                                        <i class="fa fa-caret-down icon-opt icon-circle"></i>
+                                    </a>
+                                </li>
+                                <li class="pb-2 float-right">
+                                    <a (click)="changePosition('down',bookmark._id, bookmark.position)">
                                         <span class="fs-13">Move down</span>
                                         <i class="fa fa-caret-down icon-opt icon-circle"></i>
                                     </a>

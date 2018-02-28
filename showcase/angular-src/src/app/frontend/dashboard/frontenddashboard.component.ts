@@ -5,6 +5,7 @@ import { FileUploader } from 'ng2-file-upload';
 import { UserService } from '../../services/user.service';
 import { CategoryService } from '../../services/category.service';
 import { BookmarkService } from '../../services/bookmark.service';
+import { ValidateService } from '../../services/validate.service';
 import { FlashMessagesService } from 'angular2-flash-messages';
 import { ToastsManager } from 'ng2-toastr/ng2-toastr';
 declare var $;
@@ -16,11 +17,11 @@ import * as globalVariable from '../../global';
   styleUrls: ['./frontenddashboard.component.css']
 })
 export class FrontendDashboardComponent implements OnInit {
-constructor() {
-}
-ngOnInit() {
+  constructor() {
+  }
+  ngOnInit() {
 
-}
+  }
 }
 @Component({
   selector: 'app-profileheader',
@@ -36,11 +37,13 @@ export class ProfileHeaderComponent implements OnInit {
   isHere = false;
   liCount: any;
   category_id: any;
+  showcaseField: any = false;
   @Input() childMessage: string;
   // tslint:disable-next-line:max-line-length
   constructor(
     private route: ActivatedRoute,
     public toastr: ToastsManager,
+    public validateService: ValidateService,
     vRef: ViewContainerRef,
     public userService: UserService,
     public categoryService: CategoryService,
@@ -52,36 +55,152 @@ export class ProfileHeaderComponent implements OnInit {
     this.getMyCategories();
     this.toastr.setRootViewContainerRef(vRef);
   }
+
   ngOnInit() {
     setTimeout(() => {
       this.liCount = document.getElementById('category-navbar').getElementsByTagName('li').length;
     }, 1000);
+
     this.addCategoryForm = this.lf.group({
       name: ['', Validators.required],
       position: ['', Validators.required]
     });
+
     this.addLinkForm = this.lf.group({
-      url: ['', Validators.required]
+      title: ['', Validators.required],
+      type: [''],
+      body: [''],
+      category_id: ['']
     });
+
     this.category_id = this.childMessage;
     this.checkCustomer();
-    // this.customer = JSON.parse(localStorage.getItem('customer'));
-    // console.log(localStorage.getItem('customer'),'hedder');
+  }
+  addBoodmark() {
+    this.bookService.bookmarkAdd(this.addLinkForm.value).subscribe((data) => {
+      if (!data.eror) {
+        this.toastr.success('Bookmark added succesfully.', 'Success!');
+        this.modelCopyToClose();
+        this.addLinkForm.reset();
+      } else {
+        this.toastr.error('Error while adding bookmark, Try again.', 'Oops!');
+      }
+    });
+  }
+  openCopyToModel() {
+    this.modelBookmarkClose();
+    this.modelCopyToOpen();
+  }
+  openNewShowcase() {
+    this.showcaseField = !this.showcaseField;
+  }
+  categorySelected(id) {
+    this.addLinkForm.controls['category_id'].setValue(id);
+    console.log(this.addLinkForm.value);
   }
   addLink() {
-    var obj = this.addLinkForm.value;
+    this.embedLink(this.addLinkForm.value['title']);
+    this.modelBookmarkOpen();
+    /*var obj = this.addLinkForm.value;
     obj.category_id = this.category_id;
     obj.position = 0;
     obj.title = this.addLinkForm.value['url'];
     this.bookService.bookmarkAdd(obj).subscribe((data) => {
-      if (!data.error) {
-        this.toastr.success(data.message, 'Success!');
-        this.addLinkForm.reset();
-      } else {
-        this.toastr.error(data.message, 'Oops!');
-      }
-    });
+        if (!data.error) {
+            this.toastr.success(data.message, 'Success!');
+            this.addLinkForm.reset();
+        } else {
+            this.toastr.error(data.message, 'Oops!');
+        }
+    });*/
   }
+  embedFacebook(url) {
+    // public => https://www.facebook.com/notes/facebook/public-search-listings-on-facebook/2963412130/
+    // private => https://www.facebook.com/bob.brello
+    var inputURL = encodeURIComponent(url);
+    var embedHTML = '<iframe id="bookmarkiframe" src="https://www.facebook.com/plugins/post.php?href=' + inputURL + '%26type%3D3&width=600" height="400" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowTransparency="true"></iframe>';
+    var htmlToAdd = this.convertToGridItem(embedHTML);
+    document.getElementById('loader').style.display = 'none';
+    document.getElementById('bookMark').innerHTML = htmlToAdd;
+  }
+
+  embedInsta(url) {
+
+  }
+
+  embedTwitter(url) {
+
+  }
+
+  embedPinterest(url) {
+    var embedHTML = '<a data-pin-do="embedPin" data-pin-width="large" data-pin-terse="true" href="' + url + '"></a>';
+    var htmlToAdd = this.convertToGridItem(embedHTML);
+    document.getElementById('loader').style.display = 'none';
+    document.getElementById('bookMark').innerHTML = htmlToAdd;
+  }
+
+  embedSoundCloud(url) {
+    // tslint:disable-next-line:max-line-length
+    var embedHTML = '<iframe width="100%" height="166" scrolling="no" frameborder="no" src="https://w.soundcloud.com/player/?url=' + url + '"></iframe>';
+    var htmlToAdd = this.convertToGridItem(embedHTML);
+    document.getElementById('loader').style.display = 'none';
+    document.getElementById('bookMark').innerHTML = htmlToAdd;
+  }
+  convertToGridItem(htmlInc) {
+    if (htmlInc.match('facebook.com')) {
+      // need to fix up BS facebook stuff
+      // console.log(htmlInc);
+    }
+
+    var html = '<div class="grid-item">';
+    html += '   ' + htmlInc;
+    html += '</div>';
+
+    return html;
+  }
+  embedYoutube(url) {
+    var youtubeID = url.split('v=')[1];
+    this.validateService.getYoutube(youtubeID)
+      .subscribe(data => {
+        if (data.items.length > 0) {
+          // tslint:disable-next-line:max-line-length
+          let embedHTML = '<iframe width="100%" id="bookmarkiframe" height="337" src="https://www.youtube.com/embed/' + youtubeID + '" frameborder="0" allowfullscreen></iframe>';
+          var embedObj = { title: url, body: embedHTML };
+          /* this.addLinkForm.controls['title'].setValue(url); */
+          this.addLinkForm.controls['body'].setValue(embedHTML);
+          this.addLinkForm.controls['type'].setValue('youtube');
+          var htmlToAdd = this.convertToGridItem(embedHTML);
+          document.getElementById('bookMark').innerHTML = htmlToAdd;
+        } else {
+          document.getElementById('bookMark').innerHTML = 'invalid Url';
+          document.getElementById('loader').style.display = 'none';
+        }
+      }, err => {
+        document.getElementById('loader').style.display = 'none';
+        document.getElementById('bookMark').innerHTML = 'invalid Url';
+      });
+  }
+
+  embedLink(link) {
+    document.getElementById('loader').style.display = 'block';
+    if (link.match('instagram.com')) {
+      this.embedInsta(link);
+    } else if (link.match('youtube.com')) {
+      this.embedYoutube(link);
+
+    } else if (link.match('facebook.com')) {
+      this.embedFacebook(link);
+
+    } else if (link.match('twitter.com')) {
+      this.embedTwitter(link);
+
+    } else if (link.match('pinterest.co')) {
+      this.embedPinterest(link);
+    } else if (link.match('soundcloud.com')) {
+      this.embedSoundCloud(link);
+    }
+  }
+
   slugify(text) {
     return text.toString().toLowerCase()
       .replace(/\s+/g, '-')           // Replace spaces with -
@@ -90,6 +209,7 @@ export class ProfileHeaderComponent implements OnInit {
       .replace(/^-+/, '')             // Trim - from start of text
       .replace(/-+$/, '');            // Trim - from end of text
   }
+
   getMyCategories() {
     this.userService.mycategory().subscribe((data) => {
       if (!data.err) {
@@ -97,9 +217,11 @@ export class ProfileHeaderComponent implements OnInit {
       }
     });
   }
+
   addCategory() {
     this.modelOpen();
   }
+
   addCategoryData() {
     var position = this.addCategoryForm.value['position'];
     var obj = this.addCategoryForm.value;
@@ -111,20 +233,6 @@ export class ProfileHeaderComponent implements OnInit {
             this.toastr.success(data2.message, 'Success!');
             this.modelClose();
             this.getMyCategories();
-            // tslint:disable-next-line:max-line-length
-            //$('.category-navbar').prepend('<li class="nav-item dropdown px-3"><a class="nav-link dropdown-toggle" id="dropdown01" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">' + this.addCategoryForm.value['name'] + '</a><div class="dropdown-menu" aria-labelledby="dropdown01"><a class="dropdown-item" href="javascript:void(0)"> <i class="fa fa-share" > </i> Share</a><a class="dropdown-item" href="javascript:void(0)"> <i class="fa fa-code"> </i> Embeded</a><a class="dropdown-item" href="javascript:void(0)"> <i class="fa fa-cog"> </i> Setting</a></div></li>');
-            // tslint:disable-next-line:max-line-length
-            //
-            /*    if (position === 'Top') {
-                 // tslint:disable-next-line:max-line-length
-                 $('.category-navbar').prepend('<li class="nav-item dropdown px-3"><a class="nav-link dropdown-toggle" id="dropdown01" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">' + this.addCategoryForm.value['name'] + '</a><div class="dropdown-menu" aria-labelledby="dropdown01"><a class="dropdown-item" href="javascript:void(0)"> <i class="fa fa-share" > </i> Share</a><a class="dropdown-item" href="javascript:void(0)"> <i class="fa fa-code"> </i> Embeded</a><a class="dropdown-item" href="javascript:void(0)"> <i class="fa fa-cog"> </i> Setting</a></div></li>');
-               }else {
-                 // tslint:disable-next-line:max-line-length
-                 var liPosition = this.slugify(position.replace('After ', ''));
-                 console.log('li.' + liPosition);
-                 // tslint:disable-next-line:max-line-length
-                 $('li.' + liPosition).after('<li class="nav-item dropdown px-3"><a class="nav-link dropdown-toggle" id="dropdown01" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">' + this.addCategoryForm.value['name'] + '</a><div class="dropdown-menu" aria-labelledby="dropdown01"><a class="dropdown-item" href="javascript:void(0)"> <i class="fa fa-share" > </i> Share</a><a class="dropdown-item" href="javascript:void(0)"> <i class="fa fa-code"> </i> Embeded</a><a class="dropdown-item" href="javascript:void(0)"> <i class="fa fa-cog"> </i> Setting</a></div></li>');
-               } */
             this.addCategoryForm.reset();
           } else {
             this.toastr.error(data2.message, 'Oops!');
@@ -136,13 +244,28 @@ export class ProfileHeaderComponent implements OnInit {
       }
     });
   }
+
   modelOpen() {
     document.getElementById('categoryModal').style.display = 'block';
   }
+
   modelClose() {
     document.getElementById('categoryModal').style.display = 'none';
   }
 
+  modelBookmarkClose() {
+    document.getElementById('bookmarkModal').style.display = 'none';
+  }
+
+  modelBookmarkOpen() {
+    document.getElementById('bookmarkModal').style.display = 'block';
+  }
+  modelCopyToOpen() {
+    document.getElementById('copytokModal').style.display = 'block';
+  }
+  modelCopyToClose() {
+    document.getElementById('copytokModal').style.display = 'none';
+  }
   checkCustomer() {
     this.customer = JSON.parse(localStorage.getItem('customer'));
     if (this.customer) {
@@ -158,8 +281,8 @@ export class ProfileHeaderComponent implements OnInit {
     } else {
       return false;
     }
-
   }
+
   logout() {
     localStorage.clear();
     this.router.navigate(['/']);
@@ -362,6 +485,8 @@ export class SettingComponent implements OnInit {
   category: any;
   categories: any;
   bookmarks: any;
+  bookmarks_ids = [];
+  flag: any = true;
   updateCategoryForm: FormGroup;
   constructor(private router: Router,
     private route: ActivatedRoute,
@@ -374,12 +499,15 @@ export class SettingComponent implements OnInit {
     this.toastr.setRootViewContainerRef(vRef);
     this.customer = JSON.parse(localStorage.getItem('customer'));
     this.router.events.subscribe((val) => {
-      this.route.params.subscribe((params: Params) => {
-        this.id = params['id'];
-        this.parentMessage = this.id;
-        this.getMyCategories();
-        this.getbookmark(this.id);
-      });
+      if (this.flag) {
+        this.flag = false;
+        this.route.params.subscribe((params: Params) => {
+          this.id = params['id'];
+          this.parentMessage = this.id;
+          this.getMyCategories();
+          this.getbookmark(this.id);
+        });
+      }
     });
   }
 
@@ -410,6 +538,43 @@ export class SettingComponent implements OnInit {
         this.category = data.message;
         this.category = this.category.filter((cid) => cid._id === this.id);
         this.updateCategoryForm.patchValue(this.category[0]);
+      }
+    });
+  }
+  changePosition(type, bookmark_id, position) {
+    var obj = {
+      type: type,
+      bookmark_id: bookmark_id,
+      category_id: this.id,
+      position: position
+    };
+    this.bookmarkService.changePosition(obj).subscribe((data) => {
+      if (!data.error) {
+        this.toastr.success('Bookmark position changed succesfully.', 'Success!');
+        this.getbookmark(this.id);
+      } else {
+        this.toastr.error('Erro while chaning bookmakr position, Try again.', 'Oops!');
+      }
+    });
+  }
+  doSelect(id) {
+    var index = this.bookmarks_ids.indexOf(id);
+    if (index > -1) {
+      this.bookmarks_ids.splice(index, 1);
+    } else {
+      this.bookmarks_ids.push(id);
+    }
+  }
+  doDelete() {
+    var obj = {
+      ids: this.bookmarks_ids
+    };
+    this.bookmarkService.bookmarkDeleteSelected(obj).subscribe((data) => {
+      if (!data.error) {
+        this.toastr.success('Bookmark deleted succesfully.', 'Success!');
+        this.getbookmark(this.id);
+      } else {
+        this.toastr.error('Error while deleting bookmark, Try again', 'Oops!');
       }
     });
   }
@@ -445,5 +610,17 @@ export class SettingComponent implements OnInit {
         }
       });
     }
+  }
+}
+@Component({
+  selector: 'app-view',
+  templateUrl: './view.component.html',
+  styleUrls: ['./frontenddashboard.component.css']
+})
+export class ViewComponent implements OnInit {
+  constructor() {
+  }
+  ngOnInit() {
+
   }
 }
