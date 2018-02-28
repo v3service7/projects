@@ -1,0 +1,41 @@
+/* You can add global styles to this file, and also import other style files */
+
+
+select-dropdown>div .options ul li{
+  padding: unset !important;
+  font-size: 12px;
+}
+
+select-dropdown>div .filter input {
+  font-size: 12px !important;
+  padding: 0px 5px !important;
+}
+
+
+.sidebar-wrapper > ul > li {
+    width: 100%;
+}
+#toast-container>div {
+    box-shadow: none !important;
+}
+
+.dropdown-submenu {
+  position: relative;
+}
+
+.dropdown-submenu a::after {
+  transform: rotate(-90deg);
+  position: absolute;
+  right: 6px;
+  top: .8em;
+}
+
+.dropdown-submenu .dropdown-menu {
+  top: 0;
+  left: 96%;
+  margin-left: .1rem;
+  margin-right: .1rem;
+}
+.dropdown-submenu:hover .option-menu{
+  display: block;
+}

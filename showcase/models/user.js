@@ -8,18 +8,16 @@ const UserSchema = new mongoose.Schema({
   firstname: String,
   lastname: String,
   phonenumber: String,
-  dob: String,
   provider: String,
   uid: String,
   image: String,
   email: { type: String, required: true, unique: true, lowercase: true, trim: true },
   password: { type: String, required: true, trim: true },
   email_token: { type: String },
-  twofactor:{},
-  authfactor: { type: Boolean, default: false },
   status: { type: Boolean, default: false },
   role : {type: String, enum: ['Admin', 'User'], default: 'User'},
-  created_at: { type: Date, default: Date.now }
+  created_at: { type: Date, default: Date.now },
+ 
 });
 
 // Created a model using it
@@ -32,8 +30,12 @@ module.exports.getUserById = function(id, callback){
   User.findById(id, callback);
 }
 
-module.exports.getUserByUsername = function(email, callback){
+module.exports.getAdminByUsername = function(email, callback){
   const query = {email: email,status: true}
+  User.findOne(query, callback);
+}
+module.exports.getUserByUsername = function(email, callback){
+  const query = {email: email}
   User.findOne(query, callback);
 }
 

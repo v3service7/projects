@@ -1,1 +1,4390 @@
-webpackJsonp([1],{0:function(l,n,u){l.exports=u("cDNt")},cDNt:function(l,n,u){"use strict";function e(l){return cn["\u0275vid"](0,[(l()(),cn["\u0275ted"](-1,null,["\n"])),(l()(),cn["\u0275eld"](1,0,null,null,0,"link",[["href","/assets/admin/css/bootstrap.min.css"],["rel","stylesheet"]],null,null,null,null,null)),(l()(),cn["\u0275ted"](-1,null,["\n"])),(l()(),cn["\u0275ted"](-1,null,["\n"])),(l()(),cn["\u0275eld"](4,0,null,null,0,"link",[["href","/assets/admin/css/material-dashboard.css?v=1.2.0"],["rel","stylesheet"]],null,null,null,null,null)),(l()(),cn["\u0275ted"](-1,null,["\n"])),(l()(),cn["\u0275ted"](-1,null,["\n"])),(l()(),cn["\u0275eld"](7,0,null,null,0,"link",[["href","/assets/admin/css/demo.css"],["rel","stylesheet"]],null,null,null,null,null)),(l()(),cn["\u0275ted"](-1,null,["\n"])),(l()(),cn["\u0275eld"](9,0,null,null,0,"link",[["href","/assets/admin/css/style.css"],["rel","stylesheet"]],null,null,null,null,null)),(l()(),cn["\u0275ted"](-1,null,["\n"])),(l()(),cn["\u0275ted"](-1,null,["\n"])),(l()(),cn["\u0275eld"](12,0,null,null,0,"link",[["href","https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css"],["rel","stylesheet"]],null,null,null,null,null)),(l()(),cn["\u0275ted"](-1,null,["\n"])),(l()(),cn["\u0275eld"](14,0,null,null,0,"link",[["href","https://fonts.googleapis.com/css?family=Roboto:400,700,300|Material+Icons"],["rel","stylesheet"],["type","text/css"]],null,null,null,null,null)),(l()(),cn["\u0275ted"](-1,null,["\n"])),(l()(),cn["\u0275eld"](16,0,null,null,1,"flash-messages",[],null,null,null,pn.b,pn.a)),cn["\u0275did"](17,114688,null,0,gn.FlashMessagesComponent,[mn.FlashMessagesService,cn.ChangeDetectorRef],null,null),(l()(),cn["\u0275ted"](-1,null,["\n"])),(l()(),cn["\u0275eld"](19,16777216,null,null,1,"router-outlet",[],null,null,null,null,null)),cn["\u0275did"](20,212992,null,0,vn.o,[vn.b,cn.ViewContainerRef,cn.ComponentFactoryResolver,[8,null],cn.ChangeDetectorRef],null,null),(l()(),cn["\u0275ted"](-1,null,["\n\n\n\n\n"]))],function(l,n){l(n,17,0),l(n,20,0)},null)}function t(l){return cn["\u0275vid"](0,[(l()(),cn["\u0275eld"](0,0,null,null,1,"app-admin",[],null,null,null,e,hn)),cn["\u0275did"](1,114688,null,0,dn,[sn],null,null)],function(l,n){l(n,1,0)},null)}function o(l){return _n["\u0275vid"](0,[(l()(),_n["\u0275eld"](0,0,null,null,93,"div",[["class","wrapper wrapper-full-page"]],null,null,null,null,null)),(l()(),_n["\u0275ted"](-1,null,["\n    "])),(l()(),_n["\u0275eld"](2,0,null,null,90,"div",[["class","full-page login-page"],["data-image","../../assets/img/login.jpeg"],["filter-color","black"]],null,null,null,null,null)),(l()(),_n["\u0275ted"](-1,null,["\n        "])),(l()(),_n["\u0275eld"](4,0,null,null,87,"div",[["class","content"]],null,null,null,null,null)),(l()(),_n["\u0275ted"](-1,null,["\n            "])),(l()(),_n["\u0275eld"](6,0,null,null,84,"div",[["class","container"]],null,null,null,null,null)),(l()(),_n["\u0275ted"](-1,null,["\n                "])),(l()(),_n["\u0275eld"](8,0,null,null,81,"div",[["class","row"]],null,null,null,null,null)),(l()(),_n["\u0275ted"](-1,null,["\n                    "])),(l()(),_n["\u0275eld"](10,0,null,null,78,"div",[["class","col-md-4 col-sm-6 col-md-offset-4 col-sm-offset-3"]],null,null,null,null,null)),(l()(),_n["\u0275ted"](-1,null,["\n                       \t"])),(l()(),_n["\u0275eld"](12,0,null,null,75,"form",[["novalidate",""]],[[2,"ng-untouched",null],[2,"ng-touched",null],[2,"ng-pristine",null],[2,"ng-dirty",null],[2,"ng-valid",null],[2,"ng-invalid",null],[2,"ng-pending",null]],[[null,"submit"],[null,"reset"]],function(l,n,u){var e=!0,t=l.component;if("submit"===n){e=!1!==_n["\u0275nov"](l,14).onSubmit(u)&&e}if("reset"===n){e=!1!==_n["\u0275nov"](l,14).onReset()&&e}if("submit"===n){e=!1!==t.onLoginSubmit()&&e}return e},null,null)),_n["\u0275did"](13,16384,null,0,Nn["\u0275bf"],[],null,null),_n["\u0275did"](14,16384,null,0,Nn.NgForm,[[8,null],[8,null]],null,null),_n["\u0275prd"](2048,null,Nn.ControlContainer,null,[Nn.NgForm]),_n["\u0275did"](16,16384,null,0,Nn.NgControlStatusGroup,[Nn.ControlContainer],null,null),(l()(),_n["\u0275ted"](-1,null,["\n                            "])),(l()(),_n["\u0275eld"](18,0,null,null,68,"div",[["class","card card-login"]],null,null,null,null,null)),(l()(),_n["\u0275ted"](-1,null,["\n                                "])),(l()(),_n["\u0275eld"](20,0,null,null,4,"div",[["class","card-header text-center bg-navyblue"]],null,null,null,null,null)),(l()(),_n["\u0275ted"](-1,null,["\n                                    "])),(l()(),_n["\u0275eld"](22,0,null,null,1,"h4",[["class","card-title"]],null,null,null,null,null)),(l()(),_n["\u0275ted"](-1,null,["Admin Login"])),(l()(),_n["\u0275ted"](-1,null,["\n                                "])),(l()(),_n["\u0275ted"](-1,null,["\n                                "])),(l()(),_n["\u0275eld"](26,0,null,null,49,"div",[["class","card-content"]],null,null,null,null,null)),(l()(),_n["\u0275ted"](-1,null,["                                   \n                                    "])),(l()(),_n["\u0275eld"](28,0,null,null,22,"div",[["class","input-group"]],null,null,null,null,null)),(l()(),_n["\u0275ted"](-1,null,["\n                                        "])),(l()(),_n["\u0275eld"](30,0,null,null,4,"span",[["class","input-group-addon"]],null,null,null,null,null)),(l()(),_n["\u0275ted"](-1,null,["\n                                            "])),(l()(),_n["\u0275eld"](32,0,null,null,1,"i",[["class","material-icons"]],null,null,null,null,null)),(l()(),_n["\u0275ted"](-1,null,["email"])),(l()(),_n["\u0275ted"](-1,null,["\n                                        "])),(l()(),_n["\u0275ted"](-1,null,["\n                                        "])),(l()(),_n["\u0275eld"](36,0,null,null,13,"div",[["class","form-group label-floating is-empty"]],null,null,null,null,null)),(l()(),_n["\u0275ted"](-1,null,["\n                                            "])),(l()(),_n["\u0275eld"](38,0,null,null,1,"label",[["class","control-label"]],null,null,null,null,null)),(l()(),_n["\u0275ted"](-1,null,["Username"])),(l()(),_n["\u0275ted"](-1,null,["\n                                            "])),(l()(),_n["\u0275eld"](41,0,null,null,5,"input",[["class","form-control"],["name","email"],["type","text"]],[[2,"ng-untouched",null],[2,"ng-touched",null],[2,"ng-pristine",null],[2,"ng-dirty",null],[2,"ng-valid",null],[2,"ng-invalid",null],[2,"ng-pending",null]],[[null,"ngModelChange"],[null,"input"],[null,"blur"],[null,"compositionstart"],[null,"compositionend"]],function(l,n,u){var e=!0,t=l.component;if("input"===n){e=!1!==_n["\u0275nov"](l,42)._handleInput(u.target.value)&&e}if("blur"===n){e=!1!==_n["\u0275nov"](l,42).onTouched()&&e}if("compositionstart"===n){e=!1!==_n["\u0275nov"](l,42)._compositionStart()&&e}if("compositionend"===n){e=!1!==_n["\u0275nov"](l,42)._compositionEnd(u.target.value)&&e}if("ngModelChange"===n){e=!1!==(t.email=u)&&e}return e},null,null)),_n["\u0275did"](42,16384,null,0,Nn.DefaultValueAccessor,[_n.Renderer2,_n.ElementRef,[2,Nn.COMPOSITION_BUFFER_MODE]],null,null),_n["\u0275prd"](1024,null,Nn.NG_VALUE_ACCESSOR,function(l){return[l]},[Nn.DefaultValueAccessor]),_n["\u0275did"](44,671744,null,0,Nn.NgModel,[[2,Nn.ControlContainer],[8,null],[8,null],[2,Nn.NG_VALUE_ACCESSOR]],{name:[0,"name"],model:[1,"model"]},{update:"ngModelChange"}),_n["\u0275prd"](2048,null,Nn.NgControl,null,[Nn.NgModel]),_n["\u0275did"](46,16384,null,0,Nn.NgControlStatus,[Nn.NgControl],null,null),(l()(),_n["\u0275ted"](-1,null,["\n                                            "])),(l()(),_n["\u0275eld"](48,0,null,null,0,"span",[["class","material-input"]],null,null,null,null,null)),(l()(),_n["\u0275ted"](-1,null,["\n                                        "])),(l()(),_n["\u0275ted"](-1,null,["                                       \n                                    "])),(l()(),_n["\u0275ted"](-1,null,["\n                                    "])),(l()(),_n["\u0275eld"](52,0,null,null,22,"div",[["class","input-group"]],null,null,null,null,null)),(l()(),_n["\u0275ted"](-1,null,["\n                                        "])),(l()(),_n["\u0275eld"](54,0,null,null,4,"span",[["class","input-group-addon"]],null,null,null,null,null)),(l()(),_n["\u0275ted"](-1,null,["\n                                            "])),(l()(),_n["\u0275eld"](56,0,null,null,1,"i",[["class","material-icons"]],null,null,null,null,null)),(l()(),_n["\u0275ted"](-1,null,["lock_outline"])),(l()(),_n["\u0275ted"](-1,null,["\n                                        "])),(l()(),_n["\u0275ted"](-1,null,["\n                                        "])),(l()(),_n["\u0275eld"](60,0,null,null,13,"div",[["class","form-group label-floating is-empty"]],null,null,null,null,null)),(l()(),_n["\u0275ted"](-1,null,["\n                                            "])),(l()(),_n["\u0275eld"](62,0,null,null,1,"label",[["class","control-label"]],null,null,null,null,null)),(l()(),_n["\u0275ted"](-1,null,["Password"])),(l()(),_n["\u0275ted"](-1,null,["\n                                            "])),(l()(),_n["\u0275eld"](65,0,null,null,5,"input",[["class","form-control"],["name","password"],["type","password"]],[[2,"ng-untouched",null],[2,"ng-touched",null],[2,"ng-pristine",null],[2,"ng-dirty",null],[2,"ng-valid",null],[2,"ng-invalid",null],[2,"ng-pending",null]],[[null,"ngModelChange"],[null,"input"],[null,"blur"],[null,"compositionstart"],[null,"compositionend"]],function(l,n,u){var e=!0,t=l.component;if("input"===n){e=!1!==_n["\u0275nov"](l,66)._handleInput(u.target.value)&&e}if("blur"===n){e=!1!==_n["\u0275nov"](l,66).onTouched()&&e}if("compositionstart"===n){e=!1!==_n["\u0275nov"](l,66)._compositionStart()&&e}if("compositionend"===n){e=!1!==_n["\u0275nov"](l,66)._compositionEnd(u.target.value)&&e}if("ngModelChange"===n){e=!1!==(t.password=u)&&e}return e},null,null)),_n["\u0275did"](66,16384,null,0,Nn.DefaultValueAccessor,[_n.Renderer2,_n.ElementRef,[2,Nn.COMPOSITION_BUFFER_MODE]],null,null),_n["\u0275prd"](1024,null,Nn.NG_VALUE_ACCESSOR,function(l){return[l]},[Nn.DefaultValueAccessor]),_n["\u0275did"](68,671744,null,0,Nn.NgModel,[[2,Nn.ControlContainer],[8,null],[8,null],[2,Nn.NG_VALUE_ACCESSOR]],{name:[0,"name"],model:[1,"model"]},{update:"ngModelChange"}),_n["\u0275prd"](2048,null,Nn.NgControl,null,[Nn.NgModel]),_n["\u0275did"](70,16384,null,0,Nn.NgControlStatus,[Nn.NgControl],null,null),(l()(),_n["\u0275ted"](-1,null,["\n                                            "])),(l()(),_n["\u0275eld"](72,0,null,null,0,"span",[["class","material-input"]],null,null,null,null,null)),(l()(),_n["\u0275ted"](-1,null,["\n                                        "])),(l()(),_n["\u0275ted"](-1,null,["\n                                    "])),(l()(),_n["\u0275ted"](-1,null,["\n                                "])),(l()(),_n["\u0275ted"](-1,null,["\n                                "])),(l()(),_n["\u0275eld"](77,0,null,null,8,"div",[["class","footer text-center"]],null,null,null,null,null)),(l()(),_n["\u0275ted"](-1,null,["                                     \n                                    "])),(l()(),_n["\u0275eld"](79,0,null,null,0,"input",[["class","btn bg-navyblue  btn-wd btn-lg"],["type","submit"],["value","Login"]],null,null,null,null,null)),(l()(),_n["\u0275ted"](-1,null,["                         \n                                    "])),(l()(),_n["\u0275eld"](81,0,null,null,3,"a",[["class","btn clr-navyblue btn-simple btn-wd btn-lg"]],[[1,"target",0],[8,"href",4]],[[null,"click"]],function(l,n,u){var e=!0;if("click"===n){e=!1!==_n["\u0275nov"](l,82).onClick(u.button,u.ctrlKey,u.metaKey,u.shiftKey)&&e}return e},null,null)),_n["\u0275did"](82,671744,null,0,En.m,[En.k,En.a,wn.LocationStrategy],{routerLink:[0,"routerLink"]},null),_n["\u0275pad"](83,1),(l()(),_n["\u0275ted"](-1,null,["Forgot Password ?"])),(l()(),_n["\u0275ted"](-1,null,["\n                                "])),(l()(),_n["\u0275ted"](-1,null,["\n                            "])),(l()(),_n["\u0275ted"](-1,null,["\n                        "])),(l()(),_n["\u0275ted"](-1,null,["\n                    "])),(l()(),_n["\u0275ted"](-1,null,["\n                "])),(l()(),_n["\u0275ted"](-1,null,["\n            "])),(l()(),_n["\u0275ted"](-1,null,["\n        "])),(l()(),_n["\u0275ted"](-1,null,["\n    "])),(l()(),_n["\u0275ted"](-1,null,["\n"]))],function(l,n){var u=n.component;l(n,44,0,"email",u.email);l(n,68,0,"password",u.password),l(n,82,0,l(n,83,0,"/admin/forgotpassword"))},function(l,n){l(n,12,0,_n["\u0275nov"](n,16).ngClassUntouched,_n["\u0275nov"](n,16).ngClassTouched,_n["\u0275nov"](n,16).ngClassPristine,_n["\u0275nov"](n,16).ngClassDirty,_n["\u0275nov"](n,16).ngClassValid,_n["\u0275nov"](n,16).ngClassInvalid,_n["\u0275nov"](n,16).ngClassPending),l(n,41,0,_n["\u0275nov"](n,46).ngClassUntouched,_n["\u0275nov"](n,46).ngClassTouched,_n["\u0275nov"](n,46).ngClassPristine,_n["\u0275nov"](n,46).ngClassDirty,_n["\u0275nov"](n,46).ngClassValid,_n["\u0275nov"](n,46).ngClassInvalid,_n["\u0275nov"](n,46).ngClassPending),l(n,65,0,_n["\u0275nov"](n,70).ngClassUntouched,_n["\u0275nov"](n,70).ngClassTouched,_n["\u0275nov"](n,70).ngClassPristine,_n["\u0275nov"](n,70).ngClassDirty,_n["\u0275nov"](n,70).ngClassValid,_n["\u0275nov"](n,70).ngClassInvalid,_n["\u0275nov"](n,70).ngClassPending),l(n,81,0,_n["\u0275nov"](n,82).target,_n["\u0275nov"](n,82).href)})}function r(l){return _n["\u0275vid"](0,[(l()(),_n["\u0275eld"](0,0,null,null,1,"app-login",[],null,null,null,o,Pn)),_n["\u0275did"](1,114688,null,0,Sn,[sn,En.k,kn.FlashMessagesService],null,null)],function(l,n){l(n,1,0)},null)}function a(l){return Un["\u0275vid"](0,[(l()(),Un["\u0275eld"](0,0,null,null,70,"div",[["class","wrapper wrapper-full-page"]],null,null,null,null,null)),(l()(),Un["\u0275ted"](-1,null,["\n    "])),(l()(),Un["\u0275eld"](2,0,null,null,67,"div",[["class","full-page login-page"],["filter-color","black"]],null,null,null,null,null)),(l()(),Un["\u0275ted"](-1,null,["\n        "])),(l()(),Un["\u0275ted"](-1,null,["\n        "])),(l()(),Un["\u0275eld"](5,0,null,null,63,"div",[["class","content"]],null,null,null,null,null)),(l()(),Un["\u0275ted"](-1,null,["\n            "])),(l()(),Un["\u0275eld"](7,0,null,null,60,"div",[["class","container"]],null,null,null,null,null)),(l()(),Un["\u0275ted"](-1,null,["\n                "])),(l()(),Un["\u0275eld"](9,0,null,null,57,"div",[["class","row"]],null,null,null,null,null)),(l()(),Un["\u0275ted"](-1,null,["\n                    "])),(l()(),Un["\u0275eld"](11,0,null,null,54,"div",[["class","col-md-4 col-sm-6 col-md-offset-4 col-sm-offset-3"]],null,null,null,null,null)),(l()(),Un["\u0275ted"](-1,null,["\n                        "])),(l()(),Un["\u0275eld"](13,0,null,null,51,"form",[["novalidate",""]],[[2,"ng-untouched",null],[2,"ng-touched",null],[2,"ng-pristine",null],[2,"ng-dirty",null],[2,"ng-valid",null],[2,"ng-invalid",null],[2,"ng-pending",null]],[[null,"ngSubmit"],[null,"submit"],[null,"reset"]],function(l,n,u){var e=!0,t=l.component;if("submit"===n){e=!1!==Un["\u0275nov"](l,15).onSubmit(u)&&e}if("reset"===n){e=!1!==Un["\u0275nov"](l,15).onReset()&&e}if("ngSubmit"===n){e=!1!==t.forgotPassword()&&e}return e},null,null)),Un["\u0275did"](14,16384,null,0,Ln["\u0275bf"],[],null,null),Un["\u0275did"](15,540672,null,0,Ln.FormGroupDirective,[[8,null],[8,null]],{form:[0,"form"]},{ngSubmit:"ngSubmit"}),Un["\u0275prd"](2048,null,Ln.ControlContainer,null,[Ln.FormGroupDirective]),Un["\u0275did"](17,16384,null,0,Ln.NgControlStatusGroup,[Ln.ControlContainer],null,null),(l()(),Un["\u0275ted"](-1,null,["\n                            "])),(l()(),Un["\u0275eld"](19,0,null,null,44,"div",[["class","card card-login"]],null,null,null,null,null)),(l()(),Un["\u0275ted"](-1,null,["\n                                "])),(l()(),Un["\u0275eld"](21,0,null,null,4,"div",[["class","card-header text-center bg-navyblue"]],null,null,null,null,null)),(l()(),Un["\u0275ted"](-1,null,["\n                                    "])),(l()(),Un["\u0275eld"](23,0,null,null,1,"h4",[["class","card-title"]],null,null,null,null,null)),(l()(),Un["\u0275ted"](-1,null,["Forget Password"])),(l()(),Un["\u0275ted"](-1,null,["\n                                "])),(l()(),Un["\u0275ted"](-1,null,["\n                                "])),(l()(),Un["\u0275eld"](27,0,null,null,24,"div",[["class","card-content"]],null,null,null,null,null)),(l()(),Un["\u0275ted"](-1,null,["\n                                    "])),(l()(),Un["\u0275eld"](29,0,null,null,21,"div",[["class","input-group"]],null,null,null,null,null)),(l()(),Un["\u0275ted"](-1,null,["\n                                        "])),(l()(),Un["\u0275eld"](31,0,null,null,4,"span",[["class","input-group-addon"]],null,null,null,null,null)),(l()(),Un["\u0275ted"](-1,null,["\n                                            "])),(l()(),Un["\u0275eld"](33,0,null,null,1,"i",[["class","material-icons"]],null,null,null,null,null)),(l()(),Un["\u0275ted"](-1,null,["email"])),(l()(),Un["\u0275ted"](-1,null,["\n                                        "])),(l()(),Un["\u0275ted"](-1,null,["\n                                        "])),(l()(),Un["\u0275eld"](37,0,null,null,12,"div",[["class","form-group label-floating is-empty"]],null,null,null,null,null)),(l()(),Un["\u0275ted"](-1,null,["\n                                            "])),(l()(),Un["\u0275eld"](39,0,null,null,1,"label",[["class","control-label"]],null,null,null,null,null)),(l()(),Un["\u0275ted"](-1,null,["Email"])),(l()(),Un["\u0275ted"](-1,null,["\n                                            "])),(l()(),Un["\u0275eld"](42,0,null,null,5,"input",[["class","form-control"],["formControlName","email"],["type","email"]],[[2,"ng-untouched",null],[2,"ng-touched",null],[2,"ng-pristine",null],[2,"ng-dirty",null],[2,"ng-valid",null],[2,"ng-invalid",null],[2,"ng-pending",null]],[[null,"input"],[null,"blur"],[null,"compositionstart"],[null,"compositionend"]],function(l,n,u){var e=!0;if("input"===n){e=!1!==Un["\u0275nov"](l,43)._handleInput(u.target.value)&&e}if("blur"===n){e=!1!==Un["\u0275nov"](l,43).onTouched()&&e}if("compositionstart"===n){e=!1!==Un["\u0275nov"](l,43)._compositionStart()&&e}if("compositionend"===n){e=!1!==Un["\u0275nov"](l,43)._compositionEnd(u.target.value)&&e}return e},null,null)),Un["\u0275did"](43,16384,null,0,Ln.DefaultValueAccessor,[Un.Renderer2,Un.ElementRef,[2,Ln.COMPOSITION_BUFFER_MODE]],null,null),Un["\u0275prd"](1024,null,Ln.NG_VALUE_ACCESSOR,function(l){return[l]},[Ln.DefaultValueAccessor]),Un["\u0275did"](45,671744,null,0,Ln.FormControlName,[[3,Ln.ControlContainer],[8,null],[8,null],[2,Ln.NG_VALUE_ACCESSOR]],{name:[0,"name"]},null),Un["\u0275prd"](2048,null,Ln.NgControl,null,[Ln.FormControlName]),Un["\u0275did"](47,16384,null,0,Ln.NgControlStatus,[Ln.NgControl],null,null),(l()(),Un["\u0275ted"](-1,null,["\n                                        "])),(l()(),Un["\u0275eld"](49,0,null,null,0,"span",[["class","material-input"]],null,null,null,null,null)),(l()(),Un["\u0275ted"](-1,null,["\n                                    "])),(l()(),Un["\u0275ted"](-1,null,["\n                                "])),(l()(),Un["\u0275ted"](-1,null,["\n                                "])),(l()(),Un["\u0275eld"](53,0,null,null,9,"div",[["class","footer text-center"]],null,null,null,null,null)),(l()(),Un["\u0275ted"](-1,null,["\n                                    "])),(l()(),Un["\u0275eld"](55,0,null,null,1,"button",[["class","btn bg-navyblue btn-wd btn-lg"]],[[8,"disabled",0]],null,null,null,null)),(l()(),Un["\u0275ted"](-1,null,["Send"])),(l()(),Un["\u0275ted"](-1,null,["\n                                     "])),(l()(),Un["\u0275eld"](58,0,null,null,3,"a",[["class","btn clr-navyblue btn-simple btn-wd btn-lg"]],[[1,"target",0],[8,"href",4]],[[null,"click"]],function(l,n,u){var e=!0;if("click"===n){e=!1!==Un["\u0275nov"](l,59).onClick(u.button,u.ctrlKey,u.metaKey,u.shiftKey)&&e}return e},null,null)),Un["\u0275did"](59,671744,null,0,xn.m,[xn.k,xn.a,Gn.LocationStrategy],{routerLink:[0,"routerLink"]},null),Un["\u0275pad"](60,1),(l()(),Un["\u0275ted"](-1,null,["Login"])),(l()(),Un["\u0275ted"](-1,null,["\n                                "])),(l()(),Un["\u0275ted"](-1,null,["\n                            "])),(l()(),Un["\u0275ted"](-1,null,["\n                        "])),(l()(),Un["\u0275ted"](-1,null,["\n                    "])),(l()(),Un["\u0275ted"](-1,null,["\n                "])),(l()(),Un["\u0275ted"](-1,null,["\n            "])),(l()(),Un["\u0275ted"](-1,null,["\n        "])),(l()(),Un["\u0275ted"](-1,null,["\n    "])),(l()(),Un["\u0275ted"](-1,null,["\n"]))],function(l,n){l(n,15,0,n.component.loginForm);l(n,45,0,"email"),l(n,59,0,l(n,60,0,"/admin/login"))},function(l,n){var u=n.component;l(n,13,0,Un["\u0275nov"](n,17).ngClassUntouched,Un["\u0275nov"](n,17).ngClassTouched,Un["\u0275nov"](n,17).ngClassPristine,Un["\u0275nov"](n,17).ngClassDirty,Un["\u0275nov"](n,17).ngClassValid,Un["\u0275nov"](n,17).ngClassInvalid,Un["\u0275nov"](n,17).ngClassPending),l(n,42,0,Un["\u0275nov"](n,47).ngClassUntouched,Un["\u0275nov"](n,47).ngClassTouched,Un["\u0275nov"](n,47).ngClassPristine,Un["\u0275nov"](n,47).ngClassDirty,Un["\u0275nov"](n,47).ngClassValid,Un["\u0275nov"](n,47).ngClassInvalid,Un["\u0275nov"](n,47).ngClassPending),l(n,55,0,!u.loginForm.valid),l(n,58,0,Un["\u0275nov"](n,59).target,Un["\u0275nov"](n,59).href)})}function i(l){return Un["\u0275vid"](0,[(l()(),Un["\u0275eld"](0,0,null,null,1,"app-forgot-password",[],null,null,null,a,jn)),Un["\u0275did"](1,114688,null,0,Mn,[Ln.FormBuilder,sn,Bn.FlashMessagesService,xn.k,xn.a],null,null)],function(l,n){l(n,1,0)},null)}function s(l){return Un["\u0275vid"](0,[(l()(),Un["\u0275eld"](0,0,null,null,1,"div",[["class","alert alert-danger"]],null,null,null,null,null)),(l()(),Un["\u0275ted"](1,null,["\n                                            ","\n                                        "]))],null,function(l,n){l(n,1,0,n.component.formErrors.password)})}function d(l){return Un["\u0275vid"](0,[(l()(),Un["\u0275eld"](0,0,null,null,1,"div",[["class","alert alert-danger"]],null,null,null,null,null)),(l()(),Un["\u0275ted"](1,null,["\n                                            ","\n                                        "]))],null,function(l,n){l(n,1,0,n.component.err)})}function c(l){return Un["\u0275vid"](0,[(l()(),Un["\u0275eld"](0,0,null,null,1,"div",[["class","alert alert-danger"]],null,null,null,null,null)),(l()(),Un["\u0275ted"](1,null,["\n                                            ","\n                                        "]))],null,function(l,n){l(n,1,0,n.component.formErrors.newpassword)})}function p(l){return Un["\u0275vid"](0,[(l()(),Un["\u0275eld"](0,0,null,null,1,"div",[["class","alert alert-danger"]],null,null,null,null,null)),(l()(),Un["\u0275ted"](1,null,["\n                                            ","\n                                        "]))],null,function(l,n){l(n,1,0,n.component.err)})}function g(l){return Un["\u0275vid"](0,[(l()(),Un["\u0275eld"](0,0,null,null,105,"div",[["class","wrapper wrapper-full-page"]],null,null,null,null,null)),(l()(),Un["\u0275ted"](-1,null,["\n    "])),(l()(),Un["\u0275eld"](2,0,null,null,102,"div",[["class","full-page login-page"],["filter-color","black"]],null,null,null,null,null)),(l()(),Un["\u0275ted"](-1,null,["\n        "])),(l()(),Un["\u0275ted"](-1,null,["\n        "])),(l()(),Un["\u0275eld"](5,0,null,null,98,"div",[["class","content"]],null,null,null,null,null)),(l()(),Un["\u0275ted"](-1,null,["\n            "])),(l()(),Un["\u0275eld"](7,0,null,null,95,"div",[["class","container"]],null,null,null,null,null)),(l()(),Un["\u0275ted"](-1,null,["\n                "])),(l()(),Un["\u0275eld"](9,0,null,null,92,"div",[["class","row"]],null,null,null,null,null)),(l()(),Un["\u0275ted"](-1,null,["\n                    "])),(l()(),Un["\u0275eld"](11,0,null,null,89,"div",[["class","col-md-4 col-sm-6 col-md-offset-4 col-sm-offset-3"]],null,null,null,null,null)),(l()(),Un["\u0275ted"](-1,null,["\n                        "])),(l()(),Un["\u0275eld"](13,0,null,null,86,"form",[["novalidate",""]],[[2,"ng-untouched",null],[2,"ng-touched",null],[2,"ng-pristine",null],[2,"ng-dirty",null],[2,"ng-valid",null],[2,"ng-invalid",null],[2,"ng-pending",null]],[[null,"ngSubmit"],[null,"submit"],[null,"reset"]],function(l,n,u){var e=!0,t=l.component;if("submit"===n){e=!1!==Un["\u0275nov"](l,15).onSubmit(u)&&e}if("reset"===n){e=!1!==Un["\u0275nov"](l,15).onReset()&&e}if("ngSubmit"===n){e=!1!==t.resetPass()&&e}return e},null,null)),Un["\u0275did"](14,16384,null,0,Ln["\u0275bf"],[],null,null),Un["\u0275did"](15,540672,null,0,Ln.FormGroupDirective,[[8,null],[8,null]],{form:[0,"form"]},{ngSubmit:"ngSubmit"}),Un["\u0275prd"](2048,null,Ln.ControlContainer,null,[Ln.FormGroupDirective]),Un["\u0275did"](17,16384,null,0,Ln.NgControlStatusGroup,[Ln.ControlContainer],null,null),(l()(),Un["\u0275ted"](-1,null,["\n                            "])),(l()(),Un["\u0275eld"](19,0,null,null,79,"div",[["class","card card-login"]],null,null,null,null,null)),(l()(),Un["\u0275ted"](-1,null,["\n                                "])),(l()(),Un["\u0275eld"](21,0,null,null,4,"div",[["class","card-header text-center bg-navyblue"]],null,null,null,null,null)),(l()(),Un["\u0275ted"](-1,null,["\n                                    "])),(l()(),Un["\u0275eld"](23,0,null,null,1,"h4",[["class","card-title"]],null,null,null,null,null)),(l()(),Un["\u0275ted"](-1,null,["Reset Password"])),(l()(),Un["\u0275ted"](-1,null,["\n                                "])),(l()(),Un["\u0275ted"](-1,null,["\n                                "])),(l()(),Un["\u0275eld"](27,0,null,null,31,"div",[["class","card-content"]],null,null,null,null,null)),(l()(),Un["\u0275ted"](-1,null,["\n                                    "])),(l()(),Un["\u0275eld"](29,0,null,null,28,"div",[["class","input-group"]],null,null,null,null,null)),(l()(),Un["\u0275ted"](-1,null,["\n                                        "])),(l()(),Un["\u0275eld"](31,0,null,null,4,"span",[["class","input-group-addon"]],null,null,null,null,null)),(l()(),Un["\u0275ted"](-1,null,["\n                                            "])),(l()(),Un["\u0275eld"](33,0,null,null,1,"i",[["class","material-icons"]],null,null,null,null,null)),(l()(),Un["\u0275ted"](-1,null,["lock"])),(l()(),Un["\u0275ted"](-1,null,["\n                                        "])),(l()(),Un["\u0275ted"](-1,null,["\n                                        "])),(l()(),Un["\u0275eld"](37,0,null,null,13,"div",[["class","form-group label-floating is-empty"]],null,null,null,null,null)),(l()(),Un["\u0275ted"](-1,null,["\n                                            "])),(l()(),Un["\u0275eld"](39,0,null,null,1,"label",[["class","control-label"]],null,null,null,null,null)),(l()(),Un["\u0275ted"](-1,null,["password"])),(l()(),Un["\u0275ted"](-1,null,["\n                                            "])),(l()(),Un["\u0275eld"](42,0,null,null,5,"input",[["class","form-control"],["formControlName","password"],["type","password"]],[[2,"ng-untouched",null],[2,"ng-touched",null],[2,"ng-pristine",null],[2,"ng-dirty",null],[2,"ng-valid",null],[2,"ng-invalid",null],[2,"ng-pending",null]],[[null,"input"],[null,"blur"],[null,"compositionstart"],[null,"compositionend"]],function(l,n,u){var e=!0;if("input"===n){e=!1!==Un["\u0275nov"](l,43)._handleInput(u.target.value)&&e}if("blur"===n){e=!1!==Un["\u0275nov"](l,43).onTouched()&&e}if("compositionstart"===n){e=!1!==Un["\u0275nov"](l,43)._compositionStart()&&e}if("compositionend"===n){e=!1!==Un["\u0275nov"](l,43)._compositionEnd(u.target.value)&&e}return e},null,null)),Un["\u0275did"](43,16384,null,0,Ln.DefaultValueAccessor,[Un.Renderer2,Un.ElementRef,[2,Ln.COMPOSITION_BUFFER_MODE]],null,null),Un["\u0275prd"](1024,null,Ln.NG_VALUE_ACCESSOR,function(l){return[l]},[Ln.DefaultValueAccessor]),Un["\u0275did"](45,671744,null,0,Ln.FormControlName,[[3,Ln.ControlContainer],[8,null],[8,null],[2,Ln.NG_VALUE_ACCESSOR]],{name:[0,"name"]},null),Un["\u0275prd"](2048,null,Ln.NgControl,null,[Ln.FormControlName]),Un["\u0275did"](47,16384,null,0,Ln.NgControlStatus,[Ln.NgControl],null,null),(l()(),Un["\u0275ted"](-1,null,["\n                                            "])),(l()(),Un["\u0275eld"](49,0,null,null,0,"span",[["class","material-input"]],null,null,null,null,null)),(l()(),Un["\u0275ted"](-1,null,["\n                                        "])),(l()(),Un["\u0275ted"](-1,null,["\n                                        "])),(l()(),Un["\u0275and"](16777216,null,null,1,null,s)),Un["\u0275did"](53,16384,null,0,Gn.NgIf,[Un.ViewContainerRef,Un.TemplateRef],{ngIf:[0,"ngIf"]},null),(l()(),Un["\u0275ted"](-1,null,["\n                                        "])),(l()(),Un["\u0275and"](16777216,null,null,1,null,d)),Un["\u0275did"](56,16384,null,0,Gn.NgIf,[Un.ViewContainerRef,Un.TemplateRef],{ngIf:[0,"ngIf"]},null),(l()(),Un["\u0275ted"](-1,null,["\n                                    "])),(l()(),Un["\u0275ted"](-1,null,["\n                                "])),(l()(),Un["\u0275ted"](-1,null,["\n                                "])),(l()(),Un["\u0275eld"](60,0,null,null,31,"div",[["class","card-content"]],null,null,null,null,null)),(l()(),Un["\u0275ted"](-1,null,["\n                                    "])),(l()(),Un["\u0275eld"](62,0,null,null,28,"div",[["class","input-group"]],null,null,null,null,null)),(l()(),Un["\u0275ted"](-1,null,["\n                                        "])),(l()(),Un["\u0275eld"](64,0,null,null,4,"span",[["class","input-group-addon"]],null,null,null,null,null)),(l()(),Un["\u0275ted"](-1,null,["\n                                            "])),(l()(),Un["\u0275eld"](66,0,null,null,1,"i",[["class","material-icons"]],null,null,null,null,null)),(l()(),Un["\u0275ted"](-1,null,["lock"])),(l()(),Un["\u0275ted"](-1,null,["\n                                        "])),(l()(),Un["\u0275ted"](-1,null,["\n                                        "])),(l()(),Un["\u0275eld"](70,0,null,null,13,"div",[["class","form-group label-floating is-empty"]],null,null,null,null,null)),(l()(),Un["\u0275ted"](-1,null,["\n                                            "])),(l()(),Un["\u0275eld"](72,0,null,null,1,"label",[["class","control-label"]],null,null,null,null,null)),(l()(),Un["\u0275ted"](-1,null,["confirm password"])),(l()(),Un["\u0275ted"](-1,null,["\n                                            "])),(l()(),Un["\u0275eld"](75,0,null,null,5,"input",[["class","form-control"],["formControlName","newpassword"],["type","password"]],[[2,"ng-untouched",null],[2,"ng-touched",null],[2,"ng-pristine",null],[2,"ng-dirty",null],[2,"ng-valid",null],[2,"ng-invalid",null],[2,"ng-pending",null]],[[null,"input"],[null,"blur"],[null,"compositionstart"],[null,"compositionend"]],function(l,n,u){var e=!0;if("input"===n){e=!1!==Un["\u0275nov"](l,76)._handleInput(u.target.value)&&e}if("blur"===n){e=!1!==Un["\u0275nov"](l,76).onTouched()&&e}if("compositionstart"===n){e=!1!==Un["\u0275nov"](l,76)._compositionStart()&&e}if("compositionend"===n){e=!1!==Un["\u0275nov"](l,76)._compositionEnd(u.target.value)&&e}return e},null,null)),Un["\u0275did"](76,16384,null,0,Ln.DefaultValueAccessor,[Un.Renderer2,Un.ElementRef,[2,Ln.COMPOSITION_BUFFER_MODE]],null,null),Un["\u0275prd"](1024,null,Ln.NG_VALUE_ACCESSOR,function(l){return[l]},[Ln.DefaultValueAccessor]),Un["\u0275did"](78,671744,null,0,Ln.FormControlName,[[3,Ln.ControlContainer],[8,null],[8,null],[2,Ln.NG_VALUE_ACCESSOR]],{name:[0,"name"]},null),Un["\u0275prd"](2048,null,Ln.NgControl,null,[Ln.FormControlName]),Un["\u0275did"](80,16384,null,0,Ln.NgControlStatus,[Ln.NgControl],null,null),(l()(),Un["\u0275ted"](-1,null,["\n                                            "])),(l()(),Un["\u0275eld"](82,0,null,null,0,"span",[["class","material-input"]],null,null,null,null,null)),(l()(),Un["\u0275ted"](-1,null,["\n                                        "])),(l()(),Un["\u0275ted"](-1,null,["\n                                        "])),(l()(),Un["\u0275and"](16777216,null,null,1,null,c)),Un["\u0275did"](86,16384,null,0,Gn.NgIf,[Un.ViewContainerRef,Un.TemplateRef],{ngIf:[0,"ngIf"]},null),(l()(),Un["\u0275ted"](-1,null,["\n                                        "])),(l()(),Un["\u0275and"](16777216,null,null,1,null,p)),Un["\u0275did"](89,16384,null,0,Gn.NgIf,[Un.ViewContainerRef,Un.TemplateRef],{ngIf:[0,"ngIf"]},null),(l()(),Un["\u0275ted"](-1,null,["\n                                    "])),(l()(),Un["\u0275ted"](-1,null,["\n                                "])),(l()(),Un["\u0275ted"](-1,null,["\n                                "])),(l()(),Un["\u0275eld"](93,0,null,null,4,"div",[["class","footer text-center"]],null,null,null,null,null)),(l()(),Un["\u0275ted"](-1,null,["\n                                    "])),(l()(),Un["\u0275eld"](95,0,null,null,1,"button",[["class","btn bg-navyblue btn-wd btn-lg"]],[[8,"disabled",0]],null,null,null,null)),(l()(),Un["\u0275ted"](-1,null,["Submit"])),(l()(),Un["\u0275ted"](-1,null,["\n                                "])),(l()(),Un["\u0275ted"](-1,null,["\n                            "])),(l()(),Un["\u0275ted"](-1,null,["\n                        "])),(l()(),Un["\u0275ted"](-1,null,["\n                    "])),(l()(),Un["\u0275ted"](-1,null,["\n                "])),(l()(),Un["\u0275ted"](-1,null,["\n            "])),(l()(),Un["\u0275ted"](-1,null,["\n        "])),(l()(),Un["\u0275ted"](-1,null,["\n    "])),(l()(),Un["\u0275ted"](-1,null,["\n"]))],function(l,n){var u=n.component;l(n,15,0,u.resetPassForm);l(n,45,0,"password"),l(n,53,0,u.formErrors.password),l(n,56,0,""!=u.err);l(n,78,0,"newpassword"),l(n,86,0,u.formErrors.newpassword),l(n,89,0,""!=u.err)},function(l,n){var u=n.component;l(n,13,0,Un["\u0275nov"](n,17).ngClassUntouched,Un["\u0275nov"](n,17).ngClassTouched,Un["\u0275nov"](n,17).ngClassPristine,Un["\u0275nov"](n,17).ngClassDirty,Un["\u0275nov"](n,17).ngClassValid,Un["\u0275nov"](n,17).ngClassInvalid,Un["\u0275nov"](n,17).ngClassPending),l(n,42,0,Un["\u0275nov"](n,47).ngClassUntouched,Un["\u0275nov"](n,47).ngClassTouched,Un["\u0275nov"](n,47).ngClassPristine,Un["\u0275nov"](n,47).ngClassDirty,Un["\u0275nov"](n,47).ngClassValid,Un["\u0275nov"](n,47).ngClassInvalid,Un["\u0275nov"](n,47).ngClassPending),l(n,75,0,Un["\u0275nov"](n,80).ngClassUntouched,Un["\u0275nov"](n,80).ngClassTouched,Un["\u0275nov"](n,80).ngClassPristine,Un["\u0275nov"](n,80).ngClassDirty,Un["\u0275nov"](n,80).ngClassValid,Un["\u0275nov"](n,80).ngClassInvalid,Un["\u0275nov"](n,80).ngClassPending),l(n,95,0,!u.resetPassForm.valid)})}function m(l){return Un["\u0275vid"](0,[(l()(),Un["\u0275eld"](0,0,null,null,1,"app-admin-resetPassword",[],null,null,null,g,Hn)),Un["\u0275did"](1,114688,null,0,Tn,[xn.k,xn.a,sn,Bn.FlashMessagesService,Ln.FormBuilder],null,null)],function(l,n){l(n,1,0)},null)}function v(l){return Qn["\u0275vid"](0,[(l()(),Qn["\u0275eld"](0,0,null,null,98,"div",[["class","sidebar"],["data-color","navyblue"],["data-image","../assets/img/sidebar-1.jpg"]],null,null,null,null,null)),(l()(),Qn["\u0275ted"](-1,null,["\n    "])),(l()(),Qn["\u0275eld"](2,0,null,null,4,"div",[["class","logo"]],null,null,null,null,null)),(l()(),Qn["\u0275eld"](3,0,null,null,3,"a",[["class","simple-text"]],[[1,"target",0],[8,"href",4]],[[null,"click"]],function(l,n,u){var e=!0;if("click"===n){e=!1!==Qn["\u0275nov"](l,4).onClick(u.button,u.ctrlKey,u.metaKey,u.shiftKey)&&e}return e},null,null)),Qn["\u0275did"](4,671744,null,0,lu.m,[lu.k,lu.a,nu.LocationStrategy],{routerLink:[0,"routerLink"]},null),Qn["\u0275pad"](5,1),(l()(),Qn["\u0275ted"](-1,null,["Admin - Social Share"])),(l()(),Qn["\u0275ted"](-1,null,["\n    "])),(l()(),Qn["\u0275eld"](8,0,null,null,89,"div",[["class","sidebar-wrapper"]],null,null,null,null,null)),(l()(),Qn["\u0275ted"](-1,null,["\n        "])),(l()(),Qn["\u0275eld"](10,0,null,null,86,"ul",[["class","nav"]],null,null,null,null,null)),(l()(),Qn["\u0275ted"](-1,null,["\n            "])),(l()(),Qn["\u0275eld"](12,0,null,null,16,"li",[],null,null,null,null,null)),Qn["\u0275did"](13,1720320,null,2,lu.l,[lu.k,Qn.ElementRef,Qn.Renderer2,Qn.ChangeDetectorRef],{routerLinkActive:[0,"routerLinkActive"]},null),Qn["\u0275qud"](603979776,1,{links:1}),Qn["\u0275qud"](603979776,2,{linksWithHrefs:1}),Qn["\u0275pad"](16,1),(l()(),Qn["\u0275ted"](-1,null,["\n                "])),(l()(),Qn["\u0275eld"](18,0,null,null,9,"a",[],[[1,"target",0],[8,"href",4]],[[null,"click"]],function(l,n,u){var e=!0;if("click"===n){e=!1!==Qn["\u0275nov"](l,19).onClick(u.button,u.ctrlKey,u.metaKey,u.shiftKey)&&e}return e},null,null)),Qn["\u0275did"](19,671744,[[2,4]],0,lu.m,[lu.k,lu.a,nu.LocationStrategy],{routerLink:[0,"routerLink"]},null),Qn["\u0275pad"](20,1),(l()(),Qn["\u0275ted"](-1,null,["\n                    "])),(l()(),Qn["\u0275eld"](22,0,null,null,1,"i",[["class","material-icons"]],null,null,null,null,null)),(l()(),Qn["\u0275ted"](-1,null,["dashboard"])),(l()(),Qn["\u0275ted"](-1,null,["\n                    "])),(l()(),Qn["\u0275eld"](25,0,null,null,1,"p",[],null,null,null,null,null)),(l()(),Qn["\u0275ted"](-1,null,["Dashboard"])),(l()(),Qn["\u0275ted"](-1,null,["\n                "])),(l()(),Qn["\u0275ted"](-1,null,["\n            "])),(l()(),Qn["\u0275ted"](-1,null,["            \n            "])),(l()(),Qn["\u0275eld"](30,0,null,null,16,"li",[],null,null,null,null,null)),Qn["\u0275did"](31,1720320,null,2,lu.l,[lu.k,Qn.ElementRef,Qn.Renderer2,Qn.ChangeDetectorRef],{routerLinkActive:[0,"routerLinkActive"]},null),Qn["\u0275qud"](603979776,3,{links:1}),Qn["\u0275qud"](603979776,4,{linksWithHrefs:1}),Qn["\u0275pad"](34,1),(l()(),Qn["\u0275ted"](-1,null,["\n                "])),(l()(),Qn["\u0275eld"](36,0,null,null,9,"a",[],[[1,"target",0],[8,"href",4]],[[null,"click"]],function(l,n,u){var e=!0;if("click"===n){e=!1!==Qn["\u0275nov"](l,37).onClick(u.button,u.ctrlKey,u.metaKey,u.shiftKey)&&e}return e},null,null)),Qn["\u0275did"](37,671744,[[4,4]],0,lu.m,[lu.k,lu.a,nu.LocationStrategy],{routerLink:[0,"routerLink"]},null),Qn["\u0275pad"](38,1),(l()(),Qn["\u0275ted"](-1,null,["\n                    "])),(l()(),Qn["\u0275eld"](40,0,null,null,1,"i",[["class","material-icons"]],null,null,null,null,null)),(l()(),Qn["\u0275ted"](-1,null,["perm_identity"])),(l()(),Qn["\u0275ted"](-1,null,["\n                    "])),(l()(),Qn["\u0275eld"](43,0,null,null,1,"p",[],null,null,null,null,null)),(l()(),Qn["\u0275ted"](-1,null,["Users"])),(l()(),Qn["\u0275ted"](-1,null,["\n                "])),(l()(),Qn["\u0275ted"](-1,null,["\n            "])),(l()(),Qn["\u0275ted"](-1,null,["           \n            "])),(l()(),Qn["\u0275ted"](-1,null,["\n            "])),(l()(),Qn["\u0275eld"](49,0,null,null,16,"li",[],null,null,null,null,null)),Qn["\u0275did"](50,1720320,null,2,lu.l,[lu.k,Qn.ElementRef,Qn.Renderer2,Qn.ChangeDetectorRef],{routerLinkActive:[0,"routerLinkActive"]},null),Qn["\u0275qud"](603979776,5,{links:1}),Qn["\u0275qud"](603979776,6,{linksWithHrefs:1}),Qn["\u0275pad"](53,1),(l()(),Qn["\u0275ted"](-1,null,["\n                "])),(l()(),Qn["\u0275eld"](55,0,null,null,9,"a",[],[[1,"target",0],[8,"href",4]],[[null,"click"]],function(l,n,u){var e=!0;if("click"===n){e=!1!==Qn["\u0275nov"](l,56).onClick(u.button,u.ctrlKey,u.metaKey,u.shiftKey)&&e}return e},null,null)),Qn["\u0275did"](56,671744,[[6,4]],0,lu.m,[lu.k,lu.a,nu.LocationStrategy],{routerLink:[0,"routerLink"]},null),Qn["\u0275pad"](57,1),(l()(),Qn["\u0275ted"](-1,null,["\n                    "])),(l()(),Qn["\u0275eld"](59,0,null,null,1,"i",[["class","material-icons"]],null,null,null,null,null)),(l()(),Qn["\u0275ted"](-1,null,["description"])),(l()(),Qn["\u0275ted"](-1,null,["\n                    "])),(l()(),Qn["\u0275eld"](62,0,null,null,1,"p",[],null,null,null,null,null)),(l()(),Qn["\u0275ted"](-1,null,["Static Pages"])),(l()(),Qn["\u0275ted"](-1,null,["\n                "])),(l()(),Qn["\u0275ted"](-1,null,["\n            "])),(l()(),Qn["\u0275ted"](-1,null,["\n            "])),(l()(),Qn["\u0275eld"](67,0,null,null,16,"li",[],null,null,null,null,null)),Qn["\u0275did"](68,1720320,null,2,lu.l,[lu.k,Qn.ElementRef,Qn.Renderer2,Qn.ChangeDetectorRef],{routerLinkActive:[0,"routerLinkActive"]},null),Qn["\u0275qud"](603979776,7,{links:1}),Qn["\u0275qud"](603979776,8,{linksWithHrefs:1}),Qn["\u0275pad"](71,1),(l()(),Qn["\u0275ted"](-1,null,["\n                "])),(l()(),Qn["\u0275eld"](73,0,null,null,9,"a",[],[[1,"target",0],[8,"href",4]],[[null,"click"]],function(l,n,u){var e=!0;if("click"===n){e=!1!==Qn["\u0275nov"](l,74).onClick(u.button,u.ctrlKey,u.metaKey,u.shiftKey)&&e}return e},null,null)),Qn["\u0275did"](74,671744,[[8,4]],0,lu.m,[lu.k,lu.a,nu.LocationStrategy],{routerLink:[0,"routerLink"]},null),Qn["\u0275pad"](75,1),(l()(),Qn["\u0275ted"](-1,null,["\n                    "])),(l()(),Qn["\u0275eld"](77,0,null,null,1,"i",[["class","material-icons"]],null,null,null,null,null)),(l()(),Qn["\u0275ted"](-1,null,["person"])),(l()(),Qn["\u0275ted"](-1,null,["\n                    "])),(l()(),Qn["\u0275eld"](80,0,null,null,1,"p",[],null,null,null,null,null)),(l()(),Qn["\u0275ted"](-1,null,["Profile"])),(l()(),Qn["\u0275ted"](-1,null,["\n                "])),(l()(),Qn["\u0275ted"](-1,null,["\n            "])),(l()(),Qn["\u0275ted"](-1,null,["\n            "])),(l()(),Qn["\u0275eld"](85,0,null,null,10,"li",[["class","active active-pro"]],null,null,null,null,null)),(l()(),Qn["\u0275ted"](-1,null,["\n                "])),(l()(),Qn["\u0275eld"](87,0,null,null,7,"a",[["href","javascript:void(0)"]],null,[[null,"click"]],function(l,n,u){var e=!0,t=l.component;if("click"===n){e=!1!==t.onLogoutClick()&&e}return e},null,null)),(l()(),Qn["\u0275ted"](-1,null,["\n                    "])),(l()(),Qn["\u0275eld"](89,0,null,null,1,"i",[["class","material-icons"]],null,null,null,null,null)),(l()(),Qn["\u0275ted"](-1,null,["power_settings_new"])),(l()(),Qn["\u0275ted"](-1,null,["\n                    "])),(l()(),Qn["\u0275eld"](92,0,null,null,1,"p",[],null,null,null,null,null)),(l()(),Qn["\u0275ted"](-1,null,["Logout"])),(l()(),Qn["\u0275ted"](-1,null,["\n                "])),(l()(),Qn["\u0275ted"](-1,null,["\n            "])),(l()(),Qn["\u0275ted"](-1,null,["\n        "])),(l()(),Qn["\u0275ted"](-1,null,["\n    "])),(l()(),Qn["\u0275ted"](-1,null,["\n"]))],function(l,n){l(n,4,0,l(n,5,0,"/admin/dashboard")),l(n,13,0,l(n,16,0,"active")),l(n,19,0,l(n,20,0,"/admin/dashboard")),l(n,31,0,l(n,34,0,"active")),l(n,37,0,l(n,38,0,"/admin/user/")),l(n,50,0,l(n,53,0,"active")),l(n,56,0,l(n,57,0,"/admin/pages/")),l(n,68,0,l(n,71,0,"active")),l(n,74,0,l(n,75,0,"/admin/profile/"))},function(l,n){l(n,3,0,Qn["\u0275nov"](n,4).target,Qn["\u0275nov"](n,4).href),l(n,18,0,Qn["\u0275nov"](n,19).target,Qn["\u0275nov"](n,19).href),l(n,36,0,Qn["\u0275nov"](n,37).target,Qn["\u0275nov"](n,37).href),l(n,55,0,Qn["\u0275nov"](n,56).target,Qn["\u0275nov"](n,56).href),l(n,73,0,Qn["\u0275nov"](n,74).target,Qn["\u0275nov"](n,74).href)})}function f(l){return Qn["\u0275vid"](0,[(l()(),Qn["\u0275eld"](0,0,null,null,1,"app-sidebar",[],null,null,null,v,tu)),Qn["\u0275did"](1,114688,null,0,Xn,[sn,lu.k,uu.FlashMessagesService],null,null)],function(l,n){l(n,1,0)},null)}function h(l){return au["\u0275vid"](0,[(l()(),au["\u0275eld"](0,0,null,null,35,"nav",[["class","navbar navbar-transparent navbar-absolute"]],null,null,null,null,null)),(l()(),au["\u0275ted"](-1,null,["\n    "])),(l()(),au["\u0275eld"](2,0,null,null,32,"div",[["class","container-fluid"]],null,null,null,null,null)),(l()(),au["\u0275ted"](-1,null,["\n        "])),(l()(),au["\u0275eld"](4,0,null,null,13,"div",[["class","navbar-header"]],null,null,null,null,null)),(l()(),au["\u0275ted"](-1,null,["\n            "])),(l()(),au["\u0275eld"](6,0,null,null,10,"button",[["class","navbar-toggle"],["data-toggle","collapse"],["type","button"]],null,null,null,null,null)),(l()(),au["\u0275ted"](-1,null,["\n                "])),(l()(),au["\u0275eld"](8,0,null,null,1,"span",[["class","sr-only"]],null,null,null,null,null)),(l()(),au["\u0275ted"](-1,null,["Toggle navigation"])),(l()(),au["\u0275ted"](-1,null,["\n                "])),(l()(),au["\u0275eld"](11,0,null,null,0,"span",[["class","icon-bar"]],null,null,null,null,null)),(l()(),au["\u0275ted"](-1,null,["\n                "])),(l()(),au["\u0275eld"](13,0,null,null,0,"span",[["class","icon-bar"]],null,null,null,null,null)),(l()(),au["\u0275ted"](-1,null,["\n                "])),(l()(),au["\u0275eld"](15,0,null,null,0,"span",[["class","icon-bar"]],null,null,null,null,null)),(l()(),au["\u0275ted"](-1,null,["\n            "])),(l()(),au["\u0275ted"](-1,null,["\n            \n        "])),(l()(),au["\u0275ted"](-1,null,["\n        "])),(l()(),au["\u0275eld"](19,0,null,null,14,"div",[["class","collapse navbar-collapse"]],null,null,null,null,null)),(l()(),au["\u0275ted"](-1,null,["\n            "])),(l()(),au["\u0275eld"](21,0,null,null,1,"ul",[["class","nav navbar-nav navbar-right"]],null,null,null,null,null)),(l()(),au["\u0275ted"](-1,null,["\n                \n            "])),(l()(),au["\u0275ted"](-1,null,["\n            "])),(l()(),au["\u0275eld"](24,0,null,null,8,"form",[["class","navbar-form navbar-right"],["novalidate",""],["role","search"]],[[2,"ng-untouched",null],[2,"ng-touched",null],[2,"ng-pristine",null],[2,"ng-dirty",null],[2,"ng-valid",null],[2,"ng-invalid",null],[2,"ng-pending",null]],[[null,"submit"],[null,"reset"]],function(l,n,u){var e=!0;if("submit"===n){e=!1!==au["\u0275nov"](l,26).onSubmit(u)&&e}if("reset"===n){e=!1!==au["\u0275nov"](l,26).onReset()&&e}return e},null,null)),au["\u0275did"](25,16384,null,0,iu["\u0275bf"],[],null,null),au["\u0275did"](26,16384,null,0,iu.NgForm,[[8,null],[8,null]],null,null),au["\u0275prd"](2048,null,iu.ControlContainer,null,[iu.NgForm]),au["\u0275did"](28,16384,null,0,iu.NgControlStatusGroup,[iu.ControlContainer],null,null),(l()(),au["\u0275ted"](-1,null,["\n                "])),(l()(),au["\u0275eld"](30,0,null,null,1,"div",[["class","form-group  is-empty"]],null,null,null,null,null)),(l()(),au["\u0275ted"](-1,null,["\n                   \n                "])),(l()(),au["\u0275ted"](-1,null,["               \n            "])),(l()(),au["\u0275ted"](-1,null,["\n        "])),(l()(),au["\u0275ted"](-1,null,["\n    "])),(l()(),au["\u0275ted"](-1,null,["\n"]))],null,function(l,n){l(n,24,0,au["\u0275nov"](n,28).ngClassUntouched,au["\u0275nov"](n,28).ngClassTouched,au["\u0275nov"](n,28).ngClassPristine,au["\u0275nov"](n,28).ngClassDirty,au["\u0275nov"](n,28).ngClassValid,au["\u0275nov"](n,28).ngClassInvalid,au["\u0275nov"](n,28).ngClassPending)})}function C(l){return au["\u0275vid"](0,[(l()(),au["\u0275eld"](0,0,null,null,1,"app-header",[],null,null,null,h,du)),au["\u0275did"](1,114688,null,0,ru,[],null,null)],function(l,n){l(n,1,0)},null)}function b(l){return Cu["\u0275vid"](0,[(l()(),Cu["\u0275eld"](0,0,null,null,86,"div",[["class","wrapper"]],null,null,null,null,null)),(l()(),Cu["\u0275ted"](-1,null,["\n\t"])),(l()(),Cu["\u0275eld"](2,0,null,null,1,"app-sidebar",[],null,null,null,v,tu)),Cu["\u0275did"](3,114688,null,0,Xn,[sn,bu.k,Fu.FlashMessagesService],null,null),(l()(),Cu["\u0275ted"](-1,null,["\n\t"])),(l()(),Cu["\u0275eld"](5,0,null,null,80,"div",[["class","main-panel"]],null,null,null,null,null)),(l()(),Cu["\u0275ted"](-1,null,["\n\t\t"])),(l()(),Cu["\u0275eld"](7,0,null,null,1,"app-header",[],null,null,null,h,du)),Cu["\u0275did"](8,114688,null,0,ru,[],null,null),(l()(),Cu["\u0275ted"](-1,null,["\n        "])),(l()(),Cu["\u0275eld"](10,0,null,null,74,"div",[["class","content"]],null,null,null,null,null)),(l()(),Cu["\u0275ted"](-1,null,["\n            "])),(l()(),Cu["\u0275eld"](12,0,null,null,71,"div",[["class","container-fluid"]],null,null,null,null,null)),(l()(),Cu["\u0275ted"](-1,null,["\n            \t"])),(l()(),Cu["\u0275eld"](14,0,null,null,68,"div",[["class","row"]],null,null,null,null,null)),(l()(),Cu["\u0275ted"](-1,null,["\n                    "])),(l()(),Cu["\u0275eld"](16,0,null,null,31,"div",[["class","col-lg-3 col-md-6 col-sm-6"]],null,null,null,null,null)),(l()(),Cu["\u0275ted"](-1,null,["\n                        "])),(l()(),Cu["\u0275eld"](18,0,null,null,28,"div",[["class","card card-stats"]],null,null,null,null,null)),(l()(),Cu["\u0275ted"](-1,null,["\n                            "])),(l()(),Cu["\u0275eld"](20,0,null,null,4,"div",[["class","card-header"],["data-background-color","navyblue"]],null,null,null,null,null)),(l()(),Cu["\u0275ted"](-1,null,["\n                                "])),(l()(),Cu["\u0275eld"](22,0,null,null,1,"i",[["class","material-icons"]],null,null,null,null,null)),(l()(),Cu["\u0275ted"](-1,null,["perm_identity"])),(l()(),Cu["\u0275ted"](-1,null,["\n                            "])),(l()(),Cu["\u0275ted"](-1,null,["\n                            "])),(l()(),Cu["\u0275eld"](26,0,null,null,8,"div",[["class","card-content"]],null,null,null,null,null)),(l()(),Cu["\u0275ted"](-1,null,["\n                                "])),(l()(),Cu["\u0275eld"](28,0,null,null,1,"p",[["class","category"]],null,null,null,null,null)),(l()(),Cu["\u0275ted"](-1,null,["Users"])),(l()(),Cu["\u0275eld"](30,0,null,null,0,"br",[],null,null,null,null,null)),(l()(),Cu["\u0275ted"](-1,null,["\n                                "])),(l()(),Cu["\u0275eld"](32,0,null,null,1,"h3",[["class","title"]],null,null,null,null,null)),(l()(),Cu["\u0275ted"](33,null,["",""])),(l()(),Cu["\u0275ted"](-1,null,["\n                            "])),(l()(),Cu["\u0275ted"](-1,null,["\n                            "])),(l()(),Cu["\u0275eld"](36,0,null,null,9,"div",[["class","card-footer"]],null,null,null,null,null)),(l()(),Cu["\u0275ted"](-1,null,["\n                                "])),(l()(),Cu["\u0275eld"](38,0,null,null,6,"div",[["class","stats"]],null,null,null,null,null)),(l()(),Cu["\u0275ted"](-1,null,["\n                                    "])),(l()(),Cu["\u0275eld"](40,0,null,null,3,"a",[],[[1,"target",0],[8,"href",4]],[[null,"click"]],function(l,n,u){var e=!0;if("click"===n){e=!1!==Cu["\u0275nov"](l,41).onClick(u.button,u.ctrlKey,u.metaKey,u.shiftKey)&&e}return e},null,null)),Cu["\u0275did"](41,671744,null,0,bu.m,[bu.k,bu.a,yu.LocationStrategy],{routerLink:[0,"routerLink"]},null),Cu["\u0275pad"](42,1),(l()(),Cu["\u0275ted"](-1,null,["Get More..."])),(l()(),Cu["\u0275ted"](-1,null,["\n                                "])),(l()(),Cu["\u0275ted"](-1,null,["\n                            "])),(l()(),Cu["\u0275ted"](-1,null,["\n                        "])),(l()(),Cu["\u0275ted"](-1,null,["\n                    "])),(l()(),Cu["\u0275ted"](-1,null,["\n                    "])),(l()(),Cu["\u0275ted"](-1,null,["\n                     "])),(l()(),Cu["\u0275eld"](50,0,null,null,31,"div",[["class","col-lg-3 col-md-6 col-sm-6"]],null,null,null,null,null)),(l()(),Cu["\u0275ted"](-1,null,["\n                        "])),(l()(),Cu["\u0275eld"](52,0,null,null,28,"div",[["class","card card-stats"]],null,null,null,null,null)),(l()(),Cu["\u0275ted"](-1,null,["\n                            "])),(l()(),Cu["\u0275eld"](54,0,null,null,4,"div",[["class","card-header"],["data-background-color","navyblue"]],null,null,null,null,null)),(l()(),Cu["\u0275ted"](-1,null,["\n                                "])),(l()(),Cu["\u0275eld"](56,0,null,null,1,"i",[["class","material-icons"]],null,null,null,null,null)),(l()(),Cu["\u0275ted"](-1,null,["description"])),(l()(),Cu["\u0275ted"](-1,null,["\n                            "])),(l()(),Cu["\u0275ted"](-1,null,["\n                            "])),(l()(),Cu["\u0275eld"](60,0,null,null,8,"div",[["class","card-content"]],null,null,null,null,null)),(l()(),Cu["\u0275ted"](-1,null,["\n                                "])),(l()(),Cu["\u0275eld"](62,0,null,null,1,"p",[["class","category"]],null,null,null,null,null)),(l()(),Cu["\u0275ted"](-1,null,["Static Pages"])),(l()(),Cu["\u0275eld"](64,0,null,null,0,"br",[],null,null,null,null,null)),(l()(),Cu["\u0275ted"](-1,null,["\n                                "])),(l()(),Cu["\u0275eld"](66,0,null,null,1,"h3",[["class","title"]],null,null,null,null,null)),(l()(),Cu["\u0275ted"](67,null,["",""])),(l()(),Cu["\u0275ted"](-1,null,["\n                            "])),(l()(),Cu["\u0275ted"](-1,null,["\n                            "])),(l()(),Cu["\u0275eld"](70,0,null,null,9,"div",[["class","card-footer"]],null,null,null,null,null)),(l()(),Cu["\u0275ted"](-1,null,["\n                                "])),(l()(),Cu["\u0275eld"](72,0,null,null,6,"div",[["class","stats"]],null,null,null,null,null)),(l()(),Cu["\u0275ted"](-1,null,["\n                                    "])),(l()(),Cu["\u0275eld"](74,0,null,null,3,"a",[],[[1,"target",0],[8,"href",4]],[[null,"click"]],function(l,n,u){var e=!0;if("click"===n){e=!1!==Cu["\u0275nov"](l,75).onClick(u.button,u.ctrlKey,u.metaKey,u.shiftKey)&&e}return e},null,null)),Cu["\u0275did"](75,671744,null,0,bu.m,[bu.k,bu.a,yu.LocationStrategy],{routerLink:[0,"routerLink"]},null),Cu["\u0275pad"](76,1),(l()(),Cu["\u0275ted"](-1,null,["Get More..."])),(l()(),Cu["\u0275ted"](-1,null,["\n                                "])),(l()(),Cu["\u0275ted"](-1,null,["\n                            "])),(l()(),Cu["\u0275ted"](-1,null,["\n                        "])),(l()(),Cu["\u0275ted"](-1,null,["\n                    "])),(l()(),Cu["\u0275ted"](-1,null,["\n                "])),(l()(),Cu["\u0275ted"](-1,null,["\n            "])),(l()(),Cu["\u0275ted"](-1,null,["\n        "])),(l()(),Cu["\u0275ted"](-1,null,["\n\t"])),(l()(),Cu["\u0275ted"](-1,null,["\n"]))],function(l,n){l(n,3,0),l(n,8,0),l(n,41,0,l(n,42,0,"/admin/user/")),l(n,75,0,l(n,76,0,"/admin/pages/"))},function(l,n){var u=n.component;l(n,33,0,u.userCount),l(n,40,0,Cu["\u0275nov"](n,41).target,Cu["\u0275nov"](n,41).href),l(n,67,0,u.pageCount),l(n,74,0,Cu["\u0275nov"](n,75).target,Cu["\u0275nov"](n,75).href)})}function F(l){return Cu["\u0275vid"](0,[(l()(),Cu["\u0275eld"](0,0,null,null,1,"app-dashboard",[],null,null,null,b,_u)),Cu["\u0275did"](1,114688,null,0,hu,[fu,gu,sn],null,null)],function(l,n){l(n,1,0)},null)}function y(l){return Iu["\u0275vid"](0,[(l()(),Iu["\u0275eld"](0,0,null,null,1,"div",[["class","alert alert-danger"]],null,null,null,null,null)),(l()(),Iu["\u0275ted"](1,null,["\n                                                    ","\n                                                "]))],null,function(l,n){l(n,1,0,n.component.formErrors.firstname)})}function S(l){return Iu["\u0275vid"](0,[(l()(),Iu["\u0275eld"](0,0,null,null,1,"div",[["class","alert alert-danger"]],null,null,null,null,null)),(l()(),Iu["\u0275ted"](1,null,["\n                                                    ","\n                                                "]))],null,function(l,n){l(n,1,0,n.component.formErrors.lastname)})}function _(l){return Iu["\u0275vid"](0,[(l()(),Iu["\u0275eld"](0,0,null,null,1,"div",[["class","alert alert-danger"]],null,null,null,null,null)),(l()(),Iu["\u0275ted"](1,null,["\n                                                    ","\n                                                "]))],null,function(l,n){l(n,1,0,n.component.formErrors.email)})}function N(l){return Iu["\u0275vid"](0,[(l()(),Iu["\u0275eld"](0,0,null,null,1,"div",[["class","alert alert-danger"]],null,null,null,null,null)),(l()(),Iu["\u0275ted"](1,null,["\n                                                    ","\n                                                "]))],null,function(l,n){l(n,1,0,n.component.formErrors.phonenumber)})}function E(l){return Iu["\u0275vid"](0,[(l()(),Iu["\u0275eld"](0,0,null,null,1,"div",[["class","alert alert-danger"]],null,null,null,null,null)),(l()(),Iu["\u0275ted"](1,null,["\n                                                    ","\n                                                "]))],null,function(l,n){l(n,1,0,n.component.formErrors.dob)})}function w(l){return Iu["\u0275vid"](0,[(l()(),Iu["\u0275eld"](0,0,null,null,1,"div",[["class","alert alert-danger"]],null,null,null,null,null)),(l()(),Iu["\u0275ted"](1,null,["\n                                                    ","\n                                                "]))],null,function(l,n){l(n,1,0,n.component.cpFormErrors.newpassword)})}function k(l){return Iu["\u0275vid"](0,[(l()(),Iu["\u0275eld"](0,0,null,null,1,"div",[["class","alert alert-danger"]],null,null,null,null,null)),(l()(),Iu["\u0275ted"](1,null,["\n                                                    ","\n                                                "]))],null,function(l,n){l(n,1,0,n.component.err)})}function A(l){return Iu["\u0275vid"](0,[(l()(),Iu["\u0275eld"](0,0,null,null,216,"div",[["class","wrapper"]],null,null,null,null,null)),(l()(),Iu["\u0275ted"](-1,null,["\n\t"])),(l()(),Iu["\u0275eld"](2,0,null,null,1,"app-sidebar",[],null,null,null,v,tu)),Iu["\u0275did"](3,114688,null,0,Xn,[sn,Ou.k,Ru.FlashMessagesService],null,null),(l()(),Iu["\u0275ted"](-1,null,["\n\t"])),(l()(),Iu["\u0275eld"](5,0,null,null,210,"div",[["class","main-panel"]],null,null,null,null,null)),(l()(),Iu["\u0275ted"](-1,null,["\n\t\t"])),(l()(),Iu["\u0275eld"](7,0,null,null,1,"app-header",[],null,null,null,h,du)),Iu["\u0275did"](8,114688,null,0,ru,[],null,null),(l()(),Iu["\u0275ted"](-1,null,["\n        "])),(l()(),Iu["\u0275eld"](10,0,null,null,204,"div",[["class","content"]],null,null,null,null,null)),(l()(),Iu["\u0275ted"](-1,null,["\n            "])),(l()(),Iu["\u0275eld"](12,0,null,null,201,"div",[["class","container-fluid"]],null,null,null,null,null)),(l()(),Iu["\u0275ted"](-1,null,["\n            \t"])),(l()(),Iu["\u0275eld"](14,0,null,null,198,"div",[["class","row"]],null,null,null,null,null)),(l()(),Iu["\u0275ted"](-1,null,["\n                    "])),(l()(),Iu["\u0275eld"](16,0,null,null,195,"div",[["class","row"]],null,null,null,null,null)),(l()(),Iu["\u0275ted"](-1,null,["\n                        "])),(l()(),Iu["\u0275eld"](18,0,null,null,129,"div",[["class","col-md-8"]],null,null,null,null,null)),(l()(),Iu["\u0275ted"](-1,null,["\n                            "])),(l()(),Iu["\u0275eld"](20,0,null,null,126,"div",[["class","card"]],null,null,null,null,null)),(l()(),Iu["\u0275ted"](-1,null,["\n                                "])),(l()(),Iu["\u0275eld"](22,0,null,null,4,"div",[["class","card-header"],["data-background-color","navyblue"]],null,null,null,null,null)),(l()(),Iu["\u0275ted"](-1,null,["\n                                    "])),(l()(),Iu["\u0275eld"](24,0,null,null,1,"h4",[["class","title"]],null,null,null,null,null)),(l()(),Iu["\u0275ted"](-1,null,["Edit Admin Profile"])),(l()(),Iu["\u0275ted"](-1,null,["\n                                "])),(l()(),Iu["\u0275ted"](-1,null,["\n                                "])),(l()(),Iu["\u0275eld"](28,0,null,null,117,"div",[["class","card-content"]],null,null,null,null,null)),(l()(),Iu["\u0275ted"](-1,null,["\n                                    "])),(l()(),Iu["\u0275eld"](30,0,null,null,114,"form",[["novalidate",""]],[[2,"ng-untouched",null],[2,"ng-touched",null],[2,"ng-pristine",null],[2,"ng-dirty",null],[2,"ng-valid",null],[2,"ng-invalid",null],[2,"ng-pending",null]],[[null,"ngSubmit"],[null,"submit"],[null,"reset"]],function(l,n,u){var e=!0,t=l.component;if("submit"===n){e=!1!==Iu["\u0275nov"](l,32).onSubmit(u)&&e}if("reset"===n){e=!1!==Iu["\u0275nov"](l,32).onReset()&&e}if("ngSubmit"===n){e=!1!==t.adminUpdate()&&e}return e},null,null)),Iu["\u0275did"](31,16384,null,0,Du["\u0275bf"],[],null,null),Iu["\u0275did"](32,540672,null,0,Du.FormGroupDirective,[[8,null],[8,null]],{form:[0,"form"]},{ngSubmit:"ngSubmit"}),Iu["\u0275prd"](2048,null,Du.ControlContainer,null,[Du.FormGroupDirective]),Iu["\u0275did"](34,16384,null,0,Du.NgControlStatusGroup,[Du.ControlContainer],null,null),(l()(),Iu["\u0275ted"](-1,null,["\n                                        "])),(l()(),Iu["\u0275eld"](36,0,null,null,39,"div",[["class","row"]],null,null,null,null,null)),(l()(),Iu["\u0275ted"](-1,null,["\n                                            "])),(l()(),Iu["\u0275eld"](38,0,null,null,17,"div",[["class","col-md-6"]],null,null,null,null,null)),(l()(),Iu["\u0275ted"](-1,null,["\n                                                "])),(l()(),Iu["\u0275eld"](40,0,null,null,11,"div",[["class","form-group "]],null,null,null,null,null)),(l()(),Iu["\u0275ted"](-1,null,["\n                                                    "])),(l()(),Iu["\u0275eld"](42,0,null,null,1,"label",[["class","control-label"]],null,null,null,null,null)),(l()(),Iu["\u0275ted"](-1,null,["Fist Name"])),(l()(),Iu["\u0275ted"](-1,null,["\n                                                    "])),(l()(),Iu["\u0275eld"](45,0,null,null,5,"input",[["autofocus",""],["class","form-control"],["formControlName","firstname"],["type","text"]],[[2,"ng-untouched",null],[2,"ng-touched",null],[2,"ng-pristine",null],[2,"ng-dirty",null],[2,"ng-valid",null],[2,"ng-invalid",null],[2,"ng-pending",null]],[[null,"input"],[null,"blur"],[null,"compositionstart"],[null,"compositionend"]],function(l,n,u){var e=!0;if("input"===n){e=!1!==Iu["\u0275nov"](l,46)._handleInput(u.target.value)&&e}if("blur"===n){e=!1!==Iu["\u0275nov"](l,46).onTouched()&&e}if("compositionstart"===n){e=!1!==Iu["\u0275nov"](l,46)._compositionStart()&&e}if("compositionend"===n){e=!1!==Iu["\u0275nov"](l,46)._compositionEnd(u.target.value)&&e}return e},null,null)),Iu["\u0275did"](46,16384,null,0,Du.DefaultValueAccessor,[Iu.Renderer2,Iu.ElementRef,[2,Du.COMPOSITION_BUFFER_MODE]],null,null),Iu["\u0275prd"](1024,null,Du.NG_VALUE_ACCESSOR,function(l){return[l]},[Du.DefaultValueAccessor]),Iu["\u0275did"](48,671744,null,0,Du.FormControlName,[[3,Du.ControlContainer],[8,null],[8,null],[2,Du.NG_VALUE_ACCESSOR]],{name:[0,"name"]},null),Iu["\u0275prd"](2048,null,Du.NgControl,null,[Du.FormControlName]),Iu["\u0275did"](50,16384,null,0,Du.NgControlStatus,[Du.NgControl],null,null),(l()(),Iu["\u0275ted"](-1,null,["\n                                                "])),(l()(),Iu["\u0275ted"](-1,null,["\n                                                "])),(l()(),Iu["\u0275and"](16777216,null,null,1,null,y)),Iu["\u0275did"](54,16384,null,0,Vu.NgIf,[Iu.ViewContainerRef,Iu.TemplateRef],{ngIf:[0,"ngIf"]},null),(l()(),Iu["\u0275ted"](-1,null,["\n                                            "])),(l()(),Iu["\u0275ted"](-1,null,["\n                                            "])),(l()(),Iu["\u0275eld"](57,0,null,null,17,"div",[["class","col-md-6"]],null,null,null,null,null)),(l()(),Iu["\u0275ted"](-1,null,["\n                                                "])),(l()(),Iu["\u0275eld"](59,0,null,null,11,"div",[["class","form-group "]],null,null,null,null,null)),(l()(),Iu["\u0275ted"](-1,null,["\n                                                    "])),(l()(),Iu["\u0275eld"](61,0,null,null,1,"label",[["class","control-label"]],null,null,null,null,null)),(l()(),Iu["\u0275ted"](-1,null,["Last Name"])),(l()(),Iu["\u0275ted"](-1,null,["\n                                                    "])),(l()(),Iu["\u0275eld"](64,0,null,null,5,"input",[["class","form-control"],["formControlName","lastname"],["type","text"]],[[2,"ng-untouched",null],[2,"ng-touched",null],[2,"ng-pristine",null],[2,"ng-dirty",null],[2,"ng-valid",null],[2,"ng-invalid",null],[2,"ng-pending",null]],[[null,"input"],[null,"blur"],[null,"compositionstart"],[null,"compositionend"]],function(l,n,u){var e=!0;if("input"===n){e=!1!==Iu["\u0275nov"](l,65)._handleInput(u.target.value)&&e}if("blur"===n){e=!1!==Iu["\u0275nov"](l,65).onTouched()&&e}if("compositionstart"===n){e=!1!==Iu["\u0275nov"](l,65)._compositionStart()&&e}if("compositionend"===n){e=!1!==Iu["\u0275nov"](l,65)._compositionEnd(u.target.value)&&e}return e},null,null)),Iu["\u0275did"](65,16384,null,0,Du.DefaultValueAccessor,[Iu.Renderer2,Iu.ElementRef,[2,Du.COMPOSITION_BUFFER_MODE]],null,null),Iu["\u0275prd"](1024,null,Du.NG_VALUE_ACCESSOR,function(l){return[l]},[Du.DefaultValueAccessor]),Iu["\u0275did"](67,671744,null,0,Du.FormControlName,[[3,Du.ControlContainer],[8,null],[8,null],[2,Du.NG_VALUE_ACCESSOR]],{name:[0,"name"]},null),Iu["\u0275prd"](2048,null,Du.NgControl,null,[Du.FormControlName]),Iu["\u0275did"](69,16384,null,0,Du.NgControlStatus,[Du.NgControl],null,null),(l()(),Iu["\u0275ted"](-1,null,["\n                                                "])),(l()(),Iu["\u0275ted"](-1,null,["\n                                                "])),(l()(),Iu["\u0275and"](16777216,null,null,1,null,S)),Iu["\u0275did"](73,16384,null,0,Vu.NgIf,[Iu.ViewContainerRef,Iu.TemplateRef],{ngIf:[0,"ngIf"]},null),(l()(),Iu["\u0275ted"](-1,null,["\n                                            "])),(l()(),Iu["\u0275ted"](-1,null,["\n                                        "])),(l()(),Iu["\u0275ted"](-1,null,["\n                                        "])),(l()(),Iu["\u0275eld"](77,0,null,null,39,"div",[["class","row"]],null,null,null,null,null)),(l()(),Iu["\u0275ted"](-1,null,["\n                                            "])),(l()(),Iu["\u0275eld"](79,0,null,null,17,"div",[["class","col-md-6"]],null,null,null,null,null)),(l()(),Iu["\u0275ted"](-1,null,["\n                                                "])),(l()(),Iu["\u0275eld"](81,0,null,null,11,"div",[["class","form-group "]],null,null,null,null,null)),(l()(),Iu["\u0275ted"](-1,null,["\n                                                    "])),(l()(),Iu["\u0275eld"](83,0,null,null,1,"label",[["class","control-label"]],null,null,null,null,null)),(l()(),Iu["\u0275ted"](-1,null,["Email address"])),(l()(),Iu["\u0275ted"](-1,null,["\n                                                    "])),(l()(),Iu["\u0275eld"](86,0,null,null,5,"input",[["class","form-control"],["formControlName","email"],["type","email"]],[[2,"ng-untouched",null],[2,"ng-touched",null],[2,"ng-pristine",null],[2,"ng-dirty",null],[2,"ng-valid",null],[2,"ng-invalid",null],[2,"ng-pending",null]],[[null,"input"],[null,"blur"],[null,"compositionstart"],[null,"compositionend"]],function(l,n,u){var e=!0;if("input"===n){e=!1!==Iu["\u0275nov"](l,87)._handleInput(u.target.value)&&e}if("blur"===n){e=!1!==Iu["\u0275nov"](l,87).onTouched()&&e}if("compositionstart"===n){e=!1!==Iu["\u0275nov"](l,87)._compositionStart()&&e}if("compositionend"===n){e=!1!==Iu["\u0275nov"](l,87)._compositionEnd(u.target.value)&&e}return e},null,null)),Iu["\u0275did"](87,16384,null,0,Du.DefaultValueAccessor,[Iu.Renderer2,Iu.ElementRef,[2,Du.COMPOSITION_BUFFER_MODE]],null,null),Iu["\u0275prd"](1024,null,Du.NG_VALUE_ACCESSOR,function(l){return[l]},[Du.DefaultValueAccessor]),Iu["\u0275did"](89,671744,null,0,Du.FormControlName,[[3,Du.ControlContainer],[8,null],[8,null],[2,Du.NG_VALUE_ACCESSOR]],{name:[0,"name"]},null),Iu["\u0275prd"](2048,null,Du.NgControl,null,[Du.FormControlName]),Iu["\u0275did"](91,16384,null,0,Du.NgControlStatus,[Du.NgControl],null,null),(l()(),Iu["\u0275ted"](-1,null,["\n                                                "])),(l()(),Iu["\u0275ted"](-1,null,["\n                                                "])),(l()(),Iu["\u0275and"](16777216,null,null,1,null,_)),Iu["\u0275did"](95,16384,null,0,Vu.NgIf,[Iu.ViewContainerRef,Iu.TemplateRef],{ngIf:[0,"ngIf"]},null),(l()(),Iu["\u0275ted"](-1,null,["\n                                            "])),(l()(),Iu["\u0275ted"](-1,null,["\n                                            "])),(l()(),Iu["\u0275eld"](98,0,null,null,17,"div",[["class","col-md-6"]],null,null,null,null,null)),(l()(),Iu["\u0275ted"](-1,null,["\n                                                "])),(l()(),Iu["\u0275eld"](100,0,null,null,11,"div",[["class","form-group "]],null,null,null,null,null)),(l()(),Iu["\u0275ted"](-1,null,["\n                                                    "])),(l()(),Iu["\u0275eld"](102,0,null,null,1,"label",[["class","control-label"]],null,null,null,null,null)),(l()(),Iu["\u0275ted"](-1,null,["Phone Number"])),(l()(),Iu["\u0275ted"](-1,null,["\n                                                    "])),(l()(),Iu["\u0275eld"](105,0,null,null,5,"input",[["class","form-control"],["formControlName","phonenumber"],["type","text"]],[[2,"ng-untouched",null],[2,"ng-touched",null],[2,"ng-pristine",null],[2,"ng-dirty",null],[2,"ng-valid",null],[2,"ng-invalid",null],[2,"ng-pending",null]],[[null,"input"],[null,"blur"],[null,"compositionstart"],[null,"compositionend"]],function(l,n,u){var e=!0;if("input"===n){e=!1!==Iu["\u0275nov"](l,106)._handleInput(u.target.value)&&e}if("blur"===n){e=!1!==Iu["\u0275nov"](l,106).onTouched()&&e}if("compositionstart"===n){e=!1!==Iu["\u0275nov"](l,106)._compositionStart()&&e}if("compositionend"===n){e=!1!==Iu["\u0275nov"](l,106)._compositionEnd(u.target.value)&&e}return e},null,null)),Iu["\u0275did"](106,16384,null,0,Du.DefaultValueAccessor,[Iu.Renderer2,Iu.ElementRef,[2,Du.COMPOSITION_BUFFER_MODE]],null,null),Iu["\u0275prd"](1024,null,Du.NG_VALUE_ACCESSOR,function(l){return[l]},[Du.DefaultValueAccessor]),Iu["\u0275did"](108,671744,null,0,Du.FormControlName,[[3,Du.ControlContainer],[8,null],[8,null],[2,Du.NG_VALUE_ACCESSOR]],{name:[0,"name"]},null),Iu["\u0275prd"](2048,null,Du.NgControl,null,[Du.FormControlName]),Iu["\u0275did"](110,16384,null,0,Du.NgControlStatus,[Du.NgControl],null,null),(l()(),Iu["\u0275ted"](-1,null,["\n                                                "])),(l()(),Iu["\u0275ted"](-1,null,["\n                                                "])),(l()(),Iu["\u0275and"](16777216,null,null,1,null,N)),Iu["\u0275did"](114,16384,null,0,Vu.NgIf,[Iu.ViewContainerRef,Iu.TemplateRef],{ngIf:[0,"ngIf"]},null),(l()(),Iu["\u0275ted"](-1,null,["\n                                            "])),(l()(),Iu["\u0275ted"](-1,null,["\n                                        "])),(l()(),Iu["\u0275ted"](-1,null,["\n                                        "])),(l()(),Iu["\u0275eld"](118,0,null,null,20,"div",[["class","row"]],null,null,null,null,null)),(l()(),Iu["\u0275ted"](-1,null,["\n                                            "])),(l()(),Iu["\u0275eld"](120,0,null,null,17,"div",[["class","col-md-6"]],null,null,null,null,null)),(l()(),Iu["\u0275ted"](-1,null,["\n                                                "])),(l()(),Iu["\u0275eld"](122,0,null,null,11,"div",[["class","form-group "]],null,null,null,null,null)),(l()(),Iu["\u0275ted"](-1,null,["\n                                                    "])),(l()(),Iu["\u0275eld"](124,0,null,null,1,"label",[["class","control-label"]],null,null,null,null,null)),(l()(),Iu["\u0275ted"](-1,null,["Date Of Birth"])),(l()(),Iu["\u0275ted"](-1,null,["\n                                                    "])),(l()(),Iu["\u0275eld"](127,0,null,null,5,"input",[["class","form-control"],["formControlName","dob"],["type","text"]],[[2,"ng-untouched",null],[2,"ng-touched",null],[2,"ng-pristine",null],[2,"ng-dirty",null],[2,"ng-valid",null],[2,"ng-invalid",null],[2,"ng-pending",null]],[[null,"input"],[null,"blur"],[null,"compositionstart"],[null,"compositionend"]],function(l,n,u){var e=!0;if("input"===n){e=!1!==Iu["\u0275nov"](l,128)._handleInput(u.target.value)&&e}if("blur"===n){e=!1!==Iu["\u0275nov"](l,128).onTouched()&&e}if("compositionstart"===n){e=!1!==Iu["\u0275nov"](l,128)._compositionStart()&&e}if("compositionend"===n){e=!1!==Iu["\u0275nov"](l,128)._compositionEnd(u.target.value)&&e}return e},null,null)),Iu["\u0275did"](128,16384,null,0,Du.DefaultValueAccessor,[Iu.Renderer2,Iu.ElementRef,[2,Du.COMPOSITION_BUFFER_MODE]],null,null),Iu["\u0275prd"](1024,null,Du.NG_VALUE_ACCESSOR,function(l){return[l]},[Du.DefaultValueAccessor]),Iu["\u0275did"](130,671744,null,0,Du.FormControlName,[[3,Du.ControlContainer],[8,null],[8,null],[2,Du.NG_VALUE_ACCESSOR]],{name:[0,"name"]},null),Iu["\u0275prd"](2048,null,Du.NgControl,null,[Du.FormControlName]),Iu["\u0275did"](132,16384,null,0,Du.NgControlStatus,[Du.NgControl],null,null),(l()(),Iu["\u0275ted"](-1,null,["\n                                                "])),(l()(),Iu["\u0275ted"](-1,null,["\n                                                "])),(l()(),Iu["\u0275and"](16777216,null,null,1,null,E)),Iu["\u0275did"](136,16384,null,0,Vu.NgIf,[Iu.ViewContainerRef,Iu.TemplateRef],{ngIf:[0,"ngIf"]},null),(l()(),Iu["\u0275ted"](-1,null,["\n                                            "])),(l()(),Iu["\u0275ted"](-1,null,["\n                                        "])),(l()(),Iu["\u0275ted"](-1,null,["\n                                        "])),(l()(),Iu["\u0275eld"](140,0,null,null,1,"button",[["class","btn bg-navyblue pull-right"],["type","submit"]],[[8,"disabled",0]],null,null,null,null)),(l()(),Iu["\u0275ted"](-1,null,["Save"])),(l()(),Iu["\u0275ted"](-1,null,["\n                                        "])),(l()(),Iu["\u0275eld"](143,0,null,null,0,"div",[["class","clearfix"]],null,null,null,null,null)),(l()(),Iu["\u0275ted"](-1,null,["\n                                    "])),(l()(),Iu["\u0275ted"](-1,null,["\n                                "])),(l()(),Iu["\u0275ted"](-1,null,["\n                            "])),(l()(),Iu["\u0275ted"](-1,null,["\n                        "])),(l()(),Iu["\u0275ted"](-1,null,["\n\n                        "])),(l()(),Iu["\u0275eld"](149,0,null,null,61,"div",[["class","col-md-4"]],null,null,null,null,null)),(l()(),Iu["\u0275ted"](-1,null,["\n                            "])),(l()(),Iu["\u0275eld"](151,0,null,null,58,"div",[["class","card card-profile"]],null,null,null,null,null)),(l()(),Iu["\u0275ted"](-1,null,["\n                                "])),(l()(),Iu["\u0275eld"](153,0,null,null,55,"div",[["class","content"]],null,null,null,null,null)),(l()(),Iu["\u0275ted"](-1,null,["\n                                    "])),(l()(),Iu["\u0275eld"](155,0,null,null,1,"h6",[["class","category text-gray"]],null,null,null,null,null)),(l()(),Iu["\u0275ted"](-1,null,["Change Password"])),(l()(),Iu["\u0275ted"](-1,null,["\n                                    "])),(l()(),Iu["\u0275eld"](158,0,null,null,49,"form",[["novalidate",""]],[[2,"ng-untouched",null],[2,"ng-touched",null],[2,"ng-pristine",null],[2,"ng-dirty",null],[2,"ng-valid",null],[2,"ng-invalid",null],[2,"ng-pending",null]],[[null,"ngSubmit"],[null,"submit"],[null,"reset"]],function(l,n,u){var e=!0,t=l.component;if("submit"===n){e=!1!==Iu["\u0275nov"](l,160).onSubmit(u)&&e}if("reset"===n){e=!1!==Iu["\u0275nov"](l,160).onReset()&&e}if("ngSubmit"===n){e=!1!==t.adminChangePassword()&&e}return e},null,null)),Iu["\u0275did"](159,16384,null,0,Du["\u0275bf"],[],null,null),Iu["\u0275did"](160,540672,null,0,Du.FormGroupDirective,[[8,null],[8,null]],{form:[0,"form"]},{ngSubmit:"ngSubmit"}),Iu["\u0275prd"](2048,null,Du.ControlContainer,null,[Du.FormGroupDirective]),Iu["\u0275did"](162,16384,null,0,Du.NgControlStatusGroup,[Du.ControlContainer],null,null),(l()(),Iu["\u0275ted"](-1,null,["\n                                        "])),(l()(),Iu["\u0275eld"](164,0,null,null,39,"div",[["class","card-content"]],null,null,null,null,null)),(l()(),Iu["\u0275ted"](-1,null,["\n                                            "])),(l()(),Iu["\u0275eld"](166,0,null,null,14,"div",[["class",""]],null,null,null,null,null)),(l()(),Iu["\u0275ted"](-1,null,["\n                                                "])),(l()(),Iu["\u0275eld"](168,0,null,null,11,"div",[["class","form-group label-floating"]],null,null,null,null,null)),(l()(),Iu["\u0275ted"](-1,null,["\n                                                    "])),(l()(),Iu["\u0275eld"](170,0,null,null,1,"label",[["class","control-label"]],null,null,null,null,null)),(l()(),Iu["\u0275ted"](-1,null,["Current Password"])),(l()(),Iu["\u0275ted"](-1,null,["\n                                                    "])),(l()(),Iu["\u0275eld"](173,0,null,null,5,"input",[["class","form-control"],["formControlName","password"],["type","password"]],[[2,"ng-untouched",null],[2,"ng-touched",null],[2,"ng-pristine",null],[2,"ng-dirty",null],[2,"ng-valid",null],[2,"ng-invalid",null],[2,"ng-pending",null]],[[null,"input"],[null,"blur"],[null,"compositionstart"],[null,"compositionend"]],function(l,n,u){var e=!0;if("input"===n){e=!1!==Iu["\u0275nov"](l,174)._handleInput(u.target.value)&&e}if("blur"===n){e=!1!==Iu["\u0275nov"](l,174).onTouched()&&e}if("compositionstart"===n){e=!1!==Iu["\u0275nov"](l,174)._compositionStart()&&e}if("compositionend"===n){e=!1!==Iu["\u0275nov"](l,174)._compositionEnd(u.target.value)&&e}return e},null,null)),Iu["\u0275did"](174,16384,null,0,Du.DefaultValueAccessor,[Iu.Renderer2,Iu.ElementRef,[2,Du.COMPOSITION_BUFFER_MODE]],null,null),Iu["\u0275prd"](1024,null,Du.NG_VALUE_ACCESSOR,function(l){return[l]},[Du.DefaultValueAccessor]),Iu["\u0275did"](176,671744,null,0,Du.FormControlName,[[3,Du.ControlContainer],[8,null],[8,null],[2,Du.NG_VALUE_ACCESSOR]],{name:[0,"name"]},null),Iu["\u0275prd"](2048,null,Du.NgControl,null,[Du.FormControlName]),Iu["\u0275did"](178,16384,null,0,Du.NgControlStatus,[Du.NgControl],null,null),(l()(),Iu["\u0275ted"](-1,null,["\n                                                "])),(l()(),Iu["\u0275ted"](-1,null,["                                                \n                                            "])),(l()(),Iu["\u0275ted"](-1,null,["\n                                            "])),(l()(),Iu["\u0275eld"](182,0,null,null,20,"div",[["class",""]],null,null,null,null,null)),(l()(),Iu["\u0275ted"](-1,null,["\n                                                "])),(l()(),Iu["\u0275eld"](184,0,null,null,11,"div",[["class","form-group label-floating"]],null,null,null,null,null)),(l()(),Iu["\u0275ted"](-1,null,["\n                                                    "])),(l()(),Iu["\u0275eld"](186,0,null,null,1,"label",[["class","control-label"]],null,null,null,null,null)),(l()(),Iu["\u0275ted"](-1,null,["New Password"])),(l()(),Iu["\u0275ted"](-1,null,["\n                                                    "])),(l()(),Iu["\u0275eld"](189,0,null,null,5,"input",[["class","form-control"],["formControlName","newpassword"],["type","password"]],[[2,"ng-untouched",null],[2,"ng-touched",null],[2,"ng-pristine",null],[2,"ng-dirty",null],[2,"ng-valid",null],[2,"ng-invalid",null],[2,"ng-pending",null]],[[null,"input"],[null,"blur"],[null,"compositionstart"],[null,"compositionend"]],function(l,n,u){var e=!0;if("input"===n){e=!1!==Iu["\u0275nov"](l,190)._handleInput(u.target.value)&&e}if("blur"===n){e=!1!==Iu["\u0275nov"](l,190).onTouched()&&e}if("compositionstart"===n){e=!1!==Iu["\u0275nov"](l,190)._compositionStart()&&e}if("compositionend"===n){e=!1!==Iu["\u0275nov"](l,190)._compositionEnd(u.target.value)&&e}return e},null,null)),Iu["\u0275did"](190,16384,null,0,Du.DefaultValueAccessor,[Iu.Renderer2,Iu.ElementRef,[2,Du.COMPOSITION_BUFFER_MODE]],null,null),Iu["\u0275prd"](1024,null,Du.NG_VALUE_ACCESSOR,function(l){return[l]},[Du.DefaultValueAccessor]),Iu["\u0275did"](192,671744,null,0,Du.FormControlName,[[3,Du.ControlContainer],[8,null],[8,null],[2,Du.NG_VALUE_ACCESSOR]],{name:[0,"name"]},null),Iu["\u0275prd"](2048,null,Du.NgControl,null,[Du.FormControlName]),Iu["\u0275did"](194,16384,null,0,Du.NgControlStatus,[Du.NgControl],null,null),(l()(),Iu["\u0275ted"](-1,null,["\n                                                "])),(l()(),Iu["\u0275ted"](-1,null,["\n                                                "])),(l()(),Iu["\u0275and"](16777216,null,null,1,null,w)),Iu["\u0275did"](198,16384,null,0,Vu.NgIf,[Iu.ViewContainerRef,Iu.TemplateRef],{ngIf:[0,"ngIf"]},null),(l()(),Iu["\u0275ted"](-1,null,["\n                                                "])),(l()(),Iu["\u0275and"](16777216,null,null,1,null,k)),Iu["\u0275did"](201,16384,null,0,Vu.NgIf,[Iu.ViewContainerRef,Iu.TemplateRef],{ngIf:[0,"ngIf"]},null),(l()(),Iu["\u0275ted"](-1,null,["\n                                            "])),(l()(),Iu["\u0275ted"](-1,null,["\n                                        "])),(l()(),Iu["\u0275ted"](-1,null,["\n                                        "])),(l()(),Iu["\u0275eld"](205,0,null,null,1,"button",[["class","btn bg-navyblue btn-round"],["type","submit"]],[[8,"disabled",0]],null,null,null,null)),(l()(),Iu["\u0275ted"](-1,null,["Change Password"])),(l()(),Iu["\u0275ted"](-1,null,["\n                                    "])),(l()(),Iu["\u0275ted"](-1,null,["\n                                "])),(l()(),Iu["\u0275ted"](-1,null,["\n                            "])),(l()(),Iu["\u0275ted"](-1,null,["\n                        "])),(l()(),Iu["\u0275ted"](-1,null,["\n                    "])),(l()(),Iu["\u0275ted"](-1,null,["\n                "])),(l()(),Iu["\u0275ted"](-1,null,["\n            "])),(l()(),Iu["\u0275ted"](-1,null,["\n        "])),(l()(),Iu["\u0275ted"](-1,null,["\n\t"])),(l()(),Iu["\u0275ted"](-1,null,["\n"]))],function(l,n){var u=n.component;l(n,3,0),l(n,8,0),l(n,32,0,u.customerAddForm);l(n,48,0,"firstname"),l(n,54,0,u.formErrors.firstname);l(n,67,0,"lastname"),l(n,73,0,u.formErrors.lastname);l(n,89,0,"email"),l(n,95,0,u.formErrors.email);l(n,108,0,"phonenumber"),l(n,114,0,u.formErrors.phonenumber);l(n,130,0,"dob"),l(n,136,0,u.formErrors.dob),l(n,160,0,u.cpForm);l(n,176,0,"password");l(n,192,0,"newpassword"),l(n,198,0,u.cpFormErrors.newpassword),l(n,201,0,""!=u.err)},function(l,n){var u=n.component;l(n,30,0,Iu["\u0275nov"](n,34).ngClassUntouched,Iu["\u0275nov"](n,34).ngClassTouched,Iu["\u0275nov"](n,34).ngClassPristine,Iu["\u0275nov"](n,34).ngClassDirty,Iu["\u0275nov"](n,34).ngClassValid,Iu["\u0275nov"](n,34).ngClassInvalid,Iu["\u0275nov"](n,34).ngClassPending),l(n,45,0,Iu["\u0275nov"](n,50).ngClassUntouched,Iu["\u0275nov"](n,50).ngClassTouched,Iu["\u0275nov"](n,50).ngClassPristine,Iu["\u0275nov"](n,50).ngClassDirty,Iu["\u0275nov"](n,50).ngClassValid,Iu["\u0275nov"](n,50).ngClassInvalid,Iu["\u0275nov"](n,50).ngClassPending),l(n,64,0,Iu["\u0275nov"](n,69).ngClassUntouched,Iu["\u0275nov"](n,69).ngClassTouched,Iu["\u0275nov"](n,69).ngClassPristine,Iu["\u0275nov"](n,69).ngClassDirty,Iu["\u0275nov"](n,69).ngClassValid,Iu["\u0275nov"](n,69).ngClassInvalid,Iu["\u0275nov"](n,69).ngClassPending),l(n,86,0,Iu["\u0275nov"](n,91).ngClassUntouched,Iu["\u0275nov"](n,91).ngClassTouched,Iu["\u0275nov"](n,91).ngClassPristine,Iu["\u0275nov"](n,91).ngClassDirty,Iu["\u0275nov"](n,91).ngClassValid,Iu["\u0275nov"](n,91).ngClassInvalid,Iu["\u0275nov"](n,91).ngClassPending),l(n,105,0,Iu["\u0275nov"](n,110).ngClassUntouched,Iu["\u0275nov"](n,110).ngClassTouched,Iu["\u0275nov"](n,110).ngClassPristine,Iu["\u0275nov"](n,110).ngClassDirty,Iu["\u0275nov"](n,110).ngClassValid,Iu["\u0275nov"](n,110).ngClassInvalid,Iu["\u0275nov"](n,110).ngClassPending),l(n,127,0,Iu["\u0275nov"](n,132).ngClassUntouched,Iu["\u0275nov"](n,132).ngClassTouched,Iu["\u0275nov"](n,132).ngClassPristine,Iu["\u0275nov"](n,132).ngClassDirty,Iu["\u0275nov"](n,132).ngClassValid,Iu["\u0275nov"](n,132).ngClassInvalid,Iu["\u0275nov"](n,132).ngClassPending),l(n,140,0,!u.customerAddForm.valid),l(n,158,0,Iu["\u0275nov"](n,162).ngClassUntouched,Iu["\u0275nov"](n,162).ngClassTouched,Iu["\u0275nov"](n,162).ngClassPristine,Iu["\u0275nov"](n,162).ngClassDirty,Iu["\u0275nov"](n,162).ngClassValid,Iu["\u0275nov"](n,162).ngClassInvalid,Iu["\u0275nov"](n,162).ngClassPending),l(n,173,0,Iu["\u0275nov"](n,178).ngClassUntouched,Iu["\u0275nov"](n,178).ngClassTouched,Iu["\u0275nov"](n,178).ngClassPristine,Iu["\u0275nov"](n,178).ngClassDirty,Iu["\u0275nov"](n,178).ngClassValid,Iu["\u0275nov"](n,178).ngClassInvalid,Iu["\u0275nov"](n,178).ngClassPending),l(n,189,0,Iu["\u0275nov"](n,194).ngClassUntouched,Iu["\u0275nov"](n,194).ngClassTouched,Iu["\u0275nov"](n,194).ngClassPristine,Iu["\u0275nov"](n,194).ngClassDirty,Iu["\u0275nov"](n,194).ngClassValid,Iu["\u0275nov"](n,194).ngClassInvalid,Iu["\u0275nov"](n,194).ngClassPending),l(n,205,0,!u.cpForm.valid)})}function P(l){return Iu["\u0275vid"](0,[(l()(),Iu["\u0275eld"](0,0,null,null,1,"app-profile",[],null,null,null,A,Tu)),Iu["\u0275did"](1,114688,null,0,Pu,[sn,Ou.k,Du.FormBuilder,Ru.FlashMessagesService],null,null)],function(l,n){l(n,1,0)},null)}function I(l){return Hu["\u0275vid"](0,[(l()(),Hu["\u0275eld"](0,0,null,null,19,"div",[["class","wrapper addPlanClass"]],null,null,null,null,null)),(l()(),Hu["\u0275ted"](-1,null,["\n\t"])),(l()(),Hu["\u0275eld"](2,0,null,null,1,"app-sidebar",[],null,null,null,v,tu)),Hu["\u0275did"](3,114688,null,0,Xn,[sn,Ju.k,$u.FlashMessagesService],null,null),(l()(),Hu["\u0275ted"](-1,null,["\n\t"])),(l()(),Hu["\u0275eld"](5,0,null,null,13,"div",[["class","main-panel"]],null,null,null,null,null)),(l()(),Hu["\u0275ted"](-1,null,["\n\t\t"])),(l()(),Hu["\u0275eld"](7,0,null,null,1,"app-header",[],null,null,null,h,du)),Hu["\u0275did"](8,114688,null,0,ru,[],null,null),(l()(),Hu["\u0275ted"](-1,null,["\n\t\t"])),(l()(),Hu["\u0275eld"](10,0,null,null,7,"div",[["class","content"]],null,null,null,null,null)),(l()(),Hu["\u0275ted"](-1,null,["\n            "])),(l()(),Hu["\u0275eld"](12,0,null,null,4,"div",[["class","container-fluid"]],null,null,null,null,null)),(l()(),Hu["\u0275ted"](-1,null,["\n\t\t\t\t"])),(l()(),Hu["\u0275eld"](14,16777216,null,null,1,"router-outlet",[],null,null,null,null,null)),Hu["\u0275did"](15,212992,null,0,Ju.o,[Ju.b,Hu.ViewContainerRef,Hu.ComponentFactoryResolver,[8,null],Hu.ChangeDetectorRef],null,null),(l()(),Hu["\u0275ted"](-1,null,["\n\t\t\t"])),(l()(),Hu["\u0275ted"](-1,null,["\n\t\t"])),(l()(),Hu["\u0275ted"](-1,null,["\n\t"])),(l()(),Hu["\u0275ted"](-1,null,["\n"]))],function(l,n){l(n,3,0),l(n,8,0),l(n,15,0)},null)}function O(l){return Hu["\u0275vid"](0,[(l()(),Hu["\u0275eld"](0,0,null,null,1,"app-admin-pages",[],null,null,null,I,le)),Hu["\u0275did"](1,114688,null,0,qu,[],null,null)],function(l,n){l(n,1,0)},null)}function R(l){return Hu["\u0275vid"](0,[(l()(),Hu["\u0275eld"](0,0,null,null,24,"tr",[],null,null,null,null,null)),(l()(),Hu["\u0275ted"](-1,null,["\n                    "])),(l()(),Hu["\u0275eld"](2,0,null,null,1,"td",[["class","padding0"]],null,null,null,null,null)),(l()(),Hu["\u0275ted"](3,null,["",""])),(l()(),Hu["\u0275ted"](-1,null,["\n                    "])),(l()(),Hu["\u0275eld"](5,0,null,null,1,"td",[["class","padding0"]],null,null,null,null,null)),(l()(),Hu["\u0275ted"](6,null,["",""])),(l()(),Hu["\u0275ted"](-1,null,["\n                    "])),(l()(),Hu["\u0275eld"](8,0,null,null,15,"td",[["class","padding0 td-actions text-right"]],null,null,null,null,null)),(l()(),Hu["\u0275ted"](-1,null,["\n                        "])),(l()(),Hu["\u0275eld"](10,0,null,null,6,"a",[["class","btn btn-success btn-simple btn-xs"],["rel","tooltip"],["title","Edit Task"]],[[1,"target",0],[8,"href",4]],[[null,"click"]],function(l,n,u){var e=!0;if("click"===n){e=!1!==Hu["\u0275nov"](l,11).onClick(u.button,u.ctrlKey,u.metaKey,u.shiftKey)&&e}return e},null,null)),Hu["\u0275did"](11,671744,null,0,Ju.m,[Ju.k,Ju.a,Zu.LocationStrategy],{routerLink:[0,"routerLink"]},null),Hu["\u0275pad"](12,2),(l()(),Hu["\u0275ted"](-1,null,["\n                            "])),(l()(),Hu["\u0275eld"](14,0,null,null,1,"i",[["class","material-icons"]],null,null,null,null,null)),(l()(),Hu["\u0275ted"](-1,null,["edit"])),(l()(),Hu["\u0275ted"](-1,null,["\n                        "])),(l()(),Hu["\u0275ted"](-1,null,["\n                        "])),(l()(),Hu["\u0275eld"](18,0,null,null,4,"a",[["class","btn btn-danger btn-simple btn-xs"],["rel","tooltip"],["title","Remove"]],null,[[null,"click"]],function(l,n,u){var e=!0,t=l.component;if("click"===n){e=!1!==t.deletePlan(l.context.$implicit._id)&&e}return e},null,null)),(l()(),Hu["\u0275ted"](-1,null,["\n                            "])),(l()(),Hu["\u0275eld"](20,0,null,null,1,"i",[["class","material-icons"]],null,null,null,null,null)),(l()(),Hu["\u0275ted"](-1,null,["close"])),(l()(),Hu["\u0275ted"](-1,null,["\n                        "])),(l()(),Hu["\u0275ted"](-1,null,["\n                    "])),(l()(),Hu["\u0275ted"](-1,null,["\n                "]))],function(l,n){l(n,11,0,l(n,12,0,"/admin/pages/",n.context.$implicit._id))},function(l,n){l(n,3,0,n.context.$implicit.title),l(n,6,0,n.context.$implicit.url),l(n,10,0,Hu["\u0275nov"](n,11).target,Hu["\u0275nov"](n,11).href)})}function D(l){return Hu["\u0275vid"](0,[(l()(),Hu["\u0275eld"](0,0,null,null,19,"table",[["class","table"]],null,null,null,null,null)),(l()(),Hu["\u0275ted"](-1,null,["\n            "])),(l()(),Hu["\u0275eld"](2,0,null,null,10,"thead",[["class","clr-navyblue"]],null,null,null,null,null)),(l()(),Hu["\u0275ted"](-1,null,["\n                "])),(l()(),Hu["\u0275eld"](4,0,null,null,1,"th",[],null,null,null,null,null)),(l()(),Hu["\u0275ted"](-1,null,["Page Title"])),(l()(),Hu["\u0275ted"](-1,null,["\n                "])),(l()(),Hu["\u0275eld"](7,0,null,null,1,"th",[],null,null,null,null,null)),(l()(),Hu["\u0275ted"](-1,null,["URL Text"])),(l()(),Hu["\u0275ted"](-1,null,["\n                "])),(l()(),Hu["\u0275eld"](10,0,null,null,1,"th",[],null,null,null,null,null)),(l()(),Hu["\u0275ted"](-1,null,["Action"])),(l()(),Hu["\u0275ted"](-1,null,["\n            "])),(l()(),Hu["\u0275ted"](-1,null,["\n            "])),(l()(),Hu["\u0275eld"](14,0,null,null,4,"tbody",[],null,null,null,null,null)),(l()(),Hu["\u0275ted"](-1,null,["\n                "])),(l()(),Hu["\u0275and"](16777216,null,null,1,null,R)),Hu["\u0275did"](17,802816,null,0,Zu.NgForOf,[Hu.ViewContainerRef,Hu.TemplateRef,Hu.IterableDiffers],{ngForOf:[0,"ngForOf"]},null),(l()(),Hu["\u0275ted"](-1,null,["\n            "])),(l()(),Hu["\u0275ted"](-1,null,["\n        "]))],function(l,n){l(n,17,0,n.component.plans)},null)}function V(l){return Hu["\u0275vid"](0,[(l()(),Hu["\u0275eld"](0,0,null,null,10,"div",[["class","alert alert-warning"]],null,null,null,null,null)),(l()(),Hu["\u0275ted"](-1,null,["\n            "])),(l()(),Hu["\u0275eld"](2,0,null,null,1,"button",[["aria-hidden","true"],["class","close"],["type","button"]],null,null,null,null,null)),(l()(),Hu["\u0275ted"](-1,null,["\xd7"])),(l()(),Hu["\u0275ted"](-1,null,["\n            "])),(l()(),Hu["\u0275eld"](5,0,null,null,4,"span",[],null,null,null,null,null)),(l()(),Hu["\u0275ted"](-1,null,[" "])),(l()(),Hu["\u0275eld"](7,0,null,null,1,"b",[],null,null,null,null,null)),(l()(),Hu["\u0275ted"](-1,null,[" No Data - "])),(l()(),Hu["\u0275ted"](-1,null,[" Static Page Empty Kindly create One"])),(l()(),Hu["\u0275ted"](-1,null,["\n        "]))],null,null)}function M(l){return Hu["\u0275vid"](0,[(l()(),Hu["\u0275eld"](0,0,null,null,38,"div",[["class","card card-nav-tabs"]],null,null,null,null,null)),(l()(),Hu["\u0275ted"](-1,null,["\n    "])),(l()(),Hu["\u0275eld"](2,0,null,null,26,"div",[["class","card-header"],["data-background-color","navyblue"]],null,null,null,null,null)),(l()(),Hu["\u0275ted"](-1,null,["\n        "])),(l()(),Hu["\u0275eld"](4,0,null,null,23,"div",[["class","nav-tabs-navigation"]],null,null,null,null,null)),(l()(),Hu["\u0275ted"](-1,null,["\n            "])),(l()(),Hu["\u0275eld"](6,0,null,null,20,"div",[["class","nav-tabs-wrapper"]],null,null,null,null,null)),(l()(),Hu["\u0275ted"](-1,null,["\n                "])),(l()(),Hu["\u0275eld"](8,0,null,null,1,"span",[["class","nav-tabs-title"]],null,null,null,null,null)),(l()(),Hu["\u0275ted"](-1,null,["Pages"])),(l()(),Hu["\u0275ted"](-1,null,["\n                "])),(l()(),Hu["\u0275eld"](11,0,null,null,14,"ul",[["class","nav nav-tabs"],["data-tabs","tabs"]],null,null,null,null,null)),(l()(),Hu["\u0275ted"](-1,null,["\n                    "])),(l()(),Hu["\u0275eld"](13,0,null,null,11,"li",[["class","active pull-right"]],null,null,null,null,null)),(l()(),Hu["\u0275ted"](-1,null,["\n                        "])),(l()(),Hu["\u0275eld"](15,0,null,null,8,"a",[],[[1,"target",0],[8,"href",4]],[[null,"click"]],function(l,n,u){var e=!0;if("click"===n){e=!1!==Hu["\u0275nov"](l,16).onClick(u.button,u.ctrlKey,u.metaKey,u.shiftKey)&&e}return e},null,null)),Hu["\u0275did"](16,671744,null,0,Ju.m,[Ju.k,Ju.a,Zu.LocationStrategy],{routerLink:[0,"routerLink"]},null),Hu["\u0275pad"](17,1),(l()(),Hu["\u0275ted"](-1,null,["\n                            "])),(l()(),Hu["\u0275eld"](19,0,null,null,1,"i",[["class","material-icons"]],null,null,null,null,null)),(l()(),Hu["\u0275ted"](-1,null,["exposure_plus_1"])),(l()(),Hu["\u0275ted"](-1,null,[" Add Static Page\n                            "])),(l()(),Hu["\u0275eld"](22,0,null,null,0,"div",[["class","ripple-container"]],null,null,null,null,null)),(l()(),Hu["\u0275ted"](-1,null,["\n                        "])),(l()(),Hu["\u0275ted"](-1,null,["\n                    "])),(l()(),Hu["\u0275ted"](-1,null,["\n                "])),(l()(),Hu["\u0275ted"](-1,null,["\n            "])),(l()(),Hu["\u0275ted"](-1,null,["\n        "])),(l()(),Hu["\u0275ted"](-1,null,["\n    "])),(l()(),Hu["\u0275ted"](-1,null,["\n    "])),(l()(),Hu["\u0275eld"](30,0,null,null,7,"div",[["class","card-content table-responsive"]],null,null,null,null,null)),(l()(),Hu["\u0275ted"](-1,null,["\n        "])),(l()(),Hu["\u0275and"](16777216,null,null,1,null,D)),Hu["\u0275did"](33,16384,null,0,Zu.NgIf,[Hu.ViewContainerRef,Hu.TemplateRef],{ngIf:[0,"ngIf"]},null),(l()(),Hu["\u0275ted"](-1,null,["\n        "])),(l()(),Hu["\u0275and"](16777216,null,null,1,null,V)),Hu["\u0275did"](36,16384,null,0,Zu.NgIf,[Hu.ViewContainerRef,Hu.TemplateRef],{ngIf:[0,"ngIf"]},null),(l()(),Hu["\u0275ted"](-1,null,["\n    "])),(l()(),Hu["\u0275ted"](-1,null,["\n"]))],function(l,n){var u=n.component;l(n,16,0,l(n,17,0,"/admin/pages/add/")),l(n,33,0,u.plans.length>0),l(n,36,0,0==u.plans.length)},function(l,n){l(n,15,0,Hu["\u0275nov"](n,16).target,Hu["\u0275nov"](n,16).href)})}function T(l){return Hu["\u0275vid"](0,[(l()(),Hu["\u0275eld"](0,0,null,null,1,"app-admin-pages-list",[],null,null,null,M,ee)),Hu["\u0275did"](1,114688,null,0,ju,[Wu.FormBuilder,gu,Ju.k,Ju.a,$u.FlashMessagesService],null,null)],function(l,n){l(n,1,0)},null)}function U(l){return Hu["\u0275vid"](0,[(l()(),Hu["\u0275eld"](0,0,null,null,1,"div",[["class","alert alert-danger"]],null,null,null,null,null)),(l()(),Hu["\u0275ted"](1,null,["\n                                ","\n                            "]))],null,function(l,n){l(n,1,0,n.component.formErrors.title)})}function L(l){return Hu["\u0275vid"](0,[(l()(),Hu["\u0275eld"](0,0,null,null,1,"div",[["class","alert alert-danger"]],null,null,null,null,null)),(l()(),Hu["\u0275ted"](1,null,["\n                                ","\n                            "]))],null,function(l,n){l(n,1,0,n.component.formErrors.url)})}function x(l){return Hu["\u0275vid"](0,[(l()(),Hu["\u0275eld"](0,0,null,null,98,"div",[["class","row"]],null,null,null,null,null)),(l()(),Hu["\u0275ted"](-1,null,["\n\t"])),(l()(),Hu["\u0275eld"](2,0,null,null,95,"div",[["class",""]],null,null,null,null,null)),(l()(),Hu["\u0275ted"](-1,null,["\n        "])),(l()(),Hu["\u0275eld"](4,0,null,null,92,"div",[["class","card"]],null,null,null,null,null)),(l()(),Hu["\u0275ted"](-1,null,["\n            "])),(l()(),Hu["\u0275eld"](6,0,null,null,7,"div",[["class","card-header"],["data-background-color","navyblue"]],null,null,null,null,null)),(l()(),Hu["\u0275ted"](-1,null,["\n                "])),(l()(),Hu["\u0275eld"](8,0,null,null,1,"h4",[["class","title"]],null,null,null,null,null)),(l()(),Hu["\u0275ted"](-1,null,["Add Pages"])),(l()(),Hu["\u0275ted"](-1,null,["\n                "])),(l()(),Hu["\u0275eld"](11,0,null,null,1,"p",[["class","category"]],null,null,null,null,null)),(l()(),Hu["\u0275ted"](-1,null,["Create Page"])),(l()(),Hu["\u0275ted"](-1,null,["\n            "])),(l()(),Hu["\u0275ted"](-1,null,["\n            "])),(l()(),Hu["\u0275eld"](15,0,null,null,80,"div",[["class","card-content"]],null,null,null,null,null)),(l()(),Hu["\u0275ted"](-1,null,["\n                "])),(l()(),Hu["\u0275eld"](17,0,null,null,77,"form",[["novalidate",""]],[[2,"ng-untouched",null],[2,"ng-touched",null],[2,"ng-pristine",null],[2,"ng-dirty",null],[2,"ng-valid",null],[2,"ng-invalid",null],[2,"ng-pending",null]],[[null,"ngSubmit"],[null,"submit"],[null,"reset"]],function(l,n,u){var e=!0,t=l.component;if("submit"===n){e=!1!==Hu["\u0275nov"](l,19).onSubmit(u)&&e}if("reset"===n){e=!1!==Hu["\u0275nov"](l,19).onReset()&&e}if("ngSubmit"===n){e=!1!==t.planAdd()&&e}return e},null,null)),Hu["\u0275did"](18,16384,null,0,Wu["\u0275bf"],[],null,null),Hu["\u0275did"](19,540672,null,0,Wu.FormGroupDirective,[[8,null],[8,null]],{form:[0,"form"]},{ngSubmit:"ngSubmit"}),Hu["\u0275prd"](2048,null,Wu.ControlContainer,null,[Wu.FormGroupDirective]),Hu["\u0275did"](21,16384,null,0,Wu.NgControlStatusGroup,[Wu.ControlContainer],null,null),(l()(),Hu["\u0275ted"](-1,null,["\n                    "])),(l()(),Hu["\u0275eld"](23,0,null,null,43,"div",[["class","row"]],null,null,null,null,null)),(l()(),Hu["\u0275ted"](-1,null,["\n                        "])),(l()(),Hu["\u0275eld"](25,0,null,null,19,"div",[["class","col-md-6"]],null,null,null,null,null)),(l()(),Hu["\u0275ted"](-1,null,["\n                            "])),(l()(),Hu["\u0275eld"](27,0,null,null,13,"div",[["class","form-group label-floating"]],null,null,null,null,null)),(l()(),Hu["\u0275ted"](-1,null,["\n                                "])),(l()(),Hu["\u0275eld"](29,0,null,null,3,"label",[["class","control-label"]],null,null,null,null,null)),(l()(),Hu["\u0275ted"](-1,null,["Page Title "])),(l()(),Hu["\u0275eld"](31,0,null,null,1,"span",[],null,null,null,null,null)),(l()(),Hu["\u0275ted"](-1,null,["*"])),(l()(),Hu["\u0275ted"](-1,null,["\n                                "])),(l()(),Hu["\u0275eld"](34,0,null,null,5,"input",[["autofocus",""],["class","form-control"],["formControlName","title"],["type","text"]],[[2,"ng-untouched",null],[2,"ng-touched",null],[2,"ng-pristine",null],[2,"ng-dirty",null],[2,"ng-valid",null],[2,"ng-invalid",null],[2,"ng-pending",null]],[[null,"input"],[null,"blur"],[null,"compositionstart"],[null,"compositionend"]],function(l,n,u){var e=!0;if("input"===n){e=!1!==Hu["\u0275nov"](l,35)._handleInput(u.target.value)&&e}if("blur"===n){e=!1!==Hu["\u0275nov"](l,35).onTouched()&&e}if("compositionstart"===n){e=!1!==Hu["\u0275nov"](l,35)._compositionStart()&&e}if("compositionend"===n){e=!1!==Hu["\u0275nov"](l,35)._compositionEnd(u.target.value)&&e}return e},null,null)),Hu["\u0275did"](35,16384,null,0,Wu.DefaultValueAccessor,[Hu.Renderer2,Hu.ElementRef,[2,Wu.COMPOSITION_BUFFER_MODE]],null,null),Hu["\u0275prd"](1024,null,Wu.NG_VALUE_ACCESSOR,function(l){return[l]},[Wu.DefaultValueAccessor]),Hu["\u0275did"](37,671744,null,0,Wu.FormControlName,[[3,Wu.ControlContainer],[8,null],[8,null],[2,Wu.NG_VALUE_ACCESSOR]],{name:[0,"name"]},null),Hu["\u0275prd"](2048,null,Wu.NgControl,null,[Wu.FormControlName]),Hu["\u0275did"](39,16384,null,0,Wu.NgControlStatus,[Wu.NgControl],null,null),(l()(),Hu["\u0275ted"](-1,null,["\n                            "])),(l()(),Hu["\u0275ted"](-1,null,["\n                            "])),(l()(),Hu["\u0275and"](16777216,null,null,1,null,U)),Hu["\u0275did"](43,16384,null,0,Zu.NgIf,[Hu.ViewContainerRef,Hu.TemplateRef],{ngIf:[0,"ngIf"]},null),(l()(),Hu["\u0275ted"](-1,null,["\n                        "])),(l()(),Hu["\u0275ted"](-1,null,["\n                        "])),(l()(),Hu["\u0275eld"](46,0,null,null,19,"div",[["class","col-md-6"]],null,null,null,null,null)),(l()(),Hu["\u0275ted"](-1,null,["\n                            "])),(l()(),Hu["\u0275eld"](48,0,null,null,13,"div",[["class","form-group label-floating"]],null,null,null,null,null)),(l()(),Hu["\u0275ted"](-1,null,["\n                                "])),(l()(),Hu["\u0275eld"](50,0,null,null,3,"label",[["class","control-label"]],null,null,null,null,null)),(l()(),Hu["\u0275ted"](-1,null,["URL Text "])),(l()(),Hu["\u0275eld"](52,0,null,null,1,"span",[],null,null,null,null,null)),(l()(),Hu["\u0275ted"](-1,null,["*"])),(l()(),Hu["\u0275ted"](-1,null,["\n                                "])),(l()(),Hu["\u0275eld"](55,0,null,null,5,"input",[["class","form-control"],["formControlName","url"],["type","text"]],[[2,"ng-untouched",null],[2,"ng-touched",null],[2,"ng-pristine",null],[2,"ng-dirty",null],[2,"ng-valid",null],[2,"ng-invalid",null],[2,"ng-pending",null]],[[null,"input"],[null,"blur"],[null,"compositionstart"],[null,"compositionend"]],function(l,n,u){var e=!0;if("input"===n){e=!1!==Hu["\u0275nov"](l,56)._handleInput(u.target.value)&&e}if("blur"===n){e=!1!==Hu["\u0275nov"](l,56).onTouched()&&e}if("compositionstart"===n){e=!1!==Hu["\u0275nov"](l,56)._compositionStart()&&e}if("compositionend"===n){e=!1!==Hu["\u0275nov"](l,56)._compositionEnd(u.target.value)&&e}return e},null,null)),Hu["\u0275did"](56,16384,null,0,Wu.DefaultValueAccessor,[Hu.Renderer2,Hu.ElementRef,[2,Wu.COMPOSITION_BUFFER_MODE]],null,null),Hu["\u0275prd"](1024,null,Wu.NG_VALUE_ACCESSOR,function(l){return[l]},[Wu.DefaultValueAccessor]),Hu["\u0275did"](58,671744,null,0,Wu.FormControlName,[[3,Wu.ControlContainer],[8,null],[8,null],[2,Wu.NG_VALUE_ACCESSOR]],{name:[0,"name"]},null),Hu["\u0275prd"](2048,null,Wu.NgControl,null,[Wu.FormControlName]),Hu["\u0275did"](60,16384,null,0,Wu.NgControlStatus,[Wu.NgControl],null,null),(l()(),Hu["\u0275ted"](-1,null,["\n                            "])),(l()(),Hu["\u0275ted"](-1,null,["\n                            "])),(l()(),Hu["\u0275and"](16777216,null,null,1,null,L)),Hu["\u0275did"](64,16384,null,0,Zu.NgIf,[Hu.ViewContainerRef,Hu.TemplateRef],{ngIf:[0,"ngIf"]},null),(l()(),Hu["\u0275ted"](-1,null,["\n                        "])),(l()(),Hu["\u0275ted"](-1,null,["\n                    "])),(l()(),Hu["\u0275ted"](-1,null,["\n                    "])),(l()(),Hu["\u0275eld"](68,0,null,null,20,"div",[["class","row"]],null,null,null,null,null)),(l()(),Hu["\u0275ted"](-1,null,["\n                        "])),(l()(),Hu["\u0275eld"](70,0,null,null,17,"div",[["class","col-md-12"]],null,null,null,null,null)),(l()(),Hu["\u0275ted"](-1,null,["\n                            "])),(l()(),Hu["\u0275eld"](72,0,null,null,14,"div",[["class","form-group"]],null,null,null,null,null)),(l()(),Hu["\u0275ted"](-1,null,["\n                                "])),(l()(),Hu["\u0275eld"](74,0,null,null,11,"div",[["class","form-group label-floating"]],null,null,null,null,null)),(l()(),Hu["\u0275ted"](-1,null,["\n                                    "])),(l()(),Hu["\u0275eld"](76,0,null,null,1,"label",[["class","control-label"]],null,null,null,null,null)),(l()(),Hu["\u0275ted"](-1,null,[" Content of this page"])),(l()(),Hu["\u0275ted"](-1,null,["                                    \n                                    "])),(l()(),Hu["\u0275eld"](79,0,null,null,5,"app-tinymce",[["formControlName","description"]],[[2,"ng-untouched",null],[2,"ng-touched",null],[2,"ng-pristine",null],[2,"ng-dirty",null],[2,"ng-valid",null],[2,"ng-invalid",null],[2,"ng-pending",null]],null,null,Yu.b,Yu.a)),Hu["\u0275did"](80,4374528,null,0,Xu.TinymceComponent,[Hu.NgZone,"TINYMCE_CONFIG"],null,null),Hu["\u0275prd"](1024,null,Wu.NG_VALUE_ACCESSOR,function(l){return[l]},[Xu.TinymceComponent]),Hu["\u0275did"](82,671744,null,0,Wu.FormControlName,[[3,Wu.ControlContainer],[8,null],[8,null],[2,Wu.NG_VALUE_ACCESSOR]],{name:[0,"name"]},null),Hu["\u0275prd"](2048,null,Wu.NgControl,null,[Wu.FormControlName]),Hu["\u0275did"](84,16384,null,0,Wu.NgControlStatus,[Wu.NgControl],null,null),(l()(),Hu["\u0275ted"](-1,null,["\n                                "])),(l()(),Hu["\u0275ted"](-1,null,["\n                            "])),(l()(),Hu["\u0275ted"](-1,null,["\n                        "])),(l()(),Hu["\u0275ted"](-1,null,["\n                    "])),(l()(),Hu["\u0275ted"](-1,null,["\n                    "])),(l()(),Hu["\u0275eld"](90,0,null,null,1,"button",[["class","btn bg-navyblue pull-right"],["type","submit"]],[[8,"disabled",0]],null,null,null,null)),(l()(),Hu["\u0275ted"](-1,null,["Add Page"])),(l()(),Hu["\u0275ted"](-1,null,["\n                    "])),(l()(),Hu["\u0275eld"](93,0,null,null,0,"div",[["class","clearfix"]],null,null,null,null,null)),(l()(),Hu["\u0275ted"](-1,null,["\n                "])),(l()(),Hu["\u0275ted"](-1,null,["\n            "])),(l()(),Hu["\u0275ted"](-1,null,["\n        "])),(l()(),Hu["\u0275ted"](-1,null,["\n    "])),(l()(),Hu["\u0275ted"](-1,null,["\n"]))],function(l,n){var u=n.component;l(n,19,0,u.planAddForm);l(n,37,0,"title"),l(n,43,0,u.formErrors.title);l(n,58,0,"url"),l(n,64,0,u.formErrors.url);l(n,82,0,"description")},function(l,n){var u=n.component;l(n,17,0,Hu["\u0275nov"](n,21).ngClassUntouched,Hu["\u0275nov"](n,21).ngClassTouched,Hu["\u0275nov"](n,21).ngClassPristine,Hu["\u0275nov"](n,21).ngClassDirty,Hu["\u0275nov"](n,21).ngClassValid,Hu["\u0275nov"](n,21).ngClassInvalid,Hu["\u0275nov"](n,21).ngClassPending),l(n,34,0,Hu["\u0275nov"](n,39).ngClassUntouched,Hu["\u0275nov"](n,39).ngClassTouched,Hu["\u0275nov"](n,39).ngClassPristine,Hu["\u0275nov"](n,39).ngClassDirty,Hu["\u0275nov"](n,39).ngClassValid,Hu["\u0275nov"](n,39).ngClassInvalid,Hu["\u0275nov"](n,39).ngClassPending),l(n,55,0,Hu["\u0275nov"](n,60).ngClassUntouched,Hu["\u0275nov"](n,60).ngClassTouched,Hu["\u0275nov"](n,60).ngClassPristine,Hu["\u0275nov"](n,60).ngClassDirty,Hu["\u0275nov"](n,60).ngClassValid,Hu["\u0275nov"](n,60).ngClassInvalid,Hu["\u0275nov"](n,60).ngClassPending),l(n,79,0,Hu["\u0275nov"](n,84).ngClassUntouched,Hu["\u0275nov"](n,84).ngClassTouched,Hu["\u0275nov"](n,84).ngClassPristine,Hu["\u0275nov"](n,84).ngClassDirty,Hu["\u0275nov"](n,84).ngClassValid,Hu["\u0275nov"](n,84).ngClassInvalid,Hu["\u0275nov"](n,84).ngClassPending),l(n,90,0,!u.planAddForm.valid)})}function G(l){return Hu["\u0275vid"](0,[(l()(),Hu["\u0275eld"](0,0,null,null,1,"app-admin-pages-add",[],null,null,null,x,re)),Hu["\u0275did"](1,114688,null,0,zu,[Wu.FormBuilder,gu,Ju.k,Ju.a,$u.FlashMessagesService],null,null)],function(l,n){l(n,1,0)},null)}function B(l){return Hu["\u0275vid"](0,[(l()(),Hu["\u0275eld"](0,0,null,null,1,"div",[["class","alert alert-danger"]],null,null,null,null,null)),(l()(),Hu["\u0275ted"](1,null,["\n                                ","\n                            "]))],null,function(l,n){l(n,1,0,n.component.formErrors.title)})}function q(l){return Hu["\u0275vid"](0,[(l()(),Hu["\u0275eld"](0,0,null,null,1,"div",[["class","alert alert-danger"]],null,null,null,null,null)),(l()(),Hu["\u0275ted"](1,null,["\n                                ","\n                            "]))],null,function(l,n){l(n,1,0,n.component.formErrors.url)})}function j(l){return Hu["\u0275vid"](0,[(l()(),Hu["\u0275eld"](0,0,null,null,98,"div",[["class","row"]],null,null,null,null,null)),(l()(),Hu["\u0275ted"](-1,null,["\n    "])),(l()(),Hu["\u0275eld"](2,0,null,null,95,"div",[["class",""]],null,null,null,null,null)),(l()(),Hu["\u0275ted"](-1,null,["\n        "])),(l()(),Hu["\u0275eld"](4,0,null,null,92,"div",[["class","card"]],null,null,null,null,null)),(l()(),Hu["\u0275ted"](-1,null,["\n            "])),(l()(),Hu["\u0275eld"](6,0,null,null,7,"div",[["class","card-header"],["data-background-color","navyblue"]],null,null,null,null,null)),(l()(),Hu["\u0275ted"](-1,null,["\n                "])),(l()(),Hu["\u0275eld"](8,0,null,null,1,"h4",[["class","title"]],null,null,null,null,null)),(l()(),Hu["\u0275ted"](-1,null,["Edit Pages"])),(l()(),Hu["\u0275ted"](-1,null,["\n                "])),(l()(),Hu["\u0275eld"](11,0,null,null,1,"p",[["class","category"]],null,null,null,null,null)),(l()(),Hu["\u0275ted"](-1,null,["Update Page"])),(l()(),Hu["\u0275ted"](-1,null,["\n            "])),(l()(),Hu["\u0275ted"](-1,null,["\n            "])),(l()(),Hu["\u0275eld"](15,0,null,null,80,"div",[["class","card-content"]],null,null,null,null,null)),(l()(),Hu["\u0275ted"](-1,null,["\n                "])),(l()(),Hu["\u0275eld"](17,0,null,null,77,"form",[["novalidate",""]],[[2,"ng-untouched",null],[2,"ng-touched",null],[2,"ng-pristine",null],[2,"ng-dirty",null],[2,"ng-valid",null],[2,"ng-invalid",null],[2,"ng-pending",null]],[[null,"ngSubmit"],[null,"submit"],[null,"reset"]],function(l,n,u){var e=!0,t=l.component;if("submit"===n){e=!1!==Hu["\u0275nov"](l,19).onSubmit(u)&&e}if("reset"===n){e=!1!==Hu["\u0275nov"](l,19).onReset()&&e}if("ngSubmit"===n){e=!1!==t.planUpdate()&&e}return e},null,null)),Hu["\u0275did"](18,16384,null,0,Wu["\u0275bf"],[],null,null),Hu["\u0275did"](19,540672,null,0,Wu.FormGroupDirective,[[8,null],[8,null]],{form:[0,"form"]},{ngSubmit:"ngSubmit"}),Hu["\u0275prd"](2048,null,Wu.ControlContainer,null,[Wu.FormGroupDirective]),Hu["\u0275did"](21,16384,null,0,Wu.NgControlStatusGroup,[Wu.ControlContainer],null,null),(l()(),Hu["\u0275ted"](-1,null,["\n                    "])),(l()(),Hu["\u0275eld"](23,0,null,null,43,"div",[["class","row"]],null,null,null,null,null)),(l()(),Hu["\u0275ted"](-1,null,["\n                        "])),(l()(),Hu["\u0275eld"](25,0,null,null,19,"div",[["class","col-md-6"]],null,null,null,null,null)),(l()(),Hu["\u0275ted"](-1,null,["\n                            "])),(l()(),Hu["\u0275eld"](27,0,null,null,13,"div",[["class","form-group"]],null,null,null,null,null)),(l()(),Hu["\u0275ted"](-1,null,["\n                                "])),(l()(),Hu["\u0275eld"](29,0,null,null,3,"label",[["class","control-label"]],null,null,null,null,null)),(l()(),Hu["\u0275ted"](-1,null,["Page Title "])),(l()(),Hu["\u0275eld"](31,0,null,null,1,"span",[],null,null,null,null,null)),(l()(),Hu["\u0275ted"](-1,null,["*"])),(l()(),Hu["\u0275ted"](-1,null,["\n                                "])),(l()(),Hu["\u0275eld"](34,0,null,null,5,"input",[["autofocus",""],["class","form-control"],["formControlName","title"],["type","text"]],[[2,"ng-untouched",null],[2,"ng-touched",null],[2,"ng-pristine",null],[2,"ng-dirty",null],[2,"ng-valid",null],[2,"ng-invalid",null],[2,"ng-pending",null]],[[null,"input"],[null,"blur"],[null,"compositionstart"],[null,"compositionend"]],function(l,n,u){var e=!0;if("input"===n){e=!1!==Hu["\u0275nov"](l,35)._handleInput(u.target.value)&&e}if("blur"===n){e=!1!==Hu["\u0275nov"](l,35).onTouched()&&e}if("compositionstart"===n){e=!1!==Hu["\u0275nov"](l,35)._compositionStart()&&e}if("compositionend"===n){e=!1!==Hu["\u0275nov"](l,35)._compositionEnd(u.target.value)&&e}return e},null,null)),Hu["\u0275did"](35,16384,null,0,Wu.DefaultValueAccessor,[Hu.Renderer2,Hu.ElementRef,[2,Wu.COMPOSITION_BUFFER_MODE]],null,null),Hu["\u0275prd"](1024,null,Wu.NG_VALUE_ACCESSOR,function(l){return[l]},[Wu.DefaultValueAccessor]),Hu["\u0275did"](37,671744,null,0,Wu.FormControlName,[[3,Wu.ControlContainer],[8,null],[8,null],[2,Wu.NG_VALUE_ACCESSOR]],{name:[0,"name"]},null),Hu["\u0275prd"](2048,null,Wu.NgControl,null,[Wu.FormControlName]),Hu["\u0275did"](39,16384,null,0,Wu.NgControlStatus,[Wu.NgControl],null,null),(l()(),Hu["\u0275ted"](-1,null,["\n                            "])),(l()(),Hu["\u0275ted"](-1,null,["\n                            "])),(l()(),Hu["\u0275and"](16777216,null,null,1,null,B)),Hu["\u0275did"](43,16384,null,0,Zu.NgIf,[Hu.ViewContainerRef,Hu.TemplateRef],{ngIf:[0,"ngIf"]},null),(l()(),Hu["\u0275ted"](-1,null,["\n                        "])),(l()(),Hu["\u0275ted"](-1,null,["\n                        "])),(l()(),Hu["\u0275eld"](46,0,null,null,19,"div",[["class","col-md-6"]],null,null,null,null,null)),(l()(),Hu["\u0275ted"](-1,null,["\n                            "])),(l()(),Hu["\u0275eld"](48,0,null,null,13,"div",[["class","form-group"]],null,null,null,null,null)),(l()(),Hu["\u0275ted"](-1,null,["\n                                "])),(l()(),Hu["\u0275eld"](50,0,null,null,3,"label",[["class","control-label"]],null,null,null,null,null)),(l()(),Hu["\u0275ted"](-1,null,["URL Text "])),(l()(),Hu["\u0275eld"](52,0,null,null,1,"span",[],null,null,null,null,null)),(l()(),Hu["\u0275ted"](-1,null,["*"])),(l()(),Hu["\u0275ted"](-1,null,["\n                                "])),(l()(),Hu["\u0275eld"](55,0,null,null,5,"input",[["class","form-control"],["formControlName","url"],["type","text"]],[[2,"ng-untouched",null],[2,"ng-touched",null],[2,"ng-pristine",null],[2,"ng-dirty",null],[2,"ng-valid",null],[2,"ng-invalid",null],[2,"ng-pending",null]],[[null,"input"],[null,"blur"],[null,"compositionstart"],[null,"compositionend"]],function(l,n,u){var e=!0;if("input"===n){e=!1!==Hu["\u0275nov"](l,56)._handleInput(u.target.value)&&e}if("blur"===n){e=!1!==Hu["\u0275nov"](l,56).onTouched()&&e}if("compositionstart"===n){e=!1!==Hu["\u0275nov"](l,56)._compositionStart()&&e}if("compositionend"===n){e=!1!==Hu["\u0275nov"](l,56)._compositionEnd(u.target.value)&&e}return e},null,null)),Hu["\u0275did"](56,16384,null,0,Wu.DefaultValueAccessor,[Hu.Renderer2,Hu.ElementRef,[2,Wu.COMPOSITION_BUFFER_MODE]],null,null),Hu["\u0275prd"](1024,null,Wu.NG_VALUE_ACCESSOR,function(l){return[l]},[Wu.DefaultValueAccessor]),Hu["\u0275did"](58,671744,null,0,Wu.FormControlName,[[3,Wu.ControlContainer],[8,null],[8,null],[2,Wu.NG_VALUE_ACCESSOR]],{name:[0,"name"]},null),Hu["\u0275prd"](2048,null,Wu.NgControl,null,[Wu.FormControlName]),Hu["\u0275did"](60,16384,null,0,Wu.NgControlStatus,[Wu.NgControl],null,null),(l()(),Hu["\u0275ted"](-1,null,["\n                            "])),(l()(),Hu["\u0275ted"](-1,null,["\n                            "])),(l()(),Hu["\u0275and"](16777216,null,null,1,null,q)),Hu["\u0275did"](64,16384,null,0,Zu.NgIf,[Hu.ViewContainerRef,Hu.TemplateRef],{ngIf:[0,"ngIf"]},null),(l()(),Hu["\u0275ted"](-1,null,["\n                        "])),(l()(),Hu["\u0275ted"](-1,null,["\n                    "])),(l()(),Hu["\u0275ted"](-1,null,["\n                    "])),(l()(),Hu["\u0275eld"](68,0,null,null,20,"div",[["class","row"]],null,null,null,null,null)),(l()(),Hu["\u0275ted"](-1,null,["\n                        "])),(l()(),Hu["\u0275eld"](70,0,null,null,17,"div",[["class","col-md-12"]],null,null,null,null,null)),(l()(),Hu["\u0275ted"](-1,null,["\n                            "])),(l()(),Hu["\u0275eld"](72,0,null,null,14,"div",[["class","form-group"]],null,null,null,null,null)),(l()(),Hu["\u0275ted"](-1,null,["\n                                "])),(l()(),Hu["\u0275eld"](74,0,null,null,11,"div",[["class","form-group"]],null,null,null,null,null)),(l()(),Hu["\u0275ted"](-1,null,["\n                                    "])),(l()(),Hu["\u0275eld"](76,0,null,null,1,"label",[["class","control-label"]],null,null,null,null,null)),(l()(),Hu["\u0275ted"](-1,null,[" Describe about this pages"])),(l()(),Hu["\u0275ted"](-1,null,["\n                                    "])),(l()(),Hu["\u0275eld"](79,0,null,null,5,"app-tinymce",[["formControlName","description"]],[[2,"ng-untouched",null],[2,"ng-touched",null],[2,"ng-pristine",null],[2,"ng-dirty",null],[2,"ng-valid",null],[2,"ng-invalid",null],[2,"ng-pending",null]],null,null,Yu.b,Yu.a)),Hu["\u0275did"](80,4374528,null,0,Xu.TinymceComponent,[Hu.NgZone,"TINYMCE_CONFIG"],null,null),Hu["\u0275prd"](1024,null,Wu.NG_VALUE_ACCESSOR,function(l){return[l]},[Xu.TinymceComponent]),Hu["\u0275did"](82,671744,null,0,Wu.FormControlName,[[3,Wu.ControlContainer],[8,null],[8,null],[2,Wu.NG_VALUE_ACCESSOR]],{name:[0,"name"]},null),Hu["\u0275prd"](2048,null,Wu.NgControl,null,[Wu.FormControlName]),Hu["\u0275did"](84,16384,null,0,Wu.NgControlStatus,[Wu.NgControl],null,null),(l()(),Hu["\u0275ted"](-1,null,["\n                                "])),(l()(),Hu["\u0275ted"](-1,null,["\n                            "])),(l()(),Hu["\u0275ted"](-1,null,["\n                        "])),(l()(),Hu["\u0275ted"](-1,null,["\n                    "])),(l()(),Hu["\u0275ted"](-1,null,["\n                    "])),(l()(),Hu["\u0275eld"](90,0,null,null,1,"button",[["class","btn bg-navyblue pull-right"],["type","submit"]],[[8,"disabled",0]],null,null,null,null)),(l()(),Hu["\u0275ted"](-1,null,["Update Pages"])),(l()(),Hu["\u0275ted"](-1,null,["\n                    "])),(l()(),Hu["\u0275eld"](93,0,null,null,0,"div",[["class","clearfix"]],null,null,null,null,null)),(l()(),Hu["\u0275ted"](-1,null,["\n                "])),(l()(),Hu["\u0275ted"](-1,null,["\n            "])),(l()(),Hu["\u0275ted"](-1,null,["\n        "])),(l()(),Hu["\u0275ted"](-1,null,["\n    "])),(l()(),Hu["\u0275ted"](-1,null,["\n"]))],function(l,n){var u=n.component;l(n,19,0,u.planAddForm);l(n,37,0,"title"),l(n,43,0,u.formErrors.title);l(n,58,0,"url"),l(n,64,0,u.formErrors.url);l(n,82,0,"description")},function(l,n){var u=n.component;l(n,17,0,Hu["\u0275nov"](n,21).ngClassUntouched,Hu["\u0275nov"](n,21).ngClassTouched,Hu["\u0275nov"](n,21).ngClassPristine,Hu["\u0275nov"](n,21).ngClassDirty,Hu["\u0275nov"](n,21).ngClassValid,Hu["\u0275nov"](n,21).ngClassInvalid,Hu["\u0275nov"](n,21).ngClassPending),l(n,34,0,Hu["\u0275nov"](n,39).ngClassUntouched,Hu["\u0275nov"](n,39).ngClassTouched,Hu["\u0275nov"](n,39).ngClassPristine,Hu["\u0275nov"](n,39).ngClassDirty,Hu["\u0275nov"](n,39).ngClassValid,Hu["\u0275nov"](n,39).ngClassInvalid,Hu["\u0275nov"](n,39).ngClassPending),l(n,55,0,Hu["\u0275nov"](n,60).ngClassUntouched,Hu["\u0275nov"](n,60).ngClassTouched,Hu["\u0275nov"](n,60).ngClassPristine,Hu["\u0275nov"](n,60).ngClassDirty,Hu["\u0275nov"](n,60).ngClassValid,Hu["\u0275nov"](n,60).ngClassInvalid,Hu["\u0275nov"](n,60).ngClassPending),l(n,79,0,Hu["\u0275nov"](n,84).ngClassUntouched,Hu["\u0275nov"](n,84).ngClassTouched,Hu["\u0275nov"](n,84).ngClassPristine,Hu["\u0275nov"](n,84).ngClassDirty,Hu["\u0275nov"](n,84).ngClassValid,Hu["\u0275nov"](n,84).ngClassInvalid,Hu["\u0275nov"](n,84).ngClassPending),l(n,90,0,!u.planAddForm.valid)})}function z(l){return Hu["\u0275vid"](0,[(l()(),Hu["\u0275eld"](0,0,null,null,1,"app-admin-pages-edit",[],null,null,null,j,se)),Hu["\u0275did"](1,114688,null,0,Ku,[Wu.FormBuilder,gu,Ju.k,Ju.a,$u.FlashMessagesService],null,null)],function(l,n){l(n,1,0)},null)}function K(l){return be["\u0275vid"](0,[(l()(),be["\u0275eld"](0,0,null,null,19,"div",[["class","wrapper addCustomerClass"]],null,null,null,null,null)),(l()(),be["\u0275ted"](-1,null,["\n\t"])),(l()(),be["\u0275eld"](2,0,null,null,1,"app-sidebar",[],null,null,null,v,tu)),be["\u0275did"](3,114688,null,0,Xn,[sn,Fe.k,ye.FlashMessagesService],null,null),(l()(),be["\u0275ted"](-1,null,["\n\t"])),(l()(),be["\u0275eld"](5,0,null,null,13,"div",[["class","main-panel"]],null,null,null,null,null)),(l()(),be["\u0275ted"](-1,null,["\n\t\t"])),(l()(),be["\u0275eld"](7,0,null,null,1,"app-header",[],null,null,null,h,du)),be["\u0275did"](8,114688,null,0,ru,[],null,null),(l()(),be["\u0275ted"](-1,null,["\n\t\t"])),(l()(),be["\u0275eld"](10,0,null,null,7,"div",[["class","content"]],null,null,null,null,null)),(l()(),be["\u0275ted"](-1,null,["\n            "])),(l()(),be["\u0275eld"](12,0,null,null,4,"div",[["class","container-fluid"]],null,null,null,null,null)),(l()(),be["\u0275ted"](-1,null,["\n\t\t\t\t"])),(l()(),be["\u0275eld"](14,16777216,null,null,1,"router-outlet",[],null,null,null,null,null)),be["\u0275did"](15,212992,null,0,Fe.o,[Fe.b,be.ViewContainerRef,be.ComponentFactoryResolver,[8,null],be.ChangeDetectorRef],null,null),(l()(),be["\u0275ted"](-1,null,["\n\t\t\t"])),(l()(),be["\u0275ted"](-1,null,["\n\t\t"])),(l()(),be["\u0275ted"](-1,null,["\n\t"])),(l()(),be["\u0275ted"](-1,null,["\n"]))],function(l,n){l(n,3,0),l(n,8,0),l(n,15,0)},null)}function H(l){return be["\u0275vid"](0,[(l()(),be["\u0275eld"](0,0,null,null,1,"app-admin-customer",[],null,null,null,K,Ee)),be["\u0275did"](1,114688,null,0,ve,[Se.FormBuilder,Fe.k,Fe.a],null,null)],function(l,n){l(n,1,0)},null)}function J(l){return be["\u0275vid"](0,[(l()(),be["\u0275eld"](0,0,null,null,27,"tr",[],null,null,null,null,null)),(l()(),be["\u0275ted"](-1,null,["\n                    "])),(l()(),be["\u0275eld"](2,0,null,null,1,"td",[["class","padding0"]],null,null,null,null,null)),(l()(),be["\u0275ted"](3,null,[""," ",""])),(l()(),be["\u0275ted"](-1,null,["\n                    "])),(l()(),be["\u0275eld"](5,0,null,null,1,"td",[["class","padding0"]],null,null,null,null,null)),(l()(),be["\u0275ted"](6,null,["",""])),(l()(),be["\u0275ted"](-1,null,["\n                    "])),(l()(),be["\u0275eld"](8,0,null,null,1,"td",[["class","padding0"]],null,null,null,null,null)),(l()(),be["\u0275ted"](9,null,["",""])),(l()(),be["\u0275ted"](-1,null,["\n                    "])),(l()(),be["\u0275eld"](11,0,null,null,15,"td",[["class","padding0 td-actions text-right"]],null,null,null,null,null)),(l()(),be["\u0275ted"](-1,null,["\n                        "])),(l()(),be["\u0275eld"](13,0,null,null,6,"a",[["class","btn btn-primary btn-simple btn-xs"],["rel","tooltip"],["title","Edit Task"]],[[1,"target",0],[8,"href",4]],[[null,"click"]],function(l,n,u){var e=!0;if("click"===n){e=!1!==be["\u0275nov"](l,14).onClick(u.button,u.ctrlKey,u.metaKey,u.shiftKey)&&e}return e},null,null)),be["\u0275did"](14,671744,null,0,Fe.m,[Fe.k,Fe.a,_e.LocationStrategy],{routerLink:[0,"routerLink"]},null),be["\u0275pad"](15,2),(l()(),be["\u0275ted"](-1,null,["\n                            "])),(l()(),be["\u0275eld"](17,0,null,null,1,"i",[["class","material-icons"]],null,null,null,null,null)),(l()(),be["\u0275ted"](-1,null,["edit"])),(l()(),be["\u0275ted"](-1,null,["\n                        "])),(l()(),be["\u0275ted"](-1,null,["\n                        "])),(l()(),be["\u0275eld"](21,0,null,null,4,"a",[["class","btn btn-danger btn-simple btn-xs"],["rel","tooltip"],["title","Remove"]],null,[[null,"click"]],function(l,n,u){var e=!0,t=l.component;if("click"===n){e=!1!==t.deleteCustomer(l.context.$implicit._id)&&e}return e},null,null)),(l()(),be["\u0275ted"](-1,null,["\n                            "])),(l()(),be["\u0275eld"](23,0,null,null,1,"i",[["class","material-icons"]],null,null,null,null,null)),(l()(),be["\u0275ted"](-1,null,["close"])),(l()(),be["\u0275ted"](-1,null,["\n                        "])),(l()(),be["\u0275ted"](-1,null,["\n                    "])),(l()(),be["\u0275ted"](-1,null,["\n                "]))],function(l,n){l(n,14,0,l(n,15,0,"/admin/user/",n.context.$implicit._id))},function(l,n){l(n,3,0,n.context.$implicit.firstname,n.context.$implicit.lastname),l(n,6,0,n.context.$implicit.phonenumber),l(n,9,0,n.context.$implicit.email),l(n,13,0,be["\u0275nov"](n,14).target,be["\u0275nov"](n,14).href)})}function $(l){return be["\u0275vid"](0,[(l()(),be["\u0275eld"](0,0,null,null,22,"table",[["class","table"]],null,null,null,null,null)),(l()(),be["\u0275ted"](-1,null,["\n            "])),(l()(),be["\u0275eld"](2,0,null,null,13,"thead",[["class","clr-navyblue"]],null,null,null,null,null)),(l()(),be["\u0275ted"](-1,null,["\n                "])),(l()(),be["\u0275eld"](4,0,null,null,1,"th",[],null,null,null,null,null)),(l()(),be["\u0275ted"](-1,null,["Name"])),(l()(),be["\u0275ted"](-1,null,["\n                "])),(l()(),be["\u0275eld"](7,0,null,null,1,"th",[],null,null,null,null,null)),(l()(),be["\u0275ted"](-1,null,["Phone Number"])),(l()(),be["\u0275ted"](-1,null,["\n                 "])),(l()(),be["\u0275eld"](10,0,null,null,1,"th",[],null,null,null,null,null)),(l()(),be["\u0275ted"](-1,null,["Email"])),(l()(),be["\u0275ted"](-1,null,["\n                "])),(l()(),be["\u0275eld"](13,0,null,null,1,"th",[],null,null,null,null,null)),(l()(),be["\u0275ted"](-1,null,["Action"])),(l()(),be["\u0275ted"](-1,null,["\n            "])),(l()(),be["\u0275ted"](-1,null,["\n            "])),(l()(),be["\u0275eld"](17,0,null,null,4,"tbody",[],null,null,null,null,null)),(l()(),be["\u0275ted"](-1,null,["\n                "])),(l()(),be["\u0275and"](16777216,null,null,1,null,J)),be["\u0275did"](20,802816,null,0,_e.NgForOf,[be.ViewContainerRef,be.TemplateRef,be.IterableDiffers],{ngForOf:[0,"ngForOf"]},null),(l()(),be["\u0275ted"](-1,null,["\n            "])),(l()(),be["\u0275ted"](-1,null,["\n        "]))],function(l,n){l(n,20,0,n.component.customers)},null)}function Z(l){return be["\u0275vid"](0,[(l()(),be["\u0275eld"](0,0,null,null,10,"div",[["class","alert alert-warning"]],null,null,null,null,null)),(l()(),be["\u0275ted"](-1,null,["\n            "])),(l()(),be["\u0275eld"](2,0,null,null,1,"button",[["aria-hidden","true"],["class","close"],["type","button"]],null,null,null,null,null)),(l()(),be["\u0275ted"](-1,null,["\xd7"])),(l()(),be["\u0275ted"](-1,null,["\n            "])),(l()(),be["\u0275eld"](5,0,null,null,4,"span",[],null,null,null,null,null)),(l()(),be["\u0275ted"](-1,null,[" "])),(l()(),be["\u0275eld"](7,0,null,null,1,"b",[],null,null,null,null,null)),(l()(),be["\u0275ted"](-1,null,[" No Data - "])),(l()(),be["\u0275ted"](-1,null,[" User Empty Kindly create One"])),(l()(),be["\u0275ted"](-1,null,["\n        "]))],null,null)}function W(l){return be["\u0275vid"](0,[(l()(),be["\u0275eld"](0,0,null,null,38,"div",[["class","card card-nav-tabs"]],null,null,null,null,null)),(l()(),be["\u0275ted"](-1,null,["\n    "])),(l()(),be["\u0275eld"](2,0,null,null,26,"div",[["class","card-header"],["data-background-color","navyblue"]],null,null,null,null,null)),(l()(),be["\u0275ted"](-1,null,["\n        "])),(l()(),be["\u0275eld"](4,0,null,null,23,"div",[["class","nav-tabs-navigation"]],null,null,null,null,null)),(l()(),be["\u0275ted"](-1,null,["\n            "])),(l()(),be["\u0275eld"](6,0,null,null,20,"div",[["class","nav-tabs-wrapper"]],null,null,null,null,null)),(l()(),be["\u0275ted"](-1,null,["\n                "])),(l()(),be["\u0275eld"](8,0,null,null,1,"span",[["class","nav-tabs-title"]],null,null,null,null,null)),(l()(),be["\u0275ted"](-1,null,["Users"])),(l()(),be["\u0275ted"](-1,null,["\n                "])),(l()(),be["\u0275eld"](11,0,null,null,14,"ul",[["class","nav nav-tabs"],["data-tabs","tabs"]],null,null,null,null,null)),(l()(),be["\u0275ted"](-1,null,["\n                    "])),(l()(),be["\u0275eld"](13,0,null,null,11,"li",[["class","active pull-right"]],null,null,null,null,null)),(l()(),be["\u0275ted"](-1,null,["\n                        "])),(l()(),be["\u0275eld"](15,0,null,null,8,"a",[],[[1,"target",0],[8,"href",4]],[[null,"click"]],function(l,n,u){var e=!0;if("click"===n){e=!1!==be["\u0275nov"](l,16).onClick(u.button,u.ctrlKey,u.metaKey,u.shiftKey)&&e}return e},null,null)),be["\u0275did"](16,671744,null,0,Fe.m,[Fe.k,Fe.a,_e.LocationStrategy],{routerLink:[0,"routerLink"]},null),be["\u0275pad"](17,1),(l()(),be["\u0275ted"](-1,null,["\n                            "])),(l()(),be["\u0275eld"](19,0,null,null,1,"i",[["class","material-icons"]],null,null,null,null,null)),(l()(),be["\u0275ted"](-1,null,["exposure_plus_1"])),(l()(),be["\u0275ted"](-1,null,[" Add User\n                            "])),(l()(),be["\u0275eld"](22,0,null,null,0,"div",[["class","ripple-container"]],null,null,null,null,null)),(l()(),be["\u0275ted"](-1,null,["\n                        "])),(l()(),be["\u0275ted"](-1,null,["\n                    "])),(l()(),be["\u0275ted"](-1,null,["\n                "])),(l()(),be["\u0275ted"](-1,null,["\n            "])),(l()(),be["\u0275ted"](-1,null,["\n        "])),(l()(),be["\u0275ted"](-1,null,["\n    "])),(l()(),be["\u0275ted"](-1,null,["\n    "])),(l()(),be["\u0275eld"](30,0,null,null,7,"div",[["class","card-content table-responsive"]],null,null,null,null,null)),(l()(),be["\u0275ted"](-1,null,["\n        "])),(l()(),be["\u0275and"](16777216,null,null,1,null,$)),be["\u0275did"](33,16384,null,0,_e.NgIf,[be.ViewContainerRef,be.TemplateRef],{ngIf:[0,"ngIf"]},null),(l()(),be["\u0275ted"](-1,null,["\n        "])),(l()(),be["\u0275and"](16777216,null,null,1,null,Z)),be["\u0275did"](36,16384,null,0,_e.NgIf,[be.ViewContainerRef,be.TemplateRef],{ngIf:[0,"ngIf"]},null),(l()(),be["\u0275ted"](-1,null,["\n    "])),(l()(),be["\u0275ted"](-1,null,["\n"]))],function(l,n){var u=n.component;l(n,16,0,l(n,17,0,"/admin/user/add/")),l(n,33,0,u.customers.length>0),l(n,36,0,0==u.customers.length)},function(l,n){l(n,15,0,be["\u0275nov"](n,16).target,be["\u0275nov"](n,16).href)})}function Y(l){return be["\u0275vid"](0,[(l()(),be["\u0275eld"](0,0,null,null,1,"app-admin-customer-list",[],null,null,null,W,Ae)),be["\u0275did"](1,114688,null,0,fe,[Se.FormBuilder,sn,Fe.k,Fe.a,ye.FlashMessagesService],null,null)],function(l,n){l(n,1,0)},null)}function X(l){return be["\u0275vid"](0,[(l()(),be["\u0275eld"](0,0,null,null,1,"div",[["class","alert alert-danger"]],null,null,null,null,null)),(l()(),be["\u0275ted"](1,null,["\n                                ","\n                            "]))],null,function(l,n){l(n,1,0,n.component.formErrors.firstname)})}function Q(l){return be["\u0275vid"](0,[(l()(),be["\u0275eld"](0,0,null,null,1,"div",[["class","alert alert-danger"]],null,null,null,null,null)),(l()(),be["\u0275ted"](1,null,["\n                                ","\n                            "]))],null,function(l,n){l(n,1,0,n.component.formErrors.lastname)})}function ll(l){return be["\u0275vid"](0,[(l()(),be["\u0275eld"](0,0,null,null,1,"div",[["class","alert alert-danger"]],null,null,null,null,null)),(l()(),be["\u0275ted"](1,null,["\n                                ","\n                            "]))],null,function(l,n){l(n,1,0,n.component.formErrors.email)})}function nl(l){return be["\u0275vid"](0,[(l()(),be["\u0275eld"](0,0,null,null,1,"div",[["class","alert alert-danger"]],null,null,null,null,null)),(l()(),be["\u0275ted"](1,null,["\n                                ","\n                            "]))],null,function(l,n){l(n,1,0,n.component.formErrors.phonenumber)})}function ul(l){return be["\u0275vid"](0,[(l()(),be["\u0275eld"](0,0,null,null,1,"div",[["class","alert alert-danger"]],null,null,null,null,null)),(l()(),be["\u0275ted"](1,null,["\n                                ","\n                            "]))],null,function(l,n){l(n,1,0,n.component.formErrors.password)})}function el(l){return be["\u0275vid"](0,[(l()(),be["\u0275eld"](0,0,null,null,1,"div",[["class","alert alert-danger"]],null,null,null,null,null)),(l()(),be["\u0275ted"](1,null,["\n                                ","\n                            "]))],null,function(l,n){l(n,1,0,n.component.formErrors.newpassword)})}function tl(l){return be["\u0275vid"](0,[(l()(),be["\u0275eld"](0,0,null,null,1,"div",[["class","alert alert-danger"],["style","padding: 3px;"]],null,null,null,null,null)),(l()(),be["\u0275ted"](-1,null,["Password does not match"]))],null,null)}function ol(l){return be["\u0275vid"](0,[(l()(),be["\u0275eld"](0,0,null,null,169,"div",[["class","row"]],null,null,null,null,null)),(l()(),be["\u0275ted"](-1,null,["\n\t"])),(l()(),be["\u0275eld"](2,0,null,null,166,"div",[["class",""]],null,null,null,null,null)),(l()(),be["\u0275ted"](-1,null,["\n        "])),(l()(),be["\u0275eld"](4,0,null,null,163,"div",[["class","card"]],null,null,null,null,null)),(l()(),be["\u0275ted"](-1,null,["\n            "])),(l()(),be["\u0275eld"](6,0,null,null,7,"div",[["class","card-header"],["data-background-color","navyblue"]],null,null,null,null,null)),(l()(),be["\u0275ted"](-1,null,["\n                "])),(l()(),be["\u0275eld"](8,0,null,null,1,"h4",[["class","title"]],null,null,null,null,null)),(l()(),be["\u0275ted"](-1,null,["Add User"])),(l()(),be["\u0275ted"](-1,null,["\n                "])),(l()(),be["\u0275eld"](11,0,null,null,1,"p",[["class","category"]],null,null,null,null,null)),(l()(),be["\u0275ted"](-1,null,["Create User Profile"])),(l()(),be["\u0275ted"](-1,null,["\n            "])),(l()(),be["\u0275ted"](-1,null,["\n            "])),(l()(),be["\u0275eld"](15,0,null,null,151,"div",[["class","card-content"]],null,null,null,null,null)),(l()(),be["\u0275ted"](-1,null,["\n                "])),(l()(),be["\u0275eld"](17,0,null,null,148,"form",[["novalidate",""]],[[2,"ng-untouched",null],[2,"ng-touched",null],[2,"ng-pristine",null],[2,"ng-dirty",null],[2,"ng-valid",null],[2,"ng-invalid",null],[2,"ng-pending",null]],[[null,"ngSubmit"],[null,"submit"],[null,"reset"]],function(l,n,u){var e=!0,t=l.component;if("submit"===n){e=!1!==be["\u0275nov"](l,19).onSubmit(u)&&e}if("reset"===n){e=!1!==be["\u0275nov"](l,19).onReset()&&e}if("ngSubmit"===n){e=!1!==t.customerAdd()&&e}return e},null,null)),be["\u0275did"](18,16384,null,0,Se["\u0275bf"],[],null,null),be["\u0275did"](19,540672,null,0,Se.FormGroupDirective,[[8,null],[8,null]],{form:[0,"form"]},{ngSubmit:"ngSubmit"}),be["\u0275prd"](2048,null,Se.ControlContainer,null,[Se.FormGroupDirective]),be["\u0275did"](21,16384,null,0,Se.NgControlStatusGroup,[Se.ControlContainer],null,null),(l()(),be["\u0275ted"](-1,null,["\n                    "])),(l()(),be["\u0275eld"](23,0,null,null,43,"div",[["class","row"]],null,null,null,null,null)),(l()(),be["\u0275ted"](-1,null,["\n                        "])),(l()(),be["\u0275eld"](25,0,null,null,19,"div",[["class","col-md-6"]],null,null,null,null,null)),(l()(),be["\u0275ted"](-1,null,["\n                            "])),(l()(),be["\u0275eld"](27,0,null,null,13,"div",[["class","form-group label-floating"]],null,null,null,null,null)),(l()(),be["\u0275ted"](-1,null,["\n                                "])),(l()(),be["\u0275eld"](29,0,null,null,3,"label",[["class","control-label"]],null,null,null,null,null)),(l()(),be["\u0275ted"](-1,null,["First Name "])),(l()(),be["\u0275eld"](31,0,null,null,1,"span",[],null,null,null,null,null)),(l()(),be["\u0275ted"](-1,null,["*"])),(l()(),be["\u0275ted"](-1,null,["\n                                "])),(l()(),be["\u0275eld"](34,0,null,null,5,"input",[["autofocus",""],["class","form-control"],["formControlName","firstname"],["type","text"]],[[2,"ng-untouched",null],[2,"ng-touched",null],[2,"ng-pristine",null],[2,"ng-dirty",null],[2,"ng-valid",null],[2,"ng-invalid",null],[2,"ng-pending",null]],[[null,"input"],[null,"blur"],[null,"compositionstart"],[null,"compositionend"]],function(l,n,u){var e=!0;if("input"===n){e=!1!==be["\u0275nov"](l,35)._handleInput(u.target.value)&&e}if("blur"===n){e=!1!==be["\u0275nov"](l,35).onTouched()&&e}if("compositionstart"===n){e=!1!==be["\u0275nov"](l,35)._compositionStart()&&e}if("compositionend"===n){e=!1!==be["\u0275nov"](l,35)._compositionEnd(u.target.value)&&e}return e},null,null)),be["\u0275did"](35,16384,null,0,Se.DefaultValueAccessor,[be.Renderer2,be.ElementRef,[2,Se.COMPOSITION_BUFFER_MODE]],null,null),be["\u0275prd"](1024,null,Se.NG_VALUE_ACCESSOR,function(l){return[l]},[Se.DefaultValueAccessor]),be["\u0275did"](37,671744,null,0,Se.FormControlName,[[3,Se.ControlContainer],[8,null],[8,null],[2,Se.NG_VALUE_ACCESSOR]],{name:[0,"name"]},null),be["\u0275prd"](2048,null,Se.NgControl,null,[Se.FormControlName]),be["\u0275did"](39,16384,null,0,Se.NgControlStatus,[Se.NgControl],null,null),(l()(),be["\u0275ted"](-1,null,["\n                            "])),(l()(),be["\u0275ted"](-1,null,["\n                            "])),(l()(),be["\u0275and"](16777216,null,null,1,null,X)),be["\u0275did"](43,16384,null,0,_e.NgIf,[be.ViewContainerRef,be.TemplateRef],{ngIf:[0,"ngIf"]},null),(l()(),be["\u0275ted"](-1,null,["\n                        "])),(l()(),be["\u0275ted"](-1,null,["\n                        "])),(l()(),be["\u0275eld"](46,0,null,null,19,"div",[["class","col-md-6"]],null,null,null,null,null)),(l()(),be["\u0275ted"](-1,null,["\n                            "])),(l()(),be["\u0275eld"](48,0,null,null,13,"div",[["class","form-group label-floating"]],null,null,null,null,null)),(l()(),be["\u0275ted"](-1,null,["\n                                "])),(l()(),be["\u0275eld"](50,0,null,null,3,"label",[["class","control-label"]],null,null,null,null,null)),(l()(),be["\u0275ted"](-1,null,["Last Name "])),(l()(),be["\u0275eld"](52,0,null,null,1,"span",[],null,null,null,null,null)),(l()(),be["\u0275ted"](-1,null,["*"])),(l()(),be["\u0275ted"](-1,null,["\n                                "])),(l()(),be["\u0275eld"](55,0,null,null,5,"input",[["class","form-control"],["formControlName","lastname"],["type","text"]],[[2,"ng-untouched",null],[2,"ng-touched",null],[2,"ng-pristine",null],[2,"ng-dirty",null],[2,"ng-valid",null],[2,"ng-invalid",null],[2,"ng-pending",null]],[[null,"input"],[null,"blur"],[null,"compositionstart"],[null,"compositionend"]],function(l,n,u){var e=!0;if("input"===n){e=!1!==be["\u0275nov"](l,56)._handleInput(u.target.value)&&e}if("blur"===n){e=!1!==be["\u0275nov"](l,56).onTouched()&&e}if("compositionstart"===n){e=!1!==be["\u0275nov"](l,56)._compositionStart()&&e}if("compositionend"===n){e=!1!==be["\u0275nov"](l,56)._compositionEnd(u.target.value)&&e}return e},null,null)),be["\u0275did"](56,16384,null,0,Se.DefaultValueAccessor,[be.Renderer2,be.ElementRef,[2,Se.COMPOSITION_BUFFER_MODE]],null,null),be["\u0275prd"](1024,null,Se.NG_VALUE_ACCESSOR,function(l){return[l]},[Se.DefaultValueAccessor]),be["\u0275did"](58,671744,null,0,Se.FormControlName,[[3,Se.ControlContainer],[8,null],[8,null],[2,Se.NG_VALUE_ACCESSOR]],{name:[0,"name"]},null),be["\u0275prd"](2048,null,Se.NgControl,null,[Se.FormControlName]),be["\u0275did"](60,16384,null,0,Se.NgControlStatus,[Se.NgControl],null,null),(l()(),be["\u0275ted"](-1,null,["\n                            "])),(l()(),be["\u0275ted"](-1,null,["\n                            "])),(l()(),be["\u0275and"](16777216,null,null,1,null,Q)),be["\u0275did"](64,16384,null,0,_e.NgIf,[be.ViewContainerRef,be.TemplateRef],{ngIf:[0,"ngIf"]},null),(l()(),be["\u0275ted"](-1,null,["\n                        "])),(l()(),be["\u0275ted"](-1,null,["\n                    "])),(l()(),be["\u0275ted"](-1,null,["\n                    "])),(l()(),be["\u0275eld"](68,0,null,null,43,"div",[["class","row"]],null,null,null,null,null)),(l()(),be["\u0275ted"](-1,null,["\n                        "])),(l()(),be["\u0275eld"](70,0,null,null,19,"div",[["class","col-md-6"]],null,null,null,null,null)),(l()(),be["\u0275ted"](-1,null,["\n                            "])),(l()(),be["\u0275eld"](72,0,null,null,13,"div",[["class","form-group label-floating"]],null,null,null,null,null)),(l()(),be["\u0275ted"](-1,null,["\n                                "])),(l()(),be["\u0275eld"](74,0,null,null,3,"label",[["class","control-label"]],null,null,null,null,null)),(l()(),be["\u0275ted"](-1,null,["Email address "])),(l()(),be["\u0275eld"](76,0,null,null,1,"span",[],null,null,null,null,null)),(l()(),be["\u0275ted"](-1,null,["*"])),(l()(),be["\u0275ted"](-1,null,["\n                                "])),(l()(),be["\u0275eld"](79,0,null,null,5,"input",[["class","form-control"],["formControlName","email"],["type","email"]],[[2,"ng-untouched",null],[2,"ng-touched",null],[2,"ng-pristine",null],[2,"ng-dirty",null],[2,"ng-valid",null],[2,"ng-invalid",null],[2,"ng-pending",null]],[[null,"input"],[null,"blur"],[null,"compositionstart"],[null,"compositionend"]],function(l,n,u){var e=!0;if("input"===n){e=!1!==be["\u0275nov"](l,80)._handleInput(u.target.value)&&e}if("blur"===n){e=!1!==be["\u0275nov"](l,80).onTouched()&&e}if("compositionstart"===n){e=!1!==be["\u0275nov"](l,80)._compositionStart()&&e}if("compositionend"===n){e=!1!==be["\u0275nov"](l,80)._compositionEnd(u.target.value)&&e}return e},null,null)),be["\u0275did"](80,16384,null,0,Se.DefaultValueAccessor,[be.Renderer2,be.ElementRef,[2,Se.COMPOSITION_BUFFER_MODE]],null,null),be["\u0275prd"](1024,null,Se.NG_VALUE_ACCESSOR,function(l){return[l]},[Se.DefaultValueAccessor]),be["\u0275did"](82,671744,null,0,Se.FormControlName,[[3,Se.ControlContainer],[8,null],[8,null],[2,Se.NG_VALUE_ACCESSOR]],{name:[0,"name"]},null),be["\u0275prd"](2048,null,Se.NgControl,null,[Se.FormControlName]),be["\u0275did"](84,16384,null,0,Se.NgControlStatus,[Se.NgControl],null,null),(l()(),be["\u0275ted"](-1,null,["\n                            "])),(l()(),be["\u0275ted"](-1,null,["\n                            "])),(l()(),be["\u0275and"](16777216,null,null,1,null,ll)),be["\u0275did"](88,16384,null,0,_e.NgIf,[be.ViewContainerRef,be.TemplateRef],{ngIf:[0,"ngIf"]},null),(l()(),be["\u0275ted"](-1,null,["\n                        "])),(l()(),be["\u0275ted"](-1,null,["\n                        "])),(l()(),be["\u0275eld"](91,0,null,null,19,"div",[["class","col-md-6"]],null,null,null,null,null)),(l()(),be["\u0275ted"](-1,null,["\n                            "])),(l()(),be["\u0275eld"](93,0,null,null,13,"div",[["class","form-group label-floating"]],null,null,null,null,null)),(l()(),be["\u0275ted"](-1,null,["\n                                "])),(l()(),be["\u0275eld"](95,0,null,null,3,"label",[["class","control-label"]],null,null,null,null,null)),(l()(),be["\u0275ted"](-1,null,["Phone Number "])),(l()(),be["\u0275eld"](97,0,null,null,1,"span",[],null,null,null,null,null)),(l()(),be["\u0275ted"](-1,null,["*"])),(l()(),be["\u0275ted"](-1,null,["\n                                "])),(l()(),be["\u0275eld"](100,0,null,null,5,"input",[["class","form-control"],["formControlName","phonenumber"],["type","text"]],[[2,"ng-untouched",null],[2,"ng-touched",null],[2,"ng-pristine",null],[2,"ng-dirty",null],[2,"ng-valid",null],[2,"ng-invalid",null],[2,"ng-pending",null]],[[null,"input"],[null,"blur"],[null,"compositionstart"],[null,"compositionend"]],function(l,n,u){var e=!0;if("input"===n){e=!1!==be["\u0275nov"](l,101)._handleInput(u.target.value)&&e}if("blur"===n){e=!1!==be["\u0275nov"](l,101).onTouched()&&e}if("compositionstart"===n){e=!1!==be["\u0275nov"](l,101)._compositionStart()&&e}if("compositionend"===n){e=!1!==be["\u0275nov"](l,101)._compositionEnd(u.target.value)&&e}return e},null,null)),be["\u0275did"](101,16384,null,0,Se.DefaultValueAccessor,[be.Renderer2,be.ElementRef,[2,Se.COMPOSITION_BUFFER_MODE]],null,null),be["\u0275prd"](1024,null,Se.NG_VALUE_ACCESSOR,function(l){return[l]},[Se.DefaultValueAccessor]),be["\u0275did"](103,671744,null,0,Se.FormControlName,[[3,Se.ControlContainer],[8,null],[8,null],[2,Se.NG_VALUE_ACCESSOR]],{name:[0,"name"]},null),be["\u0275prd"](2048,null,Se.NgControl,null,[Se.FormControlName]),be["\u0275did"](105,16384,null,0,Se.NgControlStatus,[Se.NgControl],null,null),(l()(),be["\u0275ted"](-1,null,["\n                            "])),(l()(),be["\u0275ted"](-1,null,["\n                            "])),(l()(),be["\u0275and"](16777216,null,null,1,null,nl)),be["\u0275did"](109,16384,null,0,_e.NgIf,[be.ViewContainerRef,be.TemplateRef],{ngIf:[0,"ngIf"]},null),(l()(),be["\u0275ted"](-1,null,["\n                        "])),(l()(),be["\u0275ted"](-1,null,["\n                    "])),(l()(),be["\u0275ted"](-1,null,["\n                    "])),(l()(),be["\u0275eld"](113,0,null,null,46,"div",[["class","row"]],null,null,null,null,null)),(l()(),be["\u0275ted"](-1,null,["\n                        "])),(l()(),be["\u0275eld"](115,0,null,null,19,"div",[["class","col-md-6"]],null,null,null,null,null)),(l()(),be["\u0275ted"](-1,null,["\n                            "])),(l()(),be["\u0275eld"](117,0,null,null,13,"div",[["class","form-group label-floating"]],null,null,null,null,null)),(l()(),be["\u0275ted"](-1,null,["\n                                "])),(l()(),be["\u0275eld"](119,0,null,null,3,"label",[["class","control-label"]],null,null,null,null,null)),(l()(),be["\u0275ted"](-1,null,["Password "])),(l()(),be["\u0275eld"](121,0,null,null,1,"span",[],null,null,null,null,null)),(l()(),be["\u0275ted"](-1,null,["*"])),(l()(),be["\u0275ted"](-1,null,["\n                                "])),(l()(),be["\u0275eld"](124,0,null,null,5,"input",[["class","form-control"],["formControlName","password"],["type","password"]],[[2,"ng-untouched",null],[2,"ng-touched",null],[2,"ng-pristine",null],[2,"ng-dirty",null],[2,"ng-valid",null],[2,"ng-invalid",null],[2,"ng-pending",null]],[[null,"keyup"],[null,"input"],[null,"blur"],[null,"compositionstart"],[null,"compositionend"]],function(l,n,u){var e=!0,t=l.component;if("input"===n){e=!1!==be["\u0275nov"](l,125)._handleInput(u.target.value)&&e}if("blur"===n){e=!1!==be["\u0275nov"](l,125).onTouched()&&e}if("compositionstart"===n){e=!1!==be["\u0275nov"](l,125)._compositionStart()&&e}if("compositionend"===n){e=!1!==be["\u0275nov"](l,125)._compositionEnd(u.target.value)&&e}if("keyup"===n){e=!1!==t.matchpasswordreg()&&e}return e},null,null)),be["\u0275did"](125,16384,null,0,Se.DefaultValueAccessor,[be.Renderer2,be.ElementRef,[2,Se.COMPOSITION_BUFFER_MODE]],null,null),be["\u0275prd"](1024,null,Se.NG_VALUE_ACCESSOR,function(l){return[l]},[Se.DefaultValueAccessor]),be["\u0275did"](127,671744,null,0,Se.FormControlName,[[3,Se.ControlContainer],[8,null],[8,null],[2,Se.NG_VALUE_ACCESSOR]],{name:[0,"name"]},null),be["\u0275prd"](2048,null,Se.NgControl,null,[Se.FormControlName]),be["\u0275did"](129,16384,null,0,Se.NgControlStatus,[Se.NgControl],null,null),(l()(),be["\u0275ted"](-1,null,["\n                            "])),(l()(),be["\u0275ted"](-1,null,["\n                            "])),(l()(),be["\u0275and"](16777216,null,null,1,null,ul)),be["\u0275did"](133,16384,null,0,_e.NgIf,[be.ViewContainerRef,be.TemplateRef],{ngIf:[0,"ngIf"]},null),(l()(),be["\u0275ted"](-1,null,["\n                        "])),(l()(),be["\u0275ted"](-1,null,["\n                        "])),(l()(),be["\u0275eld"](136,0,null,null,22,"div",[["class","col-md-6"]],null,null,null,null,null)),(l()(),be["\u0275ted"](-1,null,["\n                            "])),(l()(),be["\u0275eld"](138,0,null,null,13,"div",[["class","form-group label-floating"]],null,null,null,null,null)),(l()(),be["\u0275ted"](-1,null,["\n                                "])),(l()(),be["\u0275eld"](140,0,null,null,3,"label",[["class","control-label"]],null,null,null,null,null)),(l()(),be["\u0275ted"](-1,null,["Confirm Password "])),(l()(),be["\u0275eld"](142,0,null,null,1,"span",[],null,null,null,null,null)),(l()(),be["\u0275ted"](-1,null,["*"])),(l()(),be["\u0275ted"](-1,null,["\n                                "])),(l()(),be["\u0275eld"](145,0,null,null,5,"input",[["class","form-control"],["formControlName","newpassword"],["type","password"]],[[2,"ng-untouched",null],[2,"ng-touched",null],[2,"ng-pristine",null],[2,"ng-dirty",null],[2,"ng-valid",null],[2,"ng-invalid",null],[2,"ng-pending",null]],[[null,"keyup"],[null,"input"],[null,"blur"],[null,"compositionstart"],[null,"compositionend"]],function(l,n,u){var e=!0,t=l.component;if("input"===n){e=!1!==be["\u0275nov"](l,146)._handleInput(u.target.value)&&e}if("blur"===n){e=!1!==be["\u0275nov"](l,146).onTouched()&&e}if("compositionstart"===n){e=!1!==be["\u0275nov"](l,146)._compositionStart()&&e}if("compositionend"===n){e=!1!==be["\u0275nov"](l,146)._compositionEnd(u.target.value)&&e}if("keyup"===n){e=!1!==t.matchpasswordreg()&&e}return e},null,null)),be["\u0275did"](146,16384,null,0,Se.DefaultValueAccessor,[be.Renderer2,be.ElementRef,[2,Se.COMPOSITION_BUFFER_MODE]],null,null),be["\u0275prd"](1024,null,Se.NG_VALUE_ACCESSOR,function(l){return[l]},[Se.DefaultValueAccessor]),be["\u0275did"](148,671744,null,0,Se.FormControlName,[[3,Se.ControlContainer],[8,null],[8,null],[2,Se.NG_VALUE_ACCESSOR]],{name:[0,"name"]},null),be["\u0275prd"](2048,null,Se.NgControl,null,[Se.FormControlName]),be["\u0275did"](150,16384,null,0,Se.NgControlStatus,[Se.NgControl],null,null),(l()(),be["\u0275ted"](-1,null,["\n                            "])),(l()(),be["\u0275ted"](-1,null,["\n                            "])),(l()(),be["\u0275and"](16777216,null,null,1,null,el)),be["\u0275did"](154,16384,null,0,_e.NgIf,[be.ViewContainerRef,be.TemplateRef],{ngIf:[0,"ngIf"]},null),(l()(),be["\u0275ted"](-1,null,["\n                            "])),(l()(),be["\u0275and"](16777216,null,null,1,null,tl)),be["\u0275did"](157,16384,null,0,_e.NgIf,[be.ViewContainerRef,be.TemplateRef],{ngIf:[0,"ngIf"]},null),(l()(),be["\u0275ted"](-1,null,["\n                        "])),(l()(),be["\u0275ted"](-1,null,["\n                    "])),(l()(),be["\u0275ted"](-1,null,["\n                    "])),(l()(),be["\u0275eld"](161,0,null,null,1,"button",[["class","btn bg-navyblue pull-right"],["type","submit"]],[[8,"disabled",0]],null,null,null,null)),(l()(),be["\u0275ted"](-1,null,["Save User"])),(l()(),be["\u0275ted"](-1,null,["\n                    "])),(l()(),be["\u0275eld"](164,0,null,null,0,"div",[["class","clearfix"]],null,null,null,null,null)),(l()(),be["\u0275ted"](-1,null,["\n                "])),(l()(),be["\u0275ted"](-1,null,["\n            "])),(l()(),be["\u0275ted"](-1,null,["\n        "])),(l()(),be["\u0275ted"](-1,null,["\n    "])),(l()(),be["\u0275ted"](-1,null,["\n"]))],function(l,n){var u=n.component;l(n,19,0,u.customerAddForm);l(n,37,0,"firstname"),l(n,43,0,u.formErrors.firstname);l(n,58,0,"lastname"),l(n,64,0,u.formErrors.lastname);l(n,82,0,"email"),l(n,88,0,u.formErrors.email);l(n,103,0,"phonenumber"),l(n,109,0,u.formErrors.phonenumber);l(n,127,0,"password"),l(n,133,0,u.formErrors.password);l(n,148,0,"newpassword"),l(n,154,0,u.formErrors.newpassword),l(n,157,0,u.MutchPassword)},function(l,n){var u=n.component;l(n,17,0,be["\u0275nov"](n,21).ngClassUntouched,be["\u0275nov"](n,21).ngClassTouched,be["\u0275nov"](n,21).ngClassPristine,be["\u0275nov"](n,21).ngClassDirty,be["\u0275nov"](n,21).ngClassValid,be["\u0275nov"](n,21).ngClassInvalid,be["\u0275nov"](n,21).ngClassPending),l(n,34,0,be["\u0275nov"](n,39).ngClassUntouched,be["\u0275nov"](n,39).ngClassTouched,be["\u0275nov"](n,39).ngClassPristine,be["\u0275nov"](n,39).ngClassDirty,be["\u0275nov"](n,39).ngClassValid,be["\u0275nov"](n,39).ngClassInvalid,be["\u0275nov"](n,39).ngClassPending),l(n,55,0,be["\u0275nov"](n,60).ngClassUntouched,be["\u0275nov"](n,60).ngClassTouched,be["\u0275nov"](n,60).ngClassPristine,be["\u0275nov"](n,60).ngClassDirty,be["\u0275nov"](n,60).ngClassValid,be["\u0275nov"](n,60).ngClassInvalid,be["\u0275nov"](n,60).ngClassPending),l(n,79,0,be["\u0275nov"](n,84).ngClassUntouched,be["\u0275nov"](n,84).ngClassTouched,be["\u0275nov"](n,84).ngClassPristine,be["\u0275nov"](n,84).ngClassDirty,be["\u0275nov"](n,84).ngClassValid,be["\u0275nov"](n,84).ngClassInvalid,be["\u0275nov"](n,84).ngClassPending),l(n,100,0,be["\u0275nov"](n,105).ngClassUntouched,be["\u0275nov"](n,105).ngClassTouched,be["\u0275nov"](n,105).ngClassPristine,be["\u0275nov"](n,105).ngClassDirty,be["\u0275nov"](n,105).ngClassValid,be["\u0275nov"](n,105).ngClassInvalid,be["\u0275nov"](n,105).ngClassPending),l(n,124,0,be["\u0275nov"](n,129).ngClassUntouched,be["\u0275nov"](n,129).ngClassTouched,be["\u0275nov"](n,129).ngClassPristine,be["\u0275nov"](n,129).ngClassDirty,be["\u0275nov"](n,129).ngClassValid,be["\u0275nov"](n,129).ngClassInvalid,be["\u0275nov"](n,129).ngClassPending),l(n,145,0,be["\u0275nov"](n,150).ngClassUntouched,be["\u0275nov"](n,150).ngClassTouched,be["\u0275nov"](n,150).ngClassPristine,be["\u0275nov"](n,150).ngClassDirty,be["\u0275nov"](n,150).ngClassValid,be["\u0275nov"](n,150).ngClassInvalid,be["\u0275nov"](n,150).ngClassPending),l(n,161,0,!u.customerAddForm.valid)})}function rl(l){return be["\u0275vid"](0,[(l()(),be["\u0275eld"](0,0,null,null,1,"app-admin-customer-add",[],null,null,null,ol,Oe)),be["\u0275did"](1,114688,null,0,he,[Se.FormBuilder,sn,Fe.k,Fe.a,ye.FlashMessagesService],null,null)],function(l,n){l(n,1,0)},null)}function al(l){return be["\u0275vid"](0,[(l()(),be["\u0275eld"](0,0,null,null,1,"div",[["class","alert alert-danger"]],null,null,null,null,null)),(l()(),be["\u0275ted"](1,null,["\n                                ","\n                            "]))],null,function(l,n){l(n,1,0,n.component.formErrors.firstname)})}function il(l){return be["\u0275vid"](0,[(l()(),be["\u0275eld"](0,0,null,null,1,"div",[["class","alert alert-danger"]],null,null,null,null,null)),(l()(),be["\u0275ted"](1,null,["\n                                ","\n                            "]))],null,function(l,n){l(n,1,0,n.component.formErrors.lastname)})}function sl(l){return be["\u0275vid"](0,[(l()(),be["\u0275eld"](0,0,null,null,1,"div",[["class","alert alert-danger"]],null,null,null,null,null)),(l()(),be["\u0275ted"](1,null,["\n                                ","\n                            "]))],null,function(l,n){l(n,1,0,n.component.formErrors.email)})}function dl(l){return be["\u0275vid"](0,[(l()(),be["\u0275eld"](0,0,null,null,1,"div",[["class","alert alert-danger"]],null,null,null,null,null)),(l()(),be["\u0275ted"](1,null,["\n                                ","\n                            "]))],null,function(l,n){l(n,1,0,n.component.formErrors.phonenumber)})}function cl(l){return be["\u0275vid"](0,[(l()(),be["\u0275eld"](0,0,null,null,103,"div",[["class","card-content"]],null,null,null,null,null)),(l()(),be["\u0275ted"](-1,null,["\n                "])),(l()(),be["\u0275eld"](2,0,null,null,100,"form",[["novalidate",""]],[[2,"ng-untouched",null],[2,"ng-touched",null],[2,"ng-pristine",null],[2,"ng-dirty",null],[2,"ng-valid",null],[2,"ng-invalid",null],[2,"ng-pending",null]],[[null,"ngSubmit"],[null,"submit"],[null,"reset"]],function(l,n,u){var e=!0,t=l.component;if("submit"===n){e=!1!==be["\u0275nov"](l,4).onSubmit(u)&&e}if("reset"===n){e=!1!==be["\u0275nov"](l,4).onReset()&&e}if("ngSubmit"===n){e=!1!==t.customerUpdate()&&e}return e},null,null)),be["\u0275did"](3,16384,null,0,Se["\u0275bf"],[],null,null),be["\u0275did"](4,540672,null,0,Se.FormGroupDirective,[[8,null],[8,null]],{form:[0,"form"]},{ngSubmit:"ngSubmit"}),be["\u0275prd"](2048,null,Se.ControlContainer,null,[Se.FormGroupDirective]),be["\u0275did"](6,16384,null,0,Se.NgControlStatusGroup,[Se.ControlContainer],null,null),(l()(),be["\u0275ted"](-1,null,["\n                    "])),(l()(),be["\u0275eld"](8,0,null,null,43,"div",[["class","row"]],null,null,null,null,null)),(l()(),be["\u0275ted"](-1,null,["\n                        "])),(l()(),be["\u0275eld"](10,0,null,null,19,"div",[["class","col-md-6"]],null,null,null,null,null)),(l()(),be["\u0275ted"](-1,null,["\n                            "])),(l()(),be["\u0275eld"](12,0,null,null,13,"div",[["class","form-group "]],null,null,null,null,null)),(l()(),be["\u0275ted"](-1,null,["\n                                "])),(l()(),be["\u0275eld"](14,0,null,null,3,"label",[["class","control-label"]],null,null,null,null,null)),(l()(),be["\u0275ted"](-1,null,["First Name "])),(l()(),be["\u0275eld"](16,0,null,null,1,"span",[],null,null,null,null,null)),(l()(),be["\u0275ted"](-1,null,["*"])),(l()(),be["\u0275ted"](-1,null,["\n                                "])),(l()(),be["\u0275eld"](19,0,null,null,5,"input",[["autofocus",""],["class","form-control"],["formControlName","firstname"],["type","text"]],[[2,"ng-untouched",null],[2,"ng-touched",null],[2,"ng-pristine",null],[2,"ng-dirty",null],[2,"ng-valid",null],[2,"ng-invalid",null],[2,"ng-pending",null]],[[null,"input"],[null,"blur"],[null,"compositionstart"],[null,"compositionend"]],function(l,n,u){var e=!0;if("input"===n){e=!1!==be["\u0275nov"](l,20)._handleInput(u.target.value)&&e}if("blur"===n){e=!1!==be["\u0275nov"](l,20).onTouched()&&e}if("compositionstart"===n){e=!1!==be["\u0275nov"](l,20)._compositionStart()&&e}if("compositionend"===n){e=!1!==be["\u0275nov"](l,20)._compositionEnd(u.target.value)&&e}return e},null,null)),be["\u0275did"](20,16384,null,0,Se.DefaultValueAccessor,[be.Renderer2,be.ElementRef,[2,Se.COMPOSITION_BUFFER_MODE]],null,null),be["\u0275prd"](1024,null,Se.NG_VALUE_ACCESSOR,function(l){return[l]},[Se.DefaultValueAccessor]),be["\u0275did"](22,671744,null,0,Se.FormControlName,[[3,Se.ControlContainer],[8,null],[8,null],[2,Se.NG_VALUE_ACCESSOR]],{name:[0,"name"]},null),be["\u0275prd"](2048,null,Se.NgControl,null,[Se.FormControlName]),be["\u0275did"](24,16384,null,0,Se.NgControlStatus,[Se.NgControl],null,null),(l()(),be["\u0275ted"](-1,null,["\n                            "])),(l()(),be["\u0275ted"](-1,null,["\n                            "])),(l()(),be["\u0275and"](16777216,null,null,1,null,al)),be["\u0275did"](28,16384,null,0,_e.NgIf,[be.ViewContainerRef,be.TemplateRef],{ngIf:[0,"ngIf"]},null),(l()(),be["\u0275ted"](-1,null,["\n                        "])),(l()(),be["\u0275ted"](-1,null,["\n                        "])),(l()(),be["\u0275eld"](31,0,null,null,19,"div",[["class","col-md-6"]],null,null,null,null,null)),(l()(),be["\u0275ted"](-1,null,["\n                            "])),(l()(),be["\u0275eld"](33,0,null,null,13,"div",[["class","form-group "]],null,null,null,null,null)),(l()(),be["\u0275ted"](-1,null,["\n                                "])),(l()(),be["\u0275eld"](35,0,null,null,3,"label",[["class","control-label"]],null,null,null,null,null)),(l()(),be["\u0275ted"](-1,null,["Last Name "])),(l()(),be["\u0275eld"](37,0,null,null,1,"span",[],null,null,null,null,null)),(l()(),be["\u0275ted"](-1,null,["*"])),(l()(),be["\u0275ted"](-1,null,["\n                                "])),(l()(),be["\u0275eld"](40,0,null,null,5,"input",[["class","form-control"],["formControlName","lastname"],["type","text"]],[[2,"ng-untouched",null],[2,"ng-touched",null],[2,"ng-pristine",null],[2,"ng-dirty",null],[2,"ng-valid",null],[2,"ng-invalid",null],[2,"ng-pending",null]],[[null,"input"],[null,"blur"],[null,"compositionstart"],[null,"compositionend"]],function(l,n,u){var e=!0;if("input"===n){e=!1!==be["\u0275nov"](l,41)._handleInput(u.target.value)&&e}if("blur"===n){e=!1!==be["\u0275nov"](l,41).onTouched()&&e}if("compositionstart"===n){e=!1!==be["\u0275nov"](l,41)._compositionStart()&&e}if("compositionend"===n){e=!1!==be["\u0275nov"](l,41)._compositionEnd(u.target.value)&&e}return e},null,null)),be["\u0275did"](41,16384,null,0,Se.DefaultValueAccessor,[be.Renderer2,be.ElementRef,[2,Se.COMPOSITION_BUFFER_MODE]],null,null),be["\u0275prd"](1024,null,Se.NG_VALUE_ACCESSOR,function(l){return[l]},[Se.DefaultValueAccessor]),be["\u0275did"](43,671744,null,0,Se.FormControlName,[[3,Se.ControlContainer],[8,null],[8,null],[2,Se.NG_VALUE_ACCESSOR]],{name:[0,"name"]},null),be["\u0275prd"](2048,null,Se.NgControl,null,[Se.FormControlName]),be["\u0275did"](45,16384,null,0,Se.NgControlStatus,[Se.NgControl],null,null),(l()(),be["\u0275ted"](-1,null,["\n                            "])),(l()(),be["\u0275ted"](-1,null,["\n                            "])),(l()(),be["\u0275and"](16777216,null,null,1,null,il)),be["\u0275did"](49,16384,null,0,_e.NgIf,[be.ViewContainerRef,be.TemplateRef],{ngIf:[0,"ngIf"]},null),(l()(),be["\u0275ted"](-1,null,["\n                        "])),(l()(),be["\u0275ted"](-1,null,["\n                    "])),(l()(),be["\u0275ted"](-1,null,["\n                    "])),(l()(),be["\u0275eld"](53,0,null,null,43,"div",[["class","row"]],null,null,null,null,null)),(l()(),be["\u0275ted"](-1,null,["\n                        "])),(l()(),be["\u0275eld"](55,0,null,null,19,"div",[["class","col-md-6"]],null,null,null,null,null)),(l()(),be["\u0275ted"](-1,null,["\n                            "])),(l()(),be["\u0275eld"](57,0,null,null,13,"div",[["class","form-group "]],null,null,null,null,null)),(l()(),be["\u0275ted"](-1,null,["\n                                "])),(l()(),be["\u0275eld"](59,0,null,null,3,"label",[["class","control-label"]],null,null,null,null,null)),(l()(),be["\u0275ted"](-1,null,["Email address "])),(l()(),be["\u0275eld"](61,0,null,null,1,"span",[],null,null,null,null,null)),(l()(),be["\u0275ted"](-1,null,["*"])),(l()(),be["\u0275ted"](-1,null,["\n                                "])),(l()(),be["\u0275eld"](64,0,null,null,5,"input",[["class","form-control"],["formControlName","email"],["type","email"]],[[2,"ng-untouched",null],[2,"ng-touched",null],[2,"ng-pristine",null],[2,"ng-dirty",null],[2,"ng-valid",null],[2,"ng-invalid",null],[2,"ng-pending",null]],[[null,"input"],[null,"blur"],[null,"compositionstart"],[null,"compositionend"]],function(l,n,u){var e=!0;if("input"===n){e=!1!==be["\u0275nov"](l,65)._handleInput(u.target.value)&&e}if("blur"===n){e=!1!==be["\u0275nov"](l,65).onTouched()&&e}if("compositionstart"===n){e=!1!==be["\u0275nov"](l,65)._compositionStart()&&e}if("compositionend"===n){e=!1!==be["\u0275nov"](l,65)._compositionEnd(u.target.value)&&e}return e},null,null)),be["\u0275did"](65,16384,null,0,Se.DefaultValueAccessor,[be.Renderer2,be.ElementRef,[2,Se.COMPOSITION_BUFFER_MODE]],null,null),be["\u0275prd"](1024,null,Se.NG_VALUE_ACCESSOR,function(l){return[l]},[Se.DefaultValueAccessor]),be["\u0275did"](67,671744,null,0,Se.FormControlName,[[3,Se.ControlContainer],[8,null],[8,null],[2,Se.NG_VALUE_ACCESSOR]],{name:[0,"name"]},null),be["\u0275prd"](2048,null,Se.NgControl,null,[Se.FormControlName]),be["\u0275did"](69,16384,null,0,Se.NgControlStatus,[Se.NgControl],null,null),(l()(),be["\u0275ted"](-1,null,["\n                            "])),(l()(),be["\u0275ted"](-1,null,["\n                            "])),(l()(),be["\u0275and"](16777216,null,null,1,null,sl)),be["\u0275did"](73,16384,null,0,_e.NgIf,[be.ViewContainerRef,be.TemplateRef],{ngIf:[0,"ngIf"]},null),(l()(),be["\u0275ted"](-1,null,["\n                        "])),(l()(),be["\u0275ted"](-1,null,["\n                        "])),(l()(),be["\u0275eld"](76,0,null,null,19,"div",[["class","col-md-6"]],null,null,null,null,null)),(l()(),be["\u0275ted"](-1,null,["\n                            "])),(l()(),be["\u0275eld"](78,0,null,null,13,"div",[["class","form-group "]],null,null,null,null,null)),(l()(),be["\u0275ted"](-1,null,["\n                                "])),(l()(),be["\u0275eld"](80,0,null,null,3,"label",[["class","control-label"]],null,null,null,null,null)),(l()(),be["\u0275ted"](-1,null,["Phone Number "])),(l()(),be["\u0275eld"](82,0,null,null,1,"span",[],null,null,null,null,null)),(l()(),be["\u0275ted"](-1,null,["*"])),(l()(),be["\u0275ted"](-1,null,["\n                                "])),(l()(),be["\u0275eld"](85,0,null,null,5,"input",[["class","form-control"],["formControlName","phonenumber"],["type","text"]],[[2,"ng-untouched",null],[2,"ng-touched",null],[2,"ng-pristine",null],[2,"ng-dirty",null],[2,"ng-valid",null],[2,"ng-invalid",null],[2,"ng-pending",null]],[[null,"input"],[null,"blur"],[null,"compositionstart"],[null,"compositionend"]],function(l,n,u){var e=!0;if("input"===n){e=!1!==be["\u0275nov"](l,86)._handleInput(u.target.value)&&e}if("blur"===n){e=!1!==be["\u0275nov"](l,86).onTouched()&&e}if("compositionstart"===n){e=!1!==be["\u0275nov"](l,86)._compositionStart()&&e}if("compositionend"===n){e=!1!==be["\u0275nov"](l,86)._compositionEnd(u.target.value)&&e}return e},null,null)),be["\u0275did"](86,16384,null,0,Se.DefaultValueAccessor,[be.Renderer2,be.ElementRef,[2,Se.COMPOSITION_BUFFER_MODE]],null,null),be["\u0275prd"](1024,null,Se.NG_VALUE_ACCESSOR,function(l){return[l]},[Se.DefaultValueAccessor]),be["\u0275did"](88,671744,null,0,Se.FormControlName,[[3,Se.ControlContainer],[8,null],[8,null],[2,Se.NG_VALUE_ACCESSOR]],{name:[0,"name"]},null),be["\u0275prd"](2048,null,Se.NgControl,null,[Se.FormControlName]),be["\u0275did"](90,16384,null,0,Se.NgControlStatus,[Se.NgControl],null,null),(l()(),be["\u0275ted"](-1,null,["\n                            "])),(l()(),be["\u0275ted"](-1,null,["\n                            "])),(l()(),be["\u0275and"](16777216,null,null,1,null,dl)),be["\u0275did"](94,16384,null,0,_e.NgIf,[be.ViewContainerRef,be.TemplateRef],{ngIf:[0,"ngIf"]},null),(l()(),be["\u0275ted"](-1,null,["\n                        "])),(l()(),be["\u0275ted"](-1,null,["\n                    "])),(l()(),be["\u0275ted"](-1,null,["                   \n                    "])),(l()(),be["\u0275eld"](98,0,null,null,1,"button",[["class","btn bg-navyblue pull-right"],["type","submit"]],[[8,"disabled",0]],null,null,null,null)),(l()(),be["\u0275ted"](-1,null,["Update User"])),(l()(),be["\u0275ted"](-1,null,["\n                    "])),(l()(),be["\u0275eld"](101,0,null,null,0,"div",[["class","clearfix"]],null,null,null,null,null)),(l()(),be["\u0275ted"](-1,null,["\n                "])),(l()(),be["\u0275ted"](-1,null,["\n            "]))],function(l,n){var u=n.component;l(n,4,0,u.customerAddForm);l(n,22,0,"firstname"),l(n,28,0,u.formErrors.firstname);l(n,43,0,"lastname"),l(n,49,0,u.formErrors.lastname);l(n,67,0,"email"),l(n,73,0,u.formErrors.email);l(n,88,0,"phonenumber"),l(n,94,0,u.formErrors.phonenumber)},function(l,n){var u=n.component;l(n,2,0,be["\u0275nov"](n,6).ngClassUntouched,be["\u0275nov"](n,6).ngClassTouched,be["\u0275nov"](n,6).ngClassPristine,be["\u0275nov"](n,6).ngClassDirty,be["\u0275nov"](n,6).ngClassValid,be["\u0275nov"](n,6).ngClassInvalid,be["\u0275nov"](n,6).ngClassPending),l(n,19,0,be["\u0275nov"](n,24).ngClassUntouched,be["\u0275nov"](n,24).ngClassTouched,be["\u0275nov"](n,24).ngClassPristine,be["\u0275nov"](n,24).ngClassDirty,be["\u0275nov"](n,24).ngClassValid,be["\u0275nov"](n,24).ngClassInvalid,be["\u0275nov"](n,24).ngClassPending),l(n,40,0,be["\u0275nov"](n,45).ngClassUntouched,be["\u0275nov"](n,45).ngClassTouched,be["\u0275nov"](n,45).ngClassPristine,be["\u0275nov"](n,45).ngClassDirty,be["\u0275nov"](n,45).ngClassValid,be["\u0275nov"](n,45).ngClassInvalid,be["\u0275nov"](n,45).ngClassPending),l(n,64,0,be["\u0275nov"](n,69).ngClassUntouched,be["\u0275nov"](n,69).ngClassTouched,be["\u0275nov"](n,69).ngClassPristine,be["\u0275nov"](n,69).ngClassDirty,be["\u0275nov"](n,69).ngClassValid,be["\u0275nov"](n,69).ngClassInvalid,be["\u0275nov"](n,69).ngClassPending),l(n,85,0,be["\u0275nov"](n,90).ngClassUntouched,be["\u0275nov"](n,90).ngClassTouched,be["\u0275nov"](n,90).ngClassPristine,be["\u0275nov"](n,90).ngClassDirty,be["\u0275nov"](n,90).ngClassValid,be["\u0275nov"](n,90).ngClassInvalid,be["\u0275nov"](n,90).ngClassPending),l(n,98,0,!u.customerAddForm.valid)})}function pl(l){return be["\u0275vid"](0,[(l()(),be["\u0275eld"](0,0,null,null,19,"div",[["class","row"]],null,null,null,null,null)),(l()(),be["\u0275ted"](-1,null,["\n    "])),(l()(),be["\u0275eld"](2,0,null,null,16,"div",[["class",""]],null,null,null,null,null)),(l()(),be["\u0275ted"](-1,null,["\n        "])),(l()(),be["\u0275eld"](4,0,null,null,13,"div",[["class","card"]],null,null,null,null,null)),(l()(),be["\u0275ted"](-1,null,["\n            "])),(l()(),be["\u0275eld"](6,0,null,null,7,"div",[["class","card-header"],["data-background-color","navyblue"]],null,null,null,null,null)),(l()(),be["\u0275ted"](-1,null,["\n                "])),(l()(),be["\u0275eld"](8,0,null,null,1,"h4",[["class","title"]],null,null,null,null,null)),(l()(),be["\u0275ted"](-1,null,["Edit User"])),(l()(),be["\u0275ted"](-1,null,["\n                "])),(l()(),be["\u0275eld"](11,0,null,null,1,"p",[["class","category"]],null,null,null,null,null)),(l()(),be["\u0275ted"](-1,null,["Update User Profile"])),(l()(),be["\u0275ted"](-1,null,["\n            "])),(l()(),be["\u0275ted"](-1,null,["\n            "])),(l()(),be["\u0275and"](16777216,null,null,1,null,cl)),be["\u0275did"](16,16384,null,0,_e.NgIf,[be.ViewContainerRef,be.TemplateRef],{ngIf:[0,"ngIf"]},null),(l()(),be["\u0275ted"](-1,null,["\n        "])),(l()(),be["\u0275ted"](-1,null,["\n    "])),(l()(),be["\u0275ted"](-1,null,["\n"]))],function(l,n){l(n,16,0,n.component.currentCustomer)},null)}function gl(l){return be["\u0275vid"](0,[(l()(),be["\u0275eld"](0,0,null,null,1,"app-admin-customer-edit",[],null,null,null,pl,Ve)),be["\u0275did"](1,114688,null,0,Ce,[Se.FormBuilder,sn,Fe.k,Fe.a,ye.FlashMessagesService],null,null)],function(l,n){l(n,1,0)},null)}function ml(l){return ze["\u0275vid"](0,[(l()(),ze["\u0275eld"](0,0,null,null,19,"div",[["class","wrapper addPlanClass"]],null,null,null,null,null)),(l()(),ze["\u0275ted"](-1,null,["\n\t"])),(l()(),ze["\u0275eld"](2,0,null,null,1,"app-sidebar",[],null,null,null,v,tu)),ze["\u0275did"](3,114688,null,0,Xn,[sn,Ke.k,He.FlashMessagesService],null,null),(l()(),ze["\u0275ted"](-1,null,["\n\t"])),(l()(),ze["\u0275eld"](5,0,null,null,13,"div",[["class","main-panel"]],null,null,null,null,null)),(l()(),ze["\u0275ted"](-1,null,["\n\t\t"])),(l()(),ze["\u0275eld"](7,0,null,null,1,"app-header",[],null,null,null,h,du)),ze["\u0275did"](8,114688,null,0,ru,[],null,null),(l()(),ze["\u0275ted"](-1,null,["\n\t\t"])),(l()(),ze["\u0275eld"](10,0,null,null,7,"div",[["class","content"]],null,null,null,null,null)),(l()(),ze["\u0275ted"](-1,null,["\n            "])),(l()(),ze["\u0275eld"](12,0,null,null,4,"div",[["class","container-fluid"]],null,null,null,null,null)),(l()(),ze["\u0275ted"](-1,null,["\n\t\t\t\t"])),(l()(),ze["\u0275eld"](14,16777216,null,null,1,"router-outlet",[],null,null,null,null,null)),ze["\u0275did"](15,212992,null,0,Ke.o,[Ke.b,ze.ViewContainerRef,ze.ComponentFactoryResolver,[8,null],ze.ChangeDetectorRef],null,null),(l()(),ze["\u0275ted"](-1,null,["\n\t\t\t"])),(l()(),ze["\u0275ted"](-1,null,["\n\t\t"])),(l()(),ze["\u0275ted"](-1,null,["\n\t"])),(l()(),ze["\u0275ted"](-1,null,["\n"]))],function(l,n){l(n,3,0),l(n,8,0),l(n,15,0)},null)}function vl(l){return ze["\u0275vid"](0,[(l()(),ze["\u0275eld"](0,0,null,null,1,"app-admin-plan",[],null,null,null,ml,We)),ze["\u0275did"](1,114688,null,0,Ge,[],null,null)],function(l,n){l(n,1,0)},null)}function fl(l){return ze["\u0275vid"](0,[(l()(),ze["\u0275eld"](0,0,null,null,27,"tr",[],null,null,null,null,null)),(l()(),ze["\u0275ted"](-1,null,["\n                    "])),(l()(),ze["\u0275eld"](2,0,null,null,1,"td",[["class","padding0"]],null,null,null,null,null)),(l()(),ze["\u0275ted"](3,null,["",""])),(l()(),ze["\u0275ted"](-1,null,["\n                    "])),(l()(),ze["\u0275eld"](5,0,null,null,1,"td",[["class","padding0"]],null,null,null,null,null)),(l()(),ze["\u0275ted"](6,null,["",""])),(l()(),ze["\u0275ted"](-1,null,["\n                     "])),(l()(),ze["\u0275eld"](8,0,null,null,1,"td",[["class","padding0"]],null,null,null,null,null)),(l()(),ze["\u0275ted"](9,null,[""," Months"])),(l()(),ze["\u0275ted"](-1,null,["\n                    "])),(l()(),ze["\u0275eld"](11,0,null,null,15,"td",[["class","padding0 td-actions text-right"]],null,null,null,null,null)),(l()(),ze["\u0275ted"](-1,null,["\n                        "])),(l()(),ze["\u0275eld"](13,0,null,null,6,"a",[["class","btn btn-success btn-simple btn-xs"],["rel","tooltip"],["title","Edit Task"]],[[1,"target",0],[8,"href",4]],[[null,"click"]],function(l,n,u){var e=!0;if("click"===n){e=!1!==ze["\u0275nov"](l,14).onClick(u.button,u.ctrlKey,u.metaKey,u.shiftKey)&&e}return e},null,null)),ze["\u0275did"](14,671744,null,0,Ke.m,[Ke.k,Ke.a,Je.LocationStrategy],{routerLink:[0,"routerLink"]},null),ze["\u0275pad"](15,2),(l()(),ze["\u0275ted"](-1,null,["\n                            "])),(l()(),ze["\u0275eld"](17,0,null,null,1,"i",[["class","material-icons"]],null,null,null,null,null)),(l()(),ze["\u0275ted"](-1,null,["edit"])),(l()(),ze["\u0275ted"](-1,null,["\n                        "])),(l()(),ze["\u0275ted"](-1,null,["\n                        "])),(l()(),ze["\u0275eld"](21,0,null,null,4,"a",[["class","btn btn-danger btn-simple btn-xs"],["rel","tooltip"],["title","Remove"]],null,[[null,"click"]],function(l,n,u){var e=!0,t=l.component;if("click"===n){e=!1!==t.deletePlan(l.context.$implicit._id)&&e}return e},null,null)),(l()(),ze["\u0275ted"](-1,null,["\n                            "])),(l()(),ze["\u0275eld"](23,0,null,null,1,"i",[["class","material-icons"]],null,null,null,null,null)),(l()(),ze["\u0275ted"](-1,null,["close"])),(l()(),ze["\u0275ted"](-1,null,["\n                        "])),(l()(),ze["\u0275ted"](-1,null,["\n                    "])),(l()(),ze["\u0275ted"](-1,null,["\n                "]))],function(l,n){l(n,14,0,l(n,15,0,"/admin/plan/",n.context.$implicit._id))},function(l,n){l(n,3,0,n.context.$implicit.name),l(n,6,0,n.context.$implicit.amount),l(n,9,0,n.context.$implicit.planType),l(n,13,0,ze["\u0275nov"](n,14).target,ze["\u0275nov"](n,14).href)})}function hl(l){return ze["\u0275vid"](0,[(l()(),ze["\u0275eld"](0,0,null,null,22,"table",[["class","table"]],null,null,null,null,null)),(l()(),ze["\u0275ted"](-1,null,["\n            "])),(l()(),ze["\u0275eld"](2,0,null,null,13,"thead",[["class","text-success"]],null,null,null,null,null)),(l()(),ze["\u0275ted"](-1,null,["\n                "])),(l()(),ze["\u0275eld"](4,0,null,null,1,"th",[],null,null,null,null,null)),(l()(),ze["\u0275ted"](-1,null,["Name"])),(l()(),ze["\u0275ted"](-1,null,["\n                "])),(l()(),ze["\u0275eld"](7,0,null,null,1,"th",[],null,null,null,null,null)),(l()(),ze["\u0275ted"](-1,null,["Amount"])),(l()(),ze["\u0275ted"](-1,null,["\n                "])),(l()(),ze["\u0275eld"](10,0,null,null,1,"th",[],null,null,null,null,null)),(l()(),ze["\u0275ted"](-1,null,["Duration"])),(l()(),ze["\u0275ted"](-1,null,["\n                "])),(l()(),ze["\u0275eld"](13,0,null,null,1,"th",[],null,null,null,null,null)),(l()(),ze["\u0275ted"](-1,null,["Action"])),(l()(),ze["\u0275ted"](-1,null,["\n            "])),(l()(),ze["\u0275ted"](-1,null,["\n            "])),(l()(),ze["\u0275eld"](17,0,null,null,4,"tbody",[],null,null,null,null,null)),(l()(),ze["\u0275ted"](-1,null,["\n                "])),(l()(),ze["\u0275and"](16777216,null,null,1,null,fl)),ze["\u0275did"](20,802816,null,0,Je.NgForOf,[ze.ViewContainerRef,ze.TemplateRef,ze.IterableDiffers],{ngForOf:[0,"ngForOf"]},null),(l()(),ze["\u0275ted"](-1,null,["\n            "])),(l()(),ze["\u0275ted"](-1,null,["\n        "]))],function(l,n){l(n,20,0,n.component.plans)},null)}function Cl(l){return ze["\u0275vid"](0,[(l()(),ze["\u0275eld"](0,0,null,null,10,"div",[["class","alert alert-warning"]],null,null,null,null,null)),(l()(),ze["\u0275ted"](-1,null,["\n            "])),(l()(),ze["\u0275eld"](2,0,null,null,1,"button",[["aria-hidden","true"],["class","close"],["type","button"]],null,null,null,null,null)),(l()(),ze["\u0275ted"](-1,null,["\xd7"])),(l()(),ze["\u0275ted"](-1,null,["\n            "])),(l()(),ze["\u0275eld"](5,0,null,null,4,"span",[],null,null,null,null,null)),(l()(),ze["\u0275ted"](-1,null,[" "])),(l()(),ze["\u0275eld"](7,0,null,null,1,"b",[],null,null,null,null,null)),(l()(),ze["\u0275ted"](-1,null,[" No Data - "])),(l()(),ze["\u0275ted"](-1,null,[" Plan Empty Kindly create One"])),(l()(),ze["\u0275ted"](-1,null,["\n        "]))],null,null)}function bl(l){return ze["\u0275vid"](0,[(l()(),ze["\u0275eld"](0,0,null,null,38,"div",[["class","card card-nav-tabs"]],null,null,null,null,null)),(l()(),ze["\u0275ted"](-1,null,["\n    "])),(l()(),ze["\u0275eld"](2,0,null,null,26,"div",[["class","card-header"],["data-background-color","green"]],null,null,null,null,null)),(l()(),ze["\u0275ted"](-1,null,["\n        "])),(l()(),ze["\u0275eld"](4,0,null,null,23,"div",[["class","nav-tabs-navigation"]],null,null,null,null,null)),(l()(),ze["\u0275ted"](-1,null,["\n            "])),(l()(),ze["\u0275eld"](6,0,null,null,20,"div",[["class","nav-tabs-wrapper"]],null,null,null,null,null)),(l()(),ze["\u0275ted"](-1,null,["\n                "])),(l()(),ze["\u0275eld"](8,0,null,null,1,"span",[["class","nav-tabs-title"]],null,null,null,null,null)),(l()(),ze["\u0275ted"](-1,null,["Plans"])),(l()(),ze["\u0275ted"](-1,null,["\n                "])),(l()(),ze["\u0275eld"](11,0,null,null,14,"ul",[["class","nav nav-tabs"],["data-tabs","tabs"]],null,null,null,null,null)),(l()(),ze["\u0275ted"](-1,null,["\n                    "])),(l()(),ze["\u0275eld"](13,0,null,null,11,"li",[["class","active pull-right"]],null,null,null,null,null)),(l()(),ze["\u0275ted"](-1,null,["\n                        "])),(l()(),ze["\u0275eld"](15,0,null,null,8,"a",[],[[1,"target",0],[8,"href",4]],[[null,"click"]],function(l,n,u){var e=!0;if("click"===n){e=!1!==ze["\u0275nov"](l,16).onClick(u.button,u.ctrlKey,u.metaKey,u.shiftKey)&&e}return e},null,null)),ze["\u0275did"](16,671744,null,0,Ke.m,[Ke.k,Ke.a,Je.LocationStrategy],{routerLink:[0,"routerLink"]},null),ze["\u0275pad"](17,1),(l()(),ze["\u0275ted"](-1,null,["\n                            "])),(l()(),ze["\u0275eld"](19,0,null,null,1,"i",[["class","material-icons"]],null,null,null,null,null)),(l()(),ze["\u0275ted"](-1,null,["exposure_plus_1"])),(l()(),ze["\u0275ted"](-1,null,[" Add Plan\n                            "])),(l()(),ze["\u0275eld"](22,0,null,null,0,"div",[["class","ripple-container"]],null,null,null,null,null)),(l()(),ze["\u0275ted"](-1,null,["\n                        "])),(l()(),ze["\u0275ted"](-1,null,["\n                    "])),(l()(),ze["\u0275ted"](-1,null,["\n                "])),(l()(),ze["\u0275ted"](-1,null,["\n            "])),(l()(),ze["\u0275ted"](-1,null,["\n        "])),(l()(),ze["\u0275ted"](-1,null,["\n    "])),(l()(),ze["\u0275ted"](-1,null,["\n    "])),(l()(),ze["\u0275eld"](30,0,null,null,7,"div",[["class","card-content table-responsive"]],null,null,null,null,null)),(l()(),ze["\u0275ted"](-1,null,["\n        "])),(l()(),ze["\u0275and"](16777216,null,null,1,null,hl)),ze["\u0275did"](33,16384,null,0,Je.NgIf,[ze.ViewContainerRef,ze.TemplateRef],{ngIf:[0,"ngIf"]},null),(l()(),ze["\u0275ted"](-1,null,["\n        "])),(l()(),ze["\u0275and"](16777216,null,null,1,null,Cl)),ze["\u0275did"](36,16384,null,0,Je.NgIf,[ze.ViewContainerRef,ze.TemplateRef],{ngIf:[0,"ngIf"]},null),(l()(),ze["\u0275ted"](-1,null,["\n    "])),(l()(),ze["\u0275ted"](-1,null,["\n"]))],function(l,n){var u=n.component;l(n,16,0,l(n,17,0,"/admin/plan/add/")),l(n,33,0,u.plans.length>0),l(n,36,0,0==u.plans.length)},function(l,n){l(n,15,0,ze["\u0275nov"](n,16).target,ze["\u0275nov"](n,16).href)})}function Fl(l){return ze["\u0275vid"](0,[(l()(),ze["\u0275eld"](0,0,null,null,1,"app-admin-plan-list",[],null,null,null,bl,Qe)),ze["\u0275did"](1,114688,null,0,Be,[$e.FormBuilder,fu,Ke.k,Ke.a,He.FlashMessagesService],null,null)],function(l,n){l(n,1,0)},null)}function yl(l){return ze["\u0275vid"](0,[(l()(),ze["\u0275eld"](0,0,null,null,1,"div",[["class","alert alert-danger"]],null,null,null,null,null)),(l()(),ze["\u0275ted"](1,null,["\n                                ","\n                            "]))],null,function(l,n){l(n,1,0,n.component.formErrors.name)})}function Sl(l){return ze["\u0275vid"](0,[(l()(),ze["\u0275eld"](0,0,null,null,1,"div",[["class","alert alert-danger"]],null,null,null,null,null)),(l()(),ze["\u0275ted"](1,null,["\n                                ","\n                            "]))],null,function(l,n){l(n,1,0,n.component.formErrors.amount)})}function _l(l){return ze["\u0275vid"](0,[(l()(),ze["\u0275eld"](0,0,null,null,1,"div",[["class","alert alert-danger"]],null,null,null,null,null)),(l()(),ze["\u0275ted"](1,null,["\n                                ","\n                            "]))],null,function(l,n){l(n,1,0,n.component.formErrors.planType)})}function Nl(l){return ze["\u0275vid"](0,[(l()(),ze["\u0275eld"](0,0,null,null,140,"div",[["class","row"]],null,null,null,null,null)),(l()(),ze["\u0275ted"](-1,null,["\n\t"])),(l()(),ze["\u0275eld"](2,0,null,null,137,"div",[["class",""]],null,null,null,null,null)),(l()(),ze["\u0275ted"](-1,null,["\n        "])),(l()(),ze["\u0275eld"](4,0,null,null,134,"div",[["class","card"]],null,null,null,null,null)),(l()(),ze["\u0275ted"](-1,null,["\n            "])),(l()(),ze["\u0275eld"](6,0,null,null,7,"div",[["class","card-header"],["data-background-color","green"]],null,null,null,null,null)),(l()(),ze["\u0275ted"](-1,null,["\n                "])),(l()(),ze["\u0275eld"](8,0,null,null,1,"h4",[["class","title"]],null,null,null,null,null)),(l()(),ze["\u0275ted"](-1,null,["Add Plan"])),(l()(),ze["\u0275ted"](-1,null,["\n                "])),(l()(),ze["\u0275eld"](11,0,null,null,1,"p",[["class","category"]],null,null,null,null,null)),(l()(),ze["\u0275ted"](-1,null,["Create plan for user"])),(l()(),ze["\u0275ted"](-1,null,["\n            "])),(l()(),ze["\u0275ted"](-1,null,["\n            "])),(l()(),ze["\u0275eld"](15,0,null,null,122,"div",[["class","card-content"]],null,null,null,null,null)),(l()(),ze["\u0275ted"](-1,null,["\n                "])),(l()(),ze["\u0275eld"](17,0,null,null,119,"form",[["novalidate",""]],[[2,"ng-untouched",null],[2,"ng-touched",null],[2,"ng-pristine",null],[2,"ng-dirty",null],[2,"ng-valid",null],[2,"ng-invalid",null],[2,"ng-pending",null]],[[null,"ngSubmit"],[null,"submit"],[null,"reset"]],function(l,n,u){var e=!0,t=l.component;if("submit"===n){e=!1!==ze["\u0275nov"](l,19).onSubmit(u)&&e}if("reset"===n){e=!1!==ze["\u0275nov"](l,19).onReset()&&e}if("ngSubmit"===n){e=!1!==t.planAdd()&&e}return e},null,null)),ze["\u0275did"](18,16384,null,0,$e["\u0275bf"],[],null,null),ze["\u0275did"](19,540672,null,0,$e.FormGroupDirective,[[8,null],[8,null]],{form:[0,"form"]},{ngSubmit:"ngSubmit"}),ze["\u0275prd"](2048,null,$e.ControlContainer,null,[$e.FormGroupDirective]),ze["\u0275did"](21,16384,null,0,$e.NgControlStatusGroup,[$e.ControlContainer],null,null),(l()(),ze["\u0275ted"](-1,null,["\n                    "])),(l()(),ze["\u0275eld"](23,0,null,null,85,"div",[["class","row"]],null,null,null,null,null)),(l()(),ze["\u0275ted"](-1,null,["\n                        "])),(l()(),ze["\u0275eld"](25,0,null,null,19,"div",[["class","col-md-6"]],null,null,null,null,null)),(l()(),ze["\u0275ted"](-1,null,["\n                            "])),(l()(),ze["\u0275eld"](27,0,null,null,13,"div",[["class","form-group label-floating"]],null,null,null,null,null)),(l()(),ze["\u0275ted"](-1,null,["\n                                "])),(l()(),ze["\u0275eld"](29,0,null,null,3,"label",[["class","control-label"]],null,null,null,null,null)),(l()(),ze["\u0275ted"](-1,null,["Plan Name "])),(l()(),ze["\u0275eld"](31,0,null,null,1,"span",[],null,null,null,null,null)),(l()(),ze["\u0275ted"](-1,null,["*"])),(l()(),ze["\u0275ted"](-1,null,["\n                                "])),(l()(),ze["\u0275eld"](34,0,null,null,5,"input",[["autofocus",""],["class","form-control"],["formControlName","name"],["type","text"]],[[2,"ng-untouched",null],[2,"ng-touched",null],[2,"ng-pristine",null],[2,"ng-dirty",null],[2,"ng-valid",null],[2,"ng-invalid",null],[2,"ng-pending",null]],[[null,"input"],[null,"blur"],[null,"compositionstart"],[null,"compositionend"]],function(l,n,u){var e=!0;if("input"===n){e=!1!==ze["\u0275nov"](l,35)._handleInput(u.target.value)&&e}if("blur"===n){e=!1!==ze["\u0275nov"](l,35).onTouched()&&e}if("compositionstart"===n){e=!1!==ze["\u0275nov"](l,35)._compositionStart()&&e}if("compositionend"===n){e=!1!==ze["\u0275nov"](l,35)._compositionEnd(u.target.value)&&e}return e},null,null)),ze["\u0275did"](35,16384,null,0,$e.DefaultValueAccessor,[ze.Renderer2,ze.ElementRef,[2,$e.COMPOSITION_BUFFER_MODE]],null,null),ze["\u0275prd"](1024,null,$e.NG_VALUE_ACCESSOR,function(l){return[l]},[$e.DefaultValueAccessor]),ze["\u0275did"](37,671744,null,0,$e.FormControlName,[[3,$e.ControlContainer],[8,null],[8,null],[2,$e.NG_VALUE_ACCESSOR]],{name:[0,"name"]},null),ze["\u0275prd"](2048,null,$e.NgControl,null,[$e.FormControlName]),ze["\u0275did"](39,16384,null,0,$e.NgControlStatus,[$e.NgControl],null,null),(l()(),ze["\u0275ted"](-1,null,["\n                            "])),(l()(),ze["\u0275ted"](-1,null,["\n                            "])),(l()(),ze["\u0275and"](16777216,null,null,1,null,yl)),ze["\u0275did"](43,16384,null,0,Je.NgIf,[ze.ViewContainerRef,ze.TemplateRef],{ngIf:[0,"ngIf"]},null),(l()(),ze["\u0275ted"](-1,null,["\n                        "])),(l()(),ze["\u0275ted"](-1,null,["\n                        "])),(l()(),ze["\u0275eld"](46,0,null,null,19,"div",[["class","col-md-6"]],null,null,null,null,null)),(l()(),ze["\u0275ted"](-1,null,["\n                            "])),(l()(),ze["\u0275eld"](48,0,null,null,13,"div",[["class","form-group label-floating"]],null,null,null,null,null)),(l()(),ze["\u0275ted"](-1,null,["\n                                "])),(l()(),ze["\u0275eld"](50,0,null,null,3,"label",[["class","control-label"]],null,null,null,null,null)),(l()(),ze["\u0275ted"](-1,null,["Amount "])),(l()(),ze["\u0275eld"](52,0,null,null,1,"span",[],null,null,null,null,null)),(l()(),ze["\u0275ted"](-1,null,["*"])),(l()(),ze["\u0275ted"](-1,null,["\n                                "])),(l()(),ze["\u0275eld"](55,0,null,null,5,"input",[["class","form-control"],["formControlName","amount"],["type","text"]],[[2,"ng-untouched",null],[2,"ng-touched",null],[2,"ng-pristine",null],[2,"ng-dirty",null],[2,"ng-valid",null],[2,"ng-invalid",null],[2,"ng-pending",null]],[[null,"input"],[null,"blur"],[null,"compositionstart"],[null,"compositionend"]],function(l,n,u){var e=!0;if("input"===n){e=!1!==ze["\u0275nov"](l,56)._handleInput(u.target.value)&&e}if("blur"===n){e=!1!==ze["\u0275nov"](l,56).onTouched()&&e}if("compositionstart"===n){e=!1!==ze["\u0275nov"](l,56)._compositionStart()&&e}if("compositionend"===n){e=!1!==ze["\u0275nov"](l,56)._compositionEnd(u.target.value)&&e}return e},null,null)),ze["\u0275did"](56,16384,null,0,$e.DefaultValueAccessor,[ze.Renderer2,ze.ElementRef,[2,$e.COMPOSITION_BUFFER_MODE]],null,null),ze["\u0275prd"](1024,null,$e.NG_VALUE_ACCESSOR,function(l){return[l]},[$e.DefaultValueAccessor]),ze["\u0275did"](58,671744,null,0,$e.FormControlName,[[3,$e.ControlContainer],[8,null],[8,null],[2,$e.NG_VALUE_ACCESSOR]],{name:[0,"name"]},null),ze["\u0275prd"](2048,null,$e.NgControl,null,[$e.FormControlName]),ze["\u0275did"](60,16384,null,0,$e.NgControlStatus,[$e.NgControl],null,null),(l()(),ze["\u0275ted"](-1,null,["\n                            "])),(l()(),ze["\u0275ted"](-1,null,["\n                            "])),(l()(),ze["\u0275and"](16777216,null,null,1,null,Sl)),ze["\u0275did"](64,16384,null,0,Je.NgIf,[ze.ViewContainerRef,ze.TemplateRef],{ngIf:[0,"ngIf"]},null),(l()(),ze["\u0275ted"](-1,null,["\n                        "])),(l()(),ze["\u0275ted"](-1,null,["\n                        "])),(l()(),ze["\u0275eld"](67,0,null,null,40,"div",[["class","col-md-6"]],null,null,null,null,null)),(l()(),ze["\u0275ted"](-1,null,["\n                            "])),(l()(),ze["\u0275eld"](69,0,null,null,34,"div",[["class","form-group"]],null,null,null,null,null)),(l()(),ze["\u0275ted"](-1,null,["\n                                "])),(l()(),ze["\u0275eld"](71,0,null,null,3,"label",[["class","control-label"]],null,null,null,null,null)),(l()(),ze["\u0275ted"](-1,null,["Plan Type "])),(l()(),ze["\u0275eld"](73,0,null,null,1,"span",[],null,null,null,null,null)),(l()(),ze["\u0275ted"](-1,null,["*"])),(l()(),ze["\u0275ted"](-1,null,["\n                                "])),(l()(),ze["\u0275eld"](76,0,null,null,26,"select",[["class","form-control"],["formControlName","planType"]],[[2,"ng-untouched",null],[2,"ng-touched",null],[2,"ng-pristine",null],[2,"ng-dirty",null],[2,"ng-valid",null],[2,"ng-invalid",null],[2,"ng-pending",null]],[[null,"change"],[null,"blur"]],function(l,n,u){var e=!0;if("change"===n){e=!1!==ze["\u0275nov"](l,77).onChange(u.target.value)&&e}if("blur"===n){e=!1!==ze["\u0275nov"](l,77).onTouched()&&e}return e},null,null)),ze["\u0275did"](77,16384,null,0,$e.SelectControlValueAccessor,[ze.Renderer2,ze.ElementRef],null,null),ze["\u0275prd"](1024,null,$e.NG_VALUE_ACCESSOR,function(l){return[l]},[$e.SelectControlValueAccessor]),ze["\u0275did"](79,671744,null,0,$e.FormControlName,[[3,$e.ControlContainer],[8,null],[8,null],[2,$e.NG_VALUE_ACCESSOR]],{name:[0,"name"]},null),ze["\u0275prd"](2048,null,$e.NgControl,null,[$e.FormControlName]),ze["\u0275did"](81,16384,null,0,$e.NgControlStatus,[$e.NgControl],null,null),(l()(),ze["\u0275ted"](-1,null,["\n                                    "])),(l()(),ze["\u0275eld"](83,0,null,null,3,"option",[["value",""]],null,null,null,null,null)),ze["\u0275did"](84,147456,null,0,$e.NgSelectOption,[ze.ElementRef,ze.Renderer2,[2,$e.SelectControlValueAccessor]],{value:[0,"value"]},null),ze["\u0275did"](85,147456,null,0,$e["\u0275q"],[ze.ElementRef,ze.Renderer2,[8,null]],{value:[0,"value"]},null),(l()(),ze["\u0275ted"](-1,null,["Select Plan"])),(l()(),ze["\u0275ted"](-1,null,["\n                                    "])),(l()(),ze["\u0275eld"](88,0,null,null,3,"option",[["value","3"]],null,null,null,null,null)),ze["\u0275did"](89,147456,null,0,$e.NgSelectOption,[ze.ElementRef,ze.Renderer2,[2,$e.SelectControlValueAccessor]],{value:[0,"value"]},null),ze["\u0275did"](90,147456,null,0,$e["\u0275q"],[ze.ElementRef,ze.Renderer2,[8,null]],{value:[0,"value"]},null),(l()(),ze["\u0275ted"](-1,null,["Quarterly"])),(l()(),ze["\u0275ted"](-1,null,["\n                                    "])),(l()(),ze["\u0275eld"](93,0,null,null,3,"option",[["value","6"]],null,null,null,null,null)),ze["\u0275did"](94,147456,null,0,$e.NgSelectOption,[ze.ElementRef,ze.Renderer2,[2,$e.SelectControlValueAccessor]],{value:[0,"value"]},null),ze["\u0275did"](95,147456,null,0,$e["\u0275q"],[ze.ElementRef,ze.Renderer2,[8,null]],{value:[0,"value"]},null),(l()(),ze["\u0275ted"](-1,null,["Half Yearly"])),(l()(),ze["\u0275ted"](-1,null,["\n                                    "])),(l()(),ze["\u0275eld"](98,0,null,null,3,"option",[["value","12"]],null,null,null,null,null)),ze["\u0275did"](99,147456,null,0,$e.NgSelectOption,[ze.ElementRef,ze.Renderer2,[2,$e.SelectControlValueAccessor]],{value:[0,"value"]},null),ze["\u0275did"](100,147456,null,0,$e["\u0275q"],[ze.ElementRef,ze.Renderer2,[8,null]],{value:[0,"value"]},null),(l()(),ze["\u0275ted"](-1,null,["Annual"])),(l()(),ze["\u0275ted"](-1,null,["\n                                "])),(l()(),ze["\u0275ted"](-1,null,["\n                            "])),(l()(),ze["\u0275ted"](-1,null,["\n                            "])),(l()(),ze["\u0275and"](16777216,null,null,1,null,_l)),ze["\u0275did"](106,16384,null,0,Je.NgIf,[ze.ViewContainerRef,ze.TemplateRef],{ngIf:[0,"ngIf"]},null),(l()(),ze["\u0275ted"](-1,null,["\n                        "])),(l()(),ze["\u0275ted"](-1,null,["\n                    "])),(l()(),ze["\u0275ted"](-1,null,["\n                    "])),(l()(),ze["\u0275eld"](110,0,null,null,20,"div",[["class","row"]],null,null,null,null,null)),(l()(),ze["\u0275ted"](-1,null,["\n                        "])),(l()(),ze["\u0275eld"](112,0,null,null,17,"div",[["class","col-md-12"]],null,null,null,null,null)),(l()(),ze["\u0275ted"](-1,null,["\n                            "])),(l()(),ze["\u0275eld"](114,0,null,null,14,"div",[["class","form-group"]],null,null,null,null,null)),(l()(),ze["\u0275ted"](-1,null,["\n                                "])),(l()(),ze["\u0275eld"](116,0,null,null,11,"div",[["class","form-group label-floating"]],null,null,null,null,null)),(l()(),ze["\u0275ted"](-1,null,["\n                                    "])),(l()(),ze["\u0275eld"](118,0,null,null,1,"label",[["class","control-label"]],null,null,null,null,null)),(l()(),ze["\u0275ted"](-1,null,[" Describe about this plan"])),(l()(),ze["\u0275ted"](-1,null,["\n                                    "])),(l()(),ze["\u0275eld"](121,0,null,null,5,"textarea",[["class","form-control"],["formControlName","desc"],["rows","5"]],[[2,"ng-untouched",null],[2,"ng-touched",null],[2,"ng-pristine",null],[2,"ng-dirty",null],[2,"ng-valid",null],[2,"ng-invalid",null],[2,"ng-pending",null]],[[null,"input"],[null,"blur"],[null,"compositionstart"],[null,"compositionend"]],function(l,n,u){var e=!0;if("input"===n){e=!1!==ze["\u0275nov"](l,122)._handleInput(u.target.value)&&e}if("blur"===n){e=!1!==ze["\u0275nov"](l,122).onTouched()&&e}if("compositionstart"===n){e=!1!==ze["\u0275nov"](l,122)._compositionStart()&&e}if("compositionend"===n){e=!1!==ze["\u0275nov"](l,122)._compositionEnd(u.target.value)&&e}return e},null,null)),ze["\u0275did"](122,16384,null,0,$e.DefaultValueAccessor,[ze.Renderer2,ze.ElementRef,[2,$e.COMPOSITION_BUFFER_MODE]],null,null),ze["\u0275prd"](1024,null,$e.NG_VALUE_ACCESSOR,function(l){return[l]},[$e.DefaultValueAccessor]),ze["\u0275did"](124,671744,null,0,$e.FormControlName,[[3,$e.ControlContainer],[8,null],[8,null],[2,$e.NG_VALUE_ACCESSOR]],{name:[0,"name"]},null),ze["\u0275prd"](2048,null,$e.NgControl,null,[$e.FormControlName]),ze["\u0275did"](126,16384,null,0,$e.NgControlStatus,[$e.NgControl],null,null),(l()(),ze["\u0275ted"](-1,null,["\n                                "])),(l()(),ze["\u0275ted"](-1,null,["\n                            "])),(l()(),ze["\u0275ted"](-1,null,["\n                        "])),(l()(),ze["\u0275ted"](-1,null,["\n                    "])),(l()(),ze["\u0275ted"](-1,null,["\n                    "])),(l()(),ze["\u0275eld"](132,0,null,null,1,"button",[["class","btn btn-success pull-right"],["type","submit"]],[[8,"disabled",0]],null,null,null,null)),(l()(),ze["\u0275ted"](-1,null,["Add Plan"])),(l()(),ze["\u0275ted"](-1,null,["\n                    "])),(l()(),ze["\u0275eld"](135,0,null,null,0,"div",[["class","clearfix"]],null,null,null,null,null)),(l()(),ze["\u0275ted"](-1,null,["\n                "])),(l()(),ze["\u0275ted"](-1,null,["\n            "])),(l()(),ze["\u0275ted"](-1,null,["\n        "])),(l()(),ze["\u0275ted"](-1,null,["\n    "])),(l()(),ze["\u0275ted"](-1,null,["\n"]))],function(l,n){var u=n.component;l(n,19,0,u.planAddForm);l(n,37,0,"name"),l(n,43,0,u.formErrors.name);l(n,58,0,"amount"),l(n,64,0,u.formErrors.amount);l(n,79,0,"planType");l(n,84,0,"");l(n,85,0,"");l(n,89,0,"3");l(n,90,0,"3");l(n,94,0,"6");l(n,95,0,"6");l(n,99,0,"12");l(n,100,0,"12"),l(n,106,0,u.formErrors.planType);l(n,124,0,"desc")},function(l,n){var u=n.component;l(n,17,0,ze["\u0275nov"](n,21).ngClassUntouched,ze["\u0275nov"](n,21).ngClassTouched,ze["\u0275nov"](n,21).ngClassPristine,ze["\u0275nov"](n,21).ngClassDirty,ze["\u0275nov"](n,21).ngClassValid,ze["\u0275nov"](n,21).ngClassInvalid,ze["\u0275nov"](n,21).ngClassPending),l(n,34,0,ze["\u0275nov"](n,39).ngClassUntouched,ze["\u0275nov"](n,39).ngClassTouched,ze["\u0275nov"](n,39).ngClassPristine,ze["\u0275nov"](n,39).ngClassDirty,ze["\u0275nov"](n,39).ngClassValid,ze["\u0275nov"](n,39).ngClassInvalid,ze["\u0275nov"](n,39).ngClassPending),l(n,55,0,ze["\u0275nov"](n,60).ngClassUntouched,ze["\u0275nov"](n,60).ngClassTouched,ze["\u0275nov"](n,60).ngClassPristine,ze["\u0275nov"](n,60).ngClassDirty,ze["\u0275nov"](n,60).ngClassValid,ze["\u0275nov"](n,60).ngClassInvalid,ze["\u0275nov"](n,60).ngClassPending),l(n,76,0,ze["\u0275nov"](n,81).ngClassUntouched,ze["\u0275nov"](n,81).ngClassTouched,ze["\u0275nov"](n,81).ngClassPristine,ze["\u0275nov"](n,81).ngClassDirty,ze["\u0275nov"](n,81).ngClassValid,ze["\u0275nov"](n,81).ngClassInvalid,ze["\u0275nov"](n,81).ngClassPending),l(n,121,0,ze["\u0275nov"](n,126).ngClassUntouched,ze["\u0275nov"](n,126).ngClassTouched,ze["\u0275nov"](n,126).ngClassPristine,ze["\u0275nov"](n,126).ngClassDirty,ze["\u0275nov"](n,126).ngClassValid,ze["\u0275nov"](n,126).ngClassInvalid,ze["\u0275nov"](n,126).ngClassPending),l(n,132,0,!u.planAddForm.valid)})}function El(l){return ze["\u0275vid"](0,[(l()(),ze["\u0275eld"](0,0,null,null,1,"app-admin-plan-add",[],null,null,null,Nl,ut)),ze["\u0275did"](1,114688,null,0,qe,[$e.FormBuilder,fu,Ke.k,Ke.a,He.FlashMessagesService],null,null)],function(l,n){l(n,1,0)},null)}function wl(l){return ze["\u0275vid"](0,[(l()(),ze["\u0275eld"](0,0,null,null,1,"div",[["class","alert alert-danger"]],null,null,null,null,null)),(l()(),ze["\u0275ted"](1,null,["\n                                ","\n                            "]))],null,function(l,n){l(n,1,0,n.component.formErrors.name)})}function kl(l){return ze["\u0275vid"](0,[(l()(),ze["\u0275eld"](0,0,null,null,1,"div",[["class","alert alert-danger"]],null,null,null,null,null)),(l()(),ze["\u0275ted"](1,null,["\n                                ","\n                            "]))],null,function(l,n){l(n,1,0,n.component.formErrors.amount)})}function Al(l){return ze["\u0275vid"](0,[(l()(),ze["\u0275eld"](0,0,null,null,1,"div",[["class","alert alert-danger"]],null,null,null,null,null)),(l()(),ze["\u0275ted"](1,null,["\n                                ","\n                            "]))],null,function(l,n){l(n,1,0,n.component.formErrors.planType)})}function Pl(l){return ze["\u0275vid"](0,[(l()(),ze["\u0275eld"](0,0,null,null,140,"div",[["class","row"]],null,null,null,null,null)),(l()(),ze["\u0275ted"](-1,null,["\n    "])),(l()(),ze["\u0275eld"](2,0,null,null,137,"div",[["class",""]],null,null,null,null,null)),(l()(),ze["\u0275ted"](-1,null,["\n        "])),(l()(),ze["\u0275eld"](4,0,null,null,134,"div",[["class","card"]],null,null,null,null,null)),(l()(),ze["\u0275ted"](-1,null,["\n            "])),(l()(),ze["\u0275eld"](6,0,null,null,7,"div",[["class","card-header"],["data-background-color","green"]],null,null,null,null,null)),(l()(),ze["\u0275ted"](-1,null,["\n                "])),(l()(),ze["\u0275eld"](8,0,null,null,1,"h4",[["class","title"]],null,null,null,null,null)),(l()(),ze["\u0275ted"](-1,null,["Update Plan"])),(l()(),ze["\u0275ted"](-1,null,["\n                "])),(l()(),ze["\u0275eld"](11,0,null,null,1,"p",[["class","category"]],null,null,null,null,null)),(l()(),ze["\u0275ted"](-1,null,["Update plan for customer"])),(l()(),ze["\u0275ted"](-1,null,["\n            "])),(l()(),ze["\u0275ted"](-1,null,["\n            "])),(l()(),ze["\u0275eld"](15,0,null,null,122,"div",[["class","card-content"]],null,null,null,null,null)),(l()(),ze["\u0275ted"](-1,null,["\n                "])),(l()(),ze["\u0275eld"](17,0,null,null,119,"form",[["novalidate",""]],[[2,"ng-untouched",null],[2,"ng-touched",null],[2,"ng-pristine",null],[2,"ng-dirty",null],[2,"ng-valid",null],[2,"ng-invalid",null],[2,"ng-pending",null]],[[null,"ngSubmit"],[null,"submit"],[null,"reset"]],function(l,n,u){var e=!0,t=l.component;if("submit"===n){e=!1!==ze["\u0275nov"](l,19).onSubmit(u)&&e}if("reset"===n){e=!1!==ze["\u0275nov"](l,19).onReset()&&e}if("ngSubmit"===n){e=!1!==t.planUpdate()&&e}return e},null,null)),ze["\u0275did"](18,16384,null,0,$e["\u0275bf"],[],null,null),ze["\u0275did"](19,540672,null,0,$e.FormGroupDirective,[[8,null],[8,null]],{form:[0,"form"]},{ngSubmit:"ngSubmit"}),ze["\u0275prd"](2048,null,$e.ControlContainer,null,[$e.FormGroupDirective]),ze["\u0275did"](21,16384,null,0,$e.NgControlStatusGroup,[$e.ControlContainer],null,null),(l()(),ze["\u0275ted"](-1,null,["\n                    "])),(l()(),ze["\u0275eld"](23,0,null,null,85,"div",[["class","row"]],null,null,null,null,null)),(l()(),ze["\u0275ted"](-1,null,["\n                        "])),(l()(),ze["\u0275eld"](25,0,null,null,19,"div",[["class","col-md-6"]],null,null,null,null,null)),(l()(),ze["\u0275ted"](-1,null,["\n                            "])),(l()(),ze["\u0275eld"](27,0,null,null,13,"div",[["class","form-group"]],null,null,null,null,null)),(l()(),ze["\u0275ted"](-1,null,["\n                                "])),(l()(),ze["\u0275eld"](29,0,null,null,3,"label",[["class","control-label"]],null,null,null,null,null)),(l()(),ze["\u0275ted"](-1,null,["Plan Name "])),(l()(),ze["\u0275eld"](31,0,null,null,1,"span",[],null,null,null,null,null)),(l()(),ze["\u0275ted"](-1,null,["*"])),(l()(),ze["\u0275ted"](-1,null,["\n                                "])),(l()(),ze["\u0275eld"](34,0,null,null,5,"input",[["autofocus",""],["class","form-control"],["formControlName","name"],["type","text"]],[[2,"ng-untouched",null],[2,"ng-touched",null],[2,"ng-pristine",null],[2,"ng-dirty",null],[2,"ng-valid",null],[2,"ng-invalid",null],[2,"ng-pending",null]],[[null,"input"],[null,"blur"],[null,"compositionstart"],[null,"compositionend"]],function(l,n,u){var e=!0;if("input"===n){e=!1!==ze["\u0275nov"](l,35)._handleInput(u.target.value)&&e}if("blur"===n){e=!1!==ze["\u0275nov"](l,35).onTouched()&&e}if("compositionstart"===n){e=!1!==ze["\u0275nov"](l,35)._compositionStart()&&e}if("compositionend"===n){e=!1!==ze["\u0275nov"](l,35)._compositionEnd(u.target.value)&&e}return e},null,null)),ze["\u0275did"](35,16384,null,0,$e.DefaultValueAccessor,[ze.Renderer2,ze.ElementRef,[2,$e.COMPOSITION_BUFFER_MODE]],null,null),ze["\u0275prd"](1024,null,$e.NG_VALUE_ACCESSOR,function(l){return[l]},[$e.DefaultValueAccessor]),ze["\u0275did"](37,671744,null,0,$e.FormControlName,[[3,$e.ControlContainer],[8,null],[8,null],[2,$e.NG_VALUE_ACCESSOR]],{name:[0,"name"]},null),ze["\u0275prd"](2048,null,$e.NgControl,null,[$e.FormControlName]),ze["\u0275did"](39,16384,null,0,$e.NgControlStatus,[$e.NgControl],null,null),(l()(),ze["\u0275ted"](-1,null,["\n                            "])),(l()(),ze["\u0275ted"](-1,null,["\n                            "])),(l()(),ze["\u0275and"](16777216,null,null,1,null,wl)),ze["\u0275did"](43,16384,null,0,Je.NgIf,[ze.ViewContainerRef,ze.TemplateRef],{ngIf:[0,"ngIf"]},null),(l()(),ze["\u0275ted"](-1,null,["\n                        "])),(l()(),ze["\u0275ted"](-1,null,["\n                        "])),(l()(),ze["\u0275eld"](46,0,null,null,19,"div",[["class","col-md-6"]],null,null,null,null,null)),(l()(),ze["\u0275ted"](-1,null,["\n                            "])),(l()(),ze["\u0275eld"](48,0,null,null,13,"div",[["class","form-group"]],null,null,null,null,null)),(l()(),ze["\u0275ted"](-1,null,["\n                                "])),(l()(),ze["\u0275eld"](50,0,null,null,3,"label",[["class","control-label"]],null,null,null,null,null)),(l()(),ze["\u0275ted"](-1,null,["Amount "])),(l()(),ze["\u0275eld"](52,0,null,null,1,"span",[],null,null,null,null,null)),(l()(),ze["\u0275ted"](-1,null,["*"])),(l()(),ze["\u0275ted"](-1,null,["\n                                "])),(l()(),ze["\u0275eld"](55,0,null,null,5,"input",[["class","form-control"],["formControlName","amount"],["type","text"]],[[2,"ng-untouched",null],[2,"ng-touched",null],[2,"ng-pristine",null],[2,"ng-dirty",null],[2,"ng-valid",null],[2,"ng-invalid",null],[2,"ng-pending",null]],[[null,"input"],[null,"blur"],[null,"compositionstart"],[null,"compositionend"]],function(l,n,u){var e=!0;if("input"===n){e=!1!==ze["\u0275nov"](l,56)._handleInput(u.target.value)&&e}if("blur"===n){e=!1!==ze["\u0275nov"](l,56).onTouched()&&e}if("compositionstart"===n){e=!1!==ze["\u0275nov"](l,56)._compositionStart()&&e}if("compositionend"===n){e=!1!==ze["\u0275nov"](l,56)._compositionEnd(u.target.value)&&e}return e},null,null)),ze["\u0275did"](56,16384,null,0,$e.DefaultValueAccessor,[ze.Renderer2,ze.ElementRef,[2,$e.COMPOSITION_BUFFER_MODE]],null,null),ze["\u0275prd"](1024,null,$e.NG_VALUE_ACCESSOR,function(l){return[l]},[$e.DefaultValueAccessor]),ze["\u0275did"](58,671744,null,0,$e.FormControlName,[[3,$e.ControlContainer],[8,null],[8,null],[2,$e.NG_VALUE_ACCESSOR]],{name:[0,"name"]},null),ze["\u0275prd"](2048,null,$e.NgControl,null,[$e.FormControlName]),ze["\u0275did"](60,16384,null,0,$e.NgControlStatus,[$e.NgControl],null,null),(l()(),ze["\u0275ted"](-1,null,["\n                            "])),(l()(),ze["\u0275ted"](-1,null,["\n                            "])),(l()(),ze["\u0275and"](16777216,null,null,1,null,kl)),ze["\u0275did"](64,16384,null,0,Je.NgIf,[ze.ViewContainerRef,ze.TemplateRef],{ngIf:[0,"ngIf"]},null),(l()(),ze["\u0275ted"](-1,null,["\n                        "])),(l()(),ze["\u0275ted"](-1,null,["\n                        "])),(l()(),ze["\u0275eld"](67,0,null,null,40,"div",[["class","col-md-6"]],null,null,null,null,null)),(l()(),ze["\u0275ted"](-1,null,["\n                            "])),(l()(),ze["\u0275eld"](69,0,null,null,34,"div",[["class","form-group"]],null,null,null,null,null)),(l()(),ze["\u0275ted"](-1,null,["\n                                "])),(l()(),ze["\u0275eld"](71,0,null,null,3,"label",[["class","control-label"]],null,null,null,null,null)),(l()(),ze["\u0275ted"](-1,null,["Plan Type "])),(l()(),ze["\u0275eld"](73,0,null,null,1,"span",[],null,null,null,null,null)),(l()(),ze["\u0275ted"](-1,null,["*"])),(l()(),ze["\u0275ted"](-1,null,["\n                                "])),(l()(),ze["\u0275eld"](76,0,null,null,26,"select",[["class","form-control"],["formControlName","planType"]],[[2,"ng-untouched",null],[2,"ng-touched",null],[2,"ng-pristine",null],[2,"ng-dirty",null],[2,"ng-valid",null],[2,"ng-invalid",null],[2,"ng-pending",null]],[[null,"change"],[null,"blur"]],function(l,n,u){var e=!0;if("change"===n){e=!1!==ze["\u0275nov"](l,77).onChange(u.target.value)&&e}if("blur"===n){e=!1!==ze["\u0275nov"](l,77).onTouched()&&e}return e},null,null)),ze["\u0275did"](77,16384,null,0,$e.SelectControlValueAccessor,[ze.Renderer2,ze.ElementRef],null,null),ze["\u0275prd"](1024,null,$e.NG_VALUE_ACCESSOR,function(l){return[l]},[$e.SelectControlValueAccessor]),ze["\u0275did"](79,671744,null,0,$e.FormControlName,[[3,$e.ControlContainer],[8,null],[8,null],[2,$e.NG_VALUE_ACCESSOR]],{name:[0,"name"]},null),ze["\u0275prd"](2048,null,$e.NgControl,null,[$e.FormControlName]),ze["\u0275did"](81,16384,null,0,$e.NgControlStatus,[$e.NgControl],null,null),(l()(),ze["\u0275ted"](-1,null,["\n                                    "])),(l()(),ze["\u0275eld"](83,0,null,null,3,"option",[["value",""]],null,null,null,null,null)),ze["\u0275did"](84,147456,null,0,$e.NgSelectOption,[ze.ElementRef,ze.Renderer2,[2,$e.SelectControlValueAccessor]],{value:[0,"value"]},null),ze["\u0275did"](85,147456,null,0,$e["\u0275q"],[ze.ElementRef,ze.Renderer2,[8,null]],{value:[0,"value"]},null),(l()(),ze["\u0275ted"](-1,null,["Select Plan "])),(l()(),ze["\u0275ted"](-1,null,["\n                                    "])),(l()(),ze["\u0275eld"](88,0,null,null,3,"option",[["value","3"]],null,null,null,null,null)),ze["\u0275did"](89,147456,null,0,$e.NgSelectOption,[ze.ElementRef,ze.Renderer2,[2,$e.SelectControlValueAccessor]],{value:[0,"value"]},null),ze["\u0275did"](90,147456,null,0,$e["\u0275q"],[ze.ElementRef,ze.Renderer2,[8,null]],{value:[0,"value"]},null),(l()(),ze["\u0275ted"](-1,null,["Quarterly"])),(l()(),ze["\u0275ted"](-1,null,["\n                                    "])),(l()(),ze["\u0275eld"](93,0,null,null,3,"option",[["value","6"]],null,null,null,null,null)),ze["\u0275did"](94,147456,null,0,$e.NgSelectOption,[ze.ElementRef,ze.Renderer2,[2,$e.SelectControlValueAccessor]],{value:[0,"value"]},null),ze["\u0275did"](95,147456,null,0,$e["\u0275q"],[ze.ElementRef,ze.Renderer2,[8,null]],{value:[0,"value"]},null),(l()(),ze["\u0275ted"](-1,null,["Half Yearly"])),(l()(),ze["\u0275ted"](-1,null,["\n                                    "])),(l()(),ze["\u0275eld"](98,0,null,null,3,"option",[["value","12"]],null,null,null,null,null)),ze["\u0275did"](99,147456,null,0,$e.NgSelectOption,[ze.ElementRef,ze.Renderer2,[2,$e.SelectControlValueAccessor]],{value:[0,"value"]},null),ze["\u0275did"](100,147456,null,0,$e["\u0275q"],[ze.ElementRef,ze.Renderer2,[8,null]],{value:[0,"value"]},null),(l()(),ze["\u0275ted"](-1,null,["Annual"])),(l()(),ze["\u0275ted"](-1,null,["\n                                "])),(l()(),ze["\u0275ted"](-1,null,["\n                            "])),(l()(),ze["\u0275ted"](-1,null,["\n                            "])),(l()(),ze["\u0275and"](16777216,null,null,1,null,Al)),ze["\u0275did"](106,16384,null,0,Je.NgIf,[ze.ViewContainerRef,ze.TemplateRef],{ngIf:[0,"ngIf"]},null),(l()(),ze["\u0275ted"](-1,null,["\n                        "])),(l()(),ze["\u0275ted"](-1,null,["\n                    "])),(l()(),ze["\u0275ted"](-1,null,["\n                    "])),(l()(),ze["\u0275eld"](110,0,null,null,20,"div",[["class","row"]],null,null,null,null,null)),(l()(),ze["\u0275ted"](-1,null,["\n                        "])),(l()(),ze["\u0275eld"](112,0,null,null,17,"div",[["class","col-md-12"]],null,null,null,null,null)),(l()(),ze["\u0275ted"](-1,null,["\n                            "])),(l()(),ze["\u0275eld"](114,0,null,null,14,"div",[["class","form-group"]],null,null,null,null,null)),(l()(),ze["\u0275ted"](-1,null,["\n                                "])),(l()(),ze["\u0275eld"](116,0,null,null,11,"div",[["class","form-group"]],null,null,null,null,null)),(l()(),ze["\u0275ted"](-1,null,["\n                                    "])),(l()(),ze["\u0275eld"](118,0,null,null,1,"label",[["class","control-label"]],null,null,null,null,null)),(l()(),ze["\u0275ted"](-1,null,[" Describe about this plan"])),(l()(),ze["\u0275ted"](-1,null,["\n                                    "])),(l()(),ze["\u0275eld"](121,0,null,null,5,"textarea",[["class","form-control"],["formControlName","desc"],["rows","5"]],[[2,"ng-untouched",null],[2,"ng-touched",null],[2,"ng-pristine",null],[2,"ng-dirty",null],[2,"ng-valid",null],[2,"ng-invalid",null],[2,"ng-pending",null]],[[null,"input"],[null,"blur"],[null,"compositionstart"],[null,"compositionend"]],function(l,n,u){var e=!0;if("input"===n){e=!1!==ze["\u0275nov"](l,122)._handleInput(u.target.value)&&e}if("blur"===n){e=!1!==ze["\u0275nov"](l,122).onTouched()&&e}if("compositionstart"===n){e=!1!==ze["\u0275nov"](l,122)._compositionStart()&&e}if("compositionend"===n){e=!1!==ze["\u0275nov"](l,122)._compositionEnd(u.target.value)&&e}return e},null,null)),ze["\u0275did"](122,16384,null,0,$e.DefaultValueAccessor,[ze.Renderer2,ze.ElementRef,[2,$e.COMPOSITION_BUFFER_MODE]],null,null),ze["\u0275prd"](1024,null,$e.NG_VALUE_ACCESSOR,function(l){return[l]},[$e.DefaultValueAccessor]),ze["\u0275did"](124,671744,null,0,$e.FormControlName,[[3,$e.ControlContainer],[8,null],[8,null],[2,$e.NG_VALUE_ACCESSOR]],{name:[0,"name"]},null),ze["\u0275prd"](2048,null,$e.NgControl,null,[$e.FormControlName]),ze["\u0275did"](126,16384,null,0,$e.NgControlStatus,[$e.NgControl],null,null),(l()(),ze["\u0275ted"](-1,null,["\n                                "])),(l()(),ze["\u0275ted"](-1,null,["\n                            "])),(l()(),ze["\u0275ted"](-1,null,["\n                        "])),(l()(),ze["\u0275ted"](-1,null,["\n                    "])),(l()(),ze["\u0275ted"](-1,null,["\n                    "])),(l()(),ze["\u0275eld"](132,0,null,null,1,"button",[["class","btn btn-success pull-right"],["type","submit"]],[[8,"disabled",0]],null,null,null,null)),(l()(),ze["\u0275ted"](-1,null,["Update Plan"])),(l()(),ze["\u0275ted"](-1,null,["\n                    "])),(l()(),ze["\u0275eld"](135,0,null,null,0,"div",[["class","clearfix"]],null,null,null,null,null)),(l()(),ze["\u0275ted"](-1,null,["\n                "])),(l()(),ze["\u0275ted"](-1,null,["\n            "])),(l()(),ze["\u0275ted"](-1,null,["\n        "])),(l()(),ze["\u0275ted"](-1,null,["\n    "])),(l()(),ze["\u0275ted"](-1,null,["\n"]))],function(l,n){var u=n.component;l(n,19,0,u.planAddForm);l(n,37,0,"name"),l(n,43,0,u.formErrors.name);l(n,58,0,"amount"),l(n,64,0,u.formErrors.amount);l(n,79,0,"planType");l(n,84,0,"");l(n,85,0,"");l(n,89,0,"3");l(n,90,0,"3");l(n,94,0,"6");l(n,95,0,"6");l(n,99,0,"12");l(n,100,0,"12"),l(n,106,0,u.formErrors.planType);l(n,124,0,"desc")},function(l,n){var u=n.component;l(n,17,0,ze["\u0275nov"](n,21).ngClassUntouched,ze["\u0275nov"](n,21).ngClassTouched,ze["\u0275nov"](n,21).ngClassPristine,ze["\u0275nov"](n,21).ngClassDirty,ze["\u0275nov"](n,21).ngClassValid,ze["\u0275nov"](n,21).ngClassInvalid,ze["\u0275nov"](n,21).ngClassPending),l(n,34,0,ze["\u0275nov"](n,39).ngClassUntouched,ze["\u0275nov"](n,39).ngClassTouched,ze["\u0275nov"](n,39).ngClassPristine,ze["\u0275nov"](n,39).ngClassDirty,ze["\u0275nov"](n,39).ngClassValid,ze["\u0275nov"](n,39).ngClassInvalid,ze["\u0275nov"](n,39).ngClassPending),l(n,55,0,ze["\u0275nov"](n,60).ngClassUntouched,ze["\u0275nov"](n,60).ngClassTouched,ze["\u0275nov"](n,60).ngClassPristine,ze["\u0275nov"](n,60).ngClassDirty,ze["\u0275nov"](n,60).ngClassValid,ze["\u0275nov"](n,60).ngClassInvalid,ze["\u0275nov"](n,60).ngClassPending),l(n,76,0,ze["\u0275nov"](n,81).ngClassUntouched,ze["\u0275nov"](n,81).ngClassTouched,ze["\u0275nov"](n,81).ngClassPristine,ze["\u0275nov"](n,81).ngClassDirty,ze["\u0275nov"](n,81).ngClassValid,ze["\u0275nov"](n,81).ngClassInvalid,ze["\u0275nov"](n,81).ngClassPending),l(n,121,0,ze["\u0275nov"](n,126).ngClassUntouched,ze["\u0275nov"](n,126).ngClassTouched,ze["\u0275nov"](n,126).ngClassPristine,ze["\u0275nov"](n,126).ngClassDirty,ze["\u0275nov"](n,126).ngClassValid,ze["\u0275nov"](n,126).ngClassInvalid,ze["\u0275nov"](n,126).ngClassPending),l(n,132,0,!u.planAddForm.valid)})}function Il(l){return ze["\u0275vid"](0,[(l()(),ze["\u0275eld"](0,0,null,null,1,"app-admin-plan-edit",[],null,null,null,Pl,ot)),ze["\u0275did"](1,114688,null,0,je,[$e.FormBuilder,fu,Ke.k,Ke.a,He.FlashMessagesService],null,null)],function(l,n){l(n,1,0)},null)}function Ol(l){return vt["\u0275vid"](0,[(l()(),vt["\u0275eld"](0,0,null,null,9,"li",[["class","nav-item px-3"]],null,null,null,null,null)),(l()(),vt["\u0275ted"](-1,null,["\n                    "])),(l()(),vt["\u0275eld"](2,0,null,null,6,"a",[["class","nav-link"]],[[1,"target",0],[8,"href",4]],[[null,"click"]],function(l,n,u){var e=!0;if("click"===n){e=!1!==vt["\u0275nov"](l,3).onClick(u.button,u.ctrlKey,u.metaKey,u.shiftKey)&&e}return e},null,null)),vt["\u0275did"](3,671744,null,0,ft.m,[ft.k,ft.a,ht.LocationStrategy],{routerLink:[0,"routerLink"]},null),vt["\u0275pad"](4,1),(l()(),vt["\u0275ted"](-1,null,["Home\n                        "])),(l()(),vt["\u0275eld"](6,0,null,null,1,"span",[["class","sr-only"]],null,null,null,null,null)),(l()(),vt["\u0275ted"](-1,null,["current"])),(l()(),vt["\u0275ted"](-1,null,["\n                    "])),(l()(),vt["\u0275ted"](-1,null,["\n                "]))],function(l,n){l(n,3,0,l(n,4,0,"/"))},function(l,n){l(n,2,0,vt["\u0275nov"](n,3).target,vt["\u0275nov"](n,3).href)})}function Rl(l){return vt["\u0275vid"](0,[(l()(),vt["\u0275eld"](0,0,null,null,69,"nav",[["class","navbar navbar-expand-md navbar-dark fixed-top bg-navyblue"]],null,null,null,null,null)),(l()(),vt["\u0275ted"](-1,null,["\n    "])),(l()(),vt["\u0275eld"](2,0,null,null,66,"div",[["class","container"]],null,null,null,null,null)),(l()(),vt["\u0275ted"](-1,null,["\n        "])),(l()(),vt["\u0275eld"](4,0,null,null,3,"a",[["class","navbar-brand"]],[[1,"target",0],[8,"href",4]],[[null,"click"]],function(l,n,u){var e=!0;if("click"===n){e=!1!==vt["\u0275nov"](l,5).onClick(u.button,u.ctrlKey,u.metaKey,u.shiftKey)&&e}return e},null,null)),vt["\u0275did"](5,671744,null,0,ft.m,[ft.k,ft.a,ht.LocationStrategy],{routerLink:[0,"routerLink"]},null),vt["\u0275pad"](6,1),(l()(),vt["\u0275ted"](-1,null,["Showcase.Social"])),(l()(),vt["\u0275ted"](-1,null,["\n        "])),(l()(),vt["\u0275eld"](9,0,null,null,3,"button",[["aria-controls","navbarCollapse"],["aria-expanded","false"],["aria-label","Toggle navigation"],["class","navbar-toggler"],["data-target","#navbarCollapse"],["data-toggle","collapse"],["type","button"]],null,null,null,null,null)),(l()(),vt["\u0275ted"](-1,null,["\n            "])),(l()(),vt["\u0275eld"](11,0,null,null,0,"span",[["class","navbar-toggler-icon"]],null,null,null,null,null)),(l()(),vt["\u0275ted"](-1,null,["\n        "])),(l()(),vt["\u0275ted"](-1,null,["\n        "])),(l()(),vt["\u0275eld"](14,0,null,null,53,"div",[["class","collapse navbar-collapse"],["id","navbarCollapse"]],null,null,null,null,null)),(l()(),vt["\u0275ted"](-1,null,["\n            "])),(l()(),vt["\u0275eld"](16,0,null,null,50,"ul",[["class","navbar-nav ml-auto"]],null,null,null,null,null)),(l()(),vt["\u0275ted"](-1,null,["\n                "])),(l()(),vt["\u0275and"](16777216,null,null,1,null,Ol)),vt["\u0275did"](19,16384,null,0,ht.NgIf,[vt.ViewContainerRef,vt.TemplateRef],{ngIf:[0,"ngIf"]},null),(l()(),vt["\u0275ted"](-1,null,["\n                "])),(l()(),vt["\u0275eld"](21,0,null,null,9,"li",[["class","nav-item px-3"]],null,null,null,null,null)),(l()(),vt["\u0275ted"](-1,null,["\n                    "])),(l()(),vt["\u0275eld"](23,0,null,null,6,"a",[["class","nav-link"]],[[1,"target",0],[8,"href",4]],[[null,"click"]],function(l,n,u){var e=!0;if("click"===n){e=!1!==vt["\u0275nov"](l,24).onClick(u.button,u.ctrlKey,u.metaKey,u.shiftKey)&&e}return e},null,null)),vt["\u0275did"](24,671744,null,0,ft.m,[ft.k,ft.a,ht.LocationStrategy],{routerLink:[0,"routerLink"]},null),vt["\u0275pad"](25,1),(l()(),vt["\u0275ted"](-1,null,["Video production work\n                        "])),(l()(),vt["\u0275eld"](27,0,null,null,1,"span",[["class","sr-only"]],null,null,null,null,null)),(l()(),vt["\u0275ted"](-1,null,["(current"])),(l()(),vt["\u0275ted"](-1,null,["\n                    "])),(l()(),vt["\u0275ted"](-1,null,["\n                "])),(l()(),vt["\u0275ted"](-1,null,["\n                "])),(l()(),vt["\u0275eld"](32,0,null,null,9,"li",[["class","nav-item px-3"]],null,null,null,null,null)),(l()(),vt["\u0275ted"](-1,null,["\n                    "])),(l()(),vt["\u0275eld"](34,0,null,null,6,"a",[["class","nav-link"]],[[1,"target",0],[8,"href",4]],[[null,"click"]],function(l,n,u){var e=!0;if("click"===n){e=!1!==vt["\u0275nov"](l,35).onClick(u.button,u.ctrlKey,u.metaKey,u.shiftKey)&&e}return e},null,null)),vt["\u0275did"](35,671744,null,0,ft.m,[ft.k,ft.a,ht.LocationStrategy],{routerLink:[0,"routerLink"]},null),vt["\u0275pad"](36,1),(l()(),vt["\u0275ted"](-1,null,["Demonetisation\n                        "])),(l()(),vt["\u0275eld"](38,0,null,null,1,"span",[["class","sr-only"]],null,null,null,null,null)),(l()(),vt["\u0275ted"](-1,null,["(current)"])),(l()(),vt["\u0275ted"](-1,null,["\n                    "])),(l()(),vt["\u0275ted"](-1,null,["\n                "])),(l()(),vt["\u0275ted"](-1,null,["\n                "])),(l()(),vt["\u0275eld"](43,0,null,null,6,"li",[["class","nav-item px-3"]],null,null,null,null,null)),(l()(),vt["\u0275ted"](-1,null,["\n                    "])),(l()(),vt["\u0275eld"](45,0,null,null,3,"a",[["class","nav-link"]],[[1,"target",0],[8,"href",4]],[[null,"click"]],function(l,n,u){var e=!0;if("click"===n){e=!1!==vt["\u0275nov"](l,46).onClick(u.button,u.ctrlKey,u.metaKey,u.shiftKey)&&e}return e},null,null)),vt["\u0275did"](46,671744,null,0,ft.m,[ft.k,ft.a,ht.LocationStrategy],{routerLink:[0,"routerLink"]},null),vt["\u0275pad"](47,1),(l()(),vt["\u0275ted"](-1,null,[" Blog "])),(l()(),vt["\u0275ted"](-1,null,["\n                "])),(l()(),vt["\u0275ted"](-1,null,["\n                "])),(l()(),vt["\u0275eld"](51,0,null,null,6,"li",[["class","nav-item px-3"]],null,null,null,null,null)),(l()(),vt["\u0275ted"](-1,null,["\n                    "])),(l()(),vt["\u0275eld"](53,0,null,null,3,"a",[["class","nav-link"]],[[1,"target",0],[8,"href",4]],[[null,"click"]],function(l,n,u){var e=!0;if("click"===n){e=!1!==vt["\u0275nov"](l,54).onClick(u.button,u.ctrlKey,u.metaKey,u.shiftKey)&&e}return e},null,null)),vt["\u0275did"](54,671744,null,0,ft.m,[ft.k,ft.a,ht.LocationStrategy],{routerLink:[0,"routerLink"]},null),vt["\u0275pad"](55,1),(l()(),vt["\u0275ted"](-1,null,["About"])),(l()(),vt["\u0275ted"](-1,null,["\n                "])),(l()(),vt["\u0275ted"](-1,null,["\n                "])),(l()(),vt["\u0275eld"](59,0,null,null,6,"li",[["class","nav-item pl-3"]],null,null,null,null,null)),(l()(),vt["\u0275ted"](-1,null,["\n                    "])),(l()(),vt["\u0275eld"](61,0,null,null,3,"a",[["class","nav-link"]],[[1,"target",0],[8,"href",4]],[[null,"click"]],function(l,n,u){var e=!0;if("click"===n){e=!1!==vt["\u0275nov"](l,62).onClick(u.button,u.ctrlKey,u.metaKey,u.shiftKey)&&e}return e},null,null)),vt["\u0275did"](62,671744,null,0,ft.m,[ft.k,ft.a,ht.LocationStrategy],{routerLink:[0,"routerLink"]},null),vt["\u0275pad"](63,1),(l()(),vt["\u0275ted"](-1,null,["Contact"])),(l()(),vt["\u0275ted"](-1,null,["\n                "])),(l()(),vt["\u0275ted"](-1,null,["\n            "])),(l()(),vt["\u0275ted"](-1,null,["\n        "])),(l()(),vt["\u0275ted"](-1,null,["\n    "])),(l()(),vt["\u0275ted"](-1,null,["\n"]))],function(l,n){var u=n.component;l(n,5,0,l(n,6,0,"/")),l(n,19,0,!u.customer),l(n,24,0,l(n,25,0,"/")),l(n,35,0,l(n,36,0,"/")),l(n,46,0,l(n,47,0,"/")),l(n,54,0,l(n,55,0,"/")),l(n,62,0,l(n,63,0,"/"))},function(l,n){l(n,4,0,vt["\u0275nov"](n,5).target,vt["\u0275nov"](n,5).href),l(n,23,0,vt["\u0275nov"](n,24).target,vt["\u0275nov"](n,24).href),l(n,34,0,vt["\u0275nov"](n,35).target,vt["\u0275nov"](n,35).href),l(n,45,0,vt["\u0275nov"](n,46).target,vt["\u0275nov"](n,46).href),l(n,53,0,vt["\u0275nov"](n,54).target,vt["\u0275nov"](n,54).href),l(n,61,0,vt["\u0275nov"](n,62).target,vt["\u0275nov"](n,62).href)})}function Dl(l){return vt["\u0275vid"](0,[(l()(),vt["\u0275eld"](0,0,null,null,3,"a",[["class","navbar-brand p-0"],["href","javascript:void(0)"]],null,null,null,null,null)),(l()(),vt["\u0275ted"](-1,null,["\n            "])),(l()(),vt["\u0275eld"](2,0,null,null,0,"img",[["class","rounded-circle d-none d-sm-block d-md-none d-block d-sm-none"],["height","30"],["width","30"]],[[8,"src",4]],null,null,null,null)),(l()(),vt["\u0275ted"](-1,null,["\n        "]))],null,function(l,n){l(n,2,0,n.component.currentCustomer.image)})}function Vl(l){return vt["\u0275vid"](0,[(l()(),vt["\u0275eld"](0,0,null,null,2,"a",[["aria-expanded","false"],["aria-haspopup","true"],["class","nav-link dropdown-toggle p-0"],["data-toggle","dropdown"],["href",""],["id","dropdown01"]],null,null,null,null,null)),(l()(),vt["\u0275ted"](-1,null,[" "])),(l()(),vt["\u0275eld"](2,0,null,null,0,"img",[["class","rounded-circle"],["height","30"],["width","30"]],[[8,"src",4]],null,null,null,null))],null,function(l,n){l(n,2,0,n.component.currentCustomer.image)})}function Ml(l){return vt["\u0275vid"](0,[(l()(),vt["\u0275eld"](0,0,null,null,116,"nav",[["class","navbar navbar-expand-md navbar-dark fixed-top bg-navyblue"]],null,null,null,null,null)),(l()(),vt["\u0275ted"](-1,null,["\n    "])),(l()(),vt["\u0275eld"](2,0,null,null,113,"div",[["class","container-fluid"]],null,null,null,null,null)),(l()(),vt["\u0275ted"](-1,null,["\n        "])),(l()(),vt["\u0275eld"](4,0,null,null,3,"button",[["aria-controls","navbarCollapse"],["aria-expanded","false"],["aria-label","Toggle navigation"],["class","navbar-toggler"],["data-target","#navbarCollapse"],["data-toggle","collapse"],["type","button"]],null,null,null,null,null)),(l()(),vt["\u0275ted"](-1,null,["\n            "])),(l()(),vt["\u0275eld"](6,0,null,null,0,"span",[["class","navbar-toggler-icon"]],null,null,null,null,null)),(l()(),vt["\u0275ted"](-1,null,["\n        "])),(l()(),vt["\u0275ted"](-1,null,["\n        "])),(l()(),vt["\u0275eld"](9,0,null,null,3,"a",[["class","navbar-brand"]],[[1,"target",0],[8,"href",4]],[[null,"click"]],function(l,n,u){var e=!0;if("click"===n){e=!1!==vt["\u0275nov"](l,10).onClick(u.button,u.ctrlKey,u.metaKey,u.shiftKey)&&e}return e},null,null)),vt["\u0275did"](10,671744,null,0,ft.m,[ft.k,ft.a,ht.LocationStrategy],{routerLink:[0,"routerLink"]},null),vt["\u0275pad"](11,1),(l()(),vt["\u0275ted"](-1,null,["Showcase.Social"])),(l()(),vt["\u0275ted"](-1,null,["\n        "])),(l()(),vt["\u0275and"](16777216,null,null,1,null,Dl)),vt["\u0275did"](15,16384,null,0,ht.NgIf,[vt.ViewContainerRef,vt.TemplateRef],{ngIf:[0,"ngIf"]},null),(l()(),vt["\u0275ted"](-1,null,["\n        "])),(l()(),vt["\u0275eld"](17,0,null,null,97,"div",[["class","collapse navbar-collapse"],["id","navbarCollapse"]],null,null,null,null,null)),(l()(),vt["\u0275ted"](-1,null,["\n            "])),(l()(),vt["\u0275eld"](19,0,null,null,60,"ul",[["class","navbar-nav mr-auto "]],null,null,null,null,null)),(l()(),vt["\u0275ted"](-1,null,["\n                "])),(l()(),vt["\u0275eld"](21,0,null,null,16,"li",[["class","nav-item dropdown px-3"]],null,null,null,null,null)),(l()(),vt["\u0275ted"](-1,null,["\n                    "])),(l()(),vt["\u0275eld"](23,0,null,null,1,"a",[["aria-expanded","false"],["aria-haspopup","true"],["class","nav-link dropdown-toggle"],["data-toggle","dropdown"],["href",""],["id","dropdown01"]],null,null,null,null,null)),(l()(),vt["\u0275ted"](-1,null,["My Showcase"])),(l()(),vt["\u0275ted"](-1,null,["\n                    "])),(l()(),vt["\u0275eld"](26,0,null,null,10,"div",[["aria-labelledby","dropdown01"],["class","dropdown-menu"]],null,null,null,null,null)),(l()(),vt["\u0275ted"](-1,null,["\n                        "])),(l()(),vt["\u0275eld"](28,0,null,null,1,"a",[["class","dropdown-item"],["href","javascript:void(0)"]],null,null,null,null,null)),(l()(),vt["\u0275ted"](-1,null,["Action"])),(l()(),vt["\u0275ted"](-1,null,["\n                        "])),(l()(),vt["\u0275eld"](31,0,null,null,1,"a",[["class","dropdown-item"],["href","javascript:void(0)"]],null,null,null,null,null)),(l()(),vt["\u0275ted"](-1,null,["Another action"])),(l()(),vt["\u0275ted"](-1,null,["\n                        "])),(l()(),vt["\u0275eld"](34,0,null,null,1,"a",[["class","dropdown-item"],["href","javascript:void(0)"]],null,null,null,null,null)),(l()(),vt["\u0275ted"](-1,null,["Something else here"])),(l()(),vt["\u0275ted"](-1,null,["\n                    "])),(l()(),vt["\u0275ted"](-1,null,["\n                "])),(l()(),vt["\u0275ted"](-1,null,["\n                "])),(l()(),vt["\u0275eld"](39,0,null,null,7,"li",[["class","nav-item px-3"]],null,null,null,null,null)),(l()(),vt["\u0275ted"](-1,null,["\n                    "])),(l()(),vt["\u0275eld"](41,0,null,null,4,"a",[["class","nav-link"],["href","./video-prod.html"]],null,null,null,null,null)),(l()(),vt["\u0275ted"](-1,null,["Video production work\n                        "])),(l()(),vt["\u0275eld"](43,0,null,null,1,"span",[["class","sr-only"]],null,null,null,null,null)),(l()(),vt["\u0275ted"](-1,null,["(current)"])),(l()(),vt["\u0275ted"](-1,null,["\n                    "])),(l()(),vt["\u0275ted"](-1,null,["\n                "])),(l()(),vt["\u0275ted"](-1,null,["\n                "])),(l()(),vt["\u0275eld"](48,0,null,null,4,"li",[["class","nav-item px-3"]],null,null,null,null,null)),(l()(),vt["\u0275ted"](-1,null,["\n                    "])),(l()(),vt["\u0275eld"](50,0,null,null,1,"a",[["class","nav-link"],["href","javascript:void(0)"]],null,null,null,null,null)),(l()(),vt["\u0275ted"](-1,null,["Work in the wild"])),(l()(),vt["\u0275ted"](-1,null,["\n                "])),(l()(),vt["\u0275ted"](-1,null,["\n                "])),(l()(),vt["\u0275eld"](54,0,null,null,16,"li",[["class","nav-item dropdown px-3"]],null,null,null,null,null)),(l()(),vt["\u0275ted"](-1,null,["\n                    "])),(l()(),vt["\u0275eld"](56,0,null,null,1,"a",[["aria-expanded","false"],["aria-haspopup","true"],["class","nav-link dropdown-toggle"],["data-toggle","dropdown"],["href",""],["id","dropdown01"]],null,null,null,null,null)),(l()(),vt["\u0275ted"](-1,null,["More..."])),(l()(),vt["\u0275ted"](-1,null,["\n                    "])),(l()(),vt["\u0275eld"](59,0,null,null,10,"div",[["aria-labelledby","dropdown01"],["class","dropdown-menu"]],null,null,null,null,null)),(l()(),vt["\u0275ted"](-1,null,["\n                        "])),(l()(),vt["\u0275eld"](61,0,null,null,1,"a",[["class","dropdown-item"],["href","javascript:void(0)"]],null,null,null,null,null)),(l()(),vt["\u0275ted"](-1,null,["Action"])),(l()(),vt["\u0275ted"](-1,null,["\n                        "])),(l()(),vt["\u0275eld"](64,0,null,null,1,"a",[["class","dropdown-item"],["href","javascript:void(0)"]],null,null,null,null,null)),(l()(),vt["\u0275ted"](-1,null,["Another action"])),(l()(),vt["\u0275ted"](-1,null,["\n                        "])),(l()(),vt["\u0275eld"](67,0,null,null,1,"a",[["class","dropdown-item"],["href","javascript:void(0)"]],null,null,null,null,null)),(l()(),vt["\u0275ted"](-1,null,["Something else here"])),(l()(),vt["\u0275ted"](-1,null,["\n                    "])),(l()(),vt["\u0275ted"](-1,null,["\n                "])),(l()(),vt["\u0275ted"](-1,null,["\n                "])),(l()(),vt["\u0275eld"](72,0,null,null,6,"li",[["class","nav-item pl-3"]],null,null,null,null,null)),(l()(),vt["\u0275ted"](-1,null,["\n                    "])),(l()(),vt["\u0275eld"](74,0,null,null,3,"a",[["class","nav-link"],["href","javascript:void(0)"]],null,null,null,null,null)),(l()(),vt["\u0275ted"](-1,null,["Add new\n                        "])),(l()(),vt["\u0275eld"](76,0,null,null,0,"i",[["class","fa fa-plus-circle"]],null,null,null,null,null)),(l()(),vt["\u0275ted"](-1,null,["\n                    "])),(l()(),vt["\u0275ted"](-1,null,["\n                "])),(l()(),vt["\u0275ted"](-1,null,["\n            "])),(l()(),vt["\u0275ted"](-1,null,["\n            "])),(l()(),vt["\u0275eld"](81,0,null,null,12,"form",[["class","form-inline mt-2 mt-md-0"],["novalidate",""]],[[2,"ng-untouched",null],[2,"ng-touched",null],[2,"ng-pristine",null],[2,"ng-dirty",null],[2,"ng-valid",null],[2,"ng-invalid",null],[2,"ng-pending",null]],[[null,"submit"],[null,"reset"]],function(l,n,u){var e=!0;if("submit"===n){e=!1!==vt["\u0275nov"](l,83).onSubmit(u)&&e}if("reset"===n){e=!1!==vt["\u0275nov"](l,83).onReset()&&e}return e},null,null)),vt["\u0275did"](82,16384,null,0,Ct["\u0275bf"],[],null,null),vt["\u0275did"](83,16384,null,0,Ct.NgForm,[[8,null],[8,null]],null,null),vt["\u0275prd"](2048,null,Ct.ControlContainer,null,[Ct.NgForm]),vt["\u0275did"](85,16384,null,0,Ct.NgControlStatusGroup,[Ct.ControlContainer],null,null),(l()(),vt["\u0275ted"](-1,null,["\n                "])),(l()(),vt["\u0275eld"](87,0,null,null,0,"input",[["aria-label","Search"],["class","form-control addlinkfield"],["placeholder","Paste link here..."],["style","width:auto"],["type","text"]],null,null,null,null,null)),(l()(),vt["\u0275ted"](-1,null,["\n                "])),(l()(),vt["\u0275eld"](89,0,null,null,3,"button",[["class","btn btn-outline-light my-2 my-sm-0 addlinkfieldbtn"],["type","submit"]],null,null,null,null,null)),(l()(),vt["\u0275ted"](-1,null,["\n                    "])),(l()(),vt["\u0275eld"](91,0,null,null,0,"i",[["class","fa fa-plus"]],null,null,null,null,null)),(l()(),vt["\u0275ted"](-1,null,["\n                "])),(l()(),vt["\u0275ted"](-1,null,["\n            "])),(l()(),vt["\u0275ted"](-1,null,["\n            "])),(l()(),vt["\u0275eld"](95,0,null,null,18,"ul",[["class","navbar-nav d-none d-sm-block "]],null,null,null,null,null)),(l()(),vt["\u0275ted"](-1,null,["\n                 "])),(l()(),vt["\u0275eld"](97,0,null,null,15,"li",[["class","nav-item dropdown pl-2"]],null,null,null,null,null)),(l()(),vt["\u0275ted"](-1,null,["\n                    "])),(l()(),vt["\u0275and"](16777216,null,null,1,null,Vl)),vt["\u0275did"](100,16384,null,0,ht.NgIf,[vt.ViewContainerRef,vt.TemplateRef],{ngIf:[0,"ngIf"]},null),(l()(),vt["\u0275ted"](-1,null,["\n                    "])),(l()(),vt["\u0275eld"](102,0,null,null,9,"div",[["aria-labelledby","dropdown01"],["class","dropdown-menu"]],null,null,null,null,null)),(l()(),vt["\u0275ted"](-1,null,["\n                        "])),(l()(),vt["\u0275eld"](104,0,null,null,3,"a",[["class","dropdown-item"]],[[1,"target",0],[8,"href",4]],[[null,"click"]],function(l,n,u){var e=!0;if("click"===n){e=!1!==vt["\u0275nov"](l,105).onClick(u.button,u.ctrlKey,u.metaKey,u.shiftKey)&&e}return e},null,null)),vt["\u0275did"](105,671744,null,0,ft.m,[ft.k,ft.a,ht.LocationStrategy],{routerLink:[0,"routerLink"]},null),vt["\u0275pad"](106,1),(l()(),vt["\u0275ted"](-1,null,["Profile"])),(l()(),vt["\u0275ted"](-1,null,["\n                        "])),(l()(),vt["\u0275eld"](109,0,null,null,1,"a",[["class","dropdown-item"],["href","javascript:void(0)"]],null,[[null,"click"]],function(l,n,u){var e=!0,t=l.component;if("click"===n){e=!1!==t.logout()&&e}return e},null,null)),(l()(),vt["\u0275ted"](-1,null,["Logout"])),(l()(),vt["\u0275ted"](-1,null,["\n                    "])),(l()(),vt["\u0275ted"](-1,null,["\n                "])),(l()(),vt["\u0275ted"](-1,null,["\n            "])),(l()(),vt["\u0275ted"](-1,null,["\n        "])),(l()(),vt["\u0275ted"](-1,null,["\n    "])),(l()(),vt["\u0275ted"](-1,null,["\n"]))],function(l,n){var u=n.component;l(n,10,0,l(n,11,0,"/")),l(n,15,0,void 0!=u.currentCustomer),l(n,100,0,void 0!=u.currentCustomer),l(n,105,0,l(n,106,0,"/profile"))},function(l,n){l(n,9,0,vt["\u0275nov"](n,10).target,vt["\u0275nov"](n,10).href),l(n,81,0,vt["\u0275nov"](n,85).ngClassUntouched,vt["\u0275nov"](n,85).ngClassTouched,vt["\u0275nov"](n,85).ngClassPristine,vt["\u0275nov"](n,85).ngClassDirty,vt["\u0275nov"](n,85).ngClassValid,vt["\u0275nov"](n,85).ngClassInvalid,vt["\u0275nov"](n,85).ngClassPending),l(n,104,0,vt["\u0275nov"](n,105).target,vt["\u0275nov"](n,105).href)})}function Tl(l){return vt["\u0275vid"](0,[(l()(),vt["\u0275and"](16777216,null,null,1,null,Rl)),vt["\u0275did"](1,16384,null,0,ht.NgIf,[vt.ViewContainerRef,vt.TemplateRef],{ngIf:[0,"ngIf"]},null),(l()(),vt["\u0275ted"](-1,null,["\n\n"])),(l()(),vt["\u0275and"](16777216,null,null,1,null,Ml)),vt["\u0275did"](4,16384,null,0,ht.NgIf,[vt.ViewContainerRef,vt.TemplateRef],{ngIf:[0,"ngIf"]},null)],function(l,n){var u=n.component;l(n,1,0,!u.checkCustomer()),l(n,4,0,u.checkCustomer())},null)}function Ul(l){return vt["\u0275vid"](0,[(l()(),vt["\u0275eld"](0,0,null,null,1,"app-frontendheader",[],null,null,null,Tl,Ft)),vt["\u0275did"](1,114688,null,0,mt,[pt,ft.k],null,null)],function(l,n){l(n,1,0)},null)}function Ll(l){return St["\u0275vid"](0,[(l()(),St["\u0275ted"](-1,null,["\n"])),(l()(),St["\u0275eld"](1,0,null,null,0,"link",[["href","/assets/frontend/css/bootstrap.min.css"],["rel","stylesheet"]],null,null,null,null,null)),(l()(),St["\u0275ted"](-1,null,["\n"])),(l()(),St["\u0275eld"](3,0,null,null,0,"link",[["href","/assets/frontend/css/style.css"],["rel","stylesheet"]],null,null,null,null,null)),(l()(),St["\u0275ted"](-1,null,["\n"])),(l()(),St["\u0275ted"](-1,null,["\n"])),(l()(),St["\u0275eld"](6,0,null,null,0,"link",[["href","https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"],["rel","stylesheet"]],null,null,null,null,null)),(l()(),St["\u0275ted"](-1,null,["\n"])),(l()(),St["\u0275eld"](8,0,null,null,1,"app-frontendheader",[],null,null,null,Tl,Ft)),St["\u0275did"](9,114688,null,0,mt,[pt,_t.k],null,null),(l()(),St["\u0275ted"](-1,null,["\n"])),(l()(),St["\u0275eld"](11,0,null,null,1,"flash-messages",[],null,null,null,Nt.b,Nt.a)),St["\u0275did"](12,114688,null,0,Et.FlashMessagesComponent,[wt.FlashMessagesService,St.ChangeDetectorRef],null,null),(l()(),St["\u0275ted"](-1,null,["\n"])),(l()(),St["\u0275eld"](14,16777216,null,null,1,"router-outlet",[],null,null,null,null,null)),St["\u0275did"](15,212992,null,0,_t.o,[_t.b,St.ViewContainerRef,St.ComponentFactoryResolver,[8,null],St.ChangeDetectorRef],null,null),(l()(),St["\u0275ted"](-1,null,["\n\n\n\n\n"]))],function(l,n){l(n,9,0),l(n,12,0),l(n,15,0)},null)}function xl(l){return St["\u0275vid"](0,[(l()(),St["\u0275eld"](0,0,null,null,1,"app-frontend",[],null,null,null,Ll,At)),St["\u0275did"](1,114688,null,0,yt,[pt],null,null)],function(l,n){l(n,1,0)},null)}function Gl(l){return Lt["\u0275vid"](0,[(l()(),Lt["\u0275eld"](0,0,null,null,107,"div",[["class","main-content bgimage"]],null,null,null,null,null)),(l()(),Lt["\u0275ted"](-1,null,["\n    "])),(l()(),Lt["\u0275eld"](2,0,null,null,3,"h1",[["class","font-weight-bold "]],null,null,null,null,null)),(l()(),Lt["\u0275ted"](-1,null,["\n        "])),(l()(),Lt["\u0275eld"](4,0,null,null,0,"i",[["class","fa fa-firefox text-warning"]],null,null,null,null,null)),(l()(),Lt["\u0275ted"](-1,null,[" Showcase.Social\n    "])),(l()(),Lt["\u0275ted"](-1,null,["\n    "])),(l()(),Lt["\u0275eld"](7,0,null,null,1,"p",[],null,null,null,null,null)),(l()(),Lt["\u0275ted"](-1,null,["You make suff"])),(l()(),Lt["\u0275ted"](-1,null,["\n    "])),(l()(),Lt["\u0275eld"](10,0,null,null,1,"p",[],null,null,null,null,null)),(l()(),Lt["\u0275ted"](-1,null,["You put your suff on social media"])),(l()(),Lt["\u0275ted"](-1,null,["\n    "])),(l()(),Lt["\u0275eld"](13,0,null,null,3,"p",[],null,null,null,null,null)),(l()(),Lt["\u0275ted"](-1,null,["And all your"])),(l()(),Lt["\u0275eld"](15,0,null,null,1,"b",[],null,null,null,null,null)),(l()(),Lt["\u0275ted"](-1,null,["stuff is all over the shop."])),(l()(),Lt["\u0275ted"](-1,null,["\n    "])),(l()(),Lt["\u0275eld"](18,0,null,null,88,"div",[["class","container mycontainer"]],null,null,null,null,null)),(l()(),Lt["\u0275ted"](-1,null,["\n        "])),(l()(),Lt["\u0275eld"](20,0,null,null,41,"div",[["class","row py-3"]],null,null,null,null,null)),(l()(),Lt["\u0275ted"](-1,null,["\n            "])),(l()(),Lt["\u0275eld"](22,0,null,null,8,"div",[["class","col"]],null,null,null,null,null)),(l()(),Lt["\u0275ted"](-1,null,["\n                "])),(l()(),Lt["\u0275eld"](24,0,null,null,5,"div",[["class","circle text-uppercase"]],null,null,null,null,null)),(l()(),Lt["\u0275ted"](-1,null,["\n                    "])),(l()(),Lt["\u0275eld"](26,0,null,null,0,"i",[["class","fa fa-user circle-icon"]],null,null,null,null,null)),(l()(),Lt["\u0275ted"](-1,null,["\n                    "])),(l()(),Lt["\u0275eld"](28,0,null,null,0,"br",[],null,null,null,null,null)),(l()(),Lt["\u0275ted"](-1,null,[" Register\n                "])),(l()(),Lt["\u0275ted"](-1,null,["\n            "])),(l()(),Lt["\u0275ted"](-1,null,["\n            "])),(l()(),Lt["\u0275eld"](32,0,null,null,8,"div",[["class","col"]],null,null,null,null,null)),(l()(),Lt["\u0275ted"](-1,null,["\n                "])),(l()(),Lt["\u0275eld"](34,0,null,null,5,"div",[["class","circle text-uppercase"]],null,null,null,null,null)),(l()(),Lt["\u0275ted"](-1,null,["\n                    "])),(l()(),Lt["\u0275eld"](36,0,null,null,0,"i",[["class","fa fa-cogs circle-icon"]],null,null,null,null,null)),(l()(),Lt["\u0275ted"](-1,null,["\n                    "])),(l()(),Lt["\u0275eld"](38,0,null,null,0,"br",[],null,null,null,null,null)),(l()(),Lt["\u0275ted"](-1,null,[" Setup\n                "])),(l()(),Lt["\u0275ted"](-1,null,["\n            "])),(l()(),Lt["\u0275ted"](-1,null,["\n            "])),(l()(),Lt["\u0275eld"](42,0,null,null,8,"div",[["class","col"]],null,null,null,null,null)),(l()(),Lt["\u0275ted"](-1,null,["\n                "])),(l()(),Lt["\u0275eld"](44,0,null,null,5,"div",[["class","circle text-uppercase"]],null,null,null,null,null)),(l()(),Lt["\u0275ted"](-1,null,["\n                    "])),(l()(),Lt["\u0275eld"](46,0,null,null,0,"i",[["class","fa fa-share-alt circle-icon"]],null,null,null,null,null)),(l()(),Lt["\u0275ted"](-1,null,["\n                    "])),(l()(),Lt["\u0275eld"](48,0,null,null,0,"br",[],null,null,null,null,null)),(l()(),Lt["\u0275ted"](-1,null,[" share\n                "])),(l()(),Lt["\u0275ted"](-1,null,["\n            "])),(l()(),Lt["\u0275ted"](-1,null,["\n            "])),(l()(),Lt["\u0275eld"](52,0,null,null,8,"div",[["class","col"]],null,null,null,null,null)),(l()(),Lt["\u0275ted"](-1,null,["\n                "])),(l()(),Lt["\u0275eld"](54,0,null,null,5,"div",[["class","circle text-uppercase"]],null,null,null,null,null)),(l()(),Lt["\u0275ted"](-1,null,["\n                    "])),(l()(),Lt["\u0275eld"](56,0,null,null,0,"i",[["class","fa fa-code circle-icon"]],null,null,null,null,null)),(l()(),Lt["\u0275ted"](-1,null,["\n                    "])),(l()(),Lt["\u0275eld"](58,0,null,null,0,"br",[],null,null,null,null,null)),(l()(),Lt["\u0275ted"](-1,null,[" embed\n                "])),(l()(),Lt["\u0275ted"](-1,null,["\n            "])),(l()(),Lt["\u0275ted"](-1,null,["\n        "])),(l()(),Lt["\u0275ted"](-1,null,["\n        "])),(l()(),Lt["\u0275eld"](63,0,null,null,21,"div",[["class","row justify-content-md-center"]],null,null,null,null,null)),(l()(),Lt["\u0275ted"](-1,null,["\n            "])),(l()(),Lt["\u0275eld"](65,0,null,null,8,"div",[["class","col-lg-3 col-6 mb-2"]],null,null,null,null,null)),(l()(),Lt["\u0275ted"](-1,null,["\n                "])),(l()(),Lt["\u0275eld"](67,0,null,null,1,"a",[["class","mb-3"]],null,null,null,null,null)),(l()(),Lt["\u0275ted"](-1,null,["For new users"])),(l()(),Lt["\u0275eld"](69,0,null,null,0,"br",[],null,null,null,null,null)),(l()(),Lt["\u0275ted"](-1,null,["\n                "])),(l()(),Lt["\u0275eld"](71,0,null,null,1,"button",[["class","btn btn-warning btn-lg rounded-1"],["id","mysignupBtn"],["type","button"]],null,[[null,"click"]],function(l,n,u){var e=!0,t=l.component;if("click"===n){e=!1!==t.modelOpen("signup")&&e}return e},null,null)),(l()(),Lt["\u0275ted"](-1,null,["GET STARTED"])),(l()(),Lt["\u0275ted"](-1,null,["\n            "])),(l()(),Lt["\u0275ted"](-1,null,["\n            "])),(l()(),Lt["\u0275eld"](75,0,null,null,8,"div",[["class","col-lg-3 col-6 mb-2"]],null,null,null,null,null)),(l()(),Lt["\u0275ted"](-1,null,["\n                "])),(l()(),Lt["\u0275eld"](77,0,null,null,1,"a",[["class","pb-2"]],null,null,null,null,null)),(l()(),Lt["\u0275ted"](-1,null,["For existing users"])),(l()(),Lt["\u0275eld"](79,0,null,null,0,"br",[],null,null,null,null,null)),(l()(),Lt["\u0275ted"](-1,null,["\n                "])),(l()(),Lt["\u0275eld"](81,0,null,null,1,"button",[["class","btn btn-navy btn-lg px-5 rounded-1"],["id","myloginBtn"],["type","button"]],null,[[null,"click"]],function(l,n,u){var e=!0,t=l.component;if("click"===n){e=!1!==t.modelOpen("login")&&e}return e},null,null)),(l()(),Lt["\u0275ted"](-1,null,["LOGIN"])),(l()(),Lt["\u0275ted"](-1,null,["\n            "])),(l()(),Lt["\u0275ted"](-1,null,["\n        "])),(l()(),Lt["\u0275ted"](-1,null,["\n        "])),(l()(),Lt["\u0275eld"](86,0,null,null,4,"div",[["class","row justify-content-md-center mt-3"]],null,null,null,null,null)),(l()(),Lt["\u0275ted"](-1,null,["\n            "])),(l()(),Lt["\u0275eld"](88,0,null,null,1,"div",[["class","col-lg-12 col-xs-12"]],null,null,null,null,null)),(l()(),Lt["\u0275ted"](-1,null,["\n                Organise your social posts in once place Embed your showcase on your own website Share a direct link to your own Showcase.Social\n                page\n            "])),(l()(),Lt["\u0275ted"](-1,null,["\n        "])),(l()(),Lt["\u0275ted"](-1,null,["\n        "])),(l()(),Lt["\u0275eld"](92,0,null,null,13,"div",[["class","row justify-content-md-center mb-3"]],null,null,null,null,null)),(l()(),Lt["\u0275ted"](-1,null,["\n            "])),(l()(),Lt["\u0275eld"](94,0,null,null,10,"div",[["class","col-lg-8 col-xs-12"]],null,null,null,null,null)),(l()(),Lt["\u0275ted"](-1,null,["\n                "])),(l()(),Lt["\u0275eld"](96,0,null,null,1,"p",[["class","mb-0 mt-3"]],null,null,null,null,null)),(l()(),Lt["\u0275ted"](-1,null,["Not sure ?"])),(l()(),Lt["\u0275ted"](-1,null,["\n                "])),(l()(),Lt["\u0275eld"](99,0,null,null,1,"p",[["class","m-0"]],null,null,null,null,null)),(l()(),Lt["\u0275ted"](-1,null,["See showcase.social/regularsteven for a real life example.\n                "])),(l()(),Lt["\u0275ted"](-1,null,["\n                "])),(l()(),Lt["\u0275eld"](102,0,null,null,1,"p",[["class","m-0"]],null,null,null,null,null)),(l()(),Lt["\u0275ted"](-1,null,["Or see the website embed to see how it fits in anywhere on the web.\n                "])),(l()(),Lt["\u0275ted"](-1,null,["\n            "])),(l()(),Lt["\u0275ted"](-1,null,["\n        "])),(l()(),Lt["\u0275ted"](-1,null,["\n    "])),(l()(),Lt["\u0275ted"](-1,null,["\n"])),(l()(),Lt["\u0275ted"](-1,null,["\n\n"])),(l()(),Lt["\u0275ted"](-1,null,["\n"])),(l()(),Lt["\u0275eld"](110,0,null,null,99,"div",[["class","modal"],["id","loginModal"]],null,null,null,null,null)),(l()(),Lt["\u0275ted"](-1,null,["\n    "])),(l()(),Lt["\u0275eld"](112,0,null,null,96,"div",[["class","container"]],null,null,null,null,null)),(l()(),Lt["\u0275ted"](-1,null,["\n        "])),(l()(),Lt["\u0275eld"](114,0,null,null,93,"div",[["class","row justify-content-md-center"]],null,null,null,null,null)),(l()(),Lt["\u0275ted"](-1,null,["\n            "])),(l()(),Lt["\u0275eld"](116,0,null,null,90,"div",[["class","col-lg-8 col-xs-12"]],null,null,null,null,null)),(l()(),Lt["\u0275ted"](-1,null,["\n                "])),(l()(),Lt["\u0275eld"](118,0,null,null,87,"div",[["class","card rounded-1"]],null,null,null,null,null)),(l()(),Lt["\u0275ted"](-1,null,["\n                    "])),(l()(),Lt["\u0275eld"](120,0,null,null,1,"span",[["class","close"]],null,[[null,"click"]],function(l,n,u){var e=!0,t=l.component;if("click"===n){e=!1!==t.modelClose("login")&&e}return e},null,null)),(l()(),Lt["\u0275ted"](-1,null,["\xd7"])),(l()(),Lt["\u0275ted"](-1,null,["\n                    "])),(l()(),Lt["\u0275eld"](123,0,null,null,1,"div",[["class","card-header text-center bg-white h4 rounded-1 rounded-rl-1"]],null,null,null,null,null)),(l()(),Lt["\u0275ted"](-1,null,["\n                        Fast login with social or enter email\n                    "])),(l()(),Lt["\u0275ted"](-1,null,["\n                    "])),(l()(),Lt["\u0275eld"](126,0,null,null,78,"div",[["class","card-body"]],null,null,null,null,null)),(l()(),Lt["\u0275ted"](-1,null,["\n                        "])),(l()(),Lt["\u0275eld"](128,0,null,null,75,"div",[["class","row"]],null,null,null,null,null)),(l()(),Lt["\u0275ted"](-1,null,["\n                            "])),(l()(),Lt["\u0275eld"](130,0,null,null,24,"div",[["class","col-lg-6  col-md-6  col-xs-12 text-center "]],null,null,null,null,null)),(l()(),Lt["\u0275ted"](-1,null,["\n                                "])),(l()(),Lt["\u0275eld"](132,0,null,null,21,"div",[["aria-label","Basic example"],["class","btn-vertical "],["role","group"]],null,null,null,null,null)),(l()(),Lt["\u0275ted"](-1,null,["\n                                    "])),(l()(),Lt["\u0275eld"](134,0,null,null,3,"button",[["class","btn rounded-1  btn-fb px-3"],["type","button"]],null,[[null,"click"]],function(l,n,u){var e=!0,t=l.component;if("click"===n){e=!1!==t.signIn("facebook")&&e}return e},null,null)),(l()(),Lt["\u0275ted"](-1,null,["                                    \n                                        "])),(l()(),Lt["\u0275eld"](136,0,null,null,0,"i",[["class","fa fa-facebook"]],null,null,null,null,null)),(l()(),Lt["\u0275ted"](-1,null,[" Login with Facebook\n                                    "])),(l()(),Lt["\u0275ted"](-1,null,["\n                                    "])),(l()(),Lt["\u0275eld"](139,0,null,null,3,"button",[["class","btn rounded-1  btn-twitter px-4"],["type","button"]],null,[[null,"click"]],function(l,n,u){var e=!0,t=l.component;if("click"===n){e=!1!==t.onLoginWithTwitter()&&e}return e},null,null)),(l()(),Lt["\u0275ted"](-1,null,["\n                                        "])),(l()(),Lt["\u0275eld"](141,0,null,null,0,"i",[["class","fa fa-twitter"]],null,null,null,null,null)),(l()(),Lt["\u0275ted"](-1,null,[" Login with Twitter\n                                    "])),(l()(),Lt["\u0275ted"](-1,null,["\n                                    "])),(l()(),Lt["\u0275eld"](144,0,null,null,3,"button",[["class","btn rounded-1  btn-google px-4"],["type","button"]],null,[[null,"click"]],function(l,n,u){var e=!0,t=l.component;if("click"===n){e=!1!==t.signIn("google")&&e}return e},null,null)),(l()(),Lt["\u0275ted"](-1,null,["\n                                        "])),(l()(),Lt["\u0275eld"](146,0,null,null,0,"i",[["class","fa fa-google"]],null,null,null,null,null)),(l()(),Lt["\u0275ted"](-1,null,[" Login with Google\n                                    "])),(l()(),Lt["\u0275ted"](-1,null,["\n                                    "])),(l()(),Lt["\u0275eld"](149,0,null,null,3,"button",[["class","btn rounded-1  btn-insta px-3"],["type","button"]],null,[[null,"click"]],function(l,n,u){var e=!0,t=l.component;if("click"===n){e=!1!==t.onLoginWithInstagram()&&e}return e},null,null)),(l()(),Lt["\u0275ted"](-1,null,["\n                                        "])),(l()(),Lt["\u0275eld"](151,0,null,null,0,"i",[["class","fa fa-instagram"]],null,null,null,null,null)),(l()(),Lt["\u0275ted"](-1,null,[" Login with Instagram\n                                    "])),(l()(),Lt["\u0275ted"](-1,null,["\n                                "])),(l()(),Lt["\u0275ted"](-1,null,["\n                            "])),(l()(),Lt["\u0275ted"](-1,null,["\n                            "])),(l()(),Lt["\u0275eld"](156,0,null,null,4,"p",[["class","ortext d-none d-sm-block d-md-none d-block d-sm-none mt-3"]],null,null,null,null,null)),(l()(),Lt["\u0275ted"](-1,null,["\n                                "])),(l()(),Lt["\u0275eld"](158,0,null,null,1,"span",[],null,null,null,null,null)),(l()(),Lt["\u0275ted"](-1,null,["OR"])),(l()(),Lt["\u0275ted"](-1,null,["\n                            "])),(l()(),Lt["\u0275ted"](-1,null,["\n                            "])),(l()(),Lt["\u0275eld"](162,0,null,null,40,"div",[["class","col-lg-6 col-md-6 col-xs-12  "]],null,null,null,null,null)),(l()(),Lt["\u0275ted"](-1,null,["\n                                "])),(l()(),Lt["\u0275eld"](164,0,null,null,37,"form",[["novalidate",""]],[[2,"ng-untouched",null],[2,"ng-touched",null],[2,"ng-pristine",null],[2,"ng-dirty",null],[2,"ng-valid",null],[2,"ng-invalid",null],[2,"ng-pending",null]],[[null,"ngSubmit"],[null,"submit"],[null,"reset"]],function(l,n,u){var e=!0,t=l.component;if("submit"===n){e=!1!==Lt["\u0275nov"](l,166).onSubmit(u)&&e}if("reset"===n){e=!1!==Lt["\u0275nov"](l,166).onReset()&&e}if("ngSubmit"===n){e=!1!==t.login()&&e}return e},null,null)),Lt["\u0275did"](165,16384,null,0,xt["\u0275bf"],[],null,null),Lt["\u0275did"](166,540672,null,0,xt.FormGroupDirective,[[8,null],[8,null]],{form:[0,"form"]},{ngSubmit:"ngSubmit"}),Lt["\u0275prd"](2048,null,xt.ControlContainer,null,[xt.FormGroupDirective]),Lt["\u0275did"](168,16384,null,0,xt.NgControlStatusGroup,[xt.ControlContainer],null,null),(l()(),Lt["\u0275ted"](-1,null,[" \n                                    "])),(l()(),Lt["\u0275eld"](170,0,null,null,11,"div",[["class","form-group"]],null,null,null,null,null)),(l()(),Lt["\u0275ted"](-1,null,["\n                                        "])),(l()(),Lt["\u0275eld"](172,0,null,null,1,"label",[["for","exampleInputEmail1"]],null,null,null,null,null)),(l()(),Lt["\u0275ted"](-1,null,["Email address"])),(l()(),Lt["\u0275ted"](-1,null,["\n                                        "])),(l()(),Lt["\u0275eld"](175,0,null,null,5,"input",[["aria-describedby","emailHelp"],["class","form-control"],["formControlName","email"],["placeholder","Enter email"],["type","email"]],[[2,"ng-untouched",null],[2,"ng-touched",null],[2,"ng-pristine",null],[2,"ng-dirty",null],[2,"ng-valid",null],[2,"ng-invalid",null],[2,"ng-pending",null]],[[null,"input"],[null,"blur"],[null,"compositionstart"],[null,"compositionend"]],function(l,n,u){var e=!0;if("input"===n){e=!1!==Lt["\u0275nov"](l,176)._handleInput(u.target.value)&&e}if("blur"===n){e=!1!==Lt["\u0275nov"](l,176).onTouched()&&e}if("compositionstart"===n){e=!1!==Lt["\u0275nov"](l,176)._compositionStart()&&e}if("compositionend"===n){e=!1!==Lt["\u0275nov"](l,176)._compositionEnd(u.target.value)&&e}return e},null,null)),Lt["\u0275did"](176,16384,null,0,xt.DefaultValueAccessor,[Lt.Renderer2,Lt.ElementRef,[2,xt.COMPOSITION_BUFFER_MODE]],null,null),Lt["\u0275prd"](1024,null,xt.NG_VALUE_ACCESSOR,function(l){return[l]},[xt.DefaultValueAccessor]),Lt["\u0275did"](178,671744,null,0,xt.FormControlName,[[3,xt.ControlContainer],[8,null],[8,null],[2,xt.NG_VALUE_ACCESSOR]],{name:[0,"name"]},null),Lt["\u0275prd"](2048,null,xt.NgControl,null,[xt.FormControlName]),Lt["\u0275did"](180,16384,null,0,xt.NgControlStatus,[xt.NgControl],null,null),(l()(),Lt["\u0275ted"](-1,null,["\n                                    "])),(l()(),Lt["\u0275ted"](-1,null,["\n                                    "])),(l()(),Lt["\u0275eld"](183,0,null,null,11,"div",[["class","form-group"]],null,null,null,null,null)),(l()(),Lt["\u0275ted"](-1,null,["\n                                        "])),(l()(),Lt["\u0275eld"](185,0,null,null,1,"label",[["for","exampleInputPassword1"]],null,null,null,null,null)),(l()(),Lt["\u0275ted"](-1,null,["Password"])),(l()(),Lt["\u0275ted"](-1,null,["\n                                        "])),(l()(),Lt["\u0275eld"](188,0,null,null,5,"input",[["class","form-control"],["formControlName","password"],["placeholder","Password"],["type","password"]],[[2,"ng-untouched",null],[2,"ng-touched",null],[2,"ng-pristine",null],[2,"ng-dirty",null],[2,"ng-valid",null],[2,"ng-invalid",null],[2,"ng-pending",null]],[[null,"input"],[null,"blur"],[null,"compositionstart"],[null,"compositionend"]],function(l,n,u){var e=!0;if("input"===n){e=!1!==Lt["\u0275nov"](l,189)._handleInput(u.target.value)&&e}if("blur"===n){e=!1!==Lt["\u0275nov"](l,189).onTouched()&&e}if("compositionstart"===n){e=!1!==Lt["\u0275nov"](l,189)._compositionStart()&&e}if("compositionend"===n){e=!1!==Lt["\u0275nov"](l,189)._compositionEnd(u.target.value)&&e}return e},null,null)),Lt["\u0275did"](189,16384,null,0,xt.DefaultValueAccessor,[Lt.Renderer2,Lt.ElementRef,[2,xt.COMPOSITION_BUFFER_MODE]],null,null),Lt["\u0275prd"](1024,null,xt.NG_VALUE_ACCESSOR,function(l){return[l]},[xt.DefaultValueAccessor]),Lt["\u0275did"](191,671744,null,0,xt.FormControlName,[[3,xt.ControlContainer],[8,null],[8,null],[2,xt.NG_VALUE_ACCESSOR]],{name:[0,"name"]},null),Lt["\u0275prd"](2048,null,xt.NgControl,null,[xt.FormControlName]),Lt["\u0275did"](193,16384,null,0,xt.NgControlStatus,[xt.NgControl],null,null),(l()(),Lt["\u0275ted"](-1,null,["\n                                    "])),(l()(),Lt["\u0275ted"](-1,null,["\n                                    "])),(l()(),Lt["\u0275eld"](196,0,null,null,1,"a",[["class","btn btn-link float-left"]],null,[[null,"click"]],function(l,n,u){var e=!0,t=l.component;if("click"===n){e=!1!==t.modelOpen("forget")&&e}return e},null,null)),(l()(),Lt["\u0275ted"](-1,null,["Forgot your password ?"])),(l()(),Lt["\u0275ted"](-1,null,["\n                                    "])),(l()(),Lt["\u0275eld"](199,0,null,null,1,"button",[["class","btn btn-warning rounded-1 float-right"],["type","submit"]],[[8,"disabled",0]],null,null,null,null)),(l()(),Lt["\u0275ted"](-1,null,["Submit"])),(l()(),Lt["\u0275ted"](-1,null,["\n                                "])),(l()(),Lt["\u0275ted"](-1,null,["\n                            "])),(l()(),Lt["\u0275ted"](-1,null,["\n                        "])),(l()(),Lt["\u0275ted"](-1,null,["\n                    "])),(l()(),Lt["\u0275ted"](-1,null,["\n                "])),(l()(),Lt["\u0275ted"](-1,null,["\n            "])),(l()(),Lt["\u0275ted"](-1,null,["\n        "])),(l()(),Lt["\u0275ted"](-1,null,["\n    "])),(l()(),Lt["\u0275ted"](-1,null,["\n"])),(l()(),Lt["\u0275ted"](-1,null,["\n\n\n"])),(l()(),Lt["\u0275ted"](-1,null,["\n"])),(l()(),Lt["\u0275eld"](212,0,null,null,96,"div",[["class","modal"],["id","signupModal"]],null,null,null,null,null)),(l()(),Lt["\u0275ted"](-1,null,["\n    "])),(l()(),Lt["\u0275eld"](214,0,null,null,93,"div",[["class","container"]],null,null,null,null,null)),(l()(),Lt["\u0275ted"](-1,null,["\n        "])),(l()(),Lt["\u0275eld"](216,0,null,null,90,"div",[["class","row justify-content-md-center"]],null,null,null,null,null)),(l()(),Lt["\u0275ted"](-1,null,["\n            "])),(l()(),Lt["\u0275eld"](218,0,null,null,87,"div",[["class","col-lg-8 col-xs-12"]],null,null,null,null,null)),(l()(),Lt["\u0275ted"](-1,null,["\n                "])),(l()(),Lt["\u0275eld"](220,0,null,null,84,"div",[["class","card rounded-1"]],null,null,null,null,null)),(l()(),Lt["\u0275ted"](-1,null,["\n                    "])),(l()(),Lt["\u0275eld"](222,0,null,null,1,"span",[["class","close signupclose"]],null,[[null,"click"]],function(l,n,u){var e=!0,t=l.component;if("click"===n){e=!1!==t.modelClose("signup")&&e}return e},null,null)),(l()(),Lt["\u0275ted"](-1,null,["\xd7"])),(l()(),Lt["\u0275ted"](-1,null,["\n                    "])),(l()(),Lt["\u0275eld"](225,0,null,null,1,"div",[["class","card-header text-center bg-white h4 rounded-1 rounded-rl-1"]],null,null,null,null,null)),(l()(),Lt["\u0275ted"](-1,null,["\n                        Fast register with social or enter email\n                    "])),(l()(),Lt["\u0275ted"](-1,null,["\n                    "])),(l()(),Lt["\u0275eld"](228,0,null,null,75,"div",[["class","card-body"]],null,null,null,null,null)),(l()(),Lt["\u0275ted"](-1,null,["\n                        "])),(l()(),Lt["\u0275eld"](230,0,null,null,72,"div",[["class","row"]],null,null,null,null,null)),(l()(),Lt["\u0275ted"](-1,null,["\n                            "])),(l()(),Lt["\u0275eld"](232,0,null,null,24,"div",[["class","col-lg-6  col-md-6  col-xs-12 text-center "]],null,null,null,null,null)),(l()(),Lt["\u0275ted"](-1,null,["\n                                "])),(l()(),Lt["\u0275eld"](234,0,null,null,21,"div",[["aria-label","Basic example"],["class","btn-vertical "],["role","group"]],null,null,null,null,null)),(l()(),Lt["\u0275ted"](-1,null,["\n                                    "])),(l()(),Lt["\u0275eld"](236,0,null,null,3,"button",[["class","btn rounded-1  btn-fb px-3"],["type","button"]],null,[[null,"click"]],function(l,n,u){var e=!0,t=l.component;if("click"===n){e=!1!==t.signIn("facebook")&&e}return e},null,null)),(l()(),Lt["\u0275ted"](-1,null,["\n                                        "])),(l()(),Lt["\u0275eld"](238,0,null,null,0,"i",[["class","fa fa-facebook"]],null,null,null,null,null)),(l()(),Lt["\u0275ted"](-1,null,[" Register with Facebook"])),(l()(),Lt["\u0275ted"](-1,null,["\n                                    "])),(l()(),Lt["\u0275eld"](241,0,null,null,3,"button",[["class","btn rounded-1  btn-twitter px-4"],["type","button"]],null,[[null,"click"]],function(l,n,u){var e=!0,t=l.component;if("click"===n){e=!1!==t.onLoginWithTwitter()&&e}return e},null,null)),(l()(),Lt["\u0275ted"](-1,null,["\n                                        "])),(l()(),Lt["\u0275eld"](243,0,null,null,0,"i",[["class","fa fa-twitter"]],null,null,null,null,null)),(l()(),Lt["\u0275ted"](-1,null,[" Register with Twitter"])),(l()(),Lt["\u0275ted"](-1,null,["\n                                    "])),(l()(),Lt["\u0275eld"](246,0,null,null,3,"button",[["class","btn rounded-1  btn-google px-4"],["type","button"]],null,[[null,"click"]],function(l,n,u){var e=!0,t=l.component;if("click"===n){e=!1!==t.signIn("google")&&e}return e},null,null)),(l()(),Lt["\u0275ted"](-1,null,["\n                                        "])),(l()(),Lt["\u0275eld"](248,0,null,null,0,"i",[["class","fa fa-google"]],null,null,null,null,null)),(l()(),Lt["\u0275ted"](-1,null,[" Register with Google"])),(l()(),Lt["\u0275ted"](-1,null,["\n                                    "])),(l()(),Lt["\u0275eld"](251,0,null,null,3,"button",[["class","btn rounded-1  btn-insta px-3"],["type","button"]],null,[[null,"click"]],function(l,n,u){var e=!0,t=l.component;if("click"===n){e=!1!==t.onLoginWithInstagram()&&e}return e},null,null)),(l()(),Lt["\u0275ted"](-1,null,["\n                                        "])),(l()(),Lt["\u0275eld"](253,0,null,null,0,"i",[["class","fa fa-instagram"]],null,null,null,null,null)),(l()(),Lt["\u0275ted"](-1,null,[" Register with Instagram"])),(l()(),Lt["\u0275ted"](-1,null,["\n                                "])),(l()(),Lt["\u0275ted"](-1,null,["\n                            "])),(l()(),Lt["\u0275ted"](-1,null,["\n                            "])),(l()(),Lt["\u0275eld"](258,0,null,null,4,"p",[["class","ortext d-none d-sm-block d-md-none d-block d-sm-none mt-3"]],null,null,null,null,null)),(l()(),Lt["\u0275ted"](-1,null,["\n                                "])),(l()(),Lt["\u0275eld"](260,0,null,null,1,"span",[],null,null,null,null,null)),(l()(),Lt["\u0275ted"](-1,null,["OR"])),(l()(),Lt["\u0275ted"](-1,null,["\n                            "])),(l()(),Lt["\u0275ted"](-1,null,["\n                            "])),(l()(),Lt["\u0275eld"](264,0,null,null,37,"div",[["class","col-lg-6 col-md-6 col-xs-12  "]],null,null,null,null,null)),(l()(),Lt["\u0275ted"](-1,null,["\n                                "])),(l()(),Lt["\u0275eld"](266,0,null,null,34,"form",[["novalidate",""]],[[2,"ng-untouched",null],[2,"ng-touched",null],[2,"ng-pristine",null],[2,"ng-dirty",null],[2,"ng-valid",null],[2,"ng-invalid",null],[2,"ng-pending",null]],[[null,"ngSubmit"],[null,"submit"],[null,"reset"]],function(l,n,u){var e=!0,t=l.component;if("submit"===n){e=!1!==Lt["\u0275nov"](l,268).onSubmit(u)&&e}if("reset"===n){e=!1!==Lt["\u0275nov"](l,268).onReset()&&e}if("ngSubmit"===n){e=!1!==t.signup()&&e}return e},null,null)),Lt["\u0275did"](267,16384,null,0,xt["\u0275bf"],[],null,null),Lt["\u0275did"](268,540672,null,0,xt.FormGroupDirective,[[8,null],[8,null]],{form:[0,"form"]},{ngSubmit:"ngSubmit"}),Lt["\u0275prd"](2048,null,xt.ControlContainer,null,[xt.FormGroupDirective]),Lt["\u0275did"](270,16384,null,0,xt.NgControlStatusGroup,[xt.ControlContainer],null,null),(l()(),Lt["\u0275ted"](-1,null,["\n                                    "])),(l()(),Lt["\u0275eld"](272,0,null,null,11,"div",[["class","form-group"]],null,null,null,null,null)),(l()(),Lt["\u0275ted"](-1,null,["\n                                        "])),(l()(),Lt["\u0275eld"](274,0,null,null,1,"label",[["for","exampleInputEmail1"]],null,null,null,null,null)),(l()(),Lt["\u0275ted"](-1,null,["Email address"])),(l()(),Lt["\u0275ted"](-1,null,["\n                                        "])),(l()(),Lt["\u0275eld"](277,0,null,null,5,"input",[["aria-describedby","emailHelp"],["class","form-control"],["formControlName","email"],["placeholder","Enter email"],["type","email"]],[[2,"ng-untouched",null],[2,"ng-touched",null],[2,"ng-pristine",null],[2,"ng-dirty",null],[2,"ng-valid",null],[2,"ng-invalid",null],[2,"ng-pending",null]],[[null,"input"],[null,"blur"],[null,"compositionstart"],[null,"compositionend"]],function(l,n,u){var e=!0;if("input"===n){e=!1!==Lt["\u0275nov"](l,278)._handleInput(u.target.value)&&e}if("blur"===n){e=!1!==Lt["\u0275nov"](l,278).onTouched()&&e}if("compositionstart"===n){e=!1!==Lt["\u0275nov"](l,278)._compositionStart()&&e}if("compositionend"===n){e=!1!==Lt["\u0275nov"](l,278)._compositionEnd(u.target.value)&&e}return e},null,null)),Lt["\u0275did"](278,16384,null,0,xt.DefaultValueAccessor,[Lt.Renderer2,Lt.ElementRef,[2,xt.COMPOSITION_BUFFER_MODE]],null,null),Lt["\u0275prd"](1024,null,xt.NG_VALUE_ACCESSOR,function(l){return[l]},[xt.DefaultValueAccessor]),Lt["\u0275did"](280,671744,null,0,xt.FormControlName,[[3,xt.ControlContainer],[8,null],[8,null],[2,xt.NG_VALUE_ACCESSOR]],{name:[0,"name"]},null),Lt["\u0275prd"](2048,null,xt.NgControl,null,[xt.FormControlName]),Lt["\u0275did"](282,16384,null,0,xt.NgControlStatus,[xt.NgControl],null,null),(l()(),Lt["\u0275ted"](-1,null,["\n                                    "])),(l()(),Lt["\u0275ted"](-1,null,["\n                                    "])),(l()(),Lt["\u0275eld"](285,0,null,null,11,"div",[["class","form-group"]],null,null,null,null,null)),(l()(),Lt["\u0275ted"](-1,null,["\n                                        "])),(l()(),Lt["\u0275eld"](287,0,null,null,1,"label",[["for","exampleInputPassword1"]],null,null,null,null,null)),(l()(),Lt["\u0275ted"](-1,null,["Password"])),(l()(),Lt["\u0275ted"](-1,null,["\n                                        "])),(l()(),Lt["\u0275eld"](290,0,null,null,5,"input",[["class","form-control"],["formControlName","password"],["placeholder","Password"],["type","password"]],[[2,"ng-untouched",null],[2,"ng-touched",null],[2,"ng-pristine",null],[2,"ng-dirty",null],[2,"ng-valid",null],[2,"ng-invalid",null],[2,"ng-pending",null]],[[null,"input"],[null,"blur"],[null,"compositionstart"],[null,"compositionend"]],function(l,n,u){var e=!0;if("input"===n){e=!1!==Lt["\u0275nov"](l,291)._handleInput(u.target.value)&&e}if("blur"===n){e=!1!==Lt["\u0275nov"](l,291).onTouched()&&e}if("compositionstart"===n){e=!1!==Lt["\u0275nov"](l,291)._compositionStart()&&e}if("compositionend"===n){e=!1!==Lt["\u0275nov"](l,291)._compositionEnd(u.target.value)&&e}return e},null,null)),Lt["\u0275did"](291,16384,null,0,xt.DefaultValueAccessor,[Lt.Renderer2,Lt.ElementRef,[2,xt.COMPOSITION_BUFFER_MODE]],null,null),Lt["\u0275prd"](1024,null,xt.NG_VALUE_ACCESSOR,function(l){return[l]},[xt.DefaultValueAccessor]),Lt["\u0275did"](293,671744,null,0,xt.FormControlName,[[3,xt.ControlContainer],[8,null],[8,null],[2,xt.NG_VALUE_ACCESSOR]],{name:[0,"name"]},null),Lt["\u0275prd"](2048,null,xt.NgControl,null,[xt.FormControlName]),Lt["\u0275did"](295,16384,null,0,xt.NgControlStatus,[xt.NgControl],null,null),(l()(),Lt["\u0275ted"](-1,null,["\n                                    "])),(l()(),Lt["\u0275ted"](-1,null,["\n                                    "])),(l()(),Lt["\u0275eld"](298,0,null,null,1,"button",[["class","btn btn-warning rounded-1 float-right"],["type","submit"]],[[8,"disabled",0]],null,null,null,null)),(l()(),Lt["\u0275ted"](-1,null,["Submit"])),(l()(),Lt["\u0275ted"](-1,null,["\n                                "])),(l()(),Lt["\u0275ted"](-1,null,["\n                            "])),(l()(),Lt["\u0275ted"](-1,null,["\n                        "])),(l()(),Lt["\u0275ted"](-1,null,["\n                    "])),(l()(),Lt["\u0275ted"](-1,null,["\n                "])),(l()(),Lt["\u0275ted"](-1,null,["\n            "])),(l()(),Lt["\u0275ted"](-1,null,["\n        "])),(l()(),Lt["\u0275ted"](-1,null,["\n    "])),(l()(),Lt["\u0275ted"](-1,null,["\n"])),(l()(),Lt["\u0275ted"](-1,null,["\n\n\n"])),(l()(),Lt["\u0275ted"](-1,null,["\n"])),(l()(),Lt["\u0275eld"](311,0,null,null,86,"div",[["class","modal"],["id","forgetPassModal"]],null,null,null,null,null)),(l()(),Lt["\u0275ted"](-1,null,["\n    "])),(l()(),Lt["\u0275eld"](313,0,null,null,83,"div",[["class","container"]],null,null,null,null,null)),(l()(),Lt["\u0275ted"](-1,null,["\n        "])),(l()(),Lt["\u0275eld"](315,0,null,null,80,"div",[["class","row justify-content-md-center"]],null,null,null,null,null)),(l()(),Lt["\u0275ted"](-1,null,["\n            "])),(l()(),Lt["\u0275eld"](317,0,null,null,77,"div",[["class","col-lg-8 col-xs-12"]],null,null,null,null,null)),(l()(),Lt["\u0275ted"](-1,null,["\n                "])),(l()(),Lt["\u0275eld"](319,0,null,null,74,"div",[["class","card rounded-1"]],null,null,null,null,null)),(l()(),Lt["\u0275ted"](-1,null,["\n                    "])),(l()(),Lt["\u0275eld"](321,0,null,null,1,"span",[["class","close"]],null,[[null,"click"]],function(l,n,u){var e=!0,t=l.component;if("click"===n){e=!1!==t.modelClose("forget")&&e}return e},null,null)),(l()(),Lt["\u0275ted"](-1,null,["\xd7"])),(l()(),Lt["\u0275ted"](-1,null,["\n                    "])),(l()(),Lt["\u0275eld"](324,0,null,null,1,"div",[["class","card-header text-center bg-white h4 rounded-1 rounded-rl-1"]],null,null,null,null,null)),(l()(),Lt["\u0275ted"](-1,null,["\n                        Fast Recover your password\n                    "])),(l()(),Lt["\u0275ted"](-1,null,["\n                    "])),(l()(),Lt["\u0275eld"](327,0,null,null,65,"div",[["class","card-body"]],null,null,null,null,null)),(l()(),Lt["\u0275ted"](-1,null,["\n                        "])),(l()(),Lt["\u0275eld"](329,0,null,null,62,"div",[["class","row"]],null,null,null,null,null)),(l()(),Lt["\u0275ted"](-1,null,["\n                            "])),(l()(),Lt["\u0275eld"](331,0,null,null,24,"div",[["class","col-lg-6  col-md-6  col-xs-12 text-center "]],null,null,null,null,null)),(l()(),Lt["\u0275ted"](-1,null,["\n                                "])),(l()(),Lt["\u0275eld"](333,0,null,null,21,"div",[["aria-label","Basic example"],["class","btn-vertical "],["role","group"]],null,null,null,null,null)),(l()(),Lt["\u0275ted"](-1,null,["\n                                    "])),(l()(),Lt["\u0275eld"](335,0,null,null,3,"button",[["class","btn rounded-1  btn-fb px-3"],["type","button"]],null,[[null,"click"]],function(l,n,u){var e=!0,t=l.component;if("click"===n){e=!1!==t.signIn("facebook")&&e}return e},null,null)),(l()(),Lt["\u0275ted"](-1,null,["                                    \n                                        "])),(l()(),Lt["\u0275eld"](337,0,null,null,0,"i",[["class","fa fa-facebook"]],null,null,null,null,null)),(l()(),Lt["\u0275ted"](-1,null,[" Login with Facebook\n                                    "])),(l()(),Lt["\u0275ted"](-1,null,["\n                                    "])),(l()(),Lt["\u0275eld"](340,0,null,null,3,"button",[["class","btn rounded-1  btn-twitter px-4"],["type","button"]],null,[[null,"click"]],function(l,n,u){var e=!0,t=l.component;if("click"===n){e=!1!==t.onLoginWithTwitter()&&e}return e},null,null)),(l()(),Lt["\u0275ted"](-1,null,["\n                                        "])),(l()(),Lt["\u0275eld"](342,0,null,null,0,"i",[["class","fa fa-twitter"]],null,null,null,null,null)),(l()(),Lt["\u0275ted"](-1,null,[" Login with Twitter\n                                    "])),(l()(),Lt["\u0275ted"](-1,null,["\n                                    "])),(l()(),Lt["\u0275eld"](345,0,null,null,3,"button",[["class","btn rounded-1  btn-google px-4"],["type","button"]],null,[[null,"click"]],function(l,n,u){var e=!0,t=l.component;if("click"===n){e=!1!==t.signIn("google")&&e}return e},null,null)),(l()(),Lt["\u0275ted"](-1,null,["\n                                        "])),(l()(),Lt["\u0275eld"](347,0,null,null,0,"i",[["class","fa fa-google"]],null,null,null,null,null)),(l()(),Lt["\u0275ted"](-1,null,[" Login with Google\n                                    "])),(l()(),Lt["\u0275ted"](-1,null,["\n                                    "])),(l()(),Lt["\u0275eld"](350,0,null,null,3,"button",[["class","btn rounded-1  btn-insta px-3"],["type","button"]],null,[[null,"click"]],function(l,n,u){var e=!0,t=l.component;if("click"===n){e=!1!==t.onLoginWithInstagram()&&e}return e},null,null)),(l()(),Lt["\u0275ted"](-1,null,["\n                                        "])),(l()(),Lt["\u0275eld"](352,0,null,null,0,"i",[["class","fa fa-instagram"]],null,null,null,null,null)),(l()(),Lt["\u0275ted"](-1,null,[" Login with Instagram\n                                    "])),(l()(),Lt["\u0275ted"](-1,null,["\n                                "])),(l()(),Lt["\u0275ted"](-1,null,["\n                            "])),(l()(),Lt["\u0275ted"](-1,null,["\n                            "])),(l()(),Lt["\u0275eld"](357,0,null,null,4,"p",[["class","ortext d-none d-sm-block d-md-none d-block d-sm-none mt-3"]],null,null,null,null,null)),(l()(),Lt["\u0275ted"](-1,null,["\n                                "])),(l()(),Lt["\u0275eld"](359,0,null,null,1,"span",[],null,null,null,null,null)),(l()(),Lt["\u0275ted"](-1,null,["OR"])),(l()(),Lt["\u0275ted"](-1,null,["\n                            "])),(l()(),Lt["\u0275ted"](-1,null,["\n                            "])),(l()(),Lt["\u0275eld"](363,0,null,null,27,"div",[["class","col-lg-6 col-md-6 col-xs-12  "]],null,null,null,null,null)),(l()(),Lt["\u0275ted"](-1,null,["\n                                "])),(l()(),Lt["\u0275eld"](365,0,null,null,24,"form",[["novalidate",""]],[[2,"ng-untouched",null],[2,"ng-touched",null],[2,"ng-pristine",null],[2,"ng-dirty",null],[2,"ng-valid",null],[2,"ng-invalid",null],[2,"ng-pending",null]],[[null,"ngSubmit"],[null,"submit"],[null,"reset"]],function(l,n,u){var e=!0,t=l.component;if("submit"===n){e=!1!==Lt["\u0275nov"](l,367).onSubmit(u)&&e}if("reset"===n){e=!1!==Lt["\u0275nov"](l,367).onReset()&&e}if("ngSubmit"===n){e=!1!==t.forgetPass()&&e}return e},null,null)),Lt["\u0275did"](366,16384,null,0,xt["\u0275bf"],[],null,null),Lt["\u0275did"](367,540672,null,0,xt.FormGroupDirective,[[8,null],[8,null]],{form:[0,"form"]},{ngSubmit:"ngSubmit"}),Lt["\u0275prd"](2048,null,xt.ControlContainer,null,[xt.FormGroupDirective]),Lt["\u0275did"](369,16384,null,0,xt.NgControlStatusGroup,[xt.ControlContainer],null,null),(l()(),Lt["\u0275ted"](-1,null,["\n                                    "])),(l()(),Lt["\u0275eld"](371,0,null,null,11,"div",[["class","form-group"]],null,null,null,null,null)),(l()(),Lt["\u0275ted"](-1,null,["\n                                        "])),(l()(),Lt["\u0275eld"](373,0,null,null,1,"label",[["for","exampleInputEmail1"]],null,null,null,null,null)),(l()(),Lt["\u0275ted"](-1,null,["Email address"])),(l()(),Lt["\u0275ted"](-1,null,["\n                                        "])),(l()(),Lt["\u0275eld"](376,0,null,null,5,"input",[["aria-describedby","emailHelp"],["class","form-control"],["formControlName","email"],["placeholder","Enter email"],["type","email"]],[[2,"ng-untouched",null],[2,"ng-touched",null],[2,"ng-pristine",null],[2,"ng-dirty",null],[2,"ng-valid",null],[2,"ng-invalid",null],[2,"ng-pending",null]],[[null,"input"],[null,"blur"],[null,"compositionstart"],[null,"compositionend"]],function(l,n,u){var e=!0;if("input"===n){e=!1!==Lt["\u0275nov"](l,377)._handleInput(u.target.value)&&e}if("blur"===n){e=!1!==Lt["\u0275nov"](l,377).onTouched()&&e}if("compositionstart"===n){e=!1!==Lt["\u0275nov"](l,377)._compositionStart()&&e}if("compositionend"===n){e=!1!==Lt["\u0275nov"](l,377)._compositionEnd(u.target.value)&&e}return e},null,null)),Lt["\u0275did"](377,16384,null,0,xt.DefaultValueAccessor,[Lt.Renderer2,Lt.ElementRef,[2,xt.COMPOSITION_BUFFER_MODE]],null,null),Lt["\u0275prd"](1024,null,xt.NG_VALUE_ACCESSOR,function(l){return[l]},[xt.DefaultValueAccessor]),Lt["\u0275did"](379,671744,null,0,xt.FormControlName,[[3,xt.ControlContainer],[8,null],[8,null],[2,xt.NG_VALUE_ACCESSOR]],{name:[0,"name"]},null),Lt["\u0275prd"](2048,null,xt.NgControl,null,[xt.FormControlName]),Lt["\u0275did"](381,16384,null,0,xt.NgControlStatus,[xt.NgControl],null,null),(l()(),Lt["\u0275ted"](-1,null,["\n                                    "])),(l()(),Lt["\u0275ted"](-1,null,["\n                                    "])),(l()(),Lt["\u0275eld"](384,0,null,null,1,"a",[["class","btn btn-link float-left"]],null,[[null,"click"]],function(l,n,u){var e=!0,t=l.component;if("click"===n){e=!1!==t.modelOpen("login")&&e}return e},null,null)),(l()(),Lt["\u0275ted"](-1,null,["Login"])),(l()(),Lt["\u0275ted"](-1,null,["\n                                    "])),(l()(),Lt["\u0275eld"](387,0,null,null,1,"button",[["class","btn btn-warning rounded-1 float-right"],["type","submit"]],[[8,"disabled",0]],null,null,null,null)),(l()(),Lt["\u0275ted"](-1,null,["Submit"])),(l()(),Lt["\u0275ted"](-1,null,["\n                                "])),(l()(),Lt["\u0275ted"](-1,null,["\n                            "])),(l()(),Lt["\u0275ted"](-1,null,["\n                        "])),(l()(),Lt["\u0275ted"](-1,null,["\n                    "])),(l()(),Lt["\u0275ted"](-1,null,["\n                "])),(l()(),Lt["\u0275ted"](-1,null,["\n            "])),(l()(),Lt["\u0275ted"](-1,null,["\n        "])),(l()(),Lt["\u0275ted"](-1,null,["\n    "])),(l()(),Lt["\u0275ted"](-1,null,["\n"]))],function(l,n){var u=n.component;l(n,166,0,u.customerLoginForm);l(n,178,0,"email");l(n,191,0,"password"),l(n,268,0,u.customerSignupForm);l(n,280,0,"email");l(n,293,0,"password"),l(n,367,0,u.customerForgetForm);l(n,379,0,"email")},function(l,n){var u=n.component;l(n,164,0,Lt["\u0275nov"](n,168).ngClassUntouched,Lt["\u0275nov"](n,168).ngClassTouched,Lt["\u0275nov"](n,168).ngClassPristine,Lt["\u0275nov"](n,168).ngClassDirty,Lt["\u0275nov"](n,168).ngClassValid,Lt["\u0275nov"](n,168).ngClassInvalid,Lt["\u0275nov"](n,168).ngClassPending),l(n,175,0,Lt["\u0275nov"](n,180).ngClassUntouched,Lt["\u0275nov"](n,180).ngClassTouched,Lt["\u0275nov"](n,180).ngClassPristine,Lt["\u0275nov"](n,180).ngClassDirty,Lt["\u0275nov"](n,180).ngClassValid,Lt["\u0275nov"](n,180).ngClassInvalid,Lt["\u0275nov"](n,180).ngClassPending),l(n,188,0,Lt["\u0275nov"](n,193).ngClassUntouched,Lt["\u0275nov"](n,193).ngClassTouched,Lt["\u0275nov"](n,193).ngClassPristine,Lt["\u0275nov"](n,193).ngClassDirty,Lt["\u0275nov"](n,193).ngClassValid,Lt["\u0275nov"](n,193).ngClassInvalid,Lt["\u0275nov"](n,193).ngClassPending),l(n,199,0,!u.customerLoginForm.valid),l(n,266,0,Lt["\u0275nov"](n,270).ngClassUntouched,Lt["\u0275nov"](n,270).ngClassTouched,Lt["\u0275nov"](n,270).ngClassPristine,Lt["\u0275nov"](n,270).ngClassDirty,Lt["\u0275nov"](n,270).ngClassValid,Lt["\u0275nov"](n,270).ngClassInvalid,Lt["\u0275nov"](n,270).ngClassPending),l(n,277,0,Lt["\u0275nov"](n,282).ngClassUntouched,Lt["\u0275nov"](n,282).ngClassTouched,Lt["\u0275nov"](n,282).ngClassPristine,Lt["\u0275nov"](n,282).ngClassDirty,Lt["\u0275nov"](n,282).ngClassValid,Lt["\u0275nov"](n,282).ngClassInvalid,Lt["\u0275nov"](n,282).ngClassPending),l(n,290,0,Lt["\u0275nov"](n,295).ngClassUntouched,Lt["\u0275nov"](n,295).ngClassTouched,Lt["\u0275nov"](n,295).ngClassPristine,Lt["\u0275nov"](n,295).ngClassDirty,Lt["\u0275nov"](n,295).ngClassValid,Lt["\u0275nov"](n,295).ngClassInvalid,Lt["\u0275nov"](n,295).ngClassPending),l(n,298,0,!u.customerSignupForm.valid),l(n,365,0,Lt["\u0275nov"](n,369).ngClassUntouched,Lt["\u0275nov"](n,369).ngClassTouched,Lt["\u0275nov"](n,369).ngClassPristine,Lt["\u0275nov"](n,369).ngClassDirty,Lt["\u0275nov"](n,369).ngClassValid,Lt["\u0275nov"](n,369).ngClassInvalid,Lt["\u0275nov"](n,369).ngClassPending),l(n,376,0,Lt["\u0275nov"](n,381).ngClassUntouched,Lt["\u0275nov"](n,381).ngClassTouched,Lt["\u0275nov"](n,381).ngClassPristine,Lt["\u0275nov"](n,381).ngClassDirty,Lt["\u0275nov"](n,381).ngClassValid,Lt["\u0275nov"](n,381).ngClassInvalid,Lt["\u0275nov"](n,381).ngClassPending),l(n,387,0,!u.customerForgetForm.valid)})}function Bl(l){return Lt["\u0275vid"](0,[(l()(),Lt["\u0275eld"](0,0,null,null,1,"app-frontendhome",[],null,null,null,Gl,Kt)),Lt["\u0275did"](1,114688,null,0,Mt,[Gt.a,Bt.k,xt.FormBuilder,pt,qt.FlashMessagesService],null,null)],function(l,n){l(n,1,0)},null)}function ql(l){return Lt["\u0275vid"](0,[(l()(),Lt["\u0275ted"](-1,null,["    "])),(l()(),Lt["\u0275eld"](1,0,null,null,51,"header",[["class","forgot-header"]],null,null,null,null,null)),(l()(),Lt["\u0275ted"](-1,null,["\n        "])),(l()(),Lt["\u0275eld"](3,0,null,null,48,"div",[["class","container"]],null,null,null,null,null)),(l()(),Lt["\u0275ted"](-1,null,["\n            "])),(l()(),Lt["\u0275eld"](5,0,null,null,45,"div",[["class","col-md-6 col-lg-5 mx-auto"]],null,null,null,null,null)),(l()(),Lt["\u0275ted"](-1,null,["\n                "])),(l()(),Lt["\u0275eld"](7,0,null,null,42,"div",[["class","card card-body"]],null,null,null,null,null)),(l()(),Lt["\u0275ted"](-1,null,["\n                    "])),(l()(),Lt["\u0275eld"](9,0,null,null,1,"h3",[["class","text-center mb-4"]],null,null,null,null,null)),(l()(),Lt["\u0275ted"](-1,null,["Reset Password"])),(l()(),Lt["\u0275ted"](-1,null,["\n                    "])),(l()(),Lt["\u0275eld"](12,0,null,null,2,"div",[],null,null,null,null,null)),(l()(),Lt["\u0275ted"](-1,null,["\n                        "])),(l()(),Lt["\u0275ted"](-1,null,["\n                    "])),(l()(),Lt["\u0275ted"](-1,null,["\n                    "])),(l()(),Lt["\u0275eld"](16,0,null,null,27,"form",[["novalidate",""]],[[2,"ng-untouched",null],[2,"ng-touched",null],[2,"ng-pristine",null],[2,"ng-dirty",null],[2,"ng-valid",null],[2,"ng-invalid",null],[2,"ng-pending",null]],[[null,"ngSubmit"],[null,"submit"],[null,"reset"]],function(l,n,u){var e=!0,t=l.component;if("submit"===n){e=!1!==Lt["\u0275nov"](l,18).onSubmit(u)&&e}if("reset"===n){e=!1!==Lt["\u0275nov"](l,18).onReset()&&e}if("ngSubmit"===n){e=!1!==t.resetPassword()&&e}return e},null,null)),Lt["\u0275did"](17,16384,null,0,xt["\u0275bf"],[],null,null),Lt["\u0275did"](18,16384,null,0,xt.NgForm,[[8,null],[8,null]],null,{ngSubmit:"ngSubmit"}),Lt["\u0275prd"](2048,null,xt.ControlContainer,null,[xt.NgForm]),Lt["\u0275did"](20,16384,null,0,xt.NgControlStatusGroup,[xt.ControlContainer],null,null),(l()(),Lt["\u0275ted"](-1,null,["\n                        "])),(l()(),Lt["\u0275eld"](22,0,null,null,8,"div",[["class","form-group has-error"]],null,null,null,null,null)),(l()(),Lt["\u0275ted"](-1,null,["\n                            "])),(l()(),Lt["\u0275eld"](24,0,null,null,5,"input",[["class","form-control input-lg"],["name","password"],["placeholder","Password"],["type","password"]],[[2,"ng-untouched",null],[2,"ng-touched",null],[2,"ng-pristine",null],[2,"ng-dirty",null],[2,"ng-valid",null],[2,"ng-invalid",null],[2,"ng-pending",null]],[[null,"ngModelChange"],[null,"input"],[null,"blur"],[null,"compositionstart"],[null,"compositionend"]],function(l,n,u){var e=!0,t=l.component;if("input"===n){e=!1!==Lt["\u0275nov"](l,25)._handleInput(u.target.value)&&e}if("blur"===n){e=!1!==Lt["\u0275nov"](l,25).onTouched()&&e}if("compositionstart"===n){e=!1!==Lt["\u0275nov"](l,25)._compositionStart()&&e}if("compositionend"===n){e=!1!==Lt["\u0275nov"](l,25)._compositionEnd(u.target.value)&&e}if("ngModelChange"===n){e=!1!==(t.password=u)&&e}return e},null,null)),Lt["\u0275did"](25,16384,null,0,xt.DefaultValueAccessor,[Lt.Renderer2,Lt.ElementRef,[2,xt.COMPOSITION_BUFFER_MODE]],null,null),Lt["\u0275prd"](1024,null,xt.NG_VALUE_ACCESSOR,function(l){return[l]},[xt.DefaultValueAccessor]),Lt["\u0275did"](27,671744,null,0,xt.NgModel,[[2,xt.ControlContainer],[8,null],[8,null],[2,xt.NG_VALUE_ACCESSOR]],{name:[0,"name"],model:[1,"model"]},{update:"ngModelChange"}),Lt["\u0275prd"](2048,null,xt.NgControl,null,[xt.NgModel]),Lt["\u0275did"](29,16384,null,0,xt.NgControlStatus,[xt.NgControl],null,null),(l()(),Lt["\u0275ted"](-1,null,["\n                        "])),(l()(),Lt["\u0275ted"](-1,null,["\n                        "])),(l()(),Lt["\u0275eld"](32,0,null,null,8,"div",[["class","form-group has-error"]],null,null,null,null,null)),(l()(),Lt["\u0275ted"](-1,null,["\n                            "])),(l()(),Lt["\u0275eld"](34,0,null,null,5,"input",[["class","form-control input-lg"],["name","cpassword"],["placeholder","Confirm Password"],["type","password"]],[[2,"ng-untouched",null],[2,"ng-touched",null],[2,"ng-pristine",null],[2,"ng-dirty",null],[2,"ng-valid",null],[2,"ng-invalid",null],[2,"ng-pending",null]],[[null,"ngModelChange"],[null,"input"],[null,"blur"],[null,"compositionstart"],[null,"compositionend"]],function(l,n,u){var e=!0,t=l.component;if("input"===n){e=!1!==Lt["\u0275nov"](l,35)._handleInput(u.target.value)&&e}if("blur"===n){e=!1!==Lt["\u0275nov"](l,35).onTouched()&&e}if("compositionstart"===n){e=!1!==Lt["\u0275nov"](l,35)._compositionStart()&&e}if("compositionend"===n){e=!1!==Lt["\u0275nov"](l,35)._compositionEnd(u.target.value)&&e}if("ngModelChange"===n){e=!1!==(t.cpassword=u)&&e}return e},null,null)),Lt["\u0275did"](35,16384,null,0,xt.DefaultValueAccessor,[Lt.Renderer2,Lt.ElementRef,[2,xt.COMPOSITION_BUFFER_MODE]],null,null),Lt["\u0275prd"](1024,null,xt.NG_VALUE_ACCESSOR,function(l){return[l]},[xt.DefaultValueAccessor]),Lt["\u0275did"](37,671744,null,0,xt.NgModel,[[2,xt.ControlContainer],[8,null],[8,null],[2,xt.NG_VALUE_ACCESSOR]],{name:[0,"name"],model:[1,"model"]},{update:"ngModelChange"}),Lt["\u0275prd"](2048,null,xt.NgControl,null,[xt.NgModel]),Lt["\u0275did"](39,16384,null,0,xt.NgControlStatus,[xt.NgControl],null,null),(l()(),Lt["\u0275ted"](-1,null,["\n                        "])),(l()(),Lt["\u0275ted"](-1,null,["\n\n                        "])),(l()(),Lt["\u0275eld"](42,0,null,null,0,"input",[["class","btn btn-lg bg-navyblue btn-block"],["type","submit"],["value","Reset Password"]],null,null,null,null,null)),(l()(),Lt["\u0275ted"](-1,null,["\n                    "])),(l()(),Lt["\u0275ted"](-1,null,["\n                    "])),(l()(),Lt["\u0275eld"](45,0,null,null,3,"a",[["class","clr-navyblue mt-4"],["style","text-transform: uppercase; text-align:center;"]],[[1,"target",0],[8,"href",4]],[[null,"click"]],function(l,n,u){var e=!0;if("click"===n){e=!1!==Lt["\u0275nov"](l,46).onClick(u.button,u.ctrlKey,u.metaKey,u.shiftKey)&&e}return e},null,null)),Lt["\u0275did"](46,671744,null,0,Bt.m,[Bt.k,Bt.a,jt.LocationStrategy],{routerLink:[0,"routerLink"]},null),Lt["\u0275pad"](47,1),(l()(),Lt["\u0275ted"](-1,null,["Login"])),(l()(),Lt["\u0275ted"](-1,null,["\n                "])),(l()(),Lt["\u0275ted"](-1,null,["\n            "])),(l()(),Lt["\u0275ted"](-1,null,["\n        "])),(l()(),Lt["\u0275ted"](-1,null,["\n    "]))],function(l,n){var u=n.component;l(n,27,0,"password",u.password);l(n,37,0,"cpassword",u.cpassword),l(n,46,0,l(n,47,0,"/login"))},function(l,n){l(n,16,0,Lt["\u0275nov"](n,20).ngClassUntouched,Lt["\u0275nov"](n,20).ngClassTouched,Lt["\u0275nov"](n,20).ngClassPristine,Lt["\u0275nov"](n,20).ngClassDirty,Lt["\u0275nov"](n,20).ngClassValid,Lt["\u0275nov"](n,20).ngClassInvalid,Lt["\u0275nov"](n,20).ngClassPending),l(n,24,0,Lt["\u0275nov"](n,29).ngClassUntouched,Lt["\u0275nov"](n,29).ngClassTouched,Lt["\u0275nov"](n,29).ngClassPristine,Lt["\u0275nov"](n,29).ngClassDirty,Lt["\u0275nov"](n,29).ngClassValid,Lt["\u0275nov"](n,29).ngClassInvalid,Lt["\u0275nov"](n,29).ngClassPending),l(n,34,0,Lt["\u0275nov"](n,39).ngClassUntouched,Lt["\u0275nov"](n,39).ngClassTouched,Lt["\u0275nov"](n,39).ngClassPristine,Lt["\u0275nov"](n,39).ngClassDirty,Lt["\u0275nov"](n,39).ngClassValid,Lt["\u0275nov"](n,39).ngClassInvalid,Lt["\u0275nov"](n,39).ngClassPending),l(n,45,0,Lt["\u0275nov"](n,46).target,Lt["\u0275nov"](n,46).href)})}function jl(l){return Lt["\u0275vid"](0,[(l()(),Lt["\u0275eld"](0,0,null,null,1,"app-reset",[],null,null,null,ql,$t)),Lt["\u0275did"](1,114688,null,0,Tt,[qt.FlashMessagesService,pt,Bt.k,Bt.a],null,null)],function(l,n){l(n,1,0)},null)}function zl(l){return Lt["\u0275vid"](0,[(l()(),Lt["\u0275eld"](0,0,null,null,2,"h3",[["id","login"]],null,null,null,null,null)),(l()(),Lt["\u0275eld"](1,0,null,null,1,"button",[["class","btn bg-navyblue btn-wd btn-lg"]],null,[[null,"click"]],function(l,n,u){var e=!0,t=l.component;if("click"===n){e=!1!==t.goToLogin()&&e}return e},null,null)),(l()(),Lt["\u0275ted"](-1,null,["Login"])),(l()(),Lt["\u0275ted"](-1,null,["\n\n"])),(l()(),Lt["\u0275eld"](4,0,null,null,16,"form",[["id","resendLink"],["novalidate",""]],[[2,"ng-untouched",null],[2,"ng-touched",null],[2,"ng-pristine",null],[2,"ng-dirty",null],[2,"ng-valid",null],[2,"ng-invalid",null],[2,"ng-pending",null]],[[null,"ngSubmit"],[null,"submit"],[null,"reset"]],function(l,n,u){var e=!0,t=l.component;if("submit"===n){e=!1!==Lt["\u0275nov"](l,6).onSubmit(u)&&e}if("reset"===n){e=!1!==Lt["\u0275nov"](l,6).onReset()&&e}if("ngSubmit"===n){e=!1!==t.resendActivationLink()&&e}return e},null,null)),Lt["\u0275did"](5,16384,null,0,xt["\u0275bf"],[],null,null),Lt["\u0275did"](6,540672,null,0,xt.FormGroupDirective,[[8,null],[8,null]],{form:[0,"form"]},{ngSubmit:"ngSubmit"}),Lt["\u0275prd"](2048,null,xt.ControlContainer,null,[xt.FormGroupDirective]),Lt["\u0275did"](8,16384,null,0,xt.NgControlStatusGroup,[xt.ControlContainer],null,null),(l()(),Lt["\u0275ted"](-1,null,["\n\tEmail : "])),(l()(),Lt["\u0275eld"](10,0,null,null,5,"input",[["formControlName","email"],["placeholder","Enter Email ID"],["type","email"]],[[2,"ng-untouched",null],[2,"ng-touched",null],[2,"ng-pristine",null],[2,"ng-dirty",null],[2,"ng-valid",null],[2,"ng-invalid",null],[2,"ng-pending",null]],[[null,"input"],[null,"blur"],[null,"compositionstart"],[null,"compositionend"]],function(l,n,u){var e=!0;if("input"===n){e=!1!==Lt["\u0275nov"](l,11)._handleInput(u.target.value)&&e}if("blur"===n){e=!1!==Lt["\u0275nov"](l,11).onTouched()&&e}if("compositionstart"===n){e=!1!==Lt["\u0275nov"](l,11)._compositionStart()&&e}if("compositionend"===n){e=!1!==Lt["\u0275nov"](l,11)._compositionEnd(u.target.value)&&e}return e},null,null)),Lt["\u0275did"](11,16384,null,0,xt.DefaultValueAccessor,[Lt.Renderer2,Lt.ElementRef,[2,xt.COMPOSITION_BUFFER_MODE]],null,null),Lt["\u0275prd"](1024,null,xt.NG_VALUE_ACCESSOR,function(l){return[l]},[xt.DefaultValueAccessor]),Lt["\u0275did"](13,671744,null,0,xt.FormControlName,[[3,xt.ControlContainer],[8,null],[8,null],[2,xt.NG_VALUE_ACCESSOR]],{name:[0,"name"]},null),Lt["\u0275prd"](2048,null,xt.NgControl,null,[xt.FormControlName]),Lt["\u0275did"](15,16384,null,0,xt.NgControlStatus,[xt.NgControl],null,null),(l()(),Lt["\u0275eld"](16,0,null,null,0,"br",[],null,null,null,null,null)),(l()(),Lt["\u0275ted"](-1,null,["\n\n\t"])),(l()(),Lt["\u0275eld"](18,0,null,null,1,"button",[["class","btn btn-success btn-wd btn-lg"]],[[8,"disabled",0]],null,null,null,null)),(l()(),Lt["\u0275ted"](-1,null,["Resend Activation Link"])),(l()(),Lt["\u0275ted"](-1,null,["\n"])),(l()(),Lt["\u0275ted"](-1,null,["\n"]))],function(l,n){l(n,6,0,n.component.emailForm);l(n,13,0,"email")},function(l,n){var u=n.component;l(n,4,0,Lt["\u0275nov"](n,8).ngClassUntouched,Lt["\u0275nov"](n,8).ngClassTouched,Lt["\u0275nov"](n,8).ngClassPristine,Lt["\u0275nov"](n,8).ngClassDirty,Lt["\u0275nov"](n,8).ngClassValid,Lt["\u0275nov"](n,8).ngClassInvalid,Lt["\u0275nov"](n,8).ngClassPending),l(n,10,0,Lt["\u0275nov"](n,15).ngClassUntouched,Lt["\u0275nov"](n,15).ngClassTouched,Lt["\u0275nov"](n,15).ngClassPristine,Lt["\u0275nov"](n,15).ngClassDirty,Lt["\u0275nov"](n,15).ngClassValid,Lt["\u0275nov"](n,15).ngClassInvalid,Lt["\u0275nov"](n,15).ngClassPending),l(n,18,0,!u.emailForm.valid)})}function Kl(l){return Lt["\u0275vid"](0,[(l()(),Lt["\u0275eld"](0,0,null,null,1,"app-account-active",[],null,null,null,zl,Yt)),Lt["\u0275did"](1,114688,null,0,Ut,[pt,Bt.k,Bt.a,xt.FormBuilder,qt.FlashMessagesService],null,null)],function(l,n){l(n,1,0)},null)}function Hl(l){return oo["\u0275vid"](0,[(l()(),oo["\u0275eld"](0,0,null,null,0,"div",[["class","feed"]],null,null,null,null,null))],null,null)}function Jl(l){return oo["\u0275vid"](0,[(l()(),oo["\u0275eld"](0,0,null,null,1,"app-frontenddashboard",[],null,null,null,Hl,co)),oo["\u0275did"](1,114688,null,0,eo,[],null,null)],function(l,n){l(n,1,0)},null)}function $l(l){return oo["\u0275vid"](0,[(l()(),oo["\u0275eld"](0,0,null,null,146,"div",[["class","container-fluid pt-80"]],null,null,null,null,null)),(l()(),oo["\u0275ted"](-1,null,["\n\t"])),(l()(),oo["\u0275eld"](2,0,null,null,143,"div",[["class","row"]],null,null,null,null,null)),(l()(),oo["\u0275ted"](-1,null,["\n        "])),(l()(),oo["\u0275eld"](4,0,null,null,15,"div",[["class","col-lg-4 text-center pb-5"]],null,null,null,null,null)),(l()(),oo["\u0275ted"](-1,null,["\n            "])),(l()(),oo["\u0275eld"](6,0,null,null,0,"img",[["alt","avatar"],["class","mx-auto img-fluid img-circle d-block rounded-circle"],["src","http://placehold.it/150"]],null,null,null,null,null)),(l()(),oo["\u0275ted"](-1,null,["\n            "])),(l()(),oo["\u0275eld"](8,0,null,null,1,"h6",[["class","mt-2"]],null,null,null,null,null)),(l()(),oo["\u0275ted"](-1,null,["Upload a different photo"])),(l()(),oo["\u0275ted"](-1,null,["\n            "])),(l()(),oo["\u0275eld"](11,0,null,null,7,"label",[["class","custom-file"]],null,null,null,null,null)),(l()(),oo["\u0275ted"](-1,null,["\n                "])),(l()(),oo["\u0275eld"](13,0,null,null,1,"input",[["class","custom-file-input"],["name","single"],["ng2FileSelect",""],["type","file"]],null,[[null,"change"]],function(l,n,u){var e=!0,t=l.component;if("change"===n){e=!1!==oo["\u0275nov"](l,14).onChange()&&e}if("change"===n){e=!1!==t.onChange(u)&&e}return e},null,null)),oo["\u0275did"](14,16384,null,0,ro.FileSelectDirective,[oo.ElementRef],{uploader:[0,"uploader"]},null),(l()(),oo["\u0275ted"](-1,null,["\n                "])),(l()(),oo["\u0275eld"](16,0,null,null,1,"span",[["class","custom-file-control"]],null,null,null,null,null)),(l()(),oo["\u0275ted"](-1,null,["Choose file"])),(l()(),oo["\u0275ted"](-1,null,["\n            "])),(l()(),oo["\u0275ted"](-1,null,["\n        "])),(l()(),oo["\u0275ted"](-1,null,["\n\t\t"])),(l()(),oo["\u0275eld"](21,0,null,null,123,"div",[["class","col-lg-8 pb-5"]],null,null,null,null,null)),(l()(),oo["\u0275ted"](-1,null,["\n            "])),(l()(),oo["\u0275eld"](23,0,null,null,13,"ul",[["class","nav nav-tabs"],["id","myTab"],["role","tablist"]],null,null,null,null,null)),(l()(),oo["\u0275ted"](-1,null,["\n                "])),(l()(),oo["\u0275eld"](25,0,null,null,4,"li",[["class","nav-item"]],null,null,null,null,null)),(l()(),oo["\u0275ted"](-1,null,["\n                    "])),(l()(),oo["\u0275eld"](27,0,null,null,1,"a",[["aria-controls","edit"],["aria-selected","true"],["class","nav-link active"],["data-toggle","tab"],["href","#edit"],["id","edit-tab"],["role","tab"]],null,null,null,null,null)),(l()(),oo["\u0275ted"](-1,null,["Edit Profile"])),(l()(),oo["\u0275ted"](-1,null,["\n                "])),(l()(),oo["\u0275ted"](-1,null,["\n                "])),(l()(),oo["\u0275eld"](31,0,null,null,4,"li",[["class","nav-item"]],null,null,null,null,null)),(l()(),oo["\u0275ted"](-1,null,["\n                    "])),(l()(),oo["\u0275eld"](33,0,null,null,1,"a",[["aria-controls","password"],["aria-selected","false"],["class","nav-link"],["data-toggle","tab"],["href","#password"],["id","password-tab"],["role","tab"]],null,null,null,null,null)),(l()(),oo["\u0275ted"](-1,null,["Change Password"])),(l()(),oo["\u0275ted"](-1,null,["\n                "])),(l()(),oo["\u0275ted"](-1,null,["\n            "])),(l()(),oo["\u0275ted"](-1,null,["\n            "])),(l()(),oo["\u0275eld"](38,0,null,null,105,"div",[["class","tab-content pt-3"],["id","myTabContent"]],null,null,null,null,null)),(l()(),oo["\u0275ted"](-1,null,["\n                "])),(l()(),oo["\u0275eld"](40,0,null,null,50,"div",[["aria-labelledby","edit-tab"],["class","tab-pane fade show active"],["id","edit"],["role","tabpanel"]],null,null,null,null,null)),(l()(),oo["\u0275ted"](-1,null,["\n                    "])),(l()(),oo["\u0275eld"](42,0,null,null,47,"form",[["novalidate",""]],[[2,"ng-untouched",null],[2,"ng-touched",null],[2,"ng-pristine",null],[2,"ng-dirty",null],[2,"ng-valid",null],[2,"ng-invalid",null],[2,"ng-pending",null]],[[null,"ngSubmit"],[null,"submit"],[null,"reset"]],function(l,n,u){var e=!0,t=l.component;if("submit"===n){e=!1!==oo["\u0275nov"](l,44).onSubmit(u)&&e}if("reset"===n){e=!1!==oo["\u0275nov"](l,44).onReset()&&e}if("ngSubmit"===n){e=!1!==t.profileUpdate()&&e}return e},null,null)),oo["\u0275did"](43,16384,null,0,ao["\u0275bf"],[],null,null),oo["\u0275did"](44,540672,null,0,ao.FormGroupDirective,[[8,null],[8,null]],{form:[0,"form"]},{ngSubmit:"ngSubmit"}),oo["\u0275prd"](2048,null,ao.ControlContainer,null,[ao.FormGroupDirective]),oo["\u0275did"](46,16384,null,0,ao.NgControlStatusGroup,[ao.ControlContainer],null,null),(l()(),oo["\u0275ted"](-1,null,["\n                        "])),(l()(),oo["\u0275eld"](48,0,null,null,11,"div",[["class","form-group"]],null,null,null,null,null)),(l()(),oo["\u0275ted"](-1,null,["\n                            "])),(l()(),oo["\u0275eld"](50,0,null,null,1,"label",[["for","exampleInputEmail1"]],null,null,null,null,null)),(l()(),oo["\u0275ted"](-1,null,["First Name"])),(l()(),oo["\u0275ted"](-1,null,["\n                            "])),(l()(),oo["\u0275eld"](53,0,null,null,5,"input",[["aria-describedby","emailHelp"],["class","form-control"],["formControlName","firstname"],["id","exampleInputEmail1"],["placeholder","Enter First Name"],["type","text"]],[[2,"ng-untouched",null],[2,"ng-touched",null],[2,"ng-pristine",null],[2,"ng-dirty",null],[2,"ng-valid",null],[2,"ng-invalid",null],[2,"ng-pending",null]],[[null,"input"],[null,"blur"],[null,"compositionstart"],[null,"compositionend"]],function(l,n,u){var e=!0;if("input"===n){e=!1!==oo["\u0275nov"](l,54)._handleInput(u.target.value)&&e}if("blur"===n){e=!1!==oo["\u0275nov"](l,54).onTouched()&&e}if("compositionstart"===n){e=!1!==oo["\u0275nov"](l,54)._compositionStart()&&e}if("compositionend"===n){e=!1!==oo["\u0275nov"](l,54)._compositionEnd(u.target.value)&&e}return e},null,null)),oo["\u0275did"](54,16384,null,0,ao.DefaultValueAccessor,[oo.Renderer2,oo.ElementRef,[2,ao.COMPOSITION_BUFFER_MODE]],null,null),oo["\u0275prd"](1024,null,ao.NG_VALUE_ACCESSOR,function(l){return[l]},[ao.DefaultValueAccessor]),oo["\u0275did"](56,671744,null,0,ao.FormControlName,[[3,ao.ControlContainer],[8,null],[8,null],[2,ao.NG_VALUE_ACCESSOR]],{name:[0,"name"]},null),oo["\u0275prd"](2048,null,ao.NgControl,null,[ao.FormControlName]),oo["\u0275did"](58,16384,null,0,ao.NgControlStatus,[ao.NgControl],null,null),(l()(),oo["\u0275ted"](-1,null,["\n                            \n                        "])),(l()(),oo["\u0275ted"](-1,null,["\n                        "])),(l()(),oo["\u0275eld"](61,0,null,null,11,"div",[["class","form-group"]],null,null,null,null,null)),(l()(),oo["\u0275ted"](-1,null,["\n                            "])),(l()(),oo["\u0275eld"](63,0,null,null,1,"label",[["for","exampleInputEmail1"]],null,null,null,null,null)),(l()(),oo["\u0275ted"](-1,null,["Last Name"])),(l()(),oo["\u0275ted"](-1,null,["\n                            "])),(l()(),oo["\u0275eld"](66,0,null,null,5,"input",[["aria-describedby","emailHelp"],["class","form-control"],["formControlName","lastname"],["id","exampleInputEmail1"],["placeholder","Enter Last Name"],["type","text"]],[[2,"ng-untouched",null],[2,"ng-touched",null],[2,"ng-pristine",null],[2,"ng-dirty",null],[2,"ng-valid",null],[2,"ng-invalid",null],[2,"ng-pending",null]],[[null,"input"],[null,"blur"],[null,"compositionstart"],[null,"compositionend"]],function(l,n,u){var e=!0;if("input"===n){e=!1!==oo["\u0275nov"](l,67)._handleInput(u.target.value)&&e}if("blur"===n){e=!1!==oo["\u0275nov"](l,67).onTouched()&&e}if("compositionstart"===n){e=!1!==oo["\u0275nov"](l,67)._compositionStart()&&e}if("compositionend"===n){e=!1!==oo["\u0275nov"](l,67)._compositionEnd(u.target.value)&&e}return e},null,null)),oo["\u0275did"](67,16384,null,0,ao.DefaultValueAccessor,[oo.Renderer2,oo.ElementRef,[2,ao.COMPOSITION_BUFFER_MODE]],null,null),oo["\u0275prd"](1024,null,ao.NG_VALUE_ACCESSOR,function(l){return[l]},[ao.DefaultValueAccessor]),oo["\u0275did"](69,671744,null,0,ao.FormControlName,[[3,ao.ControlContainer],[8,null],[8,null],[2,ao.NG_VALUE_ACCESSOR]],{name:[0,"name"]},null),oo["\u0275prd"](2048,null,ao.NgControl,null,[ao.FormControlName]),oo["\u0275did"](71,16384,null,0,ao.NgControlStatus,[ao.NgControl],null,null),(l()(),oo["\u0275ted"](-1,null,["\n                            \n                        "])),(l()(),oo["\u0275ted"](-1,null,["\n                        "])),(l()(),oo["\u0275eld"](74,0,null,null,11,"div",[["class","form-group"]],null,null,null,null,null)),(l()(),oo["\u0275ted"](-1,null,["\n                            "])),(l()(),oo["\u0275eld"](76,0,null,null,1,"label",[["for","exampleInputEmail1"]],null,null,null,null,null)),(l()(),oo["\u0275ted"](-1,null,["Email address"])),(l()(),oo["\u0275ted"](-1,null,["\n                            "])),(l()(),oo["\u0275eld"](79,0,null,null,5,"input",[["aria-describedby","emailHelp"],["class","form-control"],["formControlName","email"],["id","exampleInputEmail1"],["placeholder","Enter email"],["type","email"]],[[2,"ng-untouched",null],[2,"ng-touched",null],[2,"ng-pristine",null],[2,"ng-dirty",null],[2,"ng-valid",null],[2,"ng-invalid",null],[2,"ng-pending",null]],[[null,"input"],[null,"blur"],[null,"compositionstart"],[null,"compositionend"]],function(l,n,u){var e=!0;if("input"===n){e=!1!==oo["\u0275nov"](l,80)._handleInput(u.target.value)&&e}if("blur"===n){e=!1!==oo["\u0275nov"](l,80).onTouched()&&e}if("compositionstart"===n){e=!1!==oo["\u0275nov"](l,80)._compositionStart()&&e}if("compositionend"===n){e=!1!==oo["\u0275nov"](l,80)._compositionEnd(u.target.value)&&e}return e},null,null)),oo["\u0275did"](80,16384,null,0,ao.DefaultValueAccessor,[oo.Renderer2,oo.ElementRef,[2,ao.COMPOSITION_BUFFER_MODE]],null,null),oo["\u0275prd"](1024,null,ao.NG_VALUE_ACCESSOR,function(l){return[l]},[ao.DefaultValueAccessor]),oo["\u0275did"](82,671744,null,0,ao.FormControlName,[[3,ao.ControlContainer],[8,null],[8,null],[2,ao.NG_VALUE_ACCESSOR]],{name:[0,"name"]},null),oo["\u0275prd"](2048,null,ao.NgControl,null,[ao.FormControlName]),oo["\u0275did"](84,16384,null,0,ao.NgControlStatus,[ao.NgControl],null,null),(l()(),oo["\u0275ted"](-1,null,["\n                            \n                        "])),(l()(),oo["\u0275ted"](-1,null,["\n                        "])),(l()(),oo["\u0275eld"](87,0,null,null,1,"button",[["class","btn btn-warning"],["type","submit"]],null,null,null,null,null)),(l()(),oo["\u0275ted"](-1,null,["Update Profile"])),(l()(),oo["\u0275ted"](-1,null,["\n                    "])),(l()(),oo["\u0275ted"](-1,null,["\n                "])),(l()(),oo["\u0275ted"](-1,null,["\n                "])),(l()(),oo["\u0275eld"](92,0,null,null,50,"div",[["aria-labelledby","password-tab"],["class","tab-pane fade"],["id","password"],["role","tabpanel"]],null,null,null,null,null)),(l()(),oo["\u0275ted"](-1,null,["\n                    "])),(l()(),oo["\u0275eld"](94,0,null,null,47,"form",[["novalidate",""]],[[2,"ng-untouched",null],[2,"ng-touched",null],[2,"ng-pristine",null],[2,"ng-dirty",null],[2,"ng-valid",null],[2,"ng-invalid",null],[2,"ng-pending",null]],[[null,"ngSubmit"],[null,"submit"],[null,"reset"]],function(l,n,u){var e=!0,t=l.component;if("submit"===n){e=!1!==oo["\u0275nov"](l,96).onSubmit(u)&&e}if("reset"===n){e=!1!==oo["\u0275nov"](l,96).onReset()&&e}if("ngSubmit"===n){e=!1!==t.passwordUpdate()&&e}return e},null,null)),oo["\u0275did"](95,16384,null,0,ao["\u0275bf"],[],null,null),oo["\u0275did"](96,540672,null,0,ao.FormGroupDirective,[[8,null],[8,null]],{form:[0,"form"]},{ngSubmit:"ngSubmit"}),oo["\u0275prd"](2048,null,ao.ControlContainer,null,[ao.FormGroupDirective]),oo["\u0275did"](98,16384,null,0,ao.NgControlStatusGroup,[ao.ControlContainer],null,null),(l()(),oo["\u0275ted"](-1,null,["\n                        "])),(l()(),oo["\u0275eld"](100,0,null,null,11,"div",[["class","form-group"]],null,null,null,null,null)),(l()(),oo["\u0275ted"](-1,null,["\n                            "])),(l()(),oo["\u0275eld"](102,0,null,null,1,"label",[["for","exampleInputPassword1"]],null,null,null,null,null)),(l()(),oo["\u0275ted"](-1,null,["Old Password"])),(l()(),oo["\u0275ted"](-1,null,["\n                            "])),(l()(),oo["\u0275eld"](105,0,null,null,5,"input",[["class","form-control"],["formControlName","oldpassword"],["id","exampleInputPassword1"],["placeholder","Password"],["type","password"]],[[2,"ng-untouched",null],[2,"ng-touched",null],[2,"ng-pristine",null],[2,"ng-dirty",null],[2,"ng-valid",null],[2,"ng-invalid",null],[2,"ng-pending",null]],[[null,"input"],[null,"blur"],[null,"compositionstart"],[null,"compositionend"]],function(l,n,u){var e=!0;if("input"===n){e=!1!==oo["\u0275nov"](l,106)._handleInput(u.target.value)&&e}if("blur"===n){e=!1!==oo["\u0275nov"](l,106).onTouched()&&e}if("compositionstart"===n){e=!1!==oo["\u0275nov"](l,106)._compositionStart()&&e}if("compositionend"===n){e=!1!==oo["\u0275nov"](l,106)._compositionEnd(u.target.value)&&e}return e},null,null)),oo["\u0275did"](106,16384,null,0,ao.DefaultValueAccessor,[oo.Renderer2,oo.ElementRef,[2,ao.COMPOSITION_BUFFER_MODE]],null,null),oo["\u0275prd"](1024,null,ao.NG_VALUE_ACCESSOR,function(l){return[l]},[ao.DefaultValueAccessor]),oo["\u0275did"](108,671744,null,0,ao.FormControlName,[[3,ao.ControlContainer],[8,null],[8,null],[2,ao.NG_VALUE_ACCESSOR]],{name:[0,"name"]},null),oo["\u0275prd"](2048,null,ao.NgControl,null,[ao.FormControlName]),oo["\u0275did"](110,16384,null,0,ao.NgControlStatus,[ao.NgControl],null,null),(l()(),oo["\u0275ted"](-1,null,["\n                        "])),(l()(),oo["\u0275ted"](-1,null,["\n                        "])),(l()(),oo["\u0275eld"](113,0,null,null,11,"div",[["class","form-group"]],null,null,null,null,null)),(l()(),oo["\u0275ted"](-1,null,["\n                            "])),(l()(),oo["\u0275eld"](115,0,null,null,1,"label",[["for","exampleInputPassword1"]],null,null,null,null,null)),(l()(),oo["\u0275ted"](-1,null,["New Password"])),(l()(),oo["\u0275ted"](-1,null,["\n                            "])),(l()(),oo["\u0275eld"](118,0,null,null,5,"input",[["class","form-control"],["formControlName","newpassword"],["id","exampleInputPassword1"],["placeholder","Password"],["type","password"]],[[2,"ng-untouched",null],[2,"ng-touched",null],[2,"ng-pristine",null],[2,"ng-dirty",null],[2,"ng-valid",null],[2,"ng-invalid",null],[2,"ng-pending",null]],[[null,"input"],[null,"blur"],[null,"compositionstart"],[null,"compositionend"]],function(l,n,u){var e=!0;if("input"===n){e=!1!==oo["\u0275nov"](l,119)._handleInput(u.target.value)&&e}if("blur"===n){e=!1!==oo["\u0275nov"](l,119).onTouched()&&e}if("compositionstart"===n){e=!1!==oo["\u0275nov"](l,119)._compositionStart()&&e}if("compositionend"===n){e=!1!==oo["\u0275nov"](l,119)._compositionEnd(u.target.value)&&e}return e},null,null)),oo["\u0275did"](119,16384,null,0,ao.DefaultValueAccessor,[oo.Renderer2,oo.ElementRef,[2,ao.COMPOSITION_BUFFER_MODE]],null,null),oo["\u0275prd"](1024,null,ao.NG_VALUE_ACCESSOR,function(l){return[l]},[ao.DefaultValueAccessor]),oo["\u0275did"](121,671744,null,0,ao.FormControlName,[[3,ao.ControlContainer],[8,null],[8,null],[2,ao.NG_VALUE_ACCESSOR]],{name:[0,"name"]},null),oo["\u0275prd"](2048,null,ao.NgControl,null,[ao.FormControlName]),oo["\u0275did"](123,16384,null,0,ao.NgControlStatus,[ao.NgControl],null,null),(l()(),oo["\u0275ted"](-1,null,["\n                        "])),(l()(),oo["\u0275ted"](-1,null,["\n                        "])),(l()(),oo["\u0275eld"](126,0,null,null,11,"div",[["class","form-group"]],null,null,null,null,null)),(l()(),oo["\u0275ted"](-1,null,["\n                            "])),(l()(),oo["\u0275eld"](128,0,null,null,1,"label",[["for","exampleInputPassword1"]],null,null,null,null,null)),(l()(),oo["\u0275ted"](-1,null,["Confirm Password"])),(l()(),oo["\u0275ted"](-1,null,["\n                            "])),(l()(),oo["\u0275eld"](131,0,null,null,5,"input",[["class","form-control"],["formControlName","confirmpassword"],["id","exampleInputPassword1"],["placeholder","Password"],["type","password"]],[[2,"ng-untouched",null],[2,"ng-touched",null],[2,"ng-pristine",null],[2,"ng-dirty",null],[2,"ng-valid",null],[2,"ng-invalid",null],[2,"ng-pending",null]],[[null,"input"],[null,"blur"],[null,"compositionstart"],[null,"compositionend"]],function(l,n,u){var e=!0;if("input"===n){e=!1!==oo["\u0275nov"](l,132)._handleInput(u.target.value)&&e}if("blur"===n){e=!1!==oo["\u0275nov"](l,132).onTouched()&&e}if("compositionstart"===n){e=!1!==oo["\u0275nov"](l,132)._compositionStart()&&e}if("compositionend"===n){e=!1!==oo["\u0275nov"](l,132)._compositionEnd(u.target.value)&&e}return e},null,null)),oo["\u0275did"](132,16384,null,0,ao.DefaultValueAccessor,[oo.Renderer2,oo.ElementRef,[2,ao.COMPOSITION_BUFFER_MODE]],null,null),oo["\u0275prd"](1024,null,ao.NG_VALUE_ACCESSOR,function(l){return[l]},[ao.DefaultValueAccessor]),oo["\u0275did"](134,671744,null,0,ao.FormControlName,[[3,ao.ControlContainer],[8,null],[8,null],[2,ao.NG_VALUE_ACCESSOR]],{name:[0,"name"]},null),oo["\u0275prd"](2048,null,ao.NgControl,null,[ao.FormControlName]),oo["\u0275did"](136,16384,null,0,ao.NgControlStatus,[ao.NgControl],null,null),(l()(),oo["\u0275ted"](-1,null,["\n                        "])),(l()(),oo["\u0275ted"](-1,null,["\n                        "])),(l()(),oo["\u0275eld"](139,0,null,null,1,"button",[["class","btn btn-warning"],["type","submit"]],null,null,null,null,null)),(l()(),oo["\u0275ted"](-1,null,["Update Password"])),(l()(),oo["\u0275ted"](-1,null,["\n                    "])),(l()(),oo["\u0275ted"](-1,null,["\n                "])),(l()(),oo["\u0275ted"](-1,null,["\n            "])),(l()(),oo["\u0275ted"](-1,null,["\n\t\t"])),(l()(),oo["\u0275ted"](-1,null,["\n\t"])),(l()(),oo["\u0275ted"](-1,null,["\n"]))],function(l,n){var u=n.component;l(n,14,0,u.uploader),l(n,44,0,u.customerProfileForm);l(n,56,0,"firstname");l(n,69,0,"lastname");l(n,82,0,"email"),l(n,96,0,u.customerPasswordUpdateForm);l(n,108,0,"oldpassword");l(n,121,0,"newpassword");l(n,134,0,"confirmpassword")},function(l,n){l(n,42,0,oo["\u0275nov"](n,46).ngClassUntouched,oo["\u0275nov"](n,46).ngClassTouched,oo["\u0275nov"](n,46).ngClassPristine,oo["\u0275nov"](n,46).ngClassDirty,oo["\u0275nov"](n,46).ngClassValid,oo["\u0275nov"](n,46).ngClassInvalid,oo["\u0275nov"](n,46).ngClassPending),l(n,53,0,oo["\u0275nov"](n,58).ngClassUntouched,oo["\u0275nov"](n,58).ngClassTouched,oo["\u0275nov"](n,58).ngClassPristine,oo["\u0275nov"](n,58).ngClassDirty,oo["\u0275nov"](n,58).ngClassValid,oo["\u0275nov"](n,58).ngClassInvalid,oo["\u0275nov"](n,58).ngClassPending),l(n,66,0,oo["\u0275nov"](n,71).ngClassUntouched,oo["\u0275nov"](n,71).ngClassTouched,oo["\u0275nov"](n,71).ngClassPristine,oo["\u0275nov"](n,71).ngClassDirty,oo["\u0275nov"](n,71).ngClassValid,oo["\u0275nov"](n,71).ngClassInvalid,oo["\u0275nov"](n,71).ngClassPending),l(n,79,0,oo["\u0275nov"](n,84).ngClassUntouched,oo["\u0275nov"](n,84).ngClassTouched,oo["\u0275nov"](n,84).ngClassPristine,oo["\u0275nov"](n,84).ngClassDirty,oo["\u0275nov"](n,84).ngClassValid,oo["\u0275nov"](n,84).ngClassInvalid,oo["\u0275nov"](n,84).ngClassPending),l(n,94,0,oo["\u0275nov"](n,98).ngClassUntouched,oo["\u0275nov"](n,98).ngClassTouched,oo["\u0275nov"](n,98).ngClassPristine,oo["\u0275nov"](n,98).ngClassDirty,oo["\u0275nov"](n,98).ngClassValid,oo["\u0275nov"](n,98).ngClassInvalid,oo["\u0275nov"](n,98).ngClassPending),l(n,105,0,oo["\u0275nov"](n,110).ngClassUntouched,oo["\u0275nov"](n,110).ngClassTouched,oo["\u0275nov"](n,110).ngClassPristine,oo["\u0275nov"](n,110).ngClassDirty,oo["\u0275nov"](n,110).ngClassValid,oo["\u0275nov"](n,110).ngClassInvalid,oo["\u0275nov"](n,110).ngClassPending),l(n,118,0,oo["\u0275nov"](n,123).ngClassUntouched,oo["\u0275nov"](n,123).ngClassTouched,oo["\u0275nov"](n,123).ngClassPristine,oo["\u0275nov"](n,123).ngClassDirty,oo["\u0275nov"](n,123).ngClassValid,oo["\u0275nov"](n,123).ngClassInvalid,oo["\u0275nov"](n,123).ngClassPending),l(n,131,0,oo["\u0275nov"](n,136).ngClassUntouched,oo["\u0275nov"](n,136).ngClassTouched,oo["\u0275nov"](n,136).ngClassPristine,oo["\u0275nov"](n,136).ngClassDirty,oo["\u0275nov"](n,136).ngClassValid,oo["\u0275nov"](n,136).ngClassInvalid,oo["\u0275nov"](n,136).ngClassPending)})}function Zl(l){return oo["\u0275vid"](0,[(l()(),oo["\u0275eld"](0,0,null,null,1,"app-myprofile",[],null,null,null,$l,mo)),oo["\u0275did"](1,114688,null,0,to,[ao.FormBuilder,pt,io.FlashMessagesService],null,null)],function(l,n){l(n,1,0)},null)}function Wl(l){return ho["\u0275vid"](0,[(l()(),ho["\u0275eld"](0,16777216,null,null,1,"router-outlet",[],null,null,null,null,null)),ho["\u0275did"](1,212992,null,0,Co.o,[Co.b,ho.ViewContainerRef,ho.ComponentFactoryResolver,[8,null],ho.ChangeDetectorRef],null,null)],function(l,n){l(n,1,0)},null)}function Yl(l){return ho["\u0275vid"](0,[(l()(),ho["\u0275eld"](0,0,null,null,1,"app-root",[],null,null,null,Wl,Fo)),ho["\u0275did"](1,49152,null,0,un,[],null,null)],null,null)}Object.defineProperty(n,"__esModule",{value:!0});var Xl={production:!0},Ql=u("epSw"),ln={google:{clientId:"214874028334-4t3q11rlobifpmspvrac9dl6i6k6usq2.apps.googleusercontent.com"},facebook:{clientId:"943878335767480",apiVersion:"v2.4"}},nn=function(){function l(){}return l}();Ql.a.loadProvidersScripts(ln);var un=function(){function l(){this.title="app"}return l}(),en=[".lock-page[_ngcontent-%COMP%]   .card-profile[_ngcontent-%COMP%], .login-page[_ngcontent-%COMP%]   .card-login[_ngcontent-%COMP%]{transition:all .3s linear}.lock-page[_ngcontent-%COMP%] > .content[_ngcontent-%COMP%], .login-page[_ngcontent-%COMP%] > .content[_ngcontent-%COMP%]{padding-top:18vh}.login-page[_ngcontent-%COMP%]   .card-login[_ngcontent-%COMP%]{box-shadow:0 1px 4px 0 rgba(0,0,0,.14);border-radius:6px;padding-bottom:20px;-webkit-transform:translateZ(0);transform:translateZ(0)}.login-page[_ngcontent-%COMP%]   .card-login.card-hidden[_ngcontent-%COMP%]{opacity:0;-webkit-transform:translate3d(0,-60px,0);transform:translate3d(0,-60px,0)}.login-page[_ngcontent-%COMP%]   .card-login[_ngcontent-%COMP%]   .btn-wd[_ngcontent-%COMP%]{min-width:180px}.login-page[_ngcontent-%COMP%]   .card-login[_ngcontent-%COMP%]   .card-header[_ngcontent-%COMP%]{margin-top:-40px;margin-bottom:20px}.login-page[_ngcontent-%COMP%]   .card-login[_ngcontent-%COMP%]   .card-header[_ngcontent-%COMP%]   .title[_ngcontent-%COMP%]{margin-top:10px}"],tn="/",on=u("CPp0"),rn=u("5v8a"),an=(u.n(rn),u("W4CS")),sn=(u.n(an),function(){function l(l){this.http=l}return l.prototype.authenticateUser=function(l){var n=new on.Headers;return n.append("Content-Type","application/json"),this.http.post(tn+"users/login",l,{headers:n}).map(function(l){return l.json()})},l.prototype.getProfile=function(){var l=new on.Headers;return this.loadToken(),l.append("Authorization",this.authToken),l.append("Content-Type","application/json"),this.http.get(tn+"users/profile",{headers:l}).map(function(l){return l.json()})},l.prototype.getUserById=function(l){var n=new on.Headers;return this.loadToken(),n.append("Authorization",this.authToken),n.append("Content-Type","application/json"),this.http.get(tn+"users/"+l,{headers:n}).map(function(l){return l.json()})},l.prototype.userUpdate=function(l){var n=new on.Headers;return this.loadToken(),n.append("Authorization",this.authToken),n.append("Content-Type","application/json"),this.http.put(tn+"users/"+l._id,l,{headers:n}).map(function(l){return l.json()})},l.prototype.userAdd=function(l){var n=new on.Headers;return this.loadToken(),n.append("Authorization",this.authToken),n.append("Content-Type","application/json"),this.http.post(tn+"users/",l,{headers:n}).map(function(l){return l.json()})},l.prototype.userList=function(){var l=new on.Headers;return this.loadToken(),l.append("Authorization",this.authToken),l.append("Content-Type","application/json"),this.http.get(tn+"users/",{headers:l}).map(function(l){return l.json()})},l.prototype.deleteUserById=function(l){var n=new on.Headers;return this.loadToken(),n.append("Authorization",this.authToken),n.append("Content-Type","application/json"),this.http.delete(tn+"users/"+l,{headers:n}).map(function(l){return l.json()})},l.prototype.changePassword=function(l){var n=new on.Headers;return this.loadToken(),n.append("Authorization",this.authToken),n.append("Content-Type","application/json"),this.http.put(tn+"users/changePassword/"+l._id,l,{headers:n}).map(function(l){return l.json()})},l.prototype.resetPassword=function(l){var n=new on.Headers;return n.append("Content-Type","application/json"),this.http.put(tn+"users/resetPassword/"+l._id,l,{headers:n}).map(function(l){return l.json()})},l.prototype.forgotPassword=function(l){return this.http.post(tn+"users/forgotPassword",l).map(function(l){return l.json()})},l.prototype.storeUserData=function(l,n){localStorage.setItem("id_token_admin",l),localStorage.setItem("user",JSON.stringify(n)),this.authToken=l,this.user=n},l.prototype.loadToken=function(){var l=localStorage.getItem("id_token_admin");this.authToken=l},l.prototype.loggedIn=function(){return Object(an.tokenNotExpired)("id_token_admin")},l.prototype.logout=function(){this.authToken=null,this.user=null,localStorage.clear()},l.ctorParameters=function(){return[{type:on.Http}]},l}()),dn=function(){function l(l){this.adminService=l}return l.prototype.ngOnInit=function(){},l.ctorParameters=function(){return[{type:sn}]},l}(),cn=u("/oeL"),pn=u("5Plz"),gn=u("Sshh"),mn=(u.n(gn),u("G1/N")),vn=(u.n(mn),u("BkNc")),fn=[en],hn=cn["\u0275crt"]({encapsulation:0,styles:fn,data:{}}),Cn=cn["\u0275ccf"]("app-admin",dn,t,{},{},[]),bn=[".lock-page[_ngcontent-%COMP%]   .card-profile[_ngcontent-%COMP%], .login-page[_ngcontent-%COMP%]   .card-login[_ngcontent-%COMP%]{transition:all .3s linear}.lock-page[_ngcontent-%COMP%] > .content[_ngcontent-%COMP%], .login-page[_ngcontent-%COMP%] > .content[_ngcontent-%COMP%]{padding-top:18vh}.login-page[_ngcontent-%COMP%]   .card-login[_ngcontent-%COMP%]{box-shadow:0 1px 4px 0 rgba(0,0,0,.14);border-radius:6px;padding-bottom:20px;-webkit-transform:translateZ(0);transform:translateZ(0)}.login-page[_ngcontent-%COMP%]   .card-login.card-hidden[_ngcontent-%COMP%]{opacity:0;-webkit-transform:translate3d(0,-60px,0);transform:translate3d(0,-60px,0)}.login-page[_ngcontent-%COMP%]   .card-login[_ngcontent-%COMP%]   .btn-wd[_ngcontent-%COMP%]{min-width:180px}.login-page[_ngcontent-%COMP%]   .card-login[_ngcontent-%COMP%]   .card-header[_ngcontent-%COMP%]{margin-top:-40px;margin-bottom:20px}.login-page[_ngcontent-%COMP%]   .card-login[_ngcontent-%COMP%]   .card-header[_ngcontent-%COMP%]   .title[_ngcontent-%COMP%]{margin-top:10px}.mobileNumberLabel[_ngcontent-%COMP%]   label[_ngcontent-%COMP%]{left:10%}"],Fn=u("BkNc"),yn=u("AJJj"),Sn=(u.n(yn),function(){function l(l,n,u){this.adminService=l,this.router=n,this.flashMessage=u}return l.prototype.ngOnInit=function(){this.adminService.loggedIn()&&this.router.navigate(["/admin/dashboard"])},l.prototype.onLoginSubmit=function(){var l=this,n={email:this.email,password:this.password};this.adminService.authenticateUser(n).subscribe(function(n){n.success?(l.adminService.storeUserData(n.token,n.user),l.flashMessage.show("You are now logged in",{cssClass:"alert-success",timeout:5e3}),l.router.navigate(["admin/dashboard"])):(l.flashMessage.show(n.msg,{cssClass:"danger-alert",timeout:5e3}),l.router.navigate(["admin/login"]))})},l.ctorParameters=function(){return[{type:sn},{type:Fn.k},{type:yn.FlashMessagesService}]},l}()),_n=u("/oeL"),Nn=u("bm2B"),En=u("BkNc"),wn=u("qbdv"),kn=u("G1/N"),An=(u.n(kn),[bn]),Pn=_n["\u0275crt"]({encapsulation:0,styles:An,data:{}}),In=_n["\u0275ccf"]("app-login",Sn,r,{},{},[]),On=[".lock-page[_ngcontent-%COMP%]   .card-profile[_ngcontent-%COMP%], .login-page[_ngcontent-%COMP%]   .card-login[_ngcontent-%COMP%]{transition:all .3s linear}.lock-page[_ngcontent-%COMP%] > .content[_ngcontent-%COMP%], .login-page[_ngcontent-%COMP%] > .content[_ngcontent-%COMP%]{padding-top:18vh}.login-page[_ngcontent-%COMP%]   .card-login[_ngcontent-%COMP%]{box-shadow:0 1px 4px 0 rgba(0,0,0,.14);border-radius:6px;padding-bottom:20px;-webkit-transform:translateZ(0);transform:translateZ(0)}.login-page[_ngcontent-%COMP%]   .card-login.card-hidden[_ngcontent-%COMP%]{opacity:0;-webkit-transform:translate3d(0,-60px,0);transform:translate3d(0,-60px,0)}.login-page[_ngcontent-%COMP%]   .card-login[_ngcontent-%COMP%]   .btn-wd[_ngcontent-%COMP%]{min-width:180px}.login-page[_ngcontent-%COMP%]   .card-login[_ngcontent-%COMP%]   .card-header[_ngcontent-%COMP%]{margin-top:-40px;margin-bottom:20px}.login-page[_ngcontent-%COMP%]   .card-login[_ngcontent-%COMP%]   .card-header[_ngcontent-%COMP%]   .title[_ngcontent-%COMP%]{margin-top:10px}.mobileNumberLabel[_ngcontent-%COMP%]   label[_ngcontent-%COMP%]{left:10%}"],Rn=u("BkNc"),Dn=u("bm2B"),Vn=u("AJJj"),Mn=(u.n(Vn),function(){function l(l,n,u,e,t){this.lf=l,this.adminService=n,this.flashMessage=u,this.router=e,this.route=t,this.currentAdmin={},this.currentAdmin=JSON.parse(localStorage.getItem("currentAdmin"))}return l.prototype.ngOnInit=function(){this.returnUrl=this.route.snapshot.queryParams.returnUrl||"/admin/dashboard",this.loginForm=this.lf.group({email:["",Dn.Validators.required]})},l.prototype.forgotPassword=function(){var l=this;this.adminService.forgotPassword(this.loginForm.value).subscribe(function(n){n.error?l.router.navigate(["admin/login"]):(l.flashMessage.show("Please check your email to reset the password",{cssClass:"alert-success",timeout:5e3}),l.router.navigate(["admin/login"]))},function(n){l.router.navigate(["admin/login"])})},l.ctorParameters=function(){return[{type:Dn.FormBuilder},{type:sn},{type:Vn.FlashMessagesService},{type:Rn.k},{type:Rn.a}]},l}()),Tn=function(){function l(l,n,u,e,t){this.router=l,this.route=n,this.adminService=u,this.flashMessage=e,this.lf=t,this.err="",this.passwordRegex=/^([0-9]+[a-zA-Z]+|[a-zA-Z]+[0-9]+)[0-9a-zA-Z]*$/,this.formErrors={password:"",newpassword:""},this.validationMessages={password:{required:"Password is required.",pattern:"Please Enter at least one letter and number",minlength:"Password should contain 6 characters"},newpassword:{required:"Password is required.",pattern:"Please Enter at least one letter and number",minlength:"Password should contain 6 characters"}}}return l.prototype.ngOnInit=function(){var l=this;this.route.params.subscribe(function(n){l.id=n.id,console.log("this.id"),console.log(l.id)}),this.resetPassForm=this.lf.group({password:["",[Dn.Validators.required,Dn.Validators.minLength(6)]],newpassword:["",[Dn.Validators.required,Dn.Validators.minLength(6)]]}),this.resetPassForm.valueChanges.subscribe(function(n){return l.onValueChanged(n)}),this.onValueChanged()},l.prototype.resetPass=function(){var l=this;if(this.resetPassForm.value.password==this.resetPassForm.value.newpassword){var n={};n._id=this.id,n.password=this.resetPassForm.value.password,this.adminService.resetPassword(n).subscribe(function(n){n.error?l.flashMessage.show("Something Went Wrong",{cssClass:"danger-alert",timeout:5e3}):(l.flashMessage.show(n.message,{cssClass:"alert-success",timeout:5e3}),l.router.navigate(["admin/login"]),console.log("data"),console.log(n))})}else this.flashMessage.show("Password dont match. Please enter same password",{cssClass:"danger-alert",timeout:5e3}),this.resetPassForm.reset()},l.prototype.onValueChanged=function(l){if(this.resetPassForm){var n=this.resetPassForm;for(var u in this.formErrors){this.formErrors[u]="";var e=n.get(u);if(e&&e.dirty&&!e.valid){var t=this.validationMessages[u];for(var o in e.errors)this.formErrors[u]+=t[o]+" "}}}},l.ctorParameters=function(){return[{type:Rn.k},{type:Rn.a},{type:sn},{type:Vn.FlashMessagesService},{type:Dn.FormBuilder}]},l}(),Un=u("/oeL"),Ln=u("bm2B"),xn=u("BkNc"),Gn=u("qbdv"),Bn=u("G1/N"),qn=(u.n(Bn),[On]),jn=Un["\u0275crt"]({encapsulation:0,styles:qn,data:{}}),zn=Un["\u0275ccf"]("app-forgot-password",Mn,i,{},{},[]),Kn=[On],Hn=Un["\u0275crt"]({encapsulation:0,styles:Kn,data:{}}),Jn=Un["\u0275ccf"]("app-admin-resetPassword",Tn,m,{},{},[]),$n=[".card-content[_ngcontent-%COMP%]   .label-floating[_ngcontent-%COMP%]{text-align:left}"],Zn=[""],Wn=u("BkNc"),Yn=u("AJJj"),Xn=(u.n(Yn),function(){function l(l,n,u){this.adminService=l,this.router=n,this.flashMessage=u}return l.prototype.ngOnInit=function(){},l.prototype.onLogoutClick=function(){return this.adminService.logout(),this.flashMessage.show("You are logged out",{cssClass:"alert-success",timeout:3e3}),this.router.navigate(["admin/login"]),!1},l.ctorParameters=function(){return[{type:sn},{type:Wn.k},{type:Yn.FlashMessagesService}]},l}()),Qn=u("/oeL"),lu=u("BkNc"),nu=u("qbdv"),uu=u("G1/N"),eu=(u.n(uu),[Zn]),tu=Qn["\u0275crt"]({encapsulation:0,styles:eu,data:{}}),ou=(Qn["\u0275ccf"]("app-sidebar",Xn,f,{},{},[]),[""]),ru=function(){function l(){}return l.prototype.ngOnInit=function(){},l.ctorParameters=function(){return[]},l}(),au=u("/oeL"),iu=u("bm2B"),su=[ou],du=au["\u0275crt"]({encapsulation:0,styles:su,data:{}}),cu=(au["\u0275ccf"]("app-header",ru,C,{},{},[]),u("CPp0")),pu=u("5v8a"),gu=(u.n(pu),function(){function l(l){this.http=l;var n=localStorage.getItem("id_token_admin");this.authToken=n}return l.prototype.loadToken=function(){var l=localStorage.getItem("id_token_admin");this.authToken=l},l.prototype.pageList=function(){var l=new cu.Headers;return this.loadToken(),l.append("Authorization",this.authToken),l.append("Content-Type","application/json"),this.http.get(tn+"page",{headers:l}).map(function(l){return l.json()})},l.prototype.page=function(l){var n=new cu.Headers;return this.loadToken(),n.append("Authorization",this.authToken),n.append("Content-Type","application/json"),this.http.get(tn+"page/"+l,{headers:n}).map(function(l){return l.json()})},l.prototype.pageAdd=function(l){var n=new cu.Headers;return this.loadToken(),n.append("Authorization",this.authToken),n.append("Content-Type","application/json"),this.http.post(tn+"page",l,{headers:n}).map(function(l){return l.json()})},l.prototype.pageUpdate=function(l){var n=new cu.Headers;return this.loadToken(),n.append("Authorization",this.authToken),n.append("Content-Type","application/json"),this.http.put(tn+"page/"+l._id,l,{headers:n}).map(function(l){return l.json()})},l.prototype.pageDelete=function(l){var n=new cu.Headers;return this.loadToken(),n.append("Authorization",this.authToken),n.append("Content-Type","application/json"),this.http.delete(tn+"page/"+l,{headers:n}).map(function(l){return l.json()})},l.ctorParameters=function(){return[{type:cu.Http}]},l}()),mu=u("CPp0"),vu=u("5v8a"),fu=(u.n(vu),function(){function l(l){this.http=l;var n=localStorage.getItem("id_token_admin");this.authToken=n}return l.prototype.loadToken=function(){if(localStorage.getItem("id_token_admin")){var l=localStorage.getItem("id_token_admin");this.authToken=l}if(localStorage.getItem("id_token")){var l=localStorage.getItem("id_token");this.authToken=l}},l.prototype.planList=function(){var l=new mu.Headers;return this.loadToken(),l.append("Authorization",this.authToken),l.append("Content-Type","application/json"),this.http.get(tn+"plan",{headers:l}).map(function(l){return l.json()})},l.prototype.plan=function(l){var n=new mu.Headers;return this.loadToken(),n.append("Authorization",this.authToken),n.append("Content-Type","application/json"),this.http.get(tn+"plan/"+l,{headers:n}).map(function(l){return l.json()})},l.prototype.planAdd=function(l){var n=new mu.Headers;return this.loadToken(),n.append("Authorization",this.authToken),n.append("Content-Type","application/json"),this.http.post(tn+"plan",l,{headers:n}).map(function(l){return l.json()})},l.prototype.planUpdate=function(l){var n=new mu.Headers;return this.loadToken(),n.append("Authorization",this.authToken),n.append("Content-Type","application/json"),this.http.put(tn+"plan/"+l._id,l,{headers:n}).map(function(l){return l.json()})},l.prototype.planDelete=function(l){var n=new mu.Headers;return this.loadToken(),n.append("Authorization",this.authToken),n.append("Content-Type","application/json"),this.http.delete(tn+"plan/"+l,{headers:n}).map(function(l){return l.json()})},l.ctorParameters=function(){return[{type:mu.Http}]},l}()),hu=function(){function l(l,n,u){this.planService=l,this.pagesService=n,this.adminService=u,this.planCount=0,this.userCount=0,this.pageCount=0}return l.prototype.ngOnInit=function(){this.getPlanList(),this.getPageList(),this.getUserList()},l.prototype.getPlanList=function(){var l=this;this.planService.planList().subscribe(function(n){n.error||(l.planCount=n.message.length)},function(l){console.log("kfgbhj")})},l.prototype.getPageList=function(){var l=this;this.pagesService.pageList().subscribe(function(n){n.error||(l.pageCount=n.message.length)},function(l){console.log("kfgbhj")})},l.prototype.getUserList=function(){var l=this;this.adminService.userList().subscribe(function(n){n.error||(l.userCount=n.message.length)},function(l){console.log("kfgbhj")})},l.ctorParameters=function(){return[{type:fu},{type:gu},{type:sn}]},l}(),Cu=u("/oeL"),bu=u("BkNc"),Fu=u("G1/N"),yu=(u.n(Fu),u("qbdv")),Su=[$n],_u=Cu["\u0275crt"]({encapsulation:0,styles:Su,data:{}}),Nu=Cu["\u0275ccf"]("app-dashboard",hu,F,{},{},[]),Eu=[".card-content[_ngcontent-%COMP%]   .label-floating[_ngcontent-%COMP%]{text-align:left}"],wu=u("BkNc"),ku=u("bm2B"),Au=u("AJJj"),Pu=(u.n(Au),function(){function l(l,n,u,e){this.adminService=l,this.router=n,this.lf=u,this._flashMessagesService=e,this.err="",this.passwordRegex=/^([0-9]+[a-zA-Z]+|[a-zA-Z]+[0-9]+)[0-9a-zA-Z]*$/,this.emailp=/^([a-z\d!#$%&'*+\-\/=?^_`{|}~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+(\.[a-z\d!#$%&'*+\-\/=?^_`{|}~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+)*|"((([ \t]*\r\n)?[ \t]+)?([\x01-\x08\x0b\x0c\x0e-\x1f\x7f\x21\x23-\x5b\x5d-\x7e\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|\\[\x01-\x09\x0b\x0c\x0d-\x7f\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]))*(([ \t]*\r\n)?[ \t]+)?")@(([a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|[a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF][a-z\d\-._~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]*[a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])\.)+([a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|[a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF][a-z\d\-._~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]*[a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])\.?$/i,this.passwordp="",this.newo=!1,this.MutchPassword=!1,this.formErrors={firstname:"",lastname:"",email:"",phonenumber:"",dob:""},this.validationMessages={firstname:{required:"First Name is required."},lastname:{required:"Last Name is required."},email:{required:"Email is required.",pattern:"Email not in well format."},phonenumber:{required:"Phone Number is required."}},this.cpFormErrors={newpassword:""},this.cpValidationMessages={newpassword:{required:"Password is required.",pattern:"Please Enter at least one letter and number",minlength:"Password should contain 6 characters"}}}return l.prototype.ngOnInit=function(){var l=this;this.customerAddForm=this.lf.group({_id:["",ku.Validators.required],firstname:["",ku.Validators.required],lastname:["",ku.Validators.required],phonenumber:["",ku.Validators.required],dob:[""],email:["",[ku.Validators.required,ku.Validators.pattern(this.emailp)]]}),this.cpForm=this.lf.group({_id:["",ku.Validators.required],password:["",ku.Validators.required],newpassword:["",[ku.Validators.required,ku.Validators.minLength(6),ku.Validators.pattern(this.passwordRegex)]]}),this.cpForm.valueChanges.subscribe(function(n){return l.onValueChanged(n)}),this.adminService.getProfile().subscribe(function(n){console.log(n),l.user=n.user,l.customerAddForm.patchValue(l.user),l.onValueChanged(),l.cpForm.controls._id.setValue(l.user._id)},function(l){return console.log(l),!1})},l.prototype.getUserById=function(l){this.adminService.getUserById(l).subscribe(function(l){l.error||(localStorage.removeItem("user"),localStorage.setItem("user",JSON.stringify(l.message)))},function(l){console.log("kfgbhj")})},l.prototype.matchpasswordreg=function(){""!=this.cpForm.value.newpassword&&(this.cpForm.value.password==this.cpForm.value.newpassword?(this.cpForm.controls.matchpass.setValue(!0),this.MutchPassword=!1):(this.cpForm.controls.matchpass.setValue(""),this.MutchPassword=!0))},l.prototype.onValueChanged=function(l){if(this.cpForm){var n=this.cpForm;for(var u in this.cpFormErrors){this.cpFormErrors[u]="";var e=n.get(u);if(e&&e.dirty&&!e.valid){var t=this.cpValidationMessages[u];for(var o in e.errors)this.cpFormErrors[u]+=t[o]+" "}}}},l.prototype.adminUpdate=function(){var l=this;this.adminService.userUpdate(this.customerAddForm.value).subscribe(function(n){n.error||(l._flashMessagesService.show("Profile updated Successfully",{cssClass:"alert-success",timeout:5e3}),l.getUserById(l.customerAddForm.value._id),l.router.navigate(["admin/dashboard"]))},function(n){l._flashMessagesService.show("Something went wrong",{cssClass:"alert-success",timeout:5e3})})},l.prototype.adminChangePassword=function(){var l=this;this.adminService.changePassword(this.cpForm.value).subscribe(function(n){n.error?l._flashMessagesService.show(n.message,{cssClass:"danger-alert",timeout:5e3}):(l.getUserById(l.cpForm.value._id),l._flashMessagesService.show(n.message,{cssClass:"alert-success",timeout:5e3}),l.router.navigate(["admin/dashboard"]))},function(n){l._flashMessagesService.show("Something went wrong",{cssClass:"danger-alert",timeout:5e3}),console.log("kfgbhj")})},l.ctorParameters=function(){return[{type:sn},{type:wu.k},{type:ku.FormBuilder},{type:Au.FlashMessagesService}]},l}()),Iu=u("/oeL"),Ou=u("BkNc"),Ru=u("G1/N"),Du=(u.n(Ru),u("bm2B")),Vu=u("qbdv"),Mu=[Eu],Tu=Iu["\u0275crt"]({encapsulation:0,styles:Mu,data:{}}),Uu=Iu["\u0275ccf"]("app-profile",Pu,P,{},{},[]),Lu=[".padding0[_ngcontent-%COMP%]{text-align:left;padding-left:0}.addPlanClass[_ngcontent-%COMP%]{height:100%}"],xu=u("BkNc"),Gu=u("bm2B"),Bu=u("AJJj"),qu=(u.n(Bu),function(){function l(){}return l.prototype.ngOnInit=function(){},l.ctorParameters=function(){return[]},l}()),ju=function(){function l(l,n,u,e,t){this.lf=l,this.pagesService=n,this.router=u,this.route=e,this._flashMessagesService=t,this.plans=[]}return l.prototype.ngOnInit=function(){this.getList()},l.prototype.getList=function(){var l=this;this.pagesService.pageList().subscribe(function(n){n.error||(l.plans=n.message)},function(l){console.log("kfgbhj")})},l.prototype.deletePlan=function(l){var n=this;confirm("Are you sure to delete ?")&&(this._flashMessagesService.show("Page Deleted Successfully",{cssClass:"alert-success",timeout:3e3}),this.pagesService.pageDelete(l).subscribe(function(l){n.getList()}))},l.ctorParameters=function(){return[{type:Gu.FormBuilder},{type:gu},{type:xu.k},{type:xu.a},{type:Bu.FlashMessagesService}]},l}(),zu=function(){function l(l,n,u,e,t){this.lf=l,this.pagesService=n,this.router=u,this.route=e,this._flashMessagesService=t,this.formErrors={title:"",url:""},this.validationMessages={title:{required:"Page Title is required."},url:{required:"URL Text is required."}}}return l.prototype.ngOnInit=function(){var l=this;this.planAddForm=this.lf.group({title:["",Gu.Validators.required],url:["",Gu.Validators.required],description:[""]}),this.planAddForm.valueChanges.subscribe(function(n){return l.onValueChanged(n)}),this.onValueChanged()},l.prototype.planAdd=function(){var l=this;this.pagesService.pageAdd(this.planAddForm.value).subscribe(function(n){n.error||(l._flashMessagesService.show("Page Added Successfully",{cssClass:"alert-success",timeout:3e3}),l.router.navigate(["admin/pages"]))},function(l){console.log("kfgbhj")})},l.prototype.onValueChanged=function(l){if(this.planAddForm){var n=this.planAddForm;for(var u in this.formErrors){this.formErrors[u]="";var e=n.get(u);if(e&&e.dirty&&!e.valid){var t=this.validationMessages[u];for(var o in e.errors)this.formErrors[u]+=t[o]+" "}}}},l.ctorParameters=function(){return[{type:Gu.FormBuilder},{type:gu},{type:xu.k},{type:xu.a},{type:Bu.FlashMessagesService}]},l}(),Ku=function(){function l(l,n,u,e,t){this.lf=l,this.pagesService=n,this.router=u,this.route=e,this._flashMessagesService=t,this.currentCustomer={},this.formErrors={title:"",url:""},this.validationMessages={title:{required:"Page Title is required."},url:{required:"URL Text is required."}}}return l.prototype.ngOnInit=function(){var l=this;this.planAddForm=this.lf.group({_id:["",Gu.Validators.required],title:["",Gu.Validators.required],url:["",Gu.Validators.required],description:[""]}),this.route.params.subscribe(function(n){var u=n.id;l.plan(u)}),this.planAddForm.valueChanges.subscribe(function(n){return l.onValueChanged(n)}),this.onValueChanged()},l.prototype.planUpdate=function(){var l=this;this.pagesService.pageUpdate(this.planAddForm.value).subscribe(function(n){n.error||(l._flashMessagesService.show("Page Updated Successfully",{cssClass:"alert-success",timeout:3e3}),l.router.navigate(["admin/pages"]))},function(l){console.log("kfgbhj")})},l.prototype.plan=function(l){var n=this;this.pagesService.page(l).subscribe(function(l){l.error||(n.currentCustomer=l.message,n.planAddForm.patchValue(n.currentCustomer))},function(l){console.log("kfgbhj")})},l.prototype.onValueChanged=function(l){if(this.planAddForm){var n=this.planAddForm;for(var u in this.formErrors){this.formErrors[u]="";var e=n.get(u);if(e&&e.dirty&&!e.valid){var t=this.validationMessages[u];for(var o in e.errors)this.formErrors[u]+=t[o]+" "}}}},l.ctorParameters=function(){return[{type:Gu.FormBuilder},{type:gu},{type:xu.k},{type:xu.a},{type:Bu.FlashMessagesService}]},l}(),Hu=u("/oeL"),Ju=u("BkNc"),$u=u("G1/N"),Zu=(u.n($u),u("qbdv")),Wu=u("bm2B"),Yu=u("F7f+"),Xu=u("ZDe3"),Qu=(u.n(Xu),[Lu]),le=Hu["\u0275crt"]({encapsulation:0,styles:Qu,data:{}}),ne=Hu["\u0275ccf"]("app-admin-pages",qu,O,{},{},[]),ue=[Lu],ee=Hu["\u0275crt"]({encapsulation:0,styles:ue,data:{}}),te=Hu["\u0275ccf"]("app-admin-pages-list",ju,T,{},{},[]),oe=[Lu],re=Hu["\u0275crt"]({encapsulation:0,styles:oe,data:{}}),ae=Hu["\u0275ccf"]("app-admin-pages-add",zu,G,{},{},[]),ie=[Lu],se=Hu["\u0275crt"]({encapsulation:0,styles:ie,data:{}}),de=Hu["\u0275ccf"]("app-admin-pages-edit",Ku,z,{},{},[]),ce=[".padding0[_ngcontent-%COMP%]{text-align:left;padding-left:0}.addCustomerClass[_ngcontent-%COMP%]{height:100%}"],pe=u("BkNc"),ge=u("bm2B"),me=u("AJJj"),ve=(u.n(me),function(){function l(l,n,u){this.lf=l,this.router=n,this.route=u}return l.prototype.ngOnInit=function(){this.returnUrl=this.route.snapshot.queryParams.returnUrl||"/admin/dashboard",this.loginForm=this.lf.group({email:["",ge.Validators.required]})},l.ctorParameters=function(){return[{type:ge.FormBuilder},{type:pe.k},{type:pe.a}]},l}()),fe=function(){function l(l,n,u,e,t){this.lf=l,this.customerService=n,this.router=u,this.route=e,this._flashMessagesService=t,this.customers=[]}return l.prototype.ngOnInit=function(){this.getList()},l.prototype.getList=function(){var l=this;this.customerService.userList().subscribe(function(n){n.error||(l.customers=n.message)},function(l){console.log("kfgbhj")})},l.prototype.deleteCustomer=function(l){var n=this;confirm("Are you sure to delete ?")&&(this._flashMessagesService.show("User Deleted Successfully",{cssClass:"alert-success",timeout:3e3}),this.customerService.deleteUserById(l).subscribe(function(l){n.getList()}))},l.ctorParameters=function(){return[{type:ge.FormBuilder},{type:sn},{type:pe.k},{type:pe.a},{type:me.FlashMessagesService}]},l}(),he=function(){function l(l,n,u,e,t){this.lf=l,this.customerService=n,this.router=u,this.route=e,this._flashMessagesService=t,this.emailp=/^([a-z\d!#$%&'*+\-\/=?^_`{|}~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+(\.[a-z\d!#$%&'*+\-\/=?^_`{|}~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+)*|"((([ \t]*\r\n)?[ \t]+)?([\x01-\x08\x0b\x0c\x0e-\x1f\x7f\x21\x23-\x5b\x5d-\x7e\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|\\[\x01-\x09\x0b\x0c\x0d-\x7f\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]))*(([ \t]*\r\n)?[ \t]+)?")@(([a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|[a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF][a-z\d\-._~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]*[a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])\.)+([a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|[a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF][a-z\d\-._~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]*[a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])\.?$/i,this.passwordRegex=/^([0-9]+[a-zA-Z]+|[a-zA-Z]+[0-9]+)[0-9a-zA-Z]*$/,this.phoneRegex=/^[(]{0,1}[0-9]{2,3}[)]{0,1}[-\s\.]{0,1}[0-9]{3}[-\s\.]{0,1}[0-9]{7}$/,this.passwordp="",this.newo=!1,this.MutchPassword=!1,this.formErrors={firstname:"",lastname:"",email:"",phonenumber:"",password:"",newpassword:""},this.validationMessages={firstname:{required:"First Name is required."},lastname:{required:"Last Name is required."},phonenumber:{required:"Phone Number is required.",minlength:"Enter 10 digit mobile number or phone number (with operator code) along with country code.",maxlength:"Enter 10 digit mobile number or phone number (with operator code) along with country code.",pattern:"eg : (971)-055-1234567 including or excluding '(', ')' or '-'. "},email:{required:"Email is required.",pattern:"Email not in well format."},password:{required:"Password is required.",pattern:"Please Enter at least one letter and number",minlength:"Password should contain minimum 6 characters"},newpassword:{required:"Confirm Password is required.",pattern:"Please Enter at least one letter and number",minlength:"Password should contain minimum 6 characters"}}}return l.prototype.ngOnInit=function(){var l=this;this.customerAddForm=this.lf.group({firstname:["",ge.Validators.required],lastname:["",ge.Validators.required],phonenumber:["",[ge.Validators.required,ge.Validators.minLength(10),ge.Validators.maxLength(15)]],email:["",[ge.Validators.required,ge.Validators.pattern(this.emailp)]],password:["",[ge.Validators.required,ge.Validators.minLength(6),ge.Validators.pattern(this.passwordRegex)]],matchpass:["",ge.Validators.required],newpassword:["",[ge.Validators.required,ge.Validators.minLength(6),ge.Validators.pattern(this.passwordRegex)]]}),this.customerAddForm.valueChanges.subscribe(function(n){return l.onValueChanged(n)}),this.onValueChanged()},l.prototype.matchpasswordreg=function(){""!=this.customerAddForm.value.newpassword?this.customerAddForm.value.password==this.customerAddForm.value.newpassword?(this.customerAddForm.controls.matchpass.setValue(!0),this.MutchPassword=!1):(this.customerAddForm.controls.matchpass.setValue(""),this.MutchPassword=!0):this.MutchPassword=!1},l.prototype.customerAdd=function(){var l=this;this.customerService.userAdd(this.customerAddForm.value).subscribe(function(n){n.error?l._flashMessagesService.show("Email/Username already in use",{cssClass:"danger-alert",timeout:3e3}):(l._flashMessagesService.show("User Created Successfully",{cssClass:"alert-success",timeout:3e3}),l.router.navigate(["admin/user"]))},function(n){l._flashMessagesService.show("Something went wrong",{cssClass:"danger-alert",timeout:3e3}),console.log("kfgbhj")})},l.prototype.onValueChanged=function(l){if(this.customerAddForm){var n=this.customerAddForm;for(var u in this.formErrors){this.formErrors[u]="";var e=n.get(u);if(e&&e.dirty&&!e.valid){var t=this.validationMessages[u];for(var o in e.errors)this.formErrors[u]+=t[o]+" "}}}},l.ctorParameters=function(){return[{type:ge.FormBuilder},{type:sn},{type:pe.k},{type:pe.a},{type:me.FlashMessagesService}]},l}(),Ce=function(){function l(l,n,u,e,t){this.lf=l,this.customerService=n,this.router=u,this.route=e,this._flashMessagesService=t,this.currentCustomer={},this.emailp=/^([a-z\d!#$%&'*+\-\/=?^_`{|}~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+(\.[a-z\d!#$%&'*+\-\/=?^_`{|}~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+)*|"((([ \t]*\r\n)?[ \t]+)?([\x01-\x08\x0b\x0c\x0e-\x1f\x7f\x21\x23-\x5b\x5d-\x7e\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|\\[\x01-\x09\x0b\x0c\x0d-\x7f\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]))*(([ \t]*\r\n)?[ \t]+)?")@(([a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|[a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF][a-z\d\-._~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]*[a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])\.)+([a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|[a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF][a-z\d\-._~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]*[a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])\.?$/i,this.passwordp="",this.newo=!1,this.MutchPassword=!1,this.formErrors={firstname:"",lastname:"",email:"",phonenumber:"",password:"",newpassword:""},this.validationMessages={firstname:{required:"First Name is required."},lastname:{required:"Last Name is required."},phonenumber:{required:"Phone Number is required."},email:{required:"Email is required.",pattern:"Email not in well format."},password:{required:"Password is required."},newpassword:{required:"Password is required."}}}return l.prototype.ngOnInit=function(){var l=this;this.customerAddForm=this.lf.group({_id:["",ge.Validators.required],firstname:["",ge.Validators.required],lastname:["",ge.Validators.required],phonenumber:["",ge.Validators.required],email:["",[ge.Validators.required,ge.Validators.pattern(this.emailp)]]}),this.route.params.subscribe(function(n){var u=n.id;l.customer(u)}),this.customerAddForm.valueChanges.subscribe(function(n){return l.onValueChanged(n)}),this.onValueChanged()},l.prototype.matchpasswordreg=function(){this.customerAddForm.value.password==this.customerAddForm.value.newpassword?(this.customerAddForm.controls.matchpass.setValue(!0),this.MutchPassword=!1):(this.customerAddForm.controls.matchpass.setValue(""),this.MutchPassword=!0)},l.prototype.customerUpdate=function(){var l=this;this.customerService.userUpdate(this.customerAddForm.value).subscribe(function(n){n.error||(l._flashMessagesService.show("User Profile Updated Successfully",{cssClass:"alert-success",timeout:3e3}),l.router.navigate(["admin/user"]))},function(l){console.log("kfgbhj")})},l.prototype.customer=function(l){var n=this;this.customerService.getUserById(l).subscribe(function(l){l.error||(n.currentCustomer=l.message,console.log(n.currentCustomer),n.customerAddForm.patchValue(n.currentCustomer))},function(l){console.log(l)})},l.prototype.onValueChanged=function(l){if(this.customerAddForm){var n=this.customerAddForm;for(var u in this.formErrors){this.formErrors[u]="";var e=n.get(u);if(e&&e.dirty&&!e.valid){var t=this.validationMessages[u];for(var o in e.errors)this.formErrors[u]+=t[o]+" "}}}},l.ctorParameters=function(){return[{type:ge.FormBuilder},{type:sn},{type:pe.k},{type:pe.a},{type:me.FlashMessagesService}]},l}(),be=u("/oeL"),Fe=u("BkNc"),ye=u("G1/N"),Se=(u.n(ye),u("bm2B")),_e=u("qbdv"),Ne=[ce],Ee=be["\u0275crt"]({encapsulation:0,styles:Ne,data:{}}),we=be["\u0275ccf"]("app-admin-customer",ve,H,{},{},[]),ke=[ce],Ae=be["\u0275crt"]({encapsulation:0,styles:ke,data:{}}),Pe=be["\u0275ccf"]("app-admin-customer-list",fe,Y,{},{},[]),Ie=[ce],Oe=be["\u0275crt"]({encapsulation:0,styles:Ie,data:{}}),Re=be["\u0275ccf"]("app-admin-customer-add",he,rl,{},{},[]),De=[ce],Ve=be["\u0275crt"]({encapsulation:0,styles:De,data:{}}),Me=be["\u0275ccf"]("app-admin-customer-edit",Ce,gl,{},{},[]),Te=[".padding0[_ngcontent-%COMP%]{text-align:left;padding-left:0}.addPlanClass[_ngcontent-%COMP%]{height:100%}"],Ue=u("BkNc"),Le=u("bm2B"),xe=u("AJJj"),Ge=(u.n(xe),function(){function l(){}return l.prototype.ngOnInit=function(){},l.ctorParameters=function(){return[]},l}()),Be=function(){function l(l,n,u,e,t){this.lf=l,this.planService=n,this.router=u,this.route=e,this._flashMessagesService=t,this.plans=[]}return l.prototype.ngOnInit=function(){this.getList()},l.prototype.getList=function(){var l=this;this.planService.planList().subscribe(function(n){n.error||(l.plans=n.message)},function(l){console.log(l)})},l.prototype.deletePlan=function(l){var n=this;confirm("Are you sure to delete ?")&&(this._flashMessagesService.show("Plan Deleted Successfully",{cssClass:"alert-success",timeout:5e3}),this.planService.planDelete(l).subscribe(function(l){n.getList()}))},l.ctorParameters=function(){return[{type:Le.FormBuilder},{type:fu},{type:Ue.k},{type:Ue.a},{type:xe.FlashMessagesService}]},l}(),qe=function(){function l(l,n,u,e,t){this.lf=l,this.planService=n,this.router=u,this.route=e,this._flashMessagesService=t,this.formErrors={name:"",amount:"",planType:""},this.validationMessages={name:{required:"Plan Name is required."},amount:{required:"Amount is required."},planType:{required:"Plan Type is required."}}}return l.prototype.ngOnInit=function(){var l=this;this.planAddForm=this.lf.group({name:["",Le.Validators.required],amount:["",Le.Validators.required],planType:["",Le.Validators.required],desc:[""]}),this.planAddForm.valueChanges.subscribe(function(n){return l.onValueChanged(n)}),this.onValueChanged()},l.prototype.planAdd=function(){var l=this;this.planService.planAdd(this.planAddForm.value).subscribe(function(n){n.error||(l._flashMessagesService.show("Plan Added Successfully",{cssClass:"alert-success",timeout:5e3}),l.router.navigate(["admin/plan"]))},function(l){console.log(l)})},l.prototype.onValueChanged=function(l){if(this.planAddForm){var n=this.planAddForm;for(var u in this.formErrors){this.formErrors[u]="";var e=n.get(u);if(e&&e.dirty&&!e.valid){var t=this.validationMessages[u];for(var o in e.errors)this.formErrors[u]+=t[o]+" "}}}},l.ctorParameters=function(){return[{type:Le.FormBuilder},{type:fu},{type:Ue.k},{type:Ue.a},{type:xe.FlashMessagesService}]},l}(),je=function(){function l(l,n,u,e,t){this.lf=l,this.planService=n,this.router=u,this.route=e,this._flashMessagesService=t,this.currentCustomer={},this.formErrors={name:"",amount:"",planType:""},this.validationMessages={name:{required:"Plan Name is required."},amount:{required:"Amount is required."},planType:{required:"Plan Type is required."}}}return l.prototype.ngOnInit=function(){var l=this;this.planAddForm=this.lf.group({_id:["",Le.Validators.required],name:["",Le.Validators.required],amount:["",Le.Validators.required],planType:["",Le.Validators.required],desc:[""]}),this.route.params.subscribe(function(n){var u=n.id;l.plan(u)}),this.planAddForm.valueChanges.subscribe(function(n){return l.onValueChanged(n)}),this.onValueChanged()},l.prototype.planUpdate=function(){var l=this;this.planService.planUpdate(this.planAddForm.value).subscribe(function(n){n.error||(l._flashMessagesService.show("Plan Updated Successfully",{cssClass:"alert-success",timeout:5e3}),l.router.navigate(["admin/plan"]))},function(l){console.log(l)})},l.prototype.plan=function(l){var n=this;this.planService.plan(l).subscribe(function(l){l.error||(n.currentCustomer=l.message,n.planAddForm.patchValue(n.currentCustomer))},function(l){console.log(l)})},l.prototype.onValueChanged=function(l){if(this.planAddForm){var n=this.planAddForm;for(var u in this.formErrors){this.formErrors[u]="";var e=n.get(u);if(e&&e.dirty&&!e.valid){var t=this.validationMessages[u];for(var o in e.errors)this.formErrors[u]+=t[o]+" "}}}},l.ctorParameters=function(){return[{type:Le.FormBuilder},{type:fu},{type:Ue.k},{type:Ue.a},{type:xe.FlashMessagesService}]},l}(),ze=u("/oeL"),Ke=u("BkNc"),He=u("G1/N"),Je=(u.n(He),u("qbdv")),$e=u("bm2B"),Ze=[Te],We=ze["\u0275crt"]({encapsulation:0,styles:Ze,data:{}}),Ye=ze["\u0275ccf"]("app-admin-plan",Ge,vl,{},{},[]),Xe=[Te],Qe=ze["\u0275crt"]({encapsulation:0,styles:Xe,data:{}}),lt=ze["\u0275ccf"]("app-admin-plan-list",Be,Fl,{},{},[]),nt=[Te],ut=ze["\u0275crt"]({encapsulation:0,styles:nt,data:{}}),et=ze["\u0275ccf"]("app-admin-plan-add",qe,El,{},{},[]),tt=[Te],ot=ze["\u0275crt"]({encapsulation:0,styles:tt,data:{}}),rt=ze["\u0275ccf"]("app-admin-plan-edit",je,Il,{},{},[]),at=[".lock-page[_ngcontent-%COMP%]   .card-profile[_ngcontent-%COMP%], .login-page[_ngcontent-%COMP%]   .card-login[_ngcontent-%COMP%]{transition:all .3s linear}.lock-page[_ngcontent-%COMP%] > .content[_ngcontent-%COMP%], .login-page[_ngcontent-%COMP%] > .content[_ngcontent-%COMP%]{padding-top:18vh}.login-page[_ngcontent-%COMP%]   .card-login[_ngcontent-%COMP%]{box-shadow:0 1px 4px 0 rgba(0,0,0,.14);border-radius:6px;padding-bottom:20px;-webkit-transform:translateZ(0);transform:translateZ(0)}.login-page[_ngcontent-%COMP%]   .card-login.card-hidden[_ngcontent-%COMP%]{opacity:0;-webkit-transform:translate3d(0,-60px,0);transform:translate3d(0,-60px,0)}.login-page[_ngcontent-%COMP%]   .card-login[_ngcontent-%COMP%]   .btn-wd[_ngcontent-%COMP%]{min-width:180px}.login-page[_ngcontent-%COMP%]   .card-login[_ngcontent-%COMP%]   .card-header[_ngcontent-%COMP%]{margin-top:-40px;margin-bottom:20px}.login-page[_ngcontent-%COMP%]   .card-login[_ngcontent-%COMP%]   .card-header[_ngcontent-%COMP%]   .title[_ngcontent-%COMP%]{margin-top:10px}"],it=[".dropdown-menu[_ngcontent-%COMP%]{left:unset;right:0}"],st=u("CPp0"),dt=u("5v8a"),ct=(u.n(dt),u("W4CS")),pt=(u.n(ct),function(){function l(l){this.http=l;var n=localStorage.getItem("id_token_customer");this.authToken=n}return l.prototype.registerUser=function(l){var n=new st.Headers;return this.loadToken(),n.append("Authorization",this.authToken),n.append("Content-Type","application/json"),this.http.post(tn+"users/",l,{headers:n}).map(function(l){return l.json()})},l.prototype.instaService=function(l){return this.http.post(tn+"users/social-insta",{code:l}).map(function(l){return l.json()})},l.prototype.twitterService=function(){return this.http.get(tn+"users/request-token").map(function(l){return l.json()})},l.prototype.twitterFetchService=function(l){return this.http.post(tn+"users/access-token",l).map(function(l){return l.json()})},l.prototype.socialRegisterUser=function(l){var n=new st.Headers;return this.loadToken(),n.append("Authorization",this.authToken),n.append("Content-Type","application/json"),this.http.post(tn+"users/social-register",l,{headers:n}).map(function(l){return l.json()})},l.prototype.socialValidateUser=function(l){var n=new st.Headers;return n.append("Content-Type","application/json"),this.http.post(tn+"users/social-login",l,{headers:n}).map(function(l){return l.json()})},l.prototype.storeUserData=function(l,n){localStorage.removeItem("id_token_customer"),localStorage.removeItem("customer"),localStorage.setItem("id_token_customer",l),localStorage.setItem("customer",JSON.stringify(n)),this.authToken=l,this.user=n},l.prototype.validateUser=function(l){var n=new st.Headers;return n.append("Content-Type","application/json"),this.http.post(tn+"users/userlogin",l,{headers:n}).map(function(l){return l.json()})},l.prototype.customerVerify=function(l){var n=new st.Headers;return n.append("Content-Type","application/json"),this.http.post(tn+"users/customer-verify",{token:l},{headers:n}).map(function(l){return l.json()})},l.prototype.resendActivationLink=function(l){return this.http.post(tn+"users/resend-activation-link",l).map(function(l){return l.json()})},l.prototype.getProfile=function(){var l=new st.Headers;return this.loadToken(),l.append("Authorization",this.authToken),l.append("Content-Type","application/json"),this.http.get(tn+"users/profile",{headers:l}).map(function(l){return l.json()})},l.prototype.updateProfile=function(l){var n=new st.Headers;return this.loadToken(),n.append("Authorization",this.authToken),n.append("Content-Type","application/json"),this.http.put(tn+"users/"+l._id,l,{headers:n}).map(function(l){return l.json()})},l.prototype.changePassword=function(l){var n=new st.Headers;return this.loadToken(),console.log(this.authToken),n.append("Authorization",this.authToken),n.append("Content-Type","application/json"),this.http.put(tn+"users/changePassword/"+l.id,l,{headers:n}).map(function(l){return l.json()})},l.prototype.forgotPassword=function(l){return this.http.post(tn+"users/forgotPassword",l).map(function(l){return l.json()})},l.prototype.resetPassword=function(l){var n=new st.Headers;return this.loadToken(),n.append("Content-Type","application/json"),n.append("Authorization",this.authToken),this.http.put(tn+"users/resetPassword/"+l._id,l,{headers:n}).map(function(l){return l.json()})},l.prototype.storeUser=function(l,n){localStorage.setItem("id_token_customer",l),localStorage.setItem("customer",JSON.stringify(n)),this.authToken=l,this.user=n},l.prototype.loadToken=function(){var l=localStorage.getItem("id_token_customer");this.authToken=l},l.prototype.loggedIn=function(){return Object(ct.tokenNotExpired)("id_token_customer")},l.prototype.logout=function(){this.authToken=null,this.user=null,localStorage.clear()},l.ctorParameters=function(){return[{type:st.Http}]},l}()),gt=u("BkNc"),mt=function(){function l(l,n){this.userService=l,this.router=n,this.isHere=!1}return l.prototype.ngOnInit=function(){this.customer=JSON.parse(localStorage.getItem("customer"))},l.prototype.checkCustomer=function(){var l=this;return this.customer=JSON.parse(localStorage.getItem("customer")),!!this.customer&&(this.isHere||this.userService.getProfile().subscribe(function(n){n.user&&(l.isHere=!0,l.currentCustomer=n.user)}),!0)},l.prototype.logout=function(){localStorage.clear(),this.router.navigate(["/"])},l.ctorParameters=function(){return[{type:pt},{type:gt.k}]},l}(),vt=u("/oeL"),ft=u("BkNc"),ht=u("qbdv"),Ct=u("bm2B"),bt=[it],Ft=vt["\u0275crt"]({encapsulation:0,styles:bt,data:{}}),yt=(vt["\u0275ccf"]("app-frontendheader",mt,Ul,{},{},[]),function(){function l(l){this.userService=l}return l.prototype.ngOnInit=function(){},l.ctorParameters=function(){return[{type:pt}]},l}()),St=u("/oeL"),_t=u("BkNc"),Nt=u("5Plz"),Et=u("Sshh"),wt=(u.n(Et),u("G1/N")),kt=(u.n(wt),[at]),At=St["\u0275crt"]({encapsulation:0,styles:kt,data:{}}),Pt=St["\u0275ccf"]("app-frontend",yt,xl,{},{},[]),It=["#login[_ngcontent-%COMP%], #resendLink[_ngcontent-%COMP%]{display:none;text-align:center;margin:15% 0}"],Ot=u("BkNc"),Rt=u("bm2B"),Dt=u("AJJj"),Vt=(u.n(Dt),u("epSw")),Mt=function(){function l(l,n,u,e,t){this._auth=l,this.router=n,this.lf=u,this.userService=e,this._flashMessagesService=t,this.emailp=/^([a-z\d!#$%&'*+\-\/=?^_`{|}~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+(\.[a-z\d!#$%&'*+\-\/=?^_`{|}~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+)*|"((([ \t]*\r\n)?[ \t]+)?([\x01-\x08\x0b\x0c\x0e-\x1f\x7f\x21\x23-\x5b\x5d-\x7e\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|\\[\x01-\x09\x0b\x0c\x0d-\x7f\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]))*(([ \t]*\r\n)?[ \t]+)?")@(([a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|[a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF][a-z\d\-._~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]*[a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])\.)+([a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|[a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF][a-z\d\-._~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]*[a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])\.?$/i,this.formErrors={email:"",password:""},this.validationMessages={email:{required:"Email is required.",pattern:"Email not in well format."},password:{required:"Phone Number is required."}}}return l.prototype.ngOnInit=function(){var l=this;this.twitterFetchData(),this.instaFetchData(),this.customerSignupForm=this.lf.group({password:["",Rt.Validators.required],email:["",[Rt.Validators.required,Rt.Validators.pattern(this.emailp)]]}),this.customerLoginForm=this.lf.group({password:["",Rt.Validators.required],email:["",[Rt.Validators.required,Rt.Validators.pattern(this.emailp)]]}),this.customerForgetForm=this.lf.group({email:["",[Rt.Validators.required,Rt.Validators.pattern(this.emailp)]]}),this.customerLoginForm.valueChanges.subscribe(function(n){return l.onLoginFormValueChanged(n)}),this.customerSignupForm.valueChanges.subscribe(function(n){return l.onLoginFormValueChanged(n)})},l.prototype.instaFetchData=function(){var l=this,n=this.router.routerState.snapshot.root.queryParams,u=n.code,e=n.error;n.error_description;u&&(console.log(u),console.log(e),this.userService.instaService(u).subscribe(function(n){var u=JSON.parse(n);if(console.log(u),void 0===u.code&&400!=u.code){var e={};e.role="User",e.status=!0,e.email=u.user.username,e.password=u.user.id,e.id=u.user.id,e.provider="instagram",e.image=u.user.profile_picture,e.firstname=u.user.full_name,l.userService.socialValidateUser(e).subscribe(function(n){n.success?(l.userService.storeUserData(n.token,n.user),l.router.navigate(["dashboard"])):l.userService.socialRegisterUser(e).subscribe(function(n){l.userService.socialValidateUser(e).subscribe(function(n){l.userService.storeUserData(n.token,n.user),l.router.navigate(["dashboard"])})})})}else l._flashMessagesService.show("Something went wrong",{cssClass:"alert-danger",timeout:5e3}),l.router.navigate(["/"])}))},l.prototype.twitterFetchData=function(){var l=this,n=this.router.routerState.snapshot.root.queryParams,u=n.oauth_token,e=n.oauth_verifier;if(e&&u){console.log(e,u);var t=localStorage.getItem("requestSecret"),o={};o.oauth_verifier=e,o.oauth_token=u,o.requestSecret=t,this.userService.twitterFetchService(o).subscribe(function(n){localStorage.removeItem("requestSecret");var u={};u.role="User",u.status=!0,u.email=n.name,u.password=n.id,u.id=n.id,u.provider="twitter",u.image=n.profile_image_url_https,u.firstname=n.screen_name,l.userService.socialValidateUser(u).subscribe(function(n){n.success?(l.userService.storeUserData(n.token,n.user),l.router.navigate(["dashboard"])):l.userService.socialRegisterUser(u).subscribe(function(n){l.userService.socialValidateUser(u).subscribe(function(n){l.userService.storeUserData(n.token,n.user),l.router.navigate(["dashboard"])})})})})}},l.prototype.signIn=function(l){var n=this;this.sub=this._auth.login(l).subscribe(function(l){var u={};u.role="User",u.status=!0,u.email=l.email,u.password=l.uid,u.uid=l.uid,u.provider=l.provider,u.image=l.image,u.firstname=l.name,n.userService.socialValidateUser(u).subscribe(function(l){l.success?(n.userService.storeUserData(l.token,l.user),n.router.navigate(["dashboard"])):n.userService.socialRegisterUser(u).subscribe(function(u){n.userService.storeUserData(l.token,l.user),n.router.navigate(["dashboard"])})})})},l.prototype.onLoginWithTwitter=function(){this.userService.twitterService().subscribe(function(l){localStorage.setItem("requestSecret",l.requestSecret),window.location.href=l.url})},l.prototype.onLoginWithInstagram=function(){window.location.href="https://api.instagram.com/oauth/authorize/?client_id=98349c5779404c6ea9c9aa59e0e3aeeb&redirect_uri=https://measuremight.com:3002/&response_type=code"},l.prototype.signup=function(){var l=this;this.userService.registerUser(this.customerSignupForm.value).subscribe(function(n){l.modelClose("signup"),n.error?l._flashMessagesService.show("Something went wrong",{cssClass:"alert-danger",timeout:5e3}):l._flashMessagesService.show("Registered  Successfully",{cssClass:"alert-success",timeout:5e3})},function(n){l._flashMessagesService.show("Something went wrong",{cssClass:"alert-danger",timeout:5e3})})},l.prototype.login=function(){var l=this;this.userService.validateUser(this.customerLoginForm.value).subscribe(function(n){l.modelClose("login"),n.success?(l.userService.storeUserData(n.token,n.user),l._flashMessagesService.show("Login  Successfully",{cssClass:"alert-success",timeout:5e3}),l.router.navigate(["dashboard"])):l._flashMessagesService.show(n.msg,{cssClass:"alert-danger",timeout:5e3})},function(n){l._flashMessagesService.show(n.msg,{cssClass:"alert-danger",timeout:5e3})})},l.prototype.forgetPass=function(){var l=this;this.userService.forgotPassword(this.customerForgetForm.value).subscribe(function(n){console.log(n),l.modelClose("forget"),n.success?l._flashMessagesService.show(n.message,{cssClass:"alert-success",timeout:5e3}):l._flashMessagesService.show(n.message,{cssClass:"alert-danger",timeout:5e3})},function(n){l._flashMessagesService.show(n.msg,{cssClass:"alert-danger",timeout:5e3})})},l.prototype.onLoginFormValueChanged=function(l){if(this.customerLoginForm){var n=this.customerLoginForm;for(var u in this.formErrors){this.formErrors[u]="";var e=n.get(u);if(e&&e.dirty&&!e.valid){var t=this.validationMessages[u];for(var o in e.errors)this.formErrors[u]+=t[o]+" "}}}},l.prototype.modelOpen=function(l){"login"==l&&(this.modelClose("forget"),document.getElementById("loginModal").style.display="block",document.getElementsByClassName("main-content")[0].setAttribute("style","filter:blur(20px)")),"signup"==l&&(document.getElementById("signupModal").style.display="block",document.getElementsByClassName("main-content")[0].setAttribute("style","filter:blur(20px)")),"forget"==l&&(this.modelClose("login"),document.getElementById("forgetPassModal").style.display="block",document.getElementsByClassName("main-content")[0].setAttribute("style","filter:blur(20px)"))},l.prototype.modelClose=function(l){"login"==l&&(document.getElementById("loginModal").style.display="none",document.getElementsByClassName("main-content")[0].setAttribute("style","filter:none")),"signup"==l&&(document.getElementById("signupModal").style.display="none",document.getElementsByClassName("main-content")[0].setAttribute("style","filter:none")),"forget"==l&&(document.getElementById("forgetPassModal").style.display="none",document.getElementsByClassName("main-content")[0].setAttribute("style","filter:none"))},l.ctorParameters=function(){return[{type:Vt.b},{type:Ot.k},{type:Rt.FormBuilder},{type:pt},{type:Dt.FlashMessagesService}]},l}(),Tt=function(){function l(l,n,u,e){this.flashMessage=l,this.userService=n,this.router=u,this.route=e}return l.prototype.ngOnInit=function(){var l=this;this.route.params.subscribe(function(n){l.id=n.id})},l.prototype.resetPassword=function(){var l=this;if(this.password!=this.cpassword)return this.flashMessage.show("Passwords do not match",{cssClass:"alert-danger",timeout:5e3}),!1;var n={};n._id=this.id,n.password=this.password,this.userService.resetPassword(n).subscribe(function(n){n.error?l.flashMessage.show("Something Went Wrong",{cssClass:"alert-danger",timeout:5e3}):(l.flashMessage.show(n.message,{cssClass:"alert-success",timeout:5e3}),l.router.navigate(["/"]))})},l.ctorParameters=function(){return[{type:Dt.FlashMessagesService},{type:pt},{type:Ot.k},{type:Ot.a}]},l}(),Ut=function(){function l(l,n,u,e,t){this.userService=l,this.router=n,this.route=u,this.lf=e,this._flashMessagesService=t,this.err=""}return l.prototype.ngOnInit=function(){var l=this;this.emailForm=this.lf.group({email:["",Rt.Validators.required]}),this.route.params.subscribe(function(n){l.token=n.token}),this.userService.customerVerify(this.token).subscribe(function(n){console.log("data at activation time"),console.log(n),n.error?(l._flashMessagesService.show(n.message,{cssClass:"danger-alert",timeout:5e3}),n.error&&"Email Activation Link Expire."==n.message&&(document.getElementById("resendLink").style.display="block")):(l._flashMessagesService.show(n.message,{cssClass:"alert-success",timeout:5e3}),document.getElementById("login").style.display="block")},function(n){console.log("err at activation time"),console.log(n),l._flashMessagesService.show(n.message,{cssClass:"danger-alert",timeout:5e3})})},l.prototype.resendActivationLink=function(){var l=this;this.userService.resendActivationLink(this.emailForm.value).subscribe(function(n){n.error?l._flashMessagesService.show(n.message,{cssClass:"danger-alert",timeout:5e3}):(l._flashMessagesService.show(n.message,{cssClass:"alert-success",timeout:5e3}),setTimeout(function(){l.router.navigate(["/"])},1e3))})},l.prototype.goToLogin=function(){this.router.navigate(["/"])},l.ctorParameters=function(){return[{type:pt},{type:Ot.k},{type:Ot.a},{type:Rt.FormBuilder},{type:Dt.FlashMessagesService}]},l}(),Lt=u("/oeL"),xt=u("bm2B"),Gt=u("Vbq/"),Bt=u("BkNc"),qt=u("G1/N"),jt=(u.n(qt),u("qbdv")),zt=[It],Kt=Lt["\u0275crt"]({encapsulation:0,styles:zt,data:{}}),Ht=Lt["\u0275ccf"]("app-frontendhome",Mt,Bl,{},{},[]),Jt=[It],$t=Lt["\u0275crt"]({encapsulation:0,styles:Jt,data:{}}),Zt=Lt["\u0275ccf"]("app-reset",Tt,jl,{},{},[]),Wt=[It],Yt=Lt["\u0275crt"]({encapsulation:0,styles:Wt,data:{}}),Xt=Lt["\u0275ccf"]("app-account-active",Ut,Kl,{},{},[]),Qt=[".pt-80[_ngcontent-%COMP%]{padding-top:80px}"],lo=u("bm2B"),no=u("oKOW"),uo=(u.n(no),u("AJJj")),eo=(u.n(uo),function(){function l(){}return l.prototype.ngOnInit=function(){},l.ctorParameters=function(){return[]},l}()),to=function(){function l(l,n,u){this.lf=l,this.userService=n,this._flashMessagesService=u,this.uploader=new no.FileUploader({url:tn+"upload"}),this.customer={}}return l.prototype.ngOnInit=function(){this.customer=JSON.parse(localStorage.getItem("customer")),this.customerProfileForm=this.lf.group({_id:["",lo.Validators.required],firstname:["",lo.Validators.required],lastname:["",lo.Validators.required],email:["",lo.Validators.required]}),this.customerPasswordUpdateForm=this.lf.group({_id:["",lo.Validators.required],oldpassword:["",lo.Validators.required],newpassword:["",lo.Validators.required],confirmpassword:["",lo.Validators.required]}),this.getProfile()},l.prototype.getProfile=function(){var l=this;this.userService.getProfile().subscribe(function(n){n.user&&l.customerProfileForm.patchValue(n.user)})},l.prototype.profileUpdate=function(){var l=this;this.userService.updateProfile(this.customerProfileForm.value).subscribe(function(n){n.User?l._flashMessagesService.show("Profile Updated  Successfully",{cssClass:"alert-success",timeout:5e3}):l._flashMessagesService.show("Something went wrong",{cssClass:"alert-danger",timeout:5e3})})},l.prototype.passwordUpdate=function(){var l=this;if(this.customerPasswordUpdateForm.value.newpassword==this.customerPasswordUpdateForm.value.confirmpassword){var n={};n._id=this.customer._id,n.password=this.customerPasswordUpdateForm.value.newpassword,this.userService.resetPassword(n).subscribe(function(n){console.log(n),n.error||l._flashMessagesService.show("Password Updated  Successfully",{cssClass:"alert-success",timeout:5e3})})}else this._flashMessagesService.show("Password does not match",{cssClass:"alert-danger",timeout:5e3})},l.prototype.onChange=function(l){this.uploader.uploadAll(),this.uploader.onCompleteItem=function(l,n,u,e){var t=JSON.parse(n);console.log(t)}},l.ctorParameters=function(){return[{type:lo.FormBuilder},{type:pt},{type:uo.FlashMessagesService}]},l}(),oo=u("/oeL"),ro=u("X68L"),ao=(u.n(ro),u("bm2B")),io=u("G1/N"),so=(u.n(io),[Qt]),co=oo["\u0275crt"]({encapsulation:0,styles:so,data:{}}),po=oo["\u0275ccf"]("app-frontenddashboard",eo,Jl,{},{},[]),go=[Qt],mo=oo["\u0275crt"]({encapsulation:0,styles:go,data:{}}),vo=oo["\u0275ccf"]("app-myprofile",to,Zl,{},{},[]),fo=[""],ho=u("/oeL"),Co=u("BkNc"),bo=[fo],Fo=ho["\u0275crt"]({encapsulation:0,styles:bo,data:{}}),yo=ho["\u0275ccf"]("app-root",un,Yl,{},{},[]),So=function(){function l(){}return l.prototype.validateRegister=function(l){return void 0!=l.firstname&&void 0!=l.lastname&&void 0!=l.email&&void 0!=l.username&&void 0!=l.password},l.prototype.validateProfile=function(l){return void 0!=l.firstname&&void 0!=l.lastname&&void 0!=l.email&&void 0!=l.username},l.prototype.validateEmail=function(l){return/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(l)},l.prototype.validateaddplan=function(l){return void 0!=l.nickName&&void 0!=l.exchangeName&&void 0!=l.exchangeType&&void 0!=l.apiKey&&void 0!=l.secretKey},l.ctorParameters=function(){return[]},l}(),_o=u("BkNc"),No=function(){function l(l,n){this.adminService=l,this.router=n}return l.prototype.canActivate=function(){return!!this.adminService.loggedIn()||(this.router.navigate(["/admin/login"]),!1)},l.ctorParameters=function(){return[{type:sn},{type:_o.k}]},l}(),Eo=u("BkNc"),wo=function(){function l(l,n){this.userService=l,this.router=n}return l.prototype.canActivate=function(){return!!this.userService.loggedIn()||(this.router.navigate(["/"]),!1)},l.ctorParameters=function(){return[{type:pt},{type:Eo.k}]},l}(),ko=u("CPp0"),Ao=u("5v8a"),Po=(u.n(Ao),function(){function l(l){if(this.http=l,localStorage.getItem("id_token_admin")){var n=localStorage.getItem("id_token_admin");this.authToken=n}if(localStorage.getItem("id_token")){var n=localStorage.getItem("id_token");this.authToken=n}}return l.prototype.loadToken=function(){if(localStorage.getItem("id_token_admin")){var l=localStorage.getItem("id_token_admin");this.authToken=l}if(localStorage.getItem("id_token")){var l=localStorage.getItem("id_token");this.authToken=l}},l.prototype.puchaseplan=function(l){var n=new ko.Headers;return this.loadToken(),n.append("Authorization",this.authToken),n.append("Content-Type","application/json"),this.http.post(tn+"purchaseplan",l,{headers:n}).map(function(l){return l.json()})},l.prototype.updatepuchaseplan=function(l){var n=new ko.Headers;return this.loadToken(),n.append("Authorization",this.authToken),n.append("Content-Type","application/json"),this.http.put(tn+"purchaseplan/"+l.id,l,{headers:n}).map(function(l){return l.json()})},l.prototype.paymentplan=function(l){var n=new ko.Headers;return this.loadToken(),n.append("Authorization",this.authToken),n.append("Content-Type","application/json"),this.http.post(tn+"pay",l,{headers:n}).map(function(l){return l.json()})},l.prototype.getsuccess=function(l){var n=new ko.Headers;return this.loadToken(),n.append("Authorization",this.authToken),n.append("Content-Type","application/json"),this.http.post(tn+"pay/success",l,{headers:n}).map(function(l){return l.json()})},l.prototype.getcancel=function(){var l=new ko.Headers;return this.loadToken(),l.append("Authorization",this.authToken),l.append("Content-Type","application/json"),this.http.post(tn+"pay/cancel",{headers:l}).map(function(l){return l.json()})},l.prototype.accountList=function(l){var n=new ko.Headers;return this.loadToken(),n.append("Authorization",this.authToken),n.append("Content-Type","application/json"),this.http.get(tn+"purchaseplan/"+l,{headers:n}).map(function(l){return l.json()})},l.prototype.accountdetailList=function(){var l=new ko.Headers;return this.loadToken(),l.append("Authorization",this.authToken),l.append("Content-Type","application/json"),this.http.get(tn+"purchaseplan",{headers:l}).map(function(l){return l.json()})},l.ctorParameters=function(){return[{type:ko.Http}]},l}()),Io=u("/oeL"),Oo=u("qbdv"),Ro=u("fc+i"),Do=u("bm2B"),Vo=u("CPp0"),Mo=u("G1/N"),To=(u.n(Mo),u("BkNc")),Uo=u("Vbq/"),Lo=u("JeK7"),xo=(u.n(Lo),u("fRX7")),Go=(u.n(xo),u("Hw/e")),Bo=(u.n(Go),u("LBJq")),qo=(u.n(Bo),u("uwCa")),jo=(u.n(qo),u("N1xg")),zo=Io["\u0275cmf"](nn,[un],function(l){return Io["\u0275mod"]([Io["\u0275mpd"](512,Io.ComponentFactoryResolver,Io["\u0275CodegenComponentFactoryResolver"],[[8,[Cn,In,zn,Jn,Nu,Uu,ne,te,ae,de,we,Pe,Re,Me,Ye,lt,et,rt,Pt,Zt,Xt,Ht,po,vo,yo]],[3,Io.ComponentFactoryResolver],Io.NgModuleRef]),Io["\u0275mpd"](5120,Io.LOCALE_ID,Io["\u0275m"],[[3,Io.LOCALE_ID]]),Io["\u0275mpd"](4608,Oo.NgLocalization,Oo.NgLocaleLocalization,[Io.LOCALE_ID]),Io["\u0275mpd"](5120,Io.APP_ID,Io["\u0275f"],[]),Io["\u0275mpd"](5120,Io.IterableDiffers,Io["\u0275k"],[]),Io["\u0275mpd"](5120,Io.KeyValueDiffers,Io["\u0275l"],[]),Io["\u0275mpd"](4608,Ro.b,Ro.s,[Oo.DOCUMENT]),Io["\u0275mpd"](6144,Io.Sanitizer,null,[Ro.b]),Io["\u0275mpd"](4608,Ro.e,Ro.f,[]),Io["\u0275mpd"](5120,Ro.c,function(l,n,u,e){return[new Ro.k(l),new Ro.o(n),new Ro.n(u,e)]},[Oo.DOCUMENT,Oo.DOCUMENT,Oo.DOCUMENT,Ro.e]),Io["\u0275mpd"](4608,Ro.d,Ro.d,[Ro.c,Io.NgZone]),Io["\u0275mpd"](135680,Ro.m,Ro.m,[Oo.DOCUMENT]),Io["\u0275mpd"](4608,Ro.l,Ro.l,[Ro.d,Ro.m]),Io["\u0275mpd"](6144,Io.RendererFactory2,null,[Ro.l]),Io["\u0275mpd"](6144,Ro.p,null,[Ro.m]),Io["\u0275mpd"](4608,Io.Testability,Io.Testability,[Io.NgZone]),Io["\u0275mpd"](4608,Ro.g,Ro.g,[Oo.DOCUMENT]),Io["\u0275mpd"](4608,Ro.i,Ro.i,[Oo.DOCUMENT]),Io["\u0275mpd"](4608,Do["\u0275i"],Do["\u0275i"],[]),Io["\u0275mpd"](4608,Do.FormBuilder,Do.FormBuilder,[]),Io["\u0275mpd"](4352,"TINYMCE_CONFIG",{},[]),Io["\u0275mpd"](4608,Vo.BrowserXhr,Vo.BrowserXhr,[]),Io["\u0275mpd"](4608,Vo.ResponseOptions,Vo.BaseResponseOptions,[]),Io["\u0275mpd"](5120,Vo.XSRFStrategy,Vo["\u0275b"],[]),Io["\u0275mpd"](4608,Vo.XHRBackend,Vo.XHRBackend,[Vo.BrowserXhr,Vo.ResponseOptions,Vo.XSRFStrategy]),Io["\u0275mpd"](4608,Vo.RequestOptions,Vo.BaseRequestOptions,[]),Io["\u0275mpd"](5120,Vo.Http,Vo["\u0275c"],[Vo.XHRBackend,Vo.RequestOptions]),Io["\u0275mpd"](4608,Mo.FlashMessagesService,Mo.FlashMessagesService,[]),Io["\u0275mpd"](5120,To.a,To.x,[To.k]),Io["\u0275mpd"](4608,To.d,To.d,[]),Io["\u0275mpd"](6144,To.f,null,[To.d]),Io["\u0275mpd"](135680,To.p,To.p,[To.k,Io.NgModuleFactoryLoader,Io.Compiler,Io.Injector,To.f]),Io["\u0275mpd"](4608,To.e,To.e,[]),Io["\u0275mpd"](5120,To.h,To.A,[To.y]),Io["\u0275mpd"](5120,Io.APP_BOOTSTRAP_LISTENER,function(l){return[l]},[To.h]),Io["\u0275mpd"](4608,Uo.a,Uo.a,[]),Io["\u0275mpd"](4608,So,So,[]),Io["\u0275mpd"](4608,sn,sn,[Vo.Http]),Io["\u0275mpd"](4608,No,No,[sn,To.k]),Io["\u0275mpd"](4608,pt,pt,[Vo.Http]),Io["\u0275mpd"](4608,wo,wo,[pt,To.k]),Io["\u0275mpd"](4608,fu,fu,[Vo.Http]),Io["\u0275mpd"](4608,gu,gu,[Vo.Http]),Io["\u0275mpd"](4608,Po,Po,[Vo.Http]),Io["\u0275mpd"](512,Oo.CommonModule,Oo.CommonModule,[]),Io["\u0275mpd"](1024,Io.ErrorHandler,Ro.q,[]),Io["\u0275mpd"](1024,Io.NgProbeToken,function(){return[To.t()]},[]),Io["\u0275mpd"](512,To.y,To.y,[Io.Injector]),Io["\u0275mpd"](1024,Io.APP_INITIALIZER,function(l,n,u){return[Ro.r(l,n),To.z(u)]},[[2,Ro.h],[2,Io.NgProbeToken],To.y]),Io["\u0275mpd"](512,Io.ApplicationInitStatus,Io.ApplicationInitStatus,[[2,Io.APP_INITIALIZER]]),Io["\u0275mpd"](131584,Io["\u0275e"],Io["\u0275e"],[Io.NgZone,Io["\u0275Console"],Io.Injector,Io.ErrorHandler,Io.ComponentFactoryResolver,Io.ApplicationInitStatus]),Io["\u0275mpd"](2048,Io.ApplicationRef,null,[Io["\u0275e"]]),Io["\u0275mpd"](512,Io.ApplicationModule,Io.ApplicationModule,[Io.ApplicationRef]),Io["\u0275mpd"](512,Ro.a,Ro.a,[[3,Ro.a]]),Io["\u0275mpd"](512,Do["\u0275ba"],Do["\u0275ba"],[]),Io["\u0275mpd"](512,Do.FormsModule,Do.FormsModule,[]),Io["\u0275mpd"](512,Do.ReactiveFormsModule,Do.ReactiveFormsModule,[]),Io["\u0275mpd"](512,Lo.TinymceModule,Lo.TinymceModule,[]),Io["\u0275mpd"](512,Vo.HttpModule,Vo.HttpModule,[]),Io["\u0275mpd"](1024,To.s,To.v,[[3,To.k]]),Io["\u0275mpd"](512,To.r,To.c,[]),Io["\u0275mpd"](512,To.b,To.b,[]),Io["\u0275mpd"](256,To.g,{},[]),Io["\u0275mpd"](1024,Oo.LocationStrategy,To.u,[Oo.PlatformLocation,[2,Oo.APP_BASE_HREF],To.g]),Io["\u0275mpd"](512,Oo.Location,Oo.Location,[Oo.LocationStrategy]),Io["\u0275mpd"](512,Io.Compiler,Io.Compiler,[]),Io["\u0275mpd"](512,Io.NgModuleFactoryLoader,Io.SystemJsNgModuleLoader,[Io.Compiler,[2,Io.SystemJsNgModuleLoaderConfig]]),Io["\u0275mpd"](1024,To.i,function(){return[[{path:"admin",component:dn,children:[{path:"",component:Sn},{path:"login",component:Sn},{path:"forgotpassword",component:Mn},{path:"resetpassword/:id",component:Tn},{path:"dashboard",component:hu,canActivate:[No]},{path:"profile",component:Pu,canActivate:[No]},{path:"pages",component:qu,canActivate:[No],children:[{path:"",component:ju},{path:"add",component:zu},{path:":id",component:Ku}]},{path:"user",component:ve,canActivate:[No],children:[{path:"",component:fe},{path:"add",component:he},{path:":id",component:Ce}]},{path:"plan",component:Ge,canActivate:[No],children:[{path:"",component:Be},{path:"add",component:qe},{path:":id",component:je}]}]},{path:"",component:yt,children:[{path:"resetpassword/:id",component:Tt},{path:"account-active/:token",component:Ut},{path:"",component:Mt},{path:"dashboard",component:eo,canActivate:[wo]},{path:"profile",component:to,canActivate:[wo]}]}]]},[]),Io["\u0275mpd"](1024,To.k,To.w,[Io.ApplicationRef,To.r,To.b,Oo.Location,Io.Injector,Io.NgModuleFactoryLoader,Io.Compiler,To.i,To.g,[2,To.q],[2,To.j]]),Io["\u0275mpd"](512,To.n,To.n,[[2,To.s],[2,To.k]]),Io["\u0275mpd"](512,xo.FlashMessagesModule,xo.FlashMessagesModule,[]),Io["\u0275mpd"](512,Go.FileUploadModule,Go.FileUploadModule,[]),Io["\u0275mpd"](512,Bo.SelectModule,Bo.SelectModule,[]),Io["\u0275mpd"](512,qo.Ng2OrderModule,qo.Ng2OrderModule,[]),Io["\u0275mpd"](512,jo.a,jo.a,[]),Io["\u0275mpd"](512,nn,nn,[])])}),Ko=u("/oeL"),Ho=u("fc+i");Xl.production&&Object(Ko.enableProdMode)(),Object(Ho.j)().bootstrapModuleFactory(zo)},gFIY:function(l,n){function u(l){return new Promise(function(n,u){u(new Error("Cannot find module '"+l+"'."))})}u.keys=function(){return[]},u.resolve=u,l.exports=u,u.id="gFIY"}},[0]);
+webpackJsonp(["main"],{
+
+/***/ "../../../../../src/$$_gendir lazy recursive":
+/***/ (function(module, exports) {
+
+function webpackEmptyAsyncContext(req) {
+	return new Promise(function(resolve, reject) { reject(new Error("Cannot find module '" + req + "'.")); });
+}
+webpackEmptyAsyncContext.keys = function() { return []; };
+webpackEmptyAsyncContext.resolve = webpackEmptyAsyncContext;
+module.exports = webpackEmptyAsyncContext;
+webpackEmptyAsyncContext.id = "../../../../../src/$$_gendir lazy recursive";
+
+/***/ }),
+
+/***/ "../../../../../src/app/admin/admin.component.css":
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, ".login-page .card-login,\r\n.lock-page .card-profile {\r\n    transition: all 300ms linear;\r\n}\r\n\r\n\r\n.login-page>.content,\r\n.lock-page>.content {\r\n    padding-top: 18vh;\r\n}\r\n\r\n.login-page .card-login {\r\n    box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.14);\r\n    border-radius: 6px;\r\n    padding-bottom: 20px;\r\n    -webkit-transform: translate3d(0, 0, 0);\r\n    transform: translate3d(0, 0, 0);\r\n}\r\n\r\n.login-page .card-login.card-hidden {\r\n    opacity: 0;\r\n    -webkit-transform: translate3d(0, -60px, 0);\r\n    transform: translate3d(0, -60px, 0);\r\n}\r\n\r\n.login-page .card-login .btn-wd {\r\n    min-width: 180px;\r\n}\r\n\r\n.login-page .card-login .card-header {\r\n    margin-top: -40px;\r\n    margin-bottom: 20px;\r\n}\r\n\r\n.login-page .card-login .card-header .title {\r\n    margin-top: 10px;\r\n}\r\n", ""]);
+
+// exports
+
+
+/*** EXPORTS FROM exports-loader ***/
+module.exports = module.exports.toString();
+
+/***/ }),
+
+/***/ "../../../../../src/app/admin/admin.component.html":
+/***/ (function(module, exports) {
+
+module.exports = "<!-- Bootstrap core CSS     -->\r\n<link href=\"/assets/admin/css/bootstrap.min.css\" rel=\"stylesheet\" />\r\n<!--  Material Dashboard CSS    -->\r\n<link href=\"/assets/admin/css/material-dashboard.css?v=1.2.0\" rel=\"stylesheet\" />\r\n<!--  CSS for Demo Purpose, don't include it in your project     -->\r\n<link href=\"/assets/admin/css/demo.css\" rel=\"stylesheet\" />\r\n<link href=\"/assets/admin/css/style.css\" rel=\"stylesheet\" />\r\n<!--     Fonts and icons     -->\r\n<link href=\"https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css\" rel=\"stylesheet\">\r\n<link href='https://fonts.googleapis.com/css?family=Roboto:400,700,300|Material+Icons' rel='stylesheet' type='text/css'>\r\n<flash-messages></flash-messages>\r\n<router-outlet></router-outlet>\r\n\r\n\r\n\r\n\r\n"
+
+/***/ }),
+
+/***/ "../../../../../src/app/admin/admin.component.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AdminComponent; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__services_admin_service__ = __webpack_require__("../../../../../src/app/services/admin.service.ts");
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+var AdminComponent = (function () {
+    function AdminComponent(adminService) {
+        this.adminService = adminService;
+    }
+    AdminComponent.prototype.ngOnInit = function () { };
+    return AdminComponent;
+}());
+AdminComponent = __decorate([
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
+        selector: 'app-admin',
+        template: __webpack_require__("../../../../../src/app/admin/admin.component.html"),
+        styles: [__webpack_require__("../../../../../src/app/admin/admin.component.css")]
+    }),
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__services_admin_service__["a" /* AdminService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__services_admin_service__["a" /* AdminService */]) === "function" && _a || Object])
+], AdminComponent);
+
+var _a;
+//# sourceMappingURL=admin.component.js.map
+
+/***/ }),
+
+/***/ "../../../../../src/app/admin/customer/customer.component.css":
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, ".padding0{text-align: left;padding-left: 0;}\r\n\r\n\r\n.addCustomerClass{\r\n\theight: 100%;\r\n}", ""]);
+
+// exports
+
+
+/*** EXPORTS FROM exports-loader ***/
+module.exports = module.exports.toString();
+
+/***/ }),
+
+/***/ "../../../../../src/app/admin/customer/customer.component.html":
+/***/ (function(module, exports) {
+
+module.exports = "<div class=\"wrapper addCustomerClass\">\r\n\t<app-sidebar></app-sidebar>\r\n\t<div class=\"main-panel\">\r\n\t\t<app-header></app-header>\r\n\t\t<div class=\"content\">\r\n            <div class=\"container-fluid\">\r\n\t\t\t\t<router-outlet></router-outlet>\r\n\t\t\t</div>\r\n\t\t</div>\r\n\t</div>\r\n</div>"
+
+/***/ }),
+
+/***/ "../../../../../src/app/admin/customer/customer.component.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AdminCustomerComponent; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return CustomerListComponent; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return CustomerAddComponent; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return CustomerEditComponent; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_router__ = __webpack_require__("../../../router/@angular/router.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_forms__ = __webpack_require__("../../../forms/@angular/forms.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_angular2_flash_messages__ = __webpack_require__("../../../../angular2-flash-messages/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_angular2_flash_messages___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_angular2_flash_messages__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__services_admin_service__ = __webpack_require__("../../../../../src/app/services/admin.service.ts");
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+
+var AdminCustomerComponent = (function () {
+    function AdminCustomerComponent(lf, router, route) {
+        this.lf = lf;
+        this.router = router;
+        this.route = route;
+    }
+    AdminCustomerComponent.prototype.ngOnInit = function () {
+        this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/admin/dashboard';
+        this.loginForm = this.lf.group({
+            email: ['', __WEBPACK_IMPORTED_MODULE_2__angular_forms__["Validators"].required]
+        });
+    };
+    return AdminCustomerComponent;
+}());
+AdminCustomerComponent = __decorate([
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
+        selector: 'app-admin-customer',
+        template: __webpack_require__("../../../../../src/app/admin/customer/customer.component.html"),
+        styles: [__webpack_require__("../../../../../src/app/admin/customer/customer.component.css")],
+    }),
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_2__angular_forms__["FormBuilder"] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__angular_forms__["FormBuilder"]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* Router */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* Router */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* ActivatedRoute */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* ActivatedRoute */]) === "function" && _c || Object])
+], AdminCustomerComponent);
+
+var CustomerListComponent = (function () {
+    function CustomerListComponent(lf, customerService, router, route, _flashMessagesService) {
+        this.lf = lf;
+        this.customerService = customerService;
+        this.router = router;
+        this.route = route;
+        this._flashMessagesService = _flashMessagesService;
+        this.customers = [];
+    }
+    CustomerListComponent.prototype.ngOnInit = function () {
+        this.getList();
+    };
+    CustomerListComponent.prototype.getList = function () {
+        var _this = this;
+        this.customerService.userList().subscribe(function (data) {
+            if (!data.error) {
+                _this.customers = data.message;
+            }
+        }, function (err) {
+            console.log('kfgbhj');
+        });
+    };
+    CustomerListComponent.prototype.deleteCustomer = function (id) {
+        var _this = this;
+        if (confirm("Are you sure to delete ?")) {
+            this._flashMessagesService.show('User Deleted Successfully', { cssClass: 'alert-success', timeout: 3000 });
+            this.customerService.deleteUserById(id).subscribe(function (data) {
+                _this.getList();
+            });
+        }
+    };
+    return CustomerListComponent;
+}());
+CustomerListComponent = __decorate([
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
+        selector: 'app-admin-customer-list',
+        template: __webpack_require__("../../../../../src/app/admin/customer/customerlist.component.html"),
+        styles: [__webpack_require__("../../../../../src/app/admin/customer/customer.component.css")],
+    }),
+    __metadata("design:paramtypes", [typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_2__angular_forms__["FormBuilder"] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__angular_forms__["FormBuilder"]) === "function" && _d || Object, typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_4__services_admin_service__["a" /* AdminService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_4__services_admin_service__["a" /* AdminService */]) === "function" && _e || Object, typeof (_f = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* Router */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* Router */]) === "function" && _f || Object, typeof (_g = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* ActivatedRoute */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* ActivatedRoute */]) === "function" && _g || Object, typeof (_h = typeof __WEBPACK_IMPORTED_MODULE_3_angular2_flash_messages__["FlashMessagesService"] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3_angular2_flash_messages__["FlashMessagesService"]) === "function" && _h || Object])
+], CustomerListComponent);
+
+var CustomerAddComponent = (function () {
+    function CustomerAddComponent(lf, customerService, router, route, _flashMessagesService) {
+        this.lf = lf;
+        this.customerService = customerService;
+        this.router = router;
+        this.route = route;
+        this._flashMessagesService = _flashMessagesService;
+        this.emailp = /^([a-z\d!#$%&'*+\-\/=?^_`{|}~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+(\.[a-z\d!#$%&'*+\-\/=?^_`{|}~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+)*|"((([ \t]*\r\n)?[ \t]+)?([\x01-\x08\x0b\x0c\x0e-\x1f\x7f\x21\x23-\x5b\x5d-\x7e\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|\\[\x01-\x09\x0b\x0c\x0d-\x7f\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]))*(([ \t]*\r\n)?[ \t]+)?")@(([a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|[a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF][a-z\d\-._~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]*[a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])\.)+([a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|[a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF][a-z\d\-._~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]*[a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])\.?$/i;
+        this.passwordRegex = /^([0-9]+[a-zA-Z]+|[a-zA-Z]+[0-9]+)[0-9a-zA-Z]*$/;
+        this.phoneRegex = /^[(]{0,1}[0-9]{2,3}[)]{0,1}[-\s\.]{0,1}[0-9]{3}[-\s\.]{0,1}[0-9]{7}$/;
+        this.passwordp = '';
+        this.newo = false;
+        this.MutchPassword = false;
+        this.formErrors = {
+            'firstname': '',
+            'lastname': '',
+            'email': '',
+            'phonenumber': '',
+            'password': '',
+            'newpassword': ''
+        };
+        this.validationMessages = {
+            'firstname': {
+                'required': 'First Name is required.',
+            },
+            'lastname': {
+                'required': 'Last Name is required.',
+            },
+            'phonenumber': {
+                'required': 'Phone Number is required.',
+                'minlength': 'Enter 10 digit mobile number or phone number (with operator code) along with country code.',
+                'maxlength': 'Enter 10 digit mobile number or phone number (with operator code) along with country code.',
+                'pattern': "eg : (971)-055-1234567 including or excluding '(', ')' or '-'. "
+            },
+            'email': {
+                'required': 'Email is required.',
+                'pattern': 'Email not in well format.'
+            },
+            'password': {
+                'required': 'Password is required.',
+                'pattern': 'Please Enter at least one letter and number',
+                'minlength': 'Password should contain minimum 6 characters',
+            },
+            'newpassword': {
+                'required': 'Confirm Password is required.',
+                'pattern': 'Please Enter at least one letter and number',
+                'minlength': 'Password should contain minimum 6 characters',
+            }
+        };
+    }
+    CustomerAddComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        this.customerAddForm = this.lf.group({
+            firstname: ['', __WEBPACK_IMPORTED_MODULE_2__angular_forms__["Validators"].required],
+            lastname: ['', __WEBPACK_IMPORTED_MODULE_2__angular_forms__["Validators"].required],
+            phonenumber: ['', [__WEBPACK_IMPORTED_MODULE_2__angular_forms__["Validators"].required, __WEBPACK_IMPORTED_MODULE_2__angular_forms__["Validators"].minLength(10), __WEBPACK_IMPORTED_MODULE_2__angular_forms__["Validators"].maxLength(15)]],
+            email: ['', [__WEBPACK_IMPORTED_MODULE_2__angular_forms__["Validators"].required, __WEBPACK_IMPORTED_MODULE_2__angular_forms__["Validators"].pattern(this.emailp)]],
+            password: ['', [__WEBPACK_IMPORTED_MODULE_2__angular_forms__["Validators"].required, __WEBPACK_IMPORTED_MODULE_2__angular_forms__["Validators"].minLength(6), __WEBPACK_IMPORTED_MODULE_2__angular_forms__["Validators"].pattern(this.passwordRegex)]],
+            matchpass: ['', __WEBPACK_IMPORTED_MODULE_2__angular_forms__["Validators"].required],
+            newpassword: ['', [__WEBPACK_IMPORTED_MODULE_2__angular_forms__["Validators"].required, __WEBPACK_IMPORTED_MODULE_2__angular_forms__["Validators"].minLength(6), __WEBPACK_IMPORTED_MODULE_2__angular_forms__["Validators"].pattern(this.passwordRegex)]]
+        });
+        this.customerAddForm.valueChanges
+            .subscribe(function (data) { return _this.onValueChanged(data); });
+        this.onValueChanged();
+    };
+    CustomerAddComponent.prototype.matchpasswordreg = function () {
+        if (this.customerAddForm.value.newpassword != "") {
+            if (this.customerAddForm.value.password == this.customerAddForm.value.newpassword) {
+                this.customerAddForm.controls["matchpass"].setValue(true);
+                this.MutchPassword = false;
+            }
+            else {
+                this.customerAddForm.controls["matchpass"].setValue("");
+                this.MutchPassword = true;
+            }
+        }
+        else {
+            this.MutchPassword = false;
+        }
+    };
+    CustomerAddComponent.prototype.customerAdd = function () {
+        var _this = this;
+        this.customerService.userAdd(this.customerAddForm.value).subscribe(function (data) {
+            if (!data.error) {
+                _this._flashMessagesService.show('User Created Successfully', { cssClass: 'alert-success', timeout: 3000 });
+                _this.router.navigate(['admin/user']);
+            }
+            else {
+                _this._flashMessagesService.show('Email/Username already in use', { cssClass: 'danger-alert', timeout: 3000 });
+                //this.customerAddForm.reset();
+            }
+        }, function (err) {
+            _this._flashMessagesService.show('Something went wrong', { cssClass: 'danger-alert', timeout: 3000 });
+            console.log('kfgbhj');
+        });
+    };
+    CustomerAddComponent.prototype.onValueChanged = function (data) {
+        if (!this.customerAddForm) {
+            return;
+        }
+        var form = this.customerAddForm;
+        for (var field in this.formErrors) {
+            // clear previous error message (if any)
+            this.formErrors[field] = '';
+            var control = form.get(field);
+            if (control && control.dirty && !control.valid) {
+                var messages = this.validationMessages[field];
+                for (var key in control.errors) {
+                    this.formErrors[field] += messages[key] + ' ';
+                }
+            }
+        }
+    };
+    return CustomerAddComponent;
+}());
+CustomerAddComponent = __decorate([
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
+        selector: 'app-admin-customer-add',
+        template: __webpack_require__("../../../../../src/app/admin/customer/customeradd.component.html"),
+        styles: [__webpack_require__("../../../../../src/app/admin/customer/customer.component.css")],
+    }),
+    __metadata("design:paramtypes", [typeof (_j = typeof __WEBPACK_IMPORTED_MODULE_2__angular_forms__["FormBuilder"] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__angular_forms__["FormBuilder"]) === "function" && _j || Object, typeof (_k = typeof __WEBPACK_IMPORTED_MODULE_4__services_admin_service__["a" /* AdminService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_4__services_admin_service__["a" /* AdminService */]) === "function" && _k || Object, typeof (_l = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* Router */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* Router */]) === "function" && _l || Object, typeof (_m = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* ActivatedRoute */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* ActivatedRoute */]) === "function" && _m || Object, typeof (_o = typeof __WEBPACK_IMPORTED_MODULE_3_angular2_flash_messages__["FlashMessagesService"] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3_angular2_flash_messages__["FlashMessagesService"]) === "function" && _o || Object])
+], CustomerAddComponent);
+
+var CustomerEditComponent = (function () {
+    function CustomerEditComponent(lf, customerService, router, route, _flashMessagesService) {
+        this.lf = lf;
+        this.customerService = customerService;
+        this.router = router;
+        this.route = route;
+        this._flashMessagesService = _flashMessagesService;
+        this.currentCustomer = {};
+        this.emailp = /^([a-z\d!#$%&'*+\-\/=?^_`{|}~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+(\.[a-z\d!#$%&'*+\-\/=?^_`{|}~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+)*|"((([ \t]*\r\n)?[ \t]+)?([\x01-\x08\x0b\x0c\x0e-\x1f\x7f\x21\x23-\x5b\x5d-\x7e\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|\\[\x01-\x09\x0b\x0c\x0d-\x7f\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]))*(([ \t]*\r\n)?[ \t]+)?")@(([a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|[a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF][a-z\d\-._~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]*[a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])\.)+([a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|[a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF][a-z\d\-._~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]*[a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])\.?$/i;
+        this.passwordp = '';
+        this.newo = false;
+        this.MutchPassword = false;
+        this.formErrors = {
+            'firstname': '',
+            'lastname': '',
+            'email': '',
+            'phonenumber': '',
+            'password': '',
+            'newpassword': ''
+        };
+        this.validationMessages = {
+            'firstname': {
+                'required': 'First Name is required.',
+            },
+            'lastname': {
+                'required': 'Last Name is required.',
+            },
+            'phonenumber': {
+                'required': 'Phone Number is required.',
+            },
+            'email': {
+                'required': 'Email is required.',
+                'pattern': 'Email not in well format.'
+            },
+            'password': {
+                'required': 'Password is required.'
+            },
+            'newpassword': {
+                'required': 'Password is required.'
+            }
+        };
+    }
+    CustomerEditComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        this.customerAddForm = this.lf.group({
+            _id: ['', __WEBPACK_IMPORTED_MODULE_2__angular_forms__["Validators"].required],
+            firstname: ['', __WEBPACK_IMPORTED_MODULE_2__angular_forms__["Validators"].required],
+            lastname: ['', __WEBPACK_IMPORTED_MODULE_2__angular_forms__["Validators"].required],
+            phonenumber: ['', __WEBPACK_IMPORTED_MODULE_2__angular_forms__["Validators"].required],
+            email: ['', [__WEBPACK_IMPORTED_MODULE_2__angular_forms__["Validators"].required, __WEBPACK_IMPORTED_MODULE_2__angular_forms__["Validators"].pattern(this.emailp)]]
+        });
+        this.route.params.subscribe(function (params) {
+            var id = params['id'];
+            _this.customer(id);
+        });
+        this.customerAddForm.valueChanges
+            .subscribe(function (data) { return _this.onValueChanged(data); });
+        this.onValueChanged();
+    };
+    CustomerEditComponent.prototype.matchpasswordreg = function () {
+        if (this.customerAddForm.value.password == this.customerAddForm.value.newpassword) {
+            this.customerAddForm.controls["matchpass"].setValue(true);
+            this.MutchPassword = false;
+        }
+        else {
+            this.customerAddForm.controls["matchpass"].setValue("");
+            this.MutchPassword = true;
+        }
+    };
+    CustomerEditComponent.prototype.customerUpdate = function () {
+        var _this = this;
+        this.customerService.userUpdate(this.customerAddForm.value).subscribe(function (data) {
+            if (!data.error) {
+                _this._flashMessagesService.show('User Profile Updated Successfully', { cssClass: 'alert-success', timeout: 3000 });
+                _this.router.navigate(['admin/user']);
+            }
+        }, function (err) {
+            console.log('kfgbhj');
+        });
+    };
+    CustomerEditComponent.prototype.customer = function (id) {
+        var _this = this;
+        this.customerService.getUserById(id).subscribe(function (data) {
+            if (!data.error) {
+                _this.currentCustomer = data.message;
+                console.log(_this.currentCustomer);
+                _this.customerAddForm.patchValue(_this.currentCustomer);
+            }
+        }, function (err) {
+            console.log(err);
+        });
+    };
+    CustomerEditComponent.prototype.onValueChanged = function (data) {
+        if (!this.customerAddForm) {
+            return;
+        }
+        var form = this.customerAddForm;
+        for (var field in this.formErrors) {
+            // clear previous error message (if any)
+            this.formErrors[field] = '';
+            var control = form.get(field);
+            if (control && control.dirty && !control.valid) {
+                var messages = this.validationMessages[field];
+                for (var key in control.errors) {
+                    this.formErrors[field] += messages[key] + ' ';
+                }
+            }
+        }
+    };
+    return CustomerEditComponent;
+}());
+CustomerEditComponent = __decorate([
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
+        selector: 'app-admin-customer-edit',
+        template: __webpack_require__("../../../../../src/app/admin/customer/customeredit.component.html"),
+        styles: [__webpack_require__("../../../../../src/app/admin/customer/customer.component.css")],
+    }),
+    __metadata("design:paramtypes", [typeof (_p = typeof __WEBPACK_IMPORTED_MODULE_2__angular_forms__["FormBuilder"] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__angular_forms__["FormBuilder"]) === "function" && _p || Object, typeof (_q = typeof __WEBPACK_IMPORTED_MODULE_4__services_admin_service__["a" /* AdminService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_4__services_admin_service__["a" /* AdminService */]) === "function" && _q || Object, typeof (_r = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* Router */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* Router */]) === "function" && _r || Object, typeof (_s = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* ActivatedRoute */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* ActivatedRoute */]) === "function" && _s || Object, typeof (_t = typeof __WEBPACK_IMPORTED_MODULE_3_angular2_flash_messages__["FlashMessagesService"] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3_angular2_flash_messages__["FlashMessagesService"]) === "function" && _t || Object])
+], CustomerEditComponent);
+
+var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m, _o, _p, _q, _r, _s, _t;
+//# sourceMappingURL=customer.component.js.map
+
+/***/ }),
+
+/***/ "../../../../../src/app/admin/customer/customeradd.component.html":
+/***/ (function(module, exports) {
+
+module.exports = "<div class=\"row\">\r\n    <div class=\"card\">\r\n        <div class=\"card-header\" data-background-color=\"navyblue\">\r\n            <h4 class=\"title\">Add User</h4>\r\n            <p class=\"category\">Create User Profile</p>\r\n        </div>\r\n        <div class=\"card-content\">\r\n            <form [formGroup]=\"customerAddForm\" (ngSubmit)=\"customerAdd()\">\r\n                <div class=\"row\">\r\n                    <div class=\"col-md-6\">\r\n                        <div class=\"form-group label-floating\">\r\n                            <label class=\"control-label\">First Name <span>*</span></label>\r\n                            <input formControlName=\"firstname\" type=\"text\" class=\"form-control\" autofocus>\r\n                        </div>\r\n                        <div *ngIf=\"formErrors.firstname\" class=\"alert alert-danger\">\r\n                            {{ formErrors.firstname }}\r\n                        </div>\r\n                    </div>\r\n                    <div class=\"col-md-6\">\r\n                        <div class=\"form-group label-floating\">\r\n                            <label class=\"control-label\">Last Name <span>*</span></label>\r\n                            <input formControlName=\"lastname\" type=\"text\" class=\"form-control\">\r\n                        </div>\r\n                        <div *ngIf=\"formErrors.lastname\" class=\"alert alert-danger\">\r\n                            {{ formErrors.lastname }}\r\n                        </div>\r\n                    </div>\r\n                </div>\r\n                <div class=\"row\">\r\n                    <div class=\"col-md-6\">\r\n                        <div class=\"form-group label-floating\">\r\n                            <label class=\"control-label\">Email address <span>*</span></label>\r\n                            <input formControlName=\"email\" type=\"email\" class=\"form-control\">\r\n                        </div>\r\n                        <div *ngIf=\"formErrors.email\" class=\"alert alert-danger\">\r\n                            {{ formErrors.email }}\r\n                        </div>\r\n                    </div>\r\n                    <div class=\"col-md-6\">\r\n                        <div class=\"form-group label-floating\">\r\n                            <label class=\"control-label\">Phone Number <span>*</span></label>\r\n                            <input formControlName=\"phonenumber\" type=\"text\" class=\"form-control\">\r\n                        </div>\r\n                        <div *ngIf=\"formErrors.phonenumber\" class=\"alert alert-danger\">\r\n                            {{ formErrors.phonenumber }}\r\n                        </div>\r\n                    </div>\r\n                </div>\r\n                <div class=\"row\">\r\n                    <div class=\"col-md-6\">\r\n                        <div class=\"form-group label-floating\">\r\n                            <label class=\"control-label\">Password <span>*</span></label>\r\n                            <input formControlName=\"password\" type=\"password\" class=\"form-control\" (keyup)=\"matchpasswordreg()\">\r\n                        </div>\r\n                        <div *ngIf=\"formErrors.password\" class=\"alert alert-danger\">\r\n                            {{ formErrors.password }}\r\n                        </div>\r\n                    </div>\r\n                    <div class=\"col-md-6\">\r\n                        <div class=\"form-group label-floating\">\r\n                            <label class=\"control-label\">Confirm Password <span>*</span></label>\r\n                            <input formControlName=\"newpassword\" type=\"password\" class=\"form-control\" (keyup)=\"matchpasswordreg()\">\r\n                        </div>\r\n                        <div *ngIf=\"formErrors.newpassword\" class=\"alert alert-danger\">\r\n                            {{ formErrors.newpassword }}\r\n                        </div>\r\n                        <div style=\"padding: 3px;\" class=\"alert alert-danger\" *ngIf=\"MutchPassword\">Password does not match</div>\r\n                    </div>\r\n                </div>\r\n                <button type=\"submit\" class=\"btn bg-navyblue pull-right\" [disabled]=\"!customerAddForm.valid\">Save User</button>\r\n                <div class=\"clearfix\"></div>\r\n            </form>\r\n        </div>\r\n    </div>\r\n</div>"
+
+/***/ }),
+
+/***/ "../../../../../src/app/admin/customer/customeredit.component.html":
+/***/ (function(module, exports) {
+
+module.exports = "<div class=\"row\">\r\n    <div class=\"card\">\r\n        <div class=\"card-header\" data-background-color=\"navyblue\">\r\n            <h4 class=\"title\">Edit User</h4>\r\n            <p class=\"category\">Update User Profile</p>\r\n        </div>\r\n        <div class=\"card-content\" *ngIf = \"currentCustomer\">\r\n            <form [formGroup]=\"customerAddForm\" (ngSubmit)=\"customerUpdate()\">\r\n                <div class=\"row\">\r\n                    <div class=\"col-md-6\">\r\n                        <div class=\"form-group \">\r\n                            <label class=\"control-label\">First Name <span>*</span></label>\r\n                            <input formControlName=\"firstname\" type=\"text\" class=\"form-control\" autofocus>\r\n                        </div>\r\n                        <div *ngIf=\"formErrors.firstname\" class=\"alert alert-danger\">\r\n                            {{ formErrors.firstname }}\r\n                        </div>\r\n                    </div>\r\n                    <div class=\"col-md-6\">\r\n                        <div class=\"form-group \">\r\n                            <label class=\"control-label\">Last Name <span>*</span></label>\r\n                            <input formControlName=\"lastname\" type=\"text\" class=\"form-control\">\r\n                        </div>\r\n                        <div *ngIf=\"formErrors.lastname\" class=\"alert alert-danger\">\r\n                            {{ formErrors.lastname }}\r\n                        </div>\r\n                    </div>\r\n                </div>\r\n                <div class=\"row\">\r\n                    <div class=\"col-md-6\">\r\n                        <div class=\"form-group \">\r\n                            <label class=\"control-label\">Email address <span>*</span></label>\r\n                            <input formControlName=\"email\" type=\"email\" class=\"form-control\">\r\n                        </div>\r\n                        <div *ngIf=\"formErrors.email\" class=\"alert alert-danger\">\r\n                            {{ formErrors.email }}\r\n                        </div>\r\n                    </div>\r\n                    <div class=\"col-md-6\">\r\n                        <div class=\"form-group \">\r\n                            <label class=\"control-label\">Phone Number <span>*</span></label>\r\n                            <input formControlName=\"phonenumber\" type=\"text\" class=\"form-control\">\r\n                        </div>\r\n                        <div *ngIf=\"formErrors.phonenumber\" class=\"alert alert-danger\">\r\n                            {{ formErrors.phonenumber }}\r\n                        </div>\r\n                    </div>\r\n                </div>                   \r\n                <button type=\"submit\" class=\"btn bg-navyblue pull-right\" [disabled]=\"!customerAddForm.valid\">Update User</button>\r\n                <div class=\"clearfix\"></div>\r\n            </form>\r\n        </div>\r\n    </div>\r\n</div>"
+
+/***/ }),
+
+/***/ "../../../../../src/app/admin/customer/customerlist.component.html":
+/***/ (function(module, exports) {
+
+module.exports = "<div class=\"card card-nav-tabs\">\r\n    <div class=\"card-header\" data-background-color=\"navyblue\">\r\n        <div class=\"nav-tabs-navigation\">\r\n            <div class=\"nav-tabs-wrapper\">\r\n                <span class=\"nav-tabs-title\">Users</span>\r\n                <ul class=\"nav nav-tabs\" data-tabs=\"tabs\">\r\n                    <li class=\"active pull-right\">\r\n                        <a [routerLink]=\"['/admin/user/add/']\">\r\n                            <i class=\"material-icons\">exposure_plus_1</i> Add User\r\n                            <div class=\"ripple-container\"></div>\r\n                        </a>\r\n                    </li>\r\n                </ul>\r\n            </div>\r\n        </div>\r\n    </div>\r\n    <div class=\"card-content table-responsive\">\r\n        <table class=\"table\" *ngIf=\"customers.length >0\">\r\n            <thead class=\"clr-navyblue\">\r\n                <th>Name</th>\r\n                <th>Phone Number</th>\r\n                 <th>Email</th>\r\n                <th>Action</th>\r\n            </thead>\r\n            <tbody>\r\n                <tr *ngFor=\"let customer of customers\">\r\n                    <td class=\"padding0\">{{customer.firstname}} {{customer.lastname}}</td>\r\n                    <td class=\"padding0\">{{customer.phonenumber}}</td>\r\n                    <td class=\"padding0\">{{customer.email}}</td>\r\n                    <td class=\"padding0 td-actions text-right\">\r\n                        <a [routerLink]=\"['/admin/user/',customer._id]\" rel=\"tooltip\" title=\"Edit Task\" class=\"btn btn-primary btn-simple btn-xs\">\r\n                            <i class=\"material-icons\">edit</i>\r\n                        </a>\r\n                        <a rel=\"tooltip\" title=\"Remove\" class=\"btn btn-danger btn-simple btn-xs\" (click)=\"deleteCustomer(customer._id)\">\r\n                            <i class=\"material-icons\">close</i>\r\n                        </a>\r\n                    </td>\r\n                </tr>\r\n            </tbody>\r\n        </table>\r\n        <div class=\"alert alert-warning\" *ngIf=\"customers.length == 0\">\r\n            <button type=\"button\" aria-hidden=\"true\" class=\"close\">×</button>\r\n            <span> <b> No Data - </b> User Empty Kindly create One</span>\r\n        </div>\r\n    </div>\r\n</div>"
+
+/***/ }),
+
+/***/ "../../../../../src/app/admin/dashboard/dashboard.component.css":
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, ".card-content .label-floating{\r\n\ttext-align: left;\r\n}", ""]);
+
+// exports
+
+
+/*** EXPORTS FROM exports-loader ***/
+module.exports = module.exports.toString();
+
+/***/ }),
+
+/***/ "../../../../../src/app/admin/dashboard/dashboard.component.html":
+/***/ (function(module, exports) {
+
+module.exports = "<div class=\"wrapper\">\r\n\t<app-sidebar></app-sidebar>\r\n\t<div class=\"main-panel\">\r\n\t\t<app-header></app-header>\r\n        <div class=\"content\">\r\n            <div class=\"container-fluid\">\r\n            \t<div class=\"row\">\r\n                    <div class=\"col-lg-3 col-md-6 col-sm-6\">\r\n                        <div class=\"card card-stats\">\r\n                            <div class=\"card-header\" data-background-color=\"navyblue\">\r\n                                <i class=\"material-icons\">perm_identity</i>\r\n                            </div>\r\n                            <div class=\"card-content\">\r\n                                <p class=\"category\">Users</p><br>\r\n                                <h3 class=\"title\">{{userCount}}</h3>\r\n                            </div>\r\n                            <div class=\"card-footer\">\r\n                                <div class=\"stats\">\r\n                                    <a [routerLink]=\"['/admin/user/']\">Get More...</a>\r\n                                </div>\r\n                            </div>\r\n                        </div>\r\n                    </div>\r\n                    <!--  <div class=\"col-lg-3 col-md-6 col-sm-6\">\r\n                        <div class=\"card card-stats\">\r\n                            <div class=\"card-header\" data-background-color=\"navyblue\">\r\n                                <i class=\"material-icons\">business_center</i>\r\n                            </div>\r\n                            <div class=\"card-content\">\r\n                                <p class=\"category\">Membership Plans</p>\r\n                                <h3 class=\"title\">{{planCount}}</h3>\r\n                            </div>\r\n                            <div class=\"card-footer\">\r\n                                <div class=\"stats\">\r\n                                    <a [routerLink]=\"['/admin/plan/']\">Get More...</a>\r\n                                </div>\r\n                            </div>\r\n                        </div>\r\n                    </div> -->\r\n                     <div class=\"col-lg-3 col-md-6 col-sm-6\">\r\n                        <div class=\"card card-stats\">\r\n                            <div class=\"card-header\" data-background-color=\"navyblue\">\r\n                                <i class=\"material-icons\">description</i>\r\n                            </div>\r\n                            <div class=\"card-content\">\r\n                                <p class=\"category\">Static Pages</p><br>\r\n                                <h3 class=\"title\">{{pageCount}}</h3>\r\n                            </div>\r\n                            <div class=\"card-footer\">\r\n                                <div class=\"stats\">\r\n                                    <a [routerLink]=\"['/admin/pages/']\">Get More...</a>\r\n                                </div>\r\n                            </div>\r\n                        </div>\r\n                    </div>\r\n                </div>\r\n            </div>\r\n        </div>\r\n\t</div>\r\n</div>"
+
+/***/ }),
+
+/***/ "../../../../../src/app/admin/dashboard/dashboard.component.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return DashboardComponent; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__services_admin_service__ = __webpack_require__("../../../../../src/app/services/admin.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__services_pages_service__ = __webpack_require__("../../../../../src/app/services/pages.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__services_plan_service__ = __webpack_require__("../../../../../src/app/services/plan.service.ts");
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+var DashboardComponent = (function () {
+    function DashboardComponent(planService, pagesService, adminService) {
+        this.planService = planService;
+        this.pagesService = pagesService;
+        this.adminService = adminService;
+        this.planCount = 0;
+        this.userCount = 0;
+        this.pageCount = 0;
+    }
+    DashboardComponent.prototype.ngOnInit = function () {
+        this.getPlanList();
+        this.getPageList();
+        this.getUserList();
+    };
+    DashboardComponent.prototype.getPlanList = function () {
+        var _this = this;
+        this.planService.planList().subscribe(function (data) {
+            if (!data.error) {
+                _this.planCount = data.message.length;
+            }
+        }, function (err) {
+            console.log('kfgbhj');
+        });
+    };
+    DashboardComponent.prototype.getPageList = function () {
+        var _this = this;
+        this.pagesService.pageList().subscribe(function (data) {
+            if (!data.error) {
+                _this.pageCount = data.message.length;
+            }
+        }, function (err) {
+            console.log('kfgbhj');
+        });
+    };
+    DashboardComponent.prototype.getUserList = function () {
+        var _this = this;
+        this.adminService.userList().subscribe(function (data) {
+            if (!data.error) {
+                _this.userCount = data.message.length;
+            }
+        }, function (err) {
+            console.log('kfgbhj');
+        });
+    };
+    return DashboardComponent;
+}());
+DashboardComponent = __decorate([
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
+        selector: 'app-dashboard',
+        template: __webpack_require__("../../../../../src/app/admin/dashboard/dashboard.component.html"),
+        styles: [__webpack_require__("../../../../../src/app/admin/dashboard/dashboard.component.css")]
+    }),
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_3__services_plan_service__["a" /* PlanService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__services_plan_service__["a" /* PlanService */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_2__services_pages_service__["a" /* PagesService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__services_pages_service__["a" /* PagesService */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_1__services_admin_service__["a" /* AdminService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__services_admin_service__["a" /* AdminService */]) === "function" && _c || Object])
+], DashboardComponent);
+
+var _a, _b, _c;
+//# sourceMappingURL=dashboard.component.js.map
+
+/***/ }),
+
+/***/ "../../../../../src/app/admin/forgot-password/adminresetpassword.component.html":
+/***/ (function(module, exports) {
+
+module.exports = "<div class=\"wrapper wrapper-full-page\">\r\n    <div class=\"full-page login-page\" filter-color=\"black\">\r\n        <!--   you can change the color of the filter page using: data-color=\"blue | purple | green | orange | red | rose \" -->\r\n        <div class=\"content\">\r\n            <div class=\"container\">\r\n                <div class=\"row\">\r\n                    <div class=\"col-md-4 col-sm-6 col-md-offset-4 col-sm-offset-3\">\r\n                        <form [formGroup]=\"resetPassForm\" (ngSubmit)=\"resetPass()\">\r\n                            <div class=\"card card-login\">\r\n                                <div class=\"card-header text-center bg-navyblue\">\r\n                                    <h4 class=\"card-title\">Reset Password</h4>\r\n                                </div>\r\n                                <div class=\"card-content\">\r\n                                    <div class=\"input-group\">\r\n                                        <span class=\"input-group-addon\">\r\n                                            <i class=\"material-icons\">lock</i>\r\n                                        </span>\r\n                                        <div class=\"form-group label-floating is-empty\">\r\n                                            <label class=\"control-label\" style=\"top: -30px;\">password</label>\r\n                                            <input type=\"password\" class=\"form-control\" formControlName=\"password\">\r\n                                            <span class=\"material-input\"></span>\r\n                                        </div>\r\n                                        <div *ngIf=\"formErrors.password\" class=\"alert alert-danger\">\r\n                                            {{ formErrors.password }}\r\n                                        </div>\r\n                                        <div *ngIf=\"err != ''\" class=\"alert alert-danger\">\r\n                                            {{ err }}\r\n                                        </div>\r\n                                    </div>\r\n                                </div>\r\n                                <div class=\"card-content\">\r\n                                    <div class=\"input-group\">\r\n                                        <span class=\"input-group-addon\">\r\n                                            <i class=\"material-icons\">lock</i>\r\n                                        </span>\r\n                                        <div class=\"form-group label-floating is-empty\">\r\n                                            <label class=\"control-label\" style=\"top: -30px;\">confirm password</label>\r\n                                            <input type=\"password\" class=\"form-control\" formControlName=\"newpassword\">\r\n                                            <span class=\"material-input\"></span>\r\n                                        </div>\r\n                                        <div *ngIf=\"formErrors.newpassword\" class=\"alert alert-danger\">\r\n                                            {{ formErrors.newpassword }}\r\n                                        </div>\r\n                                        <div *ngIf=\"err != ''\" class=\"alert alert-danger\">\r\n                                            {{ err }}\r\n                                        </div>\r\n                                    </div>\r\n                                </div>\r\n                                <div class=\"footer text-center\">\r\n                                    <button class=\"btn bg-navyblue btn-wd btn-lg\" [disabled]=\"!resetPassForm.valid\">Submit</button>\r\n                                </div>\r\n                            </div>\r\n                        </form>\r\n                    </div>\r\n                </div>\r\n            </div>\r\n        </div>\r\n    </div>\r\n</div>"
+
+/***/ }),
+
+/***/ "../../../../../src/app/admin/forgot-password/forgot-password.component.css":
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, ".login-page .card-login,\r\n.lock-page .card-profile {\r\n    transition: all 300ms linear;\r\n}\r\n\r\n\r\n.login-page>.content,\r\n.lock-page>.content {\r\n    padding-top: 18vh;\r\n}\r\n\r\n.login-page .card-login {\r\n    box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.14);\r\n    border-radius: 6px;\r\n    padding-bottom: 20px;\r\n    -webkit-transform: translate3d(0, 0, 0);\r\n    transform: translate3d(0, 0, 0);\r\n}\r\n\r\n.login-page .card-login.card-hidden {\r\n    opacity: 0;\r\n    -webkit-transform: translate3d(0, -60px, 0);\r\n    transform: translate3d(0, -60px, 0);\r\n}\r\n\r\n.login-page .card-login .btn-wd {\r\n    min-width: 180px;\r\n}\r\n\r\n.login-page .card-login .card-header {\r\n    margin-top: -40px;\r\n    margin-bottom: 20px;\r\n}\r\n\r\n.login-page .card-login .card-header .title {\r\n    margin-top: 10px;\r\n}\r\n\r\n\r\n.mobileNumberLabel label{\r\n    left : 10%;\r\n}", ""]);
+
+// exports
+
+
+/*** EXPORTS FROM exports-loader ***/
+module.exports = module.exports.toString();
+
+/***/ }),
+
+/***/ "../../../../../src/app/admin/forgot-password/forgot-password.component.html":
+/***/ (function(module, exports) {
+
+module.exports = "<div class=\"wrapper wrapper-full-page\">\r\n    <div class=\"full-page login-page\" filter-color=\"black\">\r\n        <!--   you can change the color of the filter page using: data-color=\"blue | purple | green | orange | red | rose \" -->\r\n        <div class=\"content\">\r\n            <div class=\"container\">\r\n                <div class=\"row\">\r\n                    <div class=\"col-md-4 col-sm-6 col-md-offset-4 col-sm-offset-3\">\r\n                        <form [formGroup]=\"loginForm\" (ngSubmit)=\"forgotPassword()\">\r\n                            <div class=\"card card-login\">\r\n                                <div class=\"card-header text-center bg-navyblue\">\r\n                                    <h4 class=\"card-title\">Forget Password</h4>\r\n                                </div>\r\n                                <div class=\"card-content\">\r\n                                    <div class=\"input-group\">\r\n                                        <span class=\"input-group-addon\">\r\n                                            <i class=\"material-icons\">email</i>\r\n                                        </span>\r\n                                        <div class=\"form-group label-floating is-empty\">\r\n                                            <label class=\"control-label\" style=\"top: -30px;\">Email</label>\r\n                                            <input type=\"email\" class=\"form-control\" formControlName=\"email\">\r\n                                        <span class=\"material-input\"></span></div>\r\n                                    </div>\r\n                                </div>\r\n                                <div class=\"footer text-center\">\r\n                                    <button class=\"btn bg-navyblue btn-wd btn-lg\" [disabled]=\"!loginForm.valid\">Send</button>\r\n                                     <a class=\"btn clr-navyblue btn-simple btn-wd btn-lg\" [routerLink]=\"['/admin/login']\">Login</a>\r\n                                </div>\r\n                            </div>\r\n                        </form>\r\n                    </div>\r\n                </div>\r\n            </div>\r\n        </div>\r\n    </div>\r\n</div>"
+
+/***/ }),
+
+/***/ "../../../../../src/app/admin/forgot-password/forgot-password.component.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return ForgotPasswordComponent; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AdminResetPasswordComponent; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_router__ = __webpack_require__("../../../router/@angular/router.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_forms__ = __webpack_require__("../../../forms/@angular/forms.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__services_admin_service__ = __webpack_require__("../../../../../src/app/services/admin.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_angular2_flash_messages__ = __webpack_require__("../../../../angular2-flash-messages/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_angular2_flash_messages___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_angular2_flash_messages__);
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+
+var ForgotPasswordComponent = (function () {
+    function ForgotPasswordComponent(lf, adminService, flashMessage, router, route) {
+        this.lf = lf;
+        this.adminService = adminService;
+        this.flashMessage = flashMessage;
+        this.router = router;
+        this.route = route;
+        this.currentAdmin = {};
+        this.currentAdmin = JSON.parse(localStorage.getItem('currentAdmin'));
+    }
+    ForgotPasswordComponent.prototype.ngOnInit = function () {
+        this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/admin/dashboard';
+        this.loginForm = this.lf.group({
+            email: ['', __WEBPACK_IMPORTED_MODULE_2__angular_forms__["Validators"].required]
+        });
+    };
+    ForgotPasswordComponent.prototype.forgotPassword = function () {
+        var _this = this;
+        this.adminService.forgotPassword(this.loginForm.value).subscribe(function (data) {
+            if (!data.error) {
+                _this.flashMessage.show("Please check your email to reset the password", { cssClass: 'alert-success', timeout: 5000 });
+                _this.router.navigate(['admin/login']);
+            }
+            else {
+                _this.router.navigate(['admin/login']);
+            }
+        }, function (err) {
+            _this.router.navigate(['admin/login']);
+        });
+    };
+    return ForgotPasswordComponent;
+}());
+ForgotPasswordComponent = __decorate([
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
+        selector: 'app-forgot-password',
+        template: __webpack_require__("../../../../../src/app/admin/forgot-password/forgot-password.component.html"),
+        styles: [__webpack_require__("../../../../../src/app/admin/forgot-password/forgot-password.component.css")]
+    }),
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_2__angular_forms__["FormBuilder"] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__angular_forms__["FormBuilder"]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_3__services_admin_service__["a" /* AdminService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__services_admin_service__["a" /* AdminService */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_4_angular2_flash_messages__["FlashMessagesService"] !== "undefined" && __WEBPACK_IMPORTED_MODULE_4_angular2_flash_messages__["FlashMessagesService"]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* Router */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* Router */]) === "function" && _d || Object, typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* ActivatedRoute */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* ActivatedRoute */]) === "function" && _e || Object])
+], ForgotPasswordComponent);
+
+var AdminResetPasswordComponent = (function () {
+    function AdminResetPasswordComponent(router, route, adminService, flashMessage, lf) {
+        this.router = router;
+        this.route = route;
+        this.adminService = adminService;
+        this.flashMessage = flashMessage;
+        this.lf = lf;
+        this.err = '';
+        this.passwordRegex = /^([0-9]+[a-zA-Z]+|[a-zA-Z]+[0-9]+)[0-9a-zA-Z]*$/;
+        this.formErrors = {
+            'password': '',
+            'newpassword': '',
+        };
+        this.validationMessages = {
+            'password': {
+                'required': 'Password is required.',
+                'pattern': 'Please Enter at least one letter and number',
+                'minlength': 'Password should contain 6 characters',
+            },
+            'newpassword': {
+                'required': 'Password is required.',
+                'pattern': 'Please Enter at least one letter and number',
+                'minlength': 'Password should contain 6 characters',
+            }
+        };
+    }
+    AdminResetPasswordComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        this.route.params.subscribe(function (params) {
+            _this.id = params['id'];
+            console.log("this.id");
+            console.log(_this.id);
+        });
+        this.resetPassForm = this.lf.group({
+            password: ['', [__WEBPACK_IMPORTED_MODULE_2__angular_forms__["Validators"].required, __WEBPACK_IMPORTED_MODULE_2__angular_forms__["Validators"].minLength(6)]],
+            newpassword: ['', [__WEBPACK_IMPORTED_MODULE_2__angular_forms__["Validators"].required, __WEBPACK_IMPORTED_MODULE_2__angular_forms__["Validators"].minLength(6)]]
+        });
+        this.resetPassForm.valueChanges
+            .subscribe(function (data) { return _this.onValueChanged(data); });
+        this.onValueChanged();
+    };
+    AdminResetPasswordComponent.prototype.resetPass = function () {
+        var _this = this;
+        if (this.resetPassForm.value.password == this.resetPassForm.value.newpassword) {
+            var custObj = {};
+            custObj['_id'] = this.id;
+            custObj['password'] = this.resetPassForm.value.password;
+            this.adminService.resetPassword(custObj).subscribe(function (data) {
+                if (!data.error) {
+                    _this.flashMessage.show(data.message, {
+                        cssClass: 'alert-success',
+                        timeout: 5000
+                    });
+                    _this.router.navigate(['admin/login']);
+                    console.log("data");
+                    console.log(data);
+                }
+                else {
+                    _this.flashMessage.show('Something Went Wrong', { cssClass: 'danger-alert', timeout: 5000 });
+                }
+            });
+        }
+        else {
+            this.flashMessage.show('Password dont match. Please enter same password', { cssClass: 'danger-alert', timeout: 5000 });
+            this.resetPassForm.reset();
+        }
+    };
+    AdminResetPasswordComponent.prototype.onValueChanged = function (data) {
+        if (!this.resetPassForm) {
+            return;
+        }
+        var form = this.resetPassForm;
+        for (var field in this.formErrors) {
+            // clear previous error message (if any)
+            this.formErrors[field] = '';
+            var control = form.get(field);
+            if (control && control.dirty && !control.valid) {
+                var messages = this.validationMessages[field];
+                for (var key in control.errors) {
+                    this.formErrors[field] += messages[key] + ' ';
+                }
+            }
+        }
+    };
+    return AdminResetPasswordComponent;
+}());
+AdminResetPasswordComponent = __decorate([
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
+        selector: 'app-admin-resetPassword',
+        template: __webpack_require__("../../../../../src/app/admin/forgot-password/adminresetpassword.component.html"),
+        styles: [__webpack_require__("../../../../../src/app/admin/forgot-password/forgot-password.component.css")],
+    }),
+    __metadata("design:paramtypes", [typeof (_f = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* Router */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* Router */]) === "function" && _f || Object, typeof (_g = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* ActivatedRoute */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* ActivatedRoute */]) === "function" && _g || Object, typeof (_h = typeof __WEBPACK_IMPORTED_MODULE_3__services_admin_service__["a" /* AdminService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__services_admin_service__["a" /* AdminService */]) === "function" && _h || Object, typeof (_j = typeof __WEBPACK_IMPORTED_MODULE_4_angular2_flash_messages__["FlashMessagesService"] !== "undefined" && __WEBPACK_IMPORTED_MODULE_4_angular2_flash_messages__["FlashMessagesService"]) === "function" && _j || Object, typeof (_k = typeof __WEBPACK_IMPORTED_MODULE_2__angular_forms__["FormBuilder"] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__angular_forms__["FormBuilder"]) === "function" && _k || Object])
+], AdminResetPasswordComponent);
+
+var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k;
+//# sourceMappingURL=forgot-password.component.js.map
+
+/***/ }),
+
+/***/ "../../../../../src/app/admin/header/header.component.css":
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, "", ""]);
+
+// exports
+
+
+/*** EXPORTS FROM exports-loader ***/
+module.exports = module.exports.toString();
+
+/***/ }),
+
+/***/ "../../../../../src/app/admin/header/header.component.html":
+/***/ (function(module, exports) {
+
+module.exports = "<nav class=\"navbar navbar-transparent navbar-absolute\">\r\n    <div class=\"container-fluid\">\r\n        <div class=\"navbar-header\">\r\n            <button type=\"button\" class=\"navbar-toggle\" data-toggle=\"collapse\">\r\n                <span class=\"sr-only\">Toggle navigation</span>\r\n                <span class=\"icon-bar\"></span>\r\n                <span class=\"icon-bar\"></span>\r\n                <span class=\"icon-bar\"></span>\r\n            </button>\r\n            \r\n        </div>\r\n        <div class=\"collapse navbar-collapse\">\r\n            <ul class=\"nav navbar-nav navbar-right\">\r\n                \r\n            </ul>\r\n            <form class=\"navbar-form navbar-right\" role=\"search\">\r\n                <div class=\"form-group  is-empty\">\r\n                   \r\n                </div>               \r\n            </form>\r\n        </div>\r\n    </div>\r\n</nav>"
+
+/***/ }),
+
+/***/ "../../../../../src/app/admin/header/header.component.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return HeaderComponent; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+var HeaderComponent = (function () {
+    function HeaderComponent() {
+    }
+    HeaderComponent.prototype.ngOnInit = function () {
+    };
+    return HeaderComponent;
+}());
+HeaderComponent = __decorate([
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
+        selector: 'app-header',
+        template: __webpack_require__("../../../../../src/app/admin/header/header.component.html"),
+        styles: [__webpack_require__("../../../../../src/app/admin/header/header.component.css")]
+    }),
+    __metadata("design:paramtypes", [])
+], HeaderComponent);
+
+//# sourceMappingURL=header.component.js.map
+
+/***/ }),
+
+/***/ "../../../../../src/app/admin/login/login.component.css":
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, ".login-page .card-login,\r\n.lock-page .card-profile {\r\n    transition: all 300ms linear;\r\n}\r\n\r\n\r\n.login-page>.content,\r\n.lock-page>.content {\r\n    padding-top: 18vh;\r\n}\r\n\r\n.login-page .card-login {\r\n    box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.14);\r\n    border-radius: 6px;\r\n    padding-bottom: 20px;\r\n    -webkit-transform: translate3d(0, 0, 0);\r\n    transform: translate3d(0, 0, 0);\r\n}\r\n\r\n.login-page .card-login.card-hidden {\r\n    opacity: 0;\r\n    -webkit-transform: translate3d(0, -60px, 0);\r\n    transform: translate3d(0, -60px, 0);\r\n}\r\n\r\n.login-page .card-login .btn-wd {\r\n    min-width: 180px;\r\n}\r\n\r\n.login-page .card-login .card-header {\r\n    margin-top: -40px;\r\n    margin-bottom: 20px;\r\n}\r\n\r\n.login-page .card-login .card-header .title {\r\n    margin-top: 10px;\r\n}\r\n\r\n\r\n.mobileNumberLabel label{\r\n    left : 10%;\r\n}", ""]);
+
+// exports
+
+
+/*** EXPORTS FROM exports-loader ***/
+module.exports = module.exports.toString();
+
+/***/ }),
+
+/***/ "../../../../../src/app/admin/login/login.component.html":
+/***/ (function(module, exports) {
+
+module.exports = "<div class=\"wrapper wrapper-full-page\">\r\n    <div class=\"full-page login-page\" filter-color=\"black\" data-image=\"../../assets/img/login.jpeg\">\r\n        <div class=\"content\">\r\n            <div class=\"container\">\r\n                <div class=\"row\">\r\n                    <div class=\"col-md-4 col-sm-6 col-md-offset-4 col-sm-offset-3\">\r\n                       \t<form (submit)=\"onLoginSubmit()\">\r\n                            <div class=\"card card-login\">\r\n                                <div class=\"card-header text-center bg-navyblue\">\r\n                                    <h4 class=\"card-title\">Admin Login</h4>\r\n                                </div>\r\n                                <div class=\"card-content\">                                   \r\n                                    <div class=\"input-group\">\r\n                                        <span class=\"input-group-addon\">\r\n                                            <i class=\"material-icons\">email</i>\r\n                                        </span>\r\n                                        <div class=\"form-group label-floating\">\r\n                                            <label class=\"control-label\">Username</label>\r\n                                            <input type=\"text\" class=\"form-control\" [(ngModel)]=\"email\" name=\"email\">\r\n                                            <span class=\"material-input\"></span>\r\n                                        </div>                                       \r\n                                    </div>\r\n                                    <div class=\"input-group\">\r\n                                        <span class=\"input-group-addon\">\r\n                                            <i class=\"material-icons\">lock_outline</i>\r\n                                        </span>\r\n                                        <div class=\"form-group label-floating\">\r\n                                            <label class=\"control-label\">Password</label>\r\n                                            <input type=\"password\" class=\"form-control\" [(ngModel)]=\"password\" name=\"password\">\r\n                                            <span class=\"material-input\"></span>\r\n                                        </div>\r\n                                    </div>\r\n                                </div>\r\n                                <div class=\"footer text-center\">                                     \r\n                                    <input type=\"submit\" class=\"btn bg-navyblue  btn-wd btn-lg\" value=\"Login\">                         \r\n                                    <a class=\"btn clr-navyblue btn-simple btn-wd btn-lg\" [routerLink]=\"['/admin/forgotpassword']\">Forgot Password ?</a>\r\n                                </div>\r\n                            </div>\r\n                        </form>\r\n                    </div>\r\n                </div>\r\n            </div>\r\n        </div>\r\n    </div>\r\n</div>"
+
+/***/ }),
+
+/***/ "../../../../../src/app/admin/login/login.component.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return LoginComponent; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__services_admin_service__ = __webpack_require__("../../../../../src/app/services/admin.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_router__ = __webpack_require__("../../../router/@angular/router.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_angular2_flash_messages__ = __webpack_require__("../../../../angular2-flash-messages/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_angular2_flash_messages___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_angular2_flash_messages__);
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+var LoginComponent = (function () {
+    function LoginComponent(adminService, router, flashMessage) {
+        this.adminService = adminService;
+        this.router = router;
+        this.flashMessage = flashMessage;
+    }
+    LoginComponent.prototype.ngOnInit = function () {
+        if (this.adminService.loggedIn()) {
+            this.router.navigate(['/admin/dashboard']);
+        }
+    };
+    LoginComponent.prototype.onLoginSubmit = function () {
+        var _this = this;
+        var user = {
+            email: this.email,
+            password: this.password
+        };
+        this.adminService.authenticateUser(user).subscribe(function (data) {
+            if (data.success) {
+                _this.adminService.storeUserData(data.token, data.user);
+                _this.flashMessage.show('You are now logged in', {
+                    cssClass: 'alert-success',
+                    timeout: 5000
+                });
+                _this.router.navigate(['admin/dashboard']);
+            }
+            else {
+                _this.flashMessage.show(data.msg, {
+                    cssClass: 'danger-alert',
+                    timeout: 5000
+                });
+                _this.router.navigate(['admin/login']);
+            }
+        });
+    };
+    return LoginComponent;
+}());
+LoginComponent = __decorate([
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
+        selector: 'app-login',
+        template: __webpack_require__("../../../../../src/app/admin/login/login.component.html"),
+        styles: [__webpack_require__("../../../../../src/app/admin/login/login.component.css")]
+    }),
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__services_admin_service__["a" /* AdminService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__services_admin_service__["a" /* AdminService */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_2__angular_router__["b" /* Router */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__angular_router__["b" /* Router */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_3_angular2_flash_messages__["FlashMessagesService"] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3_angular2_flash_messages__["FlashMessagesService"]) === "function" && _c || Object])
+], LoginComponent);
+
+var _a, _b, _c;
+//# sourceMappingURL=login.component.js.map
+
+/***/ }),
+
+/***/ "../../../../../src/app/admin/pages/pages.component.css":
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, ".padding0{text-align: left;padding-left: 0;}\r\n\r\n.addPlanClass{\r\n\theight: 100%;\r\n}", ""]);
+
+// exports
+
+
+/*** EXPORTS FROM exports-loader ***/
+module.exports = module.exports.toString();
+
+/***/ }),
+
+/***/ "../../../../../src/app/admin/pages/pages.component.html":
+/***/ (function(module, exports) {
+
+module.exports = "<div class=\"wrapper addPlanClass\">\r\n\t<app-sidebar></app-sidebar>\r\n\t<div class=\"main-panel\">\r\n\t\t<app-header></app-header>\r\n\t\t<div class=\"content\">\r\n            <div class=\"container-fluid\">\r\n\t\t\t\t<router-outlet></router-outlet>\r\n\t\t\t</div>\r\n\t\t</div>\r\n\t</div>\r\n</div>"
+
+/***/ }),
+
+/***/ "../../../../../src/app/admin/pages/pages.component.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AdminPagesComponent; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return PagesListComponent; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return PagesAddComponent; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return PagesEditComponent; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_router__ = __webpack_require__("../../../router/@angular/router.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_forms__ = __webpack_require__("../../../forms/@angular/forms.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_angular2_flash_messages__ = __webpack_require__("../../../../angular2-flash-messages/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_angular2_flash_messages___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_angular2_flash_messages__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__services_pages_service__ = __webpack_require__("../../../../../src/app/services/pages.service.ts");
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+
+var AdminPagesComponent = (function () {
+    function AdminPagesComponent() {
+    }
+    AdminPagesComponent.prototype.ngOnInit = function () { };
+    return AdminPagesComponent;
+}());
+AdminPagesComponent = __decorate([
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
+        selector: 'app-admin-pages',
+        template: __webpack_require__("../../../../../src/app/admin/pages/pages.component.html"),
+        styles: [__webpack_require__("../../../../../src/app/admin/pages/pages.component.css")],
+    }),
+    __metadata("design:paramtypes", [])
+], AdminPagesComponent);
+
+var PagesListComponent = (function () {
+    function PagesListComponent(lf, pagesService, router, route, _flashMessagesService) {
+        this.lf = lf;
+        this.pagesService = pagesService;
+        this.router = router;
+        this.route = route;
+        this._flashMessagesService = _flashMessagesService;
+        this.plans = [];
+    }
+    PagesListComponent.prototype.ngOnInit = function () {
+        this.getList();
+    };
+    PagesListComponent.prototype.getList = function () {
+        var _this = this;
+        this.pagesService.pageList().subscribe(function (data) {
+            if (!data.error) {
+                _this.plans = data.message;
+            }
+        }, function (err) {
+            console.log('kfgbhj');
+        });
+    };
+    PagesListComponent.prototype.deletePlan = function (id) {
+        var _this = this;
+        if (confirm("Are you sure to delete ?")) {
+            this._flashMessagesService.show('Page Deleted Successfully', { cssClass: 'alert-success', timeout: 3000 });
+            this.pagesService.pageDelete(id).subscribe(function (data) {
+                _this.getList();
+            });
+        }
+    };
+    return PagesListComponent;
+}());
+PagesListComponent = __decorate([
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
+        selector: 'app-admin-pages-list',
+        template: __webpack_require__("../../../../../src/app/admin/pages/pageslist.component.html"),
+        styles: [__webpack_require__("../../../../../src/app/admin/pages/pages.component.css")],
+    }),
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_2__angular_forms__["FormBuilder"] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__angular_forms__["FormBuilder"]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_4__services_pages_service__["a" /* PagesService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_4__services_pages_service__["a" /* PagesService */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* Router */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* Router */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* ActivatedRoute */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* ActivatedRoute */]) === "function" && _d || Object, typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_3_angular2_flash_messages__["FlashMessagesService"] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3_angular2_flash_messages__["FlashMessagesService"]) === "function" && _e || Object])
+], PagesListComponent);
+
+var PagesAddComponent = (function () {
+    function PagesAddComponent(lf, pagesService, router, route, _flashMessagesService) {
+        this.lf = lf;
+        this.pagesService = pagesService;
+        this.router = router;
+        this.route = route;
+        this._flashMessagesService = _flashMessagesService;
+        this.formErrors = {
+            'title': '',
+            'url': '',
+        };
+        this.validationMessages = {
+            'title': {
+                'required': 'Page Title is required.',
+            },
+            'url': {
+                'required': 'URL Text is required.',
+            },
+        };
+    }
+    PagesAddComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        this.planAddForm = this.lf.group({
+            title: ['', __WEBPACK_IMPORTED_MODULE_2__angular_forms__["Validators"].required],
+            url: ['', __WEBPACK_IMPORTED_MODULE_2__angular_forms__["Validators"].required],
+            description: [''],
+        });
+        this.planAddForm.valueChanges
+            .subscribe(function (data) { return _this.onValueChanged(data); });
+        this.onValueChanged();
+    };
+    PagesAddComponent.prototype.planAdd = function () {
+        var _this = this;
+        this.pagesService.pageAdd(this.planAddForm.value).subscribe(function (data) {
+            if (!data.error) {
+                _this._flashMessagesService.show('Page Added Successfully', { cssClass: 'alert-success', timeout: 3000 });
+                _this.router.navigate(['admin/pages']);
+            }
+        }, function (err) {
+            console.log('kfgbhj');
+        });
+    };
+    PagesAddComponent.prototype.onValueChanged = function (data) {
+        if (!this.planAddForm) {
+            return;
+        }
+        var form = this.planAddForm;
+        for (var field in this.formErrors) {
+            // clear previous error message (if any)
+            this.formErrors[field] = '';
+            var control = form.get(field);
+            if (control && control.dirty && !control.valid) {
+                var messages = this.validationMessages[field];
+                for (var key in control.errors) {
+                    this.formErrors[field] += messages[key] + ' ';
+                }
+            }
+        }
+    };
+    return PagesAddComponent;
+}());
+PagesAddComponent = __decorate([
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
+        selector: 'app-admin-pages-add',
+        template: __webpack_require__("../../../../../src/app/admin/pages/pagesadd.component.html"),
+        styles: [__webpack_require__("../../../../../src/app/admin/pages/pages.component.css")],
+    }),
+    __metadata("design:paramtypes", [typeof (_f = typeof __WEBPACK_IMPORTED_MODULE_2__angular_forms__["FormBuilder"] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__angular_forms__["FormBuilder"]) === "function" && _f || Object, typeof (_g = typeof __WEBPACK_IMPORTED_MODULE_4__services_pages_service__["a" /* PagesService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_4__services_pages_service__["a" /* PagesService */]) === "function" && _g || Object, typeof (_h = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* Router */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* Router */]) === "function" && _h || Object, typeof (_j = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* ActivatedRoute */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* ActivatedRoute */]) === "function" && _j || Object, typeof (_k = typeof __WEBPACK_IMPORTED_MODULE_3_angular2_flash_messages__["FlashMessagesService"] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3_angular2_flash_messages__["FlashMessagesService"]) === "function" && _k || Object])
+], PagesAddComponent);
+
+var PagesEditComponent = (function () {
+    function PagesEditComponent(lf, pagesService, router, route, _flashMessagesService) {
+        this.lf = lf;
+        this.pagesService = pagesService;
+        this.router = router;
+        this.route = route;
+        this._flashMessagesService = _flashMessagesService;
+        this.currentCustomer = {};
+        this.formErrors = {
+            'title': '',
+            'url': '',
+        };
+        this.validationMessages = {
+            'title': {
+                'required': 'Page Title is required.',
+            },
+            'url': {
+                'required': 'URL Text is required.',
+            },
+        };
+    }
+    PagesEditComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        this.planAddForm = this.lf.group({
+            _id: ['', __WEBPACK_IMPORTED_MODULE_2__angular_forms__["Validators"].required],
+            title: ['', __WEBPACK_IMPORTED_MODULE_2__angular_forms__["Validators"].required],
+            url: ['', __WEBPACK_IMPORTED_MODULE_2__angular_forms__["Validators"].required],
+            description: [''],
+        });
+        this.route.params.subscribe(function (params) {
+            var id = params['id'];
+            _this.plan(id);
+        });
+        this.planAddForm.valueChanges
+            .subscribe(function (data) { return _this.onValueChanged(data); });
+        this.onValueChanged();
+    };
+    PagesEditComponent.prototype.planUpdate = function () {
+        var _this = this;
+        this.pagesService.pageUpdate(this.planAddForm.value).subscribe(function (data) {
+            if (!data.error) {
+                _this._flashMessagesService.show('Page Updated Successfully', { cssClass: 'alert-success', timeout: 3000 });
+                _this.router.navigate(['admin/pages']);
+            }
+        }, function (err) {
+            console.log('kfgbhj');
+        });
+    };
+    PagesEditComponent.prototype.plan = function (id) {
+        var _this = this;
+        this.pagesService.page(id).subscribe(function (data) {
+            if (!data.error) {
+                _this.currentCustomer = data.message;
+                _this.planAddForm.patchValue(_this.currentCustomer);
+            }
+        }, function (err) {
+            console.log('kfgbhj');
+        });
+    };
+    PagesEditComponent.prototype.onValueChanged = function (data) {
+        if (!this.planAddForm) {
+            return;
+        }
+        var form = this.planAddForm;
+        for (var field in this.formErrors) {
+            // clear previous error message (if any)
+            this.formErrors[field] = '';
+            var control = form.get(field);
+            if (control && control.dirty && !control.valid) {
+                var messages = this.validationMessages[field];
+                for (var key in control.errors) {
+                    this.formErrors[field] += messages[key] + ' ';
+                }
+            }
+        }
+    };
+    return PagesEditComponent;
+}());
+PagesEditComponent = __decorate([
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
+        selector: 'app-admin-pages-edit',
+        template: __webpack_require__("../../../../../src/app/admin/pages/pagesedit.component.html"),
+        styles: [__webpack_require__("../../../../../src/app/admin/pages/pages.component.css")],
+    }),
+    __metadata("design:paramtypes", [typeof (_l = typeof __WEBPACK_IMPORTED_MODULE_2__angular_forms__["FormBuilder"] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__angular_forms__["FormBuilder"]) === "function" && _l || Object, typeof (_m = typeof __WEBPACK_IMPORTED_MODULE_4__services_pages_service__["a" /* PagesService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_4__services_pages_service__["a" /* PagesService */]) === "function" && _m || Object, typeof (_o = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* Router */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* Router */]) === "function" && _o || Object, typeof (_p = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* ActivatedRoute */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* ActivatedRoute */]) === "function" && _p || Object, typeof (_q = typeof __WEBPACK_IMPORTED_MODULE_3_angular2_flash_messages__["FlashMessagesService"] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3_angular2_flash_messages__["FlashMessagesService"]) === "function" && _q || Object])
+], PagesEditComponent);
+
+var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m, _o, _p, _q;
+//# sourceMappingURL=pages.component.js.map
+
+/***/ }),
+
+/***/ "../../../../../src/app/admin/pages/pagesadd.component.html":
+/***/ (function(module, exports) {
+
+module.exports = "<div class=\"row\">\r\n    <div class=\"card\">\r\n        <div class=\"card-header\" data-background-color=\"navyblue\">\r\n            <h4 class=\"title\">Add Pages</h4>\r\n            <p class=\"category\">Create Page</p>\r\n        </div>\r\n        <div class=\"card-content\">\r\n            <form [formGroup]=\"planAddForm\" (ngSubmit)=\"planAdd()\">\r\n                <div class=\"row\">\r\n                    <div class=\"col-md-6\">\r\n                        <div class=\"form-group label-floating\">\r\n                            <label class=\"control-label\">Page Title <span>*</span></label>\r\n                            <input formControlName=\"title\" type=\"text\" class=\"form-control\" autofocus>\r\n                        </div>\r\n                        <div *ngIf=\"formErrors.title\" class=\"alert alert-danger\">\r\n                            {{ formErrors.title }}\r\n                        </div>\r\n                    </div>\r\n                    <div class=\"col-md-6\">\r\n                        <div class=\"form-group label-floating\">\r\n                            <label class=\"control-label\">URL Text <span>*</span></label>\r\n                            <input formControlName=\"url\" type=\"text\" class=\"form-control\">\r\n                        </div>\r\n                        <div *ngIf=\"formErrors.url\" class=\"alert alert-danger\">\r\n                            {{ formErrors.url }}\r\n                        </div>\r\n                    </div>\r\n                </div>\r\n                <div class=\"row\">\r\n                    <div class=\"col-md-12\">\r\n                        <div class=\"form-group\">\r\n                            <div class=\"form-group label-floating\">\r\n                                <label class=\"control-label\"> Content of this page</label>                                    \r\n                                <app-tinymce  formControlName=\"description\" ></app-tinymce>\r\n                            </div>\r\n                        </div>\r\n                    </div>\r\n                </div>\r\n                <button type=\"submit\" class=\"btn bg-navyblue pull-right\" [disabled]=\"!planAddForm.valid\">Add Page</button>\r\n                <div class=\"clearfix\"></div>\r\n            </form>\r\n        </div>\r\n    </div>\r\n</div>"
+
+/***/ }),
+
+/***/ "../../../../../src/app/admin/pages/pagesedit.component.html":
+/***/ (function(module, exports) {
+
+module.exports = "<div class=\"row\">\r\n    <div class=\"card\">\r\n        <div class=\"card-header\" data-background-color=\"navyblue\">\r\n            <h4 class=\"title\">Edit Pages</h4>\r\n            <p class=\"category\">Update Page</p>\r\n        </div>\r\n        <div class=\"card-content\">\r\n            <form [formGroup]=\"planAddForm\" (ngSubmit)=\"planUpdate()\">\r\n                <div class=\"row\">\r\n                    <div class=\"col-md-6\">\r\n                        <div class=\"form-group\">\r\n                            <label class=\"control-label\">Page Title <span>*</span></label>\r\n                            <input formControlName=\"title\" type=\"text\" class=\"form-control\" autofocus>\r\n                        </div>\r\n                        <div *ngIf=\"formErrors.title\" class=\"alert alert-danger\">\r\n                            {{ formErrors.title }}\r\n                        </div>\r\n                    </div>\r\n                    <div class=\"col-md-6\">\r\n                        <div class=\"form-group\">\r\n                            <label class=\"control-label\">URL Text <span>*</span></label>\r\n                            <input formControlName=\"url\" type=\"text\" class=\"form-control\">\r\n                        </div>\r\n                        <div *ngIf=\"formErrors.url\" class=\"alert alert-danger\">\r\n                            {{ formErrors.url }}\r\n                        </div>\r\n                    </div>\r\n                </div>\r\n                <div class=\"row\">\r\n                    <div class=\"col-md-12\">\r\n                        <div class=\"form-group\">\r\n                            <div class=\"form-group\">\r\n                                <label class=\"control-label\"> Describe about this pages</label>\r\n                                <app-tinymce  formControlName=\"description\" ></app-tinymce>\r\n                            </div>\r\n                        </div>\r\n                    </div>\r\n                </div>\r\n                <button type=\"submit\" class=\"btn bg-navyblue pull-right\" [disabled]=\"!planAddForm.valid\">Update Pages</button>\r\n                <div class=\"clearfix\"></div>\r\n            </form>\r\n        </div>\r\n    </div>\r\n</div>"
+
+/***/ }),
+
+/***/ "../../../../../src/app/admin/pages/pageslist.component.html":
+/***/ (function(module, exports) {
+
+module.exports = "<div class=\"card card-nav-tabs\">\r\n    <div class=\"card-header\" data-background-color=\"navyblue\">\r\n        <div class=\"nav-tabs-navigation\">\r\n            <div class=\"nav-tabs-wrapper\">\r\n                <span class=\"nav-tabs-title\">Pages</span>\r\n                <ul class=\"nav nav-tabs\" data-tabs=\"tabs\">\r\n                    <li class=\"active pull-right\">\r\n                        <a  [routerLink]=\"['/admin/pages/add/']\">\r\n                            <i class=\"material-icons\">exposure_plus_1</i> Add Static Page\r\n                            <div class=\"ripple-container\"></div>\r\n                        </a>\r\n                    </li>\r\n                </ul>\r\n            </div>\r\n        </div>\r\n    </div>\r\n    <div class=\"card-content table-responsive\">\r\n        <table class=\"table\" *ngIf=\"plans.length >0\">\r\n            <thead class=\"clr-navyblue\">\r\n                <th>Page Title</th>\r\n                <th>URL Text</th>\r\n                <th>Action</th>\r\n            </thead>\r\n            <tbody>\r\n                <tr *ngFor=\"let customer of plans\">\r\n                    <td class=\"padding0\">{{customer.title}}</td>\r\n                    <td class=\"padding0\">{{customer.url}}</td>\r\n                    <td class=\"padding0 td-actions text-right\">\r\n                        <a [routerLink]=\"['/admin/pages/',customer._id]\" rel=\"tooltip\" title=\"Edit Task\" class=\"btn btn-success btn-simple btn-xs\">\r\n                            <i class=\"material-icons\">edit</i>\r\n                        </a>\r\n                        <a rel=\"tooltip\" title=\"Remove\" class=\"btn btn-danger btn-simple btn-xs\" (click)=\"deletePlan(customer._id)\">\r\n                            <i class=\"material-icons\">close</i>\r\n                        </a>\r\n                    </td>\r\n                </tr>\r\n            </tbody>\r\n        </table>\r\n        <div class=\"alert alert-warning\" *ngIf=\"plans.length == 0\">\r\n            <button type=\"button\" aria-hidden=\"true\" class=\"close\">×</button>\r\n            <span> <b> No Data - </b> Static Page Empty Kindly create One</span>\r\n        </div>\r\n    </div>\r\n</div>"
+
+/***/ }),
+
+/***/ "../../../../../src/app/admin/plan/plan.component.css":
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, ".padding0{text-align: left;padding-left: 0;}\r\n\r\n.addPlanClass{\r\n\theight: 100%;\r\n}", ""]);
+
+// exports
+
+
+/*** EXPORTS FROM exports-loader ***/
+module.exports = module.exports.toString();
+
+/***/ }),
+
+/***/ "../../../../../src/app/admin/plan/plan.component.html":
+/***/ (function(module, exports) {
+
+module.exports = "<div class=\"wrapper addPlanClass\">\r\n\t<app-sidebar></app-sidebar>\r\n\t<div class=\"main-panel\">\r\n\t\t<app-header></app-header>\r\n\t\t<div class=\"content\">\r\n            <div class=\"container-fluid\">\r\n\t\t\t\t<router-outlet></router-outlet>\r\n\t\t\t</div>\r\n\t\t</div>\r\n\t</div>\r\n</div>"
+
+/***/ }),
+
+/***/ "../../../../../src/app/admin/plan/plan.component.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AdminPlanComponent; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return PlanListComponent; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return PlanAddComponent; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return PlanEditComponent; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_router__ = __webpack_require__("../../../router/@angular/router.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_forms__ = __webpack_require__("../../../forms/@angular/forms.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_angular2_flash_messages__ = __webpack_require__("../../../../angular2-flash-messages/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_angular2_flash_messages___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_angular2_flash_messages__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__services_plan_service__ = __webpack_require__("../../../../../src/app/services/plan.service.ts");
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+
+var AdminPlanComponent = (function () {
+    function AdminPlanComponent() {
+    }
+    AdminPlanComponent.prototype.ngOnInit = function () { };
+    return AdminPlanComponent;
+}());
+AdminPlanComponent = __decorate([
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
+        selector: 'app-admin-plan',
+        template: __webpack_require__("../../../../../src/app/admin/plan/plan.component.html"),
+        styles: [__webpack_require__("../../../../../src/app/admin/plan/plan.component.css")],
+    }),
+    __metadata("design:paramtypes", [])
+], AdminPlanComponent);
+
+var PlanListComponent = (function () {
+    function PlanListComponent(lf, planService, router, route, _flashMessagesService) {
+        this.lf = lf;
+        this.planService = planService;
+        this.router = router;
+        this.route = route;
+        this._flashMessagesService = _flashMessagesService;
+        this.plans = [];
+    }
+    PlanListComponent.prototype.ngOnInit = function () {
+        this.getList();
+    };
+    PlanListComponent.prototype.getList = function () {
+        var _this = this;
+        this.planService.planList().subscribe(function (data) {
+            if (!data.error) {
+                _this.plans = data.message;
+            }
+        }, function (err) {
+            console.log(err);
+        });
+    };
+    PlanListComponent.prototype.deletePlan = function (id) {
+        var _this = this;
+        if (confirm("Are you sure to delete ?")) {
+            this._flashMessagesService.show('Plan Deleted Successfully', { cssClass: 'alert-success', timeout: 5000 });
+            this.planService.planDelete(id).subscribe(function (data) {
+                _this.getList();
+            });
+        }
+    };
+    return PlanListComponent;
+}());
+PlanListComponent = __decorate([
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
+        selector: 'app-admin-plan-list',
+        template: __webpack_require__("../../../../../src/app/admin/plan/planlist.component.html"),
+        styles: [__webpack_require__("../../../../../src/app/admin/plan/plan.component.css")],
+    }),
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_2__angular_forms__["FormBuilder"] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__angular_forms__["FormBuilder"]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_4__services_plan_service__["a" /* PlanService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_4__services_plan_service__["a" /* PlanService */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* Router */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* Router */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* ActivatedRoute */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* ActivatedRoute */]) === "function" && _d || Object, typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_3_angular2_flash_messages__["FlashMessagesService"] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3_angular2_flash_messages__["FlashMessagesService"]) === "function" && _e || Object])
+], PlanListComponent);
+
+var PlanAddComponent = (function () {
+    function PlanAddComponent(lf, planService, router, route, _flashMessagesService) {
+        this.lf = lf;
+        this.planService = planService;
+        this.router = router;
+        this.route = route;
+        this._flashMessagesService = _flashMessagesService;
+        this.formErrors = {
+            'name': '',
+            'amount': '',
+            'planType': '',
+        };
+        this.validationMessages = {
+            'name': {
+                'required': 'Plan Name is required.',
+            },
+            'amount': {
+                'required': 'Amount is required.',
+            },
+            'planType': {
+                'required': 'Plan Type is required.',
+            },
+        };
+    }
+    PlanAddComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        this.planAddForm = this.lf.group({
+            name: ['', __WEBPACK_IMPORTED_MODULE_2__angular_forms__["Validators"].required],
+            amount: ['', __WEBPACK_IMPORTED_MODULE_2__angular_forms__["Validators"].required],
+            planType: ['', __WEBPACK_IMPORTED_MODULE_2__angular_forms__["Validators"].required],
+            desc: [''],
+        });
+        this.planAddForm.valueChanges
+            .subscribe(function (data) { return _this.onValueChanged(data); });
+        this.onValueChanged();
+    };
+    PlanAddComponent.prototype.planAdd = function () {
+        var _this = this;
+        this.planService.planAdd(this.planAddForm.value).subscribe(function (data) {
+            if (!data.error) {
+                _this._flashMessagesService.show('Plan Added Successfully', { cssClass: 'alert-success', timeout: 5000 });
+                _this.router.navigate(['admin/plan']);
+            }
+        }, function (err) {
+            console.log(err);
+        });
+    };
+    PlanAddComponent.prototype.onValueChanged = function (data) {
+        if (!this.planAddForm) {
+            return;
+        }
+        var form = this.planAddForm;
+        for (var field in this.formErrors) {
+            // clear previous error message (if any)
+            this.formErrors[field] = '';
+            var control = form.get(field);
+            if (control && control.dirty && !control.valid) {
+                var messages = this.validationMessages[field];
+                for (var key in control.errors) {
+                    this.formErrors[field] += messages[key] + ' ';
+                }
+            }
+        }
+    };
+    return PlanAddComponent;
+}());
+PlanAddComponent = __decorate([
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
+        selector: 'app-admin-plan-add',
+        template: __webpack_require__("../../../../../src/app/admin/plan/planadd.component.html"),
+        styles: [__webpack_require__("../../../../../src/app/admin/plan/plan.component.css")],
+    }),
+    __metadata("design:paramtypes", [typeof (_f = typeof __WEBPACK_IMPORTED_MODULE_2__angular_forms__["FormBuilder"] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__angular_forms__["FormBuilder"]) === "function" && _f || Object, typeof (_g = typeof __WEBPACK_IMPORTED_MODULE_4__services_plan_service__["a" /* PlanService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_4__services_plan_service__["a" /* PlanService */]) === "function" && _g || Object, typeof (_h = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* Router */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* Router */]) === "function" && _h || Object, typeof (_j = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* ActivatedRoute */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* ActivatedRoute */]) === "function" && _j || Object, typeof (_k = typeof __WEBPACK_IMPORTED_MODULE_3_angular2_flash_messages__["FlashMessagesService"] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3_angular2_flash_messages__["FlashMessagesService"]) === "function" && _k || Object])
+], PlanAddComponent);
+
+var PlanEditComponent = (function () {
+    function PlanEditComponent(lf, planService, router, route, _flashMessagesService) {
+        this.lf = lf;
+        this.planService = planService;
+        this.router = router;
+        this.route = route;
+        this._flashMessagesService = _flashMessagesService;
+        this.currentCustomer = {};
+        this.formErrors = {
+            'name': '',
+            'amount': '',
+            'planType': '',
+        };
+        this.validationMessages = {
+            'name': {
+                'required': 'Plan Name is required.',
+            },
+            'amount': {
+                'required': 'Amount is required.',
+            },
+            'planType': {
+                'required': 'Plan Type is required.',
+            },
+        };
+    }
+    PlanEditComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        this.planAddForm = this.lf.group({
+            _id: ['', __WEBPACK_IMPORTED_MODULE_2__angular_forms__["Validators"].required],
+            name: ['', __WEBPACK_IMPORTED_MODULE_2__angular_forms__["Validators"].required],
+            amount: ['', __WEBPACK_IMPORTED_MODULE_2__angular_forms__["Validators"].required],
+            planType: ['', __WEBPACK_IMPORTED_MODULE_2__angular_forms__["Validators"].required],
+            desc: [''],
+        });
+        this.route.params.subscribe(function (params) {
+            var id = params['id'];
+            _this.plan(id);
+        });
+        this.planAddForm.valueChanges
+            .subscribe(function (data) { return _this.onValueChanged(data); });
+        this.onValueChanged();
+    };
+    PlanEditComponent.prototype.planUpdate = function () {
+        var _this = this;
+        this.planService.planUpdate(this.planAddForm.value).subscribe(function (data) {
+            if (!data.error) {
+                _this._flashMessagesService.show('Plan Updated Successfully', { cssClass: 'alert-success', timeout: 5000 });
+                _this.router.navigate(['admin/plan']);
+            }
+        }, function (err) {
+            console.log(err);
+        });
+    };
+    PlanEditComponent.prototype.plan = function (id) {
+        var _this = this;
+        this.planService.plan(id).subscribe(function (data) {
+            if (!data.error) {
+                _this.currentCustomer = data.message;
+                _this.planAddForm.patchValue(_this.currentCustomer);
+            }
+        }, function (err) {
+            console.log(err);
+        });
+    };
+    PlanEditComponent.prototype.onValueChanged = function (data) {
+        if (!this.planAddForm) {
+            return;
+        }
+        var form = this.planAddForm;
+        for (var field in this.formErrors) {
+            // clear previous error message (if any)
+            this.formErrors[field] = '';
+            var control = form.get(field);
+            if (control && control.dirty && !control.valid) {
+                var messages = this.validationMessages[field];
+                for (var key in control.errors) {
+                    this.formErrors[field] += messages[key] + ' ';
+                }
+            }
+        }
+    };
+    return PlanEditComponent;
+}());
+PlanEditComponent = __decorate([
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
+        selector: 'app-admin-plan-edit',
+        template: __webpack_require__("../../../../../src/app/admin/plan/planedit.component.html"),
+        styles: [__webpack_require__("../../../../../src/app/admin/plan/plan.component.css")],
+    }),
+    __metadata("design:paramtypes", [typeof (_l = typeof __WEBPACK_IMPORTED_MODULE_2__angular_forms__["FormBuilder"] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__angular_forms__["FormBuilder"]) === "function" && _l || Object, typeof (_m = typeof __WEBPACK_IMPORTED_MODULE_4__services_plan_service__["a" /* PlanService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_4__services_plan_service__["a" /* PlanService */]) === "function" && _m || Object, typeof (_o = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* Router */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* Router */]) === "function" && _o || Object, typeof (_p = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* ActivatedRoute */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* ActivatedRoute */]) === "function" && _p || Object, typeof (_q = typeof __WEBPACK_IMPORTED_MODULE_3_angular2_flash_messages__["FlashMessagesService"] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3_angular2_flash_messages__["FlashMessagesService"]) === "function" && _q || Object])
+], PlanEditComponent);
+
+var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m, _o, _p, _q;
+//# sourceMappingURL=plan.component.js.map
+
+/***/ }),
+
+/***/ "../../../../../src/app/admin/plan/planadd.component.html":
+/***/ (function(module, exports) {
+
+module.exports = "<div class=\"row\">\r\n\t<div class=\"\">\r\n        <div class=\"card\">\r\n            <div class=\"card-header\" data-background-color=\"green\">\r\n                <h4 class=\"title\">Add Plan</h4>\r\n                <p class=\"category\">Create plan for user</p>\r\n            </div>\r\n            <div class=\"card-content\">\r\n                <form [formGroup]=\"planAddForm\" (ngSubmit)=\"planAdd()\">\r\n                    <div class=\"row\">\r\n                        <div class=\"col-md-6\">\r\n                            <div class=\"form-group label-floating\">\r\n                                <label class=\"control-label\">Plan Name <span>*</span></label>\r\n                                <input formControlName=\"name\" type=\"text\" class=\"form-control\" autofocus>\r\n                            </div>\r\n                            <div *ngIf=\"formErrors.name\" class=\"alert alert-danger\">\r\n                                {{ formErrors.name }}\r\n                            </div>\r\n                        </div>\r\n                        <div class=\"col-md-6\">\r\n                            <div class=\"form-group label-floating\">\r\n                                <label class=\"control-label\">Amount <span>*</span></label>\r\n                                <input formControlName=\"amount\" type=\"text\" class=\"form-control\">\r\n                            </div>\r\n                            <div *ngIf=\"formErrors.amount\" class=\"alert alert-danger\">\r\n                                {{ formErrors.amount }}\r\n                            </div>\r\n                        </div>\r\n                        <div class=\"col-md-6\">\r\n                            <div class=\"form-group\">\r\n                                <label class=\"control-label\">Plan Type <span>*</span></label>\r\n                                <select  formControlName=\"planType\" class=\"form-control\">\r\n                                    <option value=\"\">Select Plan</option>\r\n                                    <option value=\"3\">Quarterly</option>\r\n                                    <option value=\"6\">Half Yearly</option>\r\n                                    <option value=\"12\">Annual</option>\r\n                                </select>\r\n                            </div>\r\n                            <div *ngIf=\"formErrors.planType\" class=\"alert alert-danger\">\r\n                                {{ formErrors.planType }}\r\n                            </div>\r\n                        </div>\r\n                    </div>\r\n                    <div class=\"row\">\r\n                        <div class=\"col-md-12\">\r\n                            <div class=\"form-group\">\r\n                                <div class=\"form-group label-floating\">\r\n                                    <label class=\"control-label\"> Describe about this plan</label>\r\n                                    <textarea class=\"form-control\" formControlName=\"desc\" rows=\"5\"></textarea>\r\n                                </div>\r\n                            </div>\r\n                        </div>\r\n                    </div>\r\n                    <button type=\"submit\" class=\"btn btn-success pull-right\" [disabled]=\"!planAddForm.valid\">Add Plan</button>\r\n                    <div class=\"clearfix\"></div>\r\n                </form>\r\n            </div>\r\n        </div>\r\n    </div>\r\n</div>"
+
+/***/ }),
+
+/***/ "../../../../../src/app/admin/plan/planedit.component.html":
+/***/ (function(module, exports) {
+
+module.exports = "<div class=\"row\">\r\n    <div class=\"\">\r\n        <div class=\"card\">\r\n            <div class=\"card-header\" data-background-color=\"green\">\r\n                <h4 class=\"title\">Update Plan</h4>\r\n                <p class=\"category\">Update plan for customer</p>\r\n            </div>\r\n            <div class=\"card-content\">\r\n                <form [formGroup]=\"planAddForm\" (ngSubmit)=\"planUpdate()\">\r\n                    <div class=\"row\">\r\n                        <div class=\"col-md-6\">\r\n                            <div class=\"form-group\">\r\n                                <label class=\"control-label\">Plan Name <span>*</span></label>\r\n                                <input formControlName=\"name\" type=\"text\" class=\"form-control\" autofocus>\r\n                            </div>\r\n                            <div *ngIf=\"formErrors.name\" class=\"alert alert-danger\">\r\n                                {{ formErrors.name }}\r\n                            </div>\r\n                        </div>\r\n                        <div class=\"col-md-6\">\r\n                            <div class=\"form-group\">\r\n                                <label class=\"control-label\">Amount <span>*</span></label>\r\n                                <input formControlName=\"amount\" type=\"text\" class=\"form-control\">\r\n                            </div>\r\n                            <div *ngIf=\"formErrors.amount\" class=\"alert alert-danger\">\r\n                                {{ formErrors.amount }}\r\n                            </div>\r\n                        </div>\r\n                        <div class=\"col-md-6\">\r\n                            <div class=\"form-group\">\r\n                                <label class=\"control-label\">Plan Type <span>*</span></label>\r\n                                <select  formControlName=\"planType\" class=\"form-control\">\r\n                                    <option value=\"\">Select Plan </option>\r\n                                    <option value=\"3\">Quarterly</option>\r\n                                    <option value=\"6\">Half Yearly</option>\r\n                                    <option value=\"12\">Annual</option>\r\n                                </select>\r\n                            </div>\r\n                            <div *ngIf=\"formErrors.planType\" class=\"alert alert-danger\">\r\n                                {{ formErrors.planType }}\r\n                            </div>\r\n                        </div>\r\n                    </div>\r\n                    <div class=\"row\">\r\n                        <div class=\"col-md-12\">\r\n                            <div class=\"form-group\">\r\n                                <div class=\"form-group\">\r\n                                    <label class=\"control-label\"> Describe about this plan</label>\r\n                                    <textarea class=\"form-control\" formControlName=\"desc\" rows=\"5\"></textarea>\r\n                                </div>\r\n                            </div>\r\n                        </div>\r\n                    </div>\r\n                    <button type=\"submit\" class=\"btn btn-success pull-right\" [disabled]=\"!planAddForm.valid\">Update Plan</button>\r\n                    <div class=\"clearfix\"></div>\r\n                </form>\r\n            </div>\r\n        </div>\r\n    </div>\r\n</div>"
+
+/***/ }),
+
+/***/ "../../../../../src/app/admin/plan/planlist.component.html":
+/***/ (function(module, exports) {
+
+module.exports = "<div class=\"card card-nav-tabs\">\r\n    <div class=\"card-header\" data-background-color=\"green\">\r\n        <div class=\"nav-tabs-navigation\">\r\n            <div class=\"nav-tabs-wrapper\">\r\n                <span class=\"nav-tabs-title\">Plans</span>\r\n                <ul class=\"nav nav-tabs\" data-tabs=\"tabs\">\r\n                    <li class=\"active pull-right\">\r\n                        <a  [routerLink]=\"['/admin/plan/add/']\">\r\n                            <i class=\"material-icons\">exposure_plus_1</i> Add Plan\r\n                            <div class=\"ripple-container\"></div>\r\n                        </a>\r\n                    </li>\r\n                </ul>\r\n            </div>\r\n        </div>\r\n    </div>\r\n    <div class=\"card-content table-responsive\">\r\n        <table class=\"table\" *ngIf=\"plans.length >0\">\r\n            <thead class=\"text-success\">\r\n                <th>Name</th>\r\n                <th>Amount</th>\r\n                <th>Duration</th>\r\n                <th>Action</th>\r\n            </thead>\r\n            <tbody>\r\n                <tr *ngFor=\"let customer of plans\">\r\n                    <td class=\"padding0\">{{customer.name}}</td>\r\n                    <td class=\"padding0\">{{customer.amount}}</td>\r\n                     <td class=\"padding0\">{{customer.planType}} Months</td>\r\n                    <td class=\"padding0 td-actions text-right\">\r\n                        <a [routerLink]=\"['/admin/plan/',customer._id]\" rel=\"tooltip\" title=\"Edit Task\" class=\"btn btn-success btn-simple btn-xs\">\r\n                            <i class=\"material-icons\">edit</i>\r\n                        </a>\r\n                        <a rel=\"tooltip\" title=\"Remove\" class=\"btn btn-danger btn-simple btn-xs\" (click)=\"deletePlan(customer._id)\">\r\n                            <i class=\"material-icons\">close</i>\r\n                        </a>\r\n                    </td>\r\n                </tr>\r\n            </tbody>\r\n        </table>\r\n        <div class=\"alert alert-warning\" *ngIf=\"plans.length == 0\">\r\n            <button type=\"button\" aria-hidden=\"true\" class=\"close\">×</button>\r\n            <span> <b> No Data - </b> Plan Empty Kindly create One</span>\r\n        </div>\r\n    </div>\r\n</div>"
+
+/***/ }),
+
+/***/ "../../../../../src/app/admin/profile/profile.component.css":
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, ".card-content .label-floating{\r\n\ttext-align: left;\r\n}", ""]);
+
+// exports
+
+
+/*** EXPORTS FROM exports-loader ***/
+module.exports = module.exports.toString();
+
+/***/ }),
+
+/***/ "../../../../../src/app/admin/profile/profile.component.html":
+/***/ (function(module, exports) {
+
+module.exports = "<div class=\"wrapper\">\r\n\t<app-sidebar></app-sidebar>\r\n\t<div class=\"main-panel\">\r\n\t\t<app-header></app-header>\r\n        <div class=\"content\">\r\n            <div class=\"container-fluid\">\r\n            \t<div class=\"row\">\r\n                    <div class=\"col-md-8\">\r\n                        <div class=\"card\">\r\n                            <div class=\"card-header\" data-background-color=\"navyblue\">\r\n                                <h4 class=\"title\">Edit Admin Profile</h4>\r\n                            </div>\r\n                            <div class=\"card-content\">\r\n                                <form [formGroup]=\"customerAddForm\" (ngSubmit)=\"adminUpdate()\">\r\n                                    <div class=\"row\">\r\n                                        <div class=\"col-md-6\">\r\n                                            <div class=\"form-group \">\r\n                                                <label class=\"control-label\">Fist Name</label>\r\n                                                <input formControlName=\"firstname\" type=\"text\" class=\"form-control\" autofocus>\r\n                                            </div>\r\n                                            <div *ngIf=\"formErrors.firstname\" class=\"alert alert-danger\">\r\n                                                {{ formErrors.firstname }}\r\n                                            </div>\r\n                                        </div>\r\n                                        <div class=\"col-md-6\">\r\n                                            <div class=\"form-group \">\r\n                                                <label class=\"control-label\">Last Name</label>\r\n                                                <input formControlName=\"lastname\" type=\"text\" class=\"form-control\">\r\n                                            </div>\r\n                                            <div *ngIf=\"formErrors.lastname\" class=\"alert alert-danger\">\r\n                                                {{ formErrors.lastname }}\r\n                                            </div>\r\n                                        </div>\r\n                                    </div>\r\n                                    <div class=\"row\">\r\n                                        <div class=\"col-md-6\">\r\n                                            <div class=\"form-group \">\r\n                                                <label class=\"control-label\">Email address</label>\r\n                                                <input formControlName=\"email\" type=\"email\" class=\"form-control\">\r\n                                            </div>\r\n                                            <div *ngIf=\"formErrors.email\" class=\"alert alert-danger\">\r\n                                                {{ formErrors.email }}\r\n                                            </div>\r\n                                        </div>\r\n                                        <div class=\"col-md-6\">\r\n                                            <div class=\"form-group \">\r\n                                                <label class=\"control-label\">Phone Number</label>\r\n                                                <input formControlName=\"phonenumber\" type=\"text\" class=\"form-control\">\r\n                                            </div>\r\n                                            <div *ngIf=\"formErrors.phonenumber\" class=\"alert alert-danger\">\r\n                                                {{ formErrors.phonenumber }}\r\n                                            </div>\r\n                                        </div>\r\n                                    </div>\r\n                                <!--     <div class=\"row\">\r\n                                        <div class=\"col-md-6\">\r\n                                            <div class=\"form-group \">\r\n                                                <label class=\"control-label\">Date Of Birth</label>\r\n                                                <input formControlName=\"dob\" type=\"date\" class=\"form-control\">\r\n                                            </div>\r\n                                            <div *ngIf=\"formErrors.dob\" class=\"alert alert-danger\">\r\n                                                {{ formErrors.dob }}\r\n                                            </div>\r\n                                        </div>\r\n                                    </div> -->\r\n                                    <button type=\"submit\" class=\"btn bg-navyblue pull-right\" [disabled]=\"!customerAddForm.valid\">Save</button>\r\n                                    <div class=\"clearfix\"></div>\r\n                                </form>\r\n                            </div>\r\n                        </div>\r\n                    </div>\r\n                    <div class=\"col-md-4\">\r\n                        <div class=\"card card-profile\">\r\n                            <div class=\"content\">\r\n                                <h6 class=\"category text-gray\">Change Password</h6>\r\n                                <form [formGroup]=\"cpForm\" (ngSubmit)=\"adminChangePassword()\">\r\n                                    <div class=\"card-content\">\r\n                                        <div class=\"\">\r\n                                            <div class=\"form-group label-floating\">\r\n                                                <label class=\"control-label\">Current Password</label>\r\n                                                <input formControlName=\"password\" type=\"password\" class=\"form-control\">\r\n                                            </div>                                                \r\n                                        </div>\r\n                                        <div class=\"\">\r\n                                            <div class=\"form-group label-floating\">\r\n                                                <label class=\"control-label\">New Password</label>\r\n                                                <input formControlName=\"newpassword\" type=\"password\" class=\"form-control\">\r\n                                            </div>\r\n                                            <div *ngIf=\"cpFormErrors.newpassword\" class=\"alert alert-danger\">\r\n                                                {{ cpFormErrors.newpassword }}\r\n                                            </div>\r\n                                            <div *ngIf=\"err !=''\" class=\"alert alert-danger\">\r\n                                                {{err}}\r\n                                            </div>\r\n                                        </div>\r\n                                    </div>\r\n                                    <button type=\"submit\" class=\"btn bg-navyblue btn-round\" [disabled]=\"!cpForm.valid\">Change Password</button>\r\n                                </form>\r\n                            </div>\r\n                        </div>\r\n                    </div>\r\n                </div>\r\n            </div>\r\n        </div>\r\n\t</div>\r\n</div>"
+
+/***/ }),
+
+/***/ "../../../../../src/app/admin/profile/profile.component.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ProfileComponent; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__services_admin_service__ = __webpack_require__("../../../../../src/app/services/admin.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_router__ = __webpack_require__("../../../router/@angular/router.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_forms__ = __webpack_require__("../../../forms/@angular/forms.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_angular2_flash_messages__ = __webpack_require__("../../../../angular2-flash-messages/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_angular2_flash_messages___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_angular2_flash_messages__);
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+
+var ProfileComponent = (function () {
+    function ProfileComponent(adminService, router, lf, _flashMessagesService) {
+        this.adminService = adminService;
+        this.router = router;
+        this.lf = lf;
+        this._flashMessagesService = _flashMessagesService;
+        this.err = '';
+        this.passwordRegex = /^([0-9]+[a-zA-Z]+|[a-zA-Z]+[0-9]+)[0-9a-zA-Z]*$/;
+        this.emailp = /^([a-z\d!#$%&'*+\-\/=?^_`{|}~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+(\.[a-z\d!#$%&'*+\-\/=?^_`{|}~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+)*|"((([ \t]*\r\n)?[ \t]+)?([\x01-\x08\x0b\x0c\x0e-\x1f\x7f\x21\x23-\x5b\x5d-\x7e\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|\\[\x01-\x09\x0b\x0c\x0d-\x7f\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]))*(([ \t]*\r\n)?[ \t]+)?")@(([a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|[a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF][a-z\d\-._~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]*[a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])\.)+([a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|[a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF][a-z\d\-._~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]*[a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])\.?$/i;
+        this.passwordp = '';
+        this.newo = false;
+        this.MutchPassword = false;
+        this.formErrors = {
+            'firstname': '',
+            'lastname': '',
+            'email': '',
+            'phonenumber': '',
+            'dob': '',
+        };
+        this.validationMessages = {
+            'firstname': {
+                'required': 'First Name is required.',
+            },
+            'lastname': {
+                'required': 'Last Name is required.',
+            },
+            'email': {
+                'required': 'Email is required.',
+                'pattern': 'Email not in well format.'
+            },
+            'phonenumber': {
+                'required': 'Phone Number is required.',
+            }
+        };
+        this.cpFormErrors = {
+            'newpassword': ''
+        };
+        this.cpValidationMessages = {
+            'newpassword': {
+                'required': 'Password is required.',
+                'pattern': 'Please Enter at least one letter and number',
+                'minlength': 'Password should contain 6 characters',
+            }
+        };
+    }
+    ProfileComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        this.customerAddForm = this.lf.group({
+            _id: ['', __WEBPACK_IMPORTED_MODULE_3__angular_forms__["Validators"].required],
+            firstname: ['', __WEBPACK_IMPORTED_MODULE_3__angular_forms__["Validators"].required],
+            lastname: ['', __WEBPACK_IMPORTED_MODULE_3__angular_forms__["Validators"].required],
+            phonenumber: ['', __WEBPACK_IMPORTED_MODULE_3__angular_forms__["Validators"].required],
+            dob: [''],
+            email: ['', [__WEBPACK_IMPORTED_MODULE_3__angular_forms__["Validators"].required, __WEBPACK_IMPORTED_MODULE_3__angular_forms__["Validators"].pattern(this.emailp)]],
+        });
+        this.cpForm = this.lf.group({
+            _id: ['', __WEBPACK_IMPORTED_MODULE_3__angular_forms__["Validators"].required],
+            password: ['', __WEBPACK_IMPORTED_MODULE_3__angular_forms__["Validators"].required],
+            newpassword: ['', [__WEBPACK_IMPORTED_MODULE_3__angular_forms__["Validators"].required, __WEBPACK_IMPORTED_MODULE_3__angular_forms__["Validators"].minLength(6), __WEBPACK_IMPORTED_MODULE_3__angular_forms__["Validators"].pattern(this.passwordRegex)]]
+        });
+        this.cpForm.valueChanges
+            .subscribe(function (data) { return _this.onValueChanged(data); });
+        this.adminService.getProfile().subscribe(function (profile) {
+            console.log(profile);
+            _this.user = profile.user;
+            _this.customerAddForm.patchValue(_this.user);
+            _this.onValueChanged();
+            _this.cpForm.controls["_id"].setValue(_this.user._id);
+        }, function (err) {
+            console.log(err);
+            return false;
+        });
+    };
+    ProfileComponent.prototype.getUserById = function (id) {
+        this.adminService.getUserById(id).subscribe(function (data) {
+            if (!data.error) {
+                localStorage.removeItem('user');
+                localStorage.setItem('user', JSON.stringify(data.message));
+            }
+        }, function (err) {
+            console.log('kfgbhj');
+        });
+    };
+    ProfileComponent.prototype.matchpasswordreg = function () {
+        if (this.cpForm.value.newpassword != '') {
+            if (this.cpForm.value.password == this.cpForm.value.newpassword) {
+                this.cpForm.controls["matchpass"].setValue(true);
+                this.MutchPassword = false;
+            }
+            else {
+                this.cpForm.controls["matchpass"].setValue("");
+                this.MutchPassword = true;
+            }
+        }
+    };
+    ProfileComponent.prototype.onValueChanged = function (data) {
+        if (!this.cpForm) {
+            return;
+        }
+        var form = this.cpForm;
+        for (var field in this.cpFormErrors) {
+            // clear previous error message (if any)
+            this.cpFormErrors[field] = '';
+            var control = form.get(field);
+            if (control && control.dirty && !control.valid) {
+                var messages = this.cpValidationMessages[field];
+                for (var key in control.errors) {
+                    this.cpFormErrors[field] += messages[key] + ' ';
+                }
+            }
+        }
+    };
+    ProfileComponent.prototype.adminUpdate = function () {
+        var _this = this;
+        this.adminService.userUpdate(this.customerAddForm.value).subscribe(function (data) {
+            if (!data.error) {
+                _this._flashMessagesService.show('Profile updated Successfully', { cssClass: 'alert-success', timeout: 5000 });
+                _this.getUserById(_this.customerAddForm.value._id);
+                _this.router.navigate(['admin/dashboard']);
+            }
+        }, function (err) {
+            _this._flashMessagesService.show('Something went wrong', { cssClass: 'alert-success', timeout: 5000 });
+        });
+    };
+    ProfileComponent.prototype.adminChangePassword = function () {
+        var _this = this;
+        this.adminService.changePassword(this.cpForm.value).subscribe(function (data) {
+            if (!data.error) {
+                _this.getUserById(_this.cpForm.value._id);
+                _this._flashMessagesService.show(data.message, { cssClass: 'alert-success', timeout: 5000 });
+                _this.router.navigate(['admin/dashboard']);
+            }
+            else {
+                _this._flashMessagesService.show(data.message, { cssClass: 'danger-alert', timeout: 5000 });
+            }
+        }, function (err) {
+            _this._flashMessagesService.show('Something went wrong', { cssClass: 'danger-alert', timeout: 5000 });
+            console.log('kfgbhj');
+        });
+    };
+    return ProfileComponent;
+}());
+ProfileComponent = __decorate([
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
+        selector: 'app-profile',
+        template: __webpack_require__("../../../../../src/app/admin/profile/profile.component.html"),
+        styles: [__webpack_require__("../../../../../src/app/admin/profile/profile.component.css")]
+    }),
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__services_admin_service__["a" /* AdminService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__services_admin_service__["a" /* AdminService */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_2__angular_router__["b" /* Router */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__angular_router__["b" /* Router */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_3__angular_forms__["FormBuilder"] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__angular_forms__["FormBuilder"]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_4_angular2_flash_messages__["FlashMessagesService"] !== "undefined" && __WEBPACK_IMPORTED_MODULE_4_angular2_flash_messages__["FlashMessagesService"]) === "function" && _d || Object])
+], ProfileComponent);
+
+var _a, _b, _c, _d;
+//# sourceMappingURL=profile.component.js.map
+
+/***/ }),
+
+/***/ "../../../../../src/app/admin/sidebar/sidebar.component.css":
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, "", ""]);
+
+// exports
+
+
+/*** EXPORTS FROM exports-loader ***/
+module.exports = module.exports.toString();
+
+/***/ }),
+
+/***/ "../../../../../src/app/admin/sidebar/sidebar.component.html":
+/***/ (function(module, exports) {
+
+module.exports = "<div class=\"sidebar\" data-color=\"navyblue\" data-image=\"../assets/img/sidebar-1.jpg\">\r\n    <div class=\"logo\"><a [routerLink]=\"['/admin/dashboard']\" class=\"simple-text\">Admin - Social Share</a></div>\r\n    <div class=\"sidebar-wrapper\">\r\n        <ul class=\"nav\">\r\n            <li [routerLinkActive]=\"['active']\">\r\n                <a [routerLink]=\"['/admin/dashboard']\">\r\n                    <i class=\"material-icons\">dashboard</i>\r\n                    <p>Dashboard</p>\r\n                </a>\r\n            </li>            \r\n            <li [routerLinkActive]=\"['active']\">\r\n                <a [routerLink]=\"['/admin/user/']\">\r\n                    <i class=\"material-icons\">perm_identity</i>\r\n                    <p>Users</p>\r\n                </a>\r\n            </li>           \r\n            <!-- <li [routerLinkActive]=\"['active']\">\r\n                <a [routerLink]=\"['/admin/plan/']\">\r\n                    <i class=\"material-icons\">business_center</i>\r\n                    <p>Membership Plans</p>\r\n                </a>\r\n            </li> -->\r\n            <li [routerLinkActive]=\"['active']\">\r\n                <a [routerLink]=\"['/admin/pages/']\">\r\n                    <i class=\"material-icons\">description</i>\r\n                    <p>Static Pages</p>\r\n                </a>\r\n            </li>\r\n            <li [routerLinkActive]=\"['active']\">\r\n                <a [routerLink]=\"['/admin/profile/']\">\r\n                    <i class=\"material-icons\">person</i>\r\n                    <p>Profile</p>\r\n                </a>\r\n            </li>\r\n            <li class=\"active active-pro\">\r\n                <a href=\"javascript:void(0)\" (click)=\"onLogoutClick()\" >\r\n                    <i class=\"material-icons\">power_settings_new</i>\r\n                    <p>Logout</p>\r\n                </a>\r\n            </li>\r\n        </ul>\r\n    </div>\r\n</div>"
+
+/***/ }),
+
+/***/ "../../../../../src/app/admin/sidebar/sidebar.component.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return SidebarComponent; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__services_admin_service__ = __webpack_require__("../../../../../src/app/services/admin.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_router__ = __webpack_require__("../../../router/@angular/router.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_angular2_flash_messages__ = __webpack_require__("../../../../angular2-flash-messages/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_angular2_flash_messages___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_angular2_flash_messages__);
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+var SidebarComponent = (function () {
+    function SidebarComponent(adminService, router, flashMessage) {
+        this.adminService = adminService;
+        this.router = router;
+        this.flashMessage = flashMessage;
+    }
+    SidebarComponent.prototype.ngOnInit = function () {
+    };
+    SidebarComponent.prototype.onLogoutClick = function () {
+        this.adminService.logout();
+        this.flashMessage.show('You are logged out', {
+            cssClass: 'alert-success',
+            timeout: 3000
+        });
+        this.router.navigate(['admin/login']);
+        return false;
+    };
+    return SidebarComponent;
+}());
+SidebarComponent = __decorate([
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
+        selector: 'app-sidebar',
+        template: __webpack_require__("../../../../../src/app/admin/sidebar/sidebar.component.html"),
+        styles: [__webpack_require__("../../../../../src/app/admin/sidebar/sidebar.component.css")]
+    }),
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__services_admin_service__["a" /* AdminService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__services_admin_service__["a" /* AdminService */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_2__angular_router__["b" /* Router */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__angular_router__["b" /* Router */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_3_angular2_flash_messages__["FlashMessagesService"] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3_angular2_flash_messages__["FlashMessagesService"]) === "function" && _c || Object])
+], SidebarComponent);
+
+var _a, _b, _c;
+//# sourceMappingURL=sidebar.component.js.map
+
+/***/ }),
+
+/***/ "../../../../../src/app/app.component.css":
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, "", ""]);
+
+// exports
+
+
+/*** EXPORTS FROM exports-loader ***/
+module.exports = module.exports.toString();
+
+/***/ }),
+
+/***/ "../../../../../src/app/app.component.html":
+/***/ (function(module, exports) {
+
+module.exports = "<router-outlet></router-outlet>"
+
+/***/ }),
+
+/***/ "../../../../../src/app/app.component.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AppComponent; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+
+var AppComponent = (function () {
+    function AppComponent() {
+        this.title = 'app';
+    }
+    return AppComponent;
+}());
+AppComponent = __decorate([
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
+        selector: 'app-root',
+        template: __webpack_require__("../../../../../src/app/app.component.html"),
+        styles: [__webpack_require__("../../../../../src/app/app.component.css")]
+    })
+], AppComponent);
+
+//# sourceMappingURL=app.component.js.map
+
+/***/ }),
+
+/***/ "../../../../../src/app/app.module.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AppModule; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser__ = __webpack_require__("../../../platform-browser/@angular/platform-browser.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_forms__ = __webpack_require__("../../../forms/@angular/forms.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_http__ = __webpack_require__("../../../http/@angular/http.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__app_component__ = __webpack_require__("../../../../../src/app/app.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_angular2_tinymce__ = __webpack_require__("../../../../angular2-tinymce/dist/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_angular2_tinymce___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_angular2_tinymce__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_angular2_select__ = __webpack_require__("../../../../angular2-select/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_angular2_select___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6_angular2_select__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_ng2_search_filter__ = __webpack_require__("../../../../ng2-search-filter/dist/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_ng2_search_filter___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_7_ng2_search_filter__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_ng2_file_upload__ = __webpack_require__("../../../../ng2-file-upload/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_ng2_file_upload___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_8_ng2_file_upload__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9_angular2_social_login__ = __webpack_require__("../../../../angular2-social-login/dist/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10_ngx_image_cropper__ = __webpack_require__("../../../../ngx-image-cropper/ngx-image-cropper.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__admin_admin_component__ = __webpack_require__("../../../../../src/app/admin/admin.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__admin_header_header_component__ = __webpack_require__("../../../../../src/app/admin/header/header.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__admin_sidebar_sidebar_component__ = __webpack_require__("../../../../../src/app/admin/sidebar/sidebar.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__admin_login_login_component__ = __webpack_require__("../../../../../src/app/admin/login/login.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__admin_dashboard_dashboard_component__ = __webpack_require__("../../../../../src/app/admin/dashboard/dashboard.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__admin_profile_profile_component__ = __webpack_require__("../../../../../src/app/admin/profile/profile.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__admin_forgot_password_forgot_password_component__ = __webpack_require__("../../../../../src/app/admin/forgot-password/forgot-password.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__admin_customer_customer_component__ = __webpack_require__("../../../../../src/app/admin/customer/customer.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_19__admin_plan_plan_component__ = __webpack_require__("../../../../../src/app/admin/plan/plan.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_20__admin_pages_pages_component__ = __webpack_require__("../../../../../src/app/admin/pages/pages.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_21__frontend_frontend_component__ = __webpack_require__("../../../../../src/app/frontend/frontend.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_22__frontend_header_frontendheader_component__ = __webpack_require__("../../../../../src/app/frontend/header/frontendheader.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_23__frontend_home_frontendhome_component__ = __webpack_require__("../../../../../src/app/frontend/home/frontendhome.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_24__frontend_dashboard_frontenddashboard_component__ = __webpack_require__("../../../../../src/app/frontend/dashboard/frontenddashboard.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_25__services_validate_service__ = __webpack_require__("../../../../../src/app/services/validate.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_26__services_admin_service__ = __webpack_require__("../../../../../src/app/services/admin.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_27__services_user_service__ = __webpack_require__("../../../../../src/app/services/user.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_28__services_plan_service__ = __webpack_require__("../../../../../src/app/services/plan.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_29__services_category_service__ = __webpack_require__("../../../../../src/app/services/category.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_30__services_bookmark_service__ = __webpack_require__("../../../../../src/app/services/bookmark.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_31__services_pages_service__ = __webpack_require__("../../../../../src/app/services/pages.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_32__services_purchaseplan_service__ = __webpack_require__("../../../../../src/app/services/purchaseplan.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_33__angular_platform_browser_animations__ = __webpack_require__("../../../platform-browser/@angular/platform-browser/animations.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_34_angular2_flash_messages__ = __webpack_require__("../../../../angular2-flash-messages/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_34_angular2_flash_messages___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_34_angular2_flash_messages__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_35__guards_admin_guard__ = __webpack_require__("../../../../../src/app/guards/admin.guard.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_36__guards_user_guard__ = __webpack_require__("../../../../../src/app/guards/user.guard.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_37_ng2_order_pipe__ = __webpack_require__("../../../../ng2-order-pipe/dist/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_37_ng2_order_pipe___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_37_ng2_order_pipe__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_38_ng2_toastr_ng2_toastr__ = __webpack_require__("../../../../ng2-toastr/ng2-toastr.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_38_ng2_toastr_ng2_toastr___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_38_ng2_toastr_ng2_toastr__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_39__app_routes__ = __webpack_require__("../../../../../src/app/app.routes.ts");
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+
+
+
+
+
+
+
+
+
+
+
+// Admin Component
+
+
+
+
+
+
+
+// tslint:disable-next-line:max-line-length
+
+
+
+// Frontend Component
+
+
+
+// tslint:disable-next-line:max-line-length
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+var providers = {
+    'google': {
+        'clientId': '214874028334-4t3q11rlobifpmspvrac9dl6i6k6usq2.apps.googleusercontent.com'
+    },
+    'facebook': {
+        'clientId': '943878335767480',
+        'apiVersion': 'v2.4'
+    }
+};
+var AppModule = (function () {
+    function AppModule() {
+    }
+    return AppModule;
+}());
+AppModule = __decorate([
+    Object(__WEBPACK_IMPORTED_MODULE_1__angular_core__["NgModule"])({
+        declarations: [
+            __WEBPACK_IMPORTED_MODULE_4__app_component__["a" /* AppComponent */],
+            __WEBPACK_IMPORTED_MODULE_11__admin_admin_component__["a" /* AdminComponent */],
+            __WEBPACK_IMPORTED_MODULE_14__admin_login_login_component__["a" /* LoginComponent */],
+            __WEBPACK_IMPORTED_MODULE_12__admin_header_header_component__["a" /* HeaderComponent */],
+            __WEBPACK_IMPORTED_MODULE_15__admin_dashboard_dashboard_component__["a" /* DashboardComponent */],
+            __WEBPACK_IMPORTED_MODULE_16__admin_profile_profile_component__["a" /* ProfileComponent */],
+            __WEBPACK_IMPORTED_MODULE_18__admin_customer_customer_component__["a" /* AdminCustomerComponent */], __WEBPACK_IMPORTED_MODULE_18__admin_customer_customer_component__["d" /* CustomerListComponent */], __WEBPACK_IMPORTED_MODULE_18__admin_customer_customer_component__["b" /* CustomerAddComponent */], __WEBPACK_IMPORTED_MODULE_18__admin_customer_customer_component__["c" /* CustomerEditComponent */],
+            __WEBPACK_IMPORTED_MODULE_17__admin_forgot_password_forgot_password_component__["b" /* ForgotPasswordComponent */], __WEBPACK_IMPORTED_MODULE_17__admin_forgot_password_forgot_password_component__["a" /* AdminResetPasswordComponent */],
+            __WEBPACK_IMPORTED_MODULE_13__admin_sidebar_sidebar_component__["a" /* SidebarComponent */],
+            __WEBPACK_IMPORTED_MODULE_19__admin_plan_plan_component__["a" /* AdminPlanComponent */], __WEBPACK_IMPORTED_MODULE_19__admin_plan_plan_component__["d" /* PlanListComponent */], __WEBPACK_IMPORTED_MODULE_19__admin_plan_plan_component__["b" /* PlanAddComponent */], __WEBPACK_IMPORTED_MODULE_19__admin_plan_plan_component__["c" /* PlanEditComponent */],
+            __WEBPACK_IMPORTED_MODULE_20__admin_pages_pages_component__["a" /* AdminPagesComponent */], __WEBPACK_IMPORTED_MODULE_20__admin_pages_pages_component__["d" /* PagesListComponent */], __WEBPACK_IMPORTED_MODULE_20__admin_pages_pages_component__["b" /* PagesAddComponent */], __WEBPACK_IMPORTED_MODULE_20__admin_pages_pages_component__["c" /* PagesEditComponent */],
+            __WEBPACK_IMPORTED_MODULE_21__frontend_frontend_component__["a" /* FrontendComponent */],
+            __WEBPACK_IMPORTED_MODULE_22__frontend_header_frontendheader_component__["a" /* FrontendHeaderComponent */],
+            __WEBPACK_IMPORTED_MODULE_23__frontend_home_frontendhome_component__["b" /* FrontendHomeComponent */], __WEBPACK_IMPORTED_MODULE_23__frontend_home_frontendhome_component__["c" /* ResetComponent */],
+            __WEBPACK_IMPORTED_MODULE_23__frontend_home_frontendhome_component__["a" /* AccountActiveComponent */],
+            __WEBPACK_IMPORTED_MODULE_24__frontend_dashboard_frontenddashboard_component__["a" /* FrontendDashboardComponent */], __WEBPACK_IMPORTED_MODULE_24__frontend_dashboard_frontenddashboard_component__["b" /* MyProfileComponent */],
+            __WEBPACK_IMPORTED_MODULE_24__frontend_dashboard_frontenddashboard_component__["d" /* SettingComponent */],
+            __WEBPACK_IMPORTED_MODULE_24__frontend_dashboard_frontenddashboard_component__["c" /* ProfileHeaderComponent */]
+        ],
+        imports: [
+            __WEBPACK_IMPORTED_MODULE_10_ngx_image_cropper__["a" /* ImageCropperModule */],
+            __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser__["BrowserModule"],
+            __WEBPACK_IMPORTED_MODULE_2__angular_forms__["FormsModule"],
+            __WEBPACK_IMPORTED_MODULE_5_angular2_tinymce__["TinymceModule"].withConfig({}),
+            __WEBPACK_IMPORTED_MODULE_2__angular_forms__["ReactiveFormsModule"],
+            __WEBPACK_IMPORTED_MODULE_3__angular_http__["HttpModule"],
+            __WEBPACK_IMPORTED_MODULE_39__app_routes__["a" /* routing */],
+            __WEBPACK_IMPORTED_MODULE_34_angular2_flash_messages__["FlashMessagesModule"],
+            __WEBPACK_IMPORTED_MODULE_8_ng2_file_upload__["FileUploadModule"],
+            __WEBPACK_IMPORTED_MODULE_6_angular2_select__["SelectModule"],
+            __WEBPACK_IMPORTED_MODULE_37_ng2_order_pipe__["Ng2OrderModule"],
+            __WEBPACK_IMPORTED_MODULE_7_ng2_search_filter__["Ng2SearchPipeModule"],
+            __WEBPACK_IMPORTED_MODULE_33__angular_platform_browser_animations__["a" /* BrowserAnimationsModule */],
+            __WEBPACK_IMPORTED_MODULE_38_ng2_toastr_ng2_toastr__["ToastModule"].forRoot()
+        ],
+        // tslint:disable-next-line:max-line-length
+        providers: [__WEBPACK_IMPORTED_MODULE_9_angular2_social_login__["b" /* AuthService */], __WEBPACK_IMPORTED_MODULE_25__services_validate_service__["a" /* ValidateService */], __WEBPACK_IMPORTED_MODULE_29__services_category_service__["a" /* CategoryService */], __WEBPACK_IMPORTED_MODULE_30__services_bookmark_service__["a" /* BookmarkService */], __WEBPACK_IMPORTED_MODULE_26__services_admin_service__["a" /* AdminService */], __WEBPACK_IMPORTED_MODULE_35__guards_admin_guard__["a" /* AuthGuard */], __WEBPACK_IMPORTED_MODULE_36__guards_user_guard__["a" /* UserGuard */], __WEBPACK_IMPORTED_MODULE_27__services_user_service__["a" /* UserService */], __WEBPACK_IMPORTED_MODULE_28__services_plan_service__["a" /* PlanService */], __WEBPACK_IMPORTED_MODULE_31__services_pages_service__["a" /* PagesService */], __WEBPACK_IMPORTED_MODULE_32__services_purchaseplan_service__["a" /* PurchaseplanService */]],
+        bootstrap: [__WEBPACK_IMPORTED_MODULE_4__app_component__["a" /* AppComponent */]]
+    })
+], AppModule);
+
+__WEBPACK_IMPORTED_MODULE_9_angular2_social_login__["a" /* Angular2SocialLoginModule */].loadProvidersScripts(providers);
+//# sourceMappingURL=app.module.js.map
+
+/***/ }),
+
+/***/ "../../../../../src/app/app.routes.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return routing; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_router__ = __webpack_require__("../../../router/@angular/router.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__admin_admin_component__ = __webpack_require__("../../../../../src/app/admin/admin.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__admin_login_login_component__ = __webpack_require__("../../../../../src/app/admin/login/login.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__admin_dashboard_dashboard_component__ = __webpack_require__("../../../../../src/app/admin/dashboard/dashboard.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__admin_profile_profile_component__ = __webpack_require__("../../../../../src/app/admin/profile/profile.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__admin_forgot_password_forgot_password_component__ = __webpack_require__("../../../../../src/app/admin/forgot-password/forgot-password.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__admin_customer_customer_component__ = __webpack_require__("../../../../../src/app/admin/customer/customer.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__admin_plan_plan_component__ = __webpack_require__("../../../../../src/app/admin/plan/plan.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__admin_pages_pages_component__ = __webpack_require__("../../../../../src/app/admin/pages/pages.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__frontend_frontend_component__ = __webpack_require__("../../../../../src/app/frontend/frontend.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__frontend_home_frontendhome_component__ = __webpack_require__("../../../../../src/app/frontend/home/frontendhome.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__frontend_dashboard_frontenddashboard_component__ = __webpack_require__("../../../../../src/app/frontend/dashboard/frontenddashboard.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__guards_admin_guard__ = __webpack_require__("../../../../../src/app/guards/admin.guard.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__guards_user_guard__ = __webpack_require__("../../../../../src/app/guards/user.guard.ts");
+
+// Admin Component
+
+
+
+
+
+
+
+
+// Frontend Component
+
+
+// tslint:disable-next-line:max-line-length
+
+/*Auth Gaurds*/
+
+
+var appRoutes = [
+    {
+        path: 'admin', component: __WEBPACK_IMPORTED_MODULE_1__admin_admin_component__["a" /* AdminComponent */], children: [
+            { path: '', component: __WEBPACK_IMPORTED_MODULE_2__admin_login_login_component__["a" /* LoginComponent */] },
+            { path: 'login', component: __WEBPACK_IMPORTED_MODULE_2__admin_login_login_component__["a" /* LoginComponent */] },
+            { path: 'forgotpassword', component: __WEBPACK_IMPORTED_MODULE_5__admin_forgot_password_forgot_password_component__["b" /* ForgotPasswordComponent */] },
+            { path: 'resetpassword/:id', component: __WEBPACK_IMPORTED_MODULE_5__admin_forgot_password_forgot_password_component__["a" /* AdminResetPasswordComponent */] },
+            { path: 'dashboard', component: __WEBPACK_IMPORTED_MODULE_3__admin_dashboard_dashboard_component__["a" /* DashboardComponent */], canActivate: [__WEBPACK_IMPORTED_MODULE_12__guards_admin_guard__["a" /* AuthGuard */]] },
+            { path: 'profile', component: __WEBPACK_IMPORTED_MODULE_4__admin_profile_profile_component__["a" /* ProfileComponent */], canActivate: [__WEBPACK_IMPORTED_MODULE_12__guards_admin_guard__["a" /* AuthGuard */]] },
+            { path: 'pages', component: __WEBPACK_IMPORTED_MODULE_8__admin_pages_pages_component__["a" /* AdminPagesComponent */], canActivate: [__WEBPACK_IMPORTED_MODULE_12__guards_admin_guard__["a" /* AuthGuard */]], children: [
+                    { path: '', component: __WEBPACK_IMPORTED_MODULE_8__admin_pages_pages_component__["d" /* PagesListComponent */], },
+                    { path: 'add', component: __WEBPACK_IMPORTED_MODULE_8__admin_pages_pages_component__["b" /* PagesAddComponent */], },
+                    { path: ':id', component: __WEBPACK_IMPORTED_MODULE_8__admin_pages_pages_component__["c" /* PagesEditComponent */], },
+                ] },
+            { path: 'user', component: __WEBPACK_IMPORTED_MODULE_6__admin_customer_customer_component__["a" /* AdminCustomerComponent */], canActivate: [__WEBPACK_IMPORTED_MODULE_12__guards_admin_guard__["a" /* AuthGuard */]], children: [
+                    { path: '', component: __WEBPACK_IMPORTED_MODULE_6__admin_customer_customer_component__["d" /* CustomerListComponent */], },
+                    { path: 'add', component: __WEBPACK_IMPORTED_MODULE_6__admin_customer_customer_component__["b" /* CustomerAddComponent */], },
+                    { path: ':id', component: __WEBPACK_IMPORTED_MODULE_6__admin_customer_customer_component__["c" /* CustomerEditComponent */], },
+                ] },
+            { path: 'plan', component: __WEBPACK_IMPORTED_MODULE_7__admin_plan_plan_component__["a" /* AdminPlanComponent */], canActivate: [__WEBPACK_IMPORTED_MODULE_12__guards_admin_guard__["a" /* AuthGuard */]], children: [
+                    { path: '', component: __WEBPACK_IMPORTED_MODULE_7__admin_plan_plan_component__["d" /* PlanListComponent */], },
+                    { path: 'add', component: __WEBPACK_IMPORTED_MODULE_7__admin_plan_plan_component__["b" /* PlanAddComponent */], },
+                    { path: ':id', component: __WEBPACK_IMPORTED_MODULE_7__admin_plan_plan_component__["c" /* PlanEditComponent */], },
+                ] },
+        ]
+    },
+    {
+        path: '', component: __WEBPACK_IMPORTED_MODULE_9__frontend_frontend_component__["a" /* FrontendComponent */], children: [
+            { path: 'resetpassword/:id', component: __WEBPACK_IMPORTED_MODULE_10__frontend_home_frontendhome_component__["c" /* ResetComponent */] },
+            { path: 'account-active/:token', component: __WEBPACK_IMPORTED_MODULE_10__frontend_home_frontendhome_component__["a" /* AccountActiveComponent */] },
+            { path: '', component: __WEBPACK_IMPORTED_MODULE_10__frontend_home_frontendhome_component__["b" /* FrontendHomeComponent */] },
+            { path: 'dashboard', component: __WEBPACK_IMPORTED_MODULE_11__frontend_dashboard_frontenddashboard_component__["a" /* FrontendDashboardComponent */], canActivate: [__WEBPACK_IMPORTED_MODULE_13__guards_user_guard__["a" /* UserGuard */]] },
+            { path: 'profile', component: __WEBPACK_IMPORTED_MODULE_11__frontend_dashboard_frontenddashboard_component__["b" /* MyProfileComponent */], canActivate: [__WEBPACK_IMPORTED_MODULE_13__guards_user_guard__["a" /* UserGuard */]] },
+            { path: 'setting/:id', component: __WEBPACK_IMPORTED_MODULE_11__frontend_dashboard_frontenddashboard_component__["d" /* SettingComponent */], canActivate: [__WEBPACK_IMPORTED_MODULE_13__guards_user_guard__["a" /* UserGuard */]] }
+        ]
+    }
+];
+var routing = __WEBPACK_IMPORTED_MODULE_0__angular_router__["c" /* RouterModule */].forRoot(appRoutes);
+//# sourceMappingURL=app.routes.js.map
+
+/***/ }),
+
+/***/ "../../../../../src/app/frontend/dashboard/frontenddashboard.component.css":
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, ".pt-80{\r\n\tpadding-top: 80px;\r\n}\r\n\r\n.custom-dropdown-menu {\r\n    left: unset;\r\n    right: 0;\r\n}\r\n", ""]);
+
+// exports
+
+
+/*** EXPORTS FROM exports-loader ***/
+module.exports = module.exports.toString();
+
+/***/ }),
+
+/***/ "../../../../../src/app/frontend/dashboard/frontenddashboard.component.html":
+/***/ (function(module, exports) {
+
+module.exports = "<app-profileheader></app-profileheader>\r\n<div class=\"container-fluid\" *ngIf=\"category\" style=\"padding-top: 75px;\">\r\n    <div class=\"row\">\r\n        <div class=\"col-lg-6 col-md-6 col-sm-6 mb-5 \">\r\n            <div class=\"row mb-3\">\r\n                <div class=\"col text-center\">\r\n                    <i class=\"fa fa-trash icon-circle\"></i> Deleted selected</div>\r\n                <div class=\"col text-center\">\r\n                    <i class=\"fa fa-copy icon-circle\"></i> Copy selected to showcase</div>\r\n            </div>\r\n\r\n            <ul class=\"list-group\">\r\n\r\n\r\n                <li class=\"list-group-item custom-list-group-item\" *ngFor=\"let bookmark of bookmarks;\">\r\n                    <div class=\"row\">\r\n                        <div class=\"col-xl-2 col-lg-6 col-md-6 col-sm-6 col-6 text-center\">\r\n                            <div class=\"count-circle\">1</div>\r\n                            <br>\r\n                            <div class=\"form-check text-center\">\r\n                                <input class=\"form-check-input\" type=\"checkbox\" id=\"inlineCheckbox1\" value=\"option1\">\r\n                            </div>\r\n                        </div>\r\n                        <div class=\"col-xl-3 col-lg-6 col-md-6 col-sm-6 pl-0  col-6 \">\r\n                            <img src=\"http://via.placeholder.com/150x120\" class=\"img-fluid\">\r\n                        </div>\r\n                        <div class=\"col-xl-4 col-lg-7 col-md-7 col-sm-7 col-8 mt-4 \">\r\n                            <ul>\r\n                                <li class=\"pb-2\">\r\n                                    <a>\r\n                                        <i class=\"fa fa-trash icon-circle icon-opt\"></i>\r\n                                        <span class=\"fs-13\">Delete</span>\r\n                                    </a>\r\n                                </li>\r\n                                <li>\r\n                                    <a>\r\n                                        <i class=\"fa fa-copy icon-circle icon-opt\"></i>\r\n                                        <span class=\"fs-13\">Copy to showcase</span>\r\n                                    </a>\r\n                                </li>\r\n                            </ul>\r\n\r\n                        </div>\r\n                        <div class=\"col-xl-3 col-lg-5 col-md-5 col-sm-5 col-4 px-0 mt-4\">\r\n                            <ul>\r\n                                <li class=\"pb-2\">\r\n                                    <a>\r\n                                        <span class=\"fs-13\">Move down</span>\r\n                                        <i class=\"fa fa-caret-down icon-opt icon-circle\"></i>\r\n                                    </a>\r\n                                </li>\r\n                            </ul>\r\n                        </div>\r\n                    </div>\r\n                </li>\r\n            </ul>\r\n        </div>\r\n        <div class=\"col-lg-6 col-md-6 col-sm-6 mb-5 work-box   \">\r\n            <h4 class=\"text-center\">\r\n                <i class=\"fa fa-cogs text-warning\"></i> Manage {{category[0].name}}</h4>\r\n            <hr>\r\n            <form [formGroup]=\"updateCategoryForm\" (ngSubmit)=\"updateCategoryData()\">\r\n                <div class=\"form-group\">\r\n                    <label for=\"\">Showcase name</label>\r\n                    <input type=\"text\" class=\"form-control\" formControlName=\"name\" placeholder=\"tyoe here...\">\r\n\r\n                </div>\r\n                <div class=\"form-group\">\r\n                    <label for=\"exampleFormControlSelect1\">Position in menu</label>\r\n                    <select class=\"form-control\" formControlName=\"position\">\r\n                        <option value=\"1\">Top</option>\r\n                        <option *ngFor=\"let category of categories; let i = index\" [ngValue]=\"category.position+1\">After {{category.name}}</option>\r\n                    </select>\r\n                </div>\r\n                <button type=\"submit\" class=\"btn btn-warning float-right px-5 rounded-1\" [disabled]=\"!updateCategoryForm.valid\">Save</button>\r\n            </form>\r\n        </div>\r\n    </div>\r\n</div>\r\n<flash-messages></flash-messages>\r\n<div class=\"feed\"></div>"
+
+/***/ }),
+
+/***/ "../../../../../src/app/frontend/dashboard/frontenddashboard.component.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return FrontendDashboardComponent; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return ProfileHeaderComponent; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return MyProfileComponent; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return SettingComponent; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_router__ = __webpack_require__("../../../router/@angular/router.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_forms__ = __webpack_require__("../../../forms/@angular/forms.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_ng2_file_upload__ = __webpack_require__("../../../../ng2-file-upload/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_ng2_file_upload___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_ng2_file_upload__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__services_user_service__ = __webpack_require__("../../../../../src/app/services/user.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__services_category_service__ = __webpack_require__("../../../../../src/app/services/category.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__services_bookmark_service__ = __webpack_require__("../../../../../src/app/services/bookmark.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_angular2_flash_messages__ = __webpack_require__("../../../../angular2-flash-messages/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_angular2_flash_messages___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_7_angular2_flash_messages__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_ng2_toastr_ng2_toastr__ = __webpack_require__("../../../../ng2-toastr/ng2-toastr.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_ng2_toastr_ng2_toastr___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_8_ng2_toastr_ng2_toastr__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__global__ = __webpack_require__("../../../../../src/app/global.ts");
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+
+
+
+
+
+
+var FrontendDashboardComponent = (function () {
+    function FrontendDashboardComponent() {
+    }
+    FrontendDashboardComponent.prototype.ngOnInit = function () {
+    };
+    return FrontendDashboardComponent;
+}());
+FrontendDashboardComponent = __decorate([
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
+        selector: 'app-frontenddashboard',
+        template: __webpack_require__("../../../../../src/app/frontend/dashboard/frontenddashboard.component.html"),
+        styles: [__webpack_require__("../../../../../src/app/frontend/dashboard/frontenddashboard.component.css")]
+    }),
+    __metadata("design:paramtypes", [])
+], FrontendDashboardComponent);
+
+var ProfileHeaderComponent = (function () {
+    // tslint:disable-next-line:max-line-length
+    function ProfileHeaderComponent(route, toastr, vRef, userService, categoryService, bookService, router, lf) {
+        this.route = route;
+        this.toastr = toastr;
+        this.userService = userService;
+        this.categoryService = categoryService;
+        this.bookService = bookService;
+        this.router = router;
+        this.lf = lf;
+        this.isHere = false;
+        this.customer = JSON.parse(localStorage.getItem('customer'));
+        this.checkCustomer();
+        this.getMyCategories();
+        this.toastr.setRootViewContainerRef(vRef);
+    }
+    ProfileHeaderComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        setTimeout(function () {
+            _this.liCount = document.getElementById('category-navbar').getElementsByTagName('li').length;
+        }, 1000);
+        this.addCategoryForm = this.lf.group({
+            name: ['', __WEBPACK_IMPORTED_MODULE_2__angular_forms__["Validators"].required],
+            position: ['', __WEBPACK_IMPORTED_MODULE_2__angular_forms__["Validators"].required]
+        });
+        this.addLinkForm = this.lf.group({
+            url: ['', __WEBPACK_IMPORTED_MODULE_2__angular_forms__["Validators"].required]
+        });
+        this.category_id = this.childMessage;
+        this.checkCustomer();
+        // this.customer = JSON.parse(localStorage.getItem('customer'));
+        // console.log(localStorage.getItem('customer'),'hedder');
+    };
+    ProfileHeaderComponent.prototype.addLink = function () {
+        var _this = this;
+        var obj = this.addLinkForm.value;
+        obj.category_id = this.category_id;
+        obj.position = 0;
+        obj.title = this.addLinkForm.value['url'];
+        this.bookService.bookmarkAdd(obj).subscribe(function (data) {
+            if (!data.error) {
+                _this.toastr.success(data.message, 'Success!');
+                _this.addLinkForm.reset();
+            }
+            else {
+                _this.toastr.error(data.message, 'Oops!');
+            }
+        });
+    };
+    ProfileHeaderComponent.prototype.slugify = function (text) {
+        return text.toString().toLowerCase()
+            .replace(/\s+/g, '-') // Replace spaces with -
+            .replace(/[^\w\-]+/g, '') // Remove all non-word chars
+            .replace(/\-\-+/g, '-') // Replace multiple - with single -
+            .replace(/^-+/, '') // Trim - from start of text
+            .replace(/-+$/, ''); // Trim - from end of text
+    };
+    ProfileHeaderComponent.prototype.getMyCategories = function () {
+        var _this = this;
+        this.userService.mycategory().subscribe(function (data) {
+            if (!data.err) {
+                _this.categories = data.message;
+            }
+        });
+    };
+    ProfileHeaderComponent.prototype.addCategory = function () {
+        this.modelOpen();
+    };
+    ProfileHeaderComponent.prototype.addCategoryData = function () {
+        var _this = this;
+        var position = this.addCategoryForm.value['position'];
+        var obj = this.addCategoryForm.value;
+        obj.user_id = this.customer._id;
+        this.categoryService.categoryPositionUpdate(position).subscribe(function (data) {
+            if (!data.error) {
+                _this.categoryService.categoryAdd(obj).subscribe(function (data2) {
+                    if (!data2.error) {
+                        _this.toastr.success(data2.message, 'Success!');
+                        _this.modelClose();
+                        _this.getMyCategories();
+                        // tslint:disable-next-line:max-line-length
+                        //$('.category-navbar').prepend('<li class="nav-item dropdown px-3"><a class="nav-link dropdown-toggle" id="dropdown01" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">' + this.addCategoryForm.value['name'] + '</a><div class="dropdown-menu" aria-labelledby="dropdown01"><a class="dropdown-item" href="javascript:void(0)"> <i class="fa fa-share" > </i> Share</a><a class="dropdown-item" href="javascript:void(0)"> <i class="fa fa-code"> </i> Embeded</a><a class="dropdown-item" href="javascript:void(0)"> <i class="fa fa-cog"> </i> Setting</a></div></li>');
+                        // tslint:disable-next-line:max-line-length
+                        //
+                        /*    if (position === 'Top') {
+                             // tslint:disable-next-line:max-line-length
+                             $('.category-navbar').prepend('<li class="nav-item dropdown px-3"><a class="nav-link dropdown-toggle" id="dropdown01" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">' + this.addCategoryForm.value['name'] + '</a><div class="dropdown-menu" aria-labelledby="dropdown01"><a class="dropdown-item" href="javascript:void(0)"> <i class="fa fa-share" > </i> Share</a><a class="dropdown-item" href="javascript:void(0)"> <i class="fa fa-code"> </i> Embeded</a><a class="dropdown-item" href="javascript:void(0)"> <i class="fa fa-cog"> </i> Setting</a></div></li>');
+                           }else {
+                             // tslint:disable-next-line:max-line-length
+                             var liPosition = this.slugify(position.replace('After ', ''));
+                             console.log('li.' + liPosition);
+                             // tslint:disable-next-line:max-line-length
+                             $('li.' + liPosition).after('<li class="nav-item dropdown px-3"><a class="nav-link dropdown-toggle" id="dropdown01" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">' + this.addCategoryForm.value['name'] + '</a><div class="dropdown-menu" aria-labelledby="dropdown01"><a class="dropdown-item" href="javascript:void(0)"> <i class="fa fa-share" > </i> Share</a><a class="dropdown-item" href="javascript:void(0)"> <i class="fa fa-code"> </i> Embeded</a><a class="dropdown-item" href="javascript:void(0)"> <i class="fa fa-cog"> </i> Setting</a></div></li>');
+                           } */
+                        _this.addCategoryForm.reset();
+                    }
+                    else {
+                        _this.toastr.error(data2.message, 'Oops!');
+                        _this.modelClose();
+                        _this.addCategoryForm.reset();
+                        _this.getMyCategories();
+                    }
+                });
+            }
+        });
+    };
+    ProfileHeaderComponent.prototype.modelOpen = function () {
+        document.getElementById('categoryModal').style.display = 'block';
+    };
+    ProfileHeaderComponent.prototype.modelClose = function () {
+        document.getElementById('categoryModal').style.display = 'none';
+    };
+    ProfileHeaderComponent.prototype.checkCustomer = function () {
+        var _this = this;
+        this.customer = JSON.parse(localStorage.getItem('customer'));
+        if (this.customer) {
+            if (!this.isHere) {
+                this.userService.getProfile().subscribe(function (data) {
+                    if (data.user) {
+                        _this.isHere = true;
+                        _this.currentCustomer = data.user;
+                    }
+                });
+            }
+            return true;
+        }
+        else {
+            return false;
+        }
+    };
+    ProfileHeaderComponent.prototype.logout = function () {
+        localStorage.clear();
+        this.router.navigate(['/']);
+    };
+    return ProfileHeaderComponent;
+}());
+__decorate([
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"])(),
+    __metadata("design:type", String)
+], ProfileHeaderComponent.prototype, "childMessage", void 0);
+ProfileHeaderComponent = __decorate([
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
+        selector: 'app-profileheader',
+        template: __webpack_require__("../../../../../src/app/frontend/dashboard/profileheader.component.html"),
+        styles: [__webpack_require__("../../../../../src/app/frontend/dashboard/frontenddashboard.component.css")]
+    }),
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* ActivatedRoute */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* ActivatedRoute */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_8_ng2_toastr_ng2_toastr__["ToastsManager"] !== "undefined" && __WEBPACK_IMPORTED_MODULE_8_ng2_toastr_ng2_toastr__["ToastsManager"]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_0__angular_core__["ViewContainerRef"] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0__angular_core__["ViewContainerRef"]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_4__services_user_service__["a" /* UserService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_4__services_user_service__["a" /* UserService */]) === "function" && _d || Object, typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_5__services_category_service__["a" /* CategoryService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_5__services_category_service__["a" /* CategoryService */]) === "function" && _e || Object, typeof (_f = typeof __WEBPACK_IMPORTED_MODULE_6__services_bookmark_service__["a" /* BookmarkService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_6__services_bookmark_service__["a" /* BookmarkService */]) === "function" && _f || Object, typeof (_g = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* Router */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* Router */]) === "function" && _g || Object, typeof (_h = typeof __WEBPACK_IMPORTED_MODULE_2__angular_forms__["FormBuilder"] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__angular_forms__["FormBuilder"]) === "function" && _h || Object])
+], ProfileHeaderComponent);
+
+var MyProfileComponent = (function () {
+    function MyProfileComponent(lf, userService, _flashMessagesService) {
+        this.lf = lf;
+        this.userService = userService;
+        this._flashMessagesService = _flashMessagesService;
+        this.uploader = new __WEBPACK_IMPORTED_MODULE_3_ng2_file_upload__["FileUploader"]({ url: __WEBPACK_IMPORTED_MODULE_9__global__["a" /* url */] + 'upload' });
+        this.imageChangedEvent = '';
+        this.croppedImage = '';
+        this.customer = {};
+        this.filesToUpload = [];
+    }
+    MyProfileComponent.prototype.ngOnInit = function () {
+        this.customer = JSON.parse(localStorage.getItem('customer'));
+        // console.log(this.customer,'profile');
+        this.customerProfileForm = this.lf.group({
+            _id: ['', __WEBPACK_IMPORTED_MODULE_2__angular_forms__["Validators"].required],
+            firstname: ['', __WEBPACK_IMPORTED_MODULE_2__angular_forms__["Validators"].required],
+            lastname: ['', __WEBPACK_IMPORTED_MODULE_2__angular_forms__["Validators"].required],
+            image: ['', __WEBPACK_IMPORTED_MODULE_2__angular_forms__["Validators"].required],
+            email: ['', __WEBPACK_IMPORTED_MODULE_2__angular_forms__["Validators"].required],
+        });
+        this.customerPasswordUpdateForm = this.lf.group({
+            _id: [''],
+            oldpassword: ['', __WEBPACK_IMPORTED_MODULE_2__angular_forms__["Validators"].required],
+            newpassword: ['', __WEBPACK_IMPORTED_MODULE_2__angular_forms__["Validators"].required],
+            confirmpassword: ['', __WEBPACK_IMPORTED_MODULE_2__angular_forms__["Validators"].required],
+        });
+        this.getProfile();
+    };
+    MyProfileComponent.prototype.upload = function () {
+        var _this = this;
+        this.makeFileRequest('https://measuremight.com:3002/upload', [], this.filesToUpload).then(function (result) {
+            _this.customerProfileForm.controls['image'].setValue('/uploads/' + result['filename']);
+            _this.profileUpdate();
+            _this.modelClose();
+        }, function (error) {
+            console.error(error);
+        });
+    };
+    MyProfileComponent.prototype.fileChangeEvent = function (fileInput) {
+        this.modelOpen();
+        this.imageChangedEvent = event;
+        this.filesToUpload = fileInput.target.files;
+    };
+    /* fileChangeEvent(event: any): void {
+      console.log(this.imageChangedEvent);
+    } */
+    MyProfileComponent.prototype.makeFileRequest = function (url, params, files) {
+        var _this = this;
+        return new Promise(function (resolve, reject) {
+            var ImageURL = _this.croppedImage;
+            // Split the base64 string in data and contentType
+            var block = ImageURL.split(';');
+            // Get the content type
+            var contentType = block[0].split(':')[1]; // In this case 'image/gif'
+            // get the real base64 content of the file
+            var realData = block[1].split(',')[1]; // In this case "iVBORw0KGg...."
+            // Convert to blob
+            var blob = _this.b64toBlob(realData, contentType, 512);
+            var formData = new FormData();
+            var xhr = new XMLHttpRequest();
+            for (var i = 0; i < files.length; i++) {
+                formData.append('file', blob, files[i].name);
+            }
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4) {
+                    if (xhr.status === 200) {
+                        resolve(JSON.parse(xhr.response));
+                    }
+                    else {
+                        reject(xhr.response);
+                    }
+                }
+            };
+            xhr.open('POST', url, true);
+            xhr.send(formData);
+        });
+    };
+    MyProfileComponent.prototype.modelOpen = function () {
+        document.getElementById('imageuploadModal').style.display = 'block';
+    };
+    MyProfileComponent.prototype.modelClose = function () {
+        document.getElementById('imageuploadModal').style.display = 'none';
+    };
+    MyProfileComponent.prototype.imageCropped = function (image) {
+        this.croppedImage = image;
+    };
+    MyProfileComponent.prototype.b64toBlob = function (b64Data, contentType, sliceSize) {
+        contentType = contentType || '';
+        sliceSize = sliceSize || 512;
+        var byteCharacters = atob(b64Data);
+        var byteArrays = [];
+        for (var offset = 0; offset < byteCharacters.length; offset += sliceSize) {
+            var slice = byteCharacters.slice(offset, offset + sliceSize);
+            var byteNumbers = new Array(slice.length);
+            for (var i = 0; i < slice.length; i++) {
+                byteNumbers[i] = slice.charCodeAt(i);
+            }
+            var byteArray = new Uint8Array(byteNumbers);
+            byteArrays.push(byteArray);
+        }
+        var blob = new Blob(byteArrays, { type: contentType });
+        return blob;
+    };
+    MyProfileComponent.prototype.getProfile = function () {
+        var _this = this;
+        this.userService.getProfile().subscribe(function (data) {
+            if (data.user) {
+                _this.customer = data.user;
+                _this.customerProfileForm.patchValue(data.user);
+            }
+        });
+    };
+    MyProfileComponent.prototype.profileUpdate = function () {
+        var _this = this;
+        this.userService.updateProfile(this.customerProfileForm.value).subscribe(function (data) {
+            if (!data.error) {
+                _this.getProfile();
+                _this._flashMessagesService.show('Profile Updated  Successfully', { cssClass: 'alert-success', timeout: 5000 });
+            }
+            else {
+                _this._flashMessagesService.show('Something went wrong', { cssClass: 'alert-danger', timeout: 5000 });
+            }
+        });
+    };
+    MyProfileComponent.prototype.passwordUpdate = function () {
+        var _this = this;
+        var obj = {
+            id: this.customer['_id'],
+            password: this.customerPasswordUpdateForm.value['oldpassword']
+        };
+        this.userService.checkPassword(obj).subscribe(function (data) {
+            if (!data.error) {
+                if (_this.customerPasswordUpdateForm.value['newpassword'] === _this.customerPasswordUpdateForm.value['confirmpassword']) {
+                    var obj_1 = {};
+                    obj_1['_id'] = _this.customer['_id'];
+                    obj_1['password'] = _this.customerPasswordUpdateForm.value['newpassword'];
+                    // tslint:disable-next-line:no-shadowed-variable
+                    _this.userService.resetPassword(obj_1).subscribe(function (data) {
+                        if (!data.error) {
+                            _this._flashMessagesService.show('Password Updated  Successfully', { cssClass: 'alert-success', timeout: 5000 });
+                        }
+                    });
+                }
+                else {
+                    _this._flashMessagesService.show('New Password & confirm password does not match', { cssClass: 'alert-danger', timeout: 5000 });
+                }
+            }
+            else {
+                _this._flashMessagesService.show('Old password is worng.', { cssClass: 'alert-danger', timeout: 5000 });
+            }
+        });
+    };
+    MyProfileComponent.prototype.imageParse = function () {
+        if (this.customer.image) {
+            return this.customer.image;
+        }
+        else {
+            return 'http://placehold.it/150';
+        }
+    };
+    MyProfileComponent.prototype.onChange = function (event) {
+        var _this = this;
+        this.uploader.uploadAll();
+        this.uploader.onCompleteItem = function (item, response, status, headers) {
+            var responsePath = JSON.parse(response);
+            _this.customerProfileForm.controls['image'].setValue('/uploads/' + responsePath.filename);
+            _this.profileUpdate();
+        };
+    };
+    return MyProfileComponent;
+}());
+MyProfileComponent = __decorate([
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
+        selector: 'app-myprofile',
+        template: __webpack_require__("../../../../../src/app/frontend/dashboard/myprofile.component.html"),
+        styles: [__webpack_require__("../../../../../src/app/frontend/dashboard/frontenddashboard.component.css")]
+    }),
+    __metadata("design:paramtypes", [typeof (_j = typeof __WEBPACK_IMPORTED_MODULE_2__angular_forms__["FormBuilder"] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__angular_forms__["FormBuilder"]) === "function" && _j || Object, typeof (_k = typeof __WEBPACK_IMPORTED_MODULE_4__services_user_service__["a" /* UserService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_4__services_user_service__["a" /* UserService */]) === "function" && _k || Object, typeof (_l = typeof __WEBPACK_IMPORTED_MODULE_7_angular2_flash_messages__["FlashMessagesService"] !== "undefined" && __WEBPACK_IMPORTED_MODULE_7_angular2_flash_messages__["FlashMessagesService"]) === "function" && _l || Object])
+], MyProfileComponent);
+
+var SettingComponent = (function () {
+    function SettingComponent(router, route, vRef, categoryService, bookmarkService, lf, toastr, userService) {
+        var _this = this;
+        this.router = router;
+        this.route = route;
+        this.categoryService = categoryService;
+        this.bookmarkService = bookmarkService;
+        this.lf = lf;
+        this.toastr = toastr;
+        this.userService = userService;
+        this.toastr.setRootViewContainerRef(vRef);
+        this.customer = JSON.parse(localStorage.getItem('customer'));
+        this.router.events.subscribe(function (val) {
+            _this.route.params.subscribe(function (params) {
+                _this.id = params['id'];
+                _this.parentMessage = _this.id;
+                _this.getMyCategories();
+                _this.getbookmark(_this.id);
+            });
+        });
+    }
+    SettingComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        this.updateCategoryForm = this.lf.group({
+            _id: [''],
+            name: ['', __WEBPACK_IMPORTED_MODULE_2__angular_forms__["Validators"].required],
+            position: ['', __WEBPACK_IMPORTED_MODULE_2__angular_forms__["Validators"].required]
+        });
+        this.updateCategoryForm.reset();
+        this.route.params.subscribe(function (params) {
+            _this.id = params['id'];
+        });
+        this.getMyCategories();
+        this.getbookmark(this.id);
+    };
+    SettingComponent.prototype.getbookmark = function (id) {
+        var _this = this;
+        this.bookmarkService.categoryBookmarks(id).subscribe(function (data) {
+            if (!data.error) {
+                _this.bookmarks = data.message;
+            }
+        });
+    };
+    SettingComponent.prototype.getMyCategories = function () {
+        var _this = this;
+        this.userService.mycategory().subscribe(function (data) {
+            if (!data.err) {
+                _this.categories = data.message;
+                _this.category = data.message;
+                _this.category = _this.category.filter(function (cid) { return cid._id === _this.id; });
+                _this.updateCategoryForm.patchValue(_this.category[0]);
+            }
+        });
+    };
+    SettingComponent.prototype.updateCategoryData = function () {
+        var _this = this;
+        var position = this.updateCategoryForm.value['position'];
+        var obj = this.updateCategoryForm.value;
+        obj.user_id = this.customer._id;
+        if (position !== this.category[0].position) {
+            this.categoryService.categoryPositionUpdate(position).subscribe(function (data) {
+                if (!data.error) {
+                    _this.categoryService.categoryUpdate(obj).subscribe(function (data2) {
+                        if (!data2.error) {
+                            _this.toastr.success('Category updated succesfully.', 'Success!');
+                            $('#' + _this.updateCategoryForm.value['_id']).text(_this.updateCategoryForm.value['name']);
+                            _this.getMyCategories();
+                        }
+                        else {
+                            _this.toastr.error('Error while updating category. Try again.', 'Oops!');
+                            _this.getMyCategories();
+                        }
+                    });
+                }
+            });
+        }
+        else {
+            this.categoryService.categoryUpdate(obj).subscribe(function (data2) {
+                if (!data2.error) {
+                    _this.toastr.success('Category updated succesfully.', 'Success!');
+                    $('#' + _this.updateCategoryForm.value['_id']).text(_this.updateCategoryForm.value['name']);
+                    _this.getMyCategories();
+                    window.location.reload();
+                }
+                else {
+                    _this.toastr.error('Error while updating category. Try again.', 'Oops!');
+                    _this.getMyCategories();
+                }
+            });
+        }
+    };
+    return SettingComponent;
+}());
+SettingComponent = __decorate([
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
+        selector: 'app-setting',
+        template: __webpack_require__("../../../../../src/app/frontend/dashboard/setting.component.html"),
+        styles: [__webpack_require__("../../../../../src/app/frontend/dashboard/setting.component.css")]
+    }),
+    __metadata("design:paramtypes", [typeof (_m = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* Router */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* Router */]) === "function" && _m || Object, typeof (_o = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* ActivatedRoute */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* ActivatedRoute */]) === "function" && _o || Object, typeof (_p = typeof __WEBPACK_IMPORTED_MODULE_0__angular_core__["ViewContainerRef"] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0__angular_core__["ViewContainerRef"]) === "function" && _p || Object, typeof (_q = typeof __WEBPACK_IMPORTED_MODULE_5__services_category_service__["a" /* CategoryService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_5__services_category_service__["a" /* CategoryService */]) === "function" && _q || Object, typeof (_r = typeof __WEBPACK_IMPORTED_MODULE_6__services_bookmark_service__["a" /* BookmarkService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_6__services_bookmark_service__["a" /* BookmarkService */]) === "function" && _r || Object, typeof (_s = typeof __WEBPACK_IMPORTED_MODULE_2__angular_forms__["FormBuilder"] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__angular_forms__["FormBuilder"]) === "function" && _s || Object, typeof (_t = typeof __WEBPACK_IMPORTED_MODULE_8_ng2_toastr_ng2_toastr__["ToastsManager"] !== "undefined" && __WEBPACK_IMPORTED_MODULE_8_ng2_toastr_ng2_toastr__["ToastsManager"]) === "function" && _t || Object, typeof (_u = typeof __WEBPACK_IMPORTED_MODULE_4__services_user_service__["a" /* UserService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_4__services_user_service__["a" /* UserService */]) === "function" && _u || Object])
+], SettingComponent);
+
+var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m, _o, _p, _q, _r, _s, _t, _u;
+//# sourceMappingURL=frontenddashboard.component.js.map
+
+/***/ }),
+
+/***/ "../../../../../src/app/frontend/dashboard/myprofile.component.html":
+/***/ (function(module, exports) {
+
+module.exports = "<app-profileheader></app-profileheader>\r\n<flash-messages></flash-messages>\r\n<div class=\"container-fluid pt-80\">\r\n    <div class=\"row\">\r\n        <div class=\"col-lg-4 text-center pb-5\">\r\n            <img *ngIf=\"!croppedImage\" [src]=\"imageParse()\" class=\"mx-auto img-circle d-block rounded-circle\" alt=\"avatar\" width=\"150px\"\r\n                height=\"150px\">\r\n            <img *ngIf=\"croppedImage\" [src]=\"croppedImage\" class=\"mx-auto img-circle d-block rounded-circle\" alt=\"avatar\" width=\"150px\"\r\n                height=\"150px\">\r\n            <label class=\"custom-file\">\r\n                <input type=\"file\" class=\"custom-file-input\"  (change)=\"fileChangeEvent($event)\" />\r\n                <span class=\"custom-file-control\">Upload Image</span>\r\n            </label>\r\n    \r\n\r\n        </div>\r\n        <div class=\"col-lg-8 pb-5\">\r\n            <ul class=\"nav nav-tabs\" id=\"myTab\" role=\"tablist\">\r\n                <li class=\"nav-item\">\r\n                    <a class=\"nav-link active\" id=\"edit-tab\" data-toggle=\"tab\" href=\"#edit\" role=\"tab\" aria-controls=\"edit\" aria-selected=\"true\">Edit Profile</a>\r\n                </li>\r\n                <li class=\"nav-item\" *ngIf=\"customer.provider == 'email'\">\r\n                    <a class=\"nav-link\" id=\"password-tab\" data-toggle=\"tab\" href=\"#password\" role=\"tab\" aria-controls=\"password\" aria-selected=\"false\">Change Password</a>\r\n                </li>\r\n            </ul>\r\n            <div class=\"tab-content pt-3\" id=\"myTabContent\">\r\n                <div class=\"tab-pane fade show active\" id=\"edit\" role=\"tabpanel\" aria-labelledby=\"edit-tab\">\r\n                    <form [formGroup]=\"customerProfileForm\" (ngSubmit)=\"profileUpdate()\">\r\n                        <div class=\"form-group\">\r\n                            <label for=\"exampleInputEmail1\">First Name</label>\r\n                            <input type=\"text\" formControlName=\"firstname\" class=\"form-control\" id=\"exampleInputEmail1\" aria-describedby=\"emailHelp\"\r\n                                placeholder=\"Enter First Name\">\r\n\r\n                        </div>\r\n                        <div class=\"form-group\">\r\n                            <label for=\"exampleInputEmail1\">Last Name</label>\r\n                            <input type=\"text\" formControlName=\"lastname\" class=\"form-control\" id=\"exampleInputEmail1\" aria-describedby=\"emailHelp\" placeholder=\"Enter Last Name\">\r\n\r\n                        </div>\r\n                        <div class=\"form-group\">\r\n                            <label for=\"exampleInputEmail1\">Email address</label>\r\n                            <input type=\"email\" formControlName=\"email\" class=\"form-control\" id=\"exampleInputEmail1\" aria-describedby=\"emailHelp\" placeholder=\"Enter email\">\r\n\r\n                        </div>\r\n                        <button type=\"submit\" class=\"btn btn-warning\">Update Profile</button>\r\n                    </form>\r\n                </div>\r\n                <div class=\"tab-pane fade\" id=\"password\" role=\"tabpanel\" aria-labelledby=\"password-tab\" *ngIf=\"customer.provider == 'email'\">\r\n                    <form [formGroup]=\"customerPasswordUpdateForm\" (ngSubmit)=\"passwordUpdate()\">\r\n                        <div class=\"form-group\" >\r\n                            <label for=\"exampleInputPassword1\">Old Password</label>\r\n                            <input type=\"password\" formControlName=\"oldpassword\" class=\"form-control\"  placeholder=\"Password\">\r\n                        </div>\r\n                        <div class=\"form-group\" >\r\n                            <label for=\"exampleInputPassword1\">New Password</label>\r\n                            <input type=\"password\" formControlName=\"newpassword\" class=\"form-control\"  placeholder=\"Password\">\r\n                        </div>\r\n                        <div class=\"form-group\">\r\n                            <label for=\"exampleInputPassword1\">Confirm Password</label>\r\n                            <input type=\"password\" formControlName=\"confirmpassword\" class=\"form-control\"  placeholder=\"Password\">\r\n                        </div>\r\n                        <button type=\"submit\" class=\"btn btn-warning\" [disabled]=\"!customerPasswordUpdateForm.valid\">Update Password</button>\r\n                    </form>\r\n                </div>\r\n            </div>\r\n        </div>\r\n    </div>\r\n</div>\r\n<!-- The imageuploadModal Modal -->\r\n<div id=\"imageuploadModal\" class=\"modal\">\r\n    <span class=\"close\" (click)=\"modelClose()\">&times;</span>\r\n    <div class=\"container\">\r\n        <div class=\"row justify-content-md-center\">\r\n        <div class=\"col-lg-10 col-xs-12\">\r\n            <div class=\"card rounded-1\">\r\n                <span class=\"close signupclose\" (click)=\"modelClose('signup')\">&times;</span>\r\n                <div class=\"card-header text-center bg-white h4 rounded-1 rounded-rl-1\">\r\n                  Image Crop and Upload\r\n                </div>\r\n                <div class=\"card-body\">\r\n                    <div class=\"row\">\r\n                        <div class=\"col-lg-3 \">\r\n                            <img *ngIf=\"croppedImage\" [src]=\"croppedImage\" class=\"mx-auto img-circle d-block rounded-circle\" alt=\"avatar\" width=\"150px\"\r\n                                height=\"150px\">\r\n                        </div>\r\n                        <div class=\"col-lg-7 \">\r\n                        <image-cropper [imageChangedEvent]=\"imageChangedEvent\" [maintainAspectRatio]=\"true\" [aspectRatio]=\"4 / 3\" [resizeToWidth]=\"128\"\r\n                            format=\"png\" (imageCropped)=\"imageCropped($event)\" (imageLoaded)=\"imageLoaded()\" (loadImageFailed)=\"loadImageFailed()\"></image-cropper>\r\n                        </div>\r\n                        <div class=\"col-lg-2 text-center\">\r\n                            <button type=\"button\" class=\"btn btn-warning\"  (click)=\"upload()\">Upload Image</button>\r\n                        </div>\r\n                    </div>\r\n                </div>\r\n            </div>\r\n        </div>\r\n        </div>\r\n    </div>\r\n</div>"
+
+/***/ }),
+
+/***/ "../../../../../src/app/frontend/dashboard/profileheader.component.html":
+/***/ (function(module, exports) {
+
+module.exports = "<nav class=\"navbar navbar-expand-md navbar-dark fixed-top bg-navyblue\">\r\n    <div class=\"container-fluid\">\r\n        <button class=\"navbar-toggler\" type=\"button\" data-toggle=\"collapse\" data-target=\"#navbarCollapse\" aria-controls=\"navbarCollapse\"\r\n            aria-expanded=\"false\" aria-label=\"Toggle navigation\">\r\n            <span class=\"navbar-toggler-icon\"></span>\r\n        </button>\r\n        <a class=\"navbar-brand\" [routerLink]=\"['/']\">Showcase.Social</a>\r\n        <a *ngIf=\"currentCustomer != undefined\" class=\"navbar-brand p-0\" href=\"javascript:void(0)\">\r\n            <img [src]=\"currentCustomer && currentCustomer.image\" class=\"rounded-circle d-none d-sm-block d-md-none d-block d-sm-none\"\r\n                width=\"30\" height=\"30\">\r\n        </a>\r\n        <div class=\"collapse navbar-collapse\" id=\"navbarCollapse\">\r\n            <ul class=\"navbar-nav mr-auto category-navbar \" id=\"category-navbar\">\r\n                <span *ngFor=\"let category of categories | orderBy : 'position' ; let i = index\">\r\n                    <li class=\"nav-item dropdown px-3 \" [ngClass]=\"slugify(category.name)\" *ngIf=\"liCount && i < 3\">\r\n                        <a class=\"nav-link dropdown-toggle\" [id]=\"category.id\" id=\"dropdown01\" href=\"\" data-toggle=\"dropdown\" aria-haspopup=\"true\"\r\n                            aria-expanded=\"false\"> {{ (category.name.length >= 20) ? (category.name | slice:0:20)+'..':(category.name) }}</a>\r\n                        <div class=\"dropdown-menu\" aria-labelledby=\"dropdown01\">\r\n                            <a class=\"dropdown-item\" href=\"javascript:void(0)\">\r\n                                <i class=\"fa fa-share\"></i> Share</a>\r\n                            <a class=\"dropdown-item\" href=\"javascript:void(0)\">\r\n                                <i class=\"fa fa-code\"></i> Embeded</a>\r\n                            <a class=\"dropdown-item\" [routerLink]=\"['/setting/',category._id]\">\r\n                                <i class=\"fa fa-cog\"></i> Setting</a>\r\n                        </div>\r\n                    </li>\r\n                </span>\r\n                <!--  <li class=\"nav-item dropdown px-3\" *ngIf=\"categories?.length > 3\">\r\n                    <a class=\"nav-link dropdown-toggle\" id=\"dropdown01\" href=\"\" data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"false\">More...</a>\r\n                    <div class=\"dropdown-menu\" aria-labelledby=\"dropdown01\">\r\n                        <span *ngFor=\"let category of categories; let i = index\">\r\n                        <a *ngIf=\"liCount && i >= 3 \" class=\"dropdown-item\" href=\"javascript:void(0)\"> {{ (category.name.length >= 20) ? (category.name | slice:0:20)+'..':(category.name) }}</a>\r\n                        </span>\r\n                    </div>\r\n                </li> -->\r\n                <li class=\"nav-item dropdown px-3\" *ngIf=\"categories?.length > 3\">\r\n                    <a class=\"nav-link dropdown-toggle\" href=\"\" id=\"navbarDropdownMenuLink\" data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"false\">\r\n                        More...\r\n                    </a>\r\n                    <ul class=\"dropdown-menu\" aria-labelledby=\"navbarDropdownMenuLink\">\r\n                        <span *ngFor=\"let category of categories; let i = index\">\r\n                            <li class=\"dropdown-submenu\" *ngIf=\"liCount && i >= 3 \">\r\n                                <a class=\"dropdown-item dropdown-toggle\" href=\"\"> {{ (category.name.length >= 20) ? (category.name | slice:0:20)+'..':(category.name) }}</a>\r\n                                <ul class=\"dropdown-menu option-menu\">\r\n                                    <li>\r\n                                        <a class=\"dropdown-item\" href=\"#\">\r\n                                            <i class=\"fa fa-share\"></i> Share </a>\r\n                                    </li>\r\n                                    <li>\r\n                                        <a class=\"dropdown-item\" href=\"#\">\r\n                                            <i class=\"fa fa-code\"></i> Embeded</a>\r\n                                    </li>\r\n                                    <li>\r\n                                        <a class=\"dropdown-item\" [routerLink]=\"['/setting/',category._id]\">\r\n                                            <i class=\"fa fa-cog\"></i> Setting</a>\r\n                                    </li>\r\n                                </ul>\r\n                            </li>\r\n                        </span>\r\n                    </ul>\r\n                </li>\r\n                <li class=\"nav-item pl-3\">\r\n                    <a class=\"nav-link\" href=\"javascript:void(0)\" (click)=\"addCategory()\">Add new\r\n                        <i class=\"fa fa-plus-circle\"></i>\r\n                    </a>\r\n                </li>\r\n\r\n            </ul>\r\n            <form class=\"form-inline mt-2 mt-md-0\" [formGroup]=\"addLinkForm\" (ngSubmit)=\"addLink()\">\r\n                <input class=\"form-control addlinkfield\" style=\"width:auto\" type=\"text\" formControlName=\"url\" placeholder=\"Paste link here...\"\r\n                    aria-label=\"Search\">\r\n                <button class=\"btn btn-outline-light my-2 my-sm-0 addlinkfieldbtn\" type=\"submit\" [disabled]=\"!addLinkForm.valid\">\r\n                    <i class=\"fa fa-plus\"></i>\r\n                </button>\r\n            </form>\r\n            <ul class=\"navbar-nav d-none d-sm-block \">\r\n                <li class=\"nav-item dropdown pl-2\">\r\n                    <a *ngIf=\"currentCustomer != undefined\" class=\"nav-link dropdown-toggle p-0\" id=\"dropdown01\" href=\"\" data-toggle=\"dropdown\"\r\n                        aria-haspopup=\"true\" aria-expanded=\"false\">\r\n                        <img *ngIf=\"currentCustomer.image\" [src]=\"currentCustomer.image\" class=\"rounded-circle\" width=\"30\" height=\"30\">\r\n                        <img *ngIf=\"!currentCustomer.image\" src=\"https://www.w3schools.com/howto/img_avatar.png\" class=\"rounded-circle\" width=\"30\"\r\n                            height=\"30\">\r\n                    </a>\r\n                    <div class=\"dropdown-menu custom-dropdown-menu\" aria-labelledby=\"dropdown01\">\r\n                        <a class=\"dropdown-item\" [routerLink]=\"['/profile']\">Profile</a>\r\n                        <a class=\"dropdown-item\" href=\"javascript:void(0)\" (click)=\"logout()\">Logout</a>\r\n                    </div>\r\n                </li>\r\n            </ul>\r\n        </div>\r\n    </div>\r\n</nav>\r\n<!-- The category Modal  -->\r\n<div id=\"categoryModal\" class=\"modal dark-bg\">\r\n    <span class=\"close\" (click)=\"modelClose()\">&times;</span>\r\n    <div class=\"container\">\r\n        <div class=\"row justify-content-md-center\">\r\n            <div class=\"col-lg-7 col-xs-12\">\r\n                <div class=\"card rounded-1\">\r\n                    <span class=\"close signupclose\" (click)=\"modelClose()\">&times;</span>\r\n                    <div class=\"card-header text-center bg-white h4 rounded-1 rounded-rl-1\">\r\n                        <i class=\"fa fa-cogs text-warning\"></i> Add Category\r\n                    </div>\r\n                    <div class=\"card-body\">\r\n                        <div class=\"row\">\r\n                            <div class=\"col mb-2\">\r\n                                <form [formGroup]=\"addCategoryForm\" (ngSubmit)=\"addCategoryData()\">\r\n                                    <div class=\"form-group\">\r\n                                        <label for=\"\">Showcase name</label>\r\n                                        <input type=\"text\" formControlName=\"name\" class=\"form-control\" placeholder=\"type here...\">\r\n                                    </div>\r\n                                    <div class=\"form-group\">\r\n                                        <label for=\"exampleFormControlSelect1\">Position in menu</label>\r\n                                        <select class=\"form-control\" formControlName=\"position\">\r\n                                            <option value=\"1\">Top</option>\r\n                                            <option *ngFor=\"let category of categories; let i = index\" [ngValue]=\"category.position+1\">After {{category.name}}</option>\r\n                                        </select>\r\n                                    </div>\r\n                                    <button type=\"button\" class=\"btn btn-danger float-left px-5 rounded-1\" (click)=\"modelClose()\">Cancel</button>\r\n                                    <button type=\"submit\" class=\"btn btn-warning float-right px-5 rounded-1\" [disabled]=\"!addCategoryForm.valid\">Save</button>\r\n                                </form>\r\n                            </div>\r\n                        </div>\r\n                    </div>\r\n                </div>\r\n            </div>\r\n        </div>\r\n    </div>\r\n</div>"
+
+/***/ }),
+
+/***/ "../../../../../src/app/frontend/dashboard/setting.component.css":
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, "", ""]);
+
+// exports
+
+
+/*** EXPORTS FROM exports-loader ***/
+module.exports = module.exports.toString();
+
+/***/ }),
+
+/***/ "../../../../../src/app/frontend/dashboard/setting.component.html":
+/***/ (function(module, exports) {
+
+module.exports = "<app-profileheader [childMessage]=\"parentMessage\"></app-profileheader>\r\n<div class=\"container-fluid\" *ngIf=\"category\" style=\"padding-top: 75px;\">\r\n    <div class=\"row\">\r\n        <div class=\"col-lg-6 col-md-6 col-sm-6 mb-5 \">\r\n            <div class=\"row mb-3\">\r\n                <div class=\"col text-center\">\r\n                    <i class=\"fa fa-trash icon-circle\"></i> Deleted selected</div>\r\n                <div class=\"col text-center\">\r\n                    <i class=\"fa fa-copy icon-circle\"></i> Copy selected to showcase</div>\r\n            </div>\r\n\r\n            <ul class=\"list-group\">\r\n\r\n\r\n                <li class=\"list-group-item custom-list-group-item\" *ngFor=\"let bookmark of bookmarks;\">\r\n                    <div class=\"row\">\r\n                        <div class=\"col-xl-2 col-lg-6 col-md-6 col-sm-6 col-6 text-center\">\r\n                            <div class=\"count-circle\">1</div>\r\n                            <br>\r\n                            <div class=\"form-check text-center\">\r\n                                <input class=\"form-check-input\" type=\"checkbox\" id=\"inlineCheckbox1\" value=\"option1\">\r\n                            </div>\r\n                        </div>\r\n                        <div class=\"col-xl-3 col-lg-6 col-md-6 col-sm-6 pl-0  col-6 \">\r\n                            <img src=\"http://via.placeholder.com/150x120\" class=\"img-fluid\">\r\n                        </div>\r\n                        <div class=\"col-xl-4 col-lg-7 col-md-7 col-sm-7 col-8 mt-4 \">\r\n                            <ul>\r\n                                <li class=\"pb-2\">\r\n                                    <a>\r\n                                        <i class=\"fa fa-trash icon-circle icon-opt\"></i>\r\n                                        <span class=\"fs-13\">Delete</span>\r\n                                    </a>\r\n                                </li>\r\n                                <li>\r\n                                    <a>\r\n                                        <i class=\"fa fa-copy icon-circle icon-opt\"></i>\r\n                                        <span class=\"fs-13\">Copy to showcase</span>\r\n                                    </a>\r\n                                </li>\r\n                            </ul>\r\n\r\n                        </div>\r\n                        <div class=\"col-xl-3 col-lg-5 col-md-5 col-sm-5 col-4 px-0 mt-4\">\r\n                            <ul>\r\n                                <li class=\"pb-2\">\r\n                                    <a>\r\n                                        <span class=\"fs-13\">Move down</span>\r\n                                        <i class=\"fa fa-caret-down icon-opt icon-circle\"></i>\r\n                                    </a>\r\n                                </li>\r\n                            </ul>\r\n                        </div>\r\n                    </div>\r\n                </li>\r\n            </ul>\r\n        </div>\r\n        <div class=\"col-lg-6 col-md-6 col-sm-6 mb-5 work-box   \">\r\n            <h4 class=\"text-center\">\r\n                <i class=\"fa fa-cogs text-warning\"></i> Manage {{category[0].name}}</h4>\r\n            <hr>\r\n            <form [formGroup]=\"updateCategoryForm\" (ngSubmit)=\"updateCategoryData()\">\r\n                <div class=\"form-group\">\r\n                    <label for=\"\">Showcase name</label>\r\n                    <input type=\"text\" class=\"form-control\" formControlName=\"name\"  placeholder=\"tyoe here...\">\r\n\r\n                </div>\r\n                <div class=\"form-group\">\r\n                    <label for=\"exampleFormControlSelect1\">Position in menu</label>\r\n                    <select class=\"form-control\" formControlName=\"position\">\r\n                        <option value=\"1\">Top</option>\r\n                      <option *ngFor=\"let category of categories; let i = index\" [ngValue]=\"category.position+1\">After {{category.name}}</option>\r\n                    </select>\r\n                </div>\r\n                <button type=\"submit\" class=\"btn btn-warning float-right px-5 rounded-1\" [disabled]=\"!updateCategoryForm.valid\">Save</button>\r\n            </form>\r\n        </div>\r\n    </div>\r\n</div>"
+
+/***/ }),
+
+/***/ "../../../../../src/app/frontend/frontend.component.css":
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, ".login-page .card-login,\r\n.lock-page .card-profile {\r\n    transition: all 300ms linear;\r\n}\r\n\r\n\r\n.login-page>.content,\r\n.lock-page>.content {\r\n    padding-top: 18vh;\r\n}\r\n\r\n.login-page .card-login {\r\n    box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.14);\r\n    border-radius: 6px;\r\n    padding-bottom: 20px;\r\n    -webkit-transform: translate3d(0, 0, 0);\r\n    transform: translate3d(0, 0, 0);\r\n}\r\n\r\n.login-page .card-login.card-hidden {\r\n    opacity: 0;\r\n    -webkit-transform: translate3d(0, -60px, 0);\r\n    transform: translate3d(0, -60px, 0);\r\n}\r\n\r\n.login-page .card-login .btn-wd {\r\n    min-width: 180px;\r\n}\r\n\r\n.login-page .card-login .card-header {\r\n    margin-top: -40px;\r\n    margin-bottom: 20px;\r\n}\r\n\r\n.login-page .card-login .card-header .title {\r\n    margin-top: 10px;\r\n}\r\n", ""]);
+
+// exports
+
+
+/*** EXPORTS FROM exports-loader ***/
+module.exports = module.exports.toString();
+
+/***/ }),
+
+/***/ "../../../../../src/app/frontend/frontend.component.html":
+/***/ (function(module, exports) {
+
+module.exports = "\r\n<router-outlet></router-outlet>\r\n\r\n\r\n\r\n\r\n"
+
+/***/ }),
+
+/***/ "../../../../../src/app/frontend/frontend.component.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return FrontendComponent; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__services_user_service__ = __webpack_require__("../../../../../src/app/services/user.service.ts");
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+var FrontendComponent = (function () {
+    function FrontendComponent(userService) {
+        this.userService = userService;
+    }
+    FrontendComponent.prototype.ngOnInit = function () { };
+    return FrontendComponent;
+}());
+FrontendComponent = __decorate([
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
+        selector: 'app-frontend',
+        template: __webpack_require__("../../../../../src/app/frontend/frontend.component.html"),
+        styles: [__webpack_require__("../../../../../src/app/frontend/frontend.component.css")]
+    }),
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__services_user_service__["a" /* UserService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__services_user_service__["a" /* UserService */]) === "function" && _a || Object])
+], FrontendComponent);
+
+var _a;
+//# sourceMappingURL=frontend.component.js.map
+
+/***/ }),
+
+/***/ "../../../../../src/app/frontend/header/frontendheader.component.css":
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, ".dropdown-menu {\r\n    left: unset;\r\n    right: 0;\r\n}", ""]);
+
+// exports
+
+
+/*** EXPORTS FROM exports-loader ***/
+module.exports = module.exports.toString();
+
+/***/ }),
+
+/***/ "../../../../../src/app/frontend/header/frontendheader.component.html":
+/***/ (function(module, exports) {
+
+module.exports = "<nav class=\"navbar navbar-expand-md navbar-dark fixed-top bg-navyblue\">\r\n    <div class=\"container\">\r\n        <a class=\"navbar-brand\" [routerLink]=\"['/']\">Showcase.Social</a>\r\n        <button class=\"navbar-toggler\" type=\"button\" data-toggle=\"collapse\" data-target=\"#navbarCollapse\" aria-controls=\"navbarCollapse\"\r\n            aria-expanded=\"false\" aria-label=\"Toggle navigation\">\r\n            <span class=\"navbar-toggler-icon\"></span>\r\n        </button>\r\n        <div class=\"collapse navbar-collapse\" id=\"navbarCollapse\">\r\n            <ul class=\"navbar-nav ml-auto\">\r\n                <li class=\"nav-item px-3\">\r\n                    <a class=\"nav-link\" [routerLink]=\"['/']\">Home\r\n                        <span class=\"sr-only\">current</span>\r\n                    </a>\r\n                </li>\r\n                <li class=\"nav-item px-3\">\r\n                    <a class=\"nav-link\" [routerLink]=\"['/']\">Video production work\r\n                        <span class=\"sr-only\">(current</span>\r\n                    </a>\r\n                </li>\r\n                <li class=\"nav-item px-3\">\r\n                    <a class=\"nav-link\" [routerLink]=\"['/']\">Demonetisation\r\n                        <span class=\"sr-only\">(current)</span>\r\n                    </a>\r\n                </li>\r\n                <li class=\"nav-item px-3\">\r\n                    <a class=\"nav-link\" [routerLink]=\"['/']\"> Blog </a>\r\n                </li>\r\n                <li class=\"nav-item px-3\">\r\n                    <a class=\"nav-link\" [routerLink]=\"['/']\">About</a>\r\n                </li>\r\n                <li class=\"nav-item pl-3\">\r\n                    <a class=\"nav-link\" [routerLink]=\"['/']\">Contact</a>\r\n                </li>\r\n            </ul>\r\n        </div>\r\n    </div>\r\n</nav>\r\n"
+
+/***/ }),
+
+/***/ "../../../../../src/app/frontend/header/frontendheader.component.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return FrontendHeaderComponent; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_router__ = __webpack_require__("../../../router/@angular/router.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__services_user_service__ = __webpack_require__("../../../../../src/app/services/user.service.ts");
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+var FrontendHeaderComponent = (function () {
+    function FrontendHeaderComponent(userService, router) {
+        this.userService = userService;
+        this.router = router;
+        this.isHere = false;
+    }
+    FrontendHeaderComponent.prototype.ngOnInit = function () {
+        this.customer = JSON.parse(localStorage.getItem('customer'));
+    };
+    return FrontendHeaderComponent;
+}());
+FrontendHeaderComponent = __decorate([
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
+        selector: 'app-frontendheader',
+        template: __webpack_require__("../../../../../src/app/frontend/header/frontendheader.component.html"),
+        styles: [__webpack_require__("../../../../../src/app/frontend/header/frontendheader.component.css")]
+    }),
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_2__services_user_service__["a" /* UserService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__services_user_service__["a" /* UserService */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* Router */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* Router */]) === "function" && _b || Object])
+], FrontendHeaderComponent);
+
+var _a, _b;
+//# sourceMappingURL=frontendheader.component.js.map
+
+/***/ }),
+
+/***/ "../../../../../src/app/frontend/home/account-active.component.html":
+/***/ (function(module, exports) {
+
+module.exports = "<app-frontendheader></app-frontendheader>\r\n<flash-messages></flash-messages>\r\n<h3 id=\"login\"><button class=\"btn bg-navyblue btn-wd btn-lg\" (click)=\"goToLogin()\">Login</button></h3>\r\n\r\n<form id=\"resendLink\" [formGroup]=\"emailForm\" (ngSubmit)=\"resendActivationLink()\">\r\n\tEmail : <input type=\"email\" formControlName=\"email\" placeholder=\"Enter Email ID\"><br>\r\n\r\n\t<button class=\"btn btn-success btn-wd btn-lg\" [disabled]=\"!emailForm.valid\">Resend Activation Link</button>\r\n</form>\r\n"
+
+/***/ }),
+
+/***/ "../../../../../src/app/frontend/home/frontendhome.component.css":
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, "#login , #resendLink{\r\n\tdisplay: none;\r\n    text-align: center;\r\n    margin: 15% 0;\r\n}", ""]);
+
+// exports
+
+
+/*** EXPORTS FROM exports-loader ***/
+module.exports = module.exports.toString();
+
+/***/ }),
+
+/***/ "../../../../../src/app/frontend/home/frontendhome.component.html":
+/***/ (function(module, exports) {
+
+module.exports = "<app-frontendheader></app-frontendheader>\r\n<flash-messages></flash-messages>\r\n\r\n<div class=\"main-content bgimage\">\r\n    <h1 class=\"font-weight-bold \">\r\n        <i class=\"fa fa-firefox text-warning\"></i> Showcase.Social\r\n    </h1>\r\n    <p>You make suff</p>\r\n    <p>You put your suff on social media</p>\r\n    <p>And all your<b>stuff is all over the shop.</b></p>\r\n    <div class=\"container mycontainer\">\r\n        <div class=\"row py-3\">\r\n            <div class=\"col\">\r\n                <div class=\"circle text-uppercase\">\r\n                    <i class=\"fa fa-user circle-icon\"></i>\r\n                    <br> Register\r\n                </div>\r\n            </div>\r\n            <div class=\"col\">\r\n                <div class=\"circle text-uppercase\">\r\n                    <i class=\"fa fa-cogs circle-icon\"></i>\r\n                    <br> Setup\r\n                </div>\r\n            </div>\r\n            <div class=\"col\">\r\n                <div class=\"circle text-uppercase\">\r\n                    <i class=\"fa fa-share-alt circle-icon\"></i>\r\n                    <br> share\r\n                </div>\r\n            </div>\r\n            <div class=\"col\">\r\n                <div class=\"circle text-uppercase\">\r\n                    <i class=\"fa fa-code circle-icon\"></i>\r\n                    <br> embed\r\n                </div>\r\n            </div>\r\n        </div>\r\n        <div class=\"row justify-content-md-center\">\r\n            <div class=\"col-lg-3 col-6 mb-2\">\r\n                <a class=\"mb-3\">For new users</a><br>\r\n                <button type=\"button\" class=\"btn btn-warning btn-lg rounded-1\" id=\"mysignupBtn\" (click)=\"modelOpen('signup')\">GET STARTED</button>\r\n            </div>\r\n            <div class=\"col-lg-3 col-6 mb-2\">\r\n                <a class=\"pb-2\">For existing users</a><br>\r\n                <button type=\"button\" class=\"btn btn-navy btn-lg px-5 rounded-1\" id=\"myloginBtn\" (click)=\"modelOpen('login')\">LOGIN</button>\r\n            </div>\r\n        </div>\r\n        <div class=\"row justify-content-md-center mt-3\">\r\n            <div class=\"col-lg-12 col-xs-12\">\r\n                Organise your social posts in once place Embed your showcase on your own website Share a direct link to your own Showcase.Social\r\n                page\r\n            </div>\r\n        </div>\r\n        <div class=\"row justify-content-md-center mb-3\">\r\n            <div class=\"col-lg-8 col-xs-12\">\r\n                <p class=\"mb-0 mt-3\">Not sure ?</p>\r\n                <p class=\"m-0\">See showcase.social/regularsteven for a real life example.\r\n                </p>\r\n                <p class=\"m-0\">Or see the website embed to see how it fits in anywhere on the web.\r\n                </p>\r\n            </div>\r\n        </div>\r\n    </div>\r\n</div>\r\n\r\n<!-- The login Modal -->\r\n<div id=\"loginModal\" class=\"modal\">\r\n    <div class=\"container\">\r\n        <div class=\"row justify-content-md-center\">\r\n            <div class=\"col-lg-8 col-xs-12\">\r\n                <div class=\"card rounded-1\">\r\n                    <span class=\"close\" (click)=\"modelClose('login')\">&times;</span>\r\n                    <div class=\"card-header text-center bg-white h4 rounded-1 rounded-rl-1\">\r\n                        Fast login with social or enter email\r\n                    </div>\r\n                    <div class=\"card-body\">\r\n                        <div class=\"row\">\r\n                            <div class=\"col-lg-6  col-md-6  col-xs-12 text-center \">\r\n                                <div class=\"btn-vertical \" role=\"group\" aria-label=\"Basic example\">\r\n                                    <button type=\"button\" (click)=\"signIn('facebook')\" class=\"btn rounded-1  btn-fb px-3\">                                    \r\n                                        <i class=\"fa fa-facebook\"></i> Login with Facebook\r\n                                    </button>\r\n                                    <button (click)=\"onLoginWithTwitter()\" type=\"button\" class=\"btn rounded-1  btn-twitter px-4\">\r\n                                        <i class=\"fa fa-twitter\"></i> Login with Twitter\r\n                                    </button>\r\n                                    <button type=\"button\" (click)=\"signIn('google')\" class=\"btn rounded-1  btn-google px-4\">\r\n                                        <i class=\"fa fa-google\"></i> Login with Google\r\n                                    </button>\r\n                                    <button (click)=\"onLoginWithInstagram()\" type=\"button\" class=\"btn rounded-1  btn-insta px-3\">\r\n                                        <i class=\"fa fa-instagram\"></i> Login with Instagram\r\n                                    </button>\r\n                                </div>\r\n                            </div>\r\n                            <p class=\"ortext d-none d-sm-block d-md-none d-block d-sm-none mt-3\">\r\n                                <span>OR</span>\r\n                            </p>\r\n                            <div class=\"col-lg-6 col-md-6 col-xs-12  \">\r\n                                <form  [formGroup]=\"customerLoginForm\" (ngSubmit)=\"login()\"> \r\n                                    <div class=\"form-group\">\r\n                                        <label for=\"exampleInputEmail1\">Email address</label>\r\n                                        <input type=\"email\"   formControlName=\"email\"  class=\"form-control\" aria-describedby=\"emailHelp\" placeholder=\"Enter email\">\r\n                                    </div>\r\n                                    <div class=\"form-group\">\r\n                                        <label for=\"exampleInputPassword1\">Password</label>\r\n                                        <input type=\"password\"  formControlName=\"password\"  class=\"form-control\" placeholder=\"Password\">\r\n                                    </div>\r\n                                    <a  (click)=\"modelOpen('forget')\" class=\"btn btn-link float-left\">Forgot your password ?</a>\r\n                                    <button type=\"submit\" class=\"btn btn-warning rounded-1 float-right\" [disabled]=\"!customerLoginForm.valid\">Submit</button>\r\n                                </form>\r\n                            </div>\r\n                        </div>\r\n                    </div>\r\n                </div>\r\n            </div>\r\n        </div>\r\n    </div>\r\n</div>\r\n\r\n\r\n<!-- The signup Modal -->\r\n<div id=\"signupModal\" class=\"modal\">\r\n    <div class=\"container\">\r\n        <div class=\"row justify-content-md-center\">\r\n            <div class=\"col-lg-8 col-xs-12\">\r\n                <div class=\"card rounded-1\">\r\n                    <span class=\"close signupclose\" (click)=\"modelClose('signup')\">&times;</span>\r\n                    <div class=\"card-header text-center bg-white h4 rounded-1 rounded-rl-1\">\r\n                        Fast register with social or enter email\r\n                    </div>\r\n                    <div class=\"card-body\">\r\n                        <div class=\"row\">\r\n                            <div class=\"col-lg-6  col-md-6  col-xs-12 text-center \">\r\n                                <div class=\"btn-vertical \" role=\"group\" aria-label=\"Basic example\">\r\n                                    <button type=\"button\" (click)=\"signIn('facebook')\" class=\"btn rounded-1  btn-fb px-3\">\r\n                                        <i class=\"fa fa-facebook\"></i> Register with Facebook</button>\r\n                                    <button (click)=\"onLoginWithTwitter()\" type=\"button\" class=\"btn rounded-1  btn-twitter px-4\">\r\n                                        <i class=\"fa fa-twitter\"></i> Register with Twitter</button>\r\n                                    <button type=\"button\" (click)=\"signIn('google')\" class=\"btn rounded-1  btn-google px-4\">\r\n                                        <i class=\"fa fa-google\"></i> Register with Google</button>\r\n                                    <button (click)=\"onLoginWithInstagram()\" type=\"button\" class=\"btn rounded-1  btn-insta px-3\">\r\n                                        <i class=\"fa fa-instagram\"></i> Register with Instagram</button>\r\n                                </div>\r\n                            </div>\r\n                            <p class=\"ortext d-none d-sm-block d-md-none d-block d-sm-none mt-3\">\r\n                                <span>OR</span>\r\n                            </p>\r\n                            <div class=\"col-lg-6 col-md-6 col-xs-12  \">\r\n                                <form  [formGroup]=\"customerSignupForm\" (ngSubmit)=\"signup()\">\r\n                                    <div class=\"form-group\">\r\n                                        <label for=\"exampleInputEmail1\">Email address</label>\r\n                                        <input type=\"email\" formControlName=\"email\" class=\"form-control\" aria-describedby=\"emailHelp\" placeholder=\"Enter email\">\r\n                                    </div>\r\n                                    <div class=\"form-group\">\r\n                                        <label for=\"exampleInputPassword1\">Password</label>\r\n                                        <input type=\"password\"  formControlName=\"password\" class=\"form-control\" placeholder=\"Password\">\r\n                                    </div>\r\n                                    <button type=\"submit\" class=\"btn btn-warning rounded-1 float-right\" [disabled]=\"!customerSignupForm.valid\">Submit</button>\r\n                                </form>\r\n                            </div>\r\n                        </div>\r\n                    </div>\r\n                </div>\r\n            </div>\r\n        </div>\r\n    </div>\r\n</div>\r\n\r\n\r\n<!-- The Forget Modal -->\r\n<div id=\"forgetPassModal\" class=\"modal\">\r\n    <div class=\"container\">\r\n        <div class=\"row justify-content-md-center\">\r\n            <div class=\"col-lg-8 col-xs-12\">\r\n                <div class=\"card rounded-1\">\r\n                    <span class=\"close\" (click)=\"modelClose('forget')\">&times;</span>\r\n                    <div class=\"card-header text-center bg-white h4 rounded-1 rounded-rl-1\">\r\n                        Fast Recover your password\r\n                    </div>\r\n                    <div class=\"card-body\">\r\n                        <div class=\"row\">\r\n                            <div class=\"col-lg-6  col-md-6  col-xs-12 text-center \">\r\n                                <div class=\"btn-vertical \" role=\"group\" aria-label=\"Basic example\">\r\n                                    <button type=\"button\" (click)=\"signIn('facebook')\" class=\"btn rounded-1  btn-fb px-3\">                                    \r\n                                        <i class=\"fa fa-facebook\"></i> Login with Facebook\r\n                                    </button>\r\n                                    <button (click)=\"onLoginWithTwitter()\" type=\"button\" class=\"btn rounded-1  btn-twitter px-4\">\r\n                                        <i class=\"fa fa-twitter\"></i> Login with Twitter\r\n                                    </button>\r\n                                    <button type=\"button\" (click)=\"signIn('google')\" class=\"btn rounded-1  btn-google px-4\">\r\n                                        <i class=\"fa fa-google\"></i> Login with Google\r\n                                    </button>\r\n                                    <button (click)=\"onLoginWithInstagram()\" type=\"button\" class=\"btn rounded-1  btn-insta px-3\">\r\n                                        <i class=\"fa fa-instagram\"></i> Login with Instagram\r\n                                    </button>\r\n                                </div>\r\n                            </div>\r\n                            <p class=\"ortext d-none d-sm-block d-md-none d-block d-sm-none mt-3\">\r\n                                <span>OR</span>\r\n                            </p>\r\n                            <div class=\"col-lg-6 col-md-6 col-xs-12  \">\r\n                                <form [formGroup]=\"customerForgetForm\" (ngSubmit)=\"forgetPass()\">\r\n                                    <div class=\"form-group\">\r\n                                        <label for=\"exampleInputEmail1\">Email address</label>\r\n                                        <input type=\"email\" class=\"form-control\" aria-describedby=\"emailHelp\" formControlName=\"email\" placeholder=\"Enter email\">\r\n                                    </div>\r\n                                    <a  (click)=\"modelOpen('login')\" class=\"btn btn-link float-left\">Login</a>\r\n                                    <button type=\"submit\" class=\"btn btn-warning rounded-1 float-right\" [disabled]=\"!customerForgetForm.valid\">Submit</button>\r\n                                </form>\r\n                            </div>\r\n                        </div>\r\n                    </div>\r\n                </div>\r\n            </div>\r\n        </div>\r\n    </div>\r\n</div>"
+
+/***/ }),
+
+/***/ "../../../../../src/app/frontend/home/frontendhome.component.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return FrontendHomeComponent; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return ResetComponent; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AccountActiveComponent; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_router__ = __webpack_require__("../../../router/@angular/router.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_forms__ = __webpack_require__("../../../forms/@angular/forms.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_angular2_flash_messages__ = __webpack_require__("../../../../angular2-flash-messages/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_angular2_flash_messages___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_angular2_flash_messages__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__services_user_service__ = __webpack_require__("../../../../../src/app/services/user.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_angular2_social_login__ = __webpack_require__("../../../../angular2-social-login/dist/index.js");
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+
+
+var FrontendHomeComponent = (function () {
+    function FrontendHomeComponent(_auth, router, lf, userService, route, _flashMessagesService) {
+        this._auth = _auth;
+        this.router = router;
+        this.lf = lf;
+        this.userService = userService;
+        this.route = route;
+        this._flashMessagesService = _flashMessagesService;
+        // tslint:disable-next-line:max-line-length
+        this.emailp = /^([a-z\d!#$%&'*+\-\/=?^_`{|}~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+(\.[a-z\d!#$%&'*+\-\/=?^_`{|}~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+)*|"((([ \t]*\r\n)?[ \t]+)?([\x01-\x08\x0b\x0c\x0e-\x1f\x7f\x21\x23-\x5b\x5d-\x7e\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|\\[\x01-\x09\x0b\x0c\x0d-\x7f\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]))*(([ \t]*\r\n)?[ \t]+)?")@(([a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|[a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF][a-z\d\-._~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]*[a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])\.)+([a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|[a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF][a-z\d\-._~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]*[a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])\.?$/i;
+        this.formErrors = {
+            'email': '',
+            'password': '',
+        };
+        this.validationMessages = {
+            'email': {
+                'required': 'Email is required.',
+                'pattern': 'Email not in well format.'
+            },
+            'password': {
+                'required': 'Phone Number is required.',
+            }
+        };
+    }
+    FrontendHomeComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        this.route.queryParams.subscribe(function (params) {
+            _this.token = params['q'];
+        });
+        if (this.token !== undefined) {
+            this.userService.customerVerify(this.token).subscribe(function (data) {
+                if (!data.error) {
+                    // localStorage.setItem('currentCustomer', JSON.stringify(data.message));
+                    _this._flashMessagesService.show(data.message, { cssClass: 'alert-success', timeout: 5000 });
+                    /*   document.getElementById('login').style.display = 'block'; */
+                    /* this.router.navigate(['/']); */
+                }
+                else {
+                    /* this.router.navigate(['/']); */
+                    _this._flashMessagesService.show(data.message, { cssClass: 'danger-alert', timeout: 5000 });
+                    if (data.error && data.message === 'Email Activation Link Expire.') {
+                        /*     document.getElementById('resendLink').style.display = 'block'; */
+                    }
+                }
+            }, function (err) {
+                console.log('err at activation time');
+                console.log(err);
+                _this._flashMessagesService.show(err.message, { cssClass: 'danger-alert', timeout: 5000 });
+                // this.router.navigate(['customer/login']);
+            });
+        }
+        this.twitterFetchData();
+        this.instaFetchData();
+        this.customerSignupForm = this.lf.group({
+            password: ['', __WEBPACK_IMPORTED_MODULE_2__angular_forms__["Validators"].required],
+            email: ['', [__WEBPACK_IMPORTED_MODULE_2__angular_forms__["Validators"].required, __WEBPACK_IMPORTED_MODULE_2__angular_forms__["Validators"].pattern(this.emailp)]],
+        });
+        this.customerLoginForm = this.lf.group({
+            password: ['', __WEBPACK_IMPORTED_MODULE_2__angular_forms__["Validators"].required],
+            email: ['', [__WEBPACK_IMPORTED_MODULE_2__angular_forms__["Validators"].required, __WEBPACK_IMPORTED_MODULE_2__angular_forms__["Validators"].pattern(this.emailp)]],
+        });
+        this.customerForgetForm = this.lf.group({
+            email: ['', [__WEBPACK_IMPORTED_MODULE_2__angular_forms__["Validators"].required, __WEBPACK_IMPORTED_MODULE_2__angular_forms__["Validators"].pattern(this.emailp)]],
+        });
+        this.customerLoginForm.valueChanges.subscribe(function (data) { return _this.onLoginFormValueChanged(data); });
+        this.customerSignupForm.valueChanges.subscribe(function (data) { return _this.onLoginFormValueChanged(data); });
+    };
+    FrontendHomeComponent.prototype.instaFetchData = function () {
+        var _this = this;
+        var queryParams = this.router.routerState.snapshot.root.queryParams;
+        var code = queryParams['code'];
+        var error = queryParams['error'];
+        var error_description = queryParams['error_description'];
+        if (code) {
+            console.log(code);
+            console.log(error);
+            this.userService.instaService(code).subscribe(function (instaResponse) {
+                var resObj = JSON.parse(instaResponse);
+                console.log(resObj);
+                if (typeof resObj.code === 'undefined' && resObj.code !== 400) {
+                    var obj_1 = {};
+                    obj_1['role'] = 'User';
+                    obj_1['status'] = true;
+                    obj_1['email'] = resObj['user']['username'];
+                    obj_1['password'] = resObj['user']['id'];
+                    obj_1['id'] = resObj['user']['id'];
+                    obj_1['provider'] = 'instagram';
+                    obj_1['image'] = resObj['user']['profile_picture'];
+                    obj_1['firstname'] = resObj['user']['full_name'];
+                    _this.userService.socialValidateUser(obj_1).subscribe(function (loggedUser) {
+                        if (!loggedUser.success) {
+                            _this.userService.socialRegisterUser(obj_1).subscribe(function (newUser) {
+                                _this.userService.socialValidateUser(obj_1).subscribe(function (loggedUserAuth) {
+                                    localStorage.setItem('id_token_customer', loggedUserAuth.token);
+                                    localStorage.setItem('customer', JSON.stringify(loggedUserAuth.user));
+                                    _this.router.navigate(['dashboard']);
+                                });
+                            });
+                        }
+                        if (loggedUser.success) {
+                            localStorage.setItem('id_token_customer', loggedUser.token);
+                            localStorage.setItem('customer', JSON.stringify(loggedUser.user));
+                            _this.router.navigate(['dashboard']);
+                        }
+                    });
+                }
+                else {
+                    _this._flashMessagesService.show('Something went wrong', { cssClass: 'alert-danger', timeout: 5000 });
+                    _this.router.navigate(['/']);
+                }
+            });
+        }
+    };
+    FrontendHomeComponent.prototype.twitterFetchData = function () {
+        var _this = this;
+        var queryParams = this.router.routerState.snapshot.root.queryParams;
+        var oauth_token = queryParams['oauth_token'];
+        var oauth_verifier = queryParams['oauth_verifier'];
+        if (oauth_verifier && oauth_token) {
+            console.log(oauth_verifier, oauth_token);
+            var requestSecret = localStorage.getItem('requestSecret');
+            var obj = {};
+            obj['oauth_verifier'] = oauth_verifier;
+            obj['oauth_token'] = oauth_token;
+            obj['requestSecret'] = requestSecret;
+            this.userService.twitterFetchService(obj).subscribe(function (twitterResponse) {
+                localStorage.removeItem('requestSecret');
+                var obj = {};
+                obj['role'] = 'User';
+                obj['status'] = true;
+                obj['email'] = twitterResponse['name'];
+                obj['password'] = twitterResponse['id'];
+                obj['id'] = twitterResponse['id'];
+                obj['provider'] = 'twitter';
+                obj['image'] = twitterResponse['profile_image_url_https'];
+                obj['firstname'] = twitterResponse['screen_name'];
+                _this.userService.socialValidateUser(obj).subscribe(function (loggedUser) {
+                    if (!loggedUser.success) {
+                        _this.userService.socialRegisterUser(obj).subscribe(function (newUser) {
+                            _this.userService.socialValidateUser(obj).subscribe(function (loggedUserOauth) {
+                                localStorage.setItem('id_token_customer', loggedUserOauth.token);
+                                localStorage.setItem('customer', JSON.stringify(loggedUserOauth.user));
+                                _this.router.navigate(['dashboard']);
+                            });
+                        });
+                    }
+                    else {
+                        localStorage.setItem('id_token_customer', loggedUser.token);
+                        localStorage.setItem('customer', JSON.stringify(loggedUser.user));
+                        _this.router.navigate(['dashboard']);
+                    }
+                });
+            });
+        }
+    };
+    FrontendHomeComponent.prototype.signIn = function (provider) {
+        var _this = this;
+        this.sub = this._auth.login(provider).subscribe(function (data) {
+            //console.log(data)
+            var obj = {};
+            obj['role'] = 'User';
+            obj['status'] = true;
+            obj['email'] = data['email'];
+            obj['password'] = data['uid'];
+            obj['uid'] = data['uid'];
+            obj['provider'] = data['provider'];
+            obj['image'] = data['image'];
+            var nameArr = data['name'].split(' ');
+            obj['lastname'] = nameArr.pop();
+            obj['firstname'] = nameArr.join(' ');
+            //console.log(obj)
+            _this.userService.socialValidateUser(obj).subscribe(function (loggedUser) {
+                /*console.log(loggedUser,provider)*/
+                if (!loggedUser.success) {
+                    _this.userService.socialRegisterUser(obj).subscribe(function (newUser) {
+                        _this.userService.socialValidateUser(obj).subscribe(function (loggedUserOauth) {
+                            console.log(loggedUserOauth);
+                            localStorage.setItem('id_token_customer', loggedUserOauth.token);
+                            localStorage.setItem('customer', JSON.stringify(loggedUserOauth.user));
+                            _this.router.navigate(['dashboard']);
+                        });
+                    });
+                }
+                if (loggedUser.success) {
+                    localStorage.setItem('id_token_customer', loggedUser.token);
+                    localStorage.setItem('customer', JSON.stringify(loggedUser.user));
+                    _this.router.navigate(['dashboard']);
+                }
+            });
+        });
+    };
+    FrontendHomeComponent.prototype.onLoginWithTwitter = function () {
+        this.userService.twitterService().subscribe(function (data) {
+            localStorage.setItem('requestSecret', data.requestSecret);
+            window.location.href = data.url;
+        });
+    };
+    FrontendHomeComponent.prototype.onLoginWithInstagram = function () {
+        window.location.href = "https://api.instagram.com/oauth/authorize/?client_id=98349c5779404c6ea9c9aa59e0e3aeeb&redirect_uri=https://measuremight.com:3002/&response_type=code";
+    };
+    FrontendHomeComponent.prototype.signup = function () {
+        var _this = this;
+        this.userService.registerUser(this.customerSignupForm.value).subscribe(function (data) {
+            _this.modelClose('signup');
+            if (!data.error) {
+                _this._flashMessagesService.show('Registered  Successfully, Please check your mail.', { cssClass: 'alert-success', timeout: 5000 });
+                //this.router.navigate(['admin/dashboard']);
+            }
+            else {
+                _this._flashMessagesService.show('Email already exist.', { cssClass: 'alert-danger', timeout: 5000 });
+            }
+        }, function (err) {
+            _this._flashMessagesService.show('Something went wrong', { cssClass: 'alert-danger', timeout: 5000 });
+        });
+    };
+    FrontendHomeComponent.prototype.login = function () {
+        var _this = this;
+        this.userService.validateUser(this.customerLoginForm.value).subscribe(function (data) {
+            _this.modelClose('login');
+            if (!data.success) {
+                _this._flashMessagesService.show(data.msg, { cssClass: 'alert-danger', timeout: 5000 });
+            }
+            else {
+                _this.userService.storeUserData(data.token, data.user);
+                _this._flashMessagesService.show('Login  Successfully', { cssClass: 'alert-success', timeout: 5000 });
+                _this.router.navigate(['dashboard']);
+            }
+        }, function (err) {
+            _this._flashMessagesService.show(err.msg, { cssClass: 'alert-danger', timeout: 5000 });
+        });
+    };
+    FrontendHomeComponent.prototype.forgetPass = function () {
+        var _this = this;
+        this.userService.forgotPassword(this.customerForgetForm.value).subscribe(function (data) {
+            console.log(data);
+            _this.modelClose('forget');
+            if (!data.success) {
+                _this._flashMessagesService.show(data.message, { cssClass: 'alert-success', timeout: 5000 });
+            }
+            else {
+                //this.userService.storeUserData(data.token, data.user);
+                _this._flashMessagesService.show(data.message, { cssClass: 'alert-danger', timeout: 5000 });
+                //this.router.navigate(['dashboard']);
+            }
+        }, function (err) {
+            _this._flashMessagesService.show(err.msg, { cssClass: 'alert-danger', timeout: 5000 });
+        });
+    };
+    FrontendHomeComponent.prototype.onLoginFormValueChanged = function (data) {
+        if (!this.customerLoginForm) {
+            return;
+        }
+        var form = this.customerLoginForm;
+        for (var field in this.formErrors) {
+            // clear previous error message (if any)
+            this.formErrors[field] = '';
+            var control = form.get(field);
+            if (control && control.dirty && !control.valid) {
+                var messages = this.validationMessages[field];
+                for (var key in control.errors) {
+                    this.formErrors[field] += messages[key] + ' ';
+                }
+            }
+        }
+    };
+    FrontendHomeComponent.prototype.modelOpen = function (type) {
+        if (type == 'login') {
+            this.modelClose('forget');
+            document.getElementById('loginModal').style.display = "block";
+            document.getElementsByClassName('main-content')[0].setAttribute('style', 'filter:blur(20px)');
+        }
+        if (type == 'signup') {
+            document.getElementById('signupModal').style.display = "block";
+            document.getElementsByClassName('main-content')[0].setAttribute('style', 'filter:blur(20px)');
+        }
+        if (type == 'forget') {
+            this.modelClose('login');
+            document.getElementById('forgetPassModal').style.display = "block";
+            document.getElementsByClassName('main-content')[0].setAttribute('style', 'filter:blur(20px)');
+        }
+    };
+    FrontendHomeComponent.prototype.modelClose = function (type) {
+        if (type == 'login') {
+            document.getElementById('loginModal').style.display = "none";
+            document.getElementsByClassName('main-content')[0].setAttribute('style', 'filter:none');
+        }
+        if (type == 'signup') {
+            document.getElementById('signupModal').style.display = "none";
+            document.getElementsByClassName('main-content')[0].setAttribute('style', 'filter:none');
+        }
+        if (type == 'forget') {
+            document.getElementById('forgetPassModal').style.display = "none";
+            document.getElementsByClassName('main-content')[0].setAttribute('style', 'filter:none');
+        }
+    };
+    return FrontendHomeComponent;
+}());
+FrontendHomeComponent = __decorate([
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
+        selector: 'app-frontendhome',
+        template: __webpack_require__("../../../../../src/app/frontend/home/frontendhome.component.html"),
+        styles: [__webpack_require__("../../../../../src/app/frontend/home/frontendhome.component.css")]
+    }),
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_5_angular2_social_login__["b" /* AuthService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_5_angular2_social_login__["b" /* AuthService */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* Router */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* Router */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_2__angular_forms__["FormBuilder"] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__angular_forms__["FormBuilder"]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_4__services_user_service__["a" /* UserService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_4__services_user_service__["a" /* UserService */]) === "function" && _d || Object, typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* ActivatedRoute */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* ActivatedRoute */]) === "function" && _e || Object, typeof (_f = typeof __WEBPACK_IMPORTED_MODULE_3_angular2_flash_messages__["FlashMessagesService"] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3_angular2_flash_messages__["FlashMessagesService"]) === "function" && _f || Object])
+], FrontendHomeComponent);
+
+var ResetComponent = (function () {
+    function ResetComponent(flashMessage, userService, router, route) {
+        this.flashMessage = flashMessage;
+        this.userService = userService;
+        this.router = router;
+        this.route = route;
+    }
+    ResetComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        this.route.params.subscribe(function (params) {
+            _this.id = params['id'];
+        });
+    };
+    ResetComponent.prototype.resetPassword = function () {
+        var _this = this;
+        if (this.password == this.cpassword) {
+            var usrObj = {};
+            usrObj['_id'] = this.id;
+            usrObj['password'] = this.password;
+            this.userService.resetPassword(usrObj).subscribe(function (data) {
+                if (!data.error) {
+                    _this.flashMessage.show(data.message, {
+                        cssClass: 'alert-success',
+                        timeout: 5000
+                    });
+                    _this.router.navigate(['/']);
+                }
+                else {
+                    _this.flashMessage.show('Something Went Wrong', { cssClass: 'alert-danger', timeout: 5000 });
+                }
+            });
+        }
+        else {
+            this.flashMessage.show('Passwords do not match', { cssClass: 'alert-danger', timeout: 5000 });
+            return false;
+        }
+    };
+    return ResetComponent;
+}());
+ResetComponent = __decorate([
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
+        selector: 'app-reset',
+        template: __webpack_require__("../../../../../src/app/frontend/home/reset.component.html"),
+        styles: [__webpack_require__("../../../../../src/app/frontend/home/frontendhome.component.css")]
+    }),
+    __metadata("design:paramtypes", [typeof (_g = typeof __WEBPACK_IMPORTED_MODULE_3_angular2_flash_messages__["FlashMessagesService"] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3_angular2_flash_messages__["FlashMessagesService"]) === "function" && _g || Object, typeof (_h = typeof __WEBPACK_IMPORTED_MODULE_4__services_user_service__["a" /* UserService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_4__services_user_service__["a" /* UserService */]) === "function" && _h || Object, typeof (_j = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* Router */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* Router */]) === "function" && _j || Object, typeof (_k = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* ActivatedRoute */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* ActivatedRoute */]) === "function" && _k || Object])
+], ResetComponent);
+
+var AccountActiveComponent = (function () {
+    function AccountActiveComponent(userService, router, route, lf, _flashMessagesService) {
+        this.userService = userService;
+        this.router = router;
+        this.route = route;
+        this.lf = lf;
+        this._flashMessagesService = _flashMessagesService;
+        this.err = '';
+    }
+    AccountActiveComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        this.emailForm = this.lf.group({
+            email: ['', __WEBPACK_IMPORTED_MODULE_2__angular_forms__["Validators"].required]
+        });
+        // subscribe to router event
+        this.route.params.subscribe(function (params) {
+            _this.token = params['token'];
+        });
+        this.userService.customerVerify(this.token).subscribe(function (data) {
+            if (!data.error) {
+                // localStorage.setItem('currentCustomer', JSON.stringify(data.message));
+                _this._flashMessagesService.show(data.message, { cssClass: 'alert-success', timeout: 5000 });
+                document.getElementById('login').style.display = 'block';
+                /* this.router.navigate(['/']); */
+            }
+            else {
+                /* this.router.navigate(['/']); */
+                _this._flashMessagesService.show(data.message, { cssClass: 'danger-alert', timeout: 5000 });
+                if (data.error && data.message == 'Email Activation Link Expire.') {
+                    document.getElementById('resendLink').style.display = 'block';
+                }
+            }
+        }, function (err) {
+            console.log('err at activation time');
+            console.log(err);
+            _this._flashMessagesService.show(err.message, { cssClass: 'danger-alert', timeout: 5000 });
+            // this.router.navigate(['customer/login']);
+        });
+    };
+    AccountActiveComponent.prototype.resendActivationLink = function () {
+        var _this = this;
+        this.userService.resendActivationLink(this.emailForm.value).subscribe(function (data) {
+            if (!data.error) {
+                _this._flashMessagesService.show(data.message, { cssClass: 'alert-success', timeout: 5000 });
+                setTimeout(function () {
+                    _this.router.navigate(['/']);
+                }, 1000);
+            }
+            else {
+                _this._flashMessagesService.show(data.message, { cssClass: 'danger-alert', timeout: 5000 });
+            }
+        });
+    };
+    AccountActiveComponent.prototype.goToLogin = function () {
+        this.router.navigate(['/']);
+    };
+    return AccountActiveComponent;
+}());
+AccountActiveComponent = __decorate([
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
+        selector: 'app-account-active',
+        template: __webpack_require__("../../../../../src/app/frontend/home/account-active.component.html"),
+        styles: [__webpack_require__("../../../../../src/app/frontend/home/frontendhome.component.css")]
+    }),
+    __metadata("design:paramtypes", [typeof (_l = typeof __WEBPACK_IMPORTED_MODULE_4__services_user_service__["a" /* UserService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_4__services_user_service__["a" /* UserService */]) === "function" && _l || Object, typeof (_m = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* Router */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* Router */]) === "function" && _m || Object, typeof (_o = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* ActivatedRoute */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* ActivatedRoute */]) === "function" && _o || Object, typeof (_p = typeof __WEBPACK_IMPORTED_MODULE_2__angular_forms__["FormBuilder"] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__angular_forms__["FormBuilder"]) === "function" && _p || Object, typeof (_q = typeof __WEBPACK_IMPORTED_MODULE_3_angular2_flash_messages__["FlashMessagesService"] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3_angular2_flash_messages__["FlashMessagesService"]) === "function" && _q || Object])
+], AccountActiveComponent);
+
+var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m, _o, _p, _q;
+//# sourceMappingURL=frontendhome.component.js.map
+
+/***/ }),
+
+/***/ "../../../../../src/app/frontend/home/reset.component.html":
+/***/ (function(module, exports) {
+
+module.exports = "<app-frontendheader></app-frontendheader>\r\n<flash-messages></flash-messages>\r\n    <header class=\"forgot-header\">\r\n        <div class=\"container\">\r\n            <div class=\"col-md-6 col-lg-5 mx-auto\">\r\n                <div class=\"card card-body\">\r\n                    <h3 class=\"text-center mb-4\">Reset Password</h3>\r\n                    <div>\r\n                        <!-- <flash-messages></flash-messages> -->\r\n                    </div>\r\n                    <form (ngSubmit)=\"resetPassword()\">\r\n                        <div class=\"form-group has-error\">\r\n                            <input class=\"form-control input-lg\" [(ngModel)]=\"password\" placeholder=\"Password\" name=\"password\" type=\"password\">\r\n                        </div>\r\n                        <div class=\"form-group has-error\">\r\n                            <input class=\"form-control input-lg\" [(ngModel)]=\"cpassword\" placeholder=\"Confirm Password\" name=\"cpassword\" type=\"password\">\r\n                        </div>\r\n\r\n                        <input class=\"btn btn-lg bg-navyblue btn-block\" value=\"Reset Password\" type=\"submit\">\r\n                    </form>\r\n                    <a [routerLink]=\"['/login']\" class=\"clr-navyblue mt-4\" style=\"text-transform: uppercase; text-align:center;\">Login</a>\r\n                </div>\r\n            </div>\r\n        </div>\r\n    </header>"
+
+/***/ }),
+
+/***/ "../../../../../src/app/global.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return url; });
+/* unused harmony export imageUrl */
+var url = 'https://measuremight.com:3002/';
+//export const url: string = '/';
+//export const url: string = 'http://localhost:3001/';
+var imageUrl = '/uploads/';
+//# sourceMappingURL=global.js.map
+
+/***/ }),
+
+/***/ "../../../../../src/app/guards/admin.guard.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AuthGuard; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_router__ = __webpack_require__("../../../router/@angular/router.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__services_admin_service__ = __webpack_require__("../../../../../src/app/services/admin.service.ts");
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+var AuthGuard = (function () {
+    function AuthGuard(adminService, router) {
+        this.adminService = adminService;
+        this.router = router;
+    }
+    AuthGuard.prototype.canActivate = function () {
+        if (this.adminService.loggedIn()) {
+            return true;
+        }
+        else {
+            this.router.navigate(['/admin/login']);
+            return false;
+        }
+    };
+    return AuthGuard;
+}());
+AuthGuard = __decorate([
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Injectable"])(),
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_2__services_admin_service__["a" /* AdminService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__services_admin_service__["a" /* AdminService */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* Router */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* Router */]) === "function" && _b || Object])
+], AuthGuard);
+
+var _a, _b;
+//# sourceMappingURL=admin.guard.js.map
+
+/***/ }),
+
+/***/ "../../../../../src/app/guards/user.guard.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return UserGuard; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_router__ = __webpack_require__("../../../router/@angular/router.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__services_user_service__ = __webpack_require__("../../../../../src/app/services/user.service.ts");
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+var UserGuard = (function () {
+    function UserGuard(userService, router) {
+        this.userService = userService;
+        this.router = router;
+    }
+    UserGuard.prototype.canActivate = function () {
+        if (this.userService.loggedIn()) {
+            return true;
+        }
+        else {
+            this.router.navigate(['/']);
+            return false;
+        }
+    };
+    return UserGuard;
+}());
+UserGuard = __decorate([
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Injectable"])(),
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_2__services_user_service__["a" /* UserService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__services_user_service__["a" /* UserService */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* Router */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* Router */]) === "function" && _b || Object])
+], UserGuard);
+
+var _a, _b;
+//# sourceMappingURL=user.guard.js.map
+
+/***/ }),
+
+/***/ "../../../../../src/app/services/admin.service.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AdminService; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_http__ = __webpack_require__("../../../http/@angular/http.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map__ = __webpack_require__("../../../../rxjs/add/operator/map.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_angular2_jwt__ = __webpack_require__("../../../../angular2-jwt/angular2-jwt.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_angular2_jwt___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_angular2_jwt__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__global__ = __webpack_require__("../../../../../src/app/global.ts");
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+
+var AdminService = (function () {
+    function AdminService(http) {
+        this.http = http;
+    }
+    AdminService.prototype.authenticateUser = function (user) {
+        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["Headers"]();
+        headers.append('Content-Type', 'application/json');
+        return this.http.post(__WEBPACK_IMPORTED_MODULE_4__global__["a" /* url */] + 'users/login', user, { headers: headers })
+            .map(function (res) { return res.json(); });
+    };
+    AdminService.prototype.getProfile = function () {
+        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["Headers"]();
+        this.loadToken();
+        headers.append('Authorization', this.authToken);
+        headers.append('Content-Type', 'application/json');
+        return this.http.get(__WEBPACK_IMPORTED_MODULE_4__global__["a" /* url */] + 'users/profile', { headers: headers })
+            .map(function (res) { return res.json(); });
+    };
+    AdminService.prototype.getUserById = function (id) {
+        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["Headers"]();
+        this.loadToken();
+        headers.append('Authorization', this.authToken);
+        headers.append('Content-Type', 'application/json');
+        return this.http.get(__WEBPACK_IMPORTED_MODULE_4__global__["a" /* url */] + 'users/' + id, { headers: headers })
+            .map(function (res) { return res.json(); });
+    };
+    AdminService.prototype.userUpdate = function (user) {
+        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["Headers"]();
+        this.loadToken();
+        headers.append('Authorization', this.authToken);
+        headers.append('Content-Type', 'application/json');
+        return this.http.put(__WEBPACK_IMPORTED_MODULE_4__global__["a" /* url */] + 'users/' + user._id, user, { headers: headers })
+            .map(function (res) { return res.json(); });
+    };
+    AdminService.prototype.userAdd = function (user) {
+        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["Headers"]();
+        this.loadToken();
+        headers.append('Authorization', this.authToken);
+        headers.append('Content-Type', 'application/json');
+        return this.http.post(__WEBPACK_IMPORTED_MODULE_4__global__["a" /* url */] + 'users/', user, { headers: headers })
+            .map(function (res) { return res.json(); });
+    };
+    AdminService.prototype.userList = function () {
+        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["Headers"]();
+        this.loadToken();
+        headers.append('Authorization', this.authToken);
+        headers.append('Content-Type', 'application/json');
+        return this.http.get(__WEBPACK_IMPORTED_MODULE_4__global__["a" /* url */] + 'users/', { headers: headers })
+            .map(function (res) { return res.json(); });
+    };
+    AdminService.prototype.deleteUserById = function (id) {
+        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["Headers"]();
+        this.loadToken();
+        headers.append('Authorization', this.authToken);
+        headers.append('Content-Type', 'application/json');
+        return this.http.delete(__WEBPACK_IMPORTED_MODULE_4__global__["a" /* url */] + 'users/' + id, { headers: headers })
+            .map(function (res) { return res.json(); });
+    };
+    AdminService.prototype.changePassword = function (user) {
+        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["Headers"]();
+        this.loadToken();
+        headers.append('Authorization', this.authToken);
+        headers.append('Content-Type', 'application/json');
+        return this.http.put(__WEBPACK_IMPORTED_MODULE_4__global__["a" /* url */] + 'users/changePassword/' + user._id, user, { headers: headers })
+            .map(function (res) { return res.json(); });
+    };
+    AdminService.prototype.resetPassword = function (user) {
+        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["Headers"]();
+        headers.append('Content-Type', 'application/json');
+        return this.http.put(__WEBPACK_IMPORTED_MODULE_4__global__["a" /* url */] + 'users/resetPassword/' + user._id, user, { headers: headers })
+            .map(function (res) { return res.json(); });
+    };
+    AdminService.prototype.forgotPassword = function (data) {
+        return this.http.post(__WEBPACK_IMPORTED_MODULE_4__global__["a" /* url */] + 'users/forgotPassword', data)
+            .map(function (res) { return res.json(); });
+    };
+    AdminService.prototype.storeUserData = function (token, user) {
+        localStorage.setItem('id_token_admin', token);
+        localStorage.setItem('user', JSON.stringify(user));
+        this.authToken = token;
+        this.user = user;
+    };
+    AdminService.prototype.loadToken = function () {
+        var token = localStorage.getItem('id_token_admin');
+        this.authToken = token;
+    };
+    AdminService.prototype.loggedIn = function () {
+        return Object(__WEBPACK_IMPORTED_MODULE_3_angular2_jwt__["tokenNotExpired"])('id_token_admin');
+    };
+    AdminService.prototype.logout = function () {
+        this.authToken = null;
+        this.user = null;
+        localStorage.clear();
+    };
+    return AdminService;
+}());
+AdminService = __decorate([
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Injectable"])(),
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__angular_http__["Http"] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_http__["Http"]) === "function" && _a || Object])
+], AdminService);
+
+var _a;
+//# sourceMappingURL=admin.service.js.map
+
+/***/ }),
+
+/***/ "../../../../../src/app/services/bookmark.service.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return BookmarkService; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_http__ = __webpack_require__("../../../http/@angular/http.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map__ = __webpack_require__("../../../../rxjs/add/operator/map.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__global__ = __webpack_require__("../../../../../src/app/global.ts");
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+var BookmarkService = (function () {
+    function BookmarkService(http) {
+        this.http = http;
+        var token = localStorage.getItem('id_token_customer');
+        this.authToken = token;
+    }
+    BookmarkService.prototype.loadToken = function () {
+        if (localStorage.getItem('id_token_customer')) {
+            var token = localStorage.getItem('id_token_customer');
+            this.authToken = token;
+        }
+    };
+    BookmarkService.prototype.bookmarkList = function () {
+        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["Headers"]();
+        this.loadToken();
+        headers.append('Authorization', this.authToken);
+        headers.append('Content-Type', 'application/json');
+        return this.http.get(__WEBPACK_IMPORTED_MODULE_3__global__["a" /* url */] + 'bookmark', { headers: headers })
+            .map(function (response) {
+            var user = response.json();
+            return user;
+        });
+    };
+    BookmarkService.prototype.bookmark = function (id) {
+        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["Headers"]();
+        this.loadToken();
+        headers.append('Authorization', this.authToken);
+        headers.append('Content-Type', 'application/json');
+        return this.http.get(__WEBPACK_IMPORTED_MODULE_3__global__["a" /* url */] + 'bookmark/' + id, { headers: headers })
+            .map(function (response) {
+            var user = response.json();
+            return user;
+        });
+    };
+    BookmarkService.prototype.bookmarkAdd = function (data) {
+        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["Headers"]();
+        this.loadToken();
+        headers.append('Authorization', this.authToken);
+        headers.append('Content-Type', 'application/json');
+        return this.http.post(__WEBPACK_IMPORTED_MODULE_3__global__["a" /* url */] + 'bookmark', data, { headers: headers })
+            .map(function (response) {
+            var user = response.json();
+            return user;
+        });
+    };
+    BookmarkService.prototype.bookmarkUpdate = function (data) {
+        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["Headers"]();
+        this.loadToken();
+        headers.append('Authorization', this.authToken);
+        headers.append('Content-Type', 'application/json');
+        return this.http.put(__WEBPACK_IMPORTED_MODULE_3__global__["a" /* url */] + 'bookmark/' + data._id, data, { headers: headers })
+            .map(function (response) {
+            var user = response.json();
+            return user;
+        });
+    };
+    BookmarkService.prototype.bookmarkPositionUpdate = function (position) {
+        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["Headers"]();
+        this.loadToken();
+        headers.append('Authorization', this.authToken);
+        headers.append('Content-Type', 'application/json');
+        return this.http.get(__WEBPACK_IMPORTED_MODULE_3__global__["a" /* url */] + 'bookmark/update-position/' + position, { headers: headers })
+            .map(function (response) {
+            var user = response.json();
+            return user;
+        });
+    };
+    BookmarkService.prototype.bookmarkDelete = function (id) {
+        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["Headers"]();
+        this.loadToken();
+        headers.append('Authorization', this.authToken);
+        headers.append('Content-Type', 'application/json');
+        return this.http.delete(__WEBPACK_IMPORTED_MODULE_3__global__["a" /* url */] + 'plan/' + id, { headers: headers })
+            .map(function (response) {
+            var user = response.json();
+            return user;
+        });
+    };
+    BookmarkService.prototype.categoryBookmarks = function (id) {
+        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["Headers"]();
+        this.loadToken();
+        headers.append('Authorization', this.authToken);
+        headers.append('Content-Type', 'application/json');
+        return this.http.get(__WEBPACK_IMPORTED_MODULE_3__global__["a" /* url */] + 'bookmark/category/' + id, { headers: headers })
+            .map(function (response) {
+            var category = response.json();
+            return category;
+        });
+    };
+    return BookmarkService;
+}());
+BookmarkService = __decorate([
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Injectable"])(),
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__angular_http__["Http"] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_http__["Http"]) === "function" && _a || Object])
+], BookmarkService);
+
+var _a;
+//# sourceMappingURL=bookmark.service.js.map
+
+/***/ }),
+
+/***/ "../../../../../src/app/services/category.service.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return CategoryService; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_http__ = __webpack_require__("../../../http/@angular/http.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map__ = __webpack_require__("../../../../rxjs/add/operator/map.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__global__ = __webpack_require__("../../../../../src/app/global.ts");
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+var CategoryService = (function () {
+    function CategoryService(http) {
+        this.http = http;
+        var token = localStorage.getItem('id_token_customer');
+        this.authToken = token;
+    }
+    CategoryService.prototype.loadToken = function () {
+        if (localStorage.getItem('id_token_customer')) {
+            var token = localStorage.getItem('id_token_customer');
+            this.authToken = token;
+        }
+    };
+    CategoryService.prototype.categoryList = function () {
+        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["Headers"]();
+        this.loadToken();
+        headers.append('Authorization', this.authToken);
+        headers.append('Content-Type', 'application/json');
+        return this.http.get(__WEBPACK_IMPORTED_MODULE_3__global__["a" /* url */] + 'category', { headers: headers })
+            .map(function (response) {
+            var user = response.json();
+            return user;
+        });
+    };
+    CategoryService.prototype.category = function (id) {
+        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["Headers"]();
+        this.loadToken();
+        headers.append('Authorization', this.authToken);
+        headers.append('Content-Type', 'application/json');
+        return this.http.get(__WEBPACK_IMPORTED_MODULE_3__global__["a" /* url */] + 'category/' + id, { headers: headers })
+            .map(function (response) {
+            var user = response.json();
+            return user;
+        });
+    };
+    CategoryService.prototype.categoryAdd = function (data) {
+        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["Headers"]();
+        this.loadToken();
+        headers.append('Authorization', this.authToken);
+        headers.append('Content-Type', 'application/json');
+        return this.http.post(__WEBPACK_IMPORTED_MODULE_3__global__["a" /* url */] + 'category', data, { headers: headers })
+            .map(function (response) {
+            var user = response.json();
+            return user;
+        });
+    };
+    CategoryService.prototype.categoryUpdate = function (data) {
+        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["Headers"]();
+        this.loadToken();
+        headers.append('Authorization', this.authToken);
+        headers.append('Content-Type', 'application/json');
+        return this.http.put(__WEBPACK_IMPORTED_MODULE_3__global__["a" /* url */] + 'category/' + data._id, data, { headers: headers })
+            .map(function (response) {
+            var user = response.json();
+            return user;
+        });
+    };
+    CategoryService.prototype.categoryPositionUpdate = function (position) {
+        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["Headers"]();
+        this.loadToken();
+        headers.append('Authorization', this.authToken);
+        headers.append('Content-Type', 'application/json');
+        return this.http.get(__WEBPACK_IMPORTED_MODULE_3__global__["a" /* url */] + 'category/update-position/' + position, { headers: headers })
+            .map(function (response) {
+            var user = response.json();
+            return user;
+        });
+    };
+    CategoryService.prototype.categoryDelete = function (id) {
+        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["Headers"]();
+        this.loadToken();
+        headers.append('Authorization', this.authToken);
+        headers.append('Content-Type', 'application/json');
+        return this.http.delete(__WEBPACK_IMPORTED_MODULE_3__global__["a" /* url */] + 'plan/' + id, { headers: headers })
+            .map(function (response) {
+            var user = response.json();
+            return user;
+        });
+    };
+    return CategoryService;
+}());
+CategoryService = __decorate([
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Injectable"])(),
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__angular_http__["Http"] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_http__["Http"]) === "function" && _a || Object])
+], CategoryService);
+
+var _a;
+//# sourceMappingURL=category.service.js.map
+
+/***/ }),
+
+/***/ "../../../../../src/app/services/pages.service.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return PagesService; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_http__ = __webpack_require__("../../../http/@angular/http.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map__ = __webpack_require__("../../../../rxjs/add/operator/map.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__global__ = __webpack_require__("../../../../../src/app/global.ts");
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+var PagesService = (function () {
+    function PagesService(http) {
+        this.http = http;
+        var token = localStorage.getItem('id_token_admin');
+        this.authToken = token;
+    }
+    PagesService.prototype.loadToken = function () {
+        var token = localStorage.getItem('id_token_admin');
+        this.authToken = token;
+    };
+    PagesService.prototype.pageList = function () {
+        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["Headers"]();
+        this.loadToken();
+        headers.append('Authorization', this.authToken);
+        headers.append('Content-Type', 'application/json');
+        return this.http.get(__WEBPACK_IMPORTED_MODULE_3__global__["a" /* url */] + 'page', { headers: headers })
+            .map(function (response) {
+            var user = response.json();
+            return user;
+        });
+    };
+    PagesService.prototype.page = function (id) {
+        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["Headers"]();
+        this.loadToken();
+        headers.append('Authorization', this.authToken);
+        headers.append('Content-Type', 'application/json');
+        return this.http.get(__WEBPACK_IMPORTED_MODULE_3__global__["a" /* url */] + 'page/' + id, { headers: headers })
+            .map(function (response) {
+            var user = response.json();
+            return user;
+        });
+    };
+    PagesService.prototype.pageAdd = function (data) {
+        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["Headers"]();
+        this.loadToken();
+        headers.append('Authorization', this.authToken);
+        headers.append('Content-Type', 'application/json');
+        return this.http.post(__WEBPACK_IMPORTED_MODULE_3__global__["a" /* url */] + 'page', data, { headers: headers })
+            .map(function (response) {
+            var user = response.json();
+            return user;
+        });
+    };
+    PagesService.prototype.pageUpdate = function (data) {
+        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["Headers"]();
+        this.loadToken();
+        headers.append('Authorization', this.authToken);
+        headers.append('Content-Type', 'application/json');
+        return this.http.put(__WEBPACK_IMPORTED_MODULE_3__global__["a" /* url */] + 'page/' + data._id, data, { headers: headers })
+            .map(function (response) {
+            var user = response.json();
+            return user;
+        });
+    };
+    PagesService.prototype.pageDelete = function (id) {
+        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["Headers"]();
+        this.loadToken();
+        headers.append('Authorization', this.authToken);
+        headers.append('Content-Type', 'application/json');
+        return this.http.delete(__WEBPACK_IMPORTED_MODULE_3__global__["a" /* url */] + 'page/' + id, { headers: headers })
+            .map(function (response) {
+            var user = response.json();
+            return user;
+        });
+    };
+    return PagesService;
+}());
+PagesService = __decorate([
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Injectable"])(),
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__angular_http__["Http"] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_http__["Http"]) === "function" && _a || Object])
+], PagesService);
+
+var _a;
+//# sourceMappingURL=pages.service.js.map
+
+/***/ }),
+
+/***/ "../../../../../src/app/services/plan.service.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return PlanService; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_http__ = __webpack_require__("../../../http/@angular/http.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map__ = __webpack_require__("../../../../rxjs/add/operator/map.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__global__ = __webpack_require__("../../../../../src/app/global.ts");
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+var PlanService = (function () {
+    function PlanService(http) {
+        this.http = http;
+        var token = localStorage.getItem('id_token_admin');
+        this.authToken = token;
+    }
+    PlanService.prototype.loadToken = function () {
+        if (localStorage.getItem('id_token_admin')) {
+            var token = localStorage.getItem('id_token_admin');
+            this.authToken = token;
+        }
+        if (localStorage.getItem('id_token')) {
+            var token = localStorage.getItem('id_token');
+            this.authToken = token;
+        }
+    };
+    PlanService.prototype.planList = function () {
+        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["Headers"]();
+        this.loadToken();
+        headers.append('Authorization', this.authToken);
+        headers.append('Content-Type', 'application/json');
+        return this.http.get(__WEBPACK_IMPORTED_MODULE_3__global__["a" /* url */] + 'plan', { headers: headers })
+            .map(function (response) {
+            var user = response.json();
+            return user;
+        });
+    };
+    PlanService.prototype.plan = function (id) {
+        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["Headers"]();
+        this.loadToken();
+        headers.append('Authorization', this.authToken);
+        headers.append('Content-Type', 'application/json');
+        return this.http.get(__WEBPACK_IMPORTED_MODULE_3__global__["a" /* url */] + 'plan/' + id, { headers: headers })
+            .map(function (response) {
+            var user = response.json();
+            return user;
+        });
+    };
+    PlanService.prototype.planAdd = function (data) {
+        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["Headers"]();
+        this.loadToken();
+        headers.append('Authorization', this.authToken);
+        headers.append('Content-Type', 'application/json');
+        return this.http.post(__WEBPACK_IMPORTED_MODULE_3__global__["a" /* url */] + 'plan', data, { headers: headers })
+            .map(function (response) {
+            var user = response.json();
+            return user;
+        });
+    };
+    PlanService.prototype.planUpdate = function (data) {
+        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["Headers"]();
+        this.loadToken();
+        headers.append('Authorization', this.authToken);
+        headers.append('Content-Type', 'application/json');
+        return this.http.put(__WEBPACK_IMPORTED_MODULE_3__global__["a" /* url */] + 'plan/' + data._id, data, { headers: headers })
+            .map(function (response) {
+            var user = response.json();
+            return user;
+        });
+    };
+    PlanService.prototype.planDelete = function (id) {
+        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["Headers"]();
+        this.loadToken();
+        headers.append('Authorization', this.authToken);
+        headers.append('Content-Type', 'application/json');
+        return this.http.delete(__WEBPACK_IMPORTED_MODULE_3__global__["a" /* url */] + 'plan/' + id, { headers: headers })
+            .map(function (response) {
+            var user = response.json();
+            return user;
+        });
+    };
+    return PlanService;
+}());
+PlanService = __decorate([
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Injectable"])(),
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__angular_http__["Http"] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_http__["Http"]) === "function" && _a || Object])
+], PlanService);
+
+var _a;
+//# sourceMappingURL=plan.service.js.map
+
+/***/ }),
+
+/***/ "../../../../../src/app/services/purchaseplan.service.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return PurchaseplanService; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_http__ = __webpack_require__("../../../http/@angular/http.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map__ = __webpack_require__("../../../../rxjs/add/operator/map.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__global__ = __webpack_require__("../../../../../src/app/global.ts");
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+var PurchaseplanService = (function () {
+    function PurchaseplanService(http) {
+        this.http = http;
+        if (localStorage.getItem('id_token_admin')) {
+            var token = localStorage.getItem('id_token_admin');
+            this.authToken = token;
+        }
+        if (localStorage.getItem('id_token')) {
+            var token = localStorage.getItem('id_token');
+            this.authToken = token;
+        }
+    }
+    PurchaseplanService.prototype.loadToken = function () {
+        if (localStorage.getItem('id_token_admin')) {
+            var token = localStorage.getItem('id_token_admin');
+            this.authToken = token;
+        }
+        if (localStorage.getItem('id_token')) {
+            var token = localStorage.getItem('id_token');
+            this.authToken = token;
+        }
+    };
+    PurchaseplanService.prototype.puchaseplan = function (data) {
+        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["Headers"]();
+        this.loadToken();
+        headers.append('Authorization', this.authToken);
+        headers.append('Content-Type', 'application/json');
+        return this.http.post(__WEBPACK_IMPORTED_MODULE_3__global__["a" /* url */] + 'purchaseplan', data, { headers: headers })
+            .map(function (response) {
+            var user = response.json();
+            return user;
+        });
+    };
+    PurchaseplanService.prototype.updatepuchaseplan = function (data) {
+        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["Headers"]();
+        this.loadToken();
+        headers.append('Authorization', this.authToken);
+        headers.append('Content-Type', 'application/json');
+        return this.http.put(__WEBPACK_IMPORTED_MODULE_3__global__["a" /* url */] + 'purchaseplan/' + data.id, data, { headers: headers })
+            .map(function (res) { return res.json(); });
+    };
+    PurchaseplanService.prototype.paymentplan = function (data) {
+        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["Headers"]();
+        this.loadToken();
+        headers.append('Authorization', this.authToken);
+        headers.append('Content-Type', 'application/json');
+        return this.http.post(__WEBPACK_IMPORTED_MODULE_3__global__["a" /* url */] + 'pay', data, { headers: headers })
+            .map(function (response) {
+            var user = response.json();
+            return user;
+        });
+    };
+    PurchaseplanService.prototype.getsuccess = function (data) {
+        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["Headers"]();
+        this.loadToken();
+        headers.append('Authorization', this.authToken);
+        headers.append('Content-Type', 'application/json');
+        return this.http.post(__WEBPACK_IMPORTED_MODULE_3__global__["a" /* url */] + 'pay/success', data, { headers: headers })
+            .map(function (response) {
+            var user = response.json();
+            return user;
+        });
+    };
+    PurchaseplanService.prototype.getcancel = function () {
+        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["Headers"]();
+        this.loadToken();
+        headers.append('Authorization', this.authToken);
+        headers.append('Content-Type', 'application/json');
+        return this.http.post(__WEBPACK_IMPORTED_MODULE_3__global__["a" /* url */] + 'pay/cancel', { headers: headers })
+            .map(function (response) {
+            var user = response.json();
+            return user;
+        });
+    };
+    PurchaseplanService.prototype.accountList = function (data) {
+        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["Headers"]();
+        this.loadToken();
+        headers.append('Authorization', this.authToken);
+        headers.append('Content-Type', 'application/json');
+        return this.http.get(__WEBPACK_IMPORTED_MODULE_3__global__["a" /* url */] + 'purchaseplan/' + data, { headers: headers })
+            .map(function (response) {
+            var user = response.json();
+            return user;
+        });
+    };
+    PurchaseplanService.prototype.accountdetailList = function () {
+        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["Headers"]();
+        this.loadToken();
+        headers.append('Authorization', this.authToken);
+        headers.append('Content-Type', 'application/json');
+        return this.http.get(__WEBPACK_IMPORTED_MODULE_3__global__["a" /* url */] + 'purchaseplan', { headers: headers })
+            .map(function (response) {
+            var user = response.json();
+            return user;
+        });
+    };
+    return PurchaseplanService;
+}());
+PurchaseplanService = __decorate([
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Injectable"])(),
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__angular_http__["Http"] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_http__["Http"]) === "function" && _a || Object])
+], PurchaseplanService);
+
+var _a;
+//# sourceMappingURL=purchaseplan.service.js.map
+
+/***/ }),
+
+/***/ "../../../../../src/app/services/user.service.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return UserService; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_http__ = __webpack_require__("../../../http/@angular/http.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map__ = __webpack_require__("../../../../rxjs/add/operator/map.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_angular2_jwt__ = __webpack_require__("../../../../angular2-jwt/angular2-jwt.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_angular2_jwt___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_angular2_jwt__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__global__ = __webpack_require__("../../../../../src/app/global.ts");
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+
+var UserService = (function () {
+    function UserService(http) {
+        this.http = http;
+        var token = localStorage.getItem('id_token_customer');
+        this.authToken = token;
+    }
+    UserService.prototype.registerUser = function (user) {
+        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["Headers"]();
+        this.loadToken();
+        headers.append('Authorization', this.authToken);
+        headers.append('Content-Type', 'application/json');
+        return this.http.post(__WEBPACK_IMPORTED_MODULE_4__global__["a" /* url */] + 'users/', user, { headers: headers })
+            .map(function (res) { return res.json(); });
+    };
+    UserService.prototype.instaService = function (code) {
+        return this.http.post(__WEBPACK_IMPORTED_MODULE_4__global__["a" /* url */] + 'users/social-insta', { code: code })
+            .map(function (res) { return res.json(); });
+    };
+    UserService.prototype.twitterService = function () {
+        return this.http.get(__WEBPACK_IMPORTED_MODULE_4__global__["a" /* url */] + 'users/request-token')
+            .map(function (res) { return res.json(); });
+    };
+    UserService.prototype.twitterFetchService = function (data) {
+        return this.http.post(__WEBPACK_IMPORTED_MODULE_4__global__["a" /* url */] + 'users/access-token', data)
+            .map(function (res) { return res.json(); });
+    };
+    UserService.prototype.socialRegisterUser = function (user) {
+        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["Headers"]();
+        this.loadToken();
+        headers.append('Authorization', this.authToken);
+        headers.append('Content-Type', 'application/json');
+        return this.http.post(__WEBPACK_IMPORTED_MODULE_4__global__["a" /* url */] + 'users/social-register', user, { headers: headers })
+            .map(function (res) { return res.json(); });
+    };
+    UserService.prototype.socialValidateUser = function (user) {
+        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["Headers"]();
+        headers.append('Content-Type', 'application/json');
+        return this.http.post(__WEBPACK_IMPORTED_MODULE_4__global__["a" /* url */] + 'users/social-login', user, { headers: headers })
+            .map(function (res) { return res.json(); });
+    };
+    UserService.prototype.storeUserData = function (token, user) {
+        localStorage.clear();
+        localStorage.setItem('id_token_customer', token);
+        localStorage.setItem('customer', JSON.stringify(user));
+        this.authToken = token;
+        this.user = user;
+    };
+    UserService.prototype.validateUser = function (user) {
+        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["Headers"]();
+        headers.append('Content-Type', 'application/json');
+        return this.http.post(__WEBPACK_IMPORTED_MODULE_4__global__["a" /* url */] + 'users/userlogin', user, { headers: headers })
+            .map(function (res) { return res.json(); });
+    };
+    UserService.prototype.customerVerify = function (data) {
+        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["Headers"]();
+        headers.append('Content-Type', 'application/json');
+        return this.http.post(__WEBPACK_IMPORTED_MODULE_4__global__["a" /* url */] + 'users/customer-verify', { 'token': data }, { headers: headers })
+            .map(function (res) { return res.json(); });
+    };
+    UserService.prototype.resendActivationLink = function (data) {
+        return this.http.post(__WEBPACK_IMPORTED_MODULE_4__global__["a" /* url */] + 'users/resend-activation-link', data)
+            .map(function (response) { return response.json(); });
+    };
+    UserService.prototype.getProfile = function () {
+        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["Headers"]();
+        this.loadToken();
+        headers.append('Authorization', this.authToken);
+        headers.append('Content-Type', 'application/json');
+        return this.http.get(__WEBPACK_IMPORTED_MODULE_4__global__["a" /* url */] + 'users/profile', { headers: headers })
+            .map(function (res) { return res.json(); });
+    };
+    UserService.prototype.mycategory = function () {
+        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["Headers"]();
+        this.loadToken();
+        headers.append('Authorization', this.authToken);
+        headers.append('Content-Type', 'application/json');
+        return this.http.get(__WEBPACK_IMPORTED_MODULE_4__global__["a" /* url */] + 'category/usercategory/', { headers: headers })
+            .map(function (res) { return res.json(); });
+    };
+    UserService.prototype.updateProfile = function (user) {
+        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["Headers"]();
+        this.loadToken();
+        headers.append('Authorization', this.authToken);
+        headers.append('Content-Type', 'application/json');
+        return this.http.put(__WEBPACK_IMPORTED_MODULE_4__global__["a" /* url */] + 'users/' + user._id, user, { headers: headers })
+            .map(function (res) { return res.json(); });
+    };
+    UserService.prototype.changePassword = function (user) {
+        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["Headers"]();
+        this.loadToken();
+        headers.append('Authorization', this.authToken);
+        headers.append('Content-Type', 'application/json');
+        return this.http.put(__WEBPACK_IMPORTED_MODULE_4__global__["a" /* url */] + 'users/changePassword/' + user.id, user, { headers: headers })
+            .map(function (res) { return res.json(); });
+    };
+    UserService.prototype.checkPassword = function (user) {
+        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["Headers"]();
+        this.loadToken();
+        headers.append('Authorization', this.authToken);
+        headers.append('Content-Type', 'application/json');
+        return this.http.post(__WEBPACK_IMPORTED_MODULE_4__global__["a" /* url */] + 'users/checkpassword/' + user.id, user, { headers: headers })
+            .map(function (res) { return res.json(); });
+    };
+    UserService.prototype.forgotPassword = function (data) {
+        return this.http.post(__WEBPACK_IMPORTED_MODULE_4__global__["a" /* url */] + 'users/forgotPassword', data)
+            .map(function (res) { return res.json(); });
+    };
+    UserService.prototype.resetPassword = function (user) {
+        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["Headers"]();
+        this.loadToken();
+        headers.append('Content-Type', 'application/json');
+        headers.append('Authorization', this.authToken);
+        return this.http.put(__WEBPACK_IMPORTED_MODULE_4__global__["a" /* url */] + 'users/resetPassword/' + user._id, user, { headers: headers })
+            .map(function (res) { return res.json(); });
+    };
+    UserService.prototype.storeUser = function (token, user) {
+        localStorage.setItem('id_token_customer', token);
+        localStorage.setItem('customer', JSON.stringify(user));
+        this.authToken = token;
+        this.user = user;
+    };
+    UserService.prototype.loadToken = function () {
+        var token = localStorage.getItem('id_token_customer');
+        this.authToken = token;
+    };
+    UserService.prototype.loggedIn = function () {
+        return Object(__WEBPACK_IMPORTED_MODULE_3_angular2_jwt__["tokenNotExpired"])('id_token_customer');
+    };
+    UserService.prototype.logout = function () {
+        this.authToken = null;
+        this.user = null;
+        localStorage.clear();
+    };
+    return UserService;
+}());
+UserService = __decorate([
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Injectable"])(),
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__angular_http__["Http"] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_http__["Http"]) === "function" && _a || Object])
+], UserService);
+
+var _a;
+//# sourceMappingURL=user.service.js.map
+
+/***/ }),
+
+/***/ "../../../../../src/app/services/validate.service.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ValidateService; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+var ValidateService = (function () {
+    function ValidateService() {
+    }
+    ValidateService.prototype.validateRegister = function (user) {
+        if (user.firstname == undefined || user.lastname == undefined || user.email == undefined || user.username == undefined || user.password == undefined) {
+            return false;
+        }
+        else {
+            return true;
+        }
+    };
+    ValidateService.prototype.validateProfile = function (user) {
+        if (user.firstname == undefined || user.lastname == undefined || user.email == undefined || user.username == undefined) {
+            return false;
+        }
+        else {
+            return true;
+        }
+    };
+    ValidateService.prototype.validateEmail = function (email) {
+        var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        return re.test(email);
+    };
+    ValidateService.prototype.validateaddplan = function (plan) {
+        if (plan.nickName == undefined || plan.exchangeName == undefined || plan.exchangeType == undefined || plan.apiKey == undefined || plan.secretKey == undefined) {
+            return false;
+        }
+        else {
+            return true;
+        }
+    };
+    return ValidateService;
+}());
+ValidateService = __decorate([
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Injectable"])(),
+    __metadata("design:paramtypes", [])
+], ValidateService);
+
+//# sourceMappingURL=validate.service.js.map
+
+/***/ }),
+
+/***/ "../../../../../src/environments/environment.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return environment; });
+// The file contents for the current environment will overwrite these during build.
+// The build system defaults to the dev environment which uses `environment.ts`, but if you do
+// `ng build --env=prod` then `environment.prod.ts` will be used instead.
+// The list of which env maps to which file can be found in `.angular-cli.json`.
+// The file contents for the current environment will overwrite these during build.
+var environment = {
+    production: false
+};
+//# sourceMappingURL=environment.js.map
+
+/***/ }),
+
+/***/ "../../../../../src/main.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_platform_browser_dynamic__ = __webpack_require__("../../../platform-browser-dynamic/@angular/platform-browser-dynamic.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__app_app_module__ = __webpack_require__("../../../../../src/app/app.module.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__environments_environment__ = __webpack_require__("../../../../../src/environments/environment.ts");
+
+
+
+
+if (__WEBPACK_IMPORTED_MODULE_3__environments_environment__["a" /* environment */].production) {
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["enableProdMode"])();
+}
+Object(__WEBPACK_IMPORTED_MODULE_1__angular_platform_browser_dynamic__["a" /* platformBrowserDynamic */])().bootstrapModule(__WEBPACK_IMPORTED_MODULE_2__app_app_module__["a" /* AppModule */]);
+//# sourceMappingURL=main.js.map
+
+/***/ }),
+
+/***/ 0:
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__("../../../../../src/main.ts");
+
+
+/***/ })
+
+},[0]);
+//# sourceMappingURL=main.bundle.js.map

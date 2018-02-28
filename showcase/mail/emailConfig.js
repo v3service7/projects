@@ -3,7 +3,7 @@ var ejs = require('ejs');
 var randomstring = require("randomstring");
 
 // email 
-var emailFrom = 'navaidkitchen@gmail.com';
+var emailFrom = 'Showcasesocial@gmail.com';
 var templateDir = __dirname + '/email_template';
 /*var transporter = nodemailer.createTransport({
      service: 'gmail',

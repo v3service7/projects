@@ -17,6 +17,7 @@
   padding-bottom: 100px;
 }
 body {
+
   color: #142954 !important;
 }
 .circle {
@@ -64,7 +65,9 @@ body {
   background-color: rgba(0, 0, 0, 0.4);
   /* Black w/ opacity */
 }
-
+.dark-bg{
+   background-color: rgba(0, 0, 0, 0.75) !important;
+}
 /* Modal Content */
 
 /* The Close Button */

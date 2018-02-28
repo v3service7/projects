@@ -1,0 +1,129 @@
+<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-navyblue">
+    <div class="container-fluid">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse"
+            aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <a class="navbar-brand" [routerLink]="['/']">Showcase.Social</a>
+        <a *ngIf="currentCustomer != undefined" class="navbar-brand p-0" href="javascript:void(0)">
+            <img [src]="currentCustomer && currentCustomer.image" class="rounded-circle d-none d-sm-block d-md-none d-block d-sm-none"
+                width="30" height="30">
+        </a>
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav mr-auto category-navbar " id="category-navbar">
+                <span *ngFor="let category of categories | orderBy : 'position' ; let i = index">
+                    <li class="nav-item dropdown px-3 " [ngClass]="slugify(category.name)" *ngIf="liCount && i < 3">
+                        <a class="nav-link dropdown-toggle" [id]="category.id" id="dropdown01" href="" data-toggle="dropdown" aria-haspopup="true"
+                            aria-expanded="false"> {{ (category.name.length >= 20) ? (category.name | slice:0:20)+'..':(category.name) }}</a>
+                        <div class="dropdown-menu" aria-labelledby="dropdown01">
+                            <a class="dropdown-item" href="javascript:void(0)">
+                                <i class="fa fa-share"></i> Share</a>
+                            <a class="dropdown-item" href="javascript:void(0)">
+                                <i class="fa fa-code"></i> Embeded</a>
+                            <a class="dropdown-item" [routerLink]="['/setting/',category._id]">
+                                <i class="fa fa-cog"></i> Setting</a>
+                        </div>
+                    </li>
+                </span>
+                <!--  <li class="nav-item dropdown px-3" *ngIf="categories?.length > 3">
+                    <a class="nav-link dropdown-toggle" id="dropdown01" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">More...</a>
+                    <div class="dropdown-menu" aria-labelledby="dropdown01">
+                        <span *ngFor="let category of categories; let i = index">
+                        <a *ngIf="liCount && i >= 3 " class="dropdown-item" href="javascript:void(0)"> {{ (category.name.length >= 20) ? (category.name | slice:0:20)+'..':(category.name) }}</a>
+                        </span>
+                    </div>
+                </li> -->
+                <li class="nav-item dropdown px-3" *ngIf="categories?.length > 3">
+                    <a class="nav-link dropdown-toggle" href="" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        More...
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <span *ngFor="let category of categories; let i = index">
+                            <li class="dropdown-submenu" *ngIf="liCount && i >= 3 ">
+                                <a class="dropdown-item dropdown-toggle" href=""> {{ (category.name.length >= 20) ? (category.name | slice:0:20)+'..':(category.name) }}</a>
+                                <ul class="dropdown-menu option-menu">
+                                    <li>
+                                        <a class="dropdown-item" href="#">
+                                            <i class="fa fa-share"></i> Share </a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item" href="#">
+                                            <i class="fa fa-code"></i> Embeded</a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item" [routerLink]="['/setting/',category._id]">
+                                            <i class="fa fa-cog"></i> Setting</a>
+                                    </li>
+                                </ul>
+                            </li>
+                        </span>
+                    </ul>
+                </li>
+                <li class="nav-item pl-3">
+                    <a class="nav-link" href="javascript:void(0)" (click)="addCategory()">Add new
+                        <i class="fa fa-plus-circle"></i>
+                    </a>
+                </li>
+
+            </ul>
+            <form class="form-inline mt-2 mt-md-0" [formGroup]="addLinkForm" (ngSubmit)="addLink()">
+                <input class="form-control addlinkfield" style="width:auto" type="text" formControlName="url" placeholder="Paste link here..."
+                    aria-label="Search">
+                <button class="btn btn-outline-light my-2 my-sm-0 addlinkfieldbtn" type="submit" [disabled]="!addLinkForm.valid">
+                    <i class="fa fa-plus"></i>
+                </button>
+            </form>
+            <ul class="navbar-nav d-none d-sm-block ">
+                <li class="nav-item dropdown pl-2">
+                    <a *ngIf="currentCustomer != undefined" class="nav-link dropdown-toggle p-0" id="dropdown01" href="" data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false">
+                        <img *ngIf="currentCustomer.image" [src]="currentCustomer.image" class="rounded-circle" width="30" height="30">
+                        <img *ngIf="!currentCustomer.image" src="https://www.w3schools.com/howto/img_avatar.png" class="rounded-circle" width="30"
+                            height="30">
+                    </a>
+                    <div class="dropdown-menu custom-dropdown-menu" aria-labelledby="dropdown01">
+                        <a class="dropdown-item" [routerLink]="['/profile']">Profile</a>
+                        <a class="dropdown-item" href="javascript:void(0)" (click)="logout()">Logout</a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<!-- The category Modal  -->
+<div id="categoryModal" class="modal dark-bg">
+    <span class="close" (click)="modelClose()">&times;</span>
+    <div class="container">
+        <div class="row justify-content-md-center">
+            <div class="col-lg-7 col-xs-12">
+                <div class="card rounded-1">
+                    <span class="close signupclose" (click)="modelClose()">&times;</span>
+                    <div class="card-header text-center bg-white h4 rounded-1 rounded-rl-1">
+                        <i class="fa fa-cogs text-warning"></i> Add Category
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col mb-2">
+                                <form [formGroup]="addCategoryForm" (ngSubmit)="addCategoryData()">
+                                    <div class="form-group">
+                                        <label for="">Showcase name</label>
+                                        <input type="text" formControlName="name" class="form-control" placeholder="type here...">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="exampleFormControlSelect1">Position in menu</label>
+                                        <select class="form-control" formControlName="position">
+                                            <option value="1">Top</option>
+                                            <option *ngFor="let category of categories; let i = index" [ngValue]="category.position+1">After {{category.name}}</option>
+                                        </select>
+                                    </div>
+                                    <button type="button" class="btn btn-danger float-left px-5 rounded-1" (click)="modelClose()">Cancel</button>
+                                    <button type="submit" class="btn btn-warning float-right px-5 rounded-1" [disabled]="!addCategoryForm.valid">Save</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

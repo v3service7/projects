@@ -10,10 +10,13 @@ const config = require('./config/database');
 const users = require('./routes/users');
 const pages = require('./routes/pages');
 const plans = require('./routes/plans');
+const category = require('./routes/category');
+const bookmark = require('./routes/bookmark');
 const purchaseplans = require('./routes/purchaseplans');
 const http = require('http');
 var https = require('https');
 var fs = require('fs');
+//var options;
 var options = {
   key: fs.readFileSync('/etc/letsencrypt/live/measuremight.com/privkey.pem'),
   cert: fs.readFileSync('/etc/letsencrypt/live/measuremight.com/cert.pem'),
@@ -57,12 +60,14 @@ require('./config/passport')(passport);
 app.use('/users', users);
 app.use('/plan', plans);
 app.use('/page', pages);
+app.use('/category', category);
+app.use('/bookmark', bookmark);
 app.use('/purchaseplan', purchaseplans);
 
 var storage = multer.diskStorage({ //multers disk storage settings
     destination: function (req, file, cb) {
+        cb(null, '/home/showcase-social/public/uploads/');
         //cb(null, 'public/uploads/');
-        cb(null, 'public/uploads/');
     },
     filename: function (req, file, cb) {
         var datetimestamp = Date.now();
@@ -103,7 +108,7 @@ server.listen(port, () => {
 });
 
 // Start Https Server
-const httpsServer = https.createServer(options ,app);
+const httpsServer = https.createServer(options, app);
 
 httpsServer.listen(httpsPort, () => {
 	console.log('Server started on port '+httpsPort);
