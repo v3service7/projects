@@ -79,6 +79,7 @@ export class ProfileHeaderComponent implements OnInit {
   addBoodmark() {
     this.bookService.bookmarkAdd(this.addLinkForm.value).subscribe((data) => {
       if (!data.eror) {
+        this.router.navigate(['view', this.addLinkForm.value['category_id']]);
         this.toastr.success('Bookmark added succesfully.', 'Success!');
         this.modelCopyToClose();
         this.addLinkForm.reset();
