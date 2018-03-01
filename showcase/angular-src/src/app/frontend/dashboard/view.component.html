@@ -1,6 +1,12 @@
 <app-profileheader></app-profileheader>
-<h1>view</h1>
-<h1>view</h1>
-<h1>view</h1>
-<h1>view</h1>
-<h1>view</h1>
+<div  *ngIf="curColWidth != 0"  style="padding-top: 75px;">
+	<masonry [options]="options" [useImagesLoaded]="true">
+	    <!-- <div class="row"> -->
+			<masonry-brick *ngFor="let bookmark of bookmarks">
+				<div class="grid-item">
+					<iframe [src]="videoUrl(bookmark.title)" [height]="setHeight(bookmark.type)"  [width]="setWidth(bookmark.type)"  frameborder="0" allowfullscreen></iframe>
+				</div>
+			</masonry-brick>
+		<!-- </div> -->
+	</masonry>
+</div>

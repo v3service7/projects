@@ -9,6 +9,9 @@ import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { FileUploadModule , FileDropDirective } from 'ng2-file-upload';
 import { Angular2SocialLoginModule, AuthService } from 'angular2-social-login';
 import { ImageCropperModule } from 'ngx-image-cropper';
+import { MasonryModule } from 'angular2-masonry';
+import { MdCardModule } from '@angular2-material/card';
+
 
 // Admin Component
 import { AdminComponent } from './admin/admin.component';
@@ -83,6 +86,8 @@ let providers = {
   ],
   imports: [
     ImageCropperModule,
+    MasonryModule,
+    MdCardModule,
     BrowserModule,
     FormsModule,
     TinymceModule.withConfig({}),

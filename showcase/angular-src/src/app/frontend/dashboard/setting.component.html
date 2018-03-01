@@ -1,7 +1,7 @@
 <app-profileheader [childMessage]="parentMessage"></app-profileheader>
 <div class="container-fluid" *ngIf="category" style="padding-top: 75px;">
     <div class="row">
-        <div class="col-lg-6 col-md-6 col-sm-6 mb-5 ">
+        <div class="col-lg-7 col-md-6 col-sm-6 mb-5 ">
             <div class="row mb-3">
                 <div class="col text-center pointer" (click)="doDelete()" >
                     <i class="fa fa-trash icon-circle"></i> Deleted selected</div>
@@ -13,18 +13,16 @@
                 <li class="list-group-item custom-list-group-item" *ngFor="let bookmark of bookmarks; let i = index;">
                     <div class="row">
                         <div class="col-xl-2 col-lg-6 col-md-6 col-sm-6 col-6 text-center">
-                            <div class="count-circle">{{bookmark.position}}</div>
+                            <div class="count-circle">{{i+1}}</div>
                             <br>
                             <div class="form-check text-center">
                                 <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1" (click)="doSelect(bookmark._id)">
                             </div>
                         </div>
-                        <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6 pl-0  col-6 ">
-                            <div [innerHTML]="bookmark.body"></div>
-                            {{bookmark.body}}
-                             
+                        <div class="col-xl-5 col-lg-6 col-md-6 col-sm-6 pl-0  col-6 ">
+                            <iframe [src]="videoUrl(bookmark.title)" width="100%"></iframe>
                         </div>
-                        <div class="col-xl-4 col-lg-7 col-md-7 col-sm-7 col-8 mt-4 ">
+                        <div class="col-xl-3 col-lg-7 col-md-7 col-sm-7 col-8 mt-4 ">
                             <ul>
                                 <li class="pb-2">
                                     <a>
@@ -35,13 +33,13 @@
                                 <li>
                                     <a>
                                         <i class="fa fa-copy icon-circle icon-opt"></i>
-                                        <span class="fs-13">Copy to showcase</span>
+                                        <span class="fs-13">Copy</span>
                                     </a>
                                 </li>
                             </ul>
 
                         </div>
-                        <div class="col-xl-3 col-lg-5 col-md-5 col-sm-5 col-4 px-0 mt-4">
+                        <div class="col-xl-2 col-lg-5 col-md-5 col-sm-5 col-4 px-0 mt-4">
                             <ul>
                                 <li class="pb-2 float-right" *ngIf="i!=0">
                                     <a (click)="changePosition('up',bookmark._id, bookmark.position)">
@@ -61,7 +59,7 @@
                 </li>
             </ul>
         </div>
-        <div class="col-lg-6 col-md-6 col-sm-6 mb-5 work-box   ">
+        <div class="col-lg-5 col-md-6 col-sm-6 mb-5 work-box">
             <h4 class="text-center">
                 <i class="fa fa-cogs text-warning"></i> Manage {{category[0].name}}</h4>
             <hr>

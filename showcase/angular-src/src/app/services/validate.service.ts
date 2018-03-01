@@ -44,4 +44,24 @@ export class ValidateService {
             return error;
         });
     }
+
+    getInsta(url){
+        let ur = 'https://api.instagram.com/oembed?url='+url+'callback=JSONP_CALLBACK'
+        return this.jsonp.get(ur)  
+        .map(res => {
+          return res.json();
+        },error => {
+            return error;
+        });
+    }
+
+    getTwitter(url){
+        let ur = 'https://publish.twitter.com/oembed?url='+encodeURIComponent(url)+'&callback=JSONP_CALLBACK'
+        return this.jsonp.get(ur)  
+        .map(res => {
+          return res.json();
+        },error => {
+            return error;
+        });
+    }
 }
