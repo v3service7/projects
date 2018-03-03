@@ -46,7 +46,7 @@ export class ValidateService {
     }
 
     getInsta(url){
-        let ur = 'https://api.instagram.com/oembed?url='+url+'callback=JSONP_CALLBACK'
+        let ur = 'https://api.instagram.com/oembed?url='+url+'&callback=JSONP_CALLBACK';
         return this.jsonp.get(ur)  
         .map(res => {
           return res.json();

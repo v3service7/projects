@@ -25,6 +25,7 @@ export class FrontendDashboardComponent implements OnInit {
 
     }
 }
+
 @Component({
     selector: 'app-profileheader',
     templateUrl: './profileheader.component.html',
@@ -133,6 +134,9 @@ export class ProfileHeaderComponent implements OnInit {
             this.addLinkForm.controls['type'].setValue('instagram');
             document.getElementById('loader').style.display = 'none';
             document.getElementById('bookMark').innerHTML = data.html;
+        },error => {
+            document.getElementById('bookMark').innerHTML = 'Invalid Url';
+            document.getElementById('loader').style.display = 'none';
         });
     }
 
@@ -144,6 +148,9 @@ export class ProfileHeaderComponent implements OnInit {
             this.addLinkForm.controls['type'].setValue('twitter');
             document.getElementById('loader').style.display = 'none';
             document.getElementById('bookMark').innerHTML = data.html
+        },error => {
+            document.getElementById('bookMark').innerHTML = 'Invalid Url';
+            document.getElementById('loader').style.display = 'none';
         });
     }
 
@@ -397,16 +404,16 @@ export class MyProfileComponent implements OnInit {
     }
 
 
-    modelOpen() {
+    public modelOpen() {
         document.getElementById('imageuploadModal').style.display = 'block';
     }
-    modelClose() {
+    public modelClose() {
         document.getElementById('imageuploadModal').style.display = 'none';
     }
-    imageCropped(image: string) {
+    public imageCropped(image: string) {
         this.croppedImage = image;
     }
-    b64toBlob(b64Data, contentType, sliceSize) {
+    public b64toBlob(b64Data, contentType, sliceSize) {
         contentType = contentType || '';
         sliceSize = sliceSize || 512;
 
@@ -651,6 +658,7 @@ export class ViewComponent implements AfterViewInit   {
         itemSelector: '.grid-item'
     }
     curColWidth = 0 ;
+    gridColWidth = '' ;
     
     bricks: any[] = [];
 
@@ -668,9 +676,6 @@ export class ViewComponent implements AfterViewInit   {
             let id = params['id'];
             this.getbookmark(id);
         });
-    }
-    doStuff(event){
-        console.log(event)
     }
 
     setHeight(type){
@@ -700,9 +705,18 @@ export class ViewComponent implements AfterViewInit   {
         this.curColWidth = theW;
         $("iframe").css("width", theW);
         $("twitterwidget").css("width", theW);
-        $(".grid-item").css("width", (theW + (theW/50)));
+        let th = theW + (theW/50);
+        this.gridColWidth = th +'px';
+        $(".grid-item").css("width", th);
     }
 
+    setStyles() {
+        console.log(this.gridColWidth)
+        let styles = {
+            'width':  this.gridColWidth
+        };
+        return styles;
+    }
 
     getbookmark(id) {
         this.bookmarkService.categoryBookmarks(id).subscribe((data) => {

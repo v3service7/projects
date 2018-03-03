@@ -1,10 +1,12 @@
 <app-profileheader></app-profileheader>
-<div  *ngIf="curColWidth != 0"  style="padding-top: 75px;">
-	<masonry [options]="options" [useImagesLoaded]="true">
+<div  *ngIf="curColWidth != 0 && gridColWidth != ''"  style="padding-top: 75px;">
+	<masonry [options]="options">
 	    <!-- <div class="row"> -->
 			<masonry-brick *ngFor="let bookmark of bookmarks">
-				<div class="grid-item">
-					<iframe [src]="videoUrl(bookmark.title)" [height]="setHeight(bookmark.type)"  [width]="setWidth(bookmark.type)"  frameborder="0" allowfullscreen></iframe>
+				<div class="grid-item" [ngStyle]="setStyles()">
+					<div *ngIf="bookmark.type == 'instagram'"  [innerHtml]="bookmark.body"></div>
+					<!-- {{bookmark.body}} -->
+					<iframe *ngIf="bookmark.type != 'instagram'" [src]="videoUrl(bookmark.title)" [height]="setHeight(bookmark.type)"  [width]="setWidth(bookmark.type)"  frameborder="0" allowfullscreen></iframe>
 				</div>
 			</masonry-brick>
 		<!-- </div> -->
