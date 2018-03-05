@@ -1,0 +1,49 @@
+<ion-header>
+  <ion-navbar color="secondary">
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Restaurants</ion-title>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content no-padding>
+<ion-list no-lines>
+<ion-list-header class="mt-3 bordert-0 borderb-1">
+
+
+  All Restaurants
+</ion-list-header>
+
+<div *ngFor="let restaurant of restaurants; index as i ">
+<ion-item >
+
+<ion-label class="text-capitalize" >{{restaurant.restaurantname}}</ion-label>
+<ion-checkbox 
+  color="secondary" (ionChange)="updataRestaurant(restaurant._id)"></ion-checkbox>
+</ion-item>
+</div>
+<ion-list-header class="mt-3 mt-3 bordert-0 borderb-1">
+
+  Allow Restaurants
+</ion-list-header>
+<div *ngFor="let restaurant of allowresids; index as i ">
+
+
+
+<ion-item >
+<ion-label class="text-capitalize">{{restaurant.restaurantname}}
+  <br>
+<span class="text-muted" *ngIf="restaurant.status">Approved</span>
+<span class="text-muted" *ngIf="!restaurant.status">Pending</span>
+  </ion-label>
+
+
+</ion-item>
+</div>
+
+
+</ion-list>
+<button ion-button color="secondary" class="bottom-fixed" full (click)="submitRestaurant()">Save</button>
+</ion-content> 

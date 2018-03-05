@@ -1,0 +1,73 @@
+
+<ion-content  style="background: url('assets/imgs/bg.png') center fixed;background-size: cover;">
+    <div padding class="mt-2" *ngIf="passwordp">
+
+        <ion-row>
+            <ion-col>
+                <img src="assets/imgs/mlogo.png" class="logo h-center ">
+            </ion-col>
+        </ion-row>
+
+        <ion-row>
+            <ion-col>
+                <ion-list no-margin>
+
+                    <form role="form" class="list" [formGroup]="signupForm" (ngSubmit)="doSignup()">
+                        <ion-item>
+                            <ion-label floating>First Name</ion-label>
+                            <ion-input type="text" formControlName="firstname"></ion-input>
+                        </ion-item>
+                        <ion-item>
+                            <ion-label floating>Last Name</ion-label>
+                            <ion-input type="text" formControlName="lastname"></ion-input>
+                        </ion-item>
+                        <ion-item>
+                            <ion-label floating>Username</ion-label>
+                            <ion-input type="text" formControlName="username"></ion-input>
+                        </ion-item>
+                        <div *ngIf="formErrors.username" class="alert alert-danger mt-2">
+                            {{ formErrors.username }}
+                        </div>
+                        <ion-item>
+                            <ion-label floating>Email</ion-label>
+                            <ion-input type="text" formControlName="email"></ion-input>
+                        </ion-item>
+                        <div *ngIf="formErrors.email" class="alert alert-danger mt-2">
+                            {{ formErrors.email }}
+                        </div>
+                        <ion-item>
+                            <ion-label floating>Password</ion-label>
+                            <ion-input type="{{type}}" formControlName="password"></ion-input>
+                            <button class="hideshow" *ngIf="!showPass" ion-button clear type="button"  color="light" item-right (click)="showPassword()">Show</button>
+                            <button class="hideshow" *ngIf="showPass" ion-button  clear type="button"  color="light" item-right (click)="showPassword()">Hide</button>
+                            
+                            
+                        </ion-item>
+                        <div *ngIf="formErrors.password" class="alert alert-danger mt-2">
+                            {{ formErrors.password }}
+                        </div>
+                        <ion-item>
+                            <ion-label floating>Confirm password</ion-label>
+                            <ion-input type="{{ctype}}" formControlName="cpassword"></ion-input>
+                            <button class="hideshow" *ngIf="!cshowPass" ion-button clear type="button" color="light" item-right (click)="cshowPassword()">Show</button>
+                            <button  class="hideshow" *ngIf="cshowPass" ion-button clear type="button" color="light" item-right (click)="cshowPassword()">Hide</button>
+                        </ion-item>
+                        <div *ngIf="matchPassword" class="alert alert-danger mt-2">
+                            Password does not match.
+                        </div>
+                        <button class="mt-3" ion-button full color="secondary" [disabled]="!signupForm.valid">Sign Up</button>
+                    </form>
+                </ion-list>
+
+            </ion-col>
+        </ion-row>
+
+        <ion-row>
+            <ion-col col-12 text-center>
+                <a class="colorWhite" (click)="goToLoginPage()">Login</a>
+            </ion-col>
+        </ion-row>
+
+    </div>
+</ion-content>
+
