@@ -195,15 +195,16 @@ export class FrontendHomeComponent implements OnInit {
                 var nameArr = data['name'].split(' ');
                 obj['lastname'] = nameArr.pop();
                 obj['firstname'] = nameArr.join(' ');
-                //console.log(obj)
+                // console.log(obj)
                 this.userService.socialValidateUser(obj).subscribe((loggedUser) => {
                     /*console.log(loggedUser,provider)*/
                     if (!loggedUser.success) {
                         this.userService.socialRegisterUser(obj).subscribe((newUser) => {
-                            this.userService.socialValidateUser(obj).subscribe((loggedUserOauth) => {
-                                console.log(loggedUserOauth)
+                            this.userService.socialValidateUser(obj).subscribe((loggedUserOauth) => {;
                                 localStorage.setItem('id_token_customer', loggedUserOauth.token);
                                 localStorage.setItem('customer', JSON.stringify(loggedUserOauth.user));
+                                this.modelClose('login');
+                                this.modelClose('signup');
                                 this.router.navigate(['dashboard']);
                             });
                         });
@@ -212,11 +213,13 @@ export class FrontendHomeComponent implements OnInit {
                     if (loggedUser.success) {
                         localStorage.setItem('id_token_customer', loggedUser.token);
                         localStorage.setItem('customer', JSON.stringify(loggedUser.user));
+                        this.modelClose('login');
+                        this.modelClose('signup');
                         this.router.navigate(['dashboard']);
                     }
-                })
+                });
             }
-        )
+        );
     }
 
     onLoginWithTwitter() {
@@ -235,7 +238,7 @@ export class FrontendHomeComponent implements OnInit {
     signup() {
         this.userService.registerUser(this.customerSignupForm.value).subscribe(
             (data) => {
-                this.modelClose('signup')
+                this.modelClose('signup');
                 if (!data.error) {
                     this._flashMessagesService.show('Registered  Successfully, Please check your mail.', { cssClass: 'alert-success', timeout: 5000 });
                     //this.router.navigate(['admin/dashboard']);
@@ -252,7 +255,7 @@ export class FrontendHomeComponent implements OnInit {
     login() {
         this.userService.validateUser(this.customerLoginForm.value).subscribe(
             (data) => {
-                this.modelClose('login')
+                this.modelClose('login');
                 if (!data.success) {
                     this._flashMessagesService.show(data.msg, { cssClass: 'alert-danger', timeout: 5000 });
                 } else {

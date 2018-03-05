@@ -64,6 +64,26 @@ export class AdminService {
       .map(res => res.json());
   }
 
+  // user's boards
+  boardsList(id) {
+    let headers = new Headers();
+    this.loadToken();
+    headers.append('Authorization', this.authToken);
+    headers.append('Content-Type', 'application/json');
+    return this.http.get(globalVariable.url + 'category/adminusercategory/' + id, { headers: headers })
+      .map(res => res.json());
+  }
+
+  // user's boards bookmarks
+  bookmarkList(id) {
+    let headers = new Headers();
+    this.loadToken();
+    headers.append('Authorization', this.authToken);
+    headers.append('Content-Type', 'application/json');
+    return this.http.get(globalVariable.url + 'bookmark/category/' + id, { headers: headers })
+      .map(res => res.json());
+  }
+
   deleteUserById(id){
     let headers = new Headers();
     this.loadToken();
@@ -72,6 +92,24 @@ export class AdminService {
     return this.http.delete(globalVariable.url+'users/'+id, {headers: headers})
       .map(res => res.json());
   } 
+
+  public categoryDelete(id) {
+    let headers = new Headers();
+    this.loadToken();
+    headers.append('Authorization', this.authToken);
+    headers.append('Content-Type', 'application/json');
+    return this.http.delete(globalVariable.url + 'category/' + id, { headers: headers })
+      .map(res => res.json());
+  }
+
+  public bookmarkDelete(id) {
+    let headers = new Headers();
+    this.loadToken();
+    headers.append('Authorization', this.authToken);
+    headers.append('Content-Type', 'application/json');
+    return this.http.delete(globalVariable.url + 'bookmark/' + id, { headers: headers })
+      .map(res => res.json());
+  }
 
   changePassword(user){
     let headers = new Headers();

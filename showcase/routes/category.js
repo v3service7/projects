@@ -7,12 +7,13 @@ module.exports = (function () {
 
     /*load Model*/
     let categoryModel = require("../models/category.js");
+    let bookmarkModel = require("../models/bookmark");
     /*-------------------------------START category--------------------------------------------------------*/
 
     // my categories
     router.get('/usercategory/', passport.authenticate('jwt', { session: false }), (req, res) => {
         var response = {};
-        categoryModel.find({ user_id: req.user._id }, function (err, category) {
+        categoryModel.find({ user_id: req.user._id }, null, { sort: { position: 1 } }, function (err, category) {
             if (err) {
                 response = { "error": true, "message": "Error fetching data" };
             } else {
@@ -21,6 +22,20 @@ module.exports = (function () {
             res.json(response);
         });
     });
+
+    // admin user categories
+    router.get('/adminusercategory/:id', passport.authenticate('jwt', { session: false }), (req, res) => {
+        var response = {};
+        categoryModel.find({ user_id: req.params.id }, null, { sort: { position: 1 } }, function (err, category) {
+            if (err) {
+                response = { "error": true, "message": "Error fetching data" };
+            } else {
+                response = { "error": false, "message": category };
+            };
+            res.json(response);
+        });
+    });
+    
     // get category
     router.get('/', passport.authenticate('jwt', { session: false }), function (req, res, next) {
         var response = {};
@@ -94,10 +109,18 @@ module.exports = (function () {
         categoryModel.remove({ _id: req.params.id }, function (err, category) {
             if (err) {
                 response = { "error": true, "message": err };
+                res.json(response);
             } else {
-                response = { "error": false, "message": category };
+                bookmarkModel.remove({ category_id: req.params.id }, function (err, bookmark) {
+                    if (err) {
+                        response = { "error": true, "message": err };
+                        res.json(response);
+                    } else {
+                        response = { "error": false, "message": 'category deleted successfully.' };
+                        res.json(response);
+                    };
+                });
             };
-            res.json(response);
         });
     });
  

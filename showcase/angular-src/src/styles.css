@@ -42,3 +42,6 @@ select-dropdown>div .filter input {
 .pointer{
     cursor: pointer;
 }
+.text-cap{
+      text-transform: capitalize;
+}

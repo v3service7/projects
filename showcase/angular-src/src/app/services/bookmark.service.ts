@@ -99,7 +99,7 @@ export class BookmarkService {
         this.loadToken();
         headers.append('Authorization', this.authToken);
         headers.append('Content-Type', 'application/json');
-        return this.http.delete(globalVariable.url + 'plan/' + id, {headers: headers})
+        return this.http.delete(globalVariable.url + 'bookmark/' + id, {headers: headers})
         .map((response: Response) => {
             let user = response.json();
             return user;

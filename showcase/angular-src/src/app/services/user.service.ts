@@ -79,7 +79,7 @@ export class UserService {
     }
 
     public resendActivationLink(data){
-        return this.http.post(globalVariable.url+'users/resend-activation-link',data)
+        return this.http.post(globalVariable.url+'users/resend-activation-link', data)
         .map(response => response.json());
     }
 

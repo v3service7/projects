@@ -1,8 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, } from '@angular/core';
+import { DomSanitizer } from '@angular/platform-browser';
 import { Router,ActivatedRoute,Params  } from '@angular/router';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { FlashMessagesService } from 'angular2-flash-messages';
 import { AdminService} from '../../services/admin.service';
+import { CategoryService} from '../../services/category.service';
 
 @Component({
   selector: 'app-admin-customer',
@@ -261,9 +263,9 @@ export class CustomerEditComponent implements OnInit {
         });
 
         this.route.params.subscribe((params: Params) => {
-            let id = params['id'];  
+            let id = params['id'];
             this.customer(id);
-        });    
+        });
 
         this.customerAddForm.valueChanges
             .subscribe(data => this.onValueChanged(data));
@@ -324,5 +326,94 @@ export class CustomerEditComponent implements OnInit {
                 }
             }
         }
+    }
+}
+
+@Component({
+    selector: 'app-admin-userboards',
+    templateUrl: './userboards.component.html',
+    styleUrls: ['./userboards.component.css'],
+})
+export class AdminUserBoardsComponent implements OnInit {
+    loginForm: FormGroup;
+    returnUrl: string;
+    err: any;
+    user_id: any;
+    boards: any;
+    constructor(
+        private lf: FormBuilder,
+        private router: Router,
+        private route: ActivatedRoute,
+        private adminService: AdminService,
+        private categoryService: CategoryService,
+        private _flashMessagesService: FlashMessagesService
+    ) { }
+
+    ngOnInit() {
+        this.route.params.subscribe((params: Params) => {
+            this.user_id = params['id'];
+            this.getBoards();
+        });
+    }
+    getBoards() {
+        this.adminService.boardsList(this.user_id).subscribe((data) => {
+            if (!data.error) {
+                this.boards = data.message;
+            }
+        });
+    }
+    deleteboard(id) {
+        this.adminService.categoryDelete(id).subscribe((data) => {
+            if (!data.error) {
+                this._flashMessagesService.show('Board deleted Successfully', { cssClass: 'alert-success', timeout: 3000 });
+                this.getBoards();
+            }
+        });
+    }
+}
+@Component({
+    selector: 'app-admin-userboardsbookmark',
+    templateUrl: './userboardsbookmark.component.html',
+    styleUrls: ['./userboardsbookmark.component.css'],
+})
+export class AdminUserBoardsBookmarkComponent implements OnInit {
+    loginForm: FormGroup;
+    returnUrl: string;
+    err: any;
+    board_id: any;
+    bookmarks: any;
+    constructor(
+        private lf: FormBuilder,
+        private router: Router,
+        private route: ActivatedRoute,
+        private adminService: AdminService,
+        public sanitizer: DomSanitizer,
+        private _flashMessagesService: FlashMessagesService
+    ) { }
+
+    ngOnInit() {
+        this.route.params.subscribe((params: Params) => {
+            this.board_id = params['id'];
+            this.getBookmarks();
+        });
+    }
+    getBookmarks() {
+        this.adminService.bookmarkList(this.board_id).subscribe((data) => {
+            if (!data.error) {
+                this.bookmarks = data.message;
+                console.log(this.bookmarks);
+            }
+        });
+    }
+    deletebookmark(id) {
+        this.adminService.bookmarkDelete(id).subscribe((data) => {
+            if (!data.error) {
+                this._flashMessagesService.show('Bookmark deleted Successfully', { cssClass: 'alert-success', timeout: 3000 });
+                this.getBookmarks();
+            }
+        });
+    }
+    videoUrl(url) {
+        return this.sanitizer.bypassSecurityTrustResourceUrl(url);
     }
 }

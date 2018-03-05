@@ -11,10 +11,10 @@
         </a>
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav mr-auto category-navbar " id="category-navbar">
-                <span *ngFor="let category of categories | orderBy : 'position' ; let i = index">
+                <span *ngFor="let category of categories let i = index">
                     
                     <li class="nav-item dropdown px-3 " [ngClass]="slugify(category.name)" style="display: -webkit-box;" *ngIf="liCount && i < 3">
-                        <a class="nav-link " [id]="category._id"  [routerLink]="['/view/',category._id]"> {{ (category.name.length >= 20) ? (category.name | slice:0:20)+'..':(category.name) }}</a>
+                        <a class="nav-link text-cap" [id]="category._id"  [routerLink]="['/view/',category._id]"> {{ (category.name.length >= 20) ? (category.name | slice:0:20)+'..':(category.name) }}</a>
                         <a class="nav-link dropdown-toggle" [id]="category._id" id="dropdown01" href="" data-toggle="dropdown" aria-haspopup="true"
                             aria-expanded="false"></a>
                         <div class="dropdown-menu" aria-labelledby="dropdown01">
@@ -34,7 +34,7 @@
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                         <span *ngFor="let category of categories; let i = index">
                             <li class="dropdown-submenu" *ngIf="liCount && i >= 3 ">
-                                <a class="dropdown-item dropdown-toggle" href=""> {{ (category.name.length >= 20) ? (category.name | slice:0:20)+'..':(category.name) }}</a>
+                                <a class="dropdown-item dropdown-toggle text-cap" href="javascript:void(0)"> {{ (category.name.length >= 20) ? (category.name | slice:0:20)+'..':(category.name) }}</a>
                                 <ul class="dropdown-menu option-menu">
                                     <li>
                                         <a class="dropdown-item" href="#">
@@ -107,7 +107,7 @@
                                     <div class="form-group">
                                         <label for="exampleFormControlSelect1">Position in menu</label>
                                         <select class="form-control" formControlName="position">
-                                            <option value="1">Top</option>
+                                            <option [ngValue]="1" selected>Top</option>
                                             <option *ngFor="let category of categories; let i = index" [ngValue]="category.position+1">After {{category.name}}</option>
                                         </select>
                                     </div>
@@ -194,7 +194,7 @@
                     </div>
                     <div class="card-footer">
                         <button type="button" class="btn btn-danger float-left px-5 rounded-1" (click)="modelCopyToClose()">Cancel</button>
-                        <button type="button" class="btn btn-warning float-right px-5 rounded-1" (click)="addBoodmark()">Add</button>
+                        <button type="button" class="btn btn-warning float-right px-5 rounded-1" (click)="addBoodmark()" [disabled]="!categorySelectedId">Add</button>
                     </div>
                 </div>
             </div>

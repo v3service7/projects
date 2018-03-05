@@ -22,7 +22,7 @@ import { DashboardComponent } from './admin/dashboard/dashboard.component';
 import { ProfileComponent } from './admin/profile/profile.component';
 import { ForgotPasswordComponent, AdminResetPasswordComponent } from './admin/forgot-password/forgot-password.component';
 // tslint:disable-next-line:max-line-length
-import { AdminCustomerComponent, CustomerListComponent, CustomerAddComponent, CustomerEditComponent } from './admin/customer/customer.component';
+import { AdminCustomerComponent, CustomerListComponent, CustomerAddComponent, CustomerEditComponent, AdminUserBoardsComponent, AdminUserBoardsBookmarkComponent } from './admin/customer/customer.component';
 import { AdminPlanComponent, PlanListComponent, PlanAddComponent, PlanEditComponent } from './admin/plan/plan.component';
 import { AdminPagesComponent, PagesListComponent , PagesAddComponent, PagesEditComponent } from './admin/pages/pages.component';
 
@@ -81,6 +81,8 @@ let providers = {
     FrontendDashboardComponent, MyProfileComponent,
     SettingComponent,
     ProfileHeaderComponent,
+    AdminUserBoardsComponent,
+    AdminUserBoardsBookmarkComponent,
     ViewComponent,
     SafePipe
   ],

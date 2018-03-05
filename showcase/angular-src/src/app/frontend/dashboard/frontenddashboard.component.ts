@@ -41,6 +41,7 @@ export class ProfileHeaderComponent implements OnInit {
     liCount: any;
     category_id: any;
     showcaseField: any = false;
+    categorySelectedId: any = false;
     @Input() childMessage: string;
     // tslint:disable-next-line:max-line-length
     constructor(
@@ -97,14 +98,12 @@ export class ProfileHeaderComponent implements OnInit {
         this.modelBookmarkClose();
         this.modelCopyToOpen();
     }
-    
     openNewShowcase() {
         this.showcaseField = !this.showcaseField;
     }
-    
     categorySelected(id) {
+        this.categorySelectedId = true;
         this.addLinkForm.controls['category_id'].setValue(id);
-        console.log(this.addLinkForm.value);
     }
 
     addLink() {
@@ -556,6 +555,16 @@ export class SettingComponent implements OnInit {
         this.getMyCategories();
         this.getbookmark(this.id);
     }
+    doDeleteBookmark(id) {
+        this.bookmarkService.bookmarkDelete(id).subscribe((data) => {
+            if (!data.error) {
+                this.toastr.success('Bookmark deleted succesfully.', 'Success!');
+                this.getbookmark(this.id);
+            } else {
+                this.toastr.error('Error while deleting bookmark, Try again', 'Oops!');
+            }
+        });
+    }
     getbookmark(id) {
         this.bookmarkService.categoryBookmarks(id).subscribe((data) => {
             if (!data.error) {
@@ -585,7 +594,7 @@ export class SettingComponent implements OnInit {
                 this.toastr.success('Bookmark position changed succesfully.', 'Success!');
                 this.getbookmark(this.id);
             } else {
-                this.toastr.error('Erro while chaning bookmakr position, Try again.', 'Oops!');
+                this.toastr.error('Erro while chaning bookmark position, Try again.', 'Oops!');
             }
         });
     }
@@ -603,10 +612,10 @@ export class SettingComponent implements OnInit {
         };
         this.bookmarkService.bookmarkDeleteSelected(obj).subscribe((data) => {
             if (!data.error) {
-                this.toastr.success('Bookmark deleted succesfully.', 'Success!');
+                this.toastr.success('Bookmarks deleted succesfully.', 'Success!');
                 this.getbookmark(this.id);
             } else {
-                this.toastr.error('Error while deleting bookmark, Try again', 'Oops!');
+                this.toastr.error('Error while deleting bookmarks, Try again', 'Oops!');
             }
         });
     }
@@ -651,15 +660,14 @@ export class SettingComponent implements OnInit {
     styleUrls: ['./frontenddashboard.component.css']
 })
 export class ViewComponent implements AfterViewInit   {
-    
-    bookmarks=[];
+
+    bookmarks= [];
     options: MasonryOptions = {
         transitionDuration: '0.3s',
         itemSelector: '.grid-item'
-    }
+    };
     curColWidth = 0 ;
     gridColWidth = '' ;
-    
     bricks: any[] = [];
 
     @ViewChild(AngularMasonry) masonry: AngularMasonry;
@@ -711,7 +719,6 @@ export class ViewComponent implements AfterViewInit   {
     }
 
     setStyles() {
-        console.log(this.gridColWidth)
         let styles = {
             'width':  this.gridColWidth
         };
@@ -722,14 +729,14 @@ export class ViewComponent implements AfterViewInit   {
         this.bookmarkService.categoryBookmarks(id).subscribe((data) => {
             if (!data.error) {
                 this.bookmarks = data.message;
-                setTimeout(()=>{
-                    this.manageUI()                    
-                },3000)
+                setTimeout(() => {
+                    this.manageUI();
+                }, 3000);
             }
         });
     }
 
-    videoUrl(url){
+    videoUrl(url) {
         return this.sanitizer.bypassSecurityTrustResourceUrl(url);
     }
 

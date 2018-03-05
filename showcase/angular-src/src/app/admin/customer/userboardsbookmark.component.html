@@ -1,0 +1,39 @@
+<div class="card card-nav-tabs">
+    <div class="card-header" data-background-color="navyblue">
+        <div class="nav-tabs-navigation">
+            <div class="nav-tabs-wrapper">
+                <ul class="nav nav-tabs" data-tabs="tabs">
+                    <li class="active pull-right">
+                            Board's bookmarks
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="card-content table-responsive">
+        <table class="table" *ngIf="bookmarks?.length >0">
+            <thead class="clr-navyblue">
+                <th>Title</th>
+                <th>Action</th>
+            </thead>
+            <tbody>
+                <tr *ngFor="let bookmark of bookmarks">
+                    <td class="padding0" style="width:300px;">
+                        <div *ngIf="bookmark.type == 'instagram' || bookmark.type == 'twitter'" [innerHtml]="bookmark.body"></div>
+                        <iframe *ngIf="bookmark.type != 'instagram' && bookmark.type != 'twitter'" [src]="videoUrl(bookmark.title)" width="100%"></iframe>
+                    </td>
+                    <td class="padding0 text-right">
+                        <a  class="btn btn-danger  pull-left" href="javascript:void(0)"  (click)="deletebookmark(bookmark._id)">
+                            Delete
+                        </a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="alert alert-warning" *ngIf="bookmarks?.length == 0">
+            <button type="button" aria-hidden="true" class="close">×</button>
+            <span>
+                <b> No Data </b></span>
+        </div>
+    </div>
+</div>

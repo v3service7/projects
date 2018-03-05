@@ -20,6 +20,7 @@
                 <th>Name</th>
                 <th>Phone Number</th>
                  <th>Email</th>
+                 <th>View Boards</th>
                 <th>Action</th>
             </thead>
             <tbody>
@@ -27,6 +28,7 @@
                     <td class="padding0">{{customer.firstname}} {{customer.lastname}}</td>
                     <td class="padding0">{{customer.phonenumber}}</td>
                     <td class="padding0">{{customer.email}}</td>
+                    <td class="padding0" ><a  [routerLink]="['/admin/user/borads/',customer._id]" class="btn  bg-navyblue text-white">User board</a></td>
                     <td class="padding0 td-actions text-right">
                         <a [routerLink]="['/admin/user/',customer._id]" rel="tooltip" title="Edit Task" class="btn btn-primary btn-simple btn-xs">
                             <i class="material-icons">edit</i>
