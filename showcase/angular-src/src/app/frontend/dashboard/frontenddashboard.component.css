@@ -6,3 +6,7 @@
     left: unset;
     right: 0;
 }
+
+.brick { 
+    width: 100px !important;
+ }

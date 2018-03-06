@@ -3,8 +3,8 @@
         <div class="nav-tabs-navigation">
             <div class="nav-tabs-wrapper">
                 <ul class="nav nav-tabs" data-tabs="tabs">
-                    <li class="active pull-right">
-                        User boards
+                    <li class="active text-cap">
+                        {{username}} / boards
                     </li>
                 </ul>
             </div>
@@ -21,7 +21,7 @@
                 <tr *ngFor="let board of boards">
                     <td class="padding0 text-cap">{{board.name}}</td>
                     <td class="padding0">
-                        <a [routerLink]="['/admin/user/borads/bookmark',board._id]" class="btn text-white bg-navyblue">View bookmarks</a>
+                        <a [routerLink]="['/admin/user/borads/bookmark',board._id]" (click)="setBoardName(board.name)" class="btn text-white bg-navyblue">View bookmarks</a>
                     </td>
                     <td class="padding0  text-right">
                         <a class="btn btn-danger pull-left " href="javascript:void(0)" (click)="deleteboard(board._id)">
@@ -34,7 +34,7 @@
         <div class="alert alert-warning" *ngIf="boards?.length == 0">
             <button type="button" aria-hidden="true" class="close">×</button>
             <span>
-                <b> No Data </b></span>
+                <b> No Data - </b></span>
         </div>
     </div>
 </div>

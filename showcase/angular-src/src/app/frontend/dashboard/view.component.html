@@ -4,7 +4,7 @@
 	<h1 *ngIf="!bookmarks?.length > 0" class="text-center text-muted pt-5">Bookmarks panel is empty.</h1>
 	<masonry [options]="options">
 	    <!-- <div class="row"> -->
-			<masonry-brick *ngFor="let bookmark of bookmarks">
+			<masonry-brick class="brick" *ngFor="let bookmark of bookmarks">
 				<div class="grid-item" [ngStyle]="setStyles()">
 					<div *ngIf="bookmark.type == 'instagram'"  [innerHtml]="bookmark.body"></div>
 					<!-- {{bookmark.body}} -->
