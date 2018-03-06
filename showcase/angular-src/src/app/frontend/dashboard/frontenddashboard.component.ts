@@ -40,6 +40,9 @@ export class ProfileHeaderComponent implements OnInit {
     isHere = false;
     liCount: any;
     category_id: any;
+    category: any;
+    socialShareUrl: any;
+    shareUrl: any;
     showcaseField: any = false;
     categorySelectedId: any = false;
     @Input() childMessage: string;
@@ -61,6 +64,7 @@ export class ProfileHeaderComponent implements OnInit {
     }
 
     ngOnInit() {
+        this.shareUrl = window.location.href;
         setTimeout(() => {
             this.liCount = document.getElementById('category-navbar').getElementsByTagName('li').length;
         }, 1000);
@@ -80,7 +84,15 @@ export class ProfileHeaderComponent implements OnInit {
         this.category_id = this.childMessage;
         this.checkCustomer();
     }
-
+    doShare(category) {
+        this.category = category;
+        this.socialShareUrl = 'https://measuremight.com:3002/view/' + category._id;
+        this.modelShareOpen();
+    }
+    doEmbed(category) {
+        this.category = category;
+        this.modelEmbedOpen();
+    }
     addBoodmark() {
         this.bookService.bookmarkAdd(this.addLinkForm.value).subscribe((data) => {
             if (!data.eror) {
@@ -93,7 +105,6 @@ export class ProfileHeaderComponent implements OnInit {
             }
         });
     }
-
     openCopyToModel() {
         this.modelBookmarkClose();
         this.modelCopyToOpen();
@@ -287,13 +298,24 @@ export class ProfileHeaderComponent implements OnInit {
     modelBookmarkOpen() {
         document.getElementById('bookmarkModal').style.display = 'block';
     }
-    
+    modelEmbedClose() {
+        document.getElementById('embedModal').style.display = 'none';
+    }
+
+    modelEmbedOpen() {
+        document.getElementById('embedModal').style.display = 'block';
+    }
     modelCopyToOpen() {
         document.getElementById('copytokModal').style.display = 'block';
     }
-    
     modelCopyToClose() {
         document.getElementById('copytokModal').style.display = 'none';
+    }
+    modelShareOpen() {
+        document.getElementById('shareModal').style.display = 'block';
+    }
+    modelShareClose() {
+        document.getElementById('shareModal').style.display = 'none';
     }
 
     checkCustomer() {
@@ -659,9 +681,9 @@ export class SettingComponent implements OnInit {
     templateUrl: './view.component.html',
     styleUrls: ['./frontenddashboard.component.css']
 })
-export class ViewComponent implements AfterViewInit   {
-
+export class ViewComponent implements AfterViewInit, OnInit   {
     bookmarks= [];
+    parentMessage: any;
     options: MasonryOptions = {
         transitionDuration: '0.3s',
         itemSelector: '.grid-item'
@@ -675,13 +697,23 @@ export class ViewComponent implements AfterViewInit   {
 
     constructor(private router: Router,
         private route: ActivatedRoute,
-        private bookmarkService : BookmarkService,
+        private bookmarkService: BookmarkService,
+        private categoryService: CategoryService,
         private sanitizer: DomSanitizer) {
+    }
+
+    ngOnInit() {
+        this.route.params.subscribe((params: Params) => {
+            let id = params['id'];
+            this.parentMessage = id;
+            this.getbookmark(id);
+        });
     }
 
     ngAfterViewInit() {
         this.route.params.subscribe((params: Params) => {
             let id = params['id'];
+            this.parentMessage = id;
             this.getbookmark(id);
         });
     }
@@ -695,9 +727,8 @@ export class ViewComponent implements AfterViewInit   {
     }
 
     setWidth(type){
-        return this.curColWidth;       
+        return this.curColWidth;
     }
-
     manageUI(){
         var cols = 4;
         if($("body").width()>1600){
@@ -740,4 +771,11 @@ export class ViewComponent implements AfterViewInit   {
         return this.sanitizer.bypassSecurityTrustResourceUrl(url);
     }
 
+}
+export declare class FacebookParams {
+    u: string;
+}
+
+export class GooglePlusParams {
+    url: string;
 }

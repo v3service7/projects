@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule, JsonpModule } from '@angular/http';
+import { HttpClientModule, HttpClientJsonpModule } from '@angular/common/http';
 import { AppComponent } from './app.component';
 import { TinymceModule } from 'angular2-tinymce';
 import { SelectModule } from 'angular2-select';
@@ -49,7 +50,11 @@ import { Ng2OrderModule } from 'ng2-order-pipe';
 import * as globalVariable from './global';
 import { ToastModule } from 'ng2-toastr/ng2-toastr';
 import { routing } from './app.routes';
-import { SafePipe } from './safe.pipe';
+import { SafePipe } from './safe.pipe'; 
+import { ShareButtonsModule } from '@ngx-share/buttons';
+import { ShareButtonModule } from '@ngx-share/button';
+import { ShareModule } from '@ngx-share/core';
+
 
 let providers = {
     'google': {
@@ -103,7 +108,9 @@ let providers = {
     Ng2OrderModule,
     Ng2SearchPipeModule,
     BrowserAnimationsModule,
-    ToastModule.forRoot()
+    ToastModule.forRoot(),
+    HttpClientModule,      // (Required) for share counts
+    HttpClientJsonpModule, // (Optional) For linkedIn & Tumblr counts
   ],
   // tslint:disable-next-line:max-line-length
   providers: [AuthService, ValidateService, CategoryService, BookmarkService, AdminService, AuthGuard, UserGuard, UserService, PlanService, PagesService, PurchaseplanService],

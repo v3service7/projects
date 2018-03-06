@@ -23,6 +23,19 @@ module.exports = (function () {
             res.json(response);
         });
     });
+    // with out passport 
+    router.get('/category/open/:id', (req, res) => {
+        var response = {};
+
+        bookmarkModel.find({ category_id: req.params.id }, null, { sort: { position: 1 } }, function (err, bookmark) {
+            if (err) {
+                response = { "error": true, "message": "Error fetching data" };
+            } else {
+                response = { "error": false, "message": bookmark };
+            };
+            res.json(response);
+        });
+    });
     // get bookmark
     router.get('/', passport.authenticate('jwt', { session: false }), function (req, res, next) {
         var response = {};
