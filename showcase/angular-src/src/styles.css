@@ -12,7 +12,9 @@ select-dropdown>div .filter input {
   font-size: 12px !important; 
   padding: 0px 5px !important;
 }
-
+ share-button.sb-button.whatsapp {
+    display: none !important;
+}
 
 .sidebar-wrapper > ul > li {
     width: 100%;

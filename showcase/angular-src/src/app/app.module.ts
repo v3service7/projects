@@ -50,10 +50,9 @@ import { Ng2OrderModule } from 'ng2-order-pipe';
 import * as globalVariable from './global';
 import { ToastModule } from 'ng2-toastr/ng2-toastr';
 import { routing } from './app.routes';
-import { SafePipe } from './safe.pipe'; 
-import { ShareButtonsModule } from '@ngx-share/buttons';
-import { ShareButtonModule } from '@ngx-share/button';
-import { ShareModule } from '@ngx-share/core';
+import { SafePipe } from './safe.pipe';
+import { ShareButtonsModule } from 'ng2-sharebuttons';
+
 
 
 let providers = {
@@ -111,6 +110,7 @@ let providers = {
     ToastModule.forRoot(),
     HttpClientModule,      // (Required) for share counts
     HttpClientJsonpModule, // (Optional) For linkedIn & Tumblr counts
+    ShareButtonsModule.forRoot()
   ],
   // tslint:disable-next-line:max-line-length
   providers: [AuthService, ValidateService, CategoryService, BookmarkService, AdminService, AuthGuard, UserGuard, UserService, PlanService, PagesService, PurchaseplanService],

@@ -37,6 +37,7 @@
     "ng2-order-pipe": "^0.1.5",
     "ng2-search-filter": "^0.3.1",
     "ng2-select2": "^1.0.0-beta.10",
+    "ng2-sharebuttons": "^2.1.2",
     "ng2-social-share": "0.0.10",
     "ng2-toastr": "^4.1.2",
     "ngx-image-cropper": "^0.1.24",

@@ -211,7 +211,7 @@
                     </div>
                     <div class="card-body preview-bookmark">
                         <p>Share your showcase “{{category.name}}” directly to social</p>
-                        <!-- <div class="row text-center mb-5">
+                       <!--  <div class="row text-center mb-5">
                             <div class="col-12">
                                 <share-button theme="material-dark" class="px-1" button="facebook" [url]="socialShareUrl" text="Facebook" showText="true"></share-button>
                                 <share-button theme="material-dark" button="twitter" text="Twitter"  [url]="socialShareUrl" showText="true"></share-button>
@@ -223,6 +223,7 @@
                                 <share-button theme="material-dark" button="stumble" [url]="socialShareUrl"  text="Stumble" showText="true"></share-button>
                             </div>
                         </div> -->
+                        <share-buttons  [url]="socialShareUrl"></share-buttons>
                         <div class="form-group">
                             <label for="exampleInputEmail1">Or copy and paste the following on your favourite social channel:</label>
                             <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="{{socialShareUrl}}" placeholder="">

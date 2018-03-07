@@ -12,6 +12,7 @@ import { AuthService } from 'angular2-social-login';
 })
 export class FrontendHomeComponent implements OnInit {
     token: any;
+    returnUrl: string;
     customerLoginForm: FormGroup;
     customerSignupForm: FormGroup;
     customerForgetForm: FormGroup;
@@ -44,6 +45,7 @@ export class FrontendHomeComponent implements OnInit {
     ) { }
 
     ngOnInit() {
+        this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/dashboard';
         this.route.queryParams.subscribe((params: Params) => {
             this.token = params['q'];
         });
@@ -167,13 +169,13 @@ export class FrontendHomeComponent implements OnInit {
                             this.userService.socialValidateUser(obj).subscribe((loggedUserOauth) => {
                                 localStorage.setItem('id_token_customer', loggedUserOauth.token);
                                 localStorage.setItem('customer', JSON.stringify(loggedUserOauth.user));
-                                this.router.navigate(['dashboard']);
+                                this.router.navigate([this.returnUrl]);
                             });
                         });
                     } else {
                         localStorage.setItem('id_token_customer', loggedUser.token);
                         localStorage.setItem('customer', JSON.stringify(loggedUser.user));
-                        this.router.navigate(['dashboard']);
+                        this.router.navigate([this.returnUrl]);
                     }
                 })
             })
@@ -205,7 +207,7 @@ export class FrontendHomeComponent implements OnInit {
                                 localStorage.setItem('customer', JSON.stringify(loggedUserOauth.user));
                                 this.modelClose('login');
                                 this.modelClose('signup');
-                                this.router.navigate(['dashboard']);
+                                this.router.navigate([this.returnUrl]);
                             });
                         });
                     }
@@ -215,7 +217,7 @@ export class FrontendHomeComponent implements OnInit {
                         localStorage.setItem('customer', JSON.stringify(loggedUser.user));
                         this.modelClose('login');
                         this.modelClose('signup');
-                        this.router.navigate(['dashboard']);
+                        this.router.navigate([this.returnUrl]);
                     }
                 });
             }
@@ -232,6 +234,7 @@ export class FrontendHomeComponent implements OnInit {
     }
 
     onLoginWithInstagram() {
+        // tslint:disable-next-line:max-line-length
         window.location.href = `https://api.instagram.com/oauth/authorize/?client_id=98349c5779404c6ea9c9aa59e0e3aeeb&redirect_uri=https://measuremight.com:3002/&response_type=code`;
     }
 
@@ -240,8 +243,9 @@ export class FrontendHomeComponent implements OnInit {
             (data) => {
                 this.modelClose('signup');
                 if (!data.error) {
+                    // tslint:disable-next-line:max-line-length
                     this._flashMessagesService.show('Registered  Successfully, Please check your mail.', { cssClass: 'alert-success', timeout: 5000 });
-                    //this.router.navigate(['admin/dashboard']);
+                    // this.router.navigate(['admin/dashboard']);
                 } else {
                     this._flashMessagesService.show('Email already exist.', { cssClass: 'alert-danger', timeout: 5000 });
                 }
@@ -261,8 +265,7 @@ export class FrontendHomeComponent implements OnInit {
                 } else {
                     this.userService.storeUserData(data.token, data.user);
                     this._flashMessagesService.show('Login  Successfully', { cssClass: 'alert-success', timeout: 5000 });
-                    this.router.navigate(['dashboard']);
-
+                    this.router.navigate([this.returnUrl]);
                 }
             },
             (err) => {
