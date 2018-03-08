@@ -93,7 +93,10 @@ export class ProfileHeaderComponent implements OnInit {
         this.category = category;
         this.modelEmbedOpen();
     }
-    addBoodmark() {
+    addBoodmark(id) {
+        if (id) {
+            this.addLinkForm.controls['category_id'].setValue(id);
+        }
         this.bookService.bookmarkAdd(this.addLinkForm.value).subscribe((data) => {
             if (!data.eror) {
                 this.router.navigate(['view', this.addLinkForm.value['category_id']]);
@@ -110,9 +113,11 @@ export class ProfileHeaderComponent implements OnInit {
         this.modelCopyToOpen();
     }
     openNewShowcase() {
-        this.showcaseField = !this.showcaseField;
+        this.showcaseField = true;
+        this.categorySelectedId = false;
     }
     categorySelected(id) {
+        this.showcaseField = false;
         this.categorySelectedId = true;
         this.addLinkForm.controls['category_id'].setValue(id);
     }
@@ -126,7 +131,7 @@ export class ProfileHeaderComponent implements OnInit {
         // public => https://www.facebook.com/notes/facebook/public-search-listings-on-facebook/2963412130/
         // private => https://www.facebook.com/bob.brello
         var inputURL = encodeURIComponent(url);
-        let ur = 'https://www.facebook.com/plugins/post.php?href='+inputURL+'%26type%3D3&width=600'
+        let ur = 'https://www.facebook.com/plugins/post.php?href=' + inputURL + '%26type%3D3&width=600'
         var embedHTML = '<iframe id="bookmarkiframe" src="https://www.facebook.com/plugins/post.php?href=' + inputURL + '%26type%3D3&width=600" height="400" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowTransparency="true"></iframe>';
         var htmlToAdd = this.convertToGridItem(embedHTML);
         this.addLinkForm.controls['title'].setValue(ur);
@@ -138,30 +143,30 @@ export class ProfileHeaderComponent implements OnInit {
 
     embedInsta(url) {
         this.validateService.getInsta(url)
-        .subscribe(data => {
-            this.addLinkForm.controls['title'].setValue(url);
-            this.addLinkForm.controls['body'].setValue(data.html);
-            this.addLinkForm.controls['type'].setValue('instagram');
-            document.getElementById('loader').style.display = 'none';
-            document.getElementById('bookMark').innerHTML = data.html;
-        },error => {
-            document.getElementById('bookMark').innerHTML = 'Invalid Url';
-            document.getElementById('loader').style.display = 'none';
-        });
+            .subscribe(data => {
+                this.addLinkForm.controls['title'].setValue(url);
+                this.addLinkForm.controls['body'].setValue(data.html);
+                this.addLinkForm.controls['type'].setValue('instagram');
+                document.getElementById('loader').style.display = 'none';
+                document.getElementById('bookMark').innerHTML = data.html;
+            }, error => {
+                document.getElementById('bookMark').innerHTML = 'Invalid Url';
+                document.getElementById('loader').style.display = 'none';
+            });
     }
 
     embedTwitter(url) {
         this.validateService.getTwitter(url)
-        .subscribe(data => {
-            this.addLinkForm.controls['title'].setValue(url);
-            this.addLinkForm.controls['body'].setValue(data.html);
-            this.addLinkForm.controls['type'].setValue('twitter');
-            document.getElementById('loader').style.display = 'none';
-            document.getElementById('bookMark').innerHTML = data.html
-        },error => {
-            document.getElementById('bookMark').innerHTML = 'Invalid Url';
-            document.getElementById('loader').style.display = 'none';
-        });
+            .subscribe(data => {
+                this.addLinkForm.controls['title'].setValue(url);
+                this.addLinkForm.controls['body'].setValue(data.html);
+                this.addLinkForm.controls['type'].setValue('twitter');
+                document.getElementById('loader').style.display = 'none';
+                document.getElementById('bookMark').innerHTML = data.html
+            }, error => {
+                document.getElementById('bookMark').innerHTML = 'Invalid Url';
+                document.getElementById('loader').style.display = 'none';
+            });
     }
 
     embedPinterest(url) {
@@ -173,7 +178,7 @@ export class ProfileHeaderComponent implements OnInit {
 
     embedSoundCloud(url) {
         // tslint:disable-next-line:max-line-length
-        let ur = 'https://w.soundcloud.com/player/?url="'+url+'"';
+        let ur = 'https://w.soundcloud.com/player/?url="' + url + '"';
         var embedHTML = '<iframe width="100%" height="166" scrolling="no" frameborder="no" src="https://w.soundcloud.com/player/?url=' + url + '"></iframe>';
         var htmlToAdd = this.convertToGridItem(embedHTML);
         document.getElementById('loader').style.display = 'none';
@@ -199,24 +204,24 @@ export class ProfileHeaderComponent implements OnInit {
     embedYoutube(url) {
         var youtubeID = url.split('v=')[1];
         this.validateService.getYoutube(youtubeID)
-        .subscribe(data => {
-            if (data.items.length > 0) {
-                let embedHTML = '<iframe width="100%" id="bookmarkiframe" height="337" src="https://www.youtube.com/embed/' + youtubeID + '" frameborder="0" allowfullscreen></iframe>';
-                this.addLinkForm.controls['title'].setValue('https://www.youtube.com/embed/'+youtubeID);
-                this.addLinkForm.controls['body'].setValue(embedHTML);
-                this.addLinkForm.controls['type'].setValue('youtube');
-                console.log(this.addLinkForm.value)
-                var htmlToAdd = this.convertToGridItem(embedHTML);
+            .subscribe(data => {
+                if (data.items.length > 0) {
+                    let embedHTML = '<iframe width="100%" id="bookmarkiframe" height="337" src="https://www.youtube.com/embed/' + youtubeID + '" frameborder="0" allowfullscreen></iframe>';
+                    this.addLinkForm.controls['title'].setValue('https://www.youtube.com/embed/' + youtubeID);
+                    this.addLinkForm.controls['body'].setValue(embedHTML);
+                    this.addLinkForm.controls['type'].setValue('youtube');
+                    console.log(this.addLinkForm.value)
+                    var htmlToAdd = this.convertToGridItem(embedHTML);
+                    document.getElementById('loader').style.display = 'none';
+                    document.getElementById('bookMark').innerHTML = htmlToAdd;
+                } else {
+                    document.getElementById('bookMark').innerHTML = 'Invalid Url';
+                    document.getElementById('loader').style.display = 'none';
+                }
+            }, err => {
                 document.getElementById('loader').style.display = 'none';
-                document.getElementById('bookMark').innerHTML = htmlToAdd;
-            } else {
                 document.getElementById('bookMark').innerHTML = 'Invalid Url';
-                document.getElementById('loader').style.display = 'none';
-            }
-        }, err => {
-            document.getElementById('loader').style.display = 'none';
-            document.getElementById('bookMark').innerHTML = 'Invalid Url';
-        });
+            });
     }
 
     embedLink(link) {
@@ -241,11 +246,11 @@ export class ProfileHeaderComponent implements OnInit {
 
     slugify(text) {
         return text.toString().toLowerCase()
-        .replace(/\s+/g, '-')           // Replace spaces with -
-        .replace(/[^\w\-]+/g, '')       // Remove all non-word chars
-        .replace(/\-\-+/g, '-')         // Replace multiple - with single -
-        .replace(/^-+/, '')             // Trim - from start of text
-        .replace(/-+$/, '');            // Trim - from end of text
+            .replace(/\s+/g, '-')           // Replace spaces with -
+            .replace(/[^\w\-]+/g, '')       // Remove all non-word chars
+            .replace(/\-\-+/g, '-')         // Replace multiple - with single -
+            .replace(/^-+/, '')             // Trim - from start of text
+            .replace(/-+$/, '');            // Trim - from end of text
     }
 
     getMyCategories() {
@@ -260,7 +265,10 @@ export class ProfileHeaderComponent implements OnInit {
         this.modelOpen();
     }
 
-    addCategoryData() {
+    addCategoryData(action) {
+        if (action) {
+            this.modelCopyToClose();
+        }
         var position = this.addCategoryForm.value['position'];
         var obj = this.addCategoryForm.value;
         obj.user_id = this.customer._id;
@@ -268,12 +276,15 @@ export class ProfileHeaderComponent implements OnInit {
             if (!data.error) {
                 this.categoryService.categoryAdd(obj).subscribe((data2) => {
                     if (!data2.error) {
-                        this.toastr.success(data2.message, 'Success!');
+                        this.toastr.success('Board added successfully.', 'Success!');
+                        if (action) {
+                            this.addBoodmark(data2.message._id);
+                        }
                         this.modelClose();
                         this.getMyCategories();
                         this.addCategoryForm.reset();
                     } else {
-                        this.toastr.error(data2.message, 'Oops!');
+                        this.toastr.error('Erro while adding board, Try again.', 'Oops!');
                         this.modelClose();
                         this.addCategoryForm.reset();
                         this.getMyCategories();
@@ -311,6 +322,7 @@ export class ProfileHeaderComponent implements OnInit {
     modelCopyToClose() {
         document.getElementById('copytokModal').style.display = 'none';
     }
+
     modelShareOpen() {
         document.getElementById('shareModal').style.display = 'block';
     }
@@ -495,6 +507,7 @@ export class MyProfileComponent implements OnInit {
                         }
                     });
                 } else {
+                    // tslint:disable-next-line:max-line-length
                     this._flashMessagesService.show('New Password & confirm password does not match', { cssClass: 'alert-danger', timeout: 5000 });
                 }
             } else {
@@ -533,9 +546,15 @@ export class SettingComponent implements OnInit {
     category: any;
     categories: any;
     bookmarks: any;
+    bookmarkData: any;
     bookmarks_ids = [];
+    categorySelectedId: any = false;
+    showcaseField: any = false;
+    copyShowcaseBookmark: any;
+    copyShowcaseBookmarks: any;
     flag: any = true;
     updateCategoryForm: FormGroup;
+    addCategoryForm: FormGroup;
     constructor(private router: Router,
         private route: ActivatedRoute,
         vRef: ViewContainerRef,
@@ -560,11 +579,15 @@ export class SettingComponent implements OnInit {
         });
     }
 
-    videoUrl(url){
+    videoUrl(url) {
         return this.sanitizer.bypassSecurityTrustResourceUrl(url);
     }
 
     ngOnInit() {
+        this.addCategoryForm = this.lf.group({
+            name: ['', Validators.required],
+            position: ['', Validators.required]
+        });
         this.updateCategoryForm = this.lf.group({
             _id: [''],
             name: ['', Validators.required],
@@ -601,6 +624,13 @@ export class SettingComponent implements OnInit {
                 this.category = data.message;
                 this.category = this.category.filter((cid) => cid._id === this.id);
                 this.updateCategoryForm.patchValue(this.category[0]);
+            }
+        });
+    }
+    myCategories() {
+        this.userService.mycategory().subscribe((data) => {
+            if (!data.err) {
+                this.categories = data.message;
             }
         });
     }
@@ -641,6 +671,114 @@ export class SettingComponent implements OnInit {
             }
         });
     }
+    doSelectedCopy() {
+        var obj = {
+            ids: this.bookmarks_ids
+        };
+        this.copyShowcaseBookmarks = this.bookmarks_ids;
+        this.modelCopy2Open();
+    }
+    doCopy(bookmark) {
+        this.myCategories();
+        this.copyShowcaseBookmark = bookmark;
+        this.modelCopy2Open();
+    }
+    modelCopy2Open() {
+        document.getElementById('copy2Modal').style.display = 'block';
+    }
+    modelCopy2Close() {
+        document.getElementById('copy2Modal').style.display = 'none';
+    }
+    categorySelected(bookmark, category_id, copyShowcaseBookmarks) {
+        this.copyShowcaseBookmarks = null;
+        this.copyShowcaseBookmark = null;
+        this.bookmarks_ids = null;
+        this.showcaseField = false;
+        this.categorySelectedId = true;
+        if (copyShowcaseBookmarks) {
+            this.bookmarkData = copyShowcaseBookmarks.filter((data) => {
+                delete data['_id'];
+               return data.category_id = category_id;
+            });
+        }
+        if (bookmark) {
+            delete bookmark['_id'];
+            bookmark.category_id = category_id;
+            this.bookmarkData = bookmark;
+        }
+    }
+    openNewShowcase(bookmark) {
+        delete bookmark['_id'];
+        this.bookmarkData = bookmark;
+        this.showcaseField = true;
+        this.categorySelectedId = false;
+    }
+    updateCatIdINBookmark(id) {
+        this.bookmarkData.category_id = id;
+        this.addBoodmark();
+    }
+    addCategoryData() {
+        var position = this.addCategoryForm.value['position'];
+        var obj = this.addCategoryForm.value;
+        obj.user_id = this.customer._id;
+        this.categoryService.categoryPositionUpdate(position).subscribe((data) => {
+            if (!data.error) {
+                this.categoryService.categoryAdd(obj).subscribe((data2) => {
+                    if (!data2.error) {
+                        this.updateCatIdINBookmark(data2.message._id);
+                        this.toastr.success('Board added successfully.', 'Success!');
+                        this.getMyCategories();
+                        this.addCategoryForm.reset();
+                    } else {
+                        this.toastr.error('Erro while adding board, Try again.', 'Oops!');
+                        this.addCategoryForm.reset();
+                        this.getMyCategories();
+                    }
+                });
+            }
+        });
+    }
+    addBoodmark() {
+        this.modelCopy2Close();
+        this.toastr.success('Bookmarks copied succesfully.', 'Success!');
+        if (this.bookmarkData.length > 0) {
+            var flag = false;
+            console.log(this.bookmarkData.length)
+            for (let index = 0; index < this.bookmarkData.length; index++) {
+                this.bookmarkService.bookmarkAdd(this.bookmarkData[index]).subscribe((data) => {
+                if (!data.error) {
+                  flag = true;
+                }
+            });
+           }
+        }
+        if (typeof this.bookmarkData.length === 'undefined') {
+            this.bookmarkService.bookmarkAdd(this.bookmarkData).subscribe((data) => {
+                if (!data.error) {
+                    this.toastr.success('Bookmarks copied succesfully.', 'Success!');
+                    setTimeout(() => {
+                        window.location.reload();
+                    }, 1000);
+                    this.modelCopy2Close();
+                } else {
+                    this.toastr.error('Error while coping bookmarks, Try again', 'Oops!');
+                }
+            });
+        }
+        
+    }
+    doDeleteBoard(id) {
+        this.categoryService.categoryDelete(id).subscribe((data) => {
+            if (!data.error) {
+                this.toastr.success('Board deleted succesfully.', 'Success!');
+                setTimeout(() => {
+                    this.router.navigate(['/dashboard']);
+                }, 1000);
+            } else {
+                this.toastr.error('Error while deleting board, Try again', 'Oops!');
+            }
+        });
+    }
     updateCategoryData() {
         var position = this.updateCategoryForm.value['position'];
         var obj = this.updateCategoryForm.value;
@@ -652,6 +790,9 @@ export class SettingComponent implements OnInit {
                         if (!data2.error) {
                             this.toastr.success('Category updated succesfully.', 'Success!');
                             $('#' + this.updateCategoryForm.value['_id']).text(this.updateCategoryForm.value['name']);
+                            setTimeout(() => {
+                                window.location.reload();
+                            }, 1000);
                             this.getMyCategories();
                         } else {
                             this.toastr.error('Error while updating category. Try again.', 'Oops!');
@@ -681,15 +822,15 @@ export class SettingComponent implements OnInit {
     templateUrl: './view.component.html',
     styleUrls: ['./frontenddashboard.component.css']
 })
-export class ViewComponent implements AfterViewInit, OnInit   {
-    bookmarks= [];
+export class ViewComponent implements AfterViewInit, OnInit {
+    bookmarks = [];
     parentMessage: any;
     options: MasonryOptions = {
         transitionDuration: '0.3s',
         itemSelector: '.grid-item'
     };
-    curColWidth = 0 ;
-    gridColWidth = '' ;
+    curColWidth = 0;
+    gridColWidth = '';
     bricks: any[] = [];
 
     @ViewChild(AngularMasonry) masonry: AngularMasonry;
@@ -718,40 +859,40 @@ export class ViewComponent implements AfterViewInit, OnInit   {
         });
     }
 
-    setHeight(type){
-        if (type='facebook') {
+    setHeight(type) {
+        if (type = 'facebook') {
             return '400';
-        }else if (type='youtube') {
+        } else if (type = 'youtube') {
             return '337';
         }
     }
 
-    setWidth(type){
+    setWidth(type) {
         return this.curColWidth;
     }
-    manageUI(){
+    manageUI() {
         var cols = 4;
-        if($("body").width()>1600){
+        if ($("body").width() > 1600) {
             cols = 4;
-        }else if($("body").width()>1000){
+        } else if ($("body").width() > 1000) {
             cols = 3;
-        }else if($("body").width()>600){
+        } else if ($("body").width() > 600) {
             cols = 2;
-        }else{
+        } else {
             cols = 1;
         }
         var theW = ($("body").width() - ($("body").width() / 50)) / cols;
         this.curColWidth = theW;
         $("iframe").css("width", theW);
         $("twitterwidget").css("width", theW);
-        let th = theW + (theW/50);
-        this.gridColWidth = th +'px';
+        let th = theW + (theW / 50);
+        this.gridColWidth = th + 'px';
         $(".grid-item").css("width", th);
     }
 
     setStyles() {
         let styles = {
-            'width':  this.gridColWidth
+            'width': this.gridColWidth
         };
         return styles;
     }

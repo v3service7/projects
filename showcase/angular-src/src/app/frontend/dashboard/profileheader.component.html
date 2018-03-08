@@ -163,41 +163,49 @@
     <div class="container">
         <div class="row justify-content-md-center">
             <div class="col-lg-7 col-xs-12">
-                <div class="card rounded-1">
-                    <span class="close signupclose" (click)="modelCopyToClose()">&times;</span>
-                    <div class="card-header text-center bg-white h4 rounded-1 rounded-rl-1">
-                        <i class="fa fa-files-o text-warning"></i> Copy to showcase
-                    </div>
-                    <div class="card-body preview-bookmark">
-                        <div class="row">
-                            <div class="col-12">
-                                <form>
+                <form [formGroup]="addCategoryForm" (ngSubmit)="addCategoryData('close')">
+                    <div class="card rounded-1">
+                        <span class="close signupclose" (click)="modelCopyToClose()">&times;</span>
+                        <div class="card-header text-center bg-white h4 rounded-1 rounded-rl-1">
+                            <i class="fa fa-files-o text-warning"></i> Copy to showcase
+                        </div>
+                        <div class="card-body preview-bookmark">
+                            <div class="row">
+                                <div class="col-12">
                                     <div class="form-group">
-                                        <label for="exampleFormControlSelect2">Example multiple select</label>
                                         <select multiple class="form-control" id="exampleFormControlSelect2">
                                             <option *ngFor="let category of categories; let i = index" (click)="categorySelected(category._id)">{{category.name}}</option>
                                             <option (click)="openNewShowcase()">Create new showcase</option>
                                         </select>
                                     </div>
                                     <div class="form-group" *ngIf="showcaseField">
-                                        <label for="exampleFormControlInput1">Name for new showcase</label>
-                                        <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="Type here...">
+                                        <label for="">Showcase name</label>
+                                        <input type="text" formControlName="name" class="form-control" placeholder="type here...">
                                     </div>
-                                </form>
-                            </div>
-                            <div class="col-6">
+                                    <div class="form-group" *ngIf="showcaseField">
+                                        <label for="exampleFormControlSelect1">Position in menu</label>
+                                        <select class="form-control" formControlName="position">
+                                            <option [ngValue]="1" selected>Top</option>
+                                            <option *ngFor="let category of categories; let i = index" [ngValue]="category.position+1">After {{category.name}}</option>
+                                        </select>
+                                    </div>
+                                </div>
                             </div>
                         </div>
+                        <div class="card-footer">
+                            <button type="button" class="btn btn-danger float-left px-5 rounded-1" (click)="modelCopyToClose()">Cancel</button>
+                            <button type="submit" class="btn btn-warning float-right px-5 rounded-1 addcat" [disabled]="!addCategoryForm.valid" *ngIf="showcaseField">Add</button>
+                            <button type="button" class="btn btn-warning float-right px-5 rounded-1" (click)="addBoodmark()" [disabled]="!categorySelectedId"
+                                *ngIf="!showcaseField">Add</button>
+                        </div>
+
                     </div>
-                    <div class="card-footer">
-                        <button type="button" class="btn btn-danger float-left px-5 rounded-1" (click)="modelCopyToClose()">Cancel</button>
-                        <button type="button" class="btn btn-warning float-right px-5 rounded-1" (click)="addBoodmark()" [disabled]="!categorySelectedId">Add</button>
-                    </div>
-                </div>
+                </form>
             </div>
         </div>
     </div>
 </div>
+
 <!-- The share Modal  -->
 <div id="shareModal" class="modal dark-bg">
     <span class="close" (click)="modelShareClose()">&times;</span>
@@ -211,7 +219,7 @@
                     </div>
                     <div class="card-body preview-bookmark">
                         <p>Share your showcase “{{category.name}}” directly to social</p>
-                       <!--  <div class="row text-center mb-5">
+                        <!--  <div class="row text-center mb-5">
                             <div class="col-12">
                                 <share-button theme="material-dark" class="px-1" button="facebook" [url]="socialShareUrl" text="Facebook" showText="true"></share-button>
                                 <share-button theme="material-dark" button="twitter" text="Twitter"  [url]="socialShareUrl" showText="true"></share-button>
@@ -223,7 +231,7 @@
                                 <share-button theme="material-dark" button="stumble" [url]="socialShareUrl"  text="Stumble" showText="true"></share-button>
                             </div>
                         </div> -->
-                        <share-buttons  [url]="socialShareUrl"></share-buttons>
+                        <share-buttons [url]="socialShareUrl"></share-buttons>
                         <div class="form-group">
                             <label for="exampleInputEmail1">Or copy and paste the following on your favourite social channel:</label>
                             <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="{{socialShareUrl}}" placeholder="">
@@ -254,7 +262,9 @@
                         <form>
                             <div class="form-group">
                                 <label for="exampleFormControlTextarea1" class="pb-2">You can embed this showcase on your blog by copying and pasting the following:</label>
-                                <p class="box">&lt;div id=&quot;showcaseSocialBlock&quot; data-showcaseID='{{category._id}}'&gt;&lt;/div&gt;&lt;script src=&quot;https://measuremight.com:3002/embed.min.js&quot;&gt;&lt;/script&gt;</p>
+                                <p class="box">&lt;div id=&quot;showcaseSocialBlock&quot; data-showcaseID='{{category._id}}'&gt;&lt;/div&gt;&lt;script
+                                    src=&quot;https://measuremight.com:3002/embed.min.js&quot;&gt;&lt;/script&gt;
+                                </p>
                             </div>
                         </form>
                     </div>

@@ -50,6 +50,17 @@ export class BookmarkService {
             return user;
         });
     }
+    public bookmarksAdd(data) {
+        let headers = new Headers();
+        this.loadToken();
+        headers.append('Authorization', this.authToken);
+        headers.append('Content-Type', 'application/json');
+        return this.http.post(globalVariable.url + 'bookmark/multi', data, {headers: headers})
+        .map((response: Response) => {
+            let user = response.json();
+            return user;
+        });
+    }
     public changePosition(data) {
         let headers = new Headers();
         this.loadToken();
@@ -67,6 +78,28 @@ export class BookmarkService {
         headers.append('Authorization', this.authToken);
         headers.append('Content-Type', 'application/json');
         return this.http.post(globalVariable.url + 'bookmark/delete-selected/', data, {headers: headers})
+        .map((response: Response) => {
+            let bookmark = response.json();
+            return bookmark;
+        });
+    }
+    public bookmarkCopySelected(data) {
+        let headers = new Headers();
+        this.loadToken();
+        headers.append('Authorization', this.authToken);
+        headers.append('Content-Type', 'application/json');
+        return this.http.post(globalVariable.url + 'bookmark/copy-selected/', data, {headers: headers})
+        .map((response: Response) => {
+            let bookmark = response.json();
+            return bookmark;
+        });
+    }
+    public copyToShowcase(data) {
+        let headers = new Headers();
+        this.loadToken();
+        headers.append('Authorization', this.authToken);
+        headers.append('Content-Type', 'application/json');
+        return this.http.post(globalVariable.url + 'bookmark/copytoshowcase/', data, {headers: headers})
         .map((response: Response) => {
             let bookmark = response.json();
             return bookmark;

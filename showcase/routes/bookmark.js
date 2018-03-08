@@ -62,12 +62,38 @@ module.exports = (function () {
                 console.log('bookmarks')
                 console.log(bookmarks)
                 if(bookmarks.length > 0){
-                    console.log('in')
                     lastValuePositions = bookmarks[0].position;
                     newbookmark.position = lastValuePositions + 1;
                 }
                 else{
-                    console.log('ou')
+                    newbookmark.position = 1;
+                }
+                newbookmark.save((err, bookmark) => {
+                    if (err) {
+                        response = { "error": true, "message": err };
+                    } else {
+                        response = { "error": false, "message": 'Bookmarks added successfully.' };
+                    }
+                    res.json(response);
+                });
+            };
+        });
+    });
+    // add multi bookmarks
+    router.post('/multi', passport.authenticate('jwt', { session: false }), function (req, res) {
+        var response = {};
+        var lastValuePositions;
+        var newbookmark = new bookmarkModel(req.body);
+        var category_id = req.body.category_id;
+        bookmarkModel.find({ category_id: category_id }, null, { sort: { position: -1 } }, function (err, bookmarks) {
+            if (err) {
+                response = { "error": true, "message": err };
+            } else {
+                if(bookmarks.length > 0){
+                    lastValuePositions = bookmarks[0].position;
+                    newbookmark.position = lastValuePositions + 1;
+                }
+                else{
                     newbookmark.position = 1;
                 }
                 newbookmark.save((err, bookmark) => {

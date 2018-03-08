@@ -57,7 +57,7 @@ module.exports = (function () {
             if (err) {
                 response = { "error": true, "message": err };
             } else {
-                 response = { "error": false, "message": 'Category added successfully.' };
+                response = { "error": false, "message": category };
             }
             res.json(response);
         });
