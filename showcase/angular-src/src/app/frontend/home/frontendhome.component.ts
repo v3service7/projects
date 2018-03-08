@@ -45,6 +45,9 @@ export class FrontendHomeComponent implements OnInit {
     ) { }
 
     ngOnInit() {
+        if (this.userService.loggedIn()) {
+           this.router.navigate(['/dashboard']);
+        }
         this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/dashboard';
         this.route.queryParams.subscribe((params: Params) => {
             this.token = params['q'];

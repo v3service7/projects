@@ -33,6 +33,8 @@ export class FrontendDashboardComponent implements OnInit {
 })
 export class ProfileHeaderComponent implements OnInit {
     customer: any;
+    isCopied1: any = false;
+    invalidUrl: any = false;
     currentCustomer: any;
     addCategoryForm: FormGroup;
     addLinkForm: FormGroup;
@@ -43,6 +45,7 @@ export class ProfileHeaderComponent implements OnInit {
     category: any;
     socialShareUrl: any;
     shareUrl: any;
+    textToCopy: any;
     showcaseField: any = false;
     categorySelectedId: any = false;
     @Input() childMessage: string;
@@ -84,13 +87,19 @@ export class ProfileHeaderComponent implements OnInit {
         this.category_id = this.childMessage;
         this.checkCustomer();
     }
+    copyToClipboard() {
+        // tslint:disable-next-line:max-line-length
+        this.toastr.info('Copied to Clipboard');
+    }
     doShare(category) {
         this.category = category;
-        this.socialShareUrl = 'https://measuremight.com:3002/view/' + category._id;
+        this.socialShareUrl = globalVariable.url + 'public/' + category._id;
         this.modelShareOpen();
     }
     doEmbed(category) {
         this.category = category;
+        // tslint:disable-next-line:max-line-length
+        this.textToCopy = '<div id="showcaseSocialBlock" data-showcaseID=' + this.category._id + '></div><script src="https://measuremight.com:3002/embed.min.js"></script>';
         this.modelEmbedOpen();
     }
     addBoodmark(id) {
@@ -126,12 +135,16 @@ export class ProfileHeaderComponent implements OnInit {
         this.embedLink(this.addLinkForm.value['title']);
         this.modelBookmarkOpen();
     }
-
+    modelBookmarkCloseEmptyForm() {
+        this.addLinkForm.reset();
+        this.modelBookmarkClose();
+    }
     embedFacebook(url) {
         // public => https://www.facebook.com/notes/facebook/public-search-listings-on-facebook/2963412130/
         // private => https://www.facebook.com/bob.brello
         var inputURL = encodeURIComponent(url);
         let ur = 'https://www.facebook.com/plugins/post.php?href=' + inputURL + '%26type%3D3&width=600'
+        // tslint:disable-next-line:max-line-length
         var embedHTML = '<iframe id="bookmarkiframe" src="https://www.facebook.com/plugins/post.php?href=' + inputURL + '%26type%3D3&width=600" height="400" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowTransparency="true"></iframe>';
         var htmlToAdd = this.convertToGridItem(embedHTML);
         this.addLinkForm.controls['title'].setValue(ur);
@@ -151,6 +164,7 @@ export class ProfileHeaderComponent implements OnInit {
                 document.getElementById('bookMark').innerHTML = data.html;
             }, error => {
                 document.getElementById('bookMark').innerHTML = 'Invalid Url';
+                this.invalidUrl = true;
                 document.getElementById('loader').style.display = 'none';
             });
     }
@@ -162,16 +176,17 @@ export class ProfileHeaderComponent implements OnInit {
                 this.addLinkForm.controls['body'].setValue(data.html);
                 this.addLinkForm.controls['type'].setValue('twitter');
                 document.getElementById('loader').style.display = 'none';
-                document.getElementById('bookMark').innerHTML = data.html
+                document.getElementById('bookMark').innerHTML = data.html;
             }, error => {
                 document.getElementById('bookMark').innerHTML = 'Invalid Url';
+                this.invalidUrl = true;
                 document.getElementById('loader').style.display = 'none';
             });
     }
 
     embedPinterest(url) {
-        var embedHTML = '<a data-pin-do="embedPin" data-pin-width="large" data-pin-terse="true" href="' + url + '"></a>';
-        var htmlToAdd = this.convertToGridItem(embedHTML);
+        const embedHTML = '<a data-pin-do="embedPin" data-pin-width="large" data-pin-terse="true" href="' + url + '"></a>';
+        const htmlToAdd = this.convertToGridItem(embedHTML);
         document.getElementById('loader').style.display = 'none';
         document.getElementById('bookMark').innerHTML = htmlToAdd;
     }
@@ -206,21 +221,24 @@ export class ProfileHeaderComponent implements OnInit {
         this.validateService.getYoutube(youtubeID)
             .subscribe(data => {
                 if (data.items.length > 0) {
+                    // tslint:disable-next-line:max-line-length
                     let embedHTML = '<iframe width="100%" id="bookmarkiframe" height="337" src="https://www.youtube.com/embed/' + youtubeID + '" frameborder="0" allowfullscreen></iframe>';
                     this.addLinkForm.controls['title'].setValue('https://www.youtube.com/embed/' + youtubeID);
                     this.addLinkForm.controls['body'].setValue(embedHTML);
                     this.addLinkForm.controls['type'].setValue('youtube');
-                    console.log(this.addLinkForm.value)
                     var htmlToAdd = this.convertToGridItem(embedHTML);
                     document.getElementById('loader').style.display = 'none';
+                    this.invalidUrl = false;
                     document.getElementById('bookMark').innerHTML = htmlToAdd;
                 } else {
                     document.getElementById('bookMark').innerHTML = 'Invalid Url';
+                    this.invalidUrl = true;
                     document.getElementById('loader').style.display = 'none';
                 }
             }, err => {
                 document.getElementById('loader').style.display = 'none';
                 document.getElementById('bookMark').innerHTML = 'Invalid Url';
+                this.invalidUrl = true;
             });
     }
 
@@ -266,11 +284,11 @@ export class ProfileHeaderComponent implements OnInit {
     }
 
     addCategoryData(action) {
-        if (action) {
+        if (action === 'close') {
             this.modelCopyToClose();
         }
-        var position = this.addCategoryForm.value['position'];
-        var obj = this.addCategoryForm.value;
+        const position = this.addCategoryForm.value['position'];
+        const obj = this.addCategoryForm.value;
         obj.user_id = this.customer._id;
         this.categoryService.categoryPositionUpdate(position).subscribe((data) => {
             if (!data.error) {
@@ -520,7 +538,7 @@ export class MyProfileComponent implements OnInit {
         if (this.customer.image) {
             return this.customer.image;
         } else {
-            return 'http://placehold.it/150';
+            return 'https://www.w3schools.com/howto/img_avatar.png';
         }
     }
 
@@ -571,6 +589,7 @@ export class SettingComponent implements OnInit {
                 this.flag = false;
                 this.route.params.subscribe((params: Params) => {
                     this.id = params['id'];
+                    this.bookmarks_ids = [];
                     this.parentMessage = this.id;
                     this.getMyCategories();
                     this.getbookmark(this.id);
@@ -650,12 +669,14 @@ export class SettingComponent implements OnInit {
             }
         });
     }
-    doSelect(id) {
-        var index = this.bookmarks_ids.indexOf(id);
+    doSelect(obj) {
+        const index = this.bookmarks_ids.findIndex( (item) => {
+            return item._id === obj._id;
+        });
         if (index > -1) {
             this.bookmarks_ids.splice(index, 1);
         } else {
-            this.bookmarks_ids.push(id);
+            this.bookmarks_ids.push(obj);
         }
     }
     doDelete() {
@@ -690,9 +711,6 @@ export class SettingComponent implements OnInit {
         document.getElementById('copy2Modal').style.display = 'none';
     }
     categorySelected(bookmark, category_id, copyShowcaseBookmarks) {
-        this.copyShowcaseBookmarks = null;
-        this.copyShowcaseBookmark = null;
-        this.bookmarks_ids = null;
         this.showcaseField = false;
         this.categorySelectedId = true;
         if (copyShowcaseBookmarks) {
@@ -707,14 +725,29 @@ export class SettingComponent implements OnInit {
             this.bookmarkData = bookmark;
         }
     }
-    openNewShowcase(bookmark) {
-        delete bookmark['_id'];
-        this.bookmarkData = bookmark;
+    openNewShowcase(bookmark, bookmarks) {
         this.showcaseField = true;
         this.categorySelectedId = false;
+        if (bookmarks) {
+            this.bookmarkData = bookmarks.filter((data) => {
+                return delete data['_id'];
+            });
+        }
+        if (bookmark) {
+            delete bookmark['_id'];
+            this.bookmarkData = bookmark;
+        }
     }
     updateCatIdINBookmark(id) {
-        this.bookmarkData.category_id = id;
+        if (this.bookmarkData.length > 0) {
+            this.bookmarkData = this.bookmarkData.filter((data) => {
+                 delete data['_id'];
+                return data.category_id = id;
+            });
+        }
+        if (typeof this.bookmarkData.length === 'undefined') {
+            this.bookmarkData.category_id = id;
+        }
         this.addBoodmark();
     }
     addCategoryData() {
@@ -728,6 +761,9 @@ export class SettingComponent implements OnInit {
                         this.updateCatIdINBookmark(data2.message._id);
                         this.toastr.success('Board added successfully.', 'Success!');
                         this.getMyCategories();
+                        setTimeout(() => {
+                            window.location.reload();
+                        }, 500);
                         this.addCategoryForm.reset();
                     } else {
                         this.toastr.error('Erro while adding board, Try again.', 'Oops!');
@@ -739,11 +775,10 @@ export class SettingComponent implements OnInit {
         });
     }
     addBoodmark() {
-        this.modelCopy2Close();
-        this.toastr.success('Bookmarks copied succesfully.', 'Success!');
         if (this.bookmarkData.length > 0) {
-            var flag = false;
-            console.log(this.bookmarkData.length)
+            this.modelCopy2Close();
+            this.toastr.success('Bookmarks copied succesfully.', 'Success!');
+            let flag = false;
             for (let index = 0; index < this.bookmarkData.length; index++) {
                 this.bookmarkService.bookmarkAdd(this.bookmarkData[index]).subscribe((data) => {
                 if (!data.error) {
@@ -756,16 +791,12 @@ export class SettingComponent implements OnInit {
             this.bookmarkService.bookmarkAdd(this.bookmarkData).subscribe((data) => {
                 if (!data.error) {
                     this.toastr.success('Bookmarks copied succesfully.', 'Success!');
-                    setTimeout(() => {
-                        window.location.reload();
-                    }, 1000);
                     this.modelCopy2Close();
                 } else {
                     this.toastr.error('Error while coping bookmarks, Try again', 'Oops!');
                 }
             });
         }
-        
     }
     doDeleteBoard(id) {
         this.categoryService.categoryDelete(id).subscribe((data) => {
@@ -780,8 +811,8 @@ export class SettingComponent implements OnInit {
         });
     }
     updateCategoryData() {
-        var position = this.updateCategoryForm.value['position'];
-        var obj = this.updateCategoryForm.value;
+        let position = this.updateCategoryForm.value['position'];
+        let obj = this.updateCategoryForm.value;
         obj.user_id = this.customer._id;
         if (position !== this.category[0].position) {
             this.categoryService.categoryPositionUpdate(position).subscribe((data) => {
@@ -871,23 +902,23 @@ export class ViewComponent implements AfterViewInit, OnInit {
         return this.curColWidth;
     }
     manageUI() {
-        var cols = 4;
-        if ($("body").width() > 1600) {
+        let cols = 4;
+        if ($('body').width() > 1600) {
             cols = 4;
-        } else if ($("body").width() > 1000) {
+        } else if ($('body').width() > 1000) {
             cols = 3;
-        } else if ($("body").width() > 600) {
+        } else if ($('body').width() > 600) {
             cols = 2;
         } else {
             cols = 1;
         }
-        var theW = ($("body").width() - ($("body").width() / 50)) / cols;
+        let theW = ($('body').width() - ($('body').width() / 50)) / cols;
         this.curColWidth = theW;
-        $("iframe").css("width", theW);
-        $("twitterwidget").css("width", theW);
-        let th = theW + (theW / 50);
+        $('iframe').css('width', theW);
+        $('twitterwidget').css('width', theW);
+        let th = theW + (theW / 50) - 9;
         this.gridColWidth = th + 'px';
-        $(".grid-item").css("width", th);
+        $('.grid-item').css('width', th);
     }
 
     setStyles() {
@@ -913,10 +944,103 @@ export class ViewComponent implements AfterViewInit, OnInit {
     }
 
 }
-export declare class FacebookParams {
-    u: string;
-}
 
-export class GooglePlusParams {
-    url: string;
+
+@Component({
+    selector: 'app-viewpublic',
+    templateUrl: './viewpublic.component.html',
+    styleUrls: ['./frontenddashboard.component.css']
+})
+export class ViewPublicComponent implements AfterViewInit, OnInit {
+    bookmarks = [];
+    parentMessage: any;
+    options: MasonryOptions = {
+        transitionDuration: '0.3s',
+        itemSelector: '.grid-item'
+    };
+    curColWidth = 0;
+    gridColWidth = '';
+    bricks: any[] = [];
+
+    @ViewChild(AngularMasonry) masonry: AngularMasonry;
+    @ViewChild(AngularMasonry) masonryBrick: AngularMasonryBrick;
+
+    constructor(private router: Router,
+        private route: ActivatedRoute,
+        private bookmarkService: BookmarkService,
+        private categoryService: CategoryService,
+        private sanitizer: DomSanitizer) {
+    }
+
+    ngOnInit() {
+        this.route.params.subscribe((params: Params) => {
+            let id = params['id'];
+            console.log(id)
+            this.parentMessage = id;
+            this.getbookmark(id);
+        });
+    }
+
+    ngAfterViewInit() {
+        this.route.params.subscribe((params: Params) => {
+            let id = params['id'];
+            this.parentMessage = id;
+            this.getbookmark(id);
+        });
+    }
+
+    setHeight(type) {
+        if (type = 'facebook') {
+            return '400';
+        } else if (type = 'youtube') {
+            return '337';
+        }
+    }
+
+    setWidth(type) {
+        return this.curColWidth;
+    }
+    manageUI() {
+        let cols = 4;
+        if ($('body').width() > 1600) {
+            cols = 4;
+        } else if ($('body').width() > 1000) {
+            cols = 3;
+        } else if ($('body').width() > 600) {
+            cols = 2;
+        } else {
+            cols = 1;
+        }
+        let theW = ($('body').width() - ($('body').width() / 50)) / cols;
+        this.curColWidth = theW;
+        $('iframe').css('width', theW);
+        $('twitterwidget').css('width', theW);
+        let th = theW + (theW / 50) - 9;
+        this.gridColWidth = th + 'px';
+        $('.grid-item').css('width', th);
+    }
+
+    setStyles() {
+        let styles = {
+            'width': this.gridColWidth
+        };
+        return styles;
+    }
+
+    getbookmark(id) {
+        this.bookmarkService.categoryBookmarksPublic(id).subscribe((data) => {
+            if (!data.error) {
+                this.bookmarks = data.message;
+                console.log(this.bookmarks)
+                setTimeout(() => {
+                    this.manageUI();
+                }, 3000);
+            }
+        });
+    }
+
+    videoUrl(url) {
+        return this.sanitizer.bypassSecurityTrustResourceUrl(url);
+    }
+
 }

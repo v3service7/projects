@@ -1,7 +1,7 @@
 <app-profileheader [childMessage]="parentMessage"></app-profileheader>
 
 <div  *ngIf="curColWidth != 0 && gridColWidth != ''"  style="padding-top: 65px;">
-	<h1 *ngIf="!bookmarks?.length > 0" class="text-center text-muted pt-5">Bookmarks panel is empty.</h1>
+	<h1 *ngIf="!bookmarks?.length > 0" class="text-center text-muted pt-5">No bookmarks available.</h1>
 	<masonry [options]="options">
 	    <!-- <div class="row"> -->
 			<masonry-brick  *ngFor="let bookmark of bookmarks">

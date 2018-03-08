@@ -147,13 +147,12 @@ export class UserService {
     this.authToken = token;
     this.user = user;
   }
-
-	loadToken(){
+  loadToken() {
     const token = localStorage.getItem('id_token_customer');
     this.authToken = token;
   }
 
-  loggedIn(){
+  loggedIn() {
     return tokenNotExpired('id_token_customer');
   }
 

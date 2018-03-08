@@ -149,4 +149,16 @@ export class BookmarkService {
                 return category;
             });
     }
+    
+    public categoryBookmarksPublic(id) {
+        let headers = new Headers();
+        this.loadToken();
+        headers.append('Authorization', this.authToken);
+        headers.append('Content-Type', 'application/json');
+    return this.http.get(globalVariable.url + 'bookmark/category/open/' + id, { headers: headers })
+            .map((response: Response) => {
+                let category = response.json();
+                return category;
+            });
+    }
 }

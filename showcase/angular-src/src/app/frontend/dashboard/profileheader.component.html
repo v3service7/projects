@@ -4,7 +4,7 @@
             aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <a class="navbar-brand" [routerLink]="['/']">Showcase.Social</a>
+        <a class="navbar-brand" [routerLink]="['/dashboard']">Showcase.Social</a>
         <a *ngIf="currentCustomer != undefined" class="navbar-brand p-0" href="javascript:void(0)">
             <img [src]="currentCustomer && currentCustomer.image" class="rounded-circle d-none d-sm-block d-md-none d-block d-sm-none"
                 width="30" height="30">
@@ -23,7 +23,7 @@
                             <a class="dropdown-item" href="javascript:void(0)" (click)="doEmbed(category)">
                                 <i class="fa fa-code"></i> Embeded</a>
                             <a class="dropdown-item" [routerLink]="['/setting/',category._id]">
-                                <i class="fa fa-cog"></i> Setting</a>
+                                <i class="fa fa-cog"></i> Manage</a>
                         </div>
                     </li>
                 </span>
@@ -46,7 +46,7 @@
                                     </li>
                                     <li>
                                         <a class="dropdown-item" [routerLink]="['/setting/',category._id]">
-                                            <i class="fa fa-cog"></i> Setting</a>
+                                            <i class="fa fa-cog"></i> Manage</a>
                                     </li>
                                 </ul>
                             </li>
@@ -87,7 +87,6 @@
 
 <!-- The category Modal  -->
 <div id="categoryModal" class="modal dark-bg">
-    <span class="close" (click)="modelClose()">&times;</span>
     <div class="container">
         <div class="row justify-content-md-center">
             <div class="col-lg-7 col-xs-12">
@@ -99,7 +98,7 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="col mb-2">
-                                <form [formGroup]="addCategoryForm" (ngSubmit)="addCategoryData()">
+                                <form [formGroup]="addCategoryForm" (ngSubmit)="addCategoryData('')">
                                     <div class="form-group">
                                         <label for="">Showcase name</label>
                                         <input type="text" formControlName="name" class="form-control" placeholder="type here...">
@@ -124,12 +123,11 @@
 </div>
 <!-- The bookmark Modal  -->
 <div id="bookmarkModal" class="modal dark-bg">
-    <span class="close" (click)="modelBookmarkClose()">&times;</span>
     <div class="container">
         <div class="row justify-content-md-center">
             <div class="col-lg-7 col-xs-12">
                 <div class="card rounded-1">
-                    <span class="close signupclose" (click)="modelBookmarkClose()">&times;</span>
+                    <span class="close signupclose" (click)="modelBookmarkCloseEmptyForm()">&times;</span>
                     <div class="card-header text-center bg-white h4 rounded-1 rounded-rl-1">
                         <i class="fa fa-plus text-warning"></i> Add Bookmark
                     </div>
@@ -144,13 +142,13 @@
                                 </div>
                                 <p class="text-center">Preview your link before adding</p>
                                 <p class="text-center text-danger">Display not quite right ?</p>
-                                <div id="bookMark" class="mx-5"></div>
+                                <div id="bookMark" class="mx-5 text-center"></div>
                             </div>
                         </div>
                     </div>
                     <div class="card-footer">
-                        <button type="button" class="btn btn-danger float-left px-5 rounded-1" (click)="modelBookmarkClose()">Cancel</button>
-                        <button type="button" class="btn btn-warning float-right px-5 rounded-1" (click)="openCopyToModel()">Add</button>
+                        <button type="button" class="btn btn-danger float-left px-5 rounded-1" (click)="modelBookmarkCloseEmptyForm()">Cancel</button>
+                        <button type="button" class="btn btn-warning float-right px-5 rounded-1" (click)="openCopyToModel()" [disabled]="invalidUrl">Add</button>
                     </div>
                 </div>
             </div>
@@ -159,7 +157,6 @@
 </div>
 <!-- The copt to showcase Modal  -->
 <div id="copytokModal" class="modal dark-bg">
-    <span class="close" (click)="modelCopyToClose()">&times;</span>
     <div class="container">
         <div class="row justify-content-md-center">
             <div class="col-lg-7 col-xs-12">
@@ -208,7 +205,6 @@
 
 <!-- The share Modal  -->
 <div id="shareModal" class="modal dark-bg">
-    <span class="close" (click)="modelShareClose()">&times;</span>
     <div class="container" *ngIf="category">
         <div class="row justify-content-md-center">
             <div class="col-lg-7 col-xs-12">
@@ -248,9 +244,8 @@
     </div>
 </div>
 <!-- The embed Modal  -->
-<div id="embedModal" class="modal dark-bg" *ngIf="category">
-    <span class="close" (click)="modelEmbedClose()">&times;</span>
-    <div class="container">
+<div id="embedModal" class="modal dark-bg" >
+    <div class="container" *ngIf="category">
         <div class="row justify-content-md-center">
             <div class="col-lg-7 col-xs-12">
                 <div class="card rounded-1">
@@ -265,6 +260,7 @@
                                 <p class="box">&lt;div id=&quot;showcaseSocialBlock&quot; data-showcaseID='{{category._id}}'&gt;&lt;/div&gt;&lt;script
                                     src=&quot;https://measuremight.com:3002/embed.min.js&quot;&gt;&lt;/script&gt;
                                 </p>
+                                <button type="button" class="btn btn-primary px-5 rounded-1 float-right"  ngxClipboard [cbContent]="textToCopy" (click)="copyToClipboard()">Copy to clipboard</button>
                             </div>
                         </form>
                     </div>

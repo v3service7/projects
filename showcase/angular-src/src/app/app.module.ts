@@ -32,7 +32,7 @@ import { FrontendComponent } from './frontend/frontend.component';
 import { FrontendHeaderComponent } from './frontend/header/frontendheader.component';
 import { FrontendHomeComponent, ResetComponent, AccountActiveComponent } from './frontend/home/frontendhome.component';
 // tslint:disable-next-line:max-line-length
-import { FrontendDashboardComponent, MyProfileComponent, SettingComponent, ProfileHeaderComponent, ViewComponent } from './frontend/dashboard/frontenddashboard.component'
+import { FrontendDashboardComponent, ViewPublicComponent, MyProfileComponent, SettingComponent, ProfileHeaderComponent, ViewComponent } from './frontend/dashboard/frontenddashboard.component'
 
 import {ValidateService} from './services/validate.service';
 import {AdminService} from './services/admin.service';
@@ -52,8 +52,8 @@ import { ToastModule } from 'ng2-toastr/ng2-toastr';
 import { routing } from './app.routes';
 import { SafePipe } from './safe.pipe';
 import { ShareButtonsModule } from 'ng2-sharebuttons';
-
-
+import { PublicComponent } from './public/public.component';
+import { ClipboardModule } from 'ngx-clipboard';
 
 let providers = {
     'google': {
@@ -82,15 +82,17 @@ let providers = {
     FrontendHeaderComponent,
     FrontendHomeComponent, ResetComponent,
     AccountActiveComponent,
-    FrontendDashboardComponent, MyProfileComponent,
+    FrontendDashboardComponent, MyProfileComponent, ViewPublicComponent,
     SettingComponent,
     ProfileHeaderComponent,
     AdminUserBoardsComponent,
     AdminUserBoardsBookmarkComponent,
     ViewComponent,
-    SafePipe
+    SafePipe,
+    PublicComponent
   ],
   imports: [
+    ClipboardModule,
     ImageCropperModule,
     MasonryModule,
     MdCardModule,

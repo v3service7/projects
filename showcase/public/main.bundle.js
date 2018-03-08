@@ -2092,6 +2092,8 @@ AppComponent = __decorate([
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_42__app_routes__ = __webpack_require__("../../../../../src/app/app.routes.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_43__safe_pipe__ = __webpack_require__("../../../../../src/app/safe.pipe.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_44_ng2_sharebuttons__ = __webpack_require__("../../../../ng2-sharebuttons/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_45__public_public_component__ = __webpack_require__("../../../../../src/app/public/public.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_46_ngx_clipboard__ = __webpack_require__("../../../../ngx-clipboard/dist/index.js");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -2147,6 +2149,8 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 
 
 
+
+
 var providers = {
     'google': {
         'clientId': '214874028334-4t3q11rlobifpmspvrac9dl6i6k6usq2.apps.googleusercontent.com'
@@ -2179,15 +2183,17 @@ AppModule = __decorate([
             __WEBPACK_IMPORTED_MODULE_25__frontend_header_frontendheader_component__["a" /* FrontendHeaderComponent */],
             __WEBPACK_IMPORTED_MODULE_26__frontend_home_frontendhome_component__["b" /* FrontendHomeComponent */], __WEBPACK_IMPORTED_MODULE_26__frontend_home_frontendhome_component__["c" /* ResetComponent */],
             __WEBPACK_IMPORTED_MODULE_26__frontend_home_frontendhome_component__["a" /* AccountActiveComponent */],
-            __WEBPACK_IMPORTED_MODULE_27__frontend_dashboard_frontenddashboard_component__["a" /* FrontendDashboardComponent */], __WEBPACK_IMPORTED_MODULE_27__frontend_dashboard_frontenddashboard_component__["b" /* MyProfileComponent */],
+            __WEBPACK_IMPORTED_MODULE_27__frontend_dashboard_frontenddashboard_component__["a" /* FrontendDashboardComponent */], __WEBPACK_IMPORTED_MODULE_27__frontend_dashboard_frontenddashboard_component__["b" /* MyProfileComponent */], __WEBPACK_IMPORTED_MODULE_27__frontend_dashboard_frontenddashboard_component__["f" /* ViewPublicComponent */],
             __WEBPACK_IMPORTED_MODULE_27__frontend_dashboard_frontenddashboard_component__["d" /* SettingComponent */],
             __WEBPACK_IMPORTED_MODULE_27__frontend_dashboard_frontenddashboard_component__["c" /* ProfileHeaderComponent */],
             __WEBPACK_IMPORTED_MODULE_21__admin_customer_customer_component__["c" /* AdminUserBoardsComponent */],
             __WEBPACK_IMPORTED_MODULE_21__admin_customer_customer_component__["b" /* AdminUserBoardsBookmarkComponent */],
             __WEBPACK_IMPORTED_MODULE_27__frontend_dashboard_frontenddashboard_component__["e" /* ViewComponent */],
-            __WEBPACK_IMPORTED_MODULE_43__safe_pipe__["a" /* SafePipe */]
+            __WEBPACK_IMPORTED_MODULE_43__safe_pipe__["a" /* SafePipe */],
+            __WEBPACK_IMPORTED_MODULE_45__public_public_component__["a" /* PublicComponent */]
         ],
         imports: [
+            __WEBPACK_IMPORTED_MODULE_46_ngx_clipboard__["a" /* ClipboardModule */],
             __WEBPACK_IMPORTED_MODULE_11_ngx_image_cropper__["a" /* ImageCropperModule */],
             __WEBPACK_IMPORTED_MODULE_12_angular2_masonry__["c" /* MasonryModule */],
             __WEBPACK_IMPORTED_MODULE_13__angular2_material_card__["a" /* MdCardModule */],
@@ -2289,6 +2295,7 @@ var appRoutes = [
     },
     {
         path: '', component: __WEBPACK_IMPORTED_MODULE_9__frontend_frontend_component__["a" /* FrontendComponent */], children: [
+            { path: 'public/:id', component: __WEBPACK_IMPORTED_MODULE_11__frontend_dashboard_frontenddashboard_component__["f" /* ViewPublicComponent */] },
             { path: 'resetpassword/:id', component: __WEBPACK_IMPORTED_MODULE_10__frontend_home_frontendhome_component__["c" /* ResetComponent */] },
             { path: 'account-active/:token', component: __WEBPACK_IMPORTED_MODULE_10__frontend_home_frontendhome_component__["a" /* AccountActiveComponent */] },
             { path: '', component: __WEBPACK_IMPORTED_MODULE_10__frontend_home_frontendhome_component__["b" /* FrontendHomeComponent */] },
@@ -2312,7 +2319,7 @@ exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-b
 
 
 // module
-exports.push([module.i, ".pt-80{\r\n\tpadding-top: 80px;\r\n}\r\n\r\n.custom-dropdown-menu {\r\n    left: unset;\r\n    right: 0;\r\n}\r\n\r\n.brick { \r\n    width: 100px !important;\r\n }\r\n .box{\r\n     border: 1px solid gainsboro;\r\n     padding: 10px;\r\n }\r\n", ""]);
+exports.push([module.i, ".pt-80{\r\n\tpadding-top: 80px;\r\n}\r\n\r\n.custom-dropdown-menu {\r\n    left: unset;\r\n    right: 0;\r\n}\r\n\r\n.brick { \r\n    width: 100px !important;\r\n }\r\n .box{\r\n     border: 1px solid gainsboro;\r\n     padding: 10px;\r\n }\r\n \r\n", ""]);
 
 // exports
 
@@ -2325,7 +2332,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/frontend/dashboard/frontenddashboard.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<app-profileheader></app-profileheader>\r\n<flash-messages></flash-messages>\r\n<div class=\"feed\"></div>"
+module.exports = "<app-profileheader></app-profileheader>\r\n<flash-messages></flash-messages>\r\n<section style=\"padding-top:65px;\">\r\n    <h1 class=\"display-2 text-center text-muted pt-5\">Dashboard</h1>\r\n</section>"
 
 /***/ }),
 
@@ -2338,7 +2345,7 @@ module.exports = "<app-profileheader></app-profileheader>\r\n<flash-messages></f
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return MyProfileComponent; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return SettingComponent; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return ViewComponent; });
-/* unused harmony export GooglePlusParams */
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "f", function() { return ViewPublicComponent; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_router__ = __webpack_require__("../../../router/@angular/router.es5.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_forms__ = __webpack_require__("../../../forms/@angular/forms.es5.js");
@@ -2404,6 +2411,8 @@ var ProfileHeaderComponent = (function () {
         this.bookService = bookService;
         this.router = router;
         this.lf = lf;
+        this.isCopied1 = false;
+        this.invalidUrl = false;
         this.isHere = false;
         this.showcaseField = false;
         this.categorySelectedId = false;
@@ -2431,17 +2440,26 @@ var ProfileHeaderComponent = (function () {
         this.category_id = this.childMessage;
         this.checkCustomer();
     };
+    ProfileHeaderComponent.prototype.copyToClipboard = function () {
+        // tslint:disable-next-line:max-line-length
+        this.toastr.info('Copied to Clipboard');
+    };
     ProfileHeaderComponent.prototype.doShare = function (category) {
         this.category = category;
-        this.socialShareUrl = 'https://measuremight.com:3002/view/' + category._id;
+        this.socialShareUrl = __WEBPACK_IMPORTED_MODULE_11__global__["a" /* url */] + 'public/' + category._id;
         this.modelShareOpen();
     };
     ProfileHeaderComponent.prototype.doEmbed = function (category) {
         this.category = category;
+        // tslint:disable-next-line:max-line-length
+        this.textToCopy = '<div id="showcaseSocialBlock" data-showcaseID=' + this.category._id + '></div><script src="https://measuremight.com:3002/embed.min.js"></script>';
         this.modelEmbedOpen();
     };
-    ProfileHeaderComponent.prototype.addBoodmark = function () {
+    ProfileHeaderComponent.prototype.addBoodmark = function (id) {
         var _this = this;
+        if (id) {
+            this.addLinkForm.controls['category_id'].setValue(id);
+        }
         this.bookService.bookmarkAdd(this.addLinkForm.value).subscribe(function (data) {
             if (!data.eror) {
                 _this.router.navigate(['view', _this.addLinkForm.value['category_id']]);
@@ -2459,9 +2477,11 @@ var ProfileHeaderComponent = (function () {
         this.modelCopyToOpen();
     };
     ProfileHeaderComponent.prototype.openNewShowcase = function () {
-        this.showcaseField = !this.showcaseField;
+        this.showcaseField = true;
+        this.categorySelectedId = false;
     };
     ProfileHeaderComponent.prototype.categorySelected = function (id) {
+        this.showcaseField = false;
         this.categorySelectedId = true;
         this.addLinkForm.controls['category_id'].setValue(id);
     };
@@ -2469,11 +2489,16 @@ var ProfileHeaderComponent = (function () {
         this.embedLink(this.addLinkForm.value['title']);
         this.modelBookmarkOpen();
     };
+    ProfileHeaderComponent.prototype.modelBookmarkCloseEmptyForm = function () {
+        this.addLinkForm.reset();
+        this.modelBookmarkClose();
+    };
     ProfileHeaderComponent.prototype.embedFacebook = function (url) {
         // public => https://www.facebook.com/notes/facebook/public-search-listings-on-facebook/2963412130/
         // private => https://www.facebook.com/bob.brello
         var inputURL = encodeURIComponent(url);
         var ur = 'https://www.facebook.com/plugins/post.php?href=' + inputURL + '%26type%3D3&width=600';
+        // tslint:disable-next-line:max-line-length
         var embedHTML = '<iframe id="bookmarkiframe" src="https://www.facebook.com/plugins/post.php?href=' + inputURL + '%26type%3D3&width=600" height="400" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowTransparency="true"></iframe>';
         var htmlToAdd = this.convertToGridItem(embedHTML);
         this.addLinkForm.controls['title'].setValue(ur);
@@ -2493,6 +2518,7 @@ var ProfileHeaderComponent = (function () {
             document.getElementById('bookMark').innerHTML = data.html;
         }, function (error) {
             document.getElementById('bookMark').innerHTML = 'Invalid Url';
+            _this.invalidUrl = true;
             document.getElementById('loader').style.display = 'none';
         });
     };
@@ -2507,6 +2533,7 @@ var ProfileHeaderComponent = (function () {
             document.getElementById('bookMark').innerHTML = data.html;
         }, function (error) {
             document.getElementById('bookMark').innerHTML = 'Invalid Url';
+            _this.invalidUrl = true;
             document.getElementById('loader').style.display = 'none';
         });
     };
@@ -2543,22 +2570,25 @@ var ProfileHeaderComponent = (function () {
         this.validateService.getYoutube(youtubeID)
             .subscribe(function (data) {
             if (data.items.length > 0) {
+                // tslint:disable-next-line:max-line-length
                 var embedHTML = '<iframe width="100%" id="bookmarkiframe" height="337" src="https://www.youtube.com/embed/' + youtubeID + '" frameborder="0" allowfullscreen></iframe>';
                 _this.addLinkForm.controls['title'].setValue('https://www.youtube.com/embed/' + youtubeID);
                 _this.addLinkForm.controls['body'].setValue(embedHTML);
                 _this.addLinkForm.controls['type'].setValue('youtube');
-                console.log(_this.addLinkForm.value);
                 var htmlToAdd = _this.convertToGridItem(embedHTML);
                 document.getElementById('loader').style.display = 'none';
+                _this.invalidUrl = false;
                 document.getElementById('bookMark').innerHTML = htmlToAdd;
             }
             else {
                 document.getElementById('bookMark').innerHTML = 'Invalid Url';
+                _this.invalidUrl = true;
                 document.getElementById('loader').style.display = 'none';
             }
         }, function (err) {
             document.getElementById('loader').style.display = 'none';
             document.getElementById('bookMark').innerHTML = 'Invalid Url';
+            _this.invalidUrl = true;
         });
     };
     ProfileHeaderComponent.prototype.embedLink = function (link) {
@@ -2601,8 +2631,11 @@ var ProfileHeaderComponent = (function () {
     ProfileHeaderComponent.prototype.addCategory = function () {
         this.modelOpen();
     };
-    ProfileHeaderComponent.prototype.addCategoryData = function () {
+    ProfileHeaderComponent.prototype.addCategoryData = function (action) {
         var _this = this;
+        if (action === 'close') {
+            this.modelCopyToClose();
+        }
         var position = this.addCategoryForm.value['position'];
         var obj = this.addCategoryForm.value;
         obj.user_id = this.customer._id;
@@ -2610,13 +2643,16 @@ var ProfileHeaderComponent = (function () {
             if (!data.error) {
                 _this.categoryService.categoryAdd(obj).subscribe(function (data2) {
                     if (!data2.error) {
-                        _this.toastr.success(data2.message, 'Success!');
+                        _this.toastr.success('Board added successfully.', 'Success!');
+                        if (action) {
+                            _this.addBoodmark(data2.message._id);
+                        }
                         _this.modelClose();
                         _this.getMyCategories();
                         _this.addCategoryForm.reset();
                     }
                     else {
-                        _this.toastr.error(data2.message, 'Oops!');
+                        _this.toastr.error('Erro while adding board, Try again.', 'Oops!');
                         _this.modelClose();
                         _this.addCategoryForm.reset();
                         _this.getMyCategories();
@@ -2834,6 +2870,7 @@ var MyProfileComponent = (function () {
                     });
                 }
                 else {
+                    // tslint:disable-next-line:max-line-length
                     _this._flashMessagesService.show('New Password & confirm password does not match', { cssClass: 'alert-danger', timeout: 5000 });
                 }
             }
@@ -2847,7 +2884,7 @@ var MyProfileComponent = (function () {
             return this.customer.image;
         }
         else {
-            return 'http://placehold.it/150';
+            return 'https://www.w3schools.com/howto/img_avatar.png';
         }
     };
     MyProfileComponent.prototype.onChange = function (event) {
@@ -2882,6 +2919,8 @@ var SettingComponent = (function () {
         this.toastr = toastr;
         this.userService = userService;
         this.bookmarks_ids = [];
+        this.categorySelectedId = false;
+        this.showcaseField = false;
         this.flag = true;
         this.toastr.setRootViewContainerRef(vRef);
         this.customer = JSON.parse(localStorage.getItem('customer'));
@@ -2890,6 +2929,7 @@ var SettingComponent = (function () {
                 _this.flag = false;
                 _this.route.params.subscribe(function (params) {
                     _this.id = params['id'];
+                    _this.bookmarks_ids = [];
                     _this.parentMessage = _this.id;
                     _this.getMyCategories();
                     _this.getbookmark(_this.id);
@@ -2902,6 +2942,10 @@ var SettingComponent = (function () {
     };
     SettingComponent.prototype.ngOnInit = function () {
         var _this = this;
+        this.addCategoryForm = this.lf.group({
+            name: ['', __WEBPACK_IMPORTED_MODULE_2__angular_forms__["Validators"].required],
+            position: ['', __WEBPACK_IMPORTED_MODULE_2__angular_forms__["Validators"].required]
+        });
         this.updateCategoryForm = this.lf.group({
             _id: [''],
             name: ['', __WEBPACK_IMPORTED_MODULE_2__angular_forms__["Validators"].required],
@@ -2945,6 +2989,14 @@ var SettingComponent = (function () {
             }
         });
     };
+    SettingComponent.prototype.myCategories = function () {
+        var _this = this;
+        this.userService.mycategory().subscribe(function (data) {
+            if (!data.err) {
+                _this.categories = data.message;
+            }
+        });
+    };
     SettingComponent.prototype.changePosition = function (type, bookmark_id, position) {
         var _this = this;
         var obj = {
@@ -2963,13 +3015,15 @@ var SettingComponent = (function () {
             }
         });
     };
-    SettingComponent.prototype.doSelect = function (id) {
-        var index = this.bookmarks_ids.indexOf(id);
+    SettingComponent.prototype.doSelect = function (obj) {
+        var index = this.bookmarks_ids.findIndex(function (item) {
+            return item._id === obj._id;
+        });
         if (index > -1) {
             this.bookmarks_ids.splice(index, 1);
         }
         else {
-            this.bookmarks_ids.push(id);
+            this.bookmarks_ids.push(obj);
         }
     };
     SettingComponent.prototype.doDelete = function () {
@@ -2987,6 +3041,130 @@ var SettingComponent = (function () {
             }
         });
     };
+    SettingComponent.prototype.doSelectedCopy = function () {
+        var obj = {
+            ids: this.bookmarks_ids
+        };
+        this.copyShowcaseBookmarks = this.bookmarks_ids;
+        this.modelCopy2Open();
+    };
+    SettingComponent.prototype.doCopy = function (bookmark) {
+        this.myCategories();
+        this.copyShowcaseBookmark = bookmark;
+        this.modelCopy2Open();
+    };
+    SettingComponent.prototype.modelCopy2Open = function () {
+        document.getElementById('copy2Modal').style.display = 'block';
+    };
+    SettingComponent.prototype.modelCopy2Close = function () {
+        document.getElementById('copy2Modal').style.display = 'none';
+    };
+    SettingComponent.prototype.categorySelected = function (bookmark, category_id, copyShowcaseBookmarks) {
+        this.showcaseField = false;
+        this.categorySelectedId = true;
+        if (copyShowcaseBookmarks) {
+            this.bookmarkData = copyShowcaseBookmarks.filter(function (data) {
+                delete data['_id'];
+                return data.category_id = category_id;
+            });
+        }
+        if (bookmark) {
+            delete bookmark['_id'];
+            bookmark.category_id = category_id;
+            this.bookmarkData = bookmark;
+        }
+    };
+    SettingComponent.prototype.openNewShowcase = function (bookmark, bookmarks) {
+        this.showcaseField = true;
+        this.categorySelectedId = false;
+        if (bookmarks) {
+            this.bookmarkData = bookmarks.filter(function (data) {
+                return delete data['_id'];
+            });
+        }
+        if (bookmark) {
+            delete bookmark['_id'];
+            this.bookmarkData = bookmark;
+        }
+    };
+    SettingComponent.prototype.updateCatIdINBookmark = function (id) {
+        if (this.bookmarkData.length > 0) {
+            this.bookmarkData = this.bookmarkData.filter(function (data) {
+                delete data['_id'];
+                return data.category_id = id;
+            });
+        }
+        if (typeof this.bookmarkData.length === 'undefined') {
+            this.bookmarkData.category_id = id;
+        }
+        this.addBoodmark();
+    };
+    SettingComponent.prototype.addCategoryData = function () {
+        var _this = this;
+        var position = this.addCategoryForm.value['position'];
+        var obj = this.addCategoryForm.value;
+        obj.user_id = this.customer._id;
+        this.categoryService.categoryPositionUpdate(position).subscribe(function (data) {
+            if (!data.error) {
+                _this.categoryService.categoryAdd(obj).subscribe(function (data2) {
+                    if (!data2.error) {
+                        _this.updateCatIdINBookmark(data2.message._id);
+                        _this.toastr.success('Board added successfully.', 'Success!');
+                        _this.getMyCategories();
+                        setTimeout(function () {
+                            window.location.reload();
+                        }, 500);
+                        _this.addCategoryForm.reset();
+                    }
+                    else {
+                        _this.toastr.error('Erro while adding board, Try again.', 'Oops!');
+                        _this.addCategoryForm.reset();
+                        _this.getMyCategories();
+                    }
+                });
+            }
+        });
+    };
+    SettingComponent.prototype.addBoodmark = function () {
+        var _this = this;
+        if (this.bookmarkData.length > 0) {
+            this.modelCopy2Close();
+            this.toastr.success('Bookmarks copied succesfully.', 'Success!');
+            var flag_1 = false;
+            for (var index = 0; index < this.bookmarkData.length; index++) {
+                this.bookmarkService.bookmarkAdd(this.bookmarkData[index]).subscribe(function (data) {
+                    if (!data.error) {
+                        flag_1 = true;
+                    }
+                });
+            }
+        }
+        if (typeof this.bookmarkData.length === 'undefined') {
+            this.bookmarkService.bookmarkAdd(this.bookmarkData).subscribe(function (data) {
+                if (!data.error) {
+                    _this.toastr.success('Bookmarks copied succesfully.', 'Success!');
+                    _this.modelCopy2Close();
+                }
+                else {
+                    _this.toastr.error('Error while coping bookmarks, Try again', 'Oops!');
+                }
+            });
+        }
+    };
+    SettingComponent.prototype.doDeleteBoard = function (id) {
+        var _this = this;
+        this.categoryService.categoryDelete(id).subscribe(function (data) {
+            if (!data.error) {
+                _this.toastr.success('Board deleted succesfully.', 'Success!');
+                setTimeout(function () {
+                    _this.router.navigate(['/dashboard']);
+                }, 1000);
+            }
+            else {
+                _this.toastr.error('Error while deleting board, Try again', 'Oops!');
+            }
+        });
+    };
     SettingComponent.prototype.updateCategoryData = function () {
         var _this = this;
         var position = this.updateCategoryForm.value['position'];
@@ -2999,6 +3177,9 @@ var SettingComponent = (function () {
                         if (!data2.error) {
                             _this.toastr.success('Category updated succesfully.', 'Success!');
                             $('#' + _this.updateCategoryForm.value['_id']).text(_this.updateCategoryForm.value['name']);
+                            setTimeout(function () {
+                                window.location.reload();
+                            }, 1000);
                             _this.getMyCategories();
                         }
                         else {
@@ -3080,25 +3261,25 @@ var ViewComponent = (function () {
     };
     ViewComponent.prototype.manageUI = function () {
         var cols = 4;
-        if ($("body").width() > 1600) {
+        if ($('body').width() > 1600) {
             cols = 4;
         }
-        else if ($("body").width() > 1000) {
+        else if ($('body').width() > 1000) {
             cols = 3;
         }
-        else if ($("body").width() > 600) {
+        else if ($('body').width() > 600) {
             cols = 2;
         }
         else {
             cols = 1;
         }
-        var theW = ($("body").width() - ($("body").width() / 50)) / cols;
+        var theW = ($('body').width() - ($('body').width() / 50)) / cols;
         this.curColWidth = theW;
-        $("iframe").css("width", theW);
-        $("twitterwidget").css("width", theW);
-        var th = theW + (theW / 50);
+        $('iframe').css('width', theW);
+        $('twitterwidget').css('width', theW);
+        var th = theW + (theW / 50) - 9;
         this.gridColWidth = th + 'px';
-        $(".grid-item").css("width", th);
+        $('.grid-item').css('width', th);
     };
     ViewComponent.prototype.setStyles = function () {
         var styles = {
@@ -3139,13 +3320,113 @@ ViewComponent = __decorate([
     __metadata("design:paramtypes", [typeof (_z = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* Router */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* Router */]) === "function" && _z || Object, typeof (_0 = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* ActivatedRoute */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* ActivatedRoute */]) === "function" && _0 || Object, typeof (_1 = typeof __WEBPACK_IMPORTED_MODULE_7__services_bookmark_service__["a" /* BookmarkService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_7__services_bookmark_service__["a" /* BookmarkService */]) === "function" && _1 || Object, typeof (_2 = typeof __WEBPACK_IMPORTED_MODULE_6__services_category_service__["a" /* CategoryService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_6__services_category_service__["a" /* CategoryService */]) === "function" && _2 || Object, typeof (_3 = typeof __WEBPACK_IMPORTED_MODULE_3__angular_platform_browser__["DomSanitizer"] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__angular_platform_browser__["DomSanitizer"]) === "function" && _3 || Object])
 ], ViewComponent);
 
-var GooglePlusParams = (function () {
-    function GooglePlusParams() {
+var ViewPublicComponent = (function () {
+    function ViewPublicComponent(router, route, bookmarkService, categoryService, sanitizer) {
+        this.router = router;
+        this.route = route;
+        this.bookmarkService = bookmarkService;
+        this.categoryService = categoryService;
+        this.sanitizer = sanitizer;
+        this.bookmarks = [];
+        this.options = {
+            transitionDuration: '0.3s',
+            itemSelector: '.grid-item'
+        };
+        this.curColWidth = 0;
+        this.gridColWidth = '';
+        this.bricks = [];
     }
-    return GooglePlusParams;
+    ViewPublicComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        this.route.params.subscribe(function (params) {
+            var id = params['id'];
+            console.log(id);
+            _this.parentMessage = id;
+            _this.getbookmark(id);
+        });
+    };
+    ViewPublicComponent.prototype.ngAfterViewInit = function () {
+        var _this = this;
+        this.route.params.subscribe(function (params) {
+            var id = params['id'];
+            _this.parentMessage = id;
+            _this.getbookmark(id);
+        });
+    };
+    ViewPublicComponent.prototype.setHeight = function (type) {
+        if (type = 'facebook') {
+            return '400';
+        }
+        else if (type = 'youtube') {
+            return '337';
+        }
+    };
+    ViewPublicComponent.prototype.setWidth = function (type) {
+        return this.curColWidth;
+    };
+    ViewPublicComponent.prototype.manageUI = function () {
+        var cols = 4;
+        if ($('body').width() > 1600) {
+            cols = 4;
+        }
+        else if ($('body').width() > 1000) {
+            cols = 3;
+        }
+        else if ($('body').width() > 600) {
+            cols = 2;
+        }
+        else {
+            cols = 1;
+        }
+        var theW = ($('body').width() - ($('body').width() / 50)) / cols;
+        this.curColWidth = theW;
+        $('iframe').css('width', theW);
+        $('twitterwidget').css('width', theW);
+        var th = theW + (theW / 50) - 9;
+        this.gridColWidth = th + 'px';
+        $('.grid-item').css('width', th);
+    };
+    ViewPublicComponent.prototype.setStyles = function () {
+        var styles = {
+            'width': this.gridColWidth
+        };
+        return styles;
+    };
+    ViewPublicComponent.prototype.getbookmark = function (id) {
+        var _this = this;
+        this.bookmarkService.categoryBookmarksPublic(id).subscribe(function (data) {
+            if (!data.error) {
+                _this.bookmarks = data.message;
+                console.log(_this.bookmarks);
+                setTimeout(function () {
+                    _this.manageUI();
+                }, 3000);
+            }
+        });
+    };
+    ViewPublicComponent.prototype.videoUrl = function (url) {
+        return this.sanitizer.bypassSecurityTrustResourceUrl(url);
+    };
+    return ViewPublicComponent;
 }());
+__decorate([
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["ViewChild"])(__WEBPACK_IMPORTED_MODULE_12_angular2_masonry__["a" /* AngularMasonry */]),
+    __metadata("design:type", typeof (_4 = typeof __WEBPACK_IMPORTED_MODULE_12_angular2_masonry__["a" /* AngularMasonry */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_12_angular2_masonry__["a" /* AngularMasonry */]) === "function" && _4 || Object)
+], ViewPublicComponent.prototype, "masonry", void 0);
+__decorate([
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["ViewChild"])(__WEBPACK_IMPORTED_MODULE_12_angular2_masonry__["a" /* AngularMasonry */]),
+    __metadata("design:type", typeof (_5 = typeof __WEBPACK_IMPORTED_MODULE_12_angular2_masonry__["b" /* AngularMasonryBrick */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_12_angular2_masonry__["b" /* AngularMasonryBrick */]) === "function" && _5 || Object)
+], ViewPublicComponent.prototype, "masonryBrick", void 0);
+ViewPublicComponent = __decorate([
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
+        selector: 'app-viewpublic',
+        template: __webpack_require__("../../../../../src/app/frontend/dashboard/viewpublic.component.html"),
+        styles: [__webpack_require__("../../../../../src/app/frontend/dashboard/frontenddashboard.component.css")]
+    }),
+    __metadata("design:paramtypes", [typeof (_6 = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* Router */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* Router */]) === "function" && _6 || Object, typeof (_7 = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* ActivatedRoute */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* ActivatedRoute */]) === "function" && _7 || Object, typeof (_8 = typeof __WEBPACK_IMPORTED_MODULE_7__services_bookmark_service__["a" /* BookmarkService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_7__services_bookmark_service__["a" /* BookmarkService */]) === "function" && _8 || Object, typeof (_9 = typeof __WEBPACK_IMPORTED_MODULE_6__services_category_service__["a" /* CategoryService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_6__services_category_service__["a" /* CategoryService */]) === "function" && _9 || Object, typeof (_10 = typeof __WEBPACK_IMPORTED_MODULE_3__angular_platform_browser__["DomSanitizer"] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__angular_platform_browser__["DomSanitizer"]) === "function" && _10 || Object])
+], ViewPublicComponent);
 
-var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m, _o, _p, _q, _r, _s, _t, _u, _v, _w, _x, _y, _z, _0, _1, _2, _3;
+var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m, _o, _p, _q, _r, _s, _t, _u, _v, _w, _x, _y, _z, _0, _1, _2, _3, _4, _5, _6, _7, _8, _9, _10;
 //# sourceMappingURL=frontenddashboard.component.js.map
 
 /***/ }),
@@ -3153,14 +3434,14 @@ var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m, _o, _p, _q, _r, _s, _t, _u, 
 /***/ "../../../../../src/app/frontend/dashboard/myprofile.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<app-profileheader></app-profileheader>\r\n<flash-messages></flash-messages>\r\n<div class=\"container-fluid pt-80\">\r\n    <div class=\"row\">\r\n        <div class=\"col-lg-4 text-center pb-5\">\r\n            <img *ngIf=\"!croppedImage\" [src]=\"imageParse()\" class=\"mx-auto img-circle d-block rounded-circle\" alt=\"avatar\" width=\"150px\"\r\n                height=\"150px\">\r\n            <img *ngIf=\"croppedImage\" [src]=\"croppedImage\" class=\"mx-auto img-circle d-block rounded-circle\" alt=\"avatar\" width=\"150px\"\r\n                height=\"150px\">\r\n            <label class=\"custom-file\">\r\n                <input type=\"file\" class=\"custom-file-input\"  (change)=\"fileChangeEvent($event)\" />\r\n                <span class=\"custom-file-control\">Upload Image</span>\r\n            </label>\r\n    \r\n\r\n        </div>\r\n        <div class=\"col-lg-8 pb-5\">\r\n            <ul class=\"nav nav-tabs\" id=\"myTab\" role=\"tablist\">\r\n                <li class=\"nav-item\">\r\n                    <a class=\"nav-link active\" id=\"edit-tab\" data-toggle=\"tab\" href=\"#edit\" role=\"tab\" aria-controls=\"edit\" aria-selected=\"true\">Edit Profile</a>\r\n                </li>\r\n                <li class=\"nav-item\" *ngIf=\"customer.provider == 'email'\">\r\n                    <a class=\"nav-link\" id=\"password-tab\" data-toggle=\"tab\" href=\"#password\" role=\"tab\" aria-controls=\"password\" aria-selected=\"false\">Change Password</a>\r\n                </li>\r\n            </ul>\r\n            <div class=\"tab-content pt-3\" id=\"myTabContent\">\r\n                <div class=\"tab-pane fade show active\" id=\"edit\" role=\"tabpanel\" aria-labelledby=\"edit-tab\">\r\n                    <form [formGroup]=\"customerProfileForm\" (ngSubmit)=\"profileUpdate()\">\r\n                        <div class=\"form-group\">\r\n                            <label for=\"exampleInputEmail1\">First Name</label>\r\n                            <input type=\"text\" formControlName=\"firstname\" class=\"form-control\" id=\"exampleInputEmail1\" aria-describedby=\"emailHelp\"\r\n                                placeholder=\"Enter First Name\">\r\n\r\n                        </div>\r\n                        <div class=\"form-group\">\r\n                            <label for=\"exampleInputEmail1\">Last Name</label>\r\n                            <input type=\"text\" formControlName=\"lastname\" class=\"form-control\" id=\"exampleInputEmail1\" aria-describedby=\"emailHelp\" placeholder=\"Enter Last Name\">\r\n\r\n                        </div>\r\n                        <div class=\"form-group\">\r\n                            <label for=\"exampleInputEmail1\">Email address</label>\r\n                            <input type=\"email\" formControlName=\"email\" class=\"form-control\" id=\"exampleInputEmail1\" aria-describedby=\"emailHelp\" placeholder=\"Enter email\">\r\n\r\n                        </div>\r\n                        <button type=\"submit\" class=\"btn btn-warning\">Update Profile</button>\r\n                    </form>\r\n                </div>\r\n                <div class=\"tab-pane fade\" id=\"password\" role=\"tabpanel\" aria-labelledby=\"password-tab\" *ngIf=\"customer.provider == 'email'\">\r\n                    <form [formGroup]=\"customerPasswordUpdateForm\" (ngSubmit)=\"passwordUpdate()\">\r\n                        <div class=\"form-group\" >\r\n                            <label for=\"exampleInputPassword1\">Old Password</label>\r\n                            <input type=\"password\" formControlName=\"oldpassword\" class=\"form-control\"  placeholder=\"Password\">\r\n                        </div>\r\n                        <div class=\"form-group\" >\r\n                            <label for=\"exampleInputPassword1\">New Password</label>\r\n                            <input type=\"password\" formControlName=\"newpassword\" class=\"form-control\"  placeholder=\"Password\">\r\n                        </div>\r\n                        <div class=\"form-group\">\r\n                            <label for=\"exampleInputPassword1\">Confirm Password</label>\r\n                            <input type=\"password\" formControlName=\"confirmpassword\" class=\"form-control\"  placeholder=\"Password\">\r\n                        </div>\r\n                        <button type=\"submit\" class=\"btn btn-warning\" [disabled]=\"!customerPasswordUpdateForm.valid\">Update Password</button>\r\n                    </form>\r\n                </div>\r\n            </div>\r\n        </div>\r\n    </div>\r\n</div>\r\n<!-- The imageuploadModal Modal -->\r\n<div id=\"imageuploadModal\" class=\"modal\">\r\n    <span class=\"close\" (click)=\"modelClose()\">&times;</span>\r\n    <div class=\"container\">\r\n        <div class=\"row justify-content-md-center\">\r\n        <div class=\"col-lg-10 col-xs-12\">\r\n            <div class=\"card rounded-1\">\r\n                <span class=\"close signupclose\" (click)=\"modelClose('signup')\">&times;</span>\r\n                <div class=\"card-header text-center bg-white h4 rounded-1 rounded-rl-1\">\r\n                  Image Crop and Upload\r\n                </div>\r\n                <div class=\"card-body\">\r\n                    <div class=\"row\">\r\n                        <div class=\"col-lg-3 \">\r\n                            <img *ngIf=\"croppedImage\" [src]=\"croppedImage\" class=\"mx-auto img-circle d-block rounded-circle\" alt=\"avatar\" width=\"150px\"\r\n                                height=\"150px\">\r\n                        </div>\r\n                        <div class=\"col-lg-7 \">\r\n                        <image-cropper [imageChangedEvent]=\"imageChangedEvent\" [maintainAspectRatio]=\"true\" [aspectRatio]=\"4 / 3\" [resizeToWidth]=\"128\"\r\n                            format=\"png\" (imageCropped)=\"imageCropped($event)\" (imageLoaded)=\"imageLoaded()\" (loadImageFailed)=\"loadImageFailed()\"></image-cropper>\r\n                        </div>\r\n                        <div class=\"col-lg-2 text-center\">\r\n                            <button type=\"button\" class=\"btn btn-warning\"  (click)=\"upload()\">Upload Image</button>\r\n                        </div>\r\n                    </div>\r\n                </div>\r\n            </div>\r\n        </div>\r\n        </div>\r\n    </div>\r\n</div>"
+module.exports = "<app-profileheader></app-profileheader>\r\n<flash-messages></flash-messages>\r\n<div class=\"container-fluid pt-80\">\r\n    <div class=\"row\">\r\n        <div class=\"col-lg-4 text-center pb-5\">\r\n            <img *ngIf=\"!croppedImage\" [src]=\"imageParse()\" class=\"mx-auto img-circle d-block rounded-circle\" alt=\"avatar\" width=\"150px\"\r\n                height=\"150px\">\r\n            <img *ngIf=\"croppedImage\" [src]=\"croppedImage\" class=\"mx-auto img-circle d-block rounded-circle\" alt=\"avatar\" width=\"150px\"\r\n                height=\"150px\">\r\n            <label class=\"custom-file\">\r\n                <input type=\"file\" class=\"custom-file-input\"  (change)=\"fileChangeEvent($event)\" />\r\n                <span class=\"custom-file-control\">Upload Image</span>\r\n            </label>\r\n    \r\n\r\n        </div>\r\n        <div class=\"col-lg-8 pb-5\">\r\n            <ul class=\"nav nav-tabs\" id=\"myTab\" role=\"tablist\">\r\n                <li class=\"nav-item\">\r\n                    <a class=\"nav-link active\" id=\"edit-tab\" data-toggle=\"tab\" href=\"#edit\" role=\"tab\" aria-controls=\"edit\" aria-selected=\"true\">Edit Profile</a>\r\n                </li>\r\n                <li class=\"nav-item\" *ngIf=\"customer.provider == 'email'\">\r\n                    <a class=\"nav-link\" id=\"password-tab\" data-toggle=\"tab\" href=\"#password\" role=\"tab\" aria-controls=\"password\" aria-selected=\"false\">Change Password</a>\r\n                </li>\r\n            </ul>\r\n            <div class=\"tab-content pt-3\" id=\"myTabContent\">\r\n                <div class=\"tab-pane fade show active\" id=\"edit\" role=\"tabpanel\" aria-labelledby=\"edit-tab\">\r\n                    <form [formGroup]=\"customerProfileForm\" (ngSubmit)=\"profileUpdate()\">\r\n                        <div class=\"form-group\">\r\n                            <label for=\"exampleInputEmail1\">First Name</label>\r\n                            <input type=\"text\" formControlName=\"firstname\" class=\"form-control\" id=\"exampleInputEmail1\" aria-describedby=\"emailHelp\"\r\n                                placeholder=\"Enter First Name\">\r\n\r\n                        </div>\r\n                        <div class=\"form-group\">\r\n                            <label for=\"exampleInputEmail1\">Last Name</label>\r\n                            <input type=\"text\" formControlName=\"lastname\" class=\"form-control\" id=\"exampleInputEmail1\" aria-describedby=\"emailHelp\" placeholder=\"Enter Last Name\">\r\n\r\n                        </div>\r\n                        <div class=\"form-group\">\r\n                            <label for=\"exampleInputEmail1\">Email address</label>\r\n                            <input type=\"email\" formControlName=\"email\" class=\"form-control\" id=\"exampleInputEmail1\" aria-describedby=\"emailHelp\" placeholder=\"Enter email\">\r\n\r\n                        </div>\r\n                        <button type=\"submit\" class=\"btn btn-warning\">Update Profile</button>\r\n                    </form>\r\n                </div>\r\n                <div class=\"tab-pane fade\" id=\"password\" role=\"tabpanel\" aria-labelledby=\"password-tab\" *ngIf=\"customer.provider == 'email'\">\r\n                    <form [formGroup]=\"customerPasswordUpdateForm\" (ngSubmit)=\"passwordUpdate()\">\r\n                        <div class=\"form-group\" >\r\n                            <label for=\"exampleInputPassword1\">Old Password</label>\r\n                            <input type=\"password\" formControlName=\"oldpassword\" class=\"form-control\"  placeholder=\"Password\">\r\n                        </div>\r\n                        <div class=\"form-group\" >\r\n                            <label for=\"exampleInputPassword1\">New Password</label>\r\n                            <input type=\"password\" formControlName=\"newpassword\" class=\"form-control\"  placeholder=\"Password\">\r\n                        </div>\r\n                        <div class=\"form-group\">\r\n                            <label for=\"exampleInputPassword1\">Confirm Password</label>\r\n                            <input type=\"password\" formControlName=\"confirmpassword\" class=\"form-control\"  placeholder=\"Password\">\r\n                        </div>\r\n                        <button type=\"submit\" class=\"btn btn-warning\" [disabled]=\"!customerPasswordUpdateForm.valid\">Update Password</button>\r\n                    </form>\r\n                </div>\r\n            </div>\r\n        </div>\r\n    </div>\r\n</div>\r\n<!-- The imageuploadModal Modal -->\r\n<div id=\"imageuploadModal\" class=\"modal\">\r\n    <span class=\"close\" (click)=\"modelClose()\">&times;</span>\r\n    <div class=\"container\">\r\n        <div class=\"row justify-content-md-center\">\r\n        <div class=\"col-lg-10 col-xs-12\">\r\n            <div class=\"card rounded-1\">\r\n                <span class=\"close signupclose\" (click)=\"modelClose()\">&times;</span>\r\n                <div class=\"card-header text-center bg-white h4 rounded-1 rounded-rl-1\">\r\n                  Image Crop and Upload\r\n                </div>\r\n                <div class=\"card-body\">\r\n                    <div class=\"row\">\r\n                        <div class=\"col-lg-3 \">\r\n                            <img *ngIf=\"croppedImage\" [src]=\"croppedImage\" class=\"mx-auto img-circle d-block rounded-circle\" alt=\"avatar\" width=\"150px\"\r\n                                height=\"150px\">\r\n                        </div>\r\n                        <div class=\"col-lg-7 \">\r\n                        <image-cropper [imageChangedEvent]=\"imageChangedEvent\" [maintainAspectRatio]=\"true\" [aspectRatio]=\"4 / 3\" [resizeToWidth]=\"128\"\r\n                            format=\"png\" (imageCropped)=\"imageCropped($event)\"></image-cropper>\r\n                        </div>\r\n                        <div class=\"col-lg-2 text-center\">\r\n                            <button type=\"button\" class=\"btn btn-warning\"  (click)=\"upload()\">Upload Image</button>\r\n                        </div>\r\n                    </div>\r\n                </div>\r\n            </div>\r\n        </div>\r\n        </div>\r\n    </div>\r\n</div>"
 
 /***/ }),
 
 /***/ "../../../../../src/app/frontend/dashboard/profileheader.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<nav class=\"navbar navbar-expand-md navbar-dark fixed-top bg-navyblue\">\r\n    <div class=\"container-fluid\">\r\n        <button class=\"navbar-toggler\" type=\"button\" data-toggle=\"collapse\" data-target=\"#navbarCollapse\" aria-controls=\"navbarCollapse\"\r\n            aria-expanded=\"false\" aria-label=\"Toggle navigation\">\r\n            <span class=\"navbar-toggler-icon\"></span>\r\n        </button>\r\n        <a class=\"navbar-brand\" [routerLink]=\"['/']\">Showcase.Social</a>\r\n        <a *ngIf=\"currentCustomer != undefined\" class=\"navbar-brand p-0\" href=\"javascript:void(0)\">\r\n            <img [src]=\"currentCustomer && currentCustomer.image\" class=\"rounded-circle d-none d-sm-block d-md-none d-block d-sm-none\"\r\n                width=\"30\" height=\"30\">\r\n        </a>\r\n        <div class=\"collapse navbar-collapse\" id=\"navbarCollapse\">\r\n            <ul class=\"navbar-nav mr-auto category-navbar \" id=\"category-navbar\">\r\n                <span *ngFor=\"let category of categories let i = index\">\r\n\r\n                    <li class=\"nav-item dropdown px-3 \" [ngClass]=\"slugify(category.name)\" style=\"display: -webkit-box;\" *ngIf=\"liCount && i < 3\">\r\n                        <a class=\"nav-link text-cap\" [id]=\"category._id\" [routerLink]=\"['/view/',category._id]\"> {{ (category.name.length >= 20) ? (category.name | slice:0:20)+'..':(category.name) }}</a>\r\n                        <a class=\"nav-link dropdown-toggle\" [id]=\"category._id\" id=\"dropdown01\" href=\"\" data-toggle=\"dropdown\" aria-haspopup=\"true\"\r\n                            aria-expanded=\"false\"></a>\r\n                        <div class=\"dropdown-menu\" aria-labelledby=\"dropdown01\">\r\n                            <a class=\"dropdown-item\" href=\"javascript:void(0)\" (click)=\"doShare(category)\">\r\n                                <i class=\"fa fa-share\"></i> Share</a>\r\n                            <a class=\"dropdown-item\" href=\"javascript:void(0)\" (click)=\"doEmbed(category)\">\r\n                                <i class=\"fa fa-code\"></i> Embeded</a>\r\n                            <a class=\"dropdown-item\" [routerLink]=\"['/setting/',category._id]\">\r\n                                <i class=\"fa fa-cog\"></i> Setting</a>\r\n                        </div>\r\n                    </li>\r\n                </span>\r\n                <li class=\"nav-item dropdown px-3\" *ngIf=\"categories?.length > 3\">\r\n                    <a class=\"nav-link dropdown-toggle\" href=\"\" id=\"navbarDropdownMenuLink\" data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"false\">\r\n                        More...\r\n                    </a>\r\n                    <ul class=\"dropdown-menu\" aria-labelledby=\"navbarDropdownMenuLink\">\r\n                        <span *ngFor=\"let category of categories; let i = index\">\r\n                            <li class=\"dropdown-submenu\" *ngIf=\"liCount && i >= 3 \">\r\n                                <a class=\"dropdown-item dropdown-toggle text-cap\" href=\"javascript:void(0)\"> {{ (category.name.length >= 20) ? (category.name | slice:0:20)+'..':(category.name) }}</a>\r\n                                <ul class=\"dropdown-menu option-menu\">\r\n                                    <li>\r\n                                        <a class=\"dropdown-item\" href=\"javascript:void(0)\" (click)=\"doShare(category)\">\r\n                                            <i class=\"fa fa-share\"></i> Share </a>\r\n                                    </li>\r\n                                    <li>\r\n                                        <a class=\"dropdown-item\" href=\"javascript:void(0)\" (click)=\"doEmbed(category)\">\r\n                                            <i class=\"fa fa-code\"></i> Embeded</a>\r\n                                    </li>\r\n                                    <li>\r\n                                        <a class=\"dropdown-item\" [routerLink]=\"['/setting/',category._id]\">\r\n                                            <i class=\"fa fa-cog\"></i> Setting</a>\r\n                                    </li>\r\n                                </ul>\r\n                            </li>\r\n                        </span>\r\n                    </ul>\r\n                </li>\r\n                <li class=\"nav-item pl-3\">\r\n                    <a class=\"nav-link\" href=\"javascript:void(0)\" (click)=\"addCategory()\">Add new\r\n                        <i class=\"fa fa-plus-circle\"></i>\r\n                    </a>\r\n                </li>\r\n\r\n            </ul>\r\n            <form class=\"form-inline mt-2 mt-md-0\" [formGroup]=\"addLinkForm\" (ngSubmit)=\"addLink()\">\r\n                <input class=\"form-control addlinkfield\" style=\"width:auto\" type=\"text\" formControlName=\"title\" placeholder=\"Paste link here...\"\r\n                    aria-label=\"Search\">\r\n                <button class=\"btn btn-outline-light my-2 my-sm-0 addlinkfieldbtn\" type=\"submit\" [disabled]=\"!addLinkForm.valid\">\r\n                    <i class=\"fa fa-plus\"></i>\r\n                </button>\r\n            </form>\r\n            <ul class=\"navbar-nav d-none d-sm-block \">\r\n                <li class=\"nav-item dropdown pl-2\">\r\n                    <a *ngIf=\"currentCustomer != undefined\" class=\"nav-link dropdown-toggle p-0\" id=\"dropdown01\" href=\"\" data-toggle=\"dropdown\"\r\n                        aria-haspopup=\"true\" aria-expanded=\"false\">\r\n                        <img *ngIf=\"currentCustomer.image\" [src]=\"currentCustomer.image\" class=\"rounded-circle\" width=\"30\" height=\"30\">\r\n                        <img *ngIf=\"!currentCustomer.image\" src=\"https://www.w3schools.com/howto/img_avatar.png\" class=\"rounded-circle\" width=\"30\"\r\n                            height=\"30\">\r\n                    </a>\r\n                    <div class=\"dropdown-menu custom-dropdown-menu\" aria-labelledby=\"dropdown01\">\r\n                        <a class=\"dropdown-item\" [routerLink]=\"['/profile']\">Profile</a>\r\n                        <a class=\"dropdown-item\" href=\"javascript:void(0)\" (click)=\"logout()\">Logout</a>\r\n                    </div>\r\n                </li>\r\n            </ul>\r\n        </div>\r\n    </div>\r\n</nav>\r\n\r\n<!-- The category Modal  -->\r\n<div id=\"categoryModal\" class=\"modal dark-bg\">\r\n    <span class=\"close\" (click)=\"modelClose()\">&times;</span>\r\n    <div class=\"container\">\r\n        <div class=\"row justify-content-md-center\">\r\n            <div class=\"col-lg-7 col-xs-12\">\r\n                <div class=\"card rounded-1\">\r\n                    <span class=\"close signupclose\" (click)=\"modelClose()\">&times;</span>\r\n                    <div class=\"card-header text-center bg-white h4 rounded-1 rounded-rl-1\">\r\n                        <i class=\"fa fa-cogs text-warning\"></i> Add Category\r\n                    </div>\r\n                    <div class=\"card-body\">\r\n                        <div class=\"row\">\r\n                            <div class=\"col mb-2\">\r\n                                <form [formGroup]=\"addCategoryForm\" (ngSubmit)=\"addCategoryData()\">\r\n                                    <div class=\"form-group\">\r\n                                        <label for=\"\">Showcase name</label>\r\n                                        <input type=\"text\" formControlName=\"name\" class=\"form-control\" placeholder=\"type here...\">\r\n                                    </div>\r\n                                    <div class=\"form-group\">\r\n                                        <label for=\"exampleFormControlSelect1\">Position in menu</label>\r\n                                        <select class=\"form-control\" formControlName=\"position\">\r\n                                            <option [ngValue]=\"1\" selected>Top</option>\r\n                                            <option *ngFor=\"let category of categories; let i = index\" [ngValue]=\"category.position+1\">After {{category.name}}</option>\r\n                                        </select>\r\n                                    </div>\r\n                                    <button type=\"button\" class=\"btn btn-danger float-left px-5 rounded-1\" (click)=\"modelClose()\">Cancel</button>\r\n                                    <button type=\"submit\" class=\"btn btn-warning float-right px-5 rounded-1\" [disabled]=\"!addCategoryForm.valid\">Save</button>\r\n                                </form>\r\n                            </div>\r\n                        </div>\r\n                    </div>\r\n                </div>\r\n            </div>\r\n        </div>\r\n    </div>\r\n</div>\r\n<!-- The bookmark Modal  -->\r\n<div id=\"bookmarkModal\" class=\"modal dark-bg\">\r\n    <span class=\"close\" (click)=\"modelBookmarkClose()\">&times;</span>\r\n    <div class=\"container\">\r\n        <div class=\"row justify-content-md-center\">\r\n            <div class=\"col-lg-7 col-xs-12\">\r\n                <div class=\"card rounded-1\">\r\n                    <span class=\"close signupclose\" (click)=\"modelBookmarkClose()\">&times;</span>\r\n                    <div class=\"card-header text-center bg-white h4 rounded-1 rounded-rl-1\">\r\n                        <i class=\"fa fa-plus text-warning\"></i> Add Bookmark\r\n                    </div>\r\n                    <div class=\"card-body preview-bookmark\">\r\n\r\n                        <div class=\"row\">\r\n                            <div class=\"col\">\r\n                                <div class=\"loading-view text-center\" id=\"loader\">\r\n                                    <img src=\"./assets/loader.svg\">\r\n                                    <br>\r\n                                    <h2>Loading...</h2>\r\n                                </div>\r\n                                <p class=\"text-center\">Preview your link before adding</p>\r\n                                <p class=\"text-center text-danger\">Display not quite right ?</p>\r\n                                <div id=\"bookMark\" class=\"mx-5\"></div>\r\n                            </div>\r\n                        </div>\r\n                    </div>\r\n                    <div class=\"card-footer\">\r\n                        <button type=\"button\" class=\"btn btn-danger float-left px-5 rounded-1\" (click)=\"modelBookmarkClose()\">Cancel</button>\r\n                        <button type=\"button\" class=\"btn btn-warning float-right px-5 rounded-1\" (click)=\"openCopyToModel()\">Add</button>\r\n                    </div>\r\n                </div>\r\n            </div>\r\n        </div>\r\n    </div>\r\n</div>\r\n<!-- The copt to showcase Modal  -->\r\n<div id=\"copytokModal\" class=\"modal dark-bg\">\r\n    <span class=\"close\" (click)=\"modelCopyToClose()\">&times;</span>\r\n    <div class=\"container\">\r\n        <div class=\"row justify-content-md-center\">\r\n            <div class=\"col-lg-7 col-xs-12\">\r\n                <div class=\"card rounded-1\">\r\n                    <span class=\"close signupclose\" (click)=\"modelCopyToClose()\">&times;</span>\r\n                    <div class=\"card-header text-center bg-white h4 rounded-1 rounded-rl-1\">\r\n                        <i class=\"fa fa-files-o text-warning\"></i> Copy to showcase\r\n                    </div>\r\n                    <div class=\"card-body preview-bookmark\">\r\n                        <div class=\"row\">\r\n                            <div class=\"col-12\">\r\n                                <form>\r\n                                    <div class=\"form-group\">\r\n                                        <label for=\"exampleFormControlSelect2\">Example multiple select</label>\r\n                                        <select multiple class=\"form-control\" id=\"exampleFormControlSelect2\">\r\n                                            <option *ngFor=\"let category of categories; let i = index\" (click)=\"categorySelected(category._id)\">{{category.name}}</option>\r\n                                            <option (click)=\"openNewShowcase()\">Create new showcase</option>\r\n                                        </select>\r\n                                    </div>\r\n                                    <div class=\"form-group\" *ngIf=\"showcaseField\">\r\n                                        <label for=\"exampleFormControlInput1\">Name for new showcase</label>\r\n                                        <input type=\"email\" class=\"form-control\" id=\"exampleFormControlInput1\" placeholder=\"Type here...\">\r\n                                    </div>\r\n                                </form>\r\n                            </div>\r\n                            <div class=\"col-6\">\r\n                            </div>\r\n                        </div>\r\n                    </div>\r\n                    <div class=\"card-footer\">\r\n                        <button type=\"button\" class=\"btn btn-danger float-left px-5 rounded-1\" (click)=\"modelCopyToClose()\">Cancel</button>\r\n                        <button type=\"button\" class=\"btn btn-warning float-right px-5 rounded-1\" (click)=\"addBoodmark()\" [disabled]=\"!categorySelectedId\">Add</button>\r\n                    </div>\r\n                </div>\r\n            </div>\r\n        </div>\r\n    </div>\r\n</div>\r\n<!-- The share Modal  -->\r\n<div id=\"shareModal\" class=\"modal dark-bg\">\r\n    <span class=\"close\" (click)=\"modelShareClose()\">&times;</span>\r\n    <div class=\"container\" *ngIf=\"category\">\r\n        <div class=\"row justify-content-md-center\">\r\n            <div class=\"col-lg-7 col-xs-12\">\r\n                <div class=\"card rounded-1\">\r\n                    <span class=\"close signupclose\" (click)=\"modelShareClose()\">&times;</span>\r\n                    <div class=\"card-header text-center bg-white h4 rounded-1 rounded-rl-1 text-cap\">\r\n                        <i class=\"fa fa-share text-warning\"></i> Share {{category.name}}\r\n                    </div>\r\n                    <div class=\"card-body preview-bookmark\">\r\n                        <p>Share your showcase “{{category.name}}” directly to social</p>\r\n                       <!--  <div class=\"row text-center mb-5\">\r\n                            <div class=\"col-12\">\r\n                                <share-button theme=\"material-dark\" class=\"px-1\" button=\"facebook\" [url]=\"socialShareUrl\" text=\"Facebook\" showText=\"true\"></share-button>\r\n                                <share-button theme=\"material-dark\" button=\"twitter\" text=\"Twitter\"  [url]=\"socialShareUrl\" showText=\"true\"></share-button>\r\n                                <share-button theme=\"material-dark\" button=\"google\" text=\"Google\" [url]=\"socialShareUrl\" showText=\"true\"></share-button>\r\n                            </div>\r\n                            <div class=\"col-12\">\r\n                                <share-button theme=\"material-dark\"  button=\"pinterest\" [url]=\"socialShareUrl\" text=\"Pinterest\" showText=\"true\"></share-button>\r\n                                <share-button theme=\"material-dark\" button=\"linkedin\" [url]=\"socialShareUrl\" text=\"Linkedin\" showText=\"true\"></share-button>\r\n                                <share-button theme=\"material-dark\" button=\"stumble\" [url]=\"socialShareUrl\"  text=\"Stumble\" showText=\"true\"></share-button>\r\n                            </div>\r\n                        </div> -->\r\n                        <share-buttons  [url]=\"socialShareUrl\"></share-buttons>\r\n                        <div class=\"form-group\">\r\n                            <label for=\"exampleInputEmail1\">Or copy and paste the following on your favourite social channel:</label>\r\n                            <input type=\"text\" class=\"form-control\" id=\"exampleInputEmail1\" aria-describedby=\"emailHelp\" value=\"{{socialShareUrl}}\" placeholder=\"\">\r\n                        </div>\r\n                    </div>\r\n                    <div class=\"card-footer text-center\">\r\n                        <button type=\"button\" class=\"btn btn-danger px-5 rounded-1 mb-2\" (click)=\"modelShareClose()\">Close</button>\r\n                        <p class=\"p-0\">Want to embed this showcase on your blog or website?\r\n                        </p>\r\n                    </div>\r\n                </div>\r\n            </div>\r\n        </div>\r\n    </div>\r\n</div>\r\n<!-- The embed Modal  -->\r\n<div id=\"embedModal\" class=\"modal dark-bg\" *ngIf=\"category\">\r\n    <span class=\"close\" (click)=\"modelEmbedClose()\">&times;</span>\r\n    <div class=\"container\">\r\n        <div class=\"row justify-content-md-center\">\r\n            <div class=\"col-lg-7 col-xs-12\">\r\n                <div class=\"card rounded-1\">\r\n                    <span class=\"close signupclose\" (click)=\"modelEmbedClose()\">&times;</span>\r\n                    <div class=\"card-header text-center bg-white h4 rounded-1 rounded-rl-1 text-cap\">\r\n                        <i class=\"fa fa-code text-warning\"></i> Embed {{category.name}}\r\n                    </div>\r\n                    <div class=\"card-body preview-bookmark\">\r\n                        <form>\r\n                            <div class=\"form-group\">\r\n                                <label for=\"exampleFormControlTextarea1\" class=\"pb-2\">You can embed this showcase on your blog by copying and pasting the following:</label>\r\n                                <p class=\"box\">&lt;div id=&quot;showcaseSocialBlock&quot; data-showcaseID='{{category._id}}'&gt;&lt;/div&gt;&lt;script src=&quot;https://measuremight.com:3002/embed.min.js&quot;&gt;&lt;/script&gt;</p>\r\n                            </div>\r\n                        </form>\r\n                    </div>\r\n                    <div class=\"card-footer text-center\">\r\n                        <button type=\"button\" class=\"btn btn-danger px-5 rounded-1\" (click)=\"modelEmbedClose()\">Close</button>\r\n                    </div>\r\n                </div>\r\n            </div>\r\n        </div>\r\n    </div>\r\n</div>"
+module.exports = "<nav class=\"navbar navbar-expand-md navbar-dark fixed-top bg-navyblue\">\r\n    <div class=\"container-fluid\">\r\n        <button class=\"navbar-toggler\" type=\"button\" data-toggle=\"collapse\" data-target=\"#navbarCollapse\" aria-controls=\"navbarCollapse\"\r\n            aria-expanded=\"false\" aria-label=\"Toggle navigation\">\r\n            <span class=\"navbar-toggler-icon\"></span>\r\n        </button>\r\n        <a class=\"navbar-brand\" [routerLink]=\"['/dashboard']\">Showcase.Social</a>\r\n        <a *ngIf=\"currentCustomer != undefined\" class=\"navbar-brand p-0\" href=\"javascript:void(0)\">\r\n            <img [src]=\"currentCustomer && currentCustomer.image\" class=\"rounded-circle d-none d-sm-block d-md-none d-block d-sm-none\"\r\n                width=\"30\" height=\"30\">\r\n        </a>\r\n        <div class=\"collapse navbar-collapse\" id=\"navbarCollapse\">\r\n            <ul class=\"navbar-nav mr-auto category-navbar \" id=\"category-navbar\">\r\n                <span *ngFor=\"let category of categories let i = index\">\r\n\r\n                    <li class=\"nav-item dropdown px-3 \" [ngClass]=\"slugify(category.name)\" style=\"display: -webkit-box;\" *ngIf=\"liCount && i < 3\">\r\n                        <a class=\"nav-link text-cap\" [id]=\"category._id\" [routerLink]=\"['/view/',category._id]\"> {{ (category.name.length >= 20) ? (category.name | slice:0:20)+'..':(category.name) }}</a>\r\n                        <a class=\"nav-link dropdown-toggle\" [id]=\"category._id\" id=\"dropdown01\" href=\"\" data-toggle=\"dropdown\" aria-haspopup=\"true\"\r\n                            aria-expanded=\"false\"></a>\r\n                        <div class=\"dropdown-menu\" aria-labelledby=\"dropdown01\">\r\n                            <a class=\"dropdown-item\" href=\"javascript:void(0)\" (click)=\"doShare(category)\">\r\n                                <i class=\"fa fa-share\"></i> Share</a>\r\n                            <a class=\"dropdown-item\" href=\"javascript:void(0)\" (click)=\"doEmbed(category)\">\r\n                                <i class=\"fa fa-code\"></i> Embeded</a>\r\n                            <a class=\"dropdown-item\" [routerLink]=\"['/setting/',category._id]\">\r\n                                <i class=\"fa fa-cog\"></i> Manage</a>\r\n                        </div>\r\n                    </li>\r\n                </span>\r\n                <li class=\"nav-item dropdown px-3\" *ngIf=\"categories?.length > 3\">\r\n                    <a class=\"nav-link dropdown-toggle\" href=\"\" id=\"navbarDropdownMenuLink\" data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"false\">\r\n                        More...\r\n                    </a>\r\n                    <ul class=\"dropdown-menu\" aria-labelledby=\"navbarDropdownMenuLink\">\r\n                        <span *ngFor=\"let category of categories; let i = index\">\r\n                            <li class=\"dropdown-submenu\" *ngIf=\"liCount && i >= 3 \">\r\n                                <a class=\"dropdown-item dropdown-toggle text-cap\" href=\"javascript:void(0)\"> {{ (category.name.length >= 20) ? (category.name | slice:0:20)+'..':(category.name) }}</a>\r\n                                <ul class=\"dropdown-menu option-menu\">\r\n                                    <li>\r\n                                        <a class=\"dropdown-item\" href=\"javascript:void(0)\" (click)=\"doShare(category)\">\r\n                                            <i class=\"fa fa-share\"></i> Share </a>\r\n                                    </li>\r\n                                    <li>\r\n                                        <a class=\"dropdown-item\" href=\"javascript:void(0)\" (click)=\"doEmbed(category)\">\r\n                                            <i class=\"fa fa-code\"></i> Embeded</a>\r\n                                    </li>\r\n                                    <li>\r\n                                        <a class=\"dropdown-item\" [routerLink]=\"['/setting/',category._id]\">\r\n                                            <i class=\"fa fa-cog\"></i> Manage</a>\r\n                                    </li>\r\n                                </ul>\r\n                            </li>\r\n                        </span>\r\n                    </ul>\r\n                </li>\r\n                <li class=\"nav-item pl-3\">\r\n                    <a class=\"nav-link\" href=\"javascript:void(0)\" (click)=\"addCategory()\">Add new\r\n                        <i class=\"fa fa-plus-circle\"></i>\r\n                    </a>\r\n                </li>\r\n\r\n            </ul>\r\n            <form class=\"form-inline mt-2 mt-md-0\" [formGroup]=\"addLinkForm\" (ngSubmit)=\"addLink()\">\r\n                <input class=\"form-control addlinkfield\" style=\"width:auto\" type=\"text\" formControlName=\"title\" placeholder=\"Paste link here...\"\r\n                    aria-label=\"Search\">\r\n                <button class=\"btn btn-outline-light my-2 my-sm-0 addlinkfieldbtn\" type=\"submit\" [disabled]=\"!addLinkForm.valid\">\r\n                    <i class=\"fa fa-plus\"></i>\r\n                </button>\r\n            </form>\r\n            <ul class=\"navbar-nav d-none d-sm-block \">\r\n                <li class=\"nav-item dropdown pl-2\">\r\n                    <a *ngIf=\"currentCustomer != undefined\" class=\"nav-link dropdown-toggle p-0\" id=\"dropdown01\" href=\"\" data-toggle=\"dropdown\"\r\n                        aria-haspopup=\"true\" aria-expanded=\"false\">\r\n                        <img *ngIf=\"currentCustomer.image\" [src]=\"currentCustomer.image\" class=\"rounded-circle\" width=\"30\" height=\"30\">\r\n                        <img *ngIf=\"!currentCustomer.image\" src=\"https://www.w3schools.com/howto/img_avatar.png\" class=\"rounded-circle\" width=\"30\"\r\n                            height=\"30\">\r\n                    </a>\r\n                    <div class=\"dropdown-menu custom-dropdown-menu\" aria-labelledby=\"dropdown01\">\r\n                        <a class=\"dropdown-item\" [routerLink]=\"['/profile']\">Profile</a>\r\n                        <a class=\"dropdown-item\" href=\"javascript:void(0)\" (click)=\"logout()\">Logout</a>\r\n                    </div>\r\n                </li>\r\n            </ul>\r\n        </div>\r\n    </div>\r\n</nav>\r\n\r\n<!-- The category Modal  -->\r\n<div id=\"categoryModal\" class=\"modal dark-bg\">\r\n    <div class=\"container\">\r\n        <div class=\"row justify-content-md-center\">\r\n            <div class=\"col-lg-7 col-xs-12\">\r\n                <div class=\"card rounded-1\">\r\n                    <span class=\"close signupclose\" (click)=\"modelClose()\">&times;</span>\r\n                    <div class=\"card-header text-center bg-white h4 rounded-1 rounded-rl-1\">\r\n                        <i class=\"fa fa-cogs text-warning\"></i> Add Category\r\n                    </div>\r\n                    <div class=\"card-body\">\r\n                        <div class=\"row\">\r\n                            <div class=\"col mb-2\">\r\n                                <form [formGroup]=\"addCategoryForm\" (ngSubmit)=\"addCategoryData('')\">\r\n                                    <div class=\"form-group\">\r\n                                        <label for=\"\">Showcase name</label>\r\n                                        <input type=\"text\" formControlName=\"name\" class=\"form-control\" placeholder=\"type here...\">\r\n                                    </div>\r\n                                    <div class=\"form-group\">\r\n                                        <label for=\"exampleFormControlSelect1\">Position in menu</label>\r\n                                        <select class=\"form-control\" formControlName=\"position\">\r\n                                            <option [ngValue]=\"1\" selected>Top</option>\r\n                                            <option *ngFor=\"let category of categories; let i = index\" [ngValue]=\"category.position+1\">After {{category.name}}</option>\r\n                                        </select>\r\n                                    </div>\r\n                                    <button type=\"button\" class=\"btn btn-danger float-left px-5 rounded-1\" (click)=\"modelClose()\">Cancel</button>\r\n                                    <button type=\"submit\" class=\"btn btn-warning float-right px-5 rounded-1\" [disabled]=\"!addCategoryForm.valid\">Save</button>\r\n                                </form>\r\n                            </div>\r\n                        </div>\r\n                    </div>\r\n                </div>\r\n            </div>\r\n        </div>\r\n    </div>\r\n</div>\r\n<!-- The bookmark Modal  -->\r\n<div id=\"bookmarkModal\" class=\"modal dark-bg\">\r\n    <div class=\"container\">\r\n        <div class=\"row justify-content-md-center\">\r\n            <div class=\"col-lg-7 col-xs-12\">\r\n                <div class=\"card rounded-1\">\r\n                    <span class=\"close signupclose\" (click)=\"modelBookmarkCloseEmptyForm()\">&times;</span>\r\n                    <div class=\"card-header text-center bg-white h4 rounded-1 rounded-rl-1\">\r\n                        <i class=\"fa fa-plus text-warning\"></i> Add Bookmark\r\n                    </div>\r\n                    <div class=\"card-body preview-bookmark\">\r\n\r\n                        <div class=\"row\">\r\n                            <div class=\"col\">\r\n                                <div class=\"loading-view text-center\" id=\"loader\">\r\n                                    <img src=\"./assets/loader.svg\">\r\n                                    <br>\r\n                                    <h2>Loading...</h2>\r\n                                </div>\r\n                                <p class=\"text-center\">Preview your link before adding</p>\r\n                                <p class=\"text-center text-danger\">Display not quite right ?</p>\r\n                                <div id=\"bookMark\" class=\"mx-5 text-center\"></div>\r\n                            </div>\r\n                        </div>\r\n                    </div>\r\n                    <div class=\"card-footer\">\r\n                        <button type=\"button\" class=\"btn btn-danger float-left px-5 rounded-1\" (click)=\"modelBookmarkCloseEmptyForm()\">Cancel</button>\r\n                        <button type=\"button\" class=\"btn btn-warning float-right px-5 rounded-1\" (click)=\"openCopyToModel()\" [disabled]=\"invalidUrl\">Add</button>\r\n                    </div>\r\n                </div>\r\n            </div>\r\n        </div>\r\n    </div>\r\n</div>\r\n<!-- The copt to showcase Modal  -->\r\n<div id=\"copytokModal\" class=\"modal dark-bg\">\r\n    <div class=\"container\">\r\n        <div class=\"row justify-content-md-center\">\r\n            <div class=\"col-lg-7 col-xs-12\">\r\n                <form [formGroup]=\"addCategoryForm\" (ngSubmit)=\"addCategoryData('close')\">\r\n                    <div class=\"card rounded-1\">\r\n                        <span class=\"close signupclose\" (click)=\"modelCopyToClose()\">&times;</span>\r\n                        <div class=\"card-header text-center bg-white h4 rounded-1 rounded-rl-1\">\r\n                            <i class=\"fa fa-files-o text-warning\"></i> Copy to showcase\r\n                        </div>\r\n                        <div class=\"card-body preview-bookmark\">\r\n                            <div class=\"row\">\r\n                                <div class=\"col-12\">\r\n                                    <div class=\"form-group\">\r\n                                        <select multiple class=\"form-control\" id=\"exampleFormControlSelect2\">\r\n                                            <option *ngFor=\"let category of categories; let i = index\" (click)=\"categorySelected(category._id)\">{{category.name}}</option>\r\n                                            <option (click)=\"openNewShowcase()\">Create new showcase</option>\r\n                                        </select>\r\n                                    </div>\r\n                                    <div class=\"form-group\" *ngIf=\"showcaseField\">\r\n                                        <label for=\"\">Showcase name</label>\r\n                                        <input type=\"text\" formControlName=\"name\" class=\"form-control\" placeholder=\"type here...\">\r\n                                    </div>\r\n                                    <div class=\"form-group\" *ngIf=\"showcaseField\">\r\n                                        <label for=\"exampleFormControlSelect1\">Position in menu</label>\r\n                                        <select class=\"form-control\" formControlName=\"position\">\r\n                                            <option [ngValue]=\"1\" selected>Top</option>\r\n                                            <option *ngFor=\"let category of categories; let i = index\" [ngValue]=\"category.position+1\">After {{category.name}}</option>\r\n                                        </select>\r\n                                    </div>\r\n                                </div>\r\n                            </div>\r\n                        </div>\r\n                        <div class=\"card-footer\">\r\n                            <button type=\"button\" class=\"btn btn-danger float-left px-5 rounded-1\" (click)=\"modelCopyToClose()\">Cancel</button>\r\n                            <button type=\"submit\" class=\"btn btn-warning float-right px-5 rounded-1 addcat\" [disabled]=\"!addCategoryForm.valid\" *ngIf=\"showcaseField\">Add</button>\r\n                            <button type=\"button\" class=\"btn btn-warning float-right px-5 rounded-1\" (click)=\"addBoodmark()\" [disabled]=\"!categorySelectedId\"\r\n                                *ngIf=\"!showcaseField\">Add</button>\r\n                        </div>\r\n\r\n                    </div>\r\n                </form>\r\n            </div>\r\n        </div>\r\n    </div>\r\n</div>\r\n\r\n<!-- The share Modal  -->\r\n<div id=\"shareModal\" class=\"modal dark-bg\">\r\n    <div class=\"container\" *ngIf=\"category\">\r\n        <div class=\"row justify-content-md-center\">\r\n            <div class=\"col-lg-7 col-xs-12\">\r\n                <div class=\"card rounded-1\">\r\n                    <span class=\"close signupclose\" (click)=\"modelShareClose()\">&times;</span>\r\n                    <div class=\"card-header text-center bg-white h4 rounded-1 rounded-rl-1 text-cap\">\r\n                        <i class=\"fa fa-share text-warning\"></i> Share {{category.name}}\r\n                    </div>\r\n                    <div class=\"card-body preview-bookmark\">\r\n                        <p>Share your showcase “{{category.name}}” directly to social</p>\r\n                        <!--  <div class=\"row text-center mb-5\">\r\n                            <div class=\"col-12\">\r\n                                <share-button theme=\"material-dark\" class=\"px-1\" button=\"facebook\" [url]=\"socialShareUrl\" text=\"Facebook\" showText=\"true\"></share-button>\r\n                                <share-button theme=\"material-dark\" button=\"twitter\" text=\"Twitter\"  [url]=\"socialShareUrl\" showText=\"true\"></share-button>\r\n                                <share-button theme=\"material-dark\" button=\"google\" text=\"Google\" [url]=\"socialShareUrl\" showText=\"true\"></share-button>\r\n                            </div>\r\n                            <div class=\"col-12\">\r\n                                <share-button theme=\"material-dark\"  button=\"pinterest\" [url]=\"socialShareUrl\" text=\"Pinterest\" showText=\"true\"></share-button>\r\n                                <share-button theme=\"material-dark\" button=\"linkedin\" [url]=\"socialShareUrl\" text=\"Linkedin\" showText=\"true\"></share-button>\r\n                                <share-button theme=\"material-dark\" button=\"stumble\" [url]=\"socialShareUrl\"  text=\"Stumble\" showText=\"true\"></share-button>\r\n                            </div>\r\n                        </div> -->\r\n                        <share-buttons [url]=\"socialShareUrl\"></share-buttons>\r\n                        <div class=\"form-group\">\r\n                            <label for=\"exampleInputEmail1\">Or copy and paste the following on your favourite social channel:</label>\r\n                            <input type=\"text\" class=\"form-control\" id=\"exampleInputEmail1\" aria-describedby=\"emailHelp\" value=\"{{socialShareUrl}}\" placeholder=\"\">\r\n                        </div>\r\n                    </div>\r\n                    <div class=\"card-footer text-center\">\r\n                        <button type=\"button\" class=\"btn btn-danger px-5 rounded-1 mb-2\" (click)=\"modelShareClose()\">Close</button>\r\n                        <p class=\"p-0\">Want to embed this showcase on your blog or website?\r\n                        </p>\r\n                    </div>\r\n                </div>\r\n            </div>\r\n        </div>\r\n    </div>\r\n</div>\r\n<!-- The embed Modal  -->\r\n<div id=\"embedModal\" class=\"modal dark-bg\" >\r\n    <div class=\"container\" *ngIf=\"category\">\r\n        <div class=\"row justify-content-md-center\">\r\n            <div class=\"col-lg-7 col-xs-12\">\r\n                <div class=\"card rounded-1\">\r\n                    <span class=\"close signupclose\" (click)=\"modelEmbedClose()\">&times;</span>\r\n                    <div class=\"card-header text-center bg-white h4 rounded-1 rounded-rl-1 text-cap\">\r\n                        <i class=\"fa fa-code text-warning\"></i> Embed {{category.name}}\r\n                    </div>\r\n                    <div class=\"card-body preview-bookmark\">\r\n                        <form>\r\n                            <div class=\"form-group\">\r\n                                <label for=\"exampleFormControlTextarea1\" class=\"pb-2\">You can embed this showcase on your blog by copying and pasting the following:</label>\r\n                                <p class=\"box\">&lt;div id=&quot;showcaseSocialBlock&quot; data-showcaseID='{{category._id}}'&gt;&lt;/div&gt;&lt;script\r\n                                    src=&quot;https://measuremight.com:3002/embed.min.js&quot;&gt;&lt;/script&gt;\r\n                                </p>\r\n                                <button type=\"button\" class=\"btn btn-primary px-5 rounded-1 float-right\"  ngxClipboard [cbContent]=\"textToCopy\" (click)=\"copyToClipboard()\">Copy to clipboard</button>\r\n                            </div>\r\n                        </form>\r\n                    </div>\r\n                    <div class=\"card-footer text-center\">\r\n                        <button type=\"button\" class=\"btn btn-danger px-5 rounded-1\" (click)=\"modelEmbedClose()\">Close</button>\r\n                    </div>\r\n                </div>\r\n            </div>\r\n        </div>\r\n    </div>\r\n</div>"
 
 /***/ }),
 
@@ -3185,14 +3466,21 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/frontend/dashboard/setting.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<app-profileheader [childMessage]=\"parentMessage\"></app-profileheader>\r\n<div class=\"container-fluid\" *ngIf=\"category\" style=\"padding-top: 75px;\">\r\n    <div class=\"row\">\r\n        <div class=\"col-lg-7 col-md-6 col-sm-6 mb-5 \">\r\n            <div class=\"row mb-3\" *ngIf=\" bookmarks?.length > 0\">\r\n                <div class=\"col text-center \" *ngIf=\"!bookmarks_ids?.length > 0\">\r\n                    <i class=\"fa fa-trash icon-circle\"></i> Deleted selected</div>\r\n                <div class=\"col text-center pointer\" (click)=\"doDelete()\" *ngIf=\"bookmarks_ids?.length > 0\">\r\n                    <i class=\"fa fa-trash icon-circle\"></i> Deleted selected</div>\r\n                <div class=\"col text-center pointer\">\r\n                    <i class=\"fa fa-copy icon-circle\"></i> Copy selected to showcase</div>\r\n            </div>\r\n            <h3 *ngIf=\"! bookmarks?.length > 0\" class=\"text-muted text-center pt-5\">Bookmarks list empty.</h3>\r\n            <ul class=\"list-group\">\r\n                <li class=\"list-group-item custom-list-group-item\" *ngFor=\"let bookmark of bookmarks; let i = index; let last = last;\">\r\n                    <div class=\"row\">\r\n                        <div class=\"col-xl-2 col-lg-6 col-md-6 col-sm-6 col-6 text-center\">\r\n                            <div class=\"count-circle\">{{i+1}}</div>\r\n                            <br>\r\n                            <div class=\"form-check text-center\">\r\n                                <input class=\"form-check-input\" type=\"checkbox\" id=\"inlineCheckbox1\" value=\"option1\" (click)=\"doSelect(bookmark._id)\">\r\n                            </div>\r\n                        </div>\r\n                        <div class=\"col-xl-5 col-lg-6 col-md-6 col-sm-6 pl-0  col-6 \">\r\n                            <div *ngIf=\"bookmark.type == 'instagram' || bookmark.type == 'twitter'\" [innerHtml]=\"bookmark.body\"></div>\r\n                            <iframe *ngIf=\"bookmark.type != 'instagram' && bookmark.type != 'twitter'\" [src]=\"videoUrl(bookmark.title)\" width=\"100%\"></iframe>\r\n                        </div>\r\n                        <div class=\"col-xl-3 col-lg-7 col-md-7 col-sm-7 col-8 mt-4 \">\r\n                            <ul>\r\n                                <li class=\"pb-2\">\r\n                                    <a (click)=\"doDeleteBookmark(bookmark._id)\" class=\"pointer\">\r\n                                        <i class=\"fa fa-trash icon-circle icon-opt\"></i>\r\n                                        <span class=\"fs-13\">Delete</span>\r\n                                    </a>\r\n                                </li>\r\n                                <li>\r\n                                    <a>\r\n                                        <i class=\"fa fa-copy icon-circle icon-opt\"></i>\r\n                                        <span class=\"fs-13\">Copy</span>\r\n                                    </a>\r\n                                </li>\r\n                            </ul>\r\n\r\n                        </div>\r\n                        <div class=\"col-xl-2 col-lg-5 col-md-5 col-sm-5 col-4 px-0 mt-4\">\r\n                            <ul>\r\n                                <li class=\"pb-2 float-right\" *ngIf=\"i!=0\">\r\n                                    <a (click)=\"changePosition('up',bookmark._id, bookmark.position)\">\r\n                                        <span class=\"fs-13\">Move up</span>\r\n                                        <i class=\"fa fa-caret-up icon-opt icon-circle\"></i>\r\n                                    </a>\r\n                                </li> \r\n                                <li class=\"pb-2 float-right\" *ngIf=\"bookmarks?.length > 1 && !last\"  >\r\n                                    <a (click)=\"changePosition('down',bookmark._id, bookmark.position)\">\r\n                                        <span class=\"fs-13\" >Move down</span>\r\n                                        <i class=\"fa fa-caret-down icon-opt icon-circle\"></i>\r\n                                    </a>\r\n                                </li>\r\n                            </ul>\r\n                        </div>\r\n                    </div>\r\n                </li>\r\n            </ul>\r\n        </div>\r\n        <div class=\"col-lg-5 col-md-6 col-sm-6 mb-5 work-box\">\r\n            <h4 class=\"text-center\">\r\n                <i class=\"fa fa-cogs text-warning\"></i> Manage {{category[0].name}}</h4>\r\n            <hr>\r\n            <form [formGroup]=\"updateCategoryForm\" (ngSubmit)=\"updateCategoryData()\">\r\n                <div class=\"form-group\">\r\n                    <label for=\"\">Showcase name</label>\r\n                    <input type=\"text\" class=\"form-control\" formControlName=\"name\" placeholder=\"tyoe here...\">\r\n\r\n                </div>\r\n                <div class=\"form-group\">\r\n                    <label for=\"exampleFormControlSelect1\">Position in menu</label>\r\n                    <select class=\"form-control\" formControlName=\"position\">\r\n                        <option [ngValue]=\"1\">Top</option>\r\n                        <ng-container *ngFor=\"let category of categories; let i = index\">\r\n                            <option [ngValue]=\"category.position+1\" *ngIf=\"parentMessage != category._id\">After {{category.name}}</option>\r\n                        </ng-container>\r\n                    </select>\r\n                </div>\r\n                <button type=\"submit\" class=\"btn btn-warning float-right px-5 rounded-1\" [disabled]=\"!updateCategoryForm.valid\">Save</button>\r\n            </form>\r\n        </div>\r\n    </div>\r\n</div>"
+module.exports = "<app-profileheader [childMessage]=\"parentMessage\"></app-profileheader>\r\n<div class=\"container-fluid\" *ngIf=\"category\" style=\"padding-top: 75px;\">\r\n    <div class=\"row\">\r\n        <div class=\"col-lg-7 col-md-6 col-sm-6 mb-5 \">\r\n            <div class=\"row mb-3\" *ngIf=\" bookmarks?.length > 0\">\r\n                <ng-container *ngIf=\"!bookmarks_ids?.length > 0\">\r\n                    <div class=\"col text-center \">\r\n                        <i class=\"fa fa-trash icon-circle\"></i> Deleted selected</div>\r\n                    <div class=\"col text-center \">\r\n                        <i class=\"fa fa-copy icon-circle\"></i> Copy selected to showcase</div>\r\n                </ng-container>\r\n                <ng-container *ngIf=\"bookmarks_ids?.length > 0\">\r\n                    <div class=\"col text-center pointer\" (click)=\"doDelete()\">\r\n                        <i class=\"fa fa-trash icon-circle\"></i> Deleted selected</div>\r\n                    <div class=\"col text-center pointer\" (click)=\"doSelectedCopy()\">\r\n                        <i class=\"fa fa-copy icon-circle\"></i> Copy selected to showcase</div>\r\n                </ng-container>\r\n            </div>\r\n            <h3 *ngIf=\"! bookmarks?.length > 0\" class=\"text-muted text-center pt-5\">No bookmarks available.</h3>\r\n            <ul class=\"list-group\">\r\n                <li class=\"list-group-item custom-list-group-item\" *ngFor=\"let bookmark of bookmarks; let i = index; let last = last;\">\r\n                    <div class=\"row\">\r\n                        <div class=\"col-xl-2 col-lg-6 col-md-6 col-sm-6 col-6 text-center\">\r\n                            <div class=\"count-circle\">{{i+1}}</div>\r\n                            <br>\r\n                            <div class=\"form-check text-center\">\r\n                                <input class=\"form-check-input\" type=\"checkbox\" id=\"inlineCheckbox1\" value=\"option1\" (click)=\"doSelect(bookmark)\">\r\n                            </div>\r\n                        </div>\r\n                        <div class=\"col-xl-5 col-lg-6 col-md-6 col-sm-6 pl-0  col-6 \">\r\n                            <div *ngIf=\"bookmark.type == 'instagram' || bookmark.type == 'twitter'\" [innerHtml]=\"bookmark.body\"></div>\r\n                            <iframe *ngIf=\"bookmark.type != 'instagram' && bookmark.type != 'twitter'\" [src]=\"videoUrl(bookmark.title)\" width=\"100%\"></iframe>\r\n                        </div>\r\n                        <div class=\"col-xl-3 col-lg-7 col-md-7 col-sm-7 col-8 mt-4 \">\r\n                            <ul>\r\n                                <li class=\"pb-2\">\r\n                                    <a (click)=\"doDeleteBookmark(bookmark._id)\" class=\"pointer\">\r\n                                        <i class=\"fa fa-trash icon-circle icon-opt\"></i>\r\n                                        <span class=\"fs-13\">Delete</span>\r\n                                    </a>\r\n                                </li>\r\n                                <li>\r\n                                    <a (click)=\"doCopy(bookmark)\" class=\"pointer\">\r\n                                        <i class=\"fa fa-copy icon-circle icon-opt\"></i>\r\n                                        <span class=\"fs-13\">Copy</span>\r\n                                    </a>\r\n                                </li>\r\n                            </ul>\r\n\r\n                        </div>\r\n                        <div class=\"col-xl-2 col-lg-5 col-md-5 col-sm-5 col-4 px-0 mt-4\">\r\n                            <ul>\r\n                                <li class=\"pb-2 float-right\" *ngIf=\"i!=0\">\r\n                                    <a (click)=\"changePosition('up',bookmark._id, bookmark.position)\" class=\"pointer\">\r\n                                        <span class=\"fs-13\">Move up</span>\r\n                                        <i class=\"fa fa-caret-up icon-opt icon-circle\"></i>\r\n                                    </a>\r\n                                </li>\r\n                                <li class=\"pb-2 float-right\" *ngIf=\"bookmarks?.length > 1 && !last\" class=\"pointer\">\r\n                                    <a (click)=\"changePosition('down',bookmark._id, bookmark.position)\">\r\n                                        <span class=\"fs-13\">Move down</span>\r\n                                        <i class=\"fa fa-caret-down icon-opt icon-circle\"></i>\r\n                                    </a>\r\n                                </li>\r\n                            </ul>\r\n                        </div>\r\n                    </div>\r\n                </li>\r\n            </ul>\r\n        </div>\r\n        <div class=\"col-lg-5 col-md-6 col-sm-6 mb-5 work-box\">\r\n            <h4 class=\"text-center\">\r\n                <i class=\"fa fa-cogs text-warning\"></i> Manage {{category[0].name}}</h4>\r\n            <hr>\r\n            <form [formGroup]=\"updateCategoryForm\" (ngSubmit)=\"updateCategoryData()\">\r\n                <div class=\"form-group\">\r\n                    <label for=\"\">Showcase name</label>\r\n                    <input type=\"text\" class=\"form-control\" formControlName=\"name\" placeholder=\"tyoe here...\">\r\n\r\n                </div>\r\n                <div class=\"form-group\">\r\n                    <label for=\"exampleFormControlSelect1\">Position in menu</label>\r\n                    <select class=\"form-control\" formControlName=\"position\">\r\n                        <option [ngValue]=\"1\">Top</option>\r\n                        <ng-container *ngFor=\"let category of categories; let i = index\">\r\n                            <option [ngValue]=\"category.position+1\" *ngIf=\"parentMessage != category._id\">After {{category.name}}</option>\r\n                        </ng-container>\r\n                    </select>\r\n                </div>\r\n                <a class=\"btn btn-danger float-left px-5 rounded-1 \" href=\"javascript:void(0)\" (click)=\"doDeleteBoard(parentMessage)\">Delete</a>\r\n                <button type=\"submit\" class=\"btn btn-warning float-right px-5 rounded-1\" [disabled]=\"!updateCategoryForm.valid\">Save</button>\r\n            </form>\r\n        </div>\r\n    </div>\r\n</div>\r\n<!-- The copy2 to showcase Modal  -->\r\n<div id=\"copy2Modal\" class=\"modal dark-bg\">\r\n    <span class=\"close\" (click)=\"modelCopy2Close()\">&times;</span>\r\n    <div class=\"container\">\r\n        <div class=\"row justify-content-md-center\">\r\n            <div class=\"col-lg-7 col-xs-12\">\r\n                <form [formGroup]=\"addCategoryForm\" (ngSubmit)=\"addCategoryData()\">\r\n                    <div class=\"card rounded-1\">\r\n                        <span class=\"close signupclose\" (click)=\"modelCopy2Close()\">&times;</span>\r\n                        <div class=\"card-header text-center bg-white h4 rounded-1 rounded-rl-1\">\r\n                            <i class=\"fa fa-files-o text-warning\"></i> Copy to showcase\r\n                        </div>\r\n                        <div class=\"card-body preview-bookmark\">\r\n                            <div class=\"row\">\r\n                                <div class=\"col-12\">\r\n                                    <div class=\"form-group\">\r\n                                        <select multiple class=\"form-control\" id=\"exampleFormControlSelect2\">\r\n                                            <ng-container *ngFor=\"let category of categories; let i = index\">\r\n                                                <option (click)=\"categorySelected(copyShowcaseBookmark, category._id, copyShowcaseBookmarks)\" *ngIf=\"parentMessage != category._id\">{{category.name}}</option>\r\n                                            </ng-container>\r\n                                            <option (click)=\"openNewShowcase(copyShowcaseBookmark, copyShowcaseBookmarks)\">Create new showcase</option>\r\n                                        </select>\r\n                                    </div>\r\n                                    <div class=\"form-group\" *ngIf=\"showcaseField\">\r\n                                        <label for=\"\">Showcase name</label>\r\n                                        <input type=\"text\" formControlName=\"name\" class=\"form-control\" placeholder=\"type here...\">\r\n                                    </div>\r\n                                    <div class=\"form-group\" *ngIf=\"showcaseField\">\r\n                                        <label for=\"exampleFormControlSelect1\">Position in menu</label>\r\n                                        <select class=\"form-control\" formControlName=\"position\">\r\n                                            <option [ngValue]=\"1\" selected>Top</option>\r\n                                            <option *ngFor=\"let category of categories; let i = index\" [ngValue]=\"category.position+1\">After {{category.name}}</option>\r\n                                        </select>\r\n                                    </div>\r\n                                </div>\r\n                            </div>\r\n                        </div>\r\n                        <div class=\"card-footer\">\r\n                            <button type=\"button\" class=\"btn btn-danger float-left px-5 rounded-1\" (click)=\"modelCopy2Close()\">Cancel</button>\r\n                            <button type=\"submit\" class=\"btn btn-warning float-right px-5 rounded-1 addcat\" [disabled]=\"!addCategoryForm.valid\" *ngIf=\"showcaseField\">Add</button>\r\n                            <button type=\"button\" class=\"btn btn-warning float-right px-5 rounded-1\" (click)=\"addBoodmark()\" [disabled]=\"!categorySelectedId\"\r\n                                *ngIf=\"!showcaseField\">Add</button>\r\n                        </div>\r\n                    </div>\r\n                </form>\r\n            </div>\r\n        </div>\r\n    </div>\r\n</div>"
 
 /***/ }),
 
 /***/ "../../../../../src/app/frontend/dashboard/view.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<app-profileheader [childMessage]=\"parentMessage\"></app-profileheader>\r\n\r\n<div  *ngIf=\"curColWidth != 0 && gridColWidth != ''\"  style=\"padding-top: 65px;\">\r\n\t<h1 *ngIf=\"!bookmarks?.length > 0\" class=\"text-center text-muted pt-5\">Bookmarks panel is empty.</h1>\r\n\t<masonry [options]=\"options\">\r\n\t    <!-- <div class=\"row\"> -->\r\n\t\t\t<masonry-brick  *ngFor=\"let bookmark of bookmarks\">\r\n\t\t\t\t<div class=\"grid-item\" [ngStyle]=\"setStyles()\">\r\n\t\t\t\t\t<div *ngIf=\"bookmark.type == 'instagram'\"  [innerHtml]=\"bookmark.body\"></div>\r\n\t\t\t\t\t<!-- {{bookmark.body}} -->\r\n\t\t\t\t\t<iframe *ngIf=\"bookmark.type != 'instagram'\" [src]=\"videoUrl(bookmark.title)\" [height]=\"setHeight(bookmark.type)\"  [width]=\"setWidth(bookmark.type)\"  frameborder=\"0\" allowfullscreen></iframe>\r\n\t\t\t\t</div>\r\n\t\t\t</masonry-brick>\r\n\t\t<!-- </div> -->\r\n\t</masonry>\r\n</div>"
+module.exports = "<app-profileheader [childMessage]=\"parentMessage\"></app-profileheader>\r\n\r\n<div  *ngIf=\"curColWidth != 0 && gridColWidth != ''\"  style=\"padding-top: 65px;\">\r\n\t<h1 *ngIf=\"!bookmarks?.length > 0\" class=\"text-center text-muted pt-5\">No bookmarks available.</h1>\r\n\t<masonry [options]=\"options\">\r\n\t    <!-- <div class=\"row\"> -->\r\n\t\t\t<masonry-brick  *ngFor=\"let bookmark of bookmarks\">\r\n\t\t\t\t<div class=\"grid-item\" [ngStyle]=\"setStyles()\">\r\n\t\t\t\t\t<div *ngIf=\"bookmark.type == 'instagram'\"  [innerHtml]=\"bookmark.body\"></div>\r\n\t\t\t\t\t<!-- {{bookmark.body}} -->\r\n\t\t\t\t\t<iframe *ngIf=\"bookmark.type != 'instagram'\" [src]=\"videoUrl(bookmark.title)\" [height]=\"setHeight(bookmark.type)\"  [width]=\"setWidth(bookmark.type)\"  frameborder=\"0\" allowfullscreen></iframe>\r\n\t\t\t\t</div>\r\n\t\t\t</masonry-brick>\r\n\t\t<!-- </div> -->\r\n\t</masonry>\r\n</div>"
+
+/***/ }),
+
+/***/ "../../../../../src/app/frontend/dashboard/viewpublic.component.html":
+/***/ (function(module, exports) {
+
+module.exports = "<app-frontendheader></app-frontendheader>\r\n<div *ngIf=\"curColWidth != 0 && gridColWidth != ''\" style=\"padding-top: 65px;\">\r\n    <h1 *ngIf=\"!bookmarks?.length > 0\" class=\"text-center text-muted pt-5\">No bookmarks available.</h1>\r\n    <masonry [options]=\"options\">\r\n        <!-- <div class=\"row\"> -->\r\n        <masonry-brick *ngFor=\"let bookmark of bookmarks\">\r\n            <div class=\"grid-item\" [ngStyle]=\"setStyles()\">\r\n                <div *ngIf=\"bookmark.type == 'instagram'\" [innerHtml]=\"bookmark.body\"></div>\r\n                <!-- {{bookmark.body}} -->\r\n                <iframe *ngIf=\"bookmark.type != 'instagram'\" [src]=\"videoUrl(bookmark.title)\" [height]=\"setHeight(bookmark.type)\" [width]=\"setWidth(bookmark.type)\"\r\n                    frameborder=\"0\" allowfullscreen></iframe>\r\n            </div>\r\n        </masonry-brick>\r\n        <!-- </div> -->\r\n    </masonry>\r\n</div>"
 
 /***/ }),
 
@@ -3417,6 +3705,9 @@ var FrontendHomeComponent = (function () {
     }
     FrontendHomeComponent.prototype.ngOnInit = function () {
         var _this = this;
+        if (this.userService.loggedIn()) {
+            this.router.navigate(['/dashboard']);
+        }
         this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/dashboard';
         this.route.queryParams.subscribe(function (params) {
             _this.token = params['q'];
@@ -3937,6 +4228,67 @@ var _a, _b;
 
 /***/ }),
 
+/***/ "../../../../../src/app/public/public.component.css":
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, "", ""]);
+
+// exports
+
+
+/*** EXPORTS FROM exports-loader ***/
+module.exports = module.exports.toString();
+
+/***/ }),
+
+/***/ "../../../../../src/app/public/public.component.html":
+/***/ (function(module, exports) {
+
+module.exports = "<p>\n  public works!\n</p>\n"
+
+/***/ }),
+
+/***/ "../../../../../src/app/public/public.component.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return PublicComponent; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+var PublicComponent = (function () {
+    function PublicComponent() {
+    }
+    PublicComponent.prototype.ngOnInit = function () {
+    };
+    return PublicComponent;
+}());
+PublicComponent = __decorate([
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
+        selector: 'app-public',
+        template: __webpack_require__("../../../../../src/app/public/public.component.html"),
+        styles: [__webpack_require__("../../../../../src/app/public/public.component.css")]
+    }),
+    __metadata("design:paramtypes", [])
+], PublicComponent);
+
+//# sourceMappingURL=public.component.js.map
+
+/***/ }),
+
 /***/ "../../../../../src/app/safe.pipe.ts":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -4212,6 +4564,17 @@ var BookmarkService = (function () {
             return user;
         });
     };
+    BookmarkService.prototype.bookmarksAdd = function (data) {
+        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["Headers"]();
+        this.loadToken();
+        headers.append('Authorization', this.authToken);
+        headers.append('Content-Type', 'application/json');
+        return this.http.post(__WEBPACK_IMPORTED_MODULE_3__global__["a" /* url */] + 'bookmark/multi', data, { headers: headers })
+            .map(function (response) {
+            var user = response.json();
+            return user;
+        });
+    };
     BookmarkService.prototype.changePosition = function (data) {
         var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["Headers"]();
         this.loadToken();
@@ -4229,6 +4592,28 @@ var BookmarkService = (function () {
         headers.append('Authorization', this.authToken);
         headers.append('Content-Type', 'application/json');
         return this.http.post(__WEBPACK_IMPORTED_MODULE_3__global__["a" /* url */] + 'bookmark/delete-selected/', data, { headers: headers })
+            .map(function (response) {
+            var bookmark = response.json();
+            return bookmark;
+        });
+    };
+    BookmarkService.prototype.bookmarkCopySelected = function (data) {
+        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["Headers"]();
+        this.loadToken();
+        headers.append('Authorization', this.authToken);
+        headers.append('Content-Type', 'application/json');
+        return this.http.post(__WEBPACK_IMPORTED_MODULE_3__global__["a" /* url */] + 'bookmark/copy-selected/', data, { headers: headers })
+            .map(function (response) {
+            var bookmark = response.json();
+            return bookmark;
+        });
+    };
+    BookmarkService.prototype.copyToShowcase = function (data) {
+        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["Headers"]();
+        this.loadToken();
+        headers.append('Authorization', this.authToken);
+        headers.append('Content-Type', 'application/json');
+        return this.http.post(__WEBPACK_IMPORTED_MODULE_3__global__["a" /* url */] + 'bookmark/copytoshowcase/', data, { headers: headers })
             .map(function (response) {
             var bookmark = response.json();
             return bookmark;
@@ -4273,6 +4658,17 @@ var BookmarkService = (function () {
         headers.append('Authorization', this.authToken);
         headers.append('Content-Type', 'application/json');
         return this.http.get(__WEBPACK_IMPORTED_MODULE_3__global__["a" /* url */] + 'bookmark/category/' + id, { headers: headers })
+            .map(function (response) {
+            var category = response.json();
+            return category;
+        });
+    };
+    BookmarkService.prototype.categoryBookmarksPublic = function (id) {
+        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["Headers"]();
+        this.loadToken();
+        headers.append('Authorization', this.authToken);
+        headers.append('Content-Type', 'application/json');
+        return this.http.get(__WEBPACK_IMPORTED_MODULE_3__global__["a" /* url */] + 'bookmark/category/open/' + id, { headers: headers })
             .map(function (response) {
             var category = response.json();
             return category;
@@ -4385,7 +4781,7 @@ var CategoryService = (function () {
         this.loadToken();
         headers.append('Authorization', this.authToken);
         headers.append('Content-Type', 'application/json');
-        return this.http.delete(__WEBPACK_IMPORTED_MODULE_3__global__["a" /* url */] + 'plan/' + id, { headers: headers })
+        return this.http.delete(__WEBPACK_IMPORTED_MODULE_3__global__["a" /* url */] + 'category/' + id, { headers: headers })
             .map(function (response) {
             var user = response.json();
             return user;
