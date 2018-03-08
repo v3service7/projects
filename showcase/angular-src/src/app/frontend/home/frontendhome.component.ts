@@ -156,6 +156,7 @@ export class FrontendHomeComponent implements OnInit {
             obj['oauth_token'] = oauth_token;
             obj['requestSecret'] = requestSecret;
             this.userService.twitterFetchService(obj).subscribe((twitterResponse) => {
+                console.log(twitterResponse);
                 localStorage.removeItem('requestSecret');
                 let obj = {};
                 obj['role'] = 'User';

@@ -146,9 +146,9 @@ export class CustomerAddComponent implements OnInit {
 
     ngOnInit() {
         this.customerAddForm = this.lf.group({
-            firstname: ['', Validators.required],
-            lastname: ['', Validators.required],
-            phonenumber: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(15)]],
+            firstname: [''],
+            lastname: [''],
+            phonenumber: [''],
             email: ['', [Validators.required, Validators.pattern(this.emailp)]],
             password: ['', [Validators.required, Validators.minLength(6), Validators.pattern(this.passwordRegex)]],
             matchpass: ['', Validators.required],
@@ -265,9 +265,9 @@ export class CustomerEditComponent implements OnInit {
     ngOnInit() {
         this.customerAddForm = this.lf.group({
             _id: ['', Validators.required],
-            firstname: ['', Validators.required],
-            lastname: ['', Validators.required],
-            phonenumber: ['', Validators.required],
+            firstname: [''],
+            lastname: [''],
+            phonenumber: [''],
             email: ['', [Validators.required, Validators.pattern(this.emailp)]]
         });
 
