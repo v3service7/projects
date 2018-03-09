@@ -6,9 +6,11 @@
 	    <!-- <div class="row"> -->
 			<masonry-brick  *ngFor="let bookmark of bookmarks">
 				<div class="grid-item" [ngStyle]="setStyles()">
-					<div *ngIf="bookmark.type == 'instagram'"  [innerHtml]="bookmark.body"></div>
-					<!-- {{bookmark.body}} -->
-					<iframe *ngIf="bookmark.type != 'instagram'" [src]="videoUrl(bookmark.title)" [height]="setHeight(bookmark.type)"  [width]="setWidth(bookmark.type)"  frameborder="0" allowfullscreen></iframe>
+					<div *ngIf="bookmark.type == 'instagram' || bookmark.type == 'twitter'"  [innerHtml]="bookmark.body"></div>
+					<!-- <div *ngIf="bookmark.type == 'instagram' || bookmark.type == 'twitter'">
+						{{bookmark.body}}						
+					</div> -->
+					<iframe *ngIf="bookmark.type != 'instagram' && bookmark.type != 'twitter'" [src]="videoUrl(bookmark.title)" [height]="setHeight(bookmark.type)"  [width]="setWidth(bookmark.type)"  frameborder="0" allowfullscreen></iframe>
 				</div>
 			</masonry-brick>
 		<!-- </div> -->

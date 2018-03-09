@@ -11,6 +11,8 @@ import { FlashMessagesService } from 'angular2-flash-messages';
 import { ToastsManager } from 'ng2-toastr/ng2-toastr';
 import { Subject } from 'rxjs/Subject';
 declare var $;
+declare var twttr;
+declare var instgrm;
 import * as globalVariable from '../../global';
 import { AngularMasonry, MasonryOptions, AngularMasonryBrick } from 'angular2-masonry';
 
@@ -165,11 +167,13 @@ export class ProfileHeaderComponent implements OnInit {
     embedInsta(url) {
         this.validateService.getInsta(url)
             .subscribe(data => {
+                console.log(data.html)
                 this.addLinkForm.controls['title'].setValue(url);
                 this.addLinkForm.controls['body'].setValue(data.html);
                 this.addLinkForm.controls['type'].setValue('instagram');
                 document.getElementById('loader').style.display = 'none';
                 document.getElementById('bookMark').innerHTML = data.html;
+                instgrm.Embeds.process();
             }, error => {
                 document.getElementById('bookMark').innerHTML = 'Invalid Url';
                 this.invalidUrl = true;
@@ -186,6 +190,7 @@ export class ProfileHeaderComponent implements OnInit {
                 this.addLinkForm.controls['type'].setValue('twitter');
                 document.getElementById('loader').style.display = 'none';
                 document.getElementById('bookMark').innerHTML = data.html;
+                twttr.widgets.load()
             }, error => {
                 document.getElementById('bookMark').innerHTML = 'Invalid Url';
                 this.invalidUrl = true;
@@ -912,6 +917,7 @@ export class ViewComponent implements AfterViewInit, OnInit {
     }
 
     ngAfterViewInit() {
+        //this.getTwitterrrr()
         this.route.params.subscribe((params: Params) => {
             let id = params['id'];
             this.parentMessage = id;
@@ -961,7 +967,11 @@ export class ViewComponent implements AfterViewInit, OnInit {
         this.bookmarkService.categoryBookmarks(id).subscribe((data) => {
             if (!data.error) {
                 this.bookmarks = data.message;
+                //this.getTwitterrrr()
                 setTimeout(() => {
+                    //instgrm.Embeds.process();
+                    instgrm.Embeds.process();
+                    twttr.widgets.load();
                     this.manageUI();
                 }, 3000);
             }
@@ -971,9 +981,7 @@ export class ViewComponent implements AfterViewInit, OnInit {
     videoUrl(url) {
         return this.sanitizer.bypassSecurityTrustResourceUrl(url);
     }
-
 }
-
 
 @Component({
     selector: 'app-viewpublic',
@@ -1029,6 +1037,7 @@ export class ViewPublicComponent implements AfterViewInit, OnInit {
     setWidth(type) {
         return this.curColWidth;
     }
+
     manageUI() {
         let cols = 4;
         if ($('body').width() > 1600) {
@@ -1062,6 +1071,8 @@ export class ViewPublicComponent implements AfterViewInit, OnInit {
                 this.bookmarks = data.message;
                 console.log(this.bookmarks)
                 setTimeout(() => {
+                    instgrm.Embeds.process();
+                    twttr.widgets.load()
                     this.manageUI();
                 }, 3000);
             }
@@ -1071,5 +1082,4 @@ export class ViewPublicComponent implements AfterViewInit, OnInit {
     videoUrl(url) {
         return this.sanitizer.bypassSecurityTrustResourceUrl(url);
     }
-
 }
