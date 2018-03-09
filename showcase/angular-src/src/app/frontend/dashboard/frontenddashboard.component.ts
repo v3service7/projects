@@ -9,6 +9,7 @@ import { BookmarkService } from '../../services/bookmark.service';
 import { ValidateService } from '../../services/validate.service';
 import { FlashMessagesService } from 'angular2-flash-messages';
 import { ToastsManager } from 'ng2-toastr/ng2-toastr';
+import { Subject } from 'rxjs/Subject';
 declare var $;
 import * as globalVariable from '../../global';
 import { AngularMasonry, MasonryOptions, AngularMasonryBrick } from 'angular2-masonry';
@@ -32,6 +33,7 @@ export class FrontendDashboardComponent implements OnInit {
     styleUrls: ['./frontenddashboard.component.css']
 })
 export class ProfileHeaderComponent implements OnInit {
+    public static updateUserStatus: Subject<boolean> = new Subject();
     customer: any;
     isCopied1: any = false;
     invalidUrl: any = false;
@@ -60,6 +62,9 @@ export class ProfileHeaderComponent implements OnInit {
         public bookService: BookmarkService,
         private router: Router,
         private lf: FormBuilder) {
+        ProfileHeaderComponent.updateUserStatus.subscribe(res => {
+            this.getMyCategories();
+        });
         this.customer = JSON.parse(localStorage.getItem('customer'));
         this.checkCustomer();
         this.getMyCategories();
@@ -69,8 +74,9 @@ export class ProfileHeaderComponent implements OnInit {
     ngOnInit() {
         this.shareUrl = window.location.href;
         setTimeout(() => {
-            this.liCount = document.getElementById('category-navbar').getElementsByTagName('li').length;
-        }, 1000);
+            /* this.liCount = document.getElementById('category-navbar').getElementsByTagName('li').length; */
+
+        }, 0);
 
         this.addCategoryForm = this.lf.group({
             name: ['', Validators.required],
@@ -108,10 +114,12 @@ export class ProfileHeaderComponent implements OnInit {
         }
         this.bookService.bookmarkAdd(this.addLinkForm.value).subscribe((data) => {
             if (!data.eror) {
-                this.router.navigate(['view', this.addLinkForm.value['category_id']]);
                 this.toastr.success('Bookmark added succesfully.', 'Success!');
                 this.modelCopyToClose();
-                this.addLinkForm.reset();
+                setTimeout(() => {
+                    this.router.navigate(['view', this.addLinkForm.value['category_id']]);
+                    this.addLinkForm.reset();
+                }, 500);
             } else {
                 this.toastr.error('Error while adding bookmark, Try again.', 'Oops!');
             }
@@ -172,6 +180,7 @@ export class ProfileHeaderComponent implements OnInit {
     embedTwitter(url) {
         this.validateService.getTwitter(url)
             .subscribe(data => {
+                console.log(data)
                 this.addLinkForm.controls['title'].setValue(url);
                 this.addLinkForm.controls['body'].setValue(data.html);
                 this.addLinkForm.controls['type'].setValue('twitter');
@@ -821,9 +830,7 @@ export class SettingComponent implements OnInit {
                         if (!data2.error) {
                             this.toastr.success('Category updated succesfully.', 'Success!');
                             $('#' + this.updateCategoryForm.value['_id']).text(this.updateCategoryForm.value['name']);
-                            setTimeout(() => {
-                                window.location.reload();
-                            }, 1000);
+                            ProfileHeaderComponent.updateUserStatus.next(true); // here
                             this.getMyCategories();
                         } else {
                             this.toastr.error('Error while updating category. Try again.', 'Oops!');
@@ -838,7 +845,6 @@ export class SettingComponent implements OnInit {
                     this.toastr.success('Category updated succesfully.', 'Success!');
                     $('#' + this.updateCategoryForm.value['_id']).text(this.updateCategoryForm.value['name']);
                     this.getMyCategories();
-                    window.location.reload();
                 } else {
                     this.toastr.error('Error while updating category. Try again.', 'Oops!');
                     this.getMyCategories();
@@ -855,6 +861,7 @@ export class SettingComponent implements OnInit {
 })
 export class ViewComponent implements AfterViewInit, OnInit {
     bookmarks = [];
+    flag: any  = true;
     parentMessage: any;
     options: MasonryOptions = {
         transitionDuration: '0.3s',
@@ -872,14 +879,36 @@ export class ViewComponent implements AfterViewInit, OnInit {
         private bookmarkService: BookmarkService,
         private categoryService: CategoryService,
         private sanitizer: DomSanitizer) {
+        this.router.events.subscribe((val) => {
+            if (this.flag) {
+                this.flag = false;
+                this.route.params.subscribe((params: Params) => {
+                    let id = params['id'];
+                    this.parentMessage = id;
+                    this.getbookmark(id);
+                    console.log('cons')
+                });
+            }
+        });
     }
 
     ngOnInit() {
-        this.route.params.subscribe((params: Params) => {
+          this.router.events.subscribe((val) => {
+            if (this.flag) {
+                this.flag = false;
+                this.route.params.subscribe((params: Params) => {
+                    let id = params['id'];
+                    console.log('on')
+                    this.parentMessage = id;
+                    this.getbookmark(id);
+                });
+            }
+        });
+      /*   this.route.params.subscribe((params: Params) => {
             let id = params['id'];
             this.parentMessage = id;
             this.getbookmark(id);
-        });
+        }); */
     }
 
     ngAfterViewInit() {

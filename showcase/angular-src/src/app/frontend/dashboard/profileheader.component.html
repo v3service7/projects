@@ -13,7 +13,7 @@
             <ul class="navbar-nav mr-auto category-navbar " id="category-navbar">
                 <span *ngFor="let category of categories let i = index">
 
-                    <li class="nav-item dropdown px-3 " [ngClass]="slugify(category.name)" style="display: -webkit-box;" *ngIf="liCount && i < 3">
+                    <li class="nav-item dropdown px-3 " [ngClass]="slugify(category.name)" style="display: -webkit-box;" *ngIf="i < 3">
                         <a class="nav-link text-cap" [id]="category._id" [routerLink]="['/view/',category._id]"> {{ (category.name.length >= 20) ? (category.name | slice:0:20)+'..':(category.name) }}</a>
                         <a class="nav-link dropdown-toggle" [id]="category._id" id="dropdown01" href="" data-toggle="dropdown" aria-haspopup="true"
                             aria-expanded="false"></a>
@@ -33,7 +33,7 @@
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                         <span *ngFor="let category of categories; let i = index">
-                            <li class="dropdown-submenu" *ngIf="liCount && i >= 3 ">
+                            <li class="dropdown-submenu" *ngIf=" i >= 3 ">
                                 <a class="dropdown-item dropdown-toggle text-cap" href="javascript:void(0)"> {{ (category.name.length >= 20) ? (category.name | slice:0:20)+'..':(category.name) }}</a>
                                 <ul class="dropdown-menu option-menu">
                                     <li>
@@ -53,8 +53,8 @@
                         </span>
                     </ul>
                 </li>
-                <li class="nav-item pl-3">
-                    <a class="nav-link" href="javascript:void(0)" (click)="addCategory()">Add new
+                <li class="nav-item pl-3"  *ngIf="categories">
+                    <a class="nav-link" href="javascript:void(0)" (click)="addCategory()" > Add new
                         <i class="fa fa-plus-circle"></i>
                     </a>
                 </li>
