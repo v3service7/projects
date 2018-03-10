@@ -10,6 +10,9 @@ import { ValidateService } from '../../services/validate.service';
 import { FlashMessagesService } from 'angular2-flash-messages';
 import { ToastsManager } from 'ng2-toastr/ng2-toastr';
 import { Subject } from 'rxjs/Subject';
+import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/observable/interval';
+declare var Masonry;
 declare var $;
 declare var twttr;
 declare var instgrm;
@@ -119,6 +122,7 @@ export class ProfileHeaderComponent implements OnInit {
                 this.toastr.success('Bookmark added succesfully.', 'Success!');
                 this.modelCopyToClose();
                 setTimeout(() => {
+                    ViewComponent.updateBookmarkStatus.next(true); // here
                     this.router.navigate(['view', this.addLinkForm.value['category_id']]);
                     this.addLinkForm.reset();
                 }, 500);
@@ -152,11 +156,11 @@ export class ProfileHeaderComponent implements OnInit {
     embedFacebook(url) {
         // public => https://www.facebook.com/notes/facebook/public-search-listings-on-facebook/2963412130/
         // private => https://www.facebook.com/bob.brello
-        var inputURL = encodeURIComponent(url);
-        let ur = 'https://www.facebook.com/plugins/post.php?href=' + inputURL + '%26type%3D3&width=600'
+        const inputURL = encodeURIComponent(url);
+        const ur = 'https://www.facebook.com/plugins/post.php?href=' + inputURL + '%26type%3D3&width=600';
         // tslint:disable-next-line:max-line-length
-        var embedHTML = '<iframe id="bookmarkiframe" src="https://www.facebook.com/plugins/post.php?href=' + inputURL + '%26type%3D3&width=600" height="400" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowTransparency="true"></iframe>';
-        var htmlToAdd = this.convertToGridItem(embedHTML);
+        const embedHTML = '<iframe id="bookmarkiframe" src="https://www.facebook.com/plugins/post.php?href=' + inputURL + '%26type%3D3&width=600" height="400" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowTransparency="true"></iframe>';
+        const htmlToAdd = this.convertToGridItem(embedHTML);
         this.addLinkForm.controls['title'].setValue(ur);
         this.addLinkForm.controls['body'].setValue(embedHTML);
         this.addLinkForm.controls['type'].setValue('facebook');
@@ -167,7 +171,6 @@ export class ProfileHeaderComponent implements OnInit {
     embedInsta(url) {
         this.validateService.getInsta(url)
             .subscribe(data => {
-                console.log(data.html)
                 this.addLinkForm.controls['title'].setValue(url);
                 this.addLinkForm.controls['body'].setValue(data.html);
                 this.addLinkForm.controls['type'].setValue('instagram');
@@ -184,13 +187,12 @@ export class ProfileHeaderComponent implements OnInit {
     embedTwitter(url) {
         this.validateService.getTwitter(url)
             .subscribe(data => {
-                console.log(data)
                 this.addLinkForm.controls['title'].setValue(url);
                 this.addLinkForm.controls['body'].setValue(data.html);
                 this.addLinkForm.controls['type'].setValue('twitter');
                 document.getElementById('loader').style.display = 'none';
                 document.getElementById('bookMark').innerHTML = data.html;
-                twttr.widgets.load()
+                twttr.widgets.load();
             }, error => {
                 document.getElementById('bookMark').innerHTML = 'Invalid Url';
                 this.invalidUrl = true;
@@ -207,9 +209,9 @@ export class ProfileHeaderComponent implements OnInit {
 
     embedSoundCloud(url) {
         // tslint:disable-next-line:max-line-length
-        let ur = 'https://w.soundcloud.com/player/?url="' + url + '"';
-        var embedHTML = '<iframe width="100%" height="166" scrolling="no" frameborder="no" src="https://w.soundcloud.com/player/?url=' + url + '"></iframe>';
-        var htmlToAdd = this.convertToGridItem(embedHTML);
+        const ur = 'https://w.soundcloud.com/player/?url="' + url + '"';
+        const embedHTML = '<iframe width="100%" height="166" scrolling="no" frameborder="no" src="https://w.soundcloud.com/player/?url=' + url + '"></iframe>';
+        const htmlToAdd = this.convertToGridItem(embedHTML);
         document.getElementById('loader').style.display = 'none';
         document.getElementById('bookMark').innerHTML = htmlToAdd;
         this.addLinkForm.controls['title'].setValue(ur);
@@ -223,7 +225,7 @@ export class ProfileHeaderComponent implements OnInit {
             // console.log(htmlInc);
         }
 
-        var html = '<div class="grid-item">';
+        let html = '<div class="grid-item">';
         html += '   ' + htmlInc;
         html += '</div>';
 
@@ -231,16 +233,16 @@ export class ProfileHeaderComponent implements OnInit {
     }
 
     embedYoutube(url) {
-        var youtubeID = url.split('v=')[1];
+        const youtubeID = url.split('v=')[1];
         this.validateService.getYoutube(youtubeID)
             .subscribe(data => {
                 if (data.items.length > 0) {
                     // tslint:disable-next-line:max-line-length
-                    let embedHTML = '<iframe width="100%" id="bookmarkiframe" height="337" src="https://www.youtube.com/embed/' + youtubeID + '" frameborder="0" allowfullscreen></iframe>';
+                    const embedHTML = '<iframe width="100%" id="bookmarkiframe" height="337" src="https://www.youtube.com/embed/' + youtubeID + '" frameborder="0" allowfullscreen></iframe>';
                     this.addLinkForm.controls['title'].setValue('https://www.youtube.com/embed/' + youtubeID);
                     this.addLinkForm.controls['body'].setValue(embedHTML);
                     this.addLinkForm.controls['type'].setValue('youtube');
-                    var htmlToAdd = this.convertToGridItem(embedHTML);
+                    const htmlToAdd = this.convertToGridItem(embedHTML);
                     document.getElementById('loader').style.display = 'none';
                     this.invalidUrl = false;
                     document.getElementById('bookMark').innerHTML = htmlToAdd;
@@ -439,18 +441,18 @@ export class MyProfileComponent implements OnInit {
 
     makeFileRequest(url: string, params: Array<string>, files: Array<File>) {
         return new Promise((resolve, reject) => {
-            var ImageURL = this.croppedImage;
+            const ImageURL = this.croppedImage;
             // Split the base64 string in data and contentType
-            var block = ImageURL.split(';');
+            const block = ImageURL.split(';');
             // Get the content type
-            var contentType = block[0].split(':')[1]; // In this case 'image/gif'
+            const contentType = block[0].split(':')[1]; // In this case 'image/gif'
             // get the real base64 content of the file
-            var realData = block[1].split(',')[1]; // In this case "iVBORw0KGg...."
+            const realData = block[1].split(',')[1]; // In this case "iVBORw0KGg...."
 
             // Convert to blob
-            var blob = this.b64toBlob(realData, contentType, 512);
-            let formData: any = new FormData();
-            let xhr = new XMLHttpRequest();
+            const blob = this.b64toBlob(realData, contentType, 512);
+            const formData: any = new FormData();
+            const xhr = new XMLHttpRequest();
             for (let i = 0; i < files.length; i++) {
                 formData.append('file', blob, files[i].name);
             }
@@ -482,23 +484,19 @@ export class MyProfileComponent implements OnInit {
         contentType = contentType || '';
         sliceSize = sliceSize || 512;
 
-        var byteCharacters = atob(b64Data);
-        var byteArrays = [];
+        const byteCharacters = atob(b64Data);
+        const byteArrays = [];
 
-        for (var offset = 0; offset < byteCharacters.length; offset += sliceSize) {
-            var slice = byteCharacters.slice(offset, offset + sliceSize);
-
-            var byteNumbers = new Array(slice.length);
-            for (var i = 0; i < slice.length; i++) {
+        for (let offset = 0; offset < byteCharacters.length; offset += sliceSize) {
+            const slice = byteCharacters.slice(offset, offset + sliceSize);
+            const byteNumbers = new Array(slice.length);
+            for (let i = 0; i < slice.length; i++) {
                 byteNumbers[i] = slice.charCodeAt(i);
             }
-
-            var byteArray = new Uint8Array(byteNumbers);
-
+            const byteArray = new Uint8Array(byteNumbers);
             byteArrays.push(byteArray);
         }
-
-        var blob = new Blob(byteArrays, { type: contentType });
+        const blob = new Blob(byteArrays, { type: contentType });
         return blob;
     }
     getProfile() {
@@ -522,16 +520,16 @@ export class MyProfileComponent implements OnInit {
     }
 
     passwordUpdate() {
-        let obj = {
+        const obj = {
             id: this.customer['_id'],
             password: this.customerPasswordUpdateForm.value['oldpassword']
         };
         this.userService.checkPassword(obj).subscribe((data) => {
             if (!data.error) {
                 if (this.customerPasswordUpdateForm.value['newpassword'] === this.customerPasswordUpdateForm.value['confirmpassword']) {
-                    let obj = {};
+                    const obj = {};
                     obj['_id'] = this.customer['_id'];
-                    obj['password'] = this.customerPasswordUpdateForm.value['newpassword']
+                    obj['password'] = this.customerPasswordUpdateForm.value['newpassword'];
                     // tslint:disable-next-line:no-shadowed-variable
                     this.userService.resetPassword(obj).subscribe((data) => {
                         if (!data.error) {
@@ -559,7 +557,7 @@ export class MyProfileComponent implements OnInit {
     onChange(event) {
         this.uploader.uploadAll();
         this.uploader.onCompleteItem = (item: any, response: any, status: any, headers: any) => {
-            let responsePath = JSON.parse(response);
+            const responsePath = JSON.parse(response);
             this.customerProfileForm.controls['image'].setValue('/uploads/' + responsePath.filename);
             this.profileUpdate();
         };
@@ -647,6 +645,10 @@ export class SettingComponent implements OnInit {
         this.bookmarkService.categoryBookmarks(id).subscribe((data) => {
             if (!data.error) {
                 this.bookmarks = data.message;
+                setTimeout(() => {
+                    instgrm.Embeds.process();
+                    twttr.widgets.load();
+                }, 3000);
             }
         });
     }
@@ -668,7 +670,7 @@ export class SettingComponent implements OnInit {
         });
     }
     changePosition(type, bookmark_id, position) {
-        var obj = {
+        const obj = {
             type: type,
             bookmark_id: bookmark_id,
             category_id: this.id,
@@ -684,7 +686,7 @@ export class SettingComponent implements OnInit {
         });
     }
     doSelect(obj) {
-        const index = this.bookmarks_ids.findIndex( (item) => {
+        const index = this.bookmarks_ids.findIndex((item) => {
             return item._id === obj._id;
         });
         if (index > -1) {
@@ -694,7 +696,7 @@ export class SettingComponent implements OnInit {
         }
     }
     doDelete() {
-        var obj = {
+        const obj = {
             ids: this.bookmarks_ids
         };
         this.bookmarkService.bookmarkDeleteSelected(obj).subscribe((data) => {
@@ -707,7 +709,7 @@ export class SettingComponent implements OnInit {
         });
     }
     doSelectedCopy() {
-        var obj = {
+        const obj = {
             ids: this.bookmarks_ids
         };
         this.copyShowcaseBookmarks = this.bookmarks_ids;
@@ -730,7 +732,7 @@ export class SettingComponent implements OnInit {
         if (copyShowcaseBookmarks) {
             this.bookmarkData = copyShowcaseBookmarks.filter((data) => {
                 delete data['_id'];
-               return data.category_id = category_id;
+                return data.category_id = category_id;
             });
         }
         if (bookmark) {
@@ -755,7 +757,7 @@ export class SettingComponent implements OnInit {
     updateCatIdINBookmark(id) {
         if (this.bookmarkData.length > 0) {
             this.bookmarkData = this.bookmarkData.filter((data) => {
-                 delete data['_id'];
+                delete data['_id'];
                 return data.category_id = id;
             });
         }
@@ -765,8 +767,8 @@ export class SettingComponent implements OnInit {
         this.addBoodmark();
     }
     addCategoryData() {
-        var position = this.addCategoryForm.value['position'];
-        var obj = this.addCategoryForm.value;
+        const position = this.addCategoryForm.value['position'];
+        const obj = this.addCategoryForm.value;
         obj.user_id = this.customer._id;
         this.categoryService.categoryPositionUpdate(position).subscribe((data) => {
             if (!data.error) {
@@ -795,11 +797,11 @@ export class SettingComponent implements OnInit {
             let flag = false;
             for (let index = 0; index < this.bookmarkData.length; index++) {
                 this.bookmarkService.bookmarkAdd(this.bookmarkData[index]).subscribe((data) => {
-                if (!data.error) {
-                  flag = true;
-                }
-            });
-           }
+                    if (!data.error) {
+                        flag = true;
+                    }
+                });
+            }
         }
         if (typeof this.bookmarkData.length === 'undefined') {
             this.bookmarkService.bookmarkAdd(this.bookmarkData).subscribe((data) => {
@@ -825,8 +827,8 @@ export class SettingComponent implements OnInit {
         });
     }
     updateCategoryData() {
-        let position = this.updateCategoryForm.value['position'];
-        let obj = this.updateCategoryForm.value;
+        const position = this.updateCategoryForm.value['position'];
+        const obj = this.updateCategoryForm.value;
         obj.user_id = this.customer._id;
         if (position !== this.category[0].position) {
             this.categoryService.categoryPositionUpdate(position).subscribe((data) => {
@@ -859,14 +861,15 @@ export class SettingComponent implements OnInit {
     }
 }
 
-@Component({
+/* @Component({
     selector: 'app-view',
     templateUrl: './view.component.html',
     styleUrls: ['./frontenddashboard.component.css']
 })
 export class ViewComponent implements AfterViewInit, OnInit {
+    public static updateBookmarkStatus: Subject<boolean> = new Subject();
     bookmarks = [];
-    flag: any  = true;
+    flag: any = true;
     parentMessage: any;
     options: MasonryOptions = {
         transitionDuration: '0.3s',
@@ -878,6 +881,120 @@ export class ViewComponent implements AfterViewInit, OnInit {
 
     @ViewChild(AngularMasonry) masonry: AngularMasonry;
     @ViewChild(AngularMasonry) masonryBrick: AngularMasonryBrick;
+
+    constructor(private router: Router,
+        private route: ActivatedRoute,
+        private bookmarkService: BookmarkService,
+        private categoryService: CategoryService,
+        private sanitizer: DomSanitizer) {
+        ViewComponent.updateBookmarkStatus.subscribe(res => {
+            this.route.params.subscribe((params: Params) => {
+                const id = params['id'];
+                this.parentMessage = id;
+                this.getbookmark(id);
+            });
+        });
+        this.router.events.subscribe((val) => {
+            if (this.flag) {
+                this.flag = false;
+                this.route.params.subscribe((params: Params) => {
+                    const id = params['id'];
+                    this.parentMessage = id;
+                    this.getbookmark(id);
+                });
+            }
+        });
+    }
+
+    ngOnInit() {
+        this.router.events.subscribe((val) => {
+            if (this.flag) {
+                this.flag = false;
+                this.route.params.subscribe((params: Params) => {
+                    const id = params['id'];
+                    this.parentMessage = id;
+                    this.getbookmark(id);
+                });
+            }
+        });
+    }
+
+    ngAfterViewInit() {
+        this.route.params.subscribe((params: Params) => {
+            const id = params['id'];
+            this.parentMessage = id;
+            this.getbookmark(id);
+        });
+    }
+
+    setHeight(type) {
+        if (type = 'facebook') {
+            return '400';
+        } else if (type = 'youtube') {
+            return '337';
+        }
+    }
+
+    setWidth(type) {
+        return this.curColWidth;
+    }
+    manageUI() {
+        let cols = 4;
+        if ($('body').width() > 1600) {
+            cols = 4;
+        } else if ($('body').width() > 1000) {
+            cols = 3;
+        } else if ($('body').width() > 600) {
+            cols = 2;
+        } else {
+            cols = 1;
+        }
+        const theW = ($('body').width() - ($('body').width() / 50)) / cols;
+        this.curColWidth = theW;
+        $('iframe').css('width', theW);
+        $('twitterwidget').css('width', theW);
+        const th = theW + (theW / 50) - 9;
+        this.gridColWidth = th + 'px';
+        $('.grid-item').css('width', th);
+    }
+
+    setStyles() {
+        const styles = {
+            'width': this.gridColWidth
+        };
+        return styles;
+    }
+
+    getbookmark(id) {
+        this.bookmarkService.categoryBookmarks(id).subscribe((data) => {
+            if (!data.error) {
+                this.bookmarks = data.message;
+                setTimeout(() => {
+                    instgrm.Embeds.process();
+                    twttr.widgets.load();
+                    this.manageUI();
+                }, 3000);
+            }
+        });
+    }
+
+    videoUrl(url) {
+        return this.sanitizer.bypassSecurityTrustResourceUrl(url);
+    }
+} */
+
+
+@Component({
+    selector: 'app-viewpublic',
+    templateUrl: './viewpublic.component.html',
+    styleUrls: ['./frontenddashboard.component.css']
+})
+export class ViewPublicComponent implements AfterViewInit, OnInit {
+    bookmarks = [];
+    flag: any = true;
+    parentMessage: any;
+    curColWidth = 0;
+    gridColWidth = '';
 
     constructor(private router: Router,
         private route: ActivatedRoute,
@@ -891,37 +1008,34 @@ export class ViewComponent implements AfterViewInit, OnInit {
                     let id = params['id'];
                     this.parentMessage = id;
                     this.getbookmark(id);
-                    console.log('cons')
                 });
             }
         });
     }
 
     ngOnInit() {
-          this.router.events.subscribe((val) => {
+        this.manageUI();
+        this.router.events.subscribe((val) => {
             if (this.flag) {
                 this.flag = false;
                 this.route.params.subscribe((params: Params) => {
                     let id = params['id'];
-                    console.log('on')
+                    console.log('on');
                     this.parentMessage = id;
-                    this.getbookmark(id);
+                    // this.getbookmark(id);
                 });
             }
         });
-      /*   this.route.params.subscribe((params: Params) => {
-            let id = params['id'];
-            this.parentMessage = id;
-            this.getbookmark(id);
-        }); */
     }
 
     ngAfterViewInit() {
-        //this.getTwitterrrr()
         this.route.params.subscribe((params: Params) => {
             let id = params['id'];
             this.parentMessage = id;
             this.getbookmark(id);
+            Observable.interval(1000).subscribe(x => {
+                this.manageUI();
+            });
         });
     }
 
@@ -954,6 +1068,10 @@ export class ViewComponent implements AfterViewInit, OnInit {
         let th = theW + (theW / 50) - 9;
         this.gridColWidth = th + 'px';
         $('.grid-item').css('width', th);
+        var msnry = new Masonry('#showcaseSocialBlock', {
+            itemSelector: '.grid-item'
+        });
+        // $('.grid').masonry();
     }
 
     setStyles() {
@@ -963,123 +1081,159 @@ export class ViewComponent implements AfterViewInit, OnInit {
         return styles;
     }
 
-    getbookmark(id) {
-        this.bookmarkService.categoryBookmarks(id).subscribe((data) => {
-            if (!data.error) {
-                this.bookmarks = data.message;
-                //this.getTwitterrrr()
-                setTimeout(() => {
-                    //instgrm.Embeds.process();
-                    instgrm.Embeds.process();
-                    twttr.widgets.load();
-                    this.manageUI();
-                }, 3000);
-            }
-        });
-    }
-
-    videoUrl(url) {
-        return this.sanitizer.bypassSecurityTrustResourceUrl(url);
-    }
-}
-
-@Component({
-    selector: 'app-viewpublic',
-    templateUrl: './viewpublic.component.html',
-    styleUrls: ['./frontenddashboard.component.css']
-})
-export class ViewPublicComponent implements AfterViewInit, OnInit {
-    bookmarks = [];
-    parentMessage: any;
-    options: MasonryOptions = {
-        transitionDuration: '0.3s',
-        itemSelector: '.grid-item'
-    };
-    curColWidth = 0;
-    gridColWidth = '';
-    bricks: any[] = [];
-
-    @ViewChild(AngularMasonry) masonry: AngularMasonry;
-    @ViewChild(AngularMasonry) masonryBrick: AngularMasonryBrick;
-
-    constructor(private router: Router,
-        private route: ActivatedRoute,
-        private bookmarkService: BookmarkService,
-        private categoryService: CategoryService,
-        private sanitizer: DomSanitizer) {
-    }
-
-    ngOnInit() {
-        this.route.params.subscribe((params: Params) => {
-            let id = params['id'];
-            console.log(id)
-            this.parentMessage = id;
-            this.getbookmark(id);
-        });
-    }
-
-    ngAfterViewInit() {
-        this.route.params.subscribe((params: Params) => {
-            let id = params['id'];
-            this.parentMessage = id;
-            this.getbookmark(id);
-        });
-    }
-
-    setHeight(type) {
-        if (type = 'facebook') {
-            return '400';
-        } else if (type = 'youtube') {
-            return '337';
-        }
-    }
-
-    setWidth(type) {
-        return this.curColWidth;
-    }
-
-    manageUI() {
-        let cols = 4;
-        if ($('body').width() > 1600) {
-            cols = 4;
-        } else if ($('body').width() > 1000) {
-            cols = 3;
-        } else if ($('body').width() > 600) {
-            cols = 2;
-        } else {
-            cols = 1;
-        }
-        let theW = ($('body').width() - ($('body').width() / 50)) / cols;
-        this.curColWidth = theW;
-        $('iframe').css('width', theW);
-        $('twitterwidget').css('width', theW);
-        let th = theW + (theW / 50) - 9;
-        this.gridColWidth = th + 'px';
-        $('.grid-item').css('width', th);
-    }
-
-    setStyles() {
-        let styles = {
-            'width': this.gridColWidth
-        };
-        return styles;
+    convertToGridItem(htmlInc) {
+        var html = "<div class='grid-item'>";
+        html += " " + htmlInc;
+        html += "</div>";
+        return html;
     }
 
     getbookmark(id) {
         this.bookmarkService.categoryBookmarksPublic(id).subscribe((data) => {
             if (!data.error) {
                 this.bookmarks = data.message;
-                console.log(this.bookmarks)
-                setTimeout(() => {
-                    instgrm.Embeds.process();
-                    twttr.widgets.load()
-                    this.manageUI();
-                }, 3000);
+                if (this.bookmarks.length > 0) {
+                    for (let i = 0; i < this.bookmarks.length; i++) {
+                        // tslint:disable-next-line:max-line-length
+                        (<HTMLInputElement>document.getElementById('showcaseSocialBlock')).innerHTML += this.convertToGridItem(this.bookmarks[i]['body']);
+                    }
+                    setTimeout(() => {
+                        instgrm.Embeds.process();
+                        twttr.widgets.load();
+                    }, 3000);
+                }
+            }
+        });
+    }
+}
+
+@Component({
+    selector: 'app-view',
+    templateUrl: './view.component.html',
+    styleUrls: ['./frontenddashboard.component.css']
+})
+export class ViewComponent implements AfterViewInit, OnInit {
+    public static updateBookmarkStatus: Subject<boolean> = new Subject();
+    bookmarks = [];
+    flag: any = true;
+    parentMessage: any;
+    curColWidth = 0;
+    gridColWidth = '';
+
+    constructor(private router: Router,
+        private route: ActivatedRoute,
+        private bookmarkService: BookmarkService,
+        private categoryService: CategoryService,
+        private sanitizer: DomSanitizer) {
+        ViewComponent.updateBookmarkStatus.subscribe(res => {
+            this.route.params.subscribe((params: Params) => {
+                const id = params['id'];
+                this.parentMessage = id;
+                this.getbookmark(id);
+            });
+        });
+        this.router.events.subscribe((val) => {
+            if (this.flag) {
+                this.flag = false;
+                this.route.params.subscribe((params: Params) => {
+                    let id = params['id'];
+                    this.parentMessage = id;
+                    this.getbookmark(id);
+                });
             }
         });
     }
 
-    videoUrl(url) {
-        return this.sanitizer.bypassSecurityTrustResourceUrl(url);
+    ngOnInit() {
+        this.manageUI();
+        this.router.events.subscribe((val) => {
+            if (this.flag) {
+                this.flag = false;
+                this.route.params.subscribe((params: Params) => {
+                    let id = params['id'];
+                    console.log('on');
+                    this.parentMessage = id;
+                    // this.getbookmark(id);
+                });
+            }
+        });
+    }
+
+    ngAfterViewInit() {
+        this.route.params.subscribe((params: Params) => {
+            let id = params['id'];
+            this.parentMessage = id;
+            this.getbookmark(id);
+            Observable.interval(1000).subscribe(x => {
+                this.manageUI();
+            });
+        });
+    }
+
+    setHeight(type) {
+        if (type = 'facebook') {
+            return '400';
+        } else if (type = 'youtube') {
+            return '337';
+        }
+    }
+
+    setWidth(type) {
+        return this.curColWidth;
+    }
+    manageUI() {
+        let cols = 4;
+        if ($('body').width() > 1600) {
+            cols = 4;
+        } else if ($('body').width() > 1000) {
+            cols = 3;
+        } else if ($('body').width() > 600) {
+            cols = 2;
+        } else {
+            cols = 1;
+        }
+        let theW = ($('body').width() - ($('body').width() / 50)) / cols;
+        this.curColWidth = theW;
+        $('iframe').css('width', theW);
+        $('twitterwidget').css('width', theW);
+        let th = theW + (theW / 50) - 9;
+        this.gridColWidth = th + 'px';
+        $('.grid-item').css('width', th);
+        var msnry = new Masonry('#showcaseSocialBlock', {
+            itemSelector: '.grid-item'
+        });
+        // $('.grid').masonry();
+    }
+
+    setStyles() {
+        let styles = {
+            'width': this.gridColWidth
+        };
+        return styles;
+    }
+
+    convertToGridItem(htmlInc) {
+        var html = "<div class='grid-item'>";
+        html += " " + htmlInc;
+        html += "</div>";
+        return html;
+    }
+
+    getbookmark(id) {
+        this.bookmarkService.categoryBookmarks(id).subscribe((data) => {
+            if (!data.error) {
+                this.bookmarks = data.message;
+                if (this.bookmarks.length > 0) {
+                    for (let i = 0; i < this.bookmarks.length; i++) {
+                        // tslint:disable-next-line:max-line-length
+                        (<HTMLInputElement>document.getElementById('showcaseSocialBlock')).innerHTML += this.convertToGridItem(this.bookmarks[i]['body']);
+                    }
+                    setTimeout(() => {
+                        instgrm.Embeds.process();
+                        twttr.widgets.load();
+                    }, 3000);
+                }
+            }
+        });
     }
 }

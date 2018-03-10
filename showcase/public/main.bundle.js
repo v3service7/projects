@@ -2195,7 +2195,7 @@ AppModule = __decorate([
         imports: [
             __WEBPACK_IMPORTED_MODULE_46_ngx_clipboard__["a" /* ClipboardModule */],
             __WEBPACK_IMPORTED_MODULE_11_ngx_image_cropper__["a" /* ImageCropperModule */],
-            __WEBPACK_IMPORTED_MODULE_12_angular2_masonry__["c" /* MasonryModule */],
+            __WEBPACK_IMPORTED_MODULE_12_angular2_masonry__["a" /* MasonryModule */],
             __WEBPACK_IMPORTED_MODULE_13__angular2_material_card__["a" /* MdCardModule */],
             __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser__["BrowserModule"],
             __WEBPACK_IMPORTED_MODULE_2__angular_forms__["FormsModule"],
@@ -2344,8 +2344,8 @@ module.exports = "<app-profileheader></app-profileheader>\r\n<flash-messages></f
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return ProfileHeaderComponent; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return MyProfileComponent; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return SettingComponent; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return ViewComponent; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "f", function() { return ViewPublicComponent; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return ViewComponent; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_router__ = __webpack_require__("../../../router/@angular/router.es5.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_forms__ = __webpack_require__("../../../forms/@angular/forms.es5.js");
@@ -2362,8 +2362,11 @@ module.exports = "<app-profileheader></app-profileheader>\r\n<flash-messages></f
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_10_ng2_toastr_ng2_toastr___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_10_ng2_toastr_ng2_toastr__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_11_rxjs_Subject__ = __webpack_require__("../../../../rxjs/Subject.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_11_rxjs_Subject___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_11_rxjs_Subject__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__global__ = __webpack_require__("../../../../../src/app/global.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13_angular2_masonry__ = __webpack_require__("../../../../angular2-masonry/index.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12_rxjs_Observable__ = __webpack_require__("../../../../rxjs/Observable.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12_rxjs_Observable___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_12_rxjs_Observable__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13_rxjs_add_observable_interval__ = __webpack_require__("../../../../rxjs/add/observable/interval.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13_rxjs_add_observable_interval___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_13_rxjs_add_observable_interval__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__global__ = __webpack_require__("../../../../../src/app/global.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -2373,6 +2376,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+
 
 
 
@@ -2452,7 +2456,7 @@ var ProfileHeaderComponent = ProfileHeaderComponent_1 = (function () {
     };
     ProfileHeaderComponent.prototype.doShare = function (category) {
         this.category = category;
-        this.socialShareUrl = __WEBPACK_IMPORTED_MODULE_12__global__["a" /* url */] + 'public/' + category._id;
+        this.socialShareUrl = __WEBPACK_IMPORTED_MODULE_14__global__["a" /* url */] + 'public/' + category._id;
         this.modelShareOpen();
     };
     ProfileHeaderComponent.prototype.doEmbed = function (category) {
@@ -2471,6 +2475,7 @@ var ProfileHeaderComponent = ProfileHeaderComponent_1 = (function () {
                 _this.toastr.success('Bookmark added succesfully.', 'Success!');
                 _this.modelCopyToClose();
                 setTimeout(function () {
+                    ViewComponent.updateBookmarkStatus.next(true); // here
                     _this.router.navigate(['view', _this.addLinkForm.value['category_id']]);
                     _this.addLinkForm.reset();
                 }, 500);
@@ -2519,7 +2524,6 @@ var ProfileHeaderComponent = ProfileHeaderComponent_1 = (function () {
         var _this = this;
         this.validateService.getInsta(url)
             .subscribe(function (data) {
-            console.log(data.html);
             _this.addLinkForm.controls['title'].setValue(url);
             _this.addLinkForm.controls['body'].setValue(data.html);
             _this.addLinkForm.controls['type'].setValue('instagram');
@@ -2536,7 +2540,6 @@ var ProfileHeaderComponent = ProfileHeaderComponent_1 = (function () {
         var _this = this;
         this.validateService.getTwitter(url)
             .subscribe(function (data) {
-            console.log(data);
             _this.addLinkForm.controls['title'].setValue(url);
             _this.addLinkForm.controls['body'].setValue(data.html);
             _this.addLinkForm.controls['type'].setValue('twitter');
@@ -2746,7 +2749,7 @@ var MyProfileComponent = (function () {
         this.lf = lf;
         this.userService = userService;
         this._flashMessagesService = _flashMessagesService;
-        this.uploader = new __WEBPACK_IMPORTED_MODULE_4_ng2_file_upload__["FileUploader"]({ url: __WEBPACK_IMPORTED_MODULE_12__global__["a" /* url */] + 'upload' });
+        this.uploader = new __WEBPACK_IMPORTED_MODULE_4_ng2_file_upload__["FileUploader"]({ url: __WEBPACK_IMPORTED_MODULE_14__global__["a" /* url */] + 'upload' });
         this.imageChangedEvent = '';
         this.croppedImage = '';
         this.customer = {};
@@ -2988,6 +2991,10 @@ var SettingComponent = (function () {
         this.bookmarkService.categoryBookmarks(id).subscribe(function (data) {
             if (!data.error) {
                 _this.bookmarks = data.message;
+                setTimeout(function () {
+                    instgrm.Embeds.process();
+                    twttr.widgets.load();
+                }, 3000);
             }
         });
     };
@@ -3226,8 +3233,129 @@ SettingComponent = __decorate([
     __metadata("design:paramtypes", [typeof (_o = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* Router */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* Router */]) === "function" && _o || Object, typeof (_p = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* ActivatedRoute */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* ActivatedRoute */]) === "function" && _p || Object, typeof (_q = typeof __WEBPACK_IMPORTED_MODULE_0__angular_core__["ViewContainerRef"] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0__angular_core__["ViewContainerRef"]) === "function" && _q || Object, typeof (_r = typeof __WEBPACK_IMPORTED_MODULE_6__services_category_service__["a" /* CategoryService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_6__services_category_service__["a" /* CategoryService */]) === "function" && _r || Object, typeof (_s = typeof __WEBPACK_IMPORTED_MODULE_7__services_bookmark_service__["a" /* BookmarkService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_7__services_bookmark_service__["a" /* BookmarkService */]) === "function" && _s || Object, typeof (_t = typeof __WEBPACK_IMPORTED_MODULE_3__angular_platform_browser__["DomSanitizer"] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__angular_platform_browser__["DomSanitizer"]) === "function" && _t || Object, typeof (_u = typeof __WEBPACK_IMPORTED_MODULE_2__angular_forms__["FormBuilder"] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__angular_forms__["FormBuilder"]) === "function" && _u || Object, typeof (_v = typeof __WEBPACK_IMPORTED_MODULE_10_ng2_toastr_ng2_toastr__["ToastsManager"] !== "undefined" && __WEBPACK_IMPORTED_MODULE_10_ng2_toastr_ng2_toastr__["ToastsManager"]) === "function" && _v || Object, typeof (_w = typeof __WEBPACK_IMPORTED_MODULE_5__services_user_service__["a" /* UserService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_5__services_user_service__["a" /* UserService */]) === "function" && _w || Object])
 ], SettingComponent);
 
-var ViewComponent = (function () {
-    function ViewComponent(router, route, bookmarkService, categoryService, sanitizer) {
+/* @Component({
+    selector: 'app-view',
+    templateUrl: './view.component.html',
+    styleUrls: ['./frontenddashboard.component.css']
+})
+export class ViewComponent implements AfterViewInit, OnInit {
+    public static updateBookmarkStatus: Subject<boolean> = new Subject();
+    bookmarks = [];
+    flag: any = true;
+    parentMessage: any;
+    options: MasonryOptions = {
+        transitionDuration: '0.3s',
+        itemSelector: '.grid-item'
+    };
+    curColWidth = 0;
+    gridColWidth = '';
+    bricks: any[] = [];
+
+    @ViewChild(AngularMasonry) masonry: AngularMasonry;
+    @ViewChild(AngularMasonry) masonryBrick: AngularMasonryBrick;
+
+    constructor(private router: Router,
+        private route: ActivatedRoute,
+        private bookmarkService: BookmarkService,
+        private categoryService: CategoryService,
+        private sanitizer: DomSanitizer) {
+        ViewComponent.updateBookmarkStatus.subscribe(res => {
+            this.route.params.subscribe((params: Params) => {
+                const id = params['id'];
+                this.parentMessage = id;
+                this.getbookmark(id);
+            });
+        });
+        this.router.events.subscribe((val) => {
+            if (this.flag) {
+                this.flag = false;
+                this.route.params.subscribe((params: Params) => {
+                    const id = params['id'];
+                    this.parentMessage = id;
+                    this.getbookmark(id);
+                });
+            }
+        });
+    }
+
+    ngOnInit() {
+        this.router.events.subscribe((val) => {
+            if (this.flag) {
+                this.flag = false;
+                this.route.params.subscribe((params: Params) => {
+                    const id = params['id'];
+                    this.parentMessage = id;
+                    this.getbookmark(id);
+                });
+            }
+        });
+    }
+
+    ngAfterViewInit() {
+        this.route.params.subscribe((params: Params) => {
+            const id = params['id'];
+            this.parentMessage = id;
+            this.getbookmark(id);
+        });
+    }
+
+    setHeight(type) {
+        if (type = 'facebook') {
+            return '400';
+        } else if (type = 'youtube') {
+            return '337';
+        }
+    }
+
+    setWidth(type) {
+        return this.curColWidth;
+    }
+    manageUI() {
+        let cols = 4;
+        if ($('body').width() > 1600) {
+            cols = 4;
+        } else if ($('body').width() > 1000) {
+            cols = 3;
+        } else if ($('body').width() > 600) {
+            cols = 2;
+        } else {
+            cols = 1;
+        }
+        const theW = ($('body').width() - ($('body').width() / 50)) / cols;
+        this.curColWidth = theW;
+        $('iframe').css('width', theW);
+        $('twitterwidget').css('width', theW);
+        const th = theW + (theW / 50) - 9;
+        this.gridColWidth = th + 'px';
+        $('.grid-item').css('width', th);
+    }
+
+    setStyles() {
+        const styles = {
+            'width': this.gridColWidth
+        };
+        return styles;
+    }
+
+    getbookmark(id) {
+        this.bookmarkService.categoryBookmarks(id).subscribe((data) => {
+            if (!data.error) {
+                this.bookmarks = data.message;
+                setTimeout(() => {
+                    instgrm.Embeds.process();
+                    twttr.widgets.load();
+                    this.manageUI();
+                }, 3000);
+            }
+        });
+    }
+
+    videoUrl(url) {
+        return this.sanitizer.bypassSecurityTrustResourceUrl(url);
+    }
+} */
+var ViewPublicComponent = (function () {
+    function ViewPublicComponent(router, route, bookmarkService, categoryService, sanitizer) {
         var _this = this;
         this.router = router;
         this.route = route;
@@ -3236,13 +3364,8 @@ var ViewComponent = (function () {
         this.sanitizer = sanitizer;
         this.bookmarks = [];
         this.flag = true;
-        this.options = {
-            transitionDuration: '0.3s',
-            itemSelector: '.grid-item'
-        };
         this.curColWidth = 0;
         this.gridColWidth = '';
-        this.bricks = [];
         this.router.events.subscribe(function (val) {
             if (_this.flag) {
                 _this.flag = false;
@@ -3250,13 +3373,13 @@ var ViewComponent = (function () {
                     var id = params['id'];
                     _this.parentMessage = id;
                     _this.getbookmark(id);
-                    console.log('cons');
                 });
             }
         });
     }
-    ViewComponent.prototype.ngOnInit = function () {
+    ViewPublicComponent.prototype.ngOnInit = function () {
         var _this = this;
+        this.manageUI();
         this.router.events.subscribe(function (val) {
             if (_this.flag) {
                 _this.flag = false;
@@ -3264,124 +3387,9 @@ var ViewComponent = (function () {
                     var id = params['id'];
                     console.log('on');
                     _this.parentMessage = id;
-                    _this.getbookmark(id);
+                    // this.getbookmark(id);
                 });
             }
-        });
-        /*   this.route.params.subscribe((params: Params) => {
-              let id = params['id'];
-              this.parentMessage = id;
-              this.getbookmark(id);
-          }); */
-    };
-    ViewComponent.prototype.ngAfterViewInit = function () {
-        var _this = this;
-        //this.getTwitterrrr()
-        this.route.params.subscribe(function (params) {
-            var id = params['id'];
-            _this.parentMessage = id;
-            _this.getbookmark(id);
-        });
-    };
-    ViewComponent.prototype.setHeight = function (type) {
-        if (type = 'facebook') {
-            return '400';
-        }
-        else if (type = 'youtube') {
-            return '337';
-        }
-    };
-    ViewComponent.prototype.setWidth = function (type) {
-        return this.curColWidth;
-    };
-    ViewComponent.prototype.manageUI = function () {
-        var cols = 4;
-        if ($('body').width() > 1600) {
-            cols = 4;
-        }
-        else if ($('body').width() > 1000) {
-            cols = 3;
-        }
-        else if ($('body').width() > 600) {
-            cols = 2;
-        }
-        else {
-            cols = 1;
-        }
-        var theW = ($('body').width() - ($('body').width() / 50)) / cols;
-        this.curColWidth = theW;
-        $('iframe').css('width', theW);
-        $('twitterwidget').css('width', theW);
-        var th = theW + (theW / 50) - 9;
-        this.gridColWidth = th + 'px';
-        $('.grid-item').css('width', th);
-    };
-    ViewComponent.prototype.setStyles = function () {
-        var styles = {
-            'width': this.gridColWidth
-        };
-        return styles;
-    };
-    ViewComponent.prototype.getbookmark = function (id) {
-        var _this = this;
-        this.bookmarkService.categoryBookmarks(id).subscribe(function (data) {
-            if (!data.error) {
-                _this.bookmarks = data.message;
-                //this.getTwitterrrr()
-                setTimeout(function () {
-                    //instgrm.Embeds.process();
-                    instgrm.Embeds.process();
-                    twttr.widgets.load();
-                    _this.manageUI();
-                }, 3000);
-            }
-        });
-    };
-    ViewComponent.prototype.videoUrl = function (url) {
-        return this.sanitizer.bypassSecurityTrustResourceUrl(url);
-    };
-    return ViewComponent;
-}());
-__decorate([
-    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["ViewChild"])(__WEBPACK_IMPORTED_MODULE_13_angular2_masonry__["a" /* AngularMasonry */]),
-    __metadata("design:type", typeof (_x = typeof __WEBPACK_IMPORTED_MODULE_13_angular2_masonry__["a" /* AngularMasonry */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_13_angular2_masonry__["a" /* AngularMasonry */]) === "function" && _x || Object)
-], ViewComponent.prototype, "masonry", void 0);
-__decorate([
-    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["ViewChild"])(__WEBPACK_IMPORTED_MODULE_13_angular2_masonry__["a" /* AngularMasonry */]),
-    __metadata("design:type", typeof (_y = typeof __WEBPACK_IMPORTED_MODULE_13_angular2_masonry__["b" /* AngularMasonryBrick */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_13_angular2_masonry__["b" /* AngularMasonryBrick */]) === "function" && _y || Object)
-], ViewComponent.prototype, "masonryBrick", void 0);
-ViewComponent = __decorate([
-    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
-        selector: 'app-view',
-        template: __webpack_require__("../../../../../src/app/frontend/dashboard/view.component.html"),
-        styles: [__webpack_require__("../../../../../src/app/frontend/dashboard/frontenddashboard.component.css")]
-    }),
-    __metadata("design:paramtypes", [typeof (_z = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* Router */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* Router */]) === "function" && _z || Object, typeof (_0 = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* ActivatedRoute */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* ActivatedRoute */]) === "function" && _0 || Object, typeof (_1 = typeof __WEBPACK_IMPORTED_MODULE_7__services_bookmark_service__["a" /* BookmarkService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_7__services_bookmark_service__["a" /* BookmarkService */]) === "function" && _1 || Object, typeof (_2 = typeof __WEBPACK_IMPORTED_MODULE_6__services_category_service__["a" /* CategoryService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_6__services_category_service__["a" /* CategoryService */]) === "function" && _2 || Object, typeof (_3 = typeof __WEBPACK_IMPORTED_MODULE_3__angular_platform_browser__["DomSanitizer"] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__angular_platform_browser__["DomSanitizer"]) === "function" && _3 || Object])
-], ViewComponent);
-
-var ViewPublicComponent = (function () {
-    function ViewPublicComponent(router, route, bookmarkService, categoryService, sanitizer) {
-        this.router = router;
-        this.route = route;
-        this.bookmarkService = bookmarkService;
-        this.categoryService = categoryService;
-        this.sanitizer = sanitizer;
-        this.bookmarks = [];
-        this.options = {
-            transitionDuration: '0.3s',
-            itemSelector: '.grid-item'
-        };
-        this.curColWidth = 0;
-        this.gridColWidth = '';
-        this.bricks = [];
-    }
-    ViewPublicComponent.prototype.ngOnInit = function () {
-        var _this = this;
-        this.route.params.subscribe(function (params) {
-            var id = params['id'];
-            console.log(id);
-            _this.parentMessage = id;
-            _this.getbookmark(id);
         });
     };
     ViewPublicComponent.prototype.ngAfterViewInit = function () {
@@ -3390,6 +3398,9 @@ var ViewPublicComponent = (function () {
             var id = params['id'];
             _this.parentMessage = id;
             _this.getbookmark(id);
+            __WEBPACK_IMPORTED_MODULE_12_rxjs_Observable__["Observable"].interval(1000).subscribe(function (x) {
+                _this.manageUI();
+            });
         });
     };
     ViewPublicComponent.prototype.setHeight = function (type) {
@@ -3424,6 +3435,10 @@ var ViewPublicComponent = (function () {
         var th = theW + (theW / 50) - 9;
         this.gridColWidth = th + 'px';
         $('.grid-item').css('width', th);
+        var msnry = new Masonry('#showcaseSocialBlock', {
+            itemSelector: '.grid-item'
+        });
+        // $('.grid').masonry();
     };
     ViewPublicComponent.prototype.setStyles = function () {
         var styles = {
@@ -3431,43 +3446,177 @@ var ViewPublicComponent = (function () {
         };
         return styles;
     };
+    ViewPublicComponent.prototype.convertToGridItem = function (htmlInc) {
+        var html = "<div class='grid-item'>";
+        html += " " + htmlInc;
+        html += "</div>";
+        return html;
+    };
     ViewPublicComponent.prototype.getbookmark = function (id) {
         var _this = this;
         this.bookmarkService.categoryBookmarksPublic(id).subscribe(function (data) {
             if (!data.error) {
                 _this.bookmarks = data.message;
-                console.log(_this.bookmarks);
-                setTimeout(function () {
-                    instgrm.Embeds.process();
-                    twttr.widgets.load();
-                    _this.manageUI();
-                }, 3000);
+                if (_this.bookmarks.length > 0) {
+                    for (var i = 0; i < _this.bookmarks.length; i++) {
+                        // tslint:disable-next-line:max-line-length
+                        document.getElementById('showcaseSocialBlock').innerHTML += _this.convertToGridItem(_this.bookmarks[i]['body']);
+                    }
+                    setTimeout(function () {
+                        instgrm.Embeds.process();
+                        twttr.widgets.load();
+                    }, 3000);
+                }
             }
         });
     };
-    ViewPublicComponent.prototype.videoUrl = function (url) {
-        return this.sanitizer.bypassSecurityTrustResourceUrl(url);
-    };
     return ViewPublicComponent;
 }());
-__decorate([
-    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["ViewChild"])(__WEBPACK_IMPORTED_MODULE_13_angular2_masonry__["a" /* AngularMasonry */]),
-    __metadata("design:type", typeof (_4 = typeof __WEBPACK_IMPORTED_MODULE_13_angular2_masonry__["a" /* AngularMasonry */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_13_angular2_masonry__["a" /* AngularMasonry */]) === "function" && _4 || Object)
-], ViewPublicComponent.prototype, "masonry", void 0);
-__decorate([
-    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["ViewChild"])(__WEBPACK_IMPORTED_MODULE_13_angular2_masonry__["a" /* AngularMasonry */]),
-    __metadata("design:type", typeof (_5 = typeof __WEBPACK_IMPORTED_MODULE_13_angular2_masonry__["b" /* AngularMasonryBrick */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_13_angular2_masonry__["b" /* AngularMasonryBrick */]) === "function" && _5 || Object)
-], ViewPublicComponent.prototype, "masonryBrick", void 0);
 ViewPublicComponent = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
         selector: 'app-viewpublic',
         template: __webpack_require__("../../../../../src/app/frontend/dashboard/viewpublic.component.html"),
         styles: [__webpack_require__("../../../../../src/app/frontend/dashboard/frontenddashboard.component.css")]
     }),
-    __metadata("design:paramtypes", [typeof (_6 = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* Router */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* Router */]) === "function" && _6 || Object, typeof (_7 = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* ActivatedRoute */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* ActivatedRoute */]) === "function" && _7 || Object, typeof (_8 = typeof __WEBPACK_IMPORTED_MODULE_7__services_bookmark_service__["a" /* BookmarkService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_7__services_bookmark_service__["a" /* BookmarkService */]) === "function" && _8 || Object, typeof (_9 = typeof __WEBPACK_IMPORTED_MODULE_6__services_category_service__["a" /* CategoryService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_6__services_category_service__["a" /* CategoryService */]) === "function" && _9 || Object, typeof (_10 = typeof __WEBPACK_IMPORTED_MODULE_3__angular_platform_browser__["DomSanitizer"] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__angular_platform_browser__["DomSanitizer"]) === "function" && _10 || Object])
+    __metadata("design:paramtypes", [typeof (_x = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* Router */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* Router */]) === "function" && _x || Object, typeof (_y = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* ActivatedRoute */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* ActivatedRoute */]) === "function" && _y || Object, typeof (_z = typeof __WEBPACK_IMPORTED_MODULE_7__services_bookmark_service__["a" /* BookmarkService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_7__services_bookmark_service__["a" /* BookmarkService */]) === "function" && _z || Object, typeof (_0 = typeof __WEBPACK_IMPORTED_MODULE_6__services_category_service__["a" /* CategoryService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_6__services_category_service__["a" /* CategoryService */]) === "function" && _0 || Object, typeof (_1 = typeof __WEBPACK_IMPORTED_MODULE_3__angular_platform_browser__["DomSanitizer"] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__angular_platform_browser__["DomSanitizer"]) === "function" && _1 || Object])
 ], ViewPublicComponent);
 
-var ProfileHeaderComponent_1, _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m, _o, _p, _q, _r, _s, _t, _u, _v, _w, _x, _y, _z, _0, _1, _2, _3, _4, _5, _6, _7, _8, _9, _10;
+var ViewComponent = ViewComponent_1 = (function () {
+    function ViewComponent(router, route, bookmarkService, categoryService, sanitizer) {
+        var _this = this;
+        this.router = router;
+        this.route = route;
+        this.bookmarkService = bookmarkService;
+        this.categoryService = categoryService;
+        this.sanitizer = sanitizer;
+        this.bookmarks = [];
+        this.flag = true;
+        this.curColWidth = 0;
+        this.gridColWidth = '';
+        ViewComponent_1.updateBookmarkStatus.subscribe(function (res) {
+            _this.route.params.subscribe(function (params) {
+                var id = params['id'];
+                _this.parentMessage = id;
+                _this.getbookmark(id);
+            });
+        });
+        this.router.events.subscribe(function (val) {
+            if (_this.flag) {
+                _this.flag = false;
+                _this.route.params.subscribe(function (params) {
+                    var id = params['id'];
+                    _this.parentMessage = id;
+                    _this.getbookmark(id);
+                });
+            }
+        });
+    }
+    ViewComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        this.manageUI();
+        this.router.events.subscribe(function (val) {
+            if (_this.flag) {
+                _this.flag = false;
+                _this.route.params.subscribe(function (params) {
+                    var id = params['id'];
+                    console.log('on');
+                    _this.parentMessage = id;
+                    // this.getbookmark(id);
+                });
+            }
+        });
+    };
+    ViewComponent.prototype.ngAfterViewInit = function () {
+        var _this = this;
+        this.route.params.subscribe(function (params) {
+            var id = params['id'];
+            _this.parentMessage = id;
+            _this.getbookmark(id);
+            __WEBPACK_IMPORTED_MODULE_12_rxjs_Observable__["Observable"].interval(1000).subscribe(function (x) {
+                _this.manageUI();
+            });
+        });
+    };
+    ViewComponent.prototype.setHeight = function (type) {
+        if (type = 'facebook') {
+            return '400';
+        }
+        else if (type = 'youtube') {
+            return '337';
+        }
+    };
+    ViewComponent.prototype.setWidth = function (type) {
+        return this.curColWidth;
+    };
+    ViewComponent.prototype.manageUI = function () {
+        var cols = 4;
+        if ($('body').width() > 1600) {
+            cols = 4;
+        }
+        else if ($('body').width() > 1000) {
+            cols = 3;
+        }
+        else if ($('body').width() > 600) {
+            cols = 2;
+        }
+        else {
+            cols = 1;
+        }
+        var theW = ($('body').width() - ($('body').width() / 50)) / cols;
+        this.curColWidth = theW;
+        $('iframe').css('width', theW);
+        $('twitterwidget').css('width', theW);
+        var th = theW + (theW / 50) - 9;
+        this.gridColWidth = th + 'px';
+        $('.grid-item').css('width', th);
+        var msnry = new Masonry('#showcaseSocialBlock', {
+            itemSelector: '.grid-item'
+        });
+        // $('.grid').masonry();
+    };
+    ViewComponent.prototype.setStyles = function () {
+        var styles = {
+            'width': this.gridColWidth
+        };
+        return styles;
+    };
+    ViewComponent.prototype.convertToGridItem = function (htmlInc) {
+        var html = "<div class='grid-item'>";
+        html += " " + htmlInc;
+        html += "</div>";
+        return html;
+    };
+    ViewComponent.prototype.getbookmark = function (id) {
+        var _this = this;
+        this.bookmarkService.categoryBookmarks(id).subscribe(function (data) {
+            if (!data.error) {
+                _this.bookmarks = data.message;
+                if (_this.bookmarks.length > 0) {
+                    for (var i = 0; i < _this.bookmarks.length; i++) {
+                        // tslint:disable-next-line:max-line-length
+                        document.getElementById('showcaseSocialBlock').innerHTML += _this.convertToGridItem(_this.bookmarks[i]['body']);
+                    }
+                    setTimeout(function () {
+                        instgrm.Embeds.process();
+                        twttr.widgets.load();
+                    }, 3000);
+                }
+            }
+        });
+    };
+    return ViewComponent;
+}());
+ViewComponent.updateBookmarkStatus = new __WEBPACK_IMPORTED_MODULE_11_rxjs_Subject__["Subject"]();
+ViewComponent = ViewComponent_1 = __decorate([
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
+        selector: 'app-view',
+        template: __webpack_require__("../../../../../src/app/frontend/dashboard/view.component.html"),
+        styles: [__webpack_require__("../../../../../src/app/frontend/dashboard/frontenddashboard.component.css")]
+    }),
+    __metadata("design:paramtypes", [typeof (_2 = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* Router */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* Router */]) === "function" && _2 || Object, typeof (_3 = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* ActivatedRoute */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* ActivatedRoute */]) === "function" && _3 || Object, typeof (_4 = typeof __WEBPACK_IMPORTED_MODULE_7__services_bookmark_service__["a" /* BookmarkService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_7__services_bookmark_service__["a" /* BookmarkService */]) === "function" && _4 || Object, typeof (_5 = typeof __WEBPACK_IMPORTED_MODULE_6__services_category_service__["a" /* CategoryService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_6__services_category_service__["a" /* CategoryService */]) === "function" && _5 || Object, typeof (_6 = typeof __WEBPACK_IMPORTED_MODULE_3__angular_platform_browser__["DomSanitizer"] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__angular_platform_browser__["DomSanitizer"]) === "function" && _6 || Object])
+], ViewComponent);
+
+var ProfileHeaderComponent_1, _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m, _o, _p, _q, _r, _s, _t, _u, _v, _w, _x, _y, _z, _0, _1, ViewComponent_1, _2, _3, _4, _5, _6;
 //# sourceMappingURL=frontenddashboard.component.js.map
 
 /***/ }),
@@ -3514,14 +3663,14 @@ module.exports = "<app-profileheader [childMessage]=\"parentMessage\"></app-prof
 /***/ "../../../../../src/app/frontend/dashboard/view.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<app-profileheader [childMessage]=\"parentMessage\"></app-profileheader>\r\n\r\n<div  *ngIf=\"curColWidth != 0 && gridColWidth != ''\"  style=\"padding-top: 65px;\">\r\n\t<h1 *ngIf=\"!bookmarks?.length > 0\" class=\"text-center text-muted pt-5\">No bookmarks available.</h1>\r\n\t<masonry [options]=\"options\">\r\n\t    <!-- <div class=\"row\"> -->\r\n\t\t\t<masonry-brick  *ngFor=\"let bookmark of bookmarks\">\r\n\t\t\t\t<div class=\"grid-item\" [ngStyle]=\"setStyles()\">\r\n\t\t\t\t\t<div *ngIf=\"bookmark.type == 'instagram' || bookmark.type == 'twitter'\"  [innerHtml]=\"bookmark.body\"></div>\r\n\t\t\t\t\t<!-- <div *ngIf=\"bookmark.type == 'instagram' || bookmark.type == 'twitter'\">\r\n\t\t\t\t\t\t{{bookmark.body}}\t\t\t\t\t\t\r\n\t\t\t\t\t</div> -->\r\n\t\t\t\t\t<iframe *ngIf=\"bookmark.type != 'instagram' && bookmark.type != 'twitter'\" [src]=\"videoUrl(bookmark.title)\" [height]=\"setHeight(bookmark.type)\"  [width]=\"setWidth(bookmark.type)\"  frameborder=\"0\" allowfullscreen></iframe>\r\n\t\t\t\t</div>\r\n\t\t\t</masonry-brick>\r\n\t\t<!-- </div> -->\r\n\t</masonry>\r\n</div>"
+module.exports = "<app-profileheader [childMessage]=\"parentMessage\"></app-profileheader>\r\n\r\n<div style=\"padding-top: 65px;\">\r\n\t<h1 *ngIf=\"!bookmarks.length > 0\" class=\"text-center text-muted pt-5\">No bookmarks available.</h1>\r\n\t<div id=\"showcaseSocialBlock\" class=\"grid\"></div>\r\n</div>"
 
 /***/ }),
 
 /***/ "../../../../../src/app/frontend/dashboard/viewpublic.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<app-frontendheader></app-frontendheader>\r\n<div *ngIf=\"curColWidth != 0 && gridColWidth != ''\" style=\"padding-top: 65px;\">\r\n    <h1 *ngIf=\"!bookmarks?.length > 0\" class=\"text-center text-muted pt-5\">No bookmarks available.</h1>\r\n    <masonry [options]=\"options\">\r\n        <!-- <div class=\"row\"> -->\r\n        <masonry-brick *ngFor=\"let bookmark of bookmarks\">\r\n            <div class=\"grid-item\" [ngStyle]=\"setStyles()\">\r\n                <div *ngIf=\"bookmark.type == 'instagram'\" [innerHtml]=\"bookmark.body\"></div>\r\n                <!-- {{bookmark.body}} -->\r\n                <iframe *ngIf=\"bookmark.type != 'instagram'\" [src]=\"videoUrl(bookmark.title)\" [height]=\"setHeight(bookmark.type)\" [width]=\"setWidth(bookmark.type)\"\r\n                    frameborder=\"0\" allowfullscreen></iframe>\r\n            </div>\r\n        </masonry-brick>\r\n        <!-- </div> -->\r\n    </masonry>\r\n</div>"
+module.exports = "<app-frontendheader></app-frontendheader>\r\n\r\n<div style=\"padding-top: 65px;\">\r\n    <h1 *ngIf=\"!bookmarks.length > 0\" class=\"text-center text-muted pt-5\">No bookmarks available.</h1>\r\n    <div id=\"showcaseSocialBlock\" class=\"grid\"></div>\r\n</div>"
 
 /***/ }),
 
@@ -4291,7 +4440,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/public/public.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<p>\r\n  public works!\r\n</p>\r\n"
+module.exports = "<p>\n  public works!\n</p>\n"
 
 /***/ }),
 
