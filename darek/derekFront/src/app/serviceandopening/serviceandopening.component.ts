@@ -90,7 +90,7 @@ export class RestaurantOwnerOpeningHoursComponent implements OnInit {
 
 	openingAddModel: FormGroup;
 	restaurants: any = {};
-	user: any;
+	/*user: any;*/
 	optionSet: any = {};
 	preoptionSet: any = {};
 
@@ -120,7 +120,6 @@ export class RestaurantOwnerOpeningHoursComponent implements OnInit {
 	}
 
 	initailfun() {
-		// var objForUpdate : any = {}; 	
 		this.restaurantsService.getOwnerRestaurants(JSON.parse(localStorage.getItem('currentOwner'))._id).subscribe(users => {
 			this.restaurants = users.message;
 			this.optionSet._id = this.restaurants._id;
@@ -128,13 +127,14 @@ export class RestaurantOwnerOpeningHoursComponent implements OnInit {
 			for (var i in this.restaurants.openinghours) {
 				if (this.restaurants.openinghours[i]) {
 					this.preoptionSet[i] = this.restaurants.openinghours[i];
+
 				}
 			}
-
-			console.log("users.message");
-			console.log(users.message);
-			//this.optionSet.openinghours.push(objForUpdate);
 		});
+	}
+
+	moveNext(){
+		this.router.navigate(['/owner/restaurant-orderforlater']);
 	}
 
 	openingHourDetailUpdate() {
@@ -145,27 +145,47 @@ export class RestaurantOwnerOpeningHoursComponent implements OnInit {
 		timeObj.closetime = this.openingAddModel.value.closetime;
 
 
+		var count = 0;
 		for (var i in this.openingAddModel.value) {
 			if (this.openingAddModel.value[i] == true) {
 				objForUpdate[i] = this.openingAddModel.value[i];
 				var timeKey = i + 'time';
 				objForUpdate[timeKey] = timeObj;
+			}else{
+				count += 1;
 			}
 		}
 
-		var d = this.preoptionSet;
-		for (var key in d) {
-			if (objForUpdate[key] != d[key] && objForUpdate.hasOwnProperty(key) == false) {
-				objForUpdate[key] = d[key];
-			}
-		}
+		console.log("count");
+		console.log(count);
 
-		this.optionSet.result = { "openinghours": objForUpdate };
-		this.restaurantsService.updatePickUpHours(this.optionSet).subscribe((data) => {
-			this.user = data.message;
-			toastr.success('Restaurant Opening Hours Updated','Success!')
-			this.router.navigate(['/owner/restaurant-orderforlater']);
-		});
+		if (count == 10) {
+			toastr.remove();
+			toastr.warning('Please Select day','Warning!')
+		}else{		
+			var d = this.preoptionSet;
+			for (var key in d) {
+				if (objForUpdate[key] != d[key] && objForUpdate.hasOwnProperty(key) == false) {
+					objForUpdate[key] = d[key];
+				}
+			}
+
+			this.optionSet.result = { "openinghours": objForUpdate };
+
+			this.restaurantsService.updatePickUpHours(this.optionSet).subscribe((data) => {
+
+				if (!data.error) {
+					this.openingAddModel.reset();
+					this.initailfun();
+					toastr.remove();
+					toastr.success('Restaurant Opening Hours Updated','Success!');
+				}else{
+					toastr.remove();
+					toastr.error('Could not update Restaurant Opening Hours','Error!');
+				}
+				/*this.user = data.message;*/
+			});
+		}
 	}
 
 	remove(day){
@@ -175,7 +195,7 @@ export class RestaurantOwnerOpeningHoursComponent implements OnInit {
 
 		this.optionSet.result = { "openinghours": this.preoptionSet };
 		this.restaurantsService.updatePickUpHours(this.optionSet).subscribe((data) => {
-			this.user = data.message;
+			/*this.user = data.message;*/
 			toastr.success('Restaurant Opening Hours Updated','Success!');
 			this.initailfun();
 		});
@@ -695,6 +715,10 @@ export class RestaurantOwnerDeliveryZoneComponent implements OnInit {
 					center: { lat: parseFloat(this.lat), lng: parseFloat(this.lng) },
 					radius: parseFloat(this.deliverys[key].radius)
 				});
+
+				console.log("newCobj");
+				console.log(newCobj);
+
 				this.mergeCircleShape.push(newCobj);
 			}
 			else {
@@ -1041,7 +1065,7 @@ export class KitchenMenuListComponent implements OnInit {
 			menuId: ['', Validators.required],
 			price: ['', Validators.required],
 			spicyLevel: ['', Validators.required],
-			description: ['', Validators.required],
+			description: [],
 			options : [],
 			image: [],
 		});
@@ -1051,7 +1075,7 @@ export class KitchenMenuListComponent implements OnInit {
 			name: ['', Validators.required],
 			price: ['', Validators.required],
 			spicyLevel: ['', Validators.required],
-			description: ['', Validators.required],
+			description: [],
 			options: [],
 			image: []
 		});
@@ -1159,8 +1183,11 @@ export class KitchenMenuListComponent implements OnInit {
 			this.editableChoiceDetail.controls['name'].setValue(data.message.subaddon[0].name);
 			this.editableChoiceDetail.controls['price'].setValue(data.message.subaddon[0].price);	  	
 			this.editableChoiceDetail.controls[key].setValue(value);
-			this.kitchenMenuItemService.editSubAddOnUpdate(this.editableChoiceDetail.value).subscribe(data => {	
-				this.loadAllAddons(this.editableChoiceDetail.value._id);
+			this.kitchenMenuItemService.editSubAddOnUpdate(this.editableChoiceDetail.value).subscribe(data => {
+
+				console.log("addon updated");
+				console.log(data);
+				/*this.loadAllAddons(this.editableChoiceDetail.value._id);*/
 				this.clearCancel();
 				toastr.success('Choice Updated','Success!');
 			})
@@ -1352,11 +1379,25 @@ export class KitchenMenuListComponent implements OnInit {
 		this.itemAddModel.controls['options'].setValue(this.addGroupAddon) ;
 		this.kitchenMenuItemService.addUser(this.itemAddModel.value).subscribe(
 			(data) => {
-				this.modelClose();
-				//this.refresh();
-				this.loadAllItem();
-				toastr.success('Item Add successful');
-				this.addGroupAddon = [];
+				if (!data.error) {
+					let ids = '#itemAdded_' + data.message._id;
+
+					setTimeout(()=>{
+						$(ids).attr("tabindex",1).focus();
+					},500)
+
+					setTimeout(()=>{
+						$(ids).attr("tabindex",1).blur();
+					},2000)
+
+					this.modelClose();
+					//this.refresh();
+					this.loadAllItem();
+					toastr.success('Item Add successful');
+					this.addGroupAddon = [];
+				}else{
+					toastr.error('Unable to add Item. Please Try again later.');
+				}
 			}
 		);
 	}
@@ -1385,9 +1426,21 @@ export class KitchenMenuListComponent implements OnInit {
 		}
 		if (this.itemUpdateModel.value.image == null || this.itemUpdateModel.value.image == this.item4UpdateObj.image) {
 			this.kitchenMenuItemService.updateMenu(this.itemUpdateModel.value).subscribe((data) => {
+
+				if (!data.error) {
+					let ids = '#itemAdded_' + this.itemUpdateModel.value['_id'];
+
+					setTimeout(()=>{
+						$(ids).attr("tabindex",1).focus();
+					},500)
+
+					setTimeout(()=>{
+						$(ids).attr("tabindex",1).blur();
+					},2000)
+				}
 				this.modelClose();
 				//this.refresh();
-				this.loadAllItem(); 
+				this.loadAllItem();
 				toastr.success('Item Updated successful');
 				this.addGroupAddon = [];
 				this.option2 = [];
@@ -1396,11 +1449,24 @@ export class KitchenMenuListComponent implements OnInit {
 			this.uploader.uploadAll();
 			this.uploader.onCompleteItem = (item: any, response: any, status: any, headers: any) => {
 				this.modelClose();
-				this.refresh();
+				/*this.refresh();*/
 				var responsePath = JSON.parse(response);
 				this.itemUpdateModel.controls['image'].setValue(responsePath.filename);
 				this.kitchenMenuItemService.updateMenu(this.itemUpdateModel.value).subscribe((data) => {
+
+					if (!data.error) {
+						let ids = '#itemAdded_' + this.itemUpdateModel.value['_id'];
+
+						setTimeout(()=>{
+							$(ids).attr("tabindex",1).focus();
+						},500)
+
+						setTimeout(()=>{
+							$(ids).attr("tabindex",1).blur();
+						},2000)
+					}
 					toastr.success('Item Updated successful');
+					this.loadAllItem();
 					this.addGroupAddon = [];
 					this.option2 = [];
 				});
@@ -1465,14 +1531,14 @@ export class KitchenMenuListComponent implements OnInit {
 	}
 	mandMinMaxValue(event,type){
 		if (type == 'min') {
-			this.groupDetail.min = event.target.value;
+			this.groupDetail.min = parseInt(event.target.value);
 		}
 
 		if (type == 'max') {
-			this.groupDetail.max = event.target.value;
+			this.groupDetail.max = parseInt(event.target.value);
 		}
 
-		if (typeof this.groupDetail.min != 'undefined' && typeof this.groupDetail.max != 'undefined' && this.groupDetail.min != "" && this.groupDetail.max != "" && this.groupDetail.min > 0 && this.groupDetail.max > 0) {
+		if (typeof this.groupDetail.min != 'undefined' && typeof this.groupDetail.max != 'undefined' && this.groupDetail.min != "" && this.groupDetail.max != "" && this.groupDetail.min > 0 && this.groupDetail.max >= this.groupDetail.min) {
 			this.groupAddModel.controls['groupType'].setValue(this.groupDetail);
 		}else{
 			this.groupAddModel.controls['groupType'].setValue(null);
@@ -1480,14 +1546,14 @@ export class KitchenMenuListComponent implements OnInit {
 	}
 	mandEditMinMaxValue(event,type){
 		if (type == 'min') {
-			this.groupDetail.min = event.target.value;
+			this.groupDetail.min = parseInt(event.target.value);
 		}
 
 		if (type == 'max') {
-			this.groupDetail.max = event.target.value;
+			this.groupDetail.max = parseInt(event.target.value);
 		}
 
-		if (typeof this.groupDetail.min != 'undefined' && typeof this.groupDetail.max != 'undefined' && this.groupDetail.min != "" && this.groupDetail.max != "" && this.groupDetail.min > 0 && this.groupDetail.max > 0) {
+		if (typeof this.groupDetail.min != 'undefined' && typeof this.groupDetail.max != 'undefined' && this.groupDetail.min != "" && this.groupDetail.max != "" && this.groupDetail.min > 0 && this.groupDetail.max  >= this.groupDetail.min) {
 			this.editableDetail.controls['groupType'].setValue(this.groupDetail);
 		}else{
 			this.editableDetail.controls['groupType'].setValue(null);
@@ -1556,7 +1622,8 @@ export class KitchenMenuListComponent implements OnInit {
 	private groupDetailRemove(id){
 		if (confirm("Are you sure to delete ?")) {
 			this.kitchenMenuService.groupRemove(id).subscribe(data => {         	
-				this.getAllAddonDetail(); 
+				this.getAllAddonDetail();
+				this.loadAllItem();
 			});
 		}
 	}
@@ -1589,12 +1656,10 @@ export class KitchenMenuListComponent implements OnInit {
 	private getAllAddonDetail(){
 		this.kitchenMenuService.getAllAddOn(this.restaurants._id).subscribe(data => { 
 			this.groups = data.message;
-			console.log("this.groups");
-			console.log(this.groups);
 		})
 	}
 	private loadAllUsers() {
-		this.kitchenMenuService.getAll(this.restaurants._id).subscribe(users => { 			
+		this.kitchenMenuService.getAll(this.restaurants._id).subscribe(users => {
 			this.users = users.message;
 		});
 	}
@@ -1681,17 +1746,28 @@ export class KitchenMenuListComponent implements OnInit {
 		this.currentOpen = 'choice';
 		this.currentChoice = name;
 		this.choiceAddModel.controls['_id'].setValue(id);
+		this.choiceAddModel.controls['price'].setValue(0);
 	}
 	private choiceDetailadd(){
 		var groupId = "gr"+this.choiceAddModel.value._id;
-		this.kitchenMenuItemService.addChoice(this.choiceAddModel.value).subscribe(data => {   
+		this.kitchenMenuItemService.addChoice(this.choiceAddModel.value).subscribe(data => {
 			//this.getAllAddonDetail();
-			this.loadAllAddons(this.choiceAddModel.value._id);
-			this.clearCancel();
-			toastr.success('Choice Added Successfully','Success!');
+
+			if (!data.error) {
+				let index = this.groups.findIndex((mn)=>mn._id == data.message._id);
+
+				this.groups[index].subaddon = data.message.subaddon;
+
+				/*this.loadAllAddons(this.choiceAddModel.value._id);*/
+				this.clearCancel();
+				toastr.success('Choice Added Successfully','Success!');
+			}else{
+				toastr.error('Unable to add Choice','Error!');
+			}
+
 		}); 
 	}
-	private showHideAddons(id, property){
+	/*private showHideAddons(id, property){
 		var addonGroupId = "#gr"+id;
 		var x = property.getAttribute('class');
 		if (x == 'icon-collapse') {
@@ -1701,7 +1777,7 @@ export class KitchenMenuListComponent implements OnInit {
 		}else{
 			$("div[id^='gr']").hide();
 		}
-	}
+	}*/
 	private loadAllAddons(id){
 		this.kitchenMenuService.groupDetailEditser(id).subscribe(data => {   
 			this.allAddons = data.message.subaddon;
@@ -1709,17 +1785,26 @@ export class KitchenMenuListComponent implements OnInit {
 			//console.log(id, this.allAddons)
 		})
 	}
-	private removechoice(id, index){
+	private removechoice(index, id){
 		if (confirm("Are you sure to delete ?")) {
 			var removeid = {_id : id, index: index};
 			this.kitchenMenuItemService.removeChoice(removeid).subscribe(data => {
+
+				if (!data.error) {
+					let index = this.groups.findIndex((mn)=>mn._id == data.message._id);
+
+					this.groups[index].subaddon = data.message.subaddon;
+					toastr.success('Choice Removed');
+				}else{
+					toastr.error('Unable to remove Choice','Error!');
+				}
+
 				//this.getAllAddonDetail();
-				this.loadAllAddons(index);
+				/*this.loadAllAddons(id);*/
 			});
-			toastr.success('Choice Removed');
 		}
 	}
-	private editchoice(id, cid){
+	/*private editchoice(id, cid){
 		var data = {id: id, cid : cid};
 		this.kitchenMenuItemService.getEditChoice(data).subscribe(data => {
 			this.editableChoiceDetail.controls['id'].setValue(data.message.subaddon[0]._id);
@@ -1728,8 +1813,8 @@ export class KitchenMenuListComponent implements OnInit {
 			this.editableChoiceDetail.controls['price'].setValue(data.message.subaddon[0].price);
 			this.currentOpen = 'editchoice';
 		});
-	}
-	private editChoiceUpdate(){
+	}*/
+	/*private editChoiceUpdate(){
 		let id = 'gr'+this.editableChoiceDetail.value._id;
 		//console.log(this.editableChoiceDetail.value);
 		this.kitchenMenuItemService.editSubAddOnUpdate(this.editableChoiceDetail.value).subscribe(data => {	
@@ -1737,7 +1822,7 @@ export class KitchenMenuListComponent implements OnInit {
 			this.clearCancel();
 			toastr.success('Choice Updated','Success!');
 		})
-	}
+	}*/
 	private clearCancel(){
 		this.currentOpen = '';
 		this.editableDetail.reset();
@@ -1773,7 +1858,8 @@ export class KitchenMenuListComponent implements OnInit {
             this.kitchenMenuService.updateMenu(this.menuImageAddModel.value).subscribe(data => {
                 //// console.log(data.message);
                 this.menuImageAddModel.reset();
-                this.refresh();
+                /*this.refresh();*/
+                this.loadAllUsers();
 			    this.modelClose();
 			    toastr.success('Image Uploaded Successfully');
 
@@ -1787,7 +1873,9 @@ export class KitchenMenuListComponent implements OnInit {
 			this.smenuImageAddModel.controls['image'].setValue(responsePath.filename);
             this.kitchenMenuItemService.updateMenu(this.smenuImageAddModel.value).subscribe(data => {                
                  this.smenuImageAddModel.reset();
-                 this.refresh();
+                 /*this.refresh();*/
+
+                 this.loadAllItem();
 			     this.modelClose();
 			     toastr.success('Image Uploaded Successfully');	
             });

@@ -29,6 +29,10 @@ export class MarketingNavComponent implements OnInit {
          this.restaurants = users.message;
       });
    }
+
+   signOut(){
+      localStorage.removeItem('currentOwner');
+   }
 }
 
 @Component({

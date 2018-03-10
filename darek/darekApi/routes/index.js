@@ -836,12 +836,12 @@ router.post('/item',function(req, res){
 	var response={};
 	console.log(req.body);
     var item = new itemModel(req.body);    
-    item.save(function(err){
+    item.save(function(err, itemAdded){
     	console.log(err);
     	if(err) {
             response = {"error" : true,"message" : err};
         } else {
-            response = {"error" : false,"message" : "Data added"};
+            response = {"error" : false,"message" : itemAdded};
         }
         res.json(response);
     });
@@ -1067,7 +1067,7 @@ router.put('/addonchoice/:id',function(req, res){
 			if(err) {
 				response = {"error" : true,"message" : err};
 			} else {
-				response = {"error" : false,"message" : "Data Update"};
+				response = {"error" : false,"message" : item};
 			}			
 			res.json(response);
 		});
@@ -1108,7 +1108,7 @@ router.delete('/addonchoice/:index/:id',function(req, res){
 					if(err) {
 						response = {"error" : true,"message" : err};
 					} else {
-						response = {"error" : false,"message" : "Data Update"};
+						response = {"error" : false,"message" : item};
 					}			
 					res.json(response);
 				});

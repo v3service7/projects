@@ -39,6 +39,10 @@ export class ReportingnavComponent implements OnInit {
             this.restaurants = users.message;
         });
     }
+
+    signOut(){
+      localStorage.removeItem('currentOwner');
+    }
 }
 
 @Component({

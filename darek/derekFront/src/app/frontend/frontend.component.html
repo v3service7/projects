@@ -22,7 +22,7 @@
 		</div>
 	</div>
 
-	<div class="deal-list col-lg-12 col-md-12 col-xs-12 col-sm-12" *ngIf = "restroPromotions.length == 1">
+	<div class="deal-list col-lg-12 col-md-12 col-xs-12 col-sm-12" *ngIf = "restroPromotions && restroPromotions.length == 1">
 		<div *ngFor = "let promo of restroPromotions">
 			<div class="deal-special col-lg-12 col-md-12 col-xs-12 col-sm-12">
 				<div class="deal-special-background col-lg-12 col-md-12 col-xs-12 col-sm-12" ></div>
@@ -59,7 +59,7 @@
 		</div>
 	</div>
 
-	<div class="deal-list col-lg-12 col-md-12 col-xs-12 col-sm-12" *ngIf = "restroPromotions.length > 1">
+	<div class="deal-list col-lg-12 col-md-12 col-xs-12 col-sm-12" *ngIf = "restroPromotions && restroPromotions.length > 1">
 		<div *ngFor = "let promo of restroPromotions; let j = index ">
 			<div class="deal-special oddEven width48Specl" [ngClass]="promotionClass(j)">
 				<div class="deal2 col-lg-12 col-md-12 col-xs-12 col-sm-12" [ngStyle]="{'background-image': 'url(' + imageURL + promo.image + ')'}">
@@ -112,10 +112,10 @@
 						<div *ngIf="item.menuId == menu._id && !item.isHidden">
 						<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 " style="height: 60px;">
 							<!-- <div class="itemDetailListDiv col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0"> -->
-								<div class="subMenuItem col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0" [ngClass]="checkItemShow(item)">
+								<div class="subMenuItem col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0" [ngClass]="checkItemShow(item)" style="height: inherit;">
 									
-									<a class="col-lg-12 col-md-12 col-sm-12 col-xs-12 itemDetailList" href="javascript:void(0)" (click)="showDetail(item,item.multisize[0] )">
-										<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0" id="changeBg_{{item._id}}">
+									<a class="col-lg-12 col-md-12 col-sm-12 col-xs-12 itemDetailList"  id="changeBg_{{item._id}}" href="javascript:void(0)" (click)="showDetail(item,item.multisize[0] )">
+										<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0">
 											<div class="col-lg-10 col-md-10 col-sm-10 col-xs-10" style="height: inherit;">
 												<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0 wordBreak">
 													<h5>
@@ -134,10 +134,10 @@
 												<h5><strong>{{item.price | number : '1.2-2'}}</strong></h5>
 											</div>
 											<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 wordBreak itemDescription">
-												<div *ngIf="item.description.length >= 45">
+												<div *ngIf="item.description && item.description.length >= 45">
 													{{item.description.substr(0,45)}}...	
 												</div>
-												<div *ngIf="item.description.length < 45">
+												<div *ngIf="item.description && item.description.length < 45">
 													{{item.description}}
 												</div>
 											</div>
@@ -152,7 +152,7 @@
 										<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 pos-header">
 											<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 wordBreak">{{item.description}}</div>
 											<!-- item size -->
-											<div class="sizeDetail col-lg-12 col-md-12 col-sm-12 col-xs-12" *ngIf = "item.multisize.length > 0">
+											<div class="sizeDetail col-lg-12 col-md-12 col-sm-12 col-xs-12" *ngIf = "item.multisize && item.multisize.length > 0">
 												<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12"><h5><span>{{'Size' | translate}} ({{'Required' | translate}})</span></h5></div>
 												<form>
 													<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 sizeOption" *ngFor = "let multisizes of item.multisize; let i = index; ">

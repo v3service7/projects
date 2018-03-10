@@ -99,7 +99,7 @@ export class KitchenItemService {
        }
 
    removeChoice(data){
-     return this.http.delete(globalVariable.url+'addonchoice/'+data._id+'/'+data.index)
+     return this.http.delete(globalVariable.url+'addonchoice/'+data.index+'/'+data._id)
         .map(
             (response: Response) => response.json()
              );
