@@ -1,11 +1,17 @@
-import { Component, OnInit, } from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { FlashMessagesService } from 'angular2-flash-messages';
 import { AdminService } from '../../services/admin.service';
 import { CategoryService } from '../../services/category.service';
-
+import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/observable/interval';
+declare var Masonry;
+declare var twttr;
+declare var $;
+declare var instgrm;
+import { AngularMasonry, MasonryOptions, AngularMasonryBrick } from 'angular2-masonry';
 @Component({
     selector: 'app-admin-customer',
     templateUrl: './customer.component.html',
@@ -53,11 +59,11 @@ export class CustomerListComponent implements OnInit {
     }
     setUsername(fname, lname, id) {
         var username;
-        if (typeof fname === 'undefined' &&  typeof lname === 'undefined') {
+        if (typeof fname === 'undefined' && typeof lname === 'undefined') {
             username = 'User';
-       }else {
+        } else {
             username = fname + ' ' + lname;
-       }
+        }
         localStorage.setItem('boardusername', username);
         localStorage.setItem('boarduserid', id);
     }
@@ -390,7 +396,9 @@ export class AdminUserBoardsComponent implements OnInit {
     templateUrl: './userboardsbookmark.component.html',
     styleUrls: ['./userboardsbookmark.component.css'],
 })
-export class AdminUserBoardsBookmarkComponent implements OnInit {
+export class AdminUserBoardsBookmarkComponent implements OnInit, AfterViewInit {
+    curColWidth = 0;
+    gridColWidth = '';
     loginForm: FormGroup;
     returnUrl: string;
     err: any;
@@ -406,9 +414,11 @@ export class AdminUserBoardsBookmarkComponent implements OnInit {
         private adminService: AdminService,
         public sanitizer: DomSanitizer,
         private _flashMessagesService: FlashMessagesService
-    ) { }
+    ) {
+    }
 
     ngOnInit() {
+        this.manageUI();
         this.boardname = localStorage.getItem('boardname');
         this.username = localStorage.getItem('boardusername');
         this.userid = localStorage.getItem('boarduserid');
@@ -416,24 +426,82 @@ export class AdminUserBoardsBookmarkComponent implements OnInit {
             this.board_id = params['id'];
             this.getBookmarks();
         });
+        this.jio();
+    }
+    ngAfterViewInit() {
+        Observable.interval(1000).subscribe(x => {
+            this.manageUI();
+        });
+        /*  this.route.params.subscribe((params: Params) => {
+             let id = params['id'];
+             this.getBookmarks();
+           
+         }); */
+    }
+    manageUI() {
+        let cols = 4;
+        if ($('body').width() > 1600) {
+            cols = 4;
+        } else if ($('body').width() > 1000) {
+            cols = 3;
+        } else if ($('body').width() > 600) {
+            cols = 2;
+        } else {
+            cols = 1;
+        }
+        let theW = ($('body').width() - ($('body').width() / 50)) / cols;
+        this.curColWidth = theW;
+        $('iframe').css('width', theW);
+        $('twitterwidget').css('width', theW);
+        let th = theW + (theW / 50) - 9;
+        this.gridColWidth = th + 'px';
+        $('.grid-item').css('width', th);
+        var msnry = new Masonry('#showcaseSocialBlock', {
+            itemSelector: '.grid-item'
+        });
+        // $('.grid').masonry();
+    }
+    convertToGridItem(htmlInc, id) {
+        var html = "<div class='grid-item'>";
+        // tslint:disable-next-line:max-line-length
+        html += " " + '<div class="delete-icon jio-class" id=' + id + ' style="position: absolute;background: red;color: #fff;padding: 10px;cursor: pointer"><i class="fa fa-trash"></i></div>';
+        html += " " + htmlInc;
+        html += "</div>";
+        return html;
     }
     getBookmarks() {
         this.adminService.bookmarkList(this.board_id).subscribe((data) => {
             if (!data.error) {
                 this.bookmarks = data.message;
+                console.log(this.bookmarks.length);
+                if (this.bookmarks.length > 0) {
+                    for (let i = 0; i < this.bookmarks.length; i++) {
+                        // tslint:disable-next-line:max-line-length
+                        (<HTMLInputElement>document.getElementById('showcaseSocialBlock')).innerHTML += this.convertToGridItem(this.bookmarks[i]['body'], this.bookmarks[i]['_id']);
+                    }
+                    setTimeout(() => {
+                        instgrm.Embeds.process();
+                        twttr.widgets.load();
+                    }, 3000);
+                }
             }
         });
     }
-   
     deletebookmark(id) {
-        this.adminService.bookmarkList(id).subscribe((data) => {
+        this.adminService.bookmarkDelete(id).subscribe((data) => {
             if (!data.error) {
                 this._flashMessagesService.show('Bookmark deleted Successfully', { cssClass: 'alert-success', timeout: 3000 });
-                this.getBookmarks();
             }
         });
     }
     videoUrl(url) {
         return this.sanitizer.bypassSecurityTrustResourceUrl(url);
+    }
+
+    jio() {
+        $(document).on('click', 'div.jio-class', (data, err) => {
+            this.deletebookmark(data.target.offsetParent.id);
+            $(data.target).parent().parent().remove();
+        });
     }
 }

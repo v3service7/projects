@@ -22,7 +22,7 @@
         "styles.css",
         "../node_modules/ng2-toastr/bundles/ng2-toastr.min.css"
       ],
-      "scripts": [],
+      "scripts": ["./assets/frontend/js/masonry.pkgd.min.js"],
       "environmentSource": "environments/environment.ts",
       "environments": {
         "dev": "environments/environment.ts",
