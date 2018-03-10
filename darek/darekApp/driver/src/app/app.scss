@@ -14,77 +14,24 @@
 // To declare rules for a specific mode, create a child rule
 // for the .md, .ios, or .wp mode classes. The mode class is
 // automatically applied to the <body> element in the app.
-.side>.scroll-content {
-    background: #2f2f2f;
-}
 
-.side>.item-ios {
-    color: #fff !important;
-    background-color: #2f2f2f !important;
-}
 
-.menu1>.item-ios,
-.menu1>.item-md {
-    background: #2f2f2f !important;
-    color: #fff !important;
+
+.colorWhite{
+	color : white !important;
 }
 
 .whiteSpaceInitial{
-    white-space: initial;
+	white-space: initial !important;
 }
 
-.font14px{
-    font-size: 14px;
+.displayBlock{
+    display: block;
 }
-
-
-
-
-ion-content {
-    background: #f1ecec;
-}
-
-ion-card-header {
-    background: rgba(224, 224, 224, 0.76) !important;
-}
-
-.card-content-ios {
-    padding-top: 10px !important;
-}
-
-.card-header-md+.card-content-md,
-.card-md .item+.card-content-md {
-    padding-top: 10px !important;
-}
-
-.content-md {
-    color: #000;
-    background-color: #F1ECEC !important;
-}
-
-.content-ios {
-    color: #000;
-    background-color: #F1ECEC !important;
-}
-
-.sideLink.item-md.item-block .item-inner {
-    padding-right: 8px;
-    border-bottom: 0px solid #dedede;
-}
-
-.sideLink.item-ios.item-block .item-inner {
-    padding-right: 8px;
-    border-bottom: 0px solid #c8c7cc;
-}
-
-.list-ios>.item-block:last-child,
-.list-ios>.item-wrapper:last-child .item-block {
-    border-bottom: 0px solid #c8c7cc !important;
-}
-
-.list-ios>.item-block:first-child {
-    border-top: 0px solid #c8c7cc !important;
-}
-.width100{
-    width: 100%;
+.hideshow{
+	position: absolute !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    right: 0 !important;
+    bottom: 6px !important;
 }

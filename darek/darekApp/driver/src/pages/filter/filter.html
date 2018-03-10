@@ -1,0 +1,77 @@
+<ion-header>
+  <ion-toolbar color="secondary">
+    <ion-buttons start float-right>
+      <button ion-button icon-only  (click)="dismiss()">
+        Cancel
+      </button>
+    </ion-buttons>
+    <ion-title>Filter</ion-title>
+  
+    
+   
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content padding-no>
+  <ion-list radio-group [(ngModel)]="paymentType">
+  
+    <ion-list-header no-margin>
+      Payment type
+    </ion-list-header>
+  
+    <ion-item>
+      <ion-label>All</ion-label>
+      <ion-radio value="all" ></ion-radio>
+    </ion-item>
+  
+    <ion-item>
+      <ion-label>Card</ion-label>
+      <ion-radio value="card"></ion-radio>
+    </ion-item>
+  
+    <ion-item>
+      <ion-label>Cart at delivery</ion-label>
+      <ion-radio value="delivery"></ion-radio>
+    </ion-item>
+  
+    <ion-item>
+      <ion-label>Card via internet</ion-label>
+      <ion-radio value="interner"></ion-radio>
+    </ion-item>
+
+
+    <ion-list-header margin-top class="border-0 mb-0">
+      Choose date
+    </ion-list-header>
+    <ion-item>
+      <ion-label color="dark">Start date</ion-label>
+      <ion-datetime displayFormat="DD MMM YYYY" [(ngModel)]="event.startDate"></ion-datetime>
+    </ion-item>
+    <ion-item>
+      <ion-label color="dark">End date</ion-label>
+      <ion-datetime displayFormat="DD MMM YYYY" [(ngModel)]="event.endDate"></ion-datetime>
+    </ion-item>
+    
+  </ion-list>
+</ion-content>
+<ion-footer no-shadow >
+  <ion-toolbar position="bottom">
+<ion-grid no-padding>
+
+  <ion-row>
+    <ion-col col-4 no-padding><button padding-no ion-button clear full position="bottom" color="dark" icon-only (click)="doFilter()">
+      Reset
+    </button></ion-col>
+    <ion-col col-8 no-padding>
+      <button padding-no ion-button position="bottom" full color="secondary" icon-only (click)="doFilter()">
+        Apply
+      </button>
+    </ion-col>
+  </ion-row>
+</ion-grid>
+   
+    
+  </ion-toolbar>
+</ion-footer>
+

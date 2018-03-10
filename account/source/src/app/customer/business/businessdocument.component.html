@@ -16,7 +16,7 @@
                         <div class="col-md-4" style="padding-left: 6px;">
                         	<div class="myCard">
 	                        	<div class="form-group">
-	                                <input type="file" class="form-control" name="single" ng2FileSelect [uploader]="uploader" (change)="onChange($event,'passportFile')">
+	                                <input type="file" class="form-control" name="single" ng2FileSelect [uploader]="s3Uploader" (change)="onChange($event,'passportFile')">
 	                                <a href="javascript:void(0)" class="btn btn-success btn-round btn-block">Upload Passport File</a>
                                 </div>
                                 <span *ngIf = "businessAddForm.value.passportFile" class="docUploaded"><i class="fa fa-check-circle" aria-hidden="true"></i></span>
@@ -25,7 +25,7 @@
                         <div class="col-md-4">
                         	<div class="myCard">
                             	<div class="form-group">
-                                    <input type="file" class="form-control" name="single" ng2FileSelect [uploader]="uploader" (change)="onChange($event,'visaFile')">
+                                    <input type="file" class="form-control" name="single" ng2FileSelect [uploader]="s3Uploader" (change)="onChange($event,'visaFile')">
                                     <a href="javascript:void(0)" class="btn btn-success btn-round btn-block">Upload Visa File</a>
                                 </div>
                                 <span *ngIf = "businessAddForm.value.visaFile" class="docUploaded"><i class="fa fa-check-circle" aria-hidden="true"></i></span>
@@ -35,7 +35,7 @@
                         <div class="col-md-4">
                         	<div class="myCard">
                             	 <div class="form-group">
-                                    <input type="file" class="form-control" name="single" ng2FileSelect [uploader]="uploader" (change)="onChange($event,'emiRatesIdFile')">
+                                    <input type="file" class="form-control" name="single" ng2FileSelect [uploader]="s3Uploader" (change)="onChange($event,'emiRatesIdFile')">
                                     <a href="javascript:void(0)" class="btn btn-success btn-round btn-block">UPLOAD EMI Rates Id File</a>
                                 </div>
                                 <span *ngIf = "businessAddForm.value.emiRatesIdFile" class="docUploaded"><i class="fa fa-check-circle" aria-hidden="true"></i></span>
@@ -44,7 +44,7 @@
                         <div class="col-md-4">
                         	<div class="myCard">
                             	 <div class="form-group">
-                                    <input type="file" class="form-control" name="single" ng2FileSelect [uploader]="uploader" (change)="onChange($event,'tradeLicenseFile')">
+                                    <input type="file" class="form-control" name="single" ng2FileSelect [uploader]="s3Uploader" (change)="onChange($event,'tradeLicenseFile')">
                                     <a href="javascript:void(0)" class="btn btn-success btn-round btn-block">UPLOAD Trade License File</a>
                                 </div>
                                 <span *ngIf = "businessAddForm.value.tradeLicenseFile" class="docUploaded"><i class="fa fa-check-circle" aria-hidden="true"></i></span>
@@ -54,7 +54,7 @@
                         <div class="col-md-4">
                         	<div class="myCard">
                             	<div class="form-group">
-                                    <input type="file" class="form-control" name="single" ng2FileSelect [uploader]="uploader" (change)="onChange($event,'articleAndPartnershipFile')">
+                                    <input type="file" class="form-control" name="single" ng2FileSelect [uploader]="s3Uploader" (change)="onChange($event,'articleAndPartnershipFile')">
                                     <a href="javascript:void(0)" class="btn btn-success btn-round btn-block">UPLOAD Article and Partnership File</a>
                                 </div>
                                 <span *ngIf = "businessAddForm.value.articleAndPartnershipFile" class="docUploaded"><i class="fa fa-check-circle" aria-hidden="true"></i></span>
@@ -63,7 +63,7 @@
                         <div class="col-md-4">
                         	<div class="myCard">
                             	<div class="form-group">
-                                    <input type="file" class="form-control" name="single" ng2FileSelect [uploader]="uploader" (change)="onChange($event,'certificateOfIncorporationFile')">
+                                    <input type="file" class="form-control" name="single" ng2FileSelect [uploader]="s3Uploader" (change)="onChange($event,'certificateOfIncorporationFile')">
                                     <a href="javascript:void(0)" class="btn btn-success btn-round btn-block">UPLOAD Certificate of Incorporation File</a>
                                 </div>
                                 <span *ngIf = "businessAddForm.value.certificateOfIncorporationFile" class="docUploaded"><i class="fa fa-check-circle" aria-hidden="true"></i></span>
@@ -72,7 +72,7 @@
                         <div class="col-md-4">
                         	<div class="myCard">
                             	<div class="form-group">
-                                    <input type="file" class="form-control" name="single" ng2FileSelect [uploader]="uploader" (change)="onChange($event,'bankStatementFile')">
+                                    <input type="file" class="form-control" name="single" ng2FileSelect [uploader]="s3Uploader" (change)="onChange($event,'bankStatementFile')">
                                     <a href="javascript:void(0)" class="btn btn-success btn-round btn-block">UPLOAD Bank Statement File</a>
                                 </div>
                                 <span *ngIf = "businessAddForm.value.bankStatementFile" class="docUploaded"><i class="fa fa-check-circle" aria-hidden="true"></i></span>

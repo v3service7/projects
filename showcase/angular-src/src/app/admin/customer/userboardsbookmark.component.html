@@ -1,0 +1,36 @@
+<style>
+    .delete-icon{
+    position: absolute;
+    background: red;
+    color: #fff;
+    padding: 10px;
+    cursor: pointer;
+}
+</style>
+<div class="card card-nav-tabs">
+    <div class="card-header" data-background-color="navyblue">
+        <div class="nav-tabs-navigation">
+            <div class="nav-tabs-wrapper">
+            <span style="float: right;">
+                    <a [routerLink]="['/admin/user/borads/',userid]">
+                        <i class=" fa fa-arrow-left"></i> Back </a>
+                </span>
+                <ul class="nav nav-tabs" data-tabs="tabs">
+                    <li class="active pull-right text-cap">
+                         {{username}}  / {{boardname}} / bookmarks
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="card-content table-responsive">
+       
+        <div id="showcaseSocialBlock" class="grid">
+        </div>
+        <div class="alert alert-warning" *ngIf="bookmarks?.length == 0">
+            <button type="button" aria-hidden="true" class="close">×</button>
+            <span>
+                <b> No Data </b></span>
+        </div>
+    </div>
+</div>

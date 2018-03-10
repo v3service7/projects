@@ -1,0 +1,94 @@
+<!--
+Generated template for the OrderPage page.
+
+See http://ionicframework.com/docs/components/#navigation for more info on
+Ionic pages and navigation.
+-->
+<ion-header>
+    <ion-navbar color="secondary"> 
+        <button ion-button menuToggle>
+            <ion-icon name="menu"></ion-icon>
+        </button>
+        <ion-title>Orders</ion-title>
+    </ion-navbar>
+</ion-header>
+
+
+<ion-content padding-no>
+    <ion-refresher (ionRefresh)="doRefresh($event)">
+        <ion-refresher-content></ion-refresher-content>
+    </ion-refresher>
+    
+    <ion-item class="headingClass">
+        <ion-row>Summary :</ion-row>
+    </ion-item>
+        
+    <ion-row class="summaryClass">
+        <ion-col col-6 text-center class="borderRight">
+            <div>${{totalCash |number : '1.2-2'}}</div>
+            <div class="amountDescription">Cash Due From Driver</div>
+        </ion-col>
+        <ion-col col-6 text-center>
+            <div>${{totalTip |number : '1.2-2'}}</div>
+            <div class="amountDescription">Total Driver Earnings</div>
+        </ion-col>
+    </ion-row>
+
+    <ion-segment [(ngModel)]="orderStatus" color="secondary">
+        <ion-segment-button value="pending">
+            Pending
+        </ion-segment-button>
+        <ion-segment-button value="completed">
+            Completed
+        </ion-segment-button>
+    </ion-segment>
+
+    <div [ngSwitch]="orderStatus">
+        <ion-list *ngSwitchCase="'pending'">
+    <h3 *ngIf="pendorders?.length == 0" class="text-center">No orders</h3>
+    <div *ngFor="let order of pendorders; let i = index ">
+<ion-item   (click)="openDetail(i, 'pending')">
+
+                <h2 class="whiteSpaceInitial">
+                    <ion-icon name="pin"></ion-icon> &nbsp; {{order.fulladdress.address}}</h2>
+
+                    <p class="text-capitalize">
+                        <ion-icon name="logo-usd"></ion-icon>
+<span class="bg-success text-white px-1 rounded" *ngIf="order.total">{{order.total | number : '1.2-2'}}</span>
+
+
+                        <span> {{order.paymenttype}}</span>
+                    </p>
+
+                    <p>
+                        <ion-icon name="time"></ion-icon> &nbsp; {{order.created_at| date:'shortTime'}} {{order.created_at| date}} </p>
+                        <button ion-button clear item-end color="secondary">View</button>
+
+                    </ion-item>
+                    </div>
+                </ion-list>
+                <ion-list *ngSwitchCase="'completed'">
+                    <h3 *ngIf="compOrders?.length == 0" class="text-center">No orders</h3>
+                    <div  *ngFor="let order of compOrders;let i = index ">
+                    <ion-item (click)="openDetail(i, 'completed')"> 
+                        <h2 class="whiteSpaceInitial">
+                            <ion-icon name="pin"></ion-icon> &nbsp; {{order.fulladdress.address}}</h2>
+
+                            <p class="text-capitalize">
+                                <ion-icon name="logo-usd"></ion-icon>
+<span class="bg-success text-white px-1 rounded" *ngIf="order.total">{{order.total |number : '1.2-2' }}</span>
+
+
+                                <span> {{order.paymenttype}}</span>
+                            </p>
+
+                            <p>
+                                <ion-icon name="time"></ion-icon> &nbsp; {{order.created_at| date:'shortTime'}} {{order.created_at| date}} </p>
+                                <button ion-button clear item-end color="secondary" >View</button>
+
+                            </ion-item>
+                            </div>
+                        </ion-list>
+                    </div>
+
+                </ion-content>

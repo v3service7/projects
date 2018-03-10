@@ -344,3 +344,17 @@ button{
     color: #0198b3;
     font-weight: 600;
 }
+
+.notificationCloseButton{
+    background: transparent !important;
+}
+
+
+.customWrapper{
+	height: auto !important;
+}
+
+.paddingTopBottom0{
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+}

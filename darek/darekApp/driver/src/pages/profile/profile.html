@@ -3,47 +3,104 @@
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>Edit Profile</ion-title>
+    <ion-title>Profile</ion-title>
   </ion-navbar>
 </ion-header>
 
 
-<ion-content padding>
-	<ion-list>
-		<form role="form" [formGroup]="profileForm" (ngSubmit)="update()">
-			<ion-item>
-				<ion-label><ion-icon name="mail" ios="ios-mail" md="md-mail"></ion-icon></ion-label>
-				<ion-input formControlName="email" type="email" disabled="true"></ion-input>
-			</ion-item>
-			<ion-item>
-				<ion-label><ion-icon name="person" ios="ios-person" md="md-person"></ion-icon></ion-label>
-				<ion-input formControlName="firstname" type="text"></ion-input>
-			</ion-item>
-			<ion-item>
-				<ion-label><ion-icon name="person" ios="ios-person" md="md-person"></ion-icon></ion-label>
-				<ion-input formControlName="lastname" type="text"></ion-input>
-			</ion-item>
-			<ion-item>
-				<ion-label><ion-icon name="call" ios="ios-call" md="md-call"></ion-icon></ion-label>
-				<ion-input formControlName="phoneNo" type="text"></ion-input>
-			</ion-item>
-			<ion-item>
-				<ion-label><ion-icon name="pin" ios="ios-pin" md="md-pin"></ion-icon></ion-label>
-				<ion-input formControlName="address" type="text"></ion-input>
-			</ion-item>
-			<ion-item>
-				<ion-label><ion-icon name="car" ios="ios-car" md="md-car"></ion-icon></ion-label>
-				<ion-input formControlName="vehicleType" type="text"></ion-input>
-			</ion-item>
-			<ion-item>
-				<ion-label><ion-icon name="car" ios="ios-car" md="md-car"></ion-icon></ion-label>
-				<ion-input formControlName="vehicleName" type="text"></ion-input>
-			</ion-item>
-			<ion-item>
-				<ion-label><ion-icon name="car" ios="ios-car" md="md-car"></ion-icon></ion-label>
-				<ion-input formControlName="vehicleNo" type="text"></ion-input>
-			</ion-item>
-			<button ion-button full [disabled]="!profileForm.valid">Submit</button>
-		</form>	
-	</ion-list>
+<ion-content no-padding>
+  <div *ngIf="driver">
+    <div class="jumbotron py-5 mb-0 h-90px bg-success rounded-0">
+    </div>
+    <ion-row class="profile-area borderb-1">
+      <ion-col col-12 text-center>
+        <img class="profile-img rounded-circle" *ngIf="driver.image " src="http://mealdaay.com:4014/uploads/{{driver.image}}">
+        <img class="profile-img rounded-circle" *ngIf="!driver.image " src="assets/imgs/profile.jpg">
+        <h3 class="text-capitalize" ion-text color="dark" *ngIf="driver.firstname && driver.lastname">{{driver.firstname}} {{driver.lastname}}</h3>
+        <h3 class="text-capitalize" ion-text color="dark" *ngIf="!driver.firstname && !driver.lastname">-- --</h3>
+      </ion-col>
+      <button ion-button color="light" class="edit-button" small outline (click)="goToEdit()">Edit</button>
+    </ion-row>
+    <ion-grid>
+
+      <ion-row class="borderb-1 py-2">
+        <ion-col col-4>
+          <h5 ion-text color="dark" no-margin>
+            <ion-icon name="person"></ion-icon> &nbsp; Username </h5>
+        </ion-col>
+        <ion-col col-8 text-right>
+          <h5 ion-text color="gray" no-margin *ngIf="driver.username">{{driver.username}}</h5>
+          <h5 ion-text color="gray" no-margin *ngIf="!driver.username">----</h5>
+        </ion-col>
+      </ion-row>
+      <ion-row class="borderb-1 py-2">
+        <ion-col col-4>
+          <h5 ion-text color="dark" no-margin>
+            <ion-icon name="mail"></ion-icon> &nbsp; Email </h5>
+        </ion-col>
+        <ion-col col-8 text-right>
+          <h5 ion-text color="gray" no-margin>{{driver.email}}</h5>
+        </ion-col>
+      </ion-row>
+      <ion-row class="borderb-1 py-2">
+        <ion-col col-4>
+          <h5 ion-text color="dark" no-margin>
+            <ion-icon name="call"></ion-icon> &nbsp; Mobile No. </h5>
+        </ion-col>
+        <ion-col col-8 text-right>
+          <h5 ion-text color="gray" no-margin *ngIf="driver.phoneNo">{{driver.phoneNo}}</h5>
+          <h5 ion-text color="gray" no-margin *ngIf="!driver.phoneNo">----</h5>
+        </ion-col>
+      </ion-row>
+      <ion-row class="borderb-1 py-2">
+        <ion-col col-6>
+          <h5 ion-text color="dark" no-margin>
+            <ion-icon name="car"></ion-icon> &nbsp; Vehicle Type </h5>
+        </ion-col>
+        <ion-col col-6 text-right>
+          <h5 ion-text color="gray" no-margin *ngIf="driver.vehicleType">{{driver.vehicleType}}</h5>
+          <h5 ion-text color="gray" no-margin *ngIf="!driver.vehicleType">----</h5>
+        </ion-col>
+      </ion-row>
+      <ion-row class="borderb-1 py-2">
+        <ion-col col-6>
+          <h5 ion-text color="dark" no-margin>
+            <ion-icon name="car"></ion-icon> &nbsp; Vehicle Name </h5>
+        </ion-col>
+        <ion-col col-6 text-right>
+          <h5 ion-text color="gray" no-margin *ngIf="driver.vehicleName ">{{driver.vehicleName }}</h5>
+          <h5 ion-text color="gray" no-margin *ngIf="!driver.vehicleName ">----</h5>
+        </ion-col>
+      </ion-row>
+      <ion-row class="borderb-1 py-2">
+        <ion-col col-6>
+          <h5 ion-text color="dark" no-margin>
+            <ion-icon name="car"></ion-icon> &nbsp; Vehicle No. </h5>
+        </ion-col>
+        <ion-col col-6 text-right>
+          <h5 ion-text color="gray" no-margin *ngIf="driver.vehicleNo ">{{driver.vehicleNo }}</h5>
+          <h5 ion-text color="gray" no-margin *ngIf="!driver.vehicleNo ">----</h5>
+        </ion-col>
+      </ion-row>
+      <ion-row class="borderb-1 py-2">
+        <ion-col col-4>
+          <h5 ion-text color="dark" no-margin>
+            <ion-icon name="pin"></ion-icon> &nbsp;Address </h5>
+        </ion-col>
+        <ion-col col-8 text-right>
+          <h5 ion-text color="gray" no-margin *ngIf="driver.address">{{driver.address}}</h5>
+          <h5 ion-text color="gray" no-margin *ngIf="!driver.address">----</h5>
+        </ion-col>
+        <ion-col *ngIf="driver.address">
+          <div id="map" style="width:100%;height:200px;background:gainsboro"></div>
+        </ion-col>
+      </ion-row>
+      <ion-row class="mt-3">
+        <ion-col col-12>
+          <button ion-button color="secondary" full (click)="goToPassword()">Change Password</button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+
 </ion-content>

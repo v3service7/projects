@@ -294,16 +294,18 @@ export class CustomerBusinessAddComponent implements OnInit {
   styleUrls: ['./business.component.css'],
 })
 export class CustomerBusinessDocumentComponent implements OnInit {
-    currentCustomer: any = {};
+    currentCustomer = JSON.parse(localStorage.getItem('currentCustomer'));
     businesses: any={};
     returnUrl: string;
     processCompletePercent: number = 0;
     err:any;
     businessAddForm: FormGroup;
     imgUrl = globalVariable.imageUrl;
-
+    bID = 'business_'+this.currentCustomer._id;
+    bData = JSON.parse(localStorage.getItem(this.bID));
     public uploader: FileUploader = new FileUploader({ url: globalVariable.url+'upload' });
-
+    public s3Uploader: FileUploader = new FileUploader({ url: globalVariable.url+'s3upload/'+this.bData.businessName });;
+    
     constructor(
         private lf: FormBuilder, 
         private businessService: BusinessService,
@@ -313,6 +315,7 @@ export class CustomerBusinessDocumentComponent implements OnInit {
         private _flashMessagesService: FlashMessagesService,
     ){ 
         this.currentCustomer = JSON.parse(localStorage.getItem('currentCustomer'));
+        
       }
 
     ngOnInit() {
@@ -349,21 +352,24 @@ export class CustomerBusinessDocumentComponent implements OnInit {
             bankStatementFile: [],
             /*test: ['', Validators.required],*/
         });
-
         let bID = 'business_'+this.currentCustomer._id
         this.businessAddForm.patchValue(JSON.parse(localStorage.getItem(bID)));
+        console.log(this.businessAddForm.value.businessName)
+        
+        
     }
 
     onChange(event,fileType) {
-        this.uploader.uploadAll();
-        this.uploader.onProgressItem = (file: any, progress: any) =>{
+        //console.log(this.s3Uploader)
+        this.s3Uploader.uploadAll();
+        this.s3Uploader.onProgressItem = (file: any, progress: any) =>{
             this.processCompletePercent = progress;
         }
-        this.uploader.onCompleteItem = (item: any, response: any, status: any, headers: any) => {
+        this.s3Uploader.onCompleteItem = (item: any, response: any, status: any, headers: any) => {
             var responsePath = JSON.parse(response);
-            console.log(fileType,responsePath.filename);
+            //console.log('responsePath',responsePath.filename.location);
             /*this.businessAddForm.controls['test'].setValue(1);*/
-            this.businessAddForm.controls[fileType].setValue(responsePath.filename);
+            this.businessAddForm.controls[fileType].setValue(responsePath.filename.location);
         };
     }
 
@@ -389,7 +395,7 @@ export class CustomerBusinessDocumentComponent implements OnInit {
   styleUrls: ['./business.component.css'],
 })
 export class CustomerBusinessEditComponent implements OnInit {
-    currentCustomer: any = {};
+    currentCustomer = JSON.parse(localStorage.getItem('currentCustomer'));
     plans: any = [];
     isVisit = false;
     businessAddForm: FormGroup;
@@ -399,6 +405,8 @@ export class CustomerBusinessEditComponent implements OnInit {
     processCompletePercent: number = 0;
 
     public uploader: FileUploader = new FileUploader({ url: globalVariable.url+'upload' });
+    s3Uploader: FileUploader ;
+    
 
     formErrors = {
         'businessName': '',
@@ -543,13 +551,13 @@ export class CustomerBusinessEditComponent implements OnInit {
     }
 
     onChange(event,fileType) {
-        this.uploader.uploadAll();
-        this.uploader.onProgressItem = (file: any, progress: any) =>{
+        this.s3Uploader.uploadAll();
+        this.s3Uploader.onProgressItem = (file: any, progress: any) =>{
             this.processCompletePercent = progress;
         }
-        this.uploader.onCompleteItem = (item: any, response: any, status: any, headers: any) => {
+        this.s3Uploader.onCompleteItem = (item: any, response: any, status: any, headers: any) => {
             var responsePath = JSON.parse(response);
-            this.businessAddForm.controls[fileType].setValue(responsePath.filename);
+            this.businessAddForm.controls[fileType].setValue(responsePath.filename.location);
             /*this.businesses[fileType]= responsePath.filename;*/
         };
     }
@@ -558,10 +566,11 @@ export class CustomerBusinessEditComponent implements OnInit {
         this.businessService.business(id).subscribe(
             (data) => {
             if (!data.error) {
-                console.log(data)
+                //console.log(data)
                 this.businessAddForm.patchValue(data.message);
-                console.log("this.businessAddForm.value");
-                console.log(this.businessAddForm.value);
+                this.s3Uploader = new FileUploader({ url: globalVariable.url+'s3upload/'+this.businessAddForm.value.businessName })
+                /*console.log("this.businessAddForm.value");
+                console.log(this.businessAddForm.value);*/
             }
             },
             (err)=>{

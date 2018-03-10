@@ -1,0 +1,99 @@
+<app-profileheader></app-profileheader>
+<flash-messages></flash-messages>
+<div class="container-fluid pt-80">
+    <div class="row">
+        <div class="col-lg-4 text-center pb-5">
+            <img *ngIf="!croppedImage" [src]="imageParse()" class="mx-auto img-circle d-block rounded-circle" alt="avatar" width="150px"
+                height="150px">
+            <img *ngIf="croppedImage" [src]="croppedImage" class="mx-auto img-circle d-block rounded-circle" alt="avatar" width="150px"
+                height="150px">
+            <label class="custom-file">
+                <input type="file" class="custom-file-input"  (change)="fileChangeEvent($event)" />
+                <span class="custom-file-control">Upload Image</span>
+            </label>
+    
+
+        </div>
+        <div class="col-lg-8 pb-5">
+            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                <li class="nav-item">
+                    <a class="nav-link active" id="edit-tab" data-toggle="tab" href="#edit" role="tab" aria-controls="edit" aria-selected="true">Edit Profile</a>
+                </li>
+                <li class="nav-item" *ngIf="customer.provider == 'email'">
+                    <a class="nav-link" id="password-tab" data-toggle="tab" href="#password" role="tab" aria-controls="password" aria-selected="false">Change Password</a>
+                </li>
+            </ul>
+            <div class="tab-content pt-3" id="myTabContent">
+                <div class="tab-pane fade show active" id="edit" role="tabpanel" aria-labelledby="edit-tab">
+                    <form [formGroup]="customerProfileForm" (ngSubmit)="profileUpdate()">
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">First Name</label>
+                            <input type="text" formControlName="firstname" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                                placeholder="Enter First Name">
+
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Last Name</label>
+                            <input type="text" formControlName="lastname" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Last Name">
+
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Email address</label>
+                            <input type="email" formControlName="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+
+                        </div>
+                        <button type="submit" class="btn btn-warning">Update Profile</button>
+                    </form>
+                </div>
+                <div class="tab-pane fade" id="password" role="tabpanel" aria-labelledby="password-tab" *ngIf="customer.provider == 'email'">
+                    <form [formGroup]="customerPasswordUpdateForm" (ngSubmit)="passwordUpdate()">
+                        <div class="form-group" >
+                            <label for="exampleInputPassword1">Old Password</label>
+                            <input type="password" formControlName="oldpassword" class="form-control"  placeholder="Password">
+                        </div>
+                        <div class="form-group" >
+                            <label for="exampleInputPassword1">New Password</label>
+                            <input type="password" formControlName="newpassword" class="form-control"  placeholder="Password">
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputPassword1">Confirm Password</label>
+                            <input type="password" formControlName="confirmpassword" class="form-control"  placeholder="Password">
+                        </div>
+                        <button type="submit" class="btn btn-warning" [disabled]="!customerPasswordUpdateForm.valid">Update Password</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- The imageuploadModal Modal -->
+<div id="imageuploadModal" class="modal">
+    <span class="close" (click)="modelClose()">&times;</span>
+    <div class="container">
+        <div class="row justify-content-md-center">
+        <div class="col-lg-10 col-xs-12">
+            <div class="card rounded-1">
+                <span class="close signupclose" (click)="modelClose()">&times;</span>
+                <div class="card-header text-center bg-white h4 rounded-1 rounded-rl-1">
+                  Image Crop and Upload
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-lg-3 ">
+                            <img *ngIf="croppedImage" [src]="croppedImage" class="mx-auto img-circle d-block rounded-circle" alt="avatar" width="150px"
+                                height="150px">
+                        </div>
+                        <div class="col-lg-7 ">
+                        <image-cropper [imageChangedEvent]="imageChangedEvent" [maintainAspectRatio]="true" [aspectRatio]="4 / 3" [resizeToWidth]="128"
+                            format="png" (imageCropped)="imageCropped($event)"></image-cropper>
+                        </div>
+                        <div class="col-lg-2 text-center">
+                            <button type="button" class="btn btn-warning"  (click)="upload()">Upload Image</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+    </div>
+</div>

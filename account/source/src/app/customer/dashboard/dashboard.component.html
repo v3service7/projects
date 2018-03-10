@@ -12,8 +12,8 @@
                             </div>
                             <div class="card-content">
                                 <p class="category">Business</p>
-                                <h3 class="title">{{business.length}}
-                                </h3>
+                                <h3 class="title" *ngIf="business">{{business.length}}</h3>
+                                <h3 class="title" *ngIf="!business">0</h3>
                             </div>
                             <div class="card-footer">
                                 <div class="stats">

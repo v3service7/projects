@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+	<head>
+	  	<meta charset="utf-8">
+	  	<title>Showcase.Social</title>
+	  	<base href="/">
+	  	<meta name="viewport" content="width=device-width, initial-scale=1">
+	  	<link rel="icon" type="image/x-icon" href="favicon.ico">
+	  	<!-- Bootstrap core CSS     -->
+		<link href="/assets/frontend/css/bootstrap.min.css" rel="stylesheet" />
+		<link href="/assets/frontend/css/style.css" rel="stylesheet" />
+		<!--     Fonts and icons     -->
+			<link href="node_modules/ng2-toastr/bundles/ng2-toastr.min.css" rel="stylesheet" />
+		<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+	</head>
+	<body>
+		<app-root></app-root><!-- 
+		<script type="text/javascript" src="https://code.jquery.com/jquery-1.11.2.min.js"></script> -->
+		<!--   Frontend JS Files   -->
+		
+		<script src="/assets/frontend/js/jquery-3.2.1.slim.min.js"></script>
+		<script src="/assets/frontend/js/popper.min.js"></script>
+		<script src="/assets/frontend/js/bootstrap.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/4.1.1/imagesloaded.pkgd.min.js"></script>
+
+		<!--   Admin JS Files   -->
+		<script src="/assets/admin/js/material.min.js" type="text/javascript"></script>
+		<script src="/assets/admin/js/script.js" type="text/javascript"></script>
+		<script src="/assets/admin/js/arrive.min.js" type="text/javascript"></script>
+		<script src="/assets/admin/js/perfect-scrollbar.jquery.min.js" type="text/javascript"></script>
+		<!-- <script src="/assets/admin/js/material-dashboard.js" type="text/javascript"></script> -->
+	
+		<script src="node_modules/ng2-toastr/bundles/ng2-toastr.min.js"></script>
+	
+	<script>
+	$('.dropdown-menu a.dropdown-toggle').on('click', function (e) {
+			if (!$(this).next().hasClass('show')) {
+				$(this).parents('.dropdown-menu').first().find('.show').removeClass("show");
+			}
+			var $subMenu = $(this).next(".dropdown-menu");
+			$subMenu.toggleClass('show');
+
+
+			$(this).parents('li.nav-item.dropdown.show').on('hidden.bs.dropdown', function (e) {
+				$('.dropdown-submenu .show').removeClass("show");
+			});
+
+
+			return false;
+		}); </script>
+	</body>
+</html>

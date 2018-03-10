@@ -1,0 +1,230 @@
+<ion-header>
+    <ion-navbar color="secondary">
+        <button ion-button menuToggle>
+            <ion-icon name="menu"></ion-icon>
+        </button>
+        <ion-title>Order Detail</ion-title>
+    </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+
+    <ion-row class="whiteDiv">
+        <ion-row class= "width100">
+            <ion-col col-12><strong>Delivery Details :</strong></ion-col>
+        </ion-row>
+        <hr class="width100 height2px">
+        <ion-row padding-horizontal class= "width100">
+            <ion-col col-12><strong>Order ID : </strong>#{{orderDetail._id | slice:-8}}</ion-col>
+            <ion-col col-12><strong>Received at : </strong>{{orderDetail.created_at | date:'medium' }}</ion-col>
+        </ion-row>
+    </ion-row>
+
+    <ion-row class="whiteDiv">
+        <ion-row class= "width100">
+            <ion-col col-12 text-capitalize><strong>Order Status : </strong>{{orderDetail.status}}</ion-col>
+        </ion-row>
+        <ion-row padding-horizontal class= "width100" *ngIf="orderDetail.status != 'completed'">
+        <hr class="width100 height2px">
+            <ion-col col-12>
+                <button class="acceptButton" ion-button (click)="changeStatus('driveraccepted', orderDetail._id)">Accept</button>
+
+                <button class="rejectButton" ion-button (click)="changeStatus('driverrejected', orderDetail._id)">Reject</button>
+            </ion-col>
+        </ion-row>
+
+        <ion-row padding-horizontal class= "width100" *ngIf="orderDetail.status == 'driveraccepted'">
+            <ion-col col-12 class="text-center">
+                <button ion-button color="secondary" (click)="completeStatus('completed', orderDetail._id)">Order complete</button>
+            </ion-col>
+        </ion-row>
+
+        <ion-col col-12 *ngIf = "orderDetail.status == 'accepted'">
+            <button class="acceptButton" ion-button full (click)="sendRequest()">Send Request to Drivers</button>
+        </ion-col>
+    </ion-row>
+
+    <ion-row class="whiteDiv" *ngIf = "orderDetail.driverDetail">
+        <ion-row class= "width100">
+            <ion-col col-12><strong>Driver Detail :</strong></ion-col>
+        </ion-row>
+        <hr class="width100 height2px">
+        <ion-row padding-horizontal class= "width100">
+            <ion-col col-12 text-capitalize><strong>Name : </strong>{{orderDetail.driverDetail.name}}</ion-col>
+            <ion-col col-12><strong>Contact No. : </strong>{{orderDetail.driverDetail.phone}}</ion-col>
+            <ion-col col-12 text-capitalize><strong>Vehicle Type : </strong>{{orderDetail.driverDetail.vehicleType}}</ion-col>
+            <ion-col col-12 text-capitalize><strong>Vehicle Name : </strong>{{orderDetail.driverDetail.vehicleName}}</ion-col>
+            <ion-col col-12><strong>Vehicle Number : </strong>{{orderDetail.driverDetail.vehicleNo}}</ion-col>
+        </ion-row>
+    </ion-row>
+
+
+    <ion-row class="whiteDiv">
+        <ion-row class= "width100">
+            <ion-col col-12><strong>Order Type :</strong></ion-col>
+        </ion-row>
+        <hr class="width100 height2px">
+        <ion-row padding-horizontal class= "width100">
+            <ion-col col-12><span *ngIf = "orderDetail.ordertiming && orderDetail.ordertiming.type == 'now'">Order for Now</span><span *ngIf = "orderDetail.ordertiming && orderDetail.ordertiming.type == 'later'">Pre Order for Later</span></ion-col>
+            <ion-col col-12 *ngIf = "orderDetail.ordertiming && orderDetail.ordertiming.datetime"><strong>When to deliver : </strong>{{orderDetail.ordertiming.datetime | date : 'medium'}}</ion-col>
+        </ion-row>
+    </ion-row>
+
+    <ion-row class="whiteDiv" *ngIf = "orderDetail.customerData">
+        <ion-row class= "width100">
+            <ion-col col-12><strong>Customer Details :</strong></ion-col>
+        </ion-row>
+        <hr class="width100 height2px">
+        <ion-row padding-horizontal class= "width100">
+            <ion-col col-12 text-capitalize><strong>Name : </strong>{{orderDetail.customerData.firstname}} {{orderDetail.customerData.lastname}}</ion-col>
+            <ion-col col-12><strong>Email ID : </strong>{{orderDetail.customerData.email}}</ion-col>
+            <ion-col col-12 *ngIf = "orderDetail.fulladdress"><strong>Delivery Address : </strong>{{orderDetail.fulladdress.address}}</ion-col>
+            <ion-col col-12 *ngIf = "orderDetail.fulladdress"><strong>Zipcode : </strong>{{orderDetail.fulladdress.zipcode}}</ion-col>
+        </ion-row>
+    </ion-row>
+
+    <ion-row padding class= "whiteDiv displayBlock" *ngIf = "orderDetail">
+
+        <ion-row padding-horizontal class="width100 colorLightGray">
+            <ion-col col-6>Total</ion-col>
+            <ion-col text-right>AED {{orderDetail.subtotal | number : '1.2-2'}}</ion-col>
+        </ion-row>
+
+        <ion-row padding-horizontal class="width100 colorLightGray">
+            <ion-col col-6>Tax</ion-col>
+            <ion-col text-right>{{orderDetail.tax}} %</ion-col>
+        </ion-row>
+
+        <ion-row *ngIf = "orderDetail.discount" padding-horizontal class="width100 colorLightGray">
+            <ion-col col-6>Discount</ion-col>
+            <ion-col text-right>AED {{orderDetail.discount | number : '1.2-2'}}</ion-col>
+        </ion-row>
+
+        <hr class="width100 height2px">
+
+        <ion-row padding-horizontal class="width100 colorLightGray">
+            <ion-col col-6 text-right class="colorGray"><strong>Pay</strong></ion-col>
+            <ion-col text-right>{{orderDetail.total | number : '1.2-2'}}</ion-col>
+        </ion-row>
+    </ion-row>
+
+    <div id="map" style="width:100%;height:100%;background:gainsboro"></div>
+
+</ion-content>
+
+
+
+
+
+
+<!-- <ion-header>
+    <ion-navbar color="secondary">
+        <button ion-button menuToggle>
+            <ion-icon name="menu"></ion-icon>
+        </button>
+        <ion-title>Order Detail</ion-title>
+    </ion-navbar>
+</ion-header>
+<ion-content padding >
+    <div *ngIf="orderDetail.customerData">
+        <div class="card mb-4" *ngIf="orderDetail.status != 'completed'">
+            <div class="card-header" ><h3 class="mb-0 mt-1 bg-light">Driver Status</h3></div>
+            <div class="card-body p-0 " >
+                <ion-grid>
+                    <ion-row *ngIf="orderDetail.status != 'driveraccepted'"> 
+                        <ion-col col-4><h4 class="mb-0  pt-3">Assigned</h4> </ion-col>
+                        <ion-col col-8 text-right><button small ion-button color="secondary" (click)="changeStatus('driveraccepted', orderDetail._id)" outline>Accept</button><button ion-button small color="danger" outline (click)="changeStatus('driverrejected', orderDetail._id)">Reject</button></ion-col>
+                    </ion-row>
+                    <ion-row *ngIf="orderDetail.status == 'driveraccepted'"> 
+                        <ion-col col-12 class="text-center"><h4 class="mb-0 "><button ion-button color="secondary" (click)="completeStatus('completed', orderDetail._id)">Order complete</button></h4> </ion-col>
+
+                    </ion-row>
+                </ion-grid>
+            </div>
+        </div>
+        <div class="card mb-4">
+            <div class="card-header"><h3 class="mb-0 mt-1 bg-light">Order Status</h3></div>
+            <div class="card-body p-0">
+                <ion-grid>
+                    <ion-row>
+                        <ion-col col-12 text-center><h4 class="mb-0 text-capitalize"><ion-badge>{{orderDetail.status}}</ion-badge></h4> </ion-col>
+                    </ion-row>
+                </ion-grid>
+            </div>
+        </div>
+        <div class="card mb-4">
+            <div class="card-header"><h3 class="mb-0 mt-1 bg-light">Customer Detail</h3></div>
+            <div class="card-body p-0">
+                <ion-grid>
+                    <ion-row class="py-2">
+                        <ion-col col-4><h4 class="mb-0"><ion-icon name="person"></ion-icon>  Name</h4> </ion-col>
+                        <ion-col col-8 text-right><h4 class="mb-0 text-muted text-capitalize">{{orderDetail.customerData.firstname}} {{orderDetail.customerData.lastname}}</h4></ion-col>
+                    </ion-row>
+                    <ion-row class="py-2">
+                        <ion-col col-4><h4 class="mb-0"><ion-icon name="mail"></ion-icon>  Email</h4> </ion-col>
+                        <ion-col col-8 text-right><h4 class="mb-0 text-muted">{{orderDetail.customerData.email}}</h4></ion-col>
+                    </ion-row>
+                    <ion-row class="py-2">
+                        <ion-col col-4><h4 class="mb-0"><ion-icon name="call"></ion-icon>  Mobile No.</h4> </ion-col>
+                        <ion-col col-8 text-right><h4 class="mb-0 text-muted">{{orderDetail.customerData.cellphone}}</h4></ion-col>
+                    </ion-row>
+                </ion-grid>
+            </div>
+        </div>
+        <div class="card mb-4">
+            <div class="card-header"><h3 class="mb-0 mt-1 bg-light">Order Detail</h3></div>
+            <div class="card-body p-0">
+                <ion-grid>
+                    <ion-row class="py-2">
+                        <ion-col col-4><h4 class="mb-0"><ion-icon name="pin"></ion-icon>  Address</h4> </ion-col>
+                        <ion-col col-8 text-right><h4 class="mb-0 text-muted">{{orderDetail.fulladdress.address}}</h4></ion-col>
+                    </ion-row>
+                    <ion-row class="py-2">
+                        <ion-col col-4><h4 class="mb-0"><ion-icon name="card"></ion-icon>  Payment</h4> </ion-col>
+                        <ion-col col-8 text-right><h4 class="mb-0 text-muted">{{orderDetail.paymenttype}}</h4></ion-col>
+                    </ion-row>
+                    <ion-row class="py-2">
+                        <ion-col col-4><h4 class="mb-0"><ion-icon name="time"></ion-icon>  Date Time</h4> </ion-col>
+                        <ion-col col-8 text-right><h4 class="mb-0 text-muted">{{orderDetail.created_at| date:'shortTime'}}, {{orderDetail.created_at| date}}</h4></ion-col>
+                    </ion-row>
+
+                </ion-grid>
+            </div>
+        </div>
+        <div class="card mb-4">
+
+            <div class="card-body p-0">
+                <ion-grid>
+                    <ion-row class="py-2">
+                        <ion-col col-6>
+                            <h4 class="mb-0 ">Sub Total</h4>
+                        </ion-col>
+                        <ion-col col-6 text-right>
+                            <h4 class="mb-0 text-muted">$ {{orderDetail.subtotal}}</h4>
+                        </ion-col>
+                    </ion-row>
+                    <ion-row class="py-2">
+                        <ion-col col-6>
+                            <h4 class="mb-0 ">Tax</h4>
+                        </ion-col>
+                        <ion-col col-6 text-right>
+                            <h4 class="mb-0 text-muted">$ {{orderDetail.tax}}</h4>
+                        </ion-col>
+                    </ion-row>
+                    <hr>
+                    <ion-row class="py-2">
+                        <ion-col col-6>
+                            <h4 class="mb-0 ">Total</h4>
+                        </ion-col>
+                        <ion-col col-6 text-right>
+                            <h4 class="mb-0 text-muted">$ {{orderDetail.total}}</h4>
+                        </ion-col>
+                    </ion-row>
+
+
+                </ion-grid>
+            </div>
+        </div>
+    </div>
+    <div id="map" style="width:100%;height:100%;background:gainsboro"></div>
+</ion-content> -->

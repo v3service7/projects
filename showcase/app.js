@@ -10,8 +10,19 @@ const config = require('./config/database');
 const users = require('./routes/users');
 const pages = require('./routes/pages');
 const plans = require('./routes/plans');
+const category = require('./routes/category');
+const bookmark = require('./routes/bookmark');
 const purchaseplans = require('./routes/purchaseplans');
 const http = require('http');
+var https = require('https');
+var fs = require('fs');
+//var options;
+var options = {
+  key: fs.readFileSync('/etc/letsencrypt/live/measuremight.com/privkey.pem'),
+  cert: fs.readFileSync('/etc/letsencrypt/live/measuremight.com/cert.pem'),
+  ca: fs.readFileSync('/etc/letsencrypt/live/measuremight.com/chain.pem')
+};
+
 var multer = require('multer');
 // Connect to Database
 mongoose.connect(config.database);
@@ -30,6 +41,7 @@ const app = express();
 
 // Port Number
 const port = 3001;
+const httpsPort = 3002;
 
 // CORS Middleware to access API from outside
 app.use(cors());
@@ -48,12 +60,14 @@ require('./config/passport')(passport);
 app.use('/users', users);
 app.use('/plan', plans);
 app.use('/page', pages);
+app.use('/category', category);
+app.use('/bookmark', bookmark);
 app.use('/purchaseplan', purchaseplans);
 
 var storage = multer.diskStorage({ //multers disk storage settings
     destination: function (req, file, cb) {
+        cb(null, '/home/showcase-social/public/uploads/');
         //cb(null, 'public/uploads/');
-        cb(null, 'public/uploads/');
     },
     filename: function (req, file, cb) {
         var datetimestamp = Date.now();
@@ -77,6 +91,7 @@ app.post('/upload', function(req, res) {
          res.json({error_code:0,err_desc:null,filename:req.file.filename});
     });
 });
+
 // Index Route
 app.get('/', (req, res) => {
 	res.send('Invalid End Point');
@@ -87,8 +102,18 @@ app.get('*', (req, res) => {
 });
 
 const server = http.createServer(app);
-
 // Start Server
 server.listen(port, () => {
-	console.log('Server started on port '+port);
+  console.log('Server started on port '+port);
 });
+
+// Start Https Server
+const httpsServer = https.createServer(options, app);
+
+httpsServer.listen(httpsPort, () => {
+	console.log('Server started on port '+httpsPort);
+});
+
+/*https.createServer(options, function (req, res) {
+  
+}).listen(8000);*/
