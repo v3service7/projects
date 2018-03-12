@@ -14,7 +14,7 @@ module.exports = (function () {
     router.get('/category/:id', passport.authenticate('jwt', { session: false }), (req, res) => {
         var response = {};
 
-        bookmarkModel.find({ category_id: req.params.id }, null, { sort: { position: 1 } }, function (err, bookmark) {
+        bookmarkModel.find({ category_id: req.params.id }, null, { sort: { position: -1 } }, function (err, bookmark) {
             if (err) {
                 response = { "error": true, "message": "Error fetching data" };
             } else {
@@ -27,7 +27,7 @@ module.exports = (function () {
     router.get('/category/open/:id', (req, res) => {
         var response = {};
 
-        bookmarkModel.find({ category_id: req.params.id }, null, { sort: { position: 1 } }, function (err, bookmark) {
+        bookmarkModel.find({ category_id: req.params.id }, null, { sort: { position: -1 } }, function (err, bookmark) {
             if (err) {
                 response = { "error": true, "message": "Error fetching data" };
             } else {
@@ -51,36 +51,6 @@ module.exports = (function () {
 
     // add bookmark
     router.post('/', passport.authenticate('jwt', { session: false }), function (req, res) {
-        var response = {};
-        var lastValuePositions;
-        var newbookmark = new bookmarkModel(req.body);
-        var category_id = req.body.category_id;
-        bookmarkModel.find({ category_id: category_id }, null, { sort: { position: -1 } }, function (err, bookmarks) {
-            if (err) {
-                response = { "error": true, "message": err };
-            } else {
-                console.log('bookmarks')
-                console.log(bookmarks)
-                if(bookmarks.length > 0){
-                    lastValuePositions = bookmarks[0].position;
-                    newbookmark.position = lastValuePositions + 1;
-                }
-                else{
-                    newbookmark.position = 1;
-                }
-                newbookmark.save((err, bookmark) => {
-                    if (err) {
-                        response = { "error": true, "message": err };
-                    } else {
-                        response = { "error": false, "message": 'Bookmarks added successfully.' };
-                    }
-                    res.json(response);
-                });
-            };
-        });
-    });
-    // add multi bookmarks
-    router.post('/multi', passport.authenticate('jwt', { session: false }), function (req, res) {
         var response = {};
         var lastValuePositions;
         var newbookmark = new bookmarkModel(req.body);

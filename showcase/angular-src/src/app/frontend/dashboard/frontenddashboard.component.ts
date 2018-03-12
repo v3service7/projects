@@ -931,6 +931,7 @@ export class ViewPublicComponent implements AfterViewInit, OnInit {
     setWidth(type) {
         return this.curColWidth;
     }
+    
     manageUI() {
         let cols = 4;
         if ($('body').width() > 1600) {

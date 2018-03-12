@@ -3,6 +3,7 @@ const router = express.Router();
 const passport = require('passport');
 const jwt = require('jsonwebtoken');
 const User = require('../models/user.js');
+const Category = require("../models/category.js");
 const config = require('../config/database');
 const emails = require('../mail/emailConfig.js');
 const randomstring = require("randomstring");
@@ -242,6 +243,12 @@ router.post('/', (req, res, next) => {
             res.json({ error: true, msg: err });
         } else {
             emails.emailShoot(user.email, user.email, user.email_token);
+            var obj ={};
+            obj['name'] = 'Showcase';
+            obj['position'] = 0;
+            obj['user_id'] = newUser._id;
+            category = new Category(obj);
+            category.save();
             res.json({ error: false, msg: 'User registered' });
         }
     });
