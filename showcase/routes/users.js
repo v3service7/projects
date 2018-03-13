@@ -261,6 +261,12 @@ router.post('/social-register', (req, res, next) => {
         if (err) {
             res.json({ error: true, msg: err });
         } else {
+            var obj = {};
+            obj['name'] = 'Showcase';
+            obj['position'] = 0;
+            obj['user_id'] = newUser._id;
+            category = new Category(obj);
+            category.save();
             res.json({ error: false, msg: 'User registered' });
         }
     });

@@ -2,8 +2,8 @@
 <div class="container-fluid" *ngIf="category" style="padding-top: 75px;">
     <div class="row">
         <div class="col-lg-7 col-md-6 col-sm-6 mb-5 ">
-            <div class="row mb-3" *ngIf="bookmarks.length > 0 ">
-                <ng-container *ngIf="bookmarks_ids.length == 0">
+            <div class="row mb-3" *ngIf="bookmarks?.length > 0 ">
+                <ng-container *ngIf="bookmarks_ids?.length == 0">
                     <div class="col text-center ">
                         <i class="fa fa-trash icon-circle"></i> Deleted selected
                     </div>
@@ -11,7 +11,7 @@
                         <i class="fa fa-copy icon-circle"></i> Copy selected to showcase
                     </div>
                 </ng-container>
-                <ng-container *ngIf="bookmarks_ids.length > 0">
+                <ng-container *ngIf="bookmarks_ids?.length > 0">
                     <div class="col text-center pointer" (click)="doDelete()">
                         <i class="fa fa-trash icon-circle"></i> Deleted selected
                     </div>
@@ -20,7 +20,7 @@
                     </div>
                 </ng-container>
             </div>
-            <h3 *ngIf="bookmarks.length == 0" class="text-muted text-center pt-5">No bookmarks available.</h3>
+            <h3 *ngIf="bookmarks?.length == 0" class="text-muted text-center pt-5">No bookmarks available.</h3>
             <ul class="list-group">
                 <li class="list-group-item custom-list-group-item" *ngFor="let bookmark of bookmarks; let i = index; let last = last;">
                     <div class="row">
@@ -82,7 +82,7 @@
                     <input type="text" class="form-control" formControlName="name" placeholder="tyoe here...">
 
                 </div>
-                <div class="form-group">
+                <div class="form-group" *ngIf="currentCustomer && currentCustomer.ispaid">
                     <label for="exampleFormControlSelect1">Position in menu</label>
                     <select class="form-control" formControlName="position">
                         <option [ngValue]="1">Top</option>
