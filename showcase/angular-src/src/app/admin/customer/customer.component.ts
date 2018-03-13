@@ -57,6 +57,16 @@ export class CustomerListComponent implements OnInit {
     ngOnInit() {
         this.getList();
     }
+    paidStatusChange(user_id, value) {
+        const obj = {
+            _id: user_id,
+            ispaid: value };
+        this.customerService.userUpdate(obj).subscribe((data) => {
+            if (!data.error) {
+                this._flashMessagesService.show('Paid status change successfully.', { cssClass: 'alert-success', timeout: 3000 });
+            }
+        });
+    }
     setUsername(fname, lname, id) {
         var username;
         if (typeof fname === 'undefined' && typeof lname === 'undefined') {

@@ -54,6 +54,7 @@ import { SafePipe } from './safe.pipe';
 import { ShareButtonsModule } from 'ng2-sharebuttons';
 import { PublicComponent } from './public/public.component';
 import { ClipboardModule } from 'ngx-clipboard';
+import { UiSwitchModule } from 'ngx-ui-switch';
 
 let providers = {
     'google': {
@@ -92,6 +93,7 @@ let providers = {
     PublicComponent
   ],
   imports: [
+    UiSwitchModule,
     ClipboardModule,
     ImageCropperModule,
     MasonryModule,

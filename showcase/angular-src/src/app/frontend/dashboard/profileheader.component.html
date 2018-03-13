@@ -6,8 +6,9 @@
         </button>
         <a class="navbar-brand" [routerLink]="['/dashboard']">Showcase.Social</a>
         <a *ngIf="currentCustomer != undefined" class="navbar-brand p-0" href="javascript:void(0)">
-            <img [src]="currentCustomer && currentCustomer.image" class="rounded-circle d-none d-sm-block d-md-none d-block d-sm-none"
-                width="30" height="30">
+                <img *ngIf="currentCustomer.image" [src]="currentCustomerImage" class="rounded-circle rounded-circle d-none d-sm-block d-md-none d-block d-sm-none" width="30" height="30">
+                <img *ngIf="!currentCustomer.image" src="https://www.w3schools.com/howto/img_avatar.png" class="rounded-circle rounded-circle d-none d-sm-block d-md-none d-block d-sm-none" width="30"
+                    height="30">
         </a>
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav mr-auto category-navbar " id="category-navbar">
@@ -53,8 +54,8 @@
                         </span>
                     </ul>
                 </li>
-                <li class="nav-item pl-3"  *ngIf="categories">
-                    <a class="nav-link" href="javascript:void(0)" (click)="addCategory()" > Add new
+                <li class="nav-item pl-3" *ngIf="categories && currentCustomer.ispaid">
+                    <a class="nav-link" href="javascript:void(0)" (click)="addCategory()"> Add new
                         <i class="fa fa-plus-circle"></i>
                     </a>
                 </li>
@@ -143,8 +144,19 @@
                                 <p class="text-center">Preview your link before adding</p>
                                 <p class="text-center text-danger">Display not quite right ?</p>
                                 <div id="bookMark" class="mx-5 text-center"></div>
+                                <div class="mx-5">
+                                    <div class="custom-control custom-radio custom-control-inline mt-3">
+                                        <input type="radio" id="customRadio1" name="customRadio" (click)="bookmarkPosition('top')" class="custom-control-input" checked>
+                                        <label class="custom-control-label" for="customRadio1">Add to top</label>
+                                    </div>
+                                    <div class="custom-control custom-radio custom-control-inline mt-3">
+                                        <input type="radio" id="customRadio2" name="customRadio" (click)="bookmarkPosition('bottom')" class="custom-control-input">
+                                        <label class="custom-control-label" for="customRadio2">Add to bottom</label>
+                                    </div>
+                                </div>
                             </div>
                         </div>
+
                     </div>
                     <div class="card-footer">
                         <button type="button" class="btn btn-danger float-left px-5 rounded-1" (click)="modelBookmarkCloseEmptyForm()">Cancel</button>
@@ -182,10 +194,17 @@
                                     <div class="form-group" *ngIf="showcaseField">
                                         <label for="exampleFormControlSelect1">Position in menu</label>
                                         <select class="form-control" formControlName="position">
-                                            <option [ngValue]="1" selected>Top</option>
                                             <option *ngFor="let category of categories; let i = index" [ngValue]="category.position+1">After {{category.name}}</option>
                                         </select>
+                                    </div><!-- 
+                                    <div class="custom-control custom-radio custom-control-inline">
+                                        <input type="radio" id="customRadio1" name="customRadio" (click)="bookmarkPosition('top')" class="custom-control-input" checked>
+                                        <label class="custom-control-label" for="customRadio1">Add to top</label>
                                     </div>
+                                    <div class="custom-control custom-radio custom-control-inline ">
+                                        <input type="radio" id="customRadio2" name="customRadio" (click)="bookmarkPosition('bottom')" class="custom-control-input">
+                                        <label class="custom-control-label" for="customRadio2">Add to bottom</label>
+                                    </div> -->
                                 </div>
                             </div>
                         </div>
@@ -244,7 +263,7 @@
     </div>
 </div>
 <!-- The embed Modal  -->
-<div id="embedModal" class="modal dark-bg" >
+<div id="embedModal" class="modal dark-bg">
     <div class="container" *ngIf="category">
         <div class="row justify-content-md-center">
             <div class="col-lg-7 col-xs-12">
@@ -260,7 +279,7 @@
                                 <p class="box">&lt;div id=&quot;showcaseSocialBlock&quot; data-showcaseID='{{category._id}}'&gt;&lt;/div&gt;&lt;script
                                     src=&quot;https://measuremight.com:3002/embed.min.js&quot;&gt;&lt;/script&gt;
                                 </p>
-                                <button type="button" class="btn btn-primary px-5 rounded-1 float-right"  ngxClipboard [cbContent]="textToCopy" (click)="copyToClipboard()">Copy to clipboard</button>
+                                <button type="button" class="btn btn-primary px-5 rounded-1 float-right" ngxClipboard [cbContent]="textToCopy" (click)="copyToClipboard()">Copy to clipboard</button>
                             </div>
                         </form>
                     </div>

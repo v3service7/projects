@@ -15,6 +15,7 @@ const UserSchema = new mongoose.Schema({
   password: { type: String, required: true, trim: true },
   email_token: { type: String },
   status: { type: Boolean, default: false },
+  ispaid: { type: Boolean, default: false },
   role : {type: String, enum: ['Admin', 'User'], default: 'User'},
   created_at: { type: Date, default: Date.now },
  

@@ -40,6 +40,7 @@ export class FrontendDashboardComponent implements OnInit {
 export class ProfileHeaderComponent implements OnInit {
     public static updateUserStatus: Subject<boolean> = new Subject();
     customer: any;
+    bookmarkposition: any = 'top';
     isCopied1: any = false;
     invalidUrl: any = false;
     currentCustomer: any;
@@ -93,6 +94,7 @@ export class ProfileHeaderComponent implements OnInit {
             title: ['', Validators.required],
             type: [''],
             body: [''],
+            position: [''],
             category_id: ['']
         });
 
@@ -114,6 +116,11 @@ export class ProfileHeaderComponent implements OnInit {
         this.textToCopy = '<div id="showcaseSocialBlock" data-showcaseID=' + this.category._id + '></div><script src="https://measuremight.com:3002/embed.min.js"></script>';
         this.modelEmbedOpen();
     }
+    bookmarkPosition(position) {
+        this.bookmarkposition = position;
+        this.addLinkForm.controls['position'].setValue(this.bookmarkposition);
+        console.log(this.addLinkForm.value);
+    }
     addBoodmark(id) {
         if (id) {
             this.addLinkForm.controls['category_id'].setValue(id);
@@ -133,8 +140,17 @@ export class ProfileHeaderComponent implements OnInit {
         });
     }
     openCopyToModel() {
-        this.modelBookmarkClose();
-        this.modelCopyToOpen();
+        if (this.currentCustomer.ispaid) {
+            this.modelBookmarkClose();
+            this.modelCopyToOpen();
+            this.addLinkForm.controls['position'].setValue(this.bookmarkposition);
+        } else {
+            this.addLinkForm.controls['category_id'].setValue(this.category_id);
+            this.addLinkForm.controls['position'].setValue(this.bookmarkposition);
+            console.log(this.addLinkForm.value);
+            this.addBoodmark('');
+            this.modelBookmarkClose();
+        }
     }
     openNewShowcase() {
         this.showcaseField = true;
@@ -143,6 +159,8 @@ export class ProfileHeaderComponent implements OnInit {
     categorySelected(id) {
         this.showcaseField = false;
         this.categorySelectedId = true;
+        this.addLinkForm.controls['position'].setValue(this.bookmarkposition);
+        console.log(this.addLinkForm.value);
         this.addLinkForm.controls['category_id'].setValue(id);
     }
 

@@ -1,6 +1,6 @@
 <app-profileheader [childMessage]="parentMessage"></app-profileheader>
 
 <div style="padding-top: 65px;">
-	<h1 *ngIf="!bookmarks.length > 0" class="text-center text-muted pt-5">No bookmarks available.</h1>
+	<h1 *ngIf="bookmarks.length <= 0" class="text-center text-muted pt-5">No bookmarks available.</h1>
 	<div id="showcaseSocialBlock" class="grid"></div>
 </div>
