@@ -43,6 +43,7 @@
     "ng2-toastr": "^4.1.2",
     "ngx-clipboard": "^8.0.0",
     "ngx-image-cropper": "^0.1.24",
+    "ngx-infinite-scroll": "^0.8.3",
     "ngx-sharebuttons": "^4.1.4",
     "ngx-ui-switch": "^1.6.0",
     "rxjs": "^5.4.2",

@@ -55,6 +55,7 @@ import { ShareButtonsModule } from 'ng2-sharebuttons';
 import { PublicComponent } from './public/public.component';
 import { ClipboardModule } from 'ngx-clipboard';
 import { UiSwitchModule } from 'ngx-ui-switch';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 
 let providers = {
     'google': {
@@ -93,6 +94,7 @@ let providers = {
     PublicComponent
   ],
   imports: [
+    InfiniteScrollModule,
     UiSwitchModule,
     ClipboardModule,
     ImageCropperModule,

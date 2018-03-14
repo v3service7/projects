@@ -138,7 +138,10 @@ export class BookmarkService {
             return user;
         });
     }
-    public categoryBookmarks(id) {
+    public categoryBookmarks(id, obj?: any) {
+        if (obj) {
+            id = id + '?start=' + obj.start + '&end=' + obj.end;
+        }
         let headers = new Headers();
         this.loadToken();
         headers.append('Authorization', this.authToken);
@@ -149,8 +152,10 @@ export class BookmarkService {
                 return category;
             });
     }
-    
-    public categoryBookmarksPublic(id) {
+    public categoryBookmarksPublic(id, obj?: any) {
+        if (obj) {
+            id = id + '?start=' + obj.start + '&end=' + obj.end;
+        }
         let headers = new Headers();
         this.loadToken();
         headers.append('Authorization', this.authToken);

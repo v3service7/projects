@@ -4,6 +4,7 @@ module.exports = (function () {
     const router = express.Router();
     const passport = require('passport');
     const jwt = require('jsonwebtoken');
+    const querystring = require('querystring');
 
     /*load Model*/
     let bookmarkModel = require("../models/bookmark.js");
@@ -13,8 +14,13 @@ module.exports = (function () {
     // my bookmark
     router.get('/category/:id', passport.authenticate('jwt', { session: false }), (req, res) => {
         var response = {};
-
-        bookmarkModel.find({ category_id: req.params.id }, null, { sort: { position: 1 } }, function (err, bookmark) {
+        var skip = 0;
+        var limit = 20;
+        if (req.query.start && req.query.end) {
+            skip = parseInt(req.query.start);
+            limit = parseInt(req.query.end);
+        }
+        bookmarkModel.find({ category_id: req.params.id }, null, { sort: { position: 1 } }).limit(limit).skip(skip).exec(function (err, bookmark) {
             if (err) {
                 response = { "error": true, "message": "Error fetching data" };
             } else {
@@ -23,11 +29,17 @@ module.exports = (function () {
             res.json(response);
         });
     });
+
     // with out passport 
     router.get('/category/open/:id', (req, res) => {
         var response = {};
-
-        bookmarkModel.find({ category_id: req.params.id }, null, { sort: { position: -1 } }, function (err, bookmark) {
+        var skip = 0;
+        var limit = 20;
+        if (req.query.start && req.query.end) {
+            skip = parseInt(req.query.start);
+            limit = parseInt(req.query.end);
+        }
+        bookmarkModel.find({ category_id: req.params.id }, null, { sort: { position: 1 } }).limit(limit).skip(skip).exec(function (err, bookmark) {
             if (err) {
                 response = { "error": true, "message": "Error fetching data" };
             } else {
@@ -59,26 +71,26 @@ module.exports = (function () {
             if (err) {
                 response = { "error": true, "message": err };
             } else {
-                if(bookmarks.length > 0){
-                   /*  lastValuePositions = bookmarks[0].po sition;
-                    newbookmark.position = lastValuePositions + 1; */
-                    if(req.body.position == 'top'){
+                if (bookmarks.length > 0) {
+                    /*  lastValuePositions = bookmarks[0].po sition;
+                     newbookmark.position = lastValuePositions + 1; */
+                    if (req.body.position == 'top') {
                         newbookmark.position = 1;
                         bookmarkModel.update({ category_id: req.body.category_id }, { $inc: { position: 1 } }, { multi: true },
                             function (err, num) {
-                               if(err){
-                                   response = { "error": true, "message": err };
-                               }else {
-                                   newbookmark.save((err, bookmark) => {
-                                       if (err) {
-                                           response = { "error": true, "message": err };
-                                           res.json(response);
-                                       } else {
-                                           response = { "error": false, "message": 'Bookmarks added successfully.' };
-                                           res.json(response);
-                                       }
-                                   });
-                               }
+                                if (err) {
+                                    response = { "error": true, "message": err };
+                                } else {
+                                    newbookmark.save((err, bookmark) => {
+                                        if (err) {
+                                            response = { "error": true, "message": err };
+                                            res.json(response);
+                                        } else {
+                                            response = { "error": false, "message": 'Bookmarks added successfully.' };
+                                            res.json(response);
+                                        }
+                                    });
+                                }
                             }
                         );
                     }
@@ -95,7 +107,7 @@ module.exports = (function () {
                         });
                     }
                 }
-                else{
+                else {
                     newbookmark.position = 1;
                     newbookmark.save((err, bookmark) => {
                         if (err) {
@@ -107,7 +119,7 @@ module.exports = (function () {
                         }
                     });
                 }
-                
+
             };
         });
     });

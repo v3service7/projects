@@ -115,7 +115,6 @@ export class ProfileHeaderComponent implements OnInit {
     bookmarkPosition(position) {
         this.bookmarkposition = position;
         this.addLinkForm.controls['position'].setValue(this.bookmarkposition);
-        console.log(this.addLinkForm.value);
     }
     addBoodmark(id) {
         if (id) {
@@ -602,7 +601,9 @@ export class SettingComponent implements OnInit {
     currentCustomer: any;
     category: any;
     categories: any;
-    bookmarks: any;
+    scrollCount: any;
+    pageNumber: any = 1;
+    bookmarks = [];
     bookmarkData: any;
     bookmarks_ids = [];
     categorySelectedId: any = false;
@@ -645,6 +646,15 @@ export class SettingComponent implements OnInit {
             }
         });
     }
+    onScroll() {
+        this.scrollCount = 20 * this.pageNumber;
+        const obj = {
+            start: this.scrollCount,
+            end: 20
+        };
+        this.getbookmark(this.parentMessage, obj);
+        this.pageNumber++;
+    }
     videoUrl(url) {
         return this.sanitizer.bypassSecurityTrustResourceUrl(url);
     }
@@ -664,7 +674,6 @@ export class SettingComponent implements OnInit {
             this.id = params['id'];
         });
         this.getMyCategories();
-        this.getbookmark(this.id);
     }
     doDeleteBookmark(id) {
         this.bookmarkService.bookmarkDelete(id).subscribe((data) => {
@@ -676,10 +685,13 @@ export class SettingComponent implements OnInit {
             }
         });
     }
-    getbookmark(id) {
-        this.bookmarkService.categoryBookmarks(id).subscribe((data) => {
+    getbookmark(id, obj?: any) {
+        this.bookmarkService.categoryBookmarks(id, obj).subscribe((data) => {
             if (!data.error) {
-                this.bookmarks = data.message;
+                console.log(data.message.length);
+                for (let index = 0; index < data.message.length; index++) {
+                    this.bookmarks.push(data.message[index]);
+                }
                 setTimeout(() => {
                     instgrm.Embeds.process();
                     twttr.widgets.load();
@@ -904,6 +916,8 @@ export class ViewPublicComponent implements AfterViewInit, OnInit {
     bookmarks = [];
     flag: any = true;
     parentMessage: any;
+    scrollCount: any;
+    pageNumber: any = 1;
     curColWidth = 0;
     gridColWidth = '';
 
@@ -938,13 +952,21 @@ export class ViewPublicComponent implements AfterViewInit, OnInit {
             }
         });
     }
+    onScroll() {
+        this.scrollCount = 20 * this.pageNumber;
+        const obj = {
+            start: this.scrollCount,
+            end: 20
+        };
+        this.getbookmark(this.parentMessage, obj);
+        this.pageNumber++;
+    }
 
     ngAfterViewInit() {
         this.route.params.subscribe((params: Params) => {
             const id = params['id'];
             this.parentMessage = id;
-            this.getbookmark(id);
-             Observable.interval(1000).subscribe(x => {
+            Observable.interval(1000).subscribe(x => {
                 this.manageUI();
             });
         });
@@ -976,21 +998,24 @@ export class ViewPublicComponent implements AfterViewInit, OnInit {
         this.curColWidth = theW;
         const iframes = document.querySelectorAll('iframe');
         for (let i = 0; i < iframes.length; i++) {
-            iframes[i].style.width = theW.toString();
+            (<any>iframes[i]).style.width = theW - 15;
+            /* (<any>iframes[i]).style.cssText = 'margin-top: 0px !important;'; */
         }
         const twitterwidget = document.querySelectorAll('twitterwidget');
         for (let i = 0; i < twitterwidget.length; i++) {
             (<any>twitterwidget[i]).style.width = theW;
+            (<any>twitterwidget[i]).style.cssText = 'margin-top: 0px !important;';
         }
         const th = theW + (theW / 50) - 9;
         this.gridColWidth = th + 'px';
         const gridItems = document.querySelectorAll('.grid-item');
         for (let i = 0; i < gridItems.length; i++) {
-            (<any>gridItems[i]).style.cssText = 'width : ' + (theW + (theW / 50) - 9) + 'px !important';
+            (<any>gridItems[i]).style.cssText = 'width : ' + (theW + (theW / 50) - 15) + 'px !important;margin :0 5px 5px 0 !important';
         }
         const msnry = new Masonry('#showcaseSocialBlock', {
             itemSelector: '.grid-item'
         });
+        // $('.grid').masonry();
     }
 
     setStyles() {
@@ -1007,12 +1032,16 @@ export class ViewPublicComponent implements AfterViewInit, OnInit {
         return html;
     }
 
-    getbookmark(id) {
-        this.bookmarkService.categoryBookmarksPublic(id).subscribe((data) => {
+    getbookmark(id, obj?: any) {
+        if (typeof obj === 'undefined') {
+            (<HTMLInputElement>document.getElementById('showcaseSocialBlock')).innerHTML = '';
+        }
+        this.bookmarkService.categoryBookmarksPublic(id, obj).subscribe((data) => {
             if (!data.error) {
-                this.bookmarks = data.message;
-                if (this.bookmarks.length > 0) {
-                    for (let i = 0; i < this.bookmarks.length; i++) {
+                if (data.message.length > 0) {
+                    console.log(data.message.length);
+                    for (let i = 0; i < data.message.length; i++) {
+                        this.bookmarks.push(data.message[i]);
                         // tslint:disable-next-line:max-line-length
                         (<HTMLInputElement>document.getElementById('showcaseSocialBlock')).innerHTML += this.convertToGridItem(this.bookmarks[i]['body']);
                     }
@@ -1033,6 +1062,8 @@ export class ViewPublicComponent implements AfterViewInit, OnInit {
 })
 export class ViewComponent implements AfterViewInit, OnInit, OnDestroy {
     public static updateBookmarkStatus: Subject<boolean> = new Subject();
+    scrollCount: any;
+    pageNumber: any = 1;
     bookmarks = [];
     obTime: any;
     flag: any = true;
@@ -1071,15 +1102,22 @@ export class ViewComponent implements AfterViewInit, OnInit, OnDestroy {
                 this.route.params.subscribe((params: Params) => {
                     const id = params['id'];
                     this.parentMessage = id;
-                    this.getbookmark(id);
                 });
             }
         });
     }
+    onScroll() {
+        this.scrollCount = 20 * this.pageNumber;
+        const obj = {
+            start: this.scrollCount,
+            end: 20
+        };
+        this.getbookmark(this.parentMessage, obj);
+        this.pageNumber++;
+    }
     ngOnDestroy() {
         this.obTime.unsubscribe();
     }
-
     ngAfterViewInit() {
         this.obTime = Observable.interval(1000).subscribe(x => {
             this.manageUI();
@@ -1112,17 +1150,19 @@ export class ViewComponent implements AfterViewInit, OnInit, OnDestroy {
         this.curColWidth = theW;
         const iframes = document.querySelectorAll('iframe');
         for (let i = 0; i < iframes.length; i++) {
-            iframes[i].style.width = theW.toString();
+            (<any>iframes[i]).style.width = theW - 15;
+            /* (<any>iframes[i]).style.cssText = 'margin-top: 0px !important;'; */
         }
         const twitterwidget = document.querySelectorAll('twitterwidget');
         for (let i = 0; i < twitterwidget.length; i++) {
             (<any>twitterwidget[i]).style.width = theW;
+            (<any>twitterwidget[i]).style.cssText = 'margin-top: 0px !important;';
         }
         const th = theW + (theW / 50) - 9;
         this.gridColWidth = th + 'px';
         const gridItems = document.querySelectorAll('.grid-item');
         for (let i = 0; i < gridItems.length; i++) {
-            (<any>gridItems[i]).style.cssText = 'width : ' + (theW + (theW / 50) - 9) + 'px !important';
+            (<any>gridItems[i]).style.cssText = 'width : ' + (theW + (theW / 50) - 15) + 'px !important;margin :0 5px 5px 0 !important';
         }
         const msnry = new Masonry('#showcaseSocialBlock', {
             itemSelector: '.grid-item'
@@ -1144,14 +1184,16 @@ export class ViewComponent implements AfterViewInit, OnInit, OnDestroy {
         return html;
     }
 
-    getbookmark(id) {
-        (<HTMLInputElement>document.getElementById('showcaseSocialBlock')).innerHTML = '';
-        this.bookmarkService.categoryBookmarks(id).subscribe((data) => {
+    getbookmark(id, obj?: any) {
+        if (typeof obj === 'undefined') {
+            (<HTMLInputElement>document.getElementById('showcaseSocialBlock')).innerHTML = '';
+        }
+        this.bookmarkService.categoryBookmarks(id, obj).subscribe((data) => {
             if (!data.error) {
-                this.bookmarks = data.message;
-                if (this.bookmarks.length > 0) {
-                    for (let i = 0; i < this.bookmarks.length; i++) {
-                        console.log(i);
+                if (data.message.length > 0) {
+                    console.log(data.message.length);
+                    for (let i = 0; i < data.message.length; i++) {
+                        this.bookmarks.push(data.message[i]);
                         // tslint:disable-next-line:max-line-length
                         (<HTMLInputElement>document.getElementById('showcaseSocialBlock')).innerHTML += this.convertToGridItem(this.bookmarks[i]['body']);
                     }

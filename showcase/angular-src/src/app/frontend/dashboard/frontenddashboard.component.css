@@ -14,4 +14,8 @@
      border: 1px solid gainsboro;
      padding: 10px;
  }
- 
+ .search-results {
+            height: calc(100vh - 65px);;
+            overflow: scroll;
+            overflow-x: hidden;
+        }

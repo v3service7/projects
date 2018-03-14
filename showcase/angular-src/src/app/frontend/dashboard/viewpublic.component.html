@@ -1,6 +1,10 @@
 <app-frontendheader></app-frontendheader>
 
 <div style="padding-top: 65px;">
-    <h1 *ngIf="bookmarks.length <= 0" class="text-center text-muted pt-5">No bookmarks available.</h1>
-    <div id="showcaseSocialBlock" class="grid"></div>
+    <h1 *ngIf="bookmarks?.length <= 0" class="text-center text-muted pt-5">No bookmarks available.</h1>
+
+    <div class="search-results" infiniteScroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="50" (scrolled)="onScroll()"
+        [scrollWindow]="false">
+        <div id="showcaseSocialBlock" class="grid"></div>
+    </div>
 </div>

@@ -1,5 +1,7 @@
 <app-profileheader [childMessage]="parentMessage"></app-profileheader>
+
 <div class="container-fluid" *ngIf="category" style="padding-top: 75px;">
+    
     <div class="row">
         <div class="col-lg-7 col-md-6 col-sm-6 mb-5 ">
             <div class="row mb-3" *ngIf="bookmarks?.length > 0 ">
@@ -21,7 +23,10 @@
                 </ng-container>
             </div>
             <h3 *ngIf="bookmarks?.length == 0" class="text-muted text-center pt-5">No bookmarks available.</h3>
+            <div class="search-results" infiniteScroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="50" (scrolled)="onScroll()"
+                [scrollWindow]="false">
             <ul class="list-group">
+                    
                 <li class="list-group-item custom-list-group-item" *ngFor="let bookmark of bookmarks; let i = index; let last = last;">
                     <div class="row">
                         <div class="col-xl-2 col-lg-6 col-md-6 col-sm-6 col-6 text-center">
@@ -70,7 +75,9 @@
                         </div>
                     </div>
                 </li>
+                
             </ul>
+            </div>
         </div>
         <div class="col-lg-5 col-md-6 col-sm-6 mb-5 work-box">
             <h4 class="text-center">
@@ -96,6 +103,7 @@
             </form>
         </div>
     </div>
+    
 </div>
 <!-- The copy2 to showcase Modal  -->
 <div id="copy2Modal" class="modal dark-bg">
