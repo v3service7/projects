@@ -667,6 +667,9 @@ export class SettingComponent implements OnInit, AfterViewInit {
         this.userService.getProfile().subscribe((data) => {
             if (data.user) {
                 this.currentCustomer = data;
+                if (this.currentCustomer.user.ispaid === false) {
+                    this.router.navigate(['/dashboard']);
+                }
             }
         });
     }
