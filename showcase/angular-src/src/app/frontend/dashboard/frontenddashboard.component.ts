@@ -17,6 +17,7 @@ declare var Masonry;
 declare var $;
 declare var twttr;
 declare var instgrm;
+declare var FB;
 import * as globalVariable from '../../global';
 import { AngularMasonry, MasonryOptions, AngularMasonryBrick } from 'angular2-masonry';
 
@@ -38,7 +39,7 @@ export class FrontendDashboardComponent implements OnInit {
     templateUrl: './profileheader.component.html',
     styleUrls: ['./frontenddashboard.component.css']
 })
-export class ProfileHeaderComponent implements OnInit {
+export class ProfileHeaderComponent implements OnInit, AfterViewInit {
     public static updateUserStatus: Subject<boolean> = new Subject();
     customer: any;
     bookmarkposition: any = 'top';
@@ -78,8 +79,17 @@ export class ProfileHeaderComponent implements OnInit {
         this.getMyCategories();
         this.toastr.setRootViewContainerRef(vRef);
     }
-
+    ngAfterViewInit() {
+        setTimeout(() => {
+            FB.init({
+                autoLogAppEvents: true,
+                xFBml: true,
+                version: 'v2.12'
+            });
+        }, 3000);
+    }
     ngOnInit() {
+        this.fbData();
         this.shareUrl = window.location.href;
         this.addCategoryForm = this.lf.group({
             name: ['', Validators.required],
@@ -96,6 +106,19 @@ export class ProfileHeaderComponent implements OnInit {
 
         this.category_id = this.childMessage;
         this.checkCustomer();
+
+    }
+    fbData() {
+        (function (d, s, id) {
+            let js;
+            const fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) {
+                return;
+            }
+            js = d.createElement(s); js.id = id;
+            js.src = 'https://connect.facebook.net/en_US/sdk.js';
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
     }
     copyToClipboard() {
         // tslint:disable-next-line:max-line-length
@@ -170,16 +193,17 @@ export class ProfileHeaderComponent implements OnInit {
     embedFacebook(url) {
         // public => https://www.facebook.com/notes/facebook/public-search-listings-on-facebook/2963412130/
         // private => https://www.facebook.com/bob.brello
-        const inputURL = encodeURIComponent(url);
-        const ur = 'https://www.facebook.com/plugins/post.php?href=' + inputURL + '%26type%3D3&width=600';
+        // const inputURL = encodeURIComponent(url);
+        // const ur = 'https://www.facebook.com/plugins/post.php?href=' + inputURL + '%26type%3D3&width=600';
         // tslint:disable-next-line:max-line-length
-        const embedHTML = '<iframe id="bookmarkiframe" src="https://www.facebook.com/plugins/post.php?href=' + inputURL + '%26type%3D3&width=600" height="400" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowTransparency="true"></iframe>';
+        const embedHTML = '<div class="fb-post" data-href="' + url + '"></div>';
         const htmlToAdd = this.convertToGridItem(embedHTML);
-        this.addLinkForm.controls['title'].setValue(ur);
+        this.addLinkForm.controls['title'].setValue(url);
         this.addLinkForm.controls['body'].setValue(embedHTML);
         this.addLinkForm.controls['type'].setValue('facebook');
         document.getElementById('loader').style.display = 'none';
         document.getElementById('bookMark').innerHTML = htmlToAdd;
+        FB.XFBML.parse();
     }
 
     embedInsta(url) {
@@ -594,7 +618,7 @@ export class MyProfileComponent implements OnInit {
     templateUrl: './setting.component.html',
     styleUrls: ['./setting.component.css']
 })
-export class SettingComponent implements OnInit {
+export class SettingComponent implements OnInit, AfterViewInit {
     parentMessage: any;
     id: any;
     customer: any;
@@ -646,6 +670,15 @@ export class SettingComponent implements OnInit {
             }
         });
     }
+    ngAfterViewInit() {
+        setTimeout(() => {
+            FB.init({
+                autoLogAppEvents: true,
+                xFBml: true,
+                version: 'v2.12'
+            });
+        }, 3000);
+    }
     onScroll() {
         this.scrollCount = 20 * this.pageNumber;
         const obj = {
@@ -688,13 +721,14 @@ export class SettingComponent implements OnInit {
     getbookmark(id, obj?: any) {
         this.bookmarkService.categoryBookmarks(id, obj).subscribe((data) => {
             if (!data.error) {
-                console.log(data.message.length);
+                ;
                 for (let index = 0; index < data.message.length; index++) {
                     this.bookmarks.push(data.message[index]);
                 }
                 setTimeout(() => {
                     instgrm.Embeds.process();
                     twttr.widgets.load();
+                    FB.XFBML.parse();
                 }, 3000);
             }
         });
@@ -912,10 +946,11 @@ export class SettingComponent implements OnInit {
     templateUrl: './viewpublic.component.html',
     styleUrls: ['./frontenddashboard.component.css']
 })
-export class ViewPublicComponent implements AfterViewInit, OnInit {
+export class ViewPublicComponent implements AfterViewInit, OnInit, OnDestroy {
     bookmarks = [];
     flag: any = true;
     parentMessage: any;
+    obTime: any;
     scrollCount: any;
     pageNumber: any = 1;
     curColWidth = 0;
@@ -937,7 +972,9 @@ export class ViewPublicComponent implements AfterViewInit, OnInit {
             }
         });
     }
-
+    ngOnDestroy() {
+        this.obTime.unsubscribe();
+    }
     ngOnInit() {
         this.manageUI();
         this.router.events.subscribe((val) => {
@@ -966,7 +1003,7 @@ export class ViewPublicComponent implements AfterViewInit, OnInit {
         this.route.params.subscribe((params: Params) => {
             const id = params['id'];
             this.parentMessage = id;
-            Observable.interval(1000).subscribe(x => {
+            this.obTime = Observable.interval(1000).subscribe(x => {
                 this.manageUI();
             });
         });
@@ -1048,6 +1085,7 @@ export class ViewPublicComponent implements AfterViewInit, OnInit {
                     setTimeout(() => {
                         instgrm.Embeds.process();
                         twttr.widgets.load();
+                        FB.XFBML.parse();
                     }, 3000);
                 }
             }
@@ -1122,6 +1160,13 @@ export class ViewComponent implements AfterViewInit, OnInit, OnDestroy {
         this.obTime = Observable.interval(1000).subscribe(x => {
             this.manageUI();
         });
+        setTimeout(() => {
+            FB.init({
+                autoLogAppEvents: true,
+                xFBml: true,
+                version: 'v2.12'
+            });
+        }, 3000);
     }
 
     setHeight(type) {
@@ -1200,6 +1245,7 @@ export class ViewComponent implements AfterViewInit, OnInit, OnDestroy {
                     setTimeout(() => {
                         instgrm.Embeds.process();
                         twttr.widgets.load();
+                        FB.XFBML.parse();
                     }, 3000);
                 }
             }

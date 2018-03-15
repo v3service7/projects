@@ -1,5 +1,5 @@
  .search-results {
-            height: calc(100vh - 65px);;
+            height: calc(100vh - 170px);;
             overflow: scroll;
             overflow-x: hidden;
         }

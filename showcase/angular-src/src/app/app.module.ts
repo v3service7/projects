@@ -56,6 +56,7 @@ import { PublicComponent } from './public/public.component';
 import { ClipboardModule } from 'ngx-clipboard';
 import { UiSwitchModule } from 'ngx-ui-switch';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
+import { SafeHtmlPipe } from './safe-html.pipe';
 
 let providers = {
     'google': {
@@ -91,7 +92,8 @@ let providers = {
     AdminUserBoardsBookmarkComponent,
     ViewComponent,
     SafePipe,
-    PublicComponent
+    PublicComponent,
+    SafeHtmlPipe
   ],
   imports: [
     InfiniteScrollModule,

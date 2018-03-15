@@ -36,11 +36,11 @@
                                 <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1" (click)="doSelect(bookmark)">
                             </div>
                         </div>
-                        <div class="col-xl-5 col-lg-6 col-md-6 col-sm-6 pl-0  col-6 ">
-                            <div *ngIf="bookmark.type == 'instagram' || bookmark.type == 'twitter'" [innerHtml]="bookmark.body"></div>
-                            <iframe *ngIf="bookmark.type != 'instagram' && bookmark.type != 'twitter'" [src]="videoUrl(bookmark.title)" width="100%"></iframe>
+                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 pl-0  col-6 ">
+                            <div *ngIf="bookmark.type == 'instagram' || bookmark.type == 'twitter' || bookmark.type == 'facebook' " [innerHtml]="bookmark.body | safeHtml"></div>
+                            <iframe *ngIf="bookmark.type != 'instagram' && bookmark.type != 'twitter' && bookmark.type != 'facebook'" [src]="videoUrl(bookmark.title)" width="100%"></iframe>
                         </div>
-                        <div class="col-xl-3 col-lg-7 col-md-7 col-sm-7 col-8 mt-4 ">
+                        <div class="col-xl-2 col-lg-7 col-md-7 col-sm-7 col-8 mt-4 ">
                             <ul>
                                 <li class="pb-2">
                                     <a (click)="doDeleteBookmark(bookmark._id)" class="pointer">
@@ -59,13 +59,13 @@
                         </div>
                         <div class="col-xl-2 col-lg-5 col-md-5 col-sm-5 col-4 px-0 mt-4">
                             <ul>
-                                <li class="pb-2 float-right" *ngIf="i!=0">
-                                    <a (click)="changePosition('up',bookmark._id, bookmark.position)" class="pointer">
+                                <li class="pb-2 float-right pointer" *ngIf="i!=0">
+                                    <a (click)="changePosition('up',bookmark._id, bookmark.position)" >
                                         <span class="fs-13">Move up</span>
                                         <i class="fa fa-caret-up icon-opt icon-circle"></i>
                                     </a>
                                 </li>
-                                <li class="pb-2 float-right" *ngIf="bookmarks?.length > 1 && !last" class="pointer">
+                                <li class="pb-2 float-right pointer" *ngIf="bookmarks?.length > 1 && !last" >
                                     <a (click)="changePosition('down',bookmark._id, bookmark.position)">
                                         <span class="fs-13">Move down</span>
                                         <i class="fa fa-caret-down icon-opt icon-circle"></i>
