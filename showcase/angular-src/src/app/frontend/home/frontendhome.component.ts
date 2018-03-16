@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, NgZone } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { FlashMessagesService } from 'angular2-flash-messages';
@@ -41,30 +41,31 @@ export class FrontendHomeComponent implements OnInit {
         private lf: FormBuilder,
         private userService: UserService,
         private route: ActivatedRoute,
-        private _flashMessagesService: FlashMessagesService
+        private _flashMessagesService: FlashMessagesService,
+        private zone: NgZone
     ) { }
 
     ngOnInit() {
         if (this.userService.loggedIn()) {
-           this.router.navigate(['/dashboard']);
+            this.router.navigate(['/dashboard']);
         }
         this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/dashboard';
         this.route.queryParams.subscribe((params: Params) => {
             this.token = params['q'];
         });
-        if (this.token !== undefined){
+        if (this.token !== undefined) {
             this.userService.customerVerify(this.token).subscribe(
                 (data) => {
                     if (!data.error) {
                         // localStorage.setItem('currentCustomer', JSON.stringify(data.message));
                         this._flashMessagesService.show(data.message, { cssClass: 'alert-success', timeout: 5000 });
-                      /*   document.getElementById('login').style.display = 'block'; */
+                        /*   document.getElementById('login').style.display = 'block'; */
                         /* this.router.navigate(['/']); */
                     } else {
                         /* this.router.navigate(['/']); */
                         this._flashMessagesService.show(data.message, { cssClass: 'danger-alert', timeout: 5000 });
                         if (data.error && data.message === 'Email Activation Link Expire.') {
-                        /*     document.getElementById('resendLink').style.display = 'block'; */
+                            /*     document.getElementById('resendLink').style.display = 'block'; */
                         }
                     }
                 },
@@ -206,12 +207,12 @@ export class FrontendHomeComponent implements OnInit {
                     /*console.log(loggedUser,provider)*/
                     if (!loggedUser.success) {
                         this.userService.socialRegisterUser(obj).subscribe((newUser) => {
-                            this.userService.socialValidateUser(obj).subscribe((loggedUserOauth) => {;
+                            this.userService.socialValidateUser(obj).subscribe((loggedUserOauth) => {
                                 localStorage.setItem('id_token_customer', loggedUserOauth.token);
                                 localStorage.setItem('customer', JSON.stringify(loggedUserOauth.user));
                                 this.modelClose('login');
                                 this.modelClose('signup');
-                                this.router.navigate([this.returnUrl]);
+                                this.zone.run(() => this.returnUrl);
                             });
                         });
                     }
@@ -281,7 +282,6 @@ export class FrontendHomeComponent implements OnInit {
     forgetPass() {
         this.userService.forgotPassword(this.customerForgetForm.value).subscribe(
             (data) => {
-                console.log(data)
                 this.modelClose('forget')
                 if (!data.success) {
                     this._flashMessagesService.show(data.message, { cssClass: 'alert-success', timeout: 5000 });

@@ -62,6 +62,7 @@ export class ProfileHeaderComponent implements OnInit, AfterViewInit {
     @Input() childMessage: string;
     // tslint:disable-next-line:max-line-length
     constructor(
+        private ngZone: NgZone,
         private route: ActivatedRoute,
         public toastr: ToastsManager,
         public validateService: ValidateService,
@@ -78,6 +79,10 @@ export class ProfileHeaderComponent implements OnInit, AfterViewInit {
         this.checkCustomer();
         this.getMyCategories();
         this.toastr.setRootViewContainerRef(vRef);
+        this.ngZone.run(() => {
+            this.checkCustomer();
+            this.getMyCategories();
+        });
     }
     ngAfterViewInit() {
         setTimeout(() => {
@@ -140,9 +145,11 @@ export class ProfileHeaderComponent implements OnInit, AfterViewInit {
         this.addLinkForm.controls['position'].setValue(this.bookmarkposition);
     }
     addBoodmark(id) {
+
         if (id) {
             this.addLinkForm.controls['category_id'].setValue(id);
         }
+        console.log(this.addLinkForm.value);
         this.bookService.bookmarkAdd(this.addLinkForm.value).subscribe((data) => {
             if (!data.eror) {
                 this.toastr.success('Bookmark added succesfully.', 'Success!');
@@ -163,9 +170,8 @@ export class ProfileHeaderComponent implements OnInit, AfterViewInit {
             this.modelCopyToOpen();
             this.addLinkForm.controls['position'].setValue(this.bookmarkposition);
         } else {
-            this.addLinkForm.controls['category_id'].setValue(this.category_id);
+            this.addLinkForm.controls['category_id'].setValue(this.categories[0]._id);
             this.addLinkForm.controls['position'].setValue(this.bookmarkposition);
-            console.log(this.addLinkForm.value);
             this.addBoodmark('');
             this.modelBookmarkClose();
         }
@@ -178,7 +184,6 @@ export class ProfileHeaderComponent implements OnInit, AfterViewInit {
         this.showcaseField = false;
         this.categorySelectedId = true;
         this.addLinkForm.controls['position'].setValue(this.bookmarkposition);
-        console.log(this.addLinkForm.value);
         this.addLinkForm.controls['category_id'].setValue(id);
     }
 
@@ -409,7 +414,7 @@ export class ProfileHeaderComponent implements OnInit, AfterViewInit {
                 this.userService.getProfile().subscribe((data) => {
                     if (data.user) {
                         this.isHere = true;
-                        if (data.user.provider === 'google') {
+                        if (data.user.provider === 'google' || data.user.provider === 'facebook') {
                             this.currentCustomerImage = data.user.image;
                         } else {
                             this.currentCustomerImage = globalVariable.url + data.user.image;
@@ -547,7 +552,7 @@ export class MyProfileComponent implements OnInit {
         this.userService.getProfile().subscribe((data) => {
             if (data.user) {
                 this.customer = data.user;
-                if (this.customer.provider === 'google') {
+                if (this.customer.provider === 'google' || data.user.provider === 'facebook') {
                     this.croppedImage = data.user.image;
                 } else {
                     this.croppedImage = globalVariable.url + data.user.image;
@@ -985,7 +990,6 @@ export class ViewPublicComponent implements AfterViewInit, OnInit, OnDestroy {
                 this.flag = false;
                 this.route.params.subscribe((params: Params) => {
                     const id = params['id'];
-                    console.log('on');
                     this.parentMessage = id;
                     // this.getbookmark(id);
                 });
@@ -1079,7 +1083,6 @@ export class ViewPublicComponent implements AfterViewInit, OnInit, OnDestroy {
         this.bookmarkService.categoryBookmarksPublic(id, obj).subscribe((data) => {
             if (!data.error) {
                 if (data.message.length > 0) {
-                    console.log(data.message.length);
                     for (let i = 0; i < data.message.length; i++) {
                         this.bookmarks.push(data.message[i]);
                         // tslint:disable-next-line:max-line-length
@@ -1104,9 +1107,9 @@ export class ViewPublicComponent implements AfterViewInit, OnInit, OnDestroy {
 export class ViewComponent implements AfterViewInit, OnInit, OnDestroy {
     public static updateBookmarkStatus: Subject<boolean> = new Subject();
     scrollCount: any;
+    obTime: any;
     pageNumber: any = 1;
     bookmarks = [];
-    obTime: any;
     flag: any = true;
     parentMessage: any;
     curColWidth = 0;
@@ -1239,7 +1242,6 @@ export class ViewComponent implements AfterViewInit, OnInit, OnDestroy {
         this.bookmarkService.categoryBookmarks(id, obj).subscribe((data) => {
             if (!data.error) {
                 if (data.message.length > 0) {
-                    console.log(data.message.length);
                     for (let i = 0; i < data.message.length; i++) {
                         this.bookmarks.push(data.message[i]);
                         // tslint:disable-next-line:max-line-length
