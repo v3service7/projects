@@ -41,6 +41,7 @@ export class FrontendDashboardComponent implements OnInit {
 })
 export class ProfileHeaderComponent implements OnInit, AfterViewInit {
     public static updateUserStatus: Subject<boolean> = new Subject();
+    @ViewChild('categorySelect') categorySelect: ElementRef;
     customer: any;
     bookmarkposition: any = 'top';
     isCopied1: any = false;
@@ -85,16 +86,8 @@ export class ProfileHeaderComponent implements OnInit, AfterViewInit {
         });
     }
     ngAfterViewInit() {
-        setTimeout(() => {
-            FB.init({
-                autoLogAppEvents: true,
-                xFBml: true,
-                version: 'v2.12'
-            });
-        }, 3000);
     }
     ngOnInit() {
-        this.fbData();
         this.shareUrl = window.location.href;
         this.addCategoryForm = this.lf.group({
             name: ['', Validators.required],
@@ -112,18 +105,6 @@ export class ProfileHeaderComponent implements OnInit, AfterViewInit {
         this.category_id = this.childMessage;
         this.checkCustomer();
 
-    }
-    fbData() {
-        (function (d, s, id) {
-            let js;
-            const fjs = d.getElementsByTagName(s)[0];
-            if (d.getElementById(id)) {
-                return;
-            }
-            js = d.createElement(s); js.id = id;
-            js.src = 'https://connect.facebook.net/en_US/sdk.js';
-            fjs.parentNode.insertBefore(js, fjs);
-        }(document, 'script', 'facebook-jssdk'));
     }
     copyToClipboard() {
         // tslint:disable-next-line:max-line-length
@@ -145,11 +126,16 @@ export class ProfileHeaderComponent implements OnInit, AfterViewInit {
         this.addLinkForm.controls['position'].setValue(this.bookmarkposition);
     }
     addBoodmark(id) {
-
+        if (this.categorySelect.nativeElement) {
+            const elements = this.categorySelect.nativeElement.options;
+            for (let i = 0; i < elements.length; i++) {
+                elements[i].selected = false;
+            }
+        }
+        this.categorySelectedId = true;
         if (id) {
             this.addLinkForm.controls['category_id'].setValue(id);
         }
-        console.log(this.addLinkForm.value);
         this.bookService.bookmarkAdd(this.addLinkForm.value).subscribe((data) => {
             if (!data.eror) {
                 this.toastr.success('Bookmark added succesfully.', 'Success!');
@@ -181,6 +167,7 @@ export class ProfileHeaderComponent implements OnInit, AfterViewInit {
         this.categorySelectedId = false;
     }
     categorySelected(id) {
+
         this.showcaseField = false;
         this.categorySelectedId = true;
         this.addLinkForm.controls['position'].setValue(this.bookmarkposition);
@@ -192,6 +179,12 @@ export class ProfileHeaderComponent implements OnInit, AfterViewInit {
         this.modelBookmarkOpen();
     }
     modelBookmarkCloseEmptyForm() {
+        if (this.categorySelect.nativeElement) {
+            const elements = this.categorySelect.nativeElement.options;
+            for (let i = 0; i < elements.length; i++) {
+                elements[i].selected = false;
+            }
+        }
         this.addLinkForm.reset();
         this.modelBookmarkClose();
     }
@@ -552,9 +545,9 @@ export class MyProfileComponent implements OnInit {
         this.userService.getProfile().subscribe((data) => {
             if (data.user) {
                 this.customer = data.user;
-                if (this.customer.provider === 'google' || data.user.provider === 'facebook') {
+                if (this.customer.image !== 'undefined' || this.customer.provider === 'google' || this.customer.provider === 'facebook') {
                     this.croppedImage = data.user.image;
-                } else {
+                } if (this.customer.provider === 'email') {
                     this.croppedImage = globalVariable.url + data.user.image;
                 }
                 this.customerProfileForm.patchValue(data.user);
@@ -679,13 +672,6 @@ export class SettingComponent implements OnInit, AfterViewInit {
         });
     }
     ngAfterViewInit() {
-        setTimeout(() => {
-            FB.init({
-                autoLogAppEvents: true,
-                xFBml: true,
-                version: 'v2.12'
-            });
-        }, 3000);
     }
     onScroll() {
         this.scrollCount = 20 * this.pageNumber;
@@ -729,7 +715,6 @@ export class SettingComponent implements OnInit, AfterViewInit {
     getbookmark(id, obj?: any) {
         this.bookmarkService.categoryBookmarks(id, obj).subscribe((data) => {
             if (!data.error) {
-                ;
                 for (let index = 0; index < data.message.length; index++) {
                     this.bookmarks.push(data.message[index]);
                 }
@@ -955,6 +940,7 @@ export class SettingComponent implements OnInit, AfterViewInit {
     styleUrls: ['./frontenddashboard.component.css']
 })
 export class ViewPublicComponent implements AfterViewInit, OnInit, OnDestroy {
+    public loading = false;
     bookmarks = [];
     flag: any = true;
     parentMessage: any;
@@ -991,7 +977,6 @@ export class ViewPublicComponent implements AfterViewInit, OnInit, OnDestroy {
                 this.route.params.subscribe((params: Params) => {
                     const id = params['id'];
                     this.parentMessage = id;
-                    // this.getbookmark(id);
                 });
             }
         });
@@ -1083,6 +1068,7 @@ export class ViewPublicComponent implements AfterViewInit, OnInit, OnDestroy {
         this.bookmarkService.categoryBookmarksPublic(id, obj).subscribe((data) => {
             if (!data.error) {
                 if (data.message.length > 0) {
+                    this.loading = true;
                     for (let i = 0; i < data.message.length; i++) {
                         this.bookmarks.push(data.message[i]);
                         // tslint:disable-next-line:max-line-length
@@ -1092,6 +1078,9 @@ export class ViewPublicComponent implements AfterViewInit, OnInit, OnDestroy {
                         instgrm.Embeds.process();
                         twttr.widgets.load();
                         FB.XFBML.parse();
+                        setTimeout(() => {
+                            this.loading = false;
+                        }, 2000);
                     }, 3000);
                 }
             }
@@ -1166,13 +1155,6 @@ export class ViewComponent implements AfterViewInit, OnInit, OnDestroy {
         this.obTime = Observable.interval(1000).subscribe(x => {
             this.manageUI();
         });
-        setTimeout(() => {
-            FB.init({
-                autoLogAppEvents: true,
-                xFBml: true,
-                version: 'v2.12'
-            });
-        }, 3000);
     }
 
     setHeight(type) {

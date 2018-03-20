@@ -107,11 +107,9 @@ export class FrontendHomeComponent implements OnInit {
             console.log(code);
             console.log(error);
             this.userService.instaService(code).subscribe((instaResponse) => {
-                let resObj = JSON.parse(instaResponse);
-                console.log(resObj)
-
+                const resObj = JSON.parse(instaResponse);
                 if (typeof resObj.code === 'undefined' && resObj.code !== 400) {
-                    let obj = {};
+                    const obj = {};
                     obj['role'] = 'User';
                     obj['status'] = true;
                     obj['email'] = resObj['user']['username'];
@@ -136,12 +134,12 @@ export class FrontendHomeComponent implements OnInit {
                             localStorage.setItem('customer', JSON.stringify(loggedUser.user));
                             this.router.navigate(['dashboard']);
                         }
-                    })
+                    });
                 } else {
                     this._flashMessagesService.show('Something went wrong', { cssClass: 'alert-danger', timeout: 5000 });
                     this.router.navigate(['/']);
                 }
-            })
+            });
         }
     }
 
@@ -150,14 +148,12 @@ export class FrontendHomeComponent implements OnInit {
         const oauth_token = queryParams['oauth_token'];
         const oauth_verifier = queryParams['oauth_verifier'];
         if (oauth_verifier && oauth_token) {
-            console.log(oauth_verifier, oauth_token)
-            let requestSecret = localStorage.getItem('requestSecret');
-            let obj = {};
+            const requestSecret = localStorage.getItem('requestSecret');
+            const obj = {};
             obj['oauth_verifier'] = oauth_verifier;
             obj['oauth_token'] = oauth_token;
             obj['requestSecret'] = requestSecret;
             this.userService.twitterFetchService(obj).subscribe((twitterResponse) => {
-                console.log(twitterResponse);
                 localStorage.removeItem('requestSecret');
                 let obj = {};
                 obj['role'] = 'User';
@@ -174,24 +170,33 @@ export class FrontendHomeComponent implements OnInit {
                             this.userService.socialValidateUser(obj).subscribe((loggedUserOauth) => {
                                 localStorage.setItem('id_token_customer', loggedUserOauth.token);
                                 localStorage.setItem('customer', JSON.stringify(loggedUserOauth.user));
-                                this.router.navigate([this.returnUrl]);
+                                this.userService.mycategory().subscribe((category) => {
+                                    if (!category.error) {
+                                        this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || 'view/' + category.message[0]._id;
+                                    }
+                                    this.router.navigate([this.returnUrl]);
+                                });
                             });
                         });
                     } else {
                         localStorage.setItem('id_token_customer', loggedUser.token);
                         localStorage.setItem('customer', JSON.stringify(loggedUser.user));
-                        this.router.navigate([this.returnUrl]);
+                        this.userService.mycategory().subscribe((category) => {
+                            if (!category.error) {
+                                this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || 'view/' + category.message[0]._id;
+                            }
+                            this.router.navigate([this.returnUrl]);
+                        });
                     }
-                })
-            })
+                });
+            });
         }
     }
 
     signIn(provider) {
         this.sub = this._auth.login(provider).subscribe(
             (data) => {
-                //console.log(data)
-                let obj = {};
+                const obj = {};
                 obj['role'] = 'User';
                 obj['status'] = true;
                 obj['email'] = data['email'];
@@ -199,7 +204,7 @@ export class FrontendHomeComponent implements OnInit {
                 obj['uid'] = data['uid'];
                 obj['provider'] = data['provider'];
                 obj['image'] = data['image'];
-                var nameArr = data['name'].split(' ');
+                const nameArr = data['name'].split(' ');
                 obj['lastname'] = nameArr.pop();
                 obj['firstname'] = nameArr.join(' ');
                 // console.log(obj)
@@ -212,7 +217,12 @@ export class FrontendHomeComponent implements OnInit {
                                 localStorage.setItem('customer', JSON.stringify(loggedUserOauth.user));
                                 this.modelClose('login');
                                 this.modelClose('signup');
-                                this.zone.run(() => this.returnUrl);
+                                this.userService.mycategory().subscribe((category) => {
+                                    if (!category.error) {
+                                        this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || 'view/' + category.message[0]._id;
+                                    }
+                                    this.zone.run(() => this.returnUrl);
+                                });
                             });
                         });
                     }
@@ -222,7 +232,12 @@ export class FrontendHomeComponent implements OnInit {
                         localStorage.setItem('customer', JSON.stringify(loggedUser.user));
                         this.modelClose('login');
                         this.modelClose('signup');
-                        this.router.navigate([this.returnUrl]);
+                        this.userService.mycategory().subscribe((category) => {
+                            if (!category.error) {
+                                this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || 'view/' + category.message[0]._id;
+                            }
+                            this.router.navigate([this.returnUrl]);
+                        });
                     }
                 });
             }
@@ -270,7 +285,12 @@ export class FrontendHomeComponent implements OnInit {
                 } else {
                     this.userService.storeUserData(data.token, data.user);
                     this._flashMessagesService.show('Login  Successfully', { cssClass: 'alert-success', timeout: 5000 });
-                    this.router.navigate([this.returnUrl]);
+                    this.userService.mycategory().subscribe((category) => {
+                        if (!category.error) {
+                            this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || 'view/' + category.message[0]._id;
+                        }
+                        this.router.navigate([this.returnUrl]);
+                    });
                 }
             },
             (err) => {
@@ -282,13 +302,13 @@ export class FrontendHomeComponent implements OnInit {
     forgetPass() {
         this.userService.forgotPassword(this.customerForgetForm.value).subscribe(
             (data) => {
-                this.modelClose('forget')
+                this.modelClose('forget');
                 if (!data.success) {
                     this._flashMessagesService.show(data.message, { cssClass: 'alert-success', timeout: 5000 });
                 } else {
-                    //this.userService.storeUserData(data.token, data.user);
+                    // this.userService.storeUserData(data.token, data.user);
                     this._flashMessagesService.show(data.message, { cssClass: 'alert-danger', timeout: 5000 });
-                    //this.router.navigate(['dashboard']);
+                    // this.router.navigate(['dashboard']);
                 }
             },
             (err) => {
@@ -301,12 +321,14 @@ export class FrontendHomeComponent implements OnInit {
         if (!this.customerLoginForm) { return; }
         const form = this.customerLoginForm;
 
+        // tslint:disable-next-line:forin
         for (const field in this.formErrors) {
             // clear previous error message (if any)
             this.formErrors[field] = '';
             const control = form.get(field);
             if (control && control.dirty && !control.valid) {
                 const messages = this.validationMessages[field];
+                // tslint:disable-next-line:forin
                 for (const key in control.errors) {
                     this.formErrors[field] += messages[key] + ' ';
                 }
@@ -315,38 +337,38 @@ export class FrontendHomeComponent implements OnInit {
     }
 
     modelOpen(type) {
-        if (type == 'login') {
-            this.modelClose('forget')
-            document.getElementById('loginModal').style.display = "block";
+        if (type === 'login') {
+            this.modelClose('forget');
+            document.getElementById('loginModal').style.display = 'block';
             document.getElementsByClassName('main-content')[0].setAttribute('style', 'filter:blur(20px)');
         }
 
-        if (type == 'signup') {
-            document.getElementById('signupModal').style.display = "block";
-            document.getElementsByClassName('main-content')[0].setAttribute('style', 'filter:blur(20px)')
+        if (type === 'signup') {
+            document.getElementById('signupModal').style.display = 'block';
+            document.getElementsByClassName('main-content')[0].setAttribute('style', 'filter:blur(20px)');
         }
 
-        if (type == 'forget') {
-            this.modelClose('login')
-            document.getElementById('forgetPassModal').style.display = "block";
-            document.getElementsByClassName('main-content')[0].setAttribute('style', 'filter:blur(20px)')
+        if (type === 'forget') {
+            this.modelClose('login');
+            document.getElementById('forgetPassModal').style.display = 'block';
+            document.getElementsByClassName('main-content')[0].setAttribute('style', 'filter:blur(20px)');
         }
     }
 
     modelClose(type) {
-        if (type == 'login') {
-            document.getElementById('loginModal').style.display = "none";
+        if (type === 'login') {
+            document.getElementById('loginModal').style.display = 'none';
             document.getElementsByClassName('main-content')[0].setAttribute('style', 'filter:none');
         }
 
-        if (type == 'signup') {
-            document.getElementById('signupModal').style.display = "none";
-            document.getElementsByClassName('main-content')[0].setAttribute('style', 'filter:none')
+        if (type === 'signup') {
+            document.getElementById('signupModal').style.display = 'none';
+            document.getElementsByClassName('main-content')[0].setAttribute('style', 'filter:none');
         }
 
-        if (type == 'forget') {
-            document.getElementById('forgetPassModal').style.display = "none";
-            document.getElementsByClassName('main-content')[0].setAttribute('style', 'filter:none')
+        if (type === 'forget') {
+            document.getElementById('forgetPassModal').style.display = 'none';
+            document.getElementsByClassName('main-content')[0].setAttribute('style', 'filter:none');
         }
     }
 }
@@ -377,8 +399,8 @@ export class ResetComponent implements OnInit {
 
     resetPassword() {
 
-        if (this.password == this.cpassword) {
-            let usrObj = {};
+        if (this.password === this.cpassword) {
+            const usrObj = {};
             usrObj['_id'] = this.id;
             usrObj['password'] = this.password;
             this.userService.resetPassword(usrObj).subscribe((data) => {
@@ -438,7 +460,7 @@ export class AccountActiveComponent implements OnInit {
                 } else {
                     /* this.router.navigate(['/']); */
                     this._flashMessagesService.show(data.message, { cssClass: 'danger-alert', timeout: 5000 });
-                    if (data.error && data.message == 'Email Activation Link Expire.') {
+                    if (data.error && data.message === 'Email Activation Link Expire.') {
                         document.getElementById('resendLink').style.display = 'block';
                     }
                 }
@@ -458,11 +480,11 @@ export class AccountActiveComponent implements OnInit {
                 this._flashMessagesService.show(data.message, { cssClass: 'alert-success', timeout: 5000 });
                 setTimeout(() => {
                     this.router.navigate(['/']);
-                }, 1000)
+                }, 1000);
             } else {
                 this._flashMessagesService.show(data.message, { cssClass: 'danger-alert', timeout: 5000 });
             }
-        })
+        });
     }
 
     public goToLogin() {

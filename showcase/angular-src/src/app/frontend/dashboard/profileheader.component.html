@@ -183,7 +183,7 @@
                             <div class="row">
                                 <div class="col-12">
                                     <div class="form-group">
-                                        <select multiple class="form-control" id="exampleFormControlSelect2">
+                                        <select multiple class="form-control" #categorySelect>
                                             <option *ngFor="let category of categories; let i = index" (click)="categorySelected(category._id)">{{category.name}}</option>
                                             <option (click)="openNewShowcase()">Create new showcase</option>
                                         </select>

@@ -1,42 +1,45 @@
 <!doctype html>
 <html lang="en">
-	<head>
-	  	<meta charset="utf-8">
-	  	<title>Showcase.Social</title>
-	  	<base href="/">
-	  	<meta name="viewport" content="width=device-width, initial-scale=1">
-	  	<link rel="icon" type="image/x-icon" href="favicon.ico">
-	  	<!-- Bootstrap core CSS     -->
-		<link href="/assets/frontend/css/bootstrap.min.css" rel="stylesheet" />
-		<link href="/assets/frontend/css/style.css" rel="stylesheet" />
-		<!--     Fonts and icons     -->
-			<link href="node_modules/ng2-toastr/bundles/ng2-toastr.min.css" rel="stylesheet" />
-		<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
-	</head>
-	<body>
-		<app-root></app-root><!-- 
-		<script type="text/javascript" src="https://code.jquery.com/jquery-1.11.2.min.js"></script> -->
-		<!--   Frontend JS Files   -->
-		
-		<script src="/assets/frontend/js/jquery-3.2.1.slim.min.js"></script>
-		<script src="/assets/frontend/js/popper.min.js"></script>
-		<script src="/assets/frontend/js/bootstrap.min.js"></script>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/4.1.1/imagesloaded.pkgd.min.js"></script>
 
-		<!--   Admin JS Files   -->
-		<script src="/assets/admin/js/material.min.js" type="text/javascript"></script>
-		<script src="/assets/admin/js/script.js" type="text/javascript"></script>
-		<script src="/assets/admin/js/arrive.min.js" type="text/javascript"></script>
-		<script src="/assets/admin/js/perfect-scrollbar.jquery.min.js" type="text/javascript"></script>
-		<!-- <script src="/assets/admin/js/material-dashboard.js" type="text/javascript"></script> -->
-	
-		<!-- <script src="node_modules/ng2-toastr/bundles/ng2-toastr.min.js"></script> -->
-		<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
-		<!-- <script async src="https://platform.instagram.com/en_US/embeds.js" charset="utf-8"></script> -->
-		<script async src="https://www.instagram.com/embed.js" charset="utf-8"></script>
-	
+<head>
+	<meta charset="utf-8">
+	<title>Showcase.Social</title>
+	<base href="/">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="icon" type="image/x-icon" href="favicon.ico">
+	<!-- Bootstrap core CSS     -->
+	<link href="/assets/frontend/css/bootstrap.min.css" rel="stylesheet" />
+	<link href="/assets/frontend/css/style.css" rel="stylesheet" />
+	<!--     Fonts and icons     -->
+	<link href="node_modules/ng2-toastr/bundles/ng2-toastr.min.css" rel="stylesheet" />
+	<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+</head>
+
+<body>
+	<app-root></app-root>
+	<!-- 
+		<script type="text/javascript" src="https://code.jquery.com/jquery-1.11.2.min.js"></script> -->
+	<!--   Frontend JS Files   -->
+
+	<script src="/assets/frontend/js/jquery-3.2.1.slim.min.js"></script>
+	<script src="/assets/frontend/js/popper.min.js"></script>
+	<script src="/assets/frontend/js/bootstrap.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/4.1.1/imagesloaded.pkgd.min.js"></script>
+
+	<!--   Admin JS Files   -->
+	<script src="/assets/admin/js/material.min.js" type="text/javascript"></script>
+	<script src="/assets/admin/js/script.js" type="text/javascript"></script>
+	<script src="/assets/admin/js/arrive.min.js" type="text/javascript"></script>
+	<script src="/assets/admin/js/perfect-scrollbar.jquery.min.js" type="text/javascript"></script>
+	<!-- <script src="/assets/admin/js/material-dashboard.js" type="text/javascript"></script> -->
+
+	<!-- <script src="node_modules/ng2-toastr/bundles/ng2-toastr.min.js"></script> -->
+	<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+	<!-- <script async src="https://platform.instagram.com/en_US/embeds.js" charset="utf-8"></script> -->
+	<script async src="https://www.instagram.com/embed.js" charset="utf-8"></script>
+
 	<script>
-	$('.dropdown-menu a.dropdown-toggle').on('click', function (e) {
+		$('.dropdown-menu a.dropdown-toggle').on('click', function (e) {
 			if (!$(this).next().hasClass('show')) {
 				$(this).parents('.dropdown-menu').first().find('.show').removeClass("show");
 			}
@@ -51,5 +54,7 @@
 
 			return false;
 		}); </script>
-	</body>
+	<script> window.fbAsyncInit = function () { FB.init({  autoLogAppEvents: true, xfbml: true, version: 'v2.12' }); }; (function (d, s, id) { var js, fjs = d.getElementsByTagName(s)[0]; if (d.getElementById(id)) { return; } js = d.createElement(s); js.id = id; js.src = "https://connect.facebook.net/en_US/sdk.js"; fjs.parentNode.insertBefore(js, fjs); }(document, 'script', 'facebook-jssdk')); </script>
+</body>
+
 </html>

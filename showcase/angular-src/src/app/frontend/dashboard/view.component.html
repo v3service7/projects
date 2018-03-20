@@ -1,5 +1,4 @@
 <app-profileheader [childMessage]="parentMessage"></app-profileheader>
-
 <div style="padding-top: 65px;">
 	<h1 *ngIf="bookmarks?.length <= 0" class="text-center text-muted pt-5">No bookmarks available.</h1>
 
@@ -7,4 +6,7 @@
 	 [scrollWindow]="false">
 	<div id="showcaseSocialBlock" class="grid" style="padding-left:10px;"></div>
 	</div>
+	<!-- <div *ngFor="let bookmark of bookmarks; let i = index; let last = last;">
+		<div *ngIf="bookmark.type == 'facebook'" class="fb-post" [attr.data-href]="bookmark.url"></div>	
+	</div> -->
 </div>

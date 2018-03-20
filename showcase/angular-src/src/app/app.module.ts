@@ -57,7 +57,7 @@ import { ClipboardModule } from 'ngx-clipboard';
 import { UiSwitchModule } from 'ngx-ui-switch';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { SafeHtmlPipe } from './safe-html.pipe';
-
+import { LoadingModule, ANIMATION_TYPES  } from 'ngx-loading';
 let providers = {
     'google': {
       'clientId': '214874028334-4t3q11rlobifpmspvrac9dl6i6k6usq2.apps.googleusercontent.com'
@@ -96,6 +96,14 @@ let providers = {
     SafeHtmlPipe
   ],
   imports: [
+    LoadingModule.forRoot({
+      animationType: ANIMATION_TYPES.rectangleBounce,
+      backdropBackgroundColour: '#fff',
+      backdropBorderRadius: '4px',
+      primaryColour: '#142954',
+      secondaryColour: '#142954',
+      tertiaryColour: '#142954'
+    }),
     InfiniteScrollModule,
     UiSwitchModule,
     ClipboardModule,
