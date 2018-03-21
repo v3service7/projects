@@ -2,6 +2,10 @@ body{
     font-family: 'Open Sans',sans-serif;
 }
 
+ .addOnsDetail div.subAddOn div.subAddOnDetail{
+    background: white;
+}
+
 .modal.fade .modal-dialog {
     -webkit-transition: -webkit-transform .3s ease-out!important;
     transition: transform .3s ease-out!important

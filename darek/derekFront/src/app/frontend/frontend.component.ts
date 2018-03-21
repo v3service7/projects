@@ -590,7 +590,7 @@ export class FrontendPromoDetailComponent implements OnInit {
     }
 
     private addonUncheck(){
-        $('.subAddOnDetail').css('background','');
+        $('.subAddOnDetail').removeClass('addonCheckClass');
         $('.subAddOnDetail').attr('data-addon','check');
     }
 
@@ -615,7 +615,8 @@ export class FrontendPromoDetailComponent implements OnInit {
 
         var groupId = group._id;
         if (isCheck == 'check') {
-            document.getElementById(id).style.backgroundColor = '#e1eef5';
+            $('#'+id).addClass('addonCheckClass');
+            /*document.getElementById(id).style.backgroundColor = '#e1eef5';*/
             document.getElementById(id).setAttribute('data-addon','uncheck');
             addonObj.groupId = groupId;
 
@@ -645,7 +646,8 @@ export class FrontendPromoDetailComponent implements OnInit {
                                     this.mandatoryItemArray[groupId].total=this.mandatoryItemArray[groupId].total-1;
                                 }
                                 this.orderItem.addon.splice(indx,1);
-                                document.getElementById(idz).style.backgroundColor = '#fff';
+                                $('#'+idz).removeClass('addonCheckClass');
+                                /*document.getElementById(idz).style.backgroundColor = '#fff';*/
                                 document.getElementById(idz).setAttribute('data-addon','check');
                             }
                         }
@@ -662,7 +664,8 @@ export class FrontendPromoDetailComponent implements OnInit {
             }
             var addonIndex = this.orderItem.addon.findIndex(item => item._id == addonObj._id);
             this.orderItem.addon.splice(addonIndex, 1);
-            document.getElementById(id).style.backgroundColor = '#fff';
+            $('#'+id).removeClass('addonCheckClass');
+            /*document.getElementById(id).style.backgroundColor = '#fff';*/
             document.getElementById(id).setAttribute('data-addon','check');
             this.addonPrice = this.addonPrice - parseInt(addonObj.price);
             this.finalPrice = (this.multiSizePrice + this.price+ this.addonPrice)* this.quantity;
@@ -1165,7 +1168,7 @@ export class FrontendComponent implements OnInit {
     }
 
     private addonUncheck(){
-        $('.subAddOnDetail').css('background','');
+        $('.subAddOnDetail').removeClass('addonCheckClass');
         $('.subAddOnDetail').attr('data-addon','check');
     }
 
@@ -1234,7 +1237,9 @@ export class FrontendComponent implements OnInit {
 
         var groupId = group._id;
         if (isCheck == 'check') {
-            document.getElementById(id).style.backgroundColor = '#e1eef5';
+
+            $('#'+id).addClass('addonCheckClass');
+            /*document.getElementById(id).style.backgroundColor = '#e1eef5';*/
             document.getElementById(id).setAttribute('data-addon','uncheck');
             addonObj.groupId = groupId;
 
@@ -1264,7 +1269,8 @@ export class FrontendComponent implements OnInit {
                                     this.mandatoryItemArray[groupId].total=this.mandatoryItemArray[groupId].total-1;
                                 }
                                 this.orderItem.addon.splice(indx,1);
-                                document.getElementById(idz).style.backgroundColor = '#fff';
+                                $('#'+idz).removeClass('addonCheckClass');
+                                /*document.getElementById(idz).style.backgroundColor = '#fff';*/
                                 document.getElementById(idz).setAttribute('data-addon','check');
                             }
                         }
@@ -1281,7 +1287,8 @@ export class FrontendComponent implements OnInit {
             }
             var addonIndex = this.orderItem.addon.findIndex(item => item._id == addonObj._id);
             this.orderItem.addon.splice(addonIndex, 1);
-            document.getElementById(id).style.backgroundColor = '#fff';
+            $('#'+id).removeClass('addonCheckClass');
+            /*document.getElementById(id).style.backgroundColor = '#fff';*/
             document.getElementById(id).setAttribute('data-addon','check');
             this.addonPrice = this.addonPrice - parseInt(addonObj.price);
             this.finalPrice = (this.multiSizePrice + this.price+ this.addonPrice)* this.quantity;
@@ -1724,6 +1731,7 @@ export class FrontendCartComponent implements OnInit {
     detailForm:FormGroup;
     addressForm:FormGroup;
     makePaymentModel:FormGroup;
+    regForm:FormGroup;
     currentDate:any;
     date : any;
     timeO : any;
@@ -1740,6 +1748,9 @@ export class FrontendCartComponent implements OnInit {
     laterDiffDays : number = 0;
 
     spicyArray : any = [1,2,3];
+
+
+    guestLogin : any;
 
     constructor(
         private lf: FormBuilder,
@@ -1804,6 +1815,13 @@ export class FrontendCartComponent implements OnInit {
             month: ['', Validators.required],
             year: ['', Validators.required],
             cvv: ['', Validators.required],
+        });
+
+        this.regForm = this.lf.group({
+            phonenumber: ['', Validators.required],
+            username: ['', Validators.required],
+            email: ['', Validators.required],
+            password: ['', Validators.required],
         });
 
         if (localStorage.getItem(this.cartSubTotal)) {
@@ -3186,6 +3204,61 @@ export class FrontendCartComponent implements OnInit {
     private cancelComment(){
         this.addComment = false;
     }
+
+
+
+
+
+
+    showGuestLogin(){
+        this.guestLogin = 'loader';
+
+        setTimeout(()=>{
+            this.guestLogin = 'form';
+        },3000)
+    }
+
+
+    register(){
+        this.customerService.addCustomer(this.regForm.value).subscribe(
+            (data) => {
+                if (!data.error) {
+                    let obj = {};
+
+                    obj['username'] = this.regForm.value.username;
+                    obj['password'] = this.regForm.value.password;
+                    this.login(obj);
+
+                }else{
+                    toastr.remove();
+                    toastr.warrning('Username/email already exist');
+                    this.regForm.reset();
+                }
+            }
+        );
+    }
+
+    private login(obj){
+        this.guestLogin = 'loader'
+        this.customerService.getCustomer(obj).subscribe(
+            (data) => {
+                if (data.status) {
+                    localStorage.setItem(this.customerStorage, JSON.stringify(data.data._id));
+                    toastr.remove();
+                    toastr.success('You are successfully Logged In!', 'Success!', {'positionClass' : 'toast-top-full-width'});
+                    delete this.guestLogin;
+
+                    this.ngOnInit();
+                }
+                else{
+                    toastr.remove();
+                    toastr.warning('Something went wrong', 'Oops!', {'positionClass' : 'toast-top-full-width'});
+                    delete this.guestLogin;
+                    this.ngOnInit()
+                }
+            }
+        );
+    }
 }
 
 @Component({
@@ -3222,10 +3295,10 @@ export class FrontendLoginComponent implements OnInit {
         )
     {}
     ngOnInit() {
-        if (typeof this.route.snapshot.queryParams["show"] != 'undefined') {
+        /*if (typeof this.route.snapshot.queryParams["show"] != 'undefined') {
             this.showRegister = true;
             this.showLogin = false;
-        }
+        }*/
 
         this.loginForm = this.lf.group({
             username: ['', Validators.required],

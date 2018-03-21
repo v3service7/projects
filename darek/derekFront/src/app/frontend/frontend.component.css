@@ -517,6 +517,13 @@ button.orderButton{
 
 }
 
+
+.addonCheckClass{
+    background-color: rgba(255, 136, 0, 0.67) !important;
+    color: white;
+    border: 1px solid white !important;
+}
+
 .addOnsDetail div div div.subAddOn div.subAddOnDetail{
     display: flex;
     cursor: pointer;
@@ -891,6 +898,15 @@ div.deal-list div.oddEven:nth-child(odd) {
     margin: 0;
 }
 
+#paymentDiv, #guestLoginDiv{
+    background: rgba(255, 255, 255, 0.87);
+    padding: 10% 20%;
+    position: absolute;
+    margin: 0;
+    top: 0;
+    bottom: 0;
+    z-index: 2;
+}
 
 .backend-loader-preloader-wrapper {
     position: absolute;

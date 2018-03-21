@@ -38,6 +38,14 @@
             <div class="btn saveButton pull-right" style="padding: 1%;left: 45%;width: 10%;">Next</div>
         </div>
 
+        <div *ngIf = "newRadius" class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <b>Distance (Radius) : </b>{{newRadius | number : '1.2-2'}} km
+        </div>
+
+        <div *ngIf = "newArea" class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <b>Area : </b>{{newArea | number : '1.2-2'}} km<sup>2</sup>
+        </div>
+        
         <div class="screen screen-form js-screen-address-form ng-scope col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0" id="Menu18" id="gmap" style="min-height: 84vh;">   
         </div>
     </div>

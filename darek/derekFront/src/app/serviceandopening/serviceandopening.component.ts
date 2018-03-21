@@ -99,10 +99,13 @@ export class RestaurantOwnerOpeningHoursComponent implements OnInit {
 		private router: Router,
 		private alertService: AlertService,
 		private lf: FormBuilder
-		) { }
+		) {}
 
 
 	ngOnInit() {
+
+		this.loadScript('/assets/js/bootstrap-datetimepicker.min.js','js');
+        this.loadScript('/assets/css/bootstrap-datetimepicker.css','css');
 
 		this.openingAddModel = this.lf.group({
 			monday: [],
@@ -118,6 +121,41 @@ export class RestaurantOwnerOpeningHoursComponent implements OnInit {
 		});
 		this.initailfun();
 	}
+
+	public loadScript(url,type) {
+        if (type == 'js') {
+            let node = document.createElement('script');
+            node.src = url;
+            node.type = 'text/javascript';
+            document.getElementsByTagName('body')[0].appendChild(node);
+        }else{
+            let node = document.createElement('link');
+            node.href = url;
+            node.rel = 'stylesheet';
+            document.getElementsByTagName('head')[0].appendChild(node);
+        }
+
+        setTimeout(()=>{
+	        $('#closedatetimepicker').datetimepicker({
+	            format:'HH:mm'
+	        });
+	        $('#opendatetimepicker').datetimepicker({
+	            format:'HH:mm'
+	        });
+        },2000);
+    }
+
+    getValue(event,type){
+    	if (type == 'close') {
+    		this.openingAddModel.controls['closetime'].setValue(event.target.value);
+
+    		console.log("this.openingAddModel.value");
+    		console.log(this.openingAddModel.value);
+    	}else{
+    		this.openingAddModel.controls['opentime'].setValue(event.target.value);
+    	}
+
+    }
 
 	initailfun() {
 		this.restaurantsService.getOwnerRestaurants(JSON.parse(localStorage.getItem('currentOwner'))._id).subscribe(users => {
@@ -156,35 +194,45 @@ export class RestaurantOwnerOpeningHoursComponent implements OnInit {
 			}
 		}
 
-		console.log("count");
-		console.log(count);
-
 		if (count == 10) {
 			toastr.remove();
-			toastr.warning('Please Select day','Warning!')
-		}else{		
-			var d = this.preoptionSet;
-			for (var key in d) {
-				if (objForUpdate[key] != d[key] && objForUpdate.hasOwnProperty(key) == false) {
-					objForUpdate[key] = d[key];
+			toastr.warning('Please Select day','Warning!');
+		}else{
+			if (timeObj.opentime < timeObj.closetime) {
+				var d = this.preoptionSet;
+				for (var key in d) {
+					if (objForUpdate[key] != d[key] && objForUpdate.hasOwnProperty(key) == false) {
+						objForUpdate[key] = d[key];
+					}
 				}
+
+				this.optionSet.result = { "openinghours": objForUpdate };
+
+				this.restaurantsService.updatePickUpHours(this.optionSet).subscribe((data) => {
+
+					if (!data.error) {
+						this.openingAddModel.reset();
+						this.initailfun();
+						let x  = $('#closedatetimepicker');
+						let y  = $('#opendatetimepicker');
+
+						x[0].value = '';
+						y[0].value = '';
+						/*$('#closedatetimepicker').setvalue('');
+						$('#opendatetimepicker').setvalue('');*/
+						toastr.remove();
+						toastr.success('Restaurant Opening Hours Updated','Success!');
+					}else{
+						toastr.remove();
+						toastr.error('Could not update Restaurant Opening Hours','Error!');
+					}
+					/*this.user = data.message;*/
+				});
+			}else{
+				toastr.remove();
+				toastr.warning('Opening Time should be smaller than Closing Time','Warning!')
 			}
-
-			this.optionSet.result = { "openinghours": objForUpdate };
-
-			this.restaurantsService.updatePickUpHours(this.optionSet).subscribe((data) => {
-
-				if (!data.error) {
-					this.openingAddModel.reset();
-					this.initailfun();
-					toastr.remove();
-					toastr.success('Restaurant Opening Hours Updated','Success!');
-				}else{
-					toastr.remove();
-					toastr.error('Could not update Restaurant Opening Hours','Error!');
-				}
-				/*this.user = data.message;*/
-			});
+			
 		}
 	}
 
@@ -551,6 +599,9 @@ export class RestaurantOwnerDeliveryZoneComponent implements OnInit {
 	btn_class2: any = 'btn-default';
 	user : any ;
 
+	newRadius : any ;
+	newArea : any ;
+
 	constructor(
 		private elem: ElementRef,
 		private restaurantsService: RestaurantsService,
@@ -716,9 +767,6 @@ export class RestaurantOwnerDeliveryZoneComponent implements OnInit {
 					radius: parseFloat(this.deliverys[key].radius)
 				});
 
-				console.log("newCobj");
-				console.log(newCobj);
-
 				this.mergeCircleShape.push(newCobj);
 			}
 			else {
@@ -772,8 +820,23 @@ export class RestaurantOwnerDeliveryZoneComponent implements OnInit {
 				center: this.citymap.center,
 				radius: this.radiusadd
 			});
+
+			let abcThis = this;
+
+			/*google.maps.event.addListener(this.cityCircle, 'radius_changed', ()=> {
+				console.log('radius_changed');
+			})*/
+
+			this.cityCircle.addListener('radius_changed', function(e){
+		        abcThis.storeCircleRadius(this.cityCircle);
+		    });
 		}
 	}
+
+    storeCircleRadius(circle) {
+		let rad = this.cityCircle.getRadius();
+		this.newRadius = rad/1000;
+    }
 	selectShapeEditable() {
 		this.randomColorCode = '#' + (Math.random() * 0xFFFFFF << 0).toString(16);
 		let mapProp = {
@@ -799,6 +862,29 @@ export class RestaurantOwnerDeliveryZoneComponent implements OnInit {
 			editable: true
 		});
 		this.mypolygone.setMap(map);
+
+		let tempThis = this;
+
+
+		this.mypolygone.getPaths().forEach((path, index) => {
+
+			google.maps.event.addListener(path, 'insert_at', function(){
+		    	console.log('insert_at');
+
+				let area = google.maps.geometry.spherical.computeArea(tempThis.mypolygone.getPath());
+				tempThis.newArea = area/1000000;
+		 	});
+
+			google.maps.event.addListener(path, 'remove_at', function(){
+		    	console.log('remove_at')
+			});
+
+			google.maps.event.addListener(path, 'set_at', function(){
+				let area = google.maps.geometry.spherical.computeArea(tempThis.mypolygone.getPath());
+				tempThis.newArea = area/1000000;
+			});
+
+		});
 	}
 	getRestaurants() {
 		this.restaurantsService.getOwnerRestaurants(JSON.parse(localStorage.getItem('currentOwner'))._id).subscribe(users => {
@@ -824,9 +910,11 @@ export class RestaurantOwnerDeliveryZoneComponent implements OnInit {
 		this.areatype = val;
 		this.BackColor = this.randomColorCode;
 		if (val == 'Circle') {
+			delete this.newArea;
 			this.selectCircleEditable();
 		}
 		if (val == 'Shape') {
+			delete this.newRadius;
 			this.selectShapeEditable();
 		}
 	}
@@ -837,9 +925,14 @@ export class RestaurantOwnerDeliveryZoneComponent implements OnInit {
 		this.edit = false;
 		this.editableDetail.reset();
 	}
-	getAllDeliveryZoneLoad() {		
+	getAllDeliveryZoneLoad() {
 		this.restaurantsService.getAllDeliveryZone(this.restaurants._id).subscribe((data) => {
 			this.deliverys = data.message;
+
+
+			console.log("this.deliverys");
+			console.log(this.deliverys);
+
 			this.drawAreaOnMap();
 		});
 	}
@@ -854,6 +947,8 @@ export class RestaurantOwnerDeliveryZoneComponent implements OnInit {
 		this.deliveryAddModel.controls['restaurantId'].setValue(this.restaurants._id);
 		this.deliveryAddModel.controls['color'].setValue(this.randomColorCode);
 		if (this.areatype == 'Shape') {
+			delete this.newArea;
+
 			var len = this.mypolygone.getPath().getLength();
 			var htmlStr = "";
 			for (var i = 0; i < len; i++) {
@@ -863,6 +958,7 @@ export class RestaurantOwnerDeliveryZoneComponent implements OnInit {
 			this.deliveryAddModel.controls['radius'].setValue(htmlStrRemoveLast);
 		}
 		if (this.areatype == 'Circle') {
+			delete this.newRadius;
 			this.deliveryAddModel.controls['radius'].setValue(this.cityCircle.getRadius());
 		}
 		this.restaurantsService.addDeliveryZone(this.deliveryAddModel.value).subscribe(

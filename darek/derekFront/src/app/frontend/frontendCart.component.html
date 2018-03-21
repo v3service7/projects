@@ -235,7 +235,9 @@
 					<div class="btn saveButton" [routerLink]="['/login', restaurants._id]" >{{'Login' | translate}}/{{'Signup' | translate}}</div>
 				</div>
 				<div class="col-lg-12 col-md-12 col-sm-12 padding0">
-					<div class="btn saveButton" [routerLink]="['/login',restaurants._id]" [queryParams]="{ show: '' }">{{'Continue' | translate}} {{'as' | translate}} {{'Guest' | translate}}</div>
+					<!-- <div class="btn saveButton" [routerLink]="['/login',restaurants._id]" [queryParams]="{ show: '' }">{{'Continue' | translate}} {{'as' | translate}} {{'Guest' | translate}}</div> -->
+
+					<div class="btn saveButton" (click) = "showGuestLogin()">{{'Continue' | translate}} {{'as' | translate}} {{'Guest' | translate}}</div>
 				</div>
 			</div>
 
@@ -521,10 +523,8 @@
 				</div>
 
 				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding10px0px wordBreak" *ngIf = "!commentNotMade">Comment : {{commentMade}}</div>
-
 			</div>
 		</div>
-
 	</div>
 
 	<footer class="col-lg-12 col-md-12 col-sm-12 col-xs-12 footer container-fluid footer navbar-fixed-bottom">
@@ -546,7 +546,7 @@
 
 </div>
 
-<div class="profile col-lg-12 col-md-12 col-sm-12 col-xs-12" id="paymentDiv" style="background: rgba(255, 255, 255, 0.87);padding: 10% 20%;position: absolute;margin: 0;top: 0;">
+<div class="profile col-lg-12 col-md-12 col-sm-12 col-xs-12" id="paymentDiv">
 	<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0" style="box-shadow: 0 1px 6px rgba(0,1,1,.35);background: white;">
 		<form [formGroup]="makePaymentModel" (ngSubmit)="makePayment()">
 			<div class="firstDiv col-lg-12 col-md-12 col-sm-12 col-xs-12" style="box-shadow: 0 -1px 0 #d5d5d3, inset 0 1px 0 rgba(0, 0, 0, .04);">  
@@ -595,5 +595,41 @@
 		</form>
 	</div>
 </div>
+
+<div *ngIf = "guestLogin && guestLogin == 'loader'" class="profile col-lg-12 col-md-12 col-sm-12 col-xs-12" id="guestLoginDiv">
+	<div class="backend-loader-preloader-wrapper">
+		<div class="backend-loader-preloader"></div>
+	</div>
+</div>
+
+<div *ngIf = "guestLogin && guestLogin == 'form'" class="profile col-lg-12 col-md-12 col-sm-12 col-xs-12" id="guestLoginDiv">
+	<div class="login-panel panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title">Login as Guest</h3>
+        </div>
+        <div class="panel-body">
+            <form role="form" [formGroup]="regForm" (ngSubmit)="register()">
+
+                <div class="form-group">
+                    <input formControlName="username" class="form-control" placeholder="Choose your Username" type="text" autofocus>
+                </div>
+                <div class="form-group">
+                    <input formControlName="email" class="form-control" placeholder="E-mail"  type="email" autofocus>
+                </div>
+                <div class="form-group">
+                    <input formControlName="phonenumber" class="form-control" placeholder="Telephone *" type="text" pattern="[0-9]*" autofocus>
+                </div>
+                <div class="form-group">
+                    <input formControlName="password" class="form-control" placeholder="Password" type="password" value="">
+                </div>
+                <!-- Change this to a button or input when using this as a form -->
+                <button class="btn saveButton" [disabled]="!regForm.valid">Login</button>
+            </form>
+        </div>
+    </div>
+
+</div>
+
+
 
 <div id="gmap" style="display: none;"></div>
