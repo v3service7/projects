@@ -1,5 +1,4 @@
-// tslint:disable-next-line:max-line-length
-import { Component, Input, OnInit, NgZone, OnDestroy, ViewChild, AfterViewInit, ElementRef, ViewEncapsulation, ViewContainerRef } from '@angular/core';
+import { Component, Input, OnInit, NgZone, OnDestroy, ViewChild, AfterViewInit, ElementRef, ViewEncapsulation, ViewContainerRef, EventEmitter, Output } from '@angular/core';
 import { Router, ActivatedRoute, Params, NavigationEnd } from '@angular/router';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
@@ -16,10 +15,10 @@ import 'rxjs/add/observable/interval';
 declare var Masonry;
 declare var $;
 declare var twttr;
+declare var jQuery;
 declare var instgrm;
-declare var FB;
 import * as globalVariable from '../../global';
-import { AngularMasonry, MasonryOptions, AngularMasonryBrick } from 'angular2-masonry';
+//import { AngularMasonry, MasonryOptions, AngularMasonryBrick } from 'angular2-masonry';
 
 @Component({
     selector: 'app-frontenddashboard',
@@ -39,9 +38,8 @@ export class FrontendDashboardComponent implements OnInit {
     templateUrl: './profileheader.component.html',
     styleUrls: ['./frontenddashboard.component.css']
 })
-export class ProfileHeaderComponent implements OnInit, AfterViewInit {
+export class ProfileHeaderComponent implements OnInit {
     public static updateUserStatus: Subject<boolean> = new Subject();
-    @ViewChild('categorySelect') categorySelect: ElementRef;
     customer: any;
     bookmarkposition: any = 'top';
     isCopied1: any = false;
@@ -61,9 +59,9 @@ export class ProfileHeaderComponent implements OnInit, AfterViewInit {
     showcaseField: any = false;
     categorySelectedId: any = false;
     @Input() childMessage: string;
+    @Output() sendIdEvent = new EventEmitter<object>(); 
     // tslint:disable-next-line:max-line-length
     constructor(
-        private ngZone: NgZone,
         private route: ActivatedRoute,
         public toastr: ToastsManager,
         public validateService: ValidateService,
@@ -80,13 +78,8 @@ export class ProfileHeaderComponent implements OnInit, AfterViewInit {
         this.checkCustomer();
         this.getMyCategories();
         this.toastr.setRootViewContainerRef(vRef);
-        this.ngZone.run(() => {
-            this.checkCustomer();
-            this.getMyCategories();
-        });
     }
-    ngAfterViewInit() {
-    }
+
     ngOnInit() {
         this.shareUrl = window.location.href;
         this.addCategoryForm = this.lf.group({
@@ -104,7 +97,6 @@ export class ProfileHeaderComponent implements OnInit, AfterViewInit {
 
         this.category_id = this.childMessage;
         this.checkCustomer();
-
     }
     copyToClipboard() {
         // tslint:disable-next-line:max-line-length
@@ -126,13 +118,6 @@ export class ProfileHeaderComponent implements OnInit, AfterViewInit {
         this.addLinkForm.controls['position'].setValue(this.bookmarkposition);
     }
     addBoodmark(id) {
-        if (this.categorySelect.nativeElement) {
-            const elements = this.categorySelect.nativeElement.options;
-            for (let i = 0; i < elements.length; i++) {
-                elements[i].selected = false;
-            }
-        }
-        this.categorySelectedId = true;
         if (id) {
             this.addLinkForm.controls['category_id'].setValue(id);
         }
@@ -140,9 +125,10 @@ export class ProfileHeaderComponent implements OnInit, AfterViewInit {
             if (!data.eror) {
                 this.toastr.success('Bookmark added succesfully.', 'Success!');
                 this.modelCopyToClose();
+                this.sendIdEvent.emit(this.addLinkForm.value);
                 setTimeout(() => {
-                    ViewComponent.updateBookmarkStatus.next(true); // here
-                    this.router.navigate(['view', this.addLinkForm.value['category_id']]);
+                    //ViewComponent.updateBookmarkStatus.next(true); // here
+                    //this.router.navigate(['view', this.addLinkForm.value['category_id']]);
                     this.addLinkForm.reset();
                 }, 500);
             } else {
@@ -156,8 +142,9 @@ export class ProfileHeaderComponent implements OnInit, AfterViewInit {
             this.modelCopyToOpen();
             this.addLinkForm.controls['position'].setValue(this.bookmarkposition);
         } else {
-            this.addLinkForm.controls['category_id'].setValue(this.categories[0]._id);
+            this.addLinkForm.controls['category_id'].setValue(this.category_id);
             this.addLinkForm.controls['position'].setValue(this.bookmarkposition);
+            console.log(this.addLinkForm.value);
             this.addBoodmark('');
             this.modelBookmarkClose();
         }
@@ -167,10 +154,10 @@ export class ProfileHeaderComponent implements OnInit, AfterViewInit {
         this.categorySelectedId = false;
     }
     categorySelected(id) {
-
         this.showcaseField = false;
         this.categorySelectedId = true;
         this.addLinkForm.controls['position'].setValue(this.bookmarkposition);
+        //console.log(this.addLinkForm.value);
         this.addLinkForm.controls['category_id'].setValue(id);
     }
 
@@ -179,29 +166,22 @@ export class ProfileHeaderComponent implements OnInit, AfterViewInit {
         this.modelBookmarkOpen();
     }
     modelBookmarkCloseEmptyForm() {
-        if (this.categorySelect.nativeElement) {
-            const elements = this.categorySelect.nativeElement.options;
-            for (let i = 0; i < elements.length; i++) {
-                elements[i].selected = false;
-            }
-        }
         this.addLinkForm.reset();
         this.modelBookmarkClose();
     }
     embedFacebook(url) {
         // public => https://www.facebook.com/notes/facebook/public-search-listings-on-facebook/2963412130/
         // private => https://www.facebook.com/bob.brello
-        // const inputURL = encodeURIComponent(url);
-        // const ur = 'https://www.facebook.com/plugins/post.php?href=' + inputURL + '%26type%3D3&width=600';
+        const inputURL = encodeURIComponent(url);
+        const ur = 'https://www.facebook.com/plugins/post.php?href=' + inputURL + '%26type%3D3&width=600';
         // tslint:disable-next-line:max-line-length
-        const embedHTML = '<div class="fb-post" data-href="' + url + '"></div>';
+        const embedHTML = '<iframe id="bookmarkiframe" src="https://www.facebook.com/plugins/post.php?href=' + inputURL + '%26type%3D3&width=600" height="400" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowTransparency="true"></iframe>';
         const htmlToAdd = this.convertToGridItem(embedHTML);
-        this.addLinkForm.controls['title'].setValue(url);
+        this.addLinkForm.controls['title'].setValue(ur);
         this.addLinkForm.controls['body'].setValue(embedHTML);
         this.addLinkForm.controls['type'].setValue('facebook');
         document.getElementById('loader').style.display = 'none';
         document.getElementById('bookMark').innerHTML = htmlToAdd;
-        FB.XFBML.parse();
     }
 
     embedInsta(url) {
@@ -407,7 +387,7 @@ export class ProfileHeaderComponent implements OnInit, AfterViewInit {
                 this.userService.getProfile().subscribe((data) => {
                     if (data.user) {
                         this.isHere = true;
-                        if (data.user.provider === 'google' || data.user.provider === 'facebook') {
+                        if (data.user.provider === 'google') {
                             this.currentCustomerImage = data.user.image;
                         } else {
                             this.currentCustomerImage = globalVariable.url + data.user.image;
@@ -545,9 +525,9 @@ export class MyProfileComponent implements OnInit {
         this.userService.getProfile().subscribe((data) => {
             if (data.user) {
                 this.customer = data.user;
-                if (this.customer.image !== 'undefined' || this.customer.provider === 'google' || this.customer.provider === 'facebook') {
+                if (this.customer.provider === 'google') {
                     this.croppedImage = data.user.image;
-                } if (this.customer.provider === 'email') {
+                } else {
                     this.croppedImage = globalVariable.url + data.user.image;
                 }
                 this.customerProfileForm.patchValue(data.user);
@@ -616,7 +596,7 @@ export class MyProfileComponent implements OnInit {
     templateUrl: './setting.component.html',
     styleUrls: ['./setting.component.css']
 })
-export class SettingComponent implements OnInit, AfterViewInit {
+export class SettingComponent implements OnInit {
     parentMessage: any;
     id: any;
     customer: any;
@@ -665,13 +645,8 @@ export class SettingComponent implements OnInit, AfterViewInit {
         this.userService.getProfile().subscribe((data) => {
             if (data.user) {
                 this.currentCustomer = data;
-                if (this.currentCustomer.user.ispaid === false) {
-                    this.router.navigate(['/dashboard']);
-                }
             }
         });
-    }
-    ngAfterViewInit() {
     }
     onScroll() {
         this.scrollCount = 20 * this.pageNumber;
@@ -715,13 +690,13 @@ export class SettingComponent implements OnInit, AfterViewInit {
     getbookmark(id, obj?: any) {
         this.bookmarkService.categoryBookmarks(id, obj).subscribe((data) => {
             if (!data.error) {
+                console.log(data.message.length);
                 for (let index = 0; index < data.message.length; index++) {
                     this.bookmarks.push(data.message[index]);
                 }
                 setTimeout(() => {
                     instgrm.Embeds.process();
                     twttr.widgets.load();
-                    FB.XFBML.parse();
                 }, 3000);
             }
         });
@@ -939,12 +914,10 @@ export class SettingComponent implements OnInit, AfterViewInit {
     templateUrl: './viewpublic.component.html',
     styleUrls: ['./frontenddashboard.component.css']
 })
-export class ViewPublicComponent implements AfterViewInit, OnInit, OnDestroy {
-    public loading = false;
+export class ViewPublicComponent implements AfterViewInit, OnInit {
     bookmarks = [];
     flag: any = true;
     parentMessage: any;
-    obTime: any;
     scrollCount: any;
     pageNumber: any = 1;
     curColWidth = 0;
@@ -966,9 +939,7 @@ export class ViewPublicComponent implements AfterViewInit, OnInit, OnDestroy {
             }
         });
     }
-    ngOnDestroy() {
-        this.obTime.unsubscribe();
-    }
+
     ngOnInit() {
         this.manageUI();
         this.router.events.subscribe((val) => {
@@ -976,7 +947,9 @@ export class ViewPublicComponent implements AfterViewInit, OnInit, OnDestroy {
                 this.flag = false;
                 this.route.params.subscribe((params: Params) => {
                     const id = params['id'];
+                    //console.log('on');
                     this.parentMessage = id;
+                    // this.getbookmark(id);
                 });
             }
         });
@@ -995,7 +968,7 @@ export class ViewPublicComponent implements AfterViewInit, OnInit, OnDestroy {
         this.route.params.subscribe((params: Params) => {
             const id = params['id'];
             this.parentMessage = id;
-            this.obTime = Observable.interval(1000).subscribe(x => {
+            Observable.interval(1000).subscribe(x => {
                 this.manageUI();
             });
         });
@@ -1068,7 +1041,7 @@ export class ViewPublicComponent implements AfterViewInit, OnInit, OnDestroy {
         this.bookmarkService.categoryBookmarksPublic(id, obj).subscribe((data) => {
             if (!data.error) {
                 if (data.message.length > 0) {
-                    this.loading = true;
+                    console.log(data.message.length);
                     for (let i = 0; i < data.message.length; i++) {
                         this.bookmarks.push(data.message[i]);
                         // tslint:disable-next-line:max-line-length
@@ -1077,10 +1050,6 @@ export class ViewPublicComponent implements AfterViewInit, OnInit, OnDestroy {
                     setTimeout(() => {
                         instgrm.Embeds.process();
                         twttr.widgets.load();
-                        FB.XFBML.parse();
-                        setTimeout(() => {
-                            this.loading = false;
-                        }, 2000);
                     }, 3000);
                 }
             }
@@ -1096,11 +1065,12 @@ export class ViewPublicComponent implements AfterViewInit, OnInit, OnDestroy {
 export class ViewComponent implements AfterViewInit, OnInit, OnDestroy {
     public static updateBookmarkStatus: Subject<boolean> = new Subject();
     scrollCount: any;
-    obTime: any;
     pageNumber: any = 1;
     bookmarks = [];
+    obTime: any;
     flag: any = true;
     parentMessage: any;
+    msnry: any;
     curColWidth = 0;
     gridColWidth = '';
 
@@ -1128,7 +1098,8 @@ export class ViewComponent implements AfterViewInit, OnInit, OnDestroy {
         });
     }
     ngOnInit() {
-        this.manageUI();
+        console.log('tent')
+        //this.manageUI();
         this.router.events.subscribe((val) => {
             if (this.flag) {
                 this.flag = false;
@@ -1139,13 +1110,51 @@ export class ViewComponent implements AfterViewInit, OnInit, OnDestroy {
             }
         });
     }
+    printMsg(msg) {
+        let el1 = this.convertToGridItem(msg['body']);
+        var el = $(el1);
+        $("#showcaseSocialBlock").prepend(el).masonry( 'prepended', el);
+        instgrm.Embeds.process();
+        twttr.widgets.load();
+        //console.log(instgrm.Embeds)
+    }
     onScroll() {
         this.scrollCount = 20 * this.pageNumber;
         const obj = {
             start: this.scrollCount,
             end: 20
         };
-        this.getbookmark(this.parentMessage, obj);
+
+        this.bookmarkService.categoryBookmarks(this.parentMessage , obj).subscribe((data) => {
+            if (!data.error) {
+                console.log(data.message.length)
+                if (data.message.length > 0) {
+                    var htmlBlocks = "";
+                    for (let i = 0; i < data.message.length; i++) {
+                        this.bookmarks.push(data.message[i]);
+                        htmlBlocks = this.convertToGridItem(data.message[i]['body']);                    
+                        var el = $(htmlBlocks);
+                        //console.log(el)
+                        $("#showcaseSocialBlock").append(el).masonry( 'appended', el)
+                    }
+                    setTimeout(() => {
+
+                        //.masonry( 'appended', el);
+                        instgrm.Embeds.process();
+                        twttr.widgets.load();
+
+                        /*$('#showcaseSocialBlock').masonry({
+                            itemSelector: '.grid-item'
+                        });
+                        $(document).ready(function(){
+                            $('#showcaseSocialBlock').masonry();
+                            //$('.grid').masonry();
+                        });*/
+                    }, 3000);
+                }
+            }
+        });
+        //this.getbookmark(this.parentMessage, obj);
         this.pageNumber++;
     }
     ngOnDestroy() {
@@ -1168,39 +1177,30 @@ export class ViewComponent implements AfterViewInit, OnInit, OnDestroy {
     setWidth(type) {
         return this.curColWidth;
     }
+
     manageUI() {
-        let cols = 4;
-        if (document.body.clientWidth > 1600) {
-            cols = 4;
-        } else if (document.body.clientWidth > 1000) {
-            cols = 3;
-        } else if (document.body.clientWidth > 600) {
-            cols = 2;
-        } else {
-            cols = 1;
-        }
-        const theW = (document.body.clientWidth - (document.body.clientWidth / 50)) / cols;
-        this.curColWidth = theW;
-        const iframes = document.querySelectorAll('iframe');
-        for (let i = 0; i < iframes.length; i++) {
-            (<any>iframes[i]).style.width = theW - 15;
-            /* (<any>iframes[i]).style.cssText = 'margin-top: 0px !important;'; */
-        }
-        const twitterwidget = document.querySelectorAll('twitterwidget');
-        for (let i = 0; i < twitterwidget.length; i++) {
-            (<any>twitterwidget[i]).style.width = theW;
-            (<any>twitterwidget[i]).style.cssText = 'margin-top: 0px !important;';
-        }
-        const th = theW + (theW / 50) - 9;
-        this.gridColWidth = th + 'px';
-        const gridItems = document.querySelectorAll('.grid-item');
-        for (let i = 0; i < gridItems.length; i++) {
-            (<any>gridItems[i]).style.cssText = 'width : ' + (theW + (theW / 50) - 15) + 'px !important;margin :0 5px 5px 0 !important';
-        }
-        const msnry = new Masonry('#showcaseSocialBlock', {
-            itemSelector: '.grid-item'
+        $(document).ready(function(){
+            var curColWidth = 400;
+            var cols = 4;
+            if($("body").width()>1600){
+                cols = 4;
+            }else if($("body").width()>1000){
+                cols = 3;
+            }else if($("body").width()>600){
+                cols = 2;
+            }else{
+                cols = 1;
+            }
+            var theW = ($("body").width() - ($("body").width() / 50)) / cols;
+            curColWidth = theW;
+            $("iframe").css("width", theW - 15);
+            $("twitterwidget").css("width", theW);
+            $("twitterwidget").css('margin-top',  '0px !important');
+            $(".grid-item").css("width", (theW + (theW/50) -15 ));
+            $(".grid-item").css('margin' , '0 5px 5px 0 !important');
+            //$('.grid').masonry();
+            $('#showcaseSocialBlock').masonry();
         });
-        // $('.grid').masonry();
     }
 
     setStyles() {
@@ -1224,15 +1224,25 @@ export class ViewComponent implements AfterViewInit, OnInit, OnDestroy {
         this.bookmarkService.categoryBookmarks(id, obj).subscribe((data) => {
             if (!data.error) {
                 if (data.message.length > 0) {
+                    var htmlBlocks = "";
                     for (let i = 0; i < data.message.length; i++) {
                         this.bookmarks.push(data.message[i]);
+                        htmlBlocks += this.convertToGridItem(this.bookmarks[i]['body']);
                         // tslint:disable-next-line:max-line-length
-                        (<HTMLInputElement>document.getElementById('showcaseSocialBlock')).innerHTML += this.convertToGridItem(this.bookmarks[i]['body']);
+                        //(<HTMLInputElement>document.getElementById('showcaseSocialBlock')).innerHTML += this.convertToGridItem(this.bookmarks[i]['body']);
                     }
+                    $("#showcaseSocialBlock").html(htmlBlocks);
                     setTimeout(() => {
                         instgrm.Embeds.process();
                         twttr.widgets.load();
-                        FB.XFBML.parse();
+
+                        $('#showcaseSocialBlock').masonry({
+                            itemSelector: '.grid-item'
+                        });
+                        $(document).ready(function(){
+                            $('#showcaseSocialBlock').masonry();
+                            //$('.grid').masonry();
+                        });
                     }, 3000);
                 }
             }
