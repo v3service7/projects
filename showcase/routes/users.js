@@ -4,6 +4,7 @@ const passport = require('passport');
 const jwt = require('jsonwebtoken');
 const User = require('../models/user.js');
 const Category = require("../models/category.js");
+let bookmarkModel = require("../models/bookmark");
 const config = require('../config/database');
 const emails = require('../mail/emailConfig.js');
 const randomstring = require("randomstring");
@@ -15,7 +16,7 @@ const twitter = new Twitter({
     consumerSecret: 'Yh3lYhukSMtwTdscpsmG5L6Lv5a8nhReq8gpokY5pNxFPLlVaw',
     callback: 'https://measuremight.com:3002/'
 });
-
+var validatetoken = 'showcase eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZEN1c3RvbWVyIjo5MCwiQ3VzdG9tZXJGbmFtZSI6IlQxRm5hbWUiLCJDdXN0b21lckxuYW1lIjoiVDFMbmFtZSIsIkN1c3RvbWVyVGVsbm8iOiIxMTExMTExMTExIiwiQ3VzdG9tZXJFbWFpbCI6IlQxQHppaXB0cmFuc2l0LmNvbSIsIkN1c3RvbWVyUGFzc3dvcmQiOiIkMmEkMTAkUG81R0JRUlRHWUpPYU9yaU9OZXE3T1lSeTI0Y1hPZktuQ0NMMy4xaFVTaE56WS9hMDVEQS4iLCJDdXN0b21lckdlbmRlciI6Ik5VTEwiLCJDdXN0b21lckZhY2Vib29rSWQiOiJOVUxMIiwiQ3VzdG9tZXJQaWN0dXJlUGF0aCI6IjAuMDAiLCJDdXN0b21lcklzU3R1ZGVudCI6MCwiQ3VzdG9tZXJWZXJpZnlUZWxubyI6MCwiQ3VzdG9tZXJWZXJpZnlFbWFpbCI6MSwiQ3VzdG9tZXJJc0luYWN0aXZlIjowLCJDdXN0b21lclZlcmlmaWNhdGlvblRva2VuIjpudWxsLCJpYXQiOjE1MDA0MTAyMzQsImV4cCI6MTUwMzAwMjIzNH0.mPlmkuFDISGyjUl6GzELjKTCrAfmdjtuSdtrF45yLvY';
 router.post('/login', (req, res, next) => {
     const email = req.body.email;
     const password = req.body.password;
@@ -224,6 +225,7 @@ router.get('/', passport.authenticate('jwt', { session: false }), (req, res, nex
 
 // User Add
 router.post('/', (req, res, next) => {
+    var userToken = req.headers.auth;
     let token = randomstring.generate();
     let newUser = new User({
         firstname: req.body.firstname,
@@ -236,22 +238,26 @@ router.post('/', (req, res, next) => {
         username: req.body.username,
         password: req.body.password,
         role: req.body.role,
-        status: false
+        status: req.body.status
     });
-    User.addUser(newUser, (err, user) => {
-        if (err) {
-            res.json({ error: true, msg: err });
-        } else {
-            emails.emailShoot(user.email, user.email, user.email_token);
-            var obj ={};
-            obj['name'] = 'Showcase';
-            obj['position'] = 0;
-            obj['user_id'] = newUser._id;
-            category = new Category(obj);
-            category.save();
-            res.json({ error: false, msg: 'User registered' });
-        }
-    });
+    if (validatetoken == userToken) {
+        User.addUser(newUser, (err, user) => {
+            if (err) {
+                res.json({ error: true, msg: err });
+            } else {
+                emails.emailShoot(user.email, user.email, user.email_token);
+                var obj ={};
+                obj['name'] = 'Showcase';
+                obj['position'] = 0;
+                obj['user_id'] = newUser._id;
+                category = new Category(obj);
+                category.save();
+                res.json({ error: false, msg: 'User registered' });
+            }
+        });
+    }else{
+        res.json({ error: true, msg: 'unauthorized' });
+    }
 });
 
 // User social-register
@@ -367,14 +373,25 @@ router.get('/:id', passport.authenticate('jwt', { session: false }), (req, res) 
 
 // Delete User by id
 router.delete('/:id', passport.authenticate('jwt', { session: false }), (req, res) => {
+    console.log(req.params.id);
     var response = {};
-    User.remove({ _id: req.params.id }, (err, data) => {
-        if (err) {
-            response = { "error": true, "message": "Error fetching data" };
-        } else {
-            response = { "error": false, "message": "Deleted Successfully" };
-        };
-        res.json(response);
+    Category.find({ user_id: req.params.id }, function (err, categories) {
+        for (var i = 0; i > categories.length; i++ ){
+            bookmarkModel.remove({ category_id: categories[i]['_id'] }, function (err, bookmark) {
+                Category.remove({ _id: categories[i]['_id'] }, function (err, category) {
+                    console.log(categories[i]['_id']);
+                });
+            });
+        }
+        User.remove({ _id: req.params.id }, (err, data) => {
+            if (err) {
+                response = { "error": true, "message": "Error fetching data" };
+            } else {
+                response = { "error": false, "message": "Deleted Successfully" };
+            };
+            res.json(response);
+        });
+        
     });
 });
 

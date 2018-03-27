@@ -71,9 +71,9 @@ export class ProfileHeaderComponent implements OnInit {
         public bookService: BookmarkService,
         private router: Router,
         private lf: FormBuilder) {
-        ProfileHeaderComponent.updateUserStatus.subscribe(res => {
+        /* ProfileHeaderComponent.updateUserStatus.subscribe(res => {
             this.getMyCategories();
-        });
+        }); */
         this.customer = JSON.parse(localStorage.getItem('customer'));
         this.checkCustomer();
         this.getMyCategories();
@@ -128,7 +128,7 @@ export class ProfileHeaderComponent implements OnInit {
                 this.sendIdEvent.emit(this.addLinkForm.value);
                 setTimeout(() => {
                     //ViewComponent.updateBookmarkStatus.next(true); // here
-                    //this.router.navigate(['view', this.addLinkForm.value['category_id']]);
+                    this.router.navigate(['view', this.addLinkForm.value['category_id']]);
                     this.addLinkForm.reset();
                 }, 500);
             } else {
@@ -142,7 +142,7 @@ export class ProfileHeaderComponent implements OnInit {
             this.modelCopyToOpen();
             this.addLinkForm.controls['position'].setValue(this.bookmarkposition);
         } else {
-            this.addLinkForm.controls['category_id'].setValue(this.category_id);
+            this.addLinkForm.controls['category_id'].setValue(this.categories[0]['_id']);
             this.addLinkForm.controls['position'].setValue(this.bookmarkposition);
             console.log(this.addLinkForm.value);
             this.addBoodmark('');
@@ -387,11 +387,7 @@ export class ProfileHeaderComponent implements OnInit {
                 this.userService.getProfile().subscribe((data) => {
                     if (data.user) {
                         this.isHere = true;
-                        if (data.user.provider === 'google') {
-                            this.currentCustomerImage = data.user.image;
-                        } else {
-                            this.currentCustomerImage = globalVariable.url + data.user.image;
-                        }
+                        this.currentCustomerImage = data.user.image;
                         this.currentCustomer = data.user;
                     }
                 });
@@ -448,7 +444,7 @@ export class MyProfileComponent implements OnInit {
     }
     upload() {
         this.makeFileRequest('https://measuremight.com:3002/upload', [], this.filesToUpload).then((result) => {
-            this.customerProfileForm.controls['image'].setValue('/uploads/' + result['filename']);
+            this.customerProfileForm.controls['image'].setValue( globalVariable.url + '/uploads/' + result['filename']);
             this.profileUpdate();
             this.modelClose();
         }, (error) => {
@@ -525,11 +521,7 @@ export class MyProfileComponent implements OnInit {
         this.userService.getProfile().subscribe((data) => {
             if (data.user) {
                 this.customer = data.user;
-                if (this.customer.provider === 'google') {
                     this.croppedImage = data.user.image;
-                } else {
-                    this.croppedImage = globalVariable.url + data.user.image;
-                }
                 this.customerProfileForm.patchValue(data.user);
             }
         });
@@ -585,7 +577,7 @@ export class MyProfileComponent implements OnInit {
         this.uploader.uploadAll();
         this.uploader.onCompleteItem = (item: any, response: any, status: any, headers: any) => {
             const responsePath = JSON.parse(response);
-            this.customerProfileForm.controls['image'].setValue('/uploads/' + responsePath.filename);
+            this.customerProfileForm.controls['image'].setValue(globalVariable.url + '/uploads/' + responsePath.filename);
             this.profileUpdate();
         };
     }
@@ -914,155 +906,151 @@ export class SettingComponent implements OnInit {
     templateUrl: './viewpublic.component.html',
     styleUrls: ['./frontenddashboard.component.css']
 })
-export class ViewPublicComponent implements AfterViewInit, OnInit {
-    bookmarks = [];
-    flag: any = true;
-    parentMessage: any;
-    scrollCount: any;
-    pageNumber: any = 1;
-    curColWidth = 0;
-    gridColWidth = '';
+// export class ViewPublicComponent implements AfterViewInit, OnInit {
+//     bookmarks = [];
+//     flag: any = true;
+//     parentMessage: any;
+//     scrollCount: any;
+//     pageNumber: any = 1;
+//     curColWidth = 0;
+//     gridColWidth = '';
 
-    constructor(private router: Router,
-        private route: ActivatedRoute,
-        private bookmarkService: BookmarkService,
-        private categoryService: CategoryService,
-        private sanitizer: DomSanitizer) {
-        this.router.events.subscribe((val) => {
-            if (this.flag) {
-                this.flag = false;
-                this.route.params.subscribe((params: Params) => {
-                    const id = params['id'];
-                    this.parentMessage = id;
-                    this.getbookmark(id);
-                });
-            }
-        });
-    }
+//     constructor(private router: Router,
+//         private route: ActivatedRoute,
+//         private bookmarkService: BookmarkService,
+//         private categoryService: CategoryService,
+//         private sanitizer: DomSanitizer) {
+//         this.router.events.subscribe((val) => {
+//             if (this.flag) {
+//                 this.flag = false;
+//                 this.route.params.subscribe((params: Params) => {
+//                     const id = params['id'];
+//                     this.parentMessage = id;
+//                     this.getbookmark(id);
+//                 });
+//             }
+//         });
+//     }
 
-    ngOnInit() {
-        this.manageUI();
-        this.router.events.subscribe((val) => {
-            if (this.flag) {
-                this.flag = false;
-                this.route.params.subscribe((params: Params) => {
-                    const id = params['id'];
-                    //console.log('on');
-                    this.parentMessage = id;
-                    // this.getbookmark(id);
-                });
-            }
-        });
-    }
-    onScroll() {
-        this.scrollCount = 20 * this.pageNumber;
-        const obj = {
-            start: this.scrollCount,
-            end: 20
-        };
-        this.getbookmark(this.parentMessage, obj);
-        this.pageNumber++;
-    }
+//     ngOnInit() {
+//         this.manageUI();
+//         this.router.events.subscribe((val) => {
+//             if (this.flag) {
+//                 this.flag = false;
+//                 this.route.params.subscribe((params: Params) => {
+//                     const id = params['id'];
+//                     //console.log('on');
+//                     this.parentMessage = id;
+//                     // this.getbookmark(id);
+//                 });
+//             }
+//         });
+//     }
+//     onScroll() {
+//         this.scrollCount = 20 * this.pageNumber;
+//         const obj = {
+//             start: this.scrollCount,
+//             end: 20
+//         };
+//         this.getbookmark(this.parentMessage, obj);
+//         this.pageNumber++;
+//     }
 
-    ngAfterViewInit() {
-        this.route.params.subscribe((params: Params) => {
-            const id = params['id'];
-            this.parentMessage = id;
-            Observable.interval(1000).subscribe(x => {
-                this.manageUI();
-            });
-        });
-    }
+//     ngAfterViewInit() {
+//         this.route.params.subscribe((params: Params) => {
+//             const id = params['id'];
+//             this.parentMessage = id;
+//             Observable.interval(1000).subscribe(x => {
+//                 this.manageUI();
+//             });
+//         });
+//     }
 
-    setHeight(type) {
-        if (type = 'facebook') {
-            return '400';
-        } else if (type = 'youtube') {
-            return '337';
-        }
-    }
+//     setHeight(type) {
+//         if (type = 'facebook') {
+//             return '400';
+//         } else if (type = 'youtube') {
+//             return '337';
+//         }
+//     }
 
-    setWidth(type) {
-        return this.curColWidth;
-    }
-    manageUI() {
-        let cols = 4;
-        if (document.body.clientWidth > 1600) {
-            cols = 4;
-        } else if (document.body.clientWidth > 1000) {
-            cols = 3;
-        } else if (document.body.clientWidth > 600) {
-            cols = 2;
-        } else {
-            cols = 1;
-        }
-        const theW = (document.body.clientWidth - (document.body.clientWidth / 50)) / cols;
-        this.curColWidth = theW;
-        const iframes = document.querySelectorAll('iframe');
-        for (let i = 0; i < iframes.length; i++) {
-            (<any>iframes[i]).style.width = theW - 15;
-            /* (<any>iframes[i]).style.cssText = 'margin-top: 0px !important;'; */
-        }
-        const twitterwidget = document.querySelectorAll('twitterwidget');
-        for (let i = 0; i < twitterwidget.length; i++) {
-            (<any>twitterwidget[i]).style.width = theW;
-            (<any>twitterwidget[i]).style.cssText = 'margin-top: 0px !important;';
-        }
-        const th = theW + (theW / 50) - 9;
-        this.gridColWidth = th + 'px';
-        const gridItems = document.querySelectorAll('.grid-item');
-        for (let i = 0; i < gridItems.length; i++) {
-            (<any>gridItems[i]).style.cssText = 'width : ' + (theW + (theW / 50) - 15) + 'px !important;margin :0 5px 5px 0 !important';
-        }
-        const msnry = new Masonry('#showcaseSocialBlock', {
-            itemSelector: '.grid-item'
-        });
-        // $('.grid').masonry();
-    }
+//     setWidth(type) {
+//         return this.curColWidth;
+//     }
+//     manageUI() {
+//         let cols = 4;
+//         if (document.body.clientWidth > 1600) {
+//             cols = 4;
+//         } else if (document.body.clientWidth > 1000) {
+//             cols = 3;
+//         } else if (document.body.clientWidth > 600) {
+//             cols = 2;
+//         } else {
+//             cols = 1;
+//         }
+//         const theW = (document.body.clientWidth - (document.body.clientWidth / 50)) / cols;
+//         this.curColWidth = theW;
+//         const iframes = document.querySelectorAll('iframe');
+//         for (let i = 0; i < iframes.length; i++) {
+//             (<any>iframes[i]).style.width = theW - 15;
+//             /* (<any>iframes[i]).style.cssText = 'margin-top: 0px !important;'; */
+//         }
+//         const twitterwidget = document.querySelectorAll('twitterwidget');
+//         for (let i = 0; i < twitterwidget.length; i++) {
+//             (<any>twitterwidget[i]).style.width = theW;
+//             (<any>twitterwidget[i]).style.cssText = 'margin-top: 0px !important;';
+//         }
+//         const th = theW + (theW / 50) - 9;
+//         this.gridColWidth = th + 'px';
+//         const gridItems = document.querySelectorAll('.grid-item');
+//         for (let i = 0; i < gridItems.length; i++) {
+//             (<any>gridItems[i]).style.cssText = 'width : ' + (theW + (theW / 50) - 15) + 'px !important;margin :0 5px 5px 0 !important';
+//         }
+//         const msnry = new Masonry('#showcaseSocialBlock', {
+//             itemSelector: '.grid-item'
+//         });
+//         // $('.grid').masonry();
+//     }
 
-    setStyles() {
-        const styles = {
-            'width': this.gridColWidth
-        };
-        return styles;
-    }
+//     setStyles() {
+//         const styles = {
+//             'width': this.gridColWidth
+//         };
+//         return styles;
+//     }
 
-    convertToGridItem(htmlInc) {
-        let html = '<div class="grid-item">';
-        html += ' ' + htmlInc;
-        html += '</div>';
-        return html;
-    }
+//     convertToGridItem(htmlInc) {
+//         let html = '<div class="grid-item">';
+//         html += ' ' + htmlInc;
+//         html += '</div>';
+//         return html;
+//     }
 
-    getbookmark(id, obj?: any) {
-        if (typeof obj === 'undefined') {
-            (<HTMLInputElement>document.getElementById('showcaseSocialBlock')).innerHTML = '';
-        }
-        this.bookmarkService.categoryBookmarksPublic(id, obj).subscribe((data) => {
-            if (!data.error) {
-                if (data.message.length > 0) {
-                    console.log(data.message.length);
-                    for (let i = 0; i < data.message.length; i++) {
-                        this.bookmarks.push(data.message[i]);
-                        // tslint:disable-next-line:max-line-length
-                        (<HTMLInputElement>document.getElementById('showcaseSocialBlock')).innerHTML += this.convertToGridItem(this.bookmarks[i]['body']);
-                    }
-                    setTimeout(() => {
-                        instgrm.Embeds.process();
-                        twttr.widgets.load();
-                    }, 3000);
-                }
-            }
-        });
-    }
-}
+//     getbookmark(id, obj?: any) {
+//         if (typeof obj === 'undefined') {
+//             (<HTMLInputElement>document.getElementById('showcaseSocialBlock')).innerHTML = '';
+//         }
+//         this.bookmarkService.categoryBookmarksPublic(id, obj).subscribe((data) => {
+//             if (!data.error) {
+//                 if (data.message.length > 0) {
+//                     console.log(data.message.length);
+//                     for (let i = 0; i < data.message.length; i++) {
+//                         this.bookmarks.push(data.message[i]);
+//                         // tslint:disable-next-line:max-line-length
+// tslint:disable-next-line:max-line-length
+//                         (<HTMLInputElement>document.getElementById('showcaseSocialBlock')).innerHTML += this.convertToGridItem(this.bookmarks[i]['body']);
+//                     }
+//                     setTimeout(() => {
+//                         instgrm.Embeds.process();
+//                         twttr.widgets.load();
+//                     }, 3000);
+//                 }
+//             }
+//         });
+//     }
+// }
 
-@Component({
-    selector: 'app-view',
-    templateUrl: './view.component.html',
-    styleUrls: ['./frontenddashboard.component.css']
-})
-export class ViewComponent implements AfterViewInit, OnInit, OnDestroy {
+export class ViewPublicComponent implements AfterViewInit, OnInit, OnDestroy {
     public static updateBookmarkStatus: Subject<boolean> = new Subject();
     scrollCount: any;
     pageNumber: any = 1;
@@ -1073,6 +1061,7 @@ export class ViewComponent implements AfterViewInit, OnInit, OnDestroy {
     msnry: any;
     curColWidth = 0;
     gridColWidth = '';
+    loader: any = false;
 
     constructor(private router: Router,
         private route: ActivatedRoute,
@@ -1098,8 +1087,191 @@ export class ViewComponent implements AfterViewInit, OnInit, OnDestroy {
         });
     }
     ngOnInit() {
-        console.log('tent')
-        //this.manageUI();
+        this.router.events.subscribe((val) => {
+            if (this.flag) {
+                this.flag = false;
+                this.route.params.subscribe((params: Params) => {
+                    const id = params['id'];
+                    this.parentMessage = id;
+                });
+            }
+        });
+    }
+    printMsg(msg) {
+        let el1 = this.convertToGridItem(msg['body']);
+        var el = $(el1);
+        $("#showcaseSocialBlock").prepend(el).masonry('prepended', el);
+        instgrm.Embeds.process();
+        twttr.widgets.load();
+        //console.log(instgrm.Embeds)
+    }
+    onScroll() {
+        this.loader = true;
+        this.scrollCount = 20 * this.pageNumber;
+        const obj = {
+            start: this.scrollCount,
+            end: 20
+        };
+
+        this.bookmarkService.categoryBookmarksPublic(this.parentMessage, obj).subscribe((data) => {
+            if (!data.error) {
+                if (data.message.length > 0) {
+                    let htmlBlocks = '';
+                    const tot = data.message.length - 1;
+                    for (let i = 0; i < data.message.length; i++) {
+                        this.bookmarks.push(data.message[i]);
+                        htmlBlocks = this.convertToGridItem(data.message[i]['body']);
+                        const el = $(htmlBlocks);
+                        $('#showcaseSocialBlock').append(el).masonry('appended', el);
+                        if (tot === i) {
+                            this.loader = false;
+                        }
+                    }
+                    setTimeout(() => {
+                        instgrm.Embeds.process();
+                        twttr.widgets.load();
+                    }, 3000);
+                } else {
+                    this.loader = false;
+                }
+            }
+        });
+        this.pageNumber++;
+    }
+    ngOnDestroy() {
+        this.obTime.unsubscribe();
+    }
+    ngAfterViewInit() {
+        this.obTime = Observable.interval(1000).subscribe(x => {
+            this.manageUI();
+        });
+    }
+
+    setHeight(type) {
+        if (type = 'facebook') {
+            return '400';
+        } else if (type = 'youtube') {
+            return '337';
+        }
+    }
+
+    setWidth(type) {
+        return this.curColWidth;
+    }
+
+    manageUI() {
+        $(document).ready(function () {
+            var curColWidth = 400;
+            var cols = 4;
+            if ($("body").width() > 1600) {
+                cols = 4;
+            } else if ($("body").width() > 1000) {
+                cols = 3;
+            } else if ($("body").width() > 600) {
+                cols = 2;
+            } else {
+                cols = 1;
+            }
+            var theW = ($("body").width() - ($("body").width() / 50)) / cols;
+            curColWidth = theW;
+            $("iframe").css("width", theW - 15);
+            $("twitterwidget").css("width", theW);
+            $("twitterwidget").css('margin-top', '0px !important');
+            $(".grid-item").css("width", (theW + (theW / 50) - 15));
+            $(".grid-item").css('margin', '0 5px 5px 0 !important');
+            //$('.grid').masonry();
+            $('#showcaseSocialBlock').masonry();
+        });
+    }
+
+    setStyles() {
+        const styles = {
+            'width': this.gridColWidth
+        };
+        return styles;
+    }
+
+    convertToGridItem(htmlInc) {
+        let html = '<div class="grid-item">';
+        html += ' ' + htmlInc;
+        html += '</div>';
+        return html;
+    }
+
+    getbookmark(id, obj?: any) {
+        if (typeof obj === 'undefined') {
+            (<HTMLInputElement>document.getElementById('showcaseSocialBlock')).innerHTML = '';
+        }
+        this.bookmarkService.categoryBookmarksPublic(id, obj).subscribe((data) => {
+            if (!data.error) {
+                if (data.message.length > 0) {
+                    var htmlBlocks = "";
+                    for (let i = 0; i < data.message.length; i++) {
+                        this.bookmarks.push(data.message[i]);
+                        htmlBlocks += this.convertToGridItem(this.bookmarks[i]['body']);
+                        // tslint:disable-next-line:max-line-length
+                        //(<HTMLInputElement>document.getElementById('showcaseSocialBlock')).innerHTML += this.convertToGridItem(this.bookmarks[i]['body']);
+                    }
+                    $("#showcaseSocialBlock").html(htmlBlocks);
+                    setTimeout(() => {
+                        instgrm.Embeds.process();
+                        twttr.widgets.load();
+
+                        $('#showcaseSocialBlock').masonry({
+                            itemSelector: '.grid-item'
+                        });
+                        $(document).ready(function () {
+                            $('#showcaseSocialBlock').masonry();
+                            //$('.grid').masonry();
+                        });
+                    }, 3000);
+                }
+            }
+        });
+    }
+}
+@Component({
+    selector: 'app-view',
+    templateUrl: './view.component.html',
+    styleUrls: ['./frontenddashboard.component.css']
+})
+export class ViewComponent implements AfterViewInit, OnInit, OnDestroy {
+    public static updateBookmarkStatus: Subject<boolean> = new Subject();
+    scrollCount: any;
+    pageNumber: any = 1;
+    bookmarks = [];
+    obTime: any;
+    flag: any = true;
+    parentMessage: any;
+    msnry: any;
+    curColWidth = 0;
+    gridColWidth = '';
+    loader: any = false;
+
+    constructor(private router: Router,
+        private route: ActivatedRoute,
+        private bookmarkService: BookmarkService,
+        private categoryService: CategoryService,
+        private sanitizer: DomSanitizer) {
+        ViewComponent.updateBookmarkStatus.subscribe(res => {
+            this.route.params.subscribe((params: Params) => {
+                const id = params['id'];
+                this.parentMessage = id;
+                this.getbookmark(id);
+            });
+        });
+        this.router.events.subscribe((val) => {
+            if (this.flag) {
+                this.flag = false;
+                this.route.params.subscribe((params: Params) => {
+                    const id = params['id'];
+                    this.parentMessage = id;
+                    this.getbookmark(id);
+                });
+            }
+        });
+    }
+    ngOnInit() {
         this.router.events.subscribe((val) => {
             if (this.flag) {
                 this.flag = false;
@@ -1119,6 +1291,7 @@ export class ViewComponent implements AfterViewInit, OnInit, OnDestroy {
         //console.log(instgrm.Embeds)
     }
     onScroll() {
+        this.loader = true;
         this.scrollCount = 20 * this.pageNumber;
         const obj = {
             start: this.scrollCount,
@@ -1127,34 +1300,27 @@ export class ViewComponent implements AfterViewInit, OnInit, OnDestroy {
 
         this.bookmarkService.categoryBookmarks(this.parentMessage , obj).subscribe((data) => {
             if (!data.error) {
-                console.log(data.message.length)
                 if (data.message.length > 0) {
-                    var htmlBlocks = "";
+                    let htmlBlocks = '';
+                    const tot = data.message.length - 1;
                     for (let i = 0; i < data.message.length; i++) {
                         this.bookmarks.push(data.message[i]);
-                        htmlBlocks = this.convertToGridItem(data.message[i]['body']);                    
-                        var el = $(htmlBlocks);
-                        //console.log(el)
-                        $("#showcaseSocialBlock").append(el).masonry( 'appended', el)
+                        htmlBlocks = this.convertToGridItem(data.message[i]['body']);
+                        const el = $(htmlBlocks);
+                        $('#showcaseSocialBlock').append(el).masonry( 'appended', el);
+                        if (tot === i) {
+                            this.loader = false;
+                        }
                     }
                     setTimeout(() => {
-
-                        //.masonry( 'appended', el);
                         instgrm.Embeds.process();
                         twttr.widgets.load();
-
-                        /*$('#showcaseSocialBlock').masonry({
-                            itemSelector: '.grid-item'
-                        });
-                        $(document).ready(function(){
-                            $('#showcaseSocialBlock').masonry();
-                            //$('.grid').masonry();
-                        });*/
                     }, 3000);
+                }else {
+                    this.loader = false;
                 }
             }
         });
-        //this.getbookmark(this.parentMessage, obj);
         this.pageNumber++;
     }
     ngOnDestroy() {
