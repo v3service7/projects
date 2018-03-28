@@ -18,4 +18,5 @@
             height: calc(100vh - 65px);;
             overflow: scroll;
             overflow-x: hidden;
+            -webkit-overflow-scrolling: touch;
         }

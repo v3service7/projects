@@ -2,4 +2,5 @@
             height: calc(100vh - 170px);;
             overflow: scroll;
             overflow-x: hidden;
+             -webkit-overflow-scrolling: touch;
         }
