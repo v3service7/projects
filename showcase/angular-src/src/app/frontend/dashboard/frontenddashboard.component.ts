@@ -1283,12 +1283,16 @@ export class ViewComponent implements AfterViewInit, OnInit, OnDestroy {
         });
     }
     printMsg(msg) {
-        let el1 = this.convertToGridItem(msg['body']);
-        var el = $(el1);
-        $("#showcaseSocialBlock").prepend(el).masonry( 'prepended', el);
+        const el1 = this.convertToGridItem(msg['body']);
+        const el = $(el1);
+        if (msg['position'] === 'top') {
+            $('#showcaseSocialBlock').prepend(el).masonry('prepended', el);
+        }
+        if (msg['position'] === 'bottom') {
+            $('#showcaseSocialBlock').append(el).masonry('appended', el);
+        }
         instgrm.Embeds.process();
         twttr.widgets.load();
-        //console.log(instgrm.Embeds)
     }
     onScroll() {
         this.loader = true;
