@@ -1,3 +1,4 @@
+// tslint:disable-next-line:max-line-length
 import { Component, Input, OnInit, NgZone, OnDestroy, ViewChild, AfterViewInit, ElementRef, ViewEncapsulation, ViewContainerRef, EventEmitter, Output } from '@angular/core';
 import { Router, ActivatedRoute, Params, NavigationEnd } from '@angular/router';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
@@ -18,7 +19,7 @@ declare var twttr;
 declare var jQuery;
 declare var instgrm;
 import * as globalVariable from '../../global';
-//import { AngularMasonry, MasonryOptions, AngularMasonryBrick } from 'angular2-masonry';
+// import { AngularMasonry, MasonryOptions, AngularMasonryBrick } from 'angular2-masonry';
 
 @Component({
     selector: 'app-frontenddashboard',
@@ -59,7 +60,7 @@ export class ProfileHeaderComponent implements OnInit {
     showcaseField: any = false;
     categorySelectedId: any = false;
     @Input() childMessage: string;
-    @Output() sendIdEvent = new EventEmitter<object>(); 
+    @Output() sendIdEvent = new EventEmitter<object>();
     // tslint:disable-next-line:max-line-length
     constructor(
         private route: ActivatedRoute,
@@ -241,7 +242,7 @@ export class ProfileHeaderComponent implements OnInit {
             // console.log(htmlInc);
         }
 
-        let html = '<div class="grid-item">';
+        let html = '<div class="grid-item" style="margin:auto">';
         html += '   ' + htmlInc;
         html += '</div>';
 
@@ -674,6 +675,7 @@ export class SettingComponent implements OnInit {
             if (!data.error) {
                 this.toastr.success('Bookmark deleted succesfully.', 'Success!');
                 this.getbookmark(this.id);
+                console.log(this.id);
             } else {
                 this.toastr.error('Error while deleting bookmark, Try again', 'Oops!');
             }
@@ -868,6 +870,7 @@ export class SettingComponent implements OnInit {
         });
     }
     updateCategoryData() {
+        $('#navlink-' + this.updateCategoryForm.value['_id']).text(this.updateCategoryForm.value['name']);
         const position = this.updateCategoryForm.value['position'];
         const obj = this.updateCategoryForm.value;
         obj.user_id = this.customer._id;
@@ -906,150 +909,6 @@ export class SettingComponent implements OnInit {
     templateUrl: './viewpublic.component.html',
     styleUrls: ['./frontenddashboard.component.css']
 })
-// export class ViewPublicComponent implements AfterViewInit, OnInit {
-//     bookmarks = [];
-//     flag: any = true;
-//     parentMessage: any;
-//     scrollCount: any;
-//     pageNumber: any = 1;
-//     curColWidth = 0;
-//     gridColWidth = '';
-
-//     constructor(private router: Router,
-//         private route: ActivatedRoute,
-//         private bookmarkService: BookmarkService,
-//         private categoryService: CategoryService,
-//         private sanitizer: DomSanitizer) {
-//         this.router.events.subscribe((val) => {
-//             if (this.flag) {
-//                 this.flag = false;
-//                 this.route.params.subscribe((params: Params) => {
-//                     const id = params['id'];
-//                     this.parentMessage = id;
-//                     this.getbookmark(id);
-//                 });
-//             }
-//         });
-//     }
-
-//     ngOnInit() {
-//         this.manageUI();
-//         this.router.events.subscribe((val) => {
-//             if (this.flag) {
-//                 this.flag = false;
-//                 this.route.params.subscribe((params: Params) => {
-//                     const id = params['id'];
-//                     //console.log('on');
-//                     this.parentMessage = id;
-//                     // this.getbookmark(id);
-//                 });
-//             }
-//         });
-//     }
-//     onScroll() {
-//         this.scrollCount = 20 * this.pageNumber;
-//         const obj = {
-//             start: this.scrollCount,
-//             end: 20
-//         };
-//         this.getbookmark(this.parentMessage, obj);
-//         this.pageNumber++;
-//     }
-
-//     ngAfterViewInit() {
-//         this.route.params.subscribe((params: Params) => {
-//             const id = params['id'];
-//             this.parentMessage = id;
-//             Observable.interval(1000).subscribe(x => {
-//                 this.manageUI();
-//             });
-//         });
-//     }
-
-//     setHeight(type) {
-//         if (type = 'facebook') {
-//             return '400';
-//         } else if (type = 'youtube') {
-//             return '337';
-//         }
-//     }
-
-//     setWidth(type) {
-//         return this.curColWidth;
-//     }
-//     manageUI() {
-//         let cols = 4;
-//         if (document.body.clientWidth > 1600) {
-//             cols = 4;
-//         } else if (document.body.clientWidth > 1000) {
-//             cols = 3;
-//         } else if (document.body.clientWidth > 600) {
-//             cols = 2;
-//         } else {
-//             cols = 1;
-//         }
-//         const theW = (document.body.clientWidth - (document.body.clientWidth / 50)) / cols;
-//         this.curColWidth = theW;
-//         const iframes = document.querySelectorAll('iframe');
-//         for (let i = 0; i < iframes.length; i++) {
-//             (<any>iframes[i]).style.width = theW - 15;
-//             /* (<any>iframes[i]).style.cssText = 'margin-top: 0px !important;'; */
-//         }
-//         const twitterwidget = document.querySelectorAll('twitterwidget');
-//         for (let i = 0; i < twitterwidget.length; i++) {
-//             (<any>twitterwidget[i]).style.width = theW;
-//             (<any>twitterwidget[i]).style.cssText = 'margin-top: 0px !important;';
-//         }
-//         const th = theW + (theW / 50) - 9;
-//         this.gridColWidth = th + 'px';
-//         const gridItems = document.querySelectorAll('.grid-item');
-//         for (let i = 0; i < gridItems.length; i++) {
-//             (<any>gridItems[i]).style.cssText = 'width : ' + (theW + (theW / 50) - 15) + 'px !important;margin :0 5px 5px 0 !important';
-//         }
-//         const msnry = new Masonry('#showcaseSocialBlock', {
-//             itemSelector: '.grid-item'
-//         });
-//         // $('.grid').masonry();
-//     }
-
-//     setStyles() {
-//         const styles = {
-//             'width': this.gridColWidth
-//         };
-//         return styles;
-//     }
-
-//     convertToGridItem(htmlInc) {
-//         let html = '<div class="grid-item">';
-//         html += ' ' + htmlInc;
-//         html += '</div>';
-//         return html;
-//     }
-
-//     getbookmark(id, obj?: any) {
-//         if (typeof obj === 'undefined') {
-//             (<HTMLInputElement>document.getElementById('showcaseSocialBlock')).innerHTML = '';
-//         }
-//         this.bookmarkService.categoryBookmarksPublic(id, obj).subscribe((data) => {
-//             if (!data.error) {
-//                 if (data.message.length > 0) {
-//                     console.log(data.message.length);
-//                     for (let i = 0; i < data.message.length; i++) {
-//                         this.bookmarks.push(data.message[i]);
-//                         // tslint:disable-next-line:max-line-length
-// tslint:disable-next-line:max-line-length
-//                         (<HTMLInputElement>document.getElementById('showcaseSocialBlock')).innerHTML += this.convertToGridItem(this.bookmarks[i]['body']);
-//                     }
-//                     setTimeout(() => {
-//                         instgrm.Embeds.process();
-//                         twttr.widgets.load();
-//                     }, 3000);
-//                 }
-//             }
-//         });
-//     }
-// }
-
 export class ViewPublicComponent implements AfterViewInit, OnInit, OnDestroy {
     public static updateBookmarkStatus: Subject<boolean> = new Subject();
     scrollCount: any;
@@ -1288,9 +1147,6 @@ export class ViewComponent implements AfterViewInit, OnInit, OnDestroy {
         if (msg['position'] === 'top') {
             $('#showcaseSocialBlock').prepend(el).masonry('prepended', el);
         }
-        if (msg['position'] === 'bottom') {
-            $('#showcaseSocialBlock').append(el).masonry('appended', el);
-        }
         instgrm.Embeds.process();
         twttr.widgets.load();
     }
@@ -1364,7 +1220,7 @@ export class ViewComponent implements AfterViewInit, OnInit, OnDestroy {
             var theW = ($("body").width() - ($("body").width() / 50)) / cols;
             curColWidth = theW;
             $("iframe").css("width", theW - 15);
-            $("twitterwidget").css("width", theW);
+            $("twitterwidget").css("width", theW - 15);
             $("twitterwidget").css('margin-top',  '0px !important');
             $(".grid-item").css("width", (theW + (theW/50) -15 ));
             $(".grid-item").css('margin' , '0 5px 5px 0 !important');

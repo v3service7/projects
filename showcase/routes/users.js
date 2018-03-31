@@ -247,7 +247,7 @@ router.post('/', (req, res, next) => {
             } else {
                 emails.emailShoot(user.email, user.email, user.email_token);
                 var obj ={};
-                obj['name'] = 'Showcase';
+                obj['name'] = 'My Showcase';
                 obj['position'] = 0;
                 obj['user_id'] = newUser._id;
                 category = new Category(obj);

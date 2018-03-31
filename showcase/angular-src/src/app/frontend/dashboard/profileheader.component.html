@@ -15,7 +15,7 @@
                 <span *ngFor="let category of categories let i = index">
 
                     <li class="nav-item dropdown px-3 " [ngClass]="slugify(category.name)" style="display: -webkit-box;" *ngIf="i < 3">
-                        <a class="nav-link text-cap" [id]="category._id" [routerLink]="['/view/',category._id]"> {{ (category.name.length >= 20) ? (category.name | slice:0:20)+'..':(category.name) }}</a>
+                        <a class="nav-link text-cap" id="navlink-{{category._id}}" [routerLink]="['/view/',category._id]"> {{ (category.name.length >= 20) ? (category.name | slice:0:20)+'..':(category.name) }}</a>
                         <a class="nav-link dropdown-toggle" *ngIf="currentCustomer && currentCustomer.ispaid" [id]="category._id" id="dropdown01" href="" data-toggle="dropdown" aria-haspopup="true"
                             aria-expanded="false"></a>
                         <div class="dropdown-menu" aria-labelledby="dropdown01">
@@ -145,7 +145,7 @@
                                 <p class="text-center">Preview your link before adding</p>
                                 <p class="text-center text-danger">Display not quite right ?</p>
                                 <div id="bookMark" class="mx-auto text-center"></div>
-                                <div class="mx-5">
+                                <div class="mx-5 mt-5">
                                     <div class="custom-control custom-radio custom-control-inline mt-3">
                                         <input type="radio" id="customRadio1" name="customRadio" (click)="bookmarkPosition('top')" class="custom-control-input" checked>
                                         <label class="custom-control-label" for="customRadio1">Add to top</label>
