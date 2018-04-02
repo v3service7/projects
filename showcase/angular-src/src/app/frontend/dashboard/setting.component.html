@@ -23,11 +23,11 @@
                 </ng-container>
             </div>
             <h3 *ngIf="bookmarks?.length == 0" class="text-muted text-center pt-5">No bookmarks available.</h3>
-            <div class="search-results" infiniteScroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="50" (scrolled)="onScroll()"
+            <div *ngIf="bookmarks?.length != 0" class="search-results" infiniteScroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="50" (scrolled)="onScroll()"
                 [scrollWindow]="false">
             <ul class="list-group">
                     
-                <li class="list-group-item custom-list-group-item" *ngFor="let bookmark of bookmarks; let i = index; let last = last;">
+                <li class="list-group-item custom-list-group-item" *ngFor="let bookmark of bookmarks; let i = index; let last = last;" id="item-{{bookmark._id}}">
                     <div class="row">
                         <div class="col-xl-2 col-lg-6 col-md-6 col-sm-6 col-6 text-center">
                             <div class="count-circle">{{i+1}}</div>

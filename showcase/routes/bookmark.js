@@ -138,6 +138,23 @@ module.exports = (function () {
         });
     });
 
+    // bookmark exist
+    router.post('/checkexist', passport.authenticate('jwt', { session: false }), function (req, res) {
+        var response = {};
+        bookmarkModel.find({ category_id: req.body.category_id, title: req.body.title }, function (err, bookmark) {
+            if (err) {
+                response = { "error": true, "message": err };
+            } else {
+                if (bookmark.length) {
+                    response = { "error": false, "exist": true };
+                } else {
+                    response = { "error": false, "exist": false };
+                }
+            }
+            res.json(response);
+        });
+    });
+
     // get one bookmark
     router.get('/:id', passport.authenticate('jwt', { session: false }), function (req, res) {
         var response = {};

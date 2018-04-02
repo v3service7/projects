@@ -122,20 +122,33 @@ export class ProfileHeaderComponent implements OnInit {
         if (id) {
             this.addLinkForm.controls['category_id'].setValue(id);
         }
-        this.bookService.bookmarkAdd(this.addLinkForm.value).subscribe((data) => {
-            if (!data.eror) {
-                this.toastr.success('Bookmark added succesfully.', 'Success!');
-                this.modelCopyToClose();
-                this.sendIdEvent.emit(this.addLinkForm.value);
-                setTimeout(() => {
-                    //ViewComponent.updateBookmarkStatus.next(true); // here
-                    this.router.navigate(['view', this.addLinkForm.value['category_id']]);
-                    this.addLinkForm.reset();
-                }, 500);
-            } else {
-                this.toastr.error('Error while adding bookmark, Try again.', 'Oops!');
+        this.bookService.checkBookmarkExist(this.addLinkForm.value).subscribe((data) => {
+            if (!data.error) {
+                if (data.exist) {
+                    // tslint:disable-next-line:max-line-length
+                    document.getElementById('bookMark').innerHTML = '<div class="alert alert-danger"><strong> Alert! </strong> Url already exist.</div>';
+                    this.modelCopyToClose();
+                    this.modelBookmarkOpen();
+                    this.invalidUrl = true;
+                } else {
+                    this.bookService.bookmarkAdd(this.addLinkForm.value).subscribe((data2) => {
+                        if (!data2.error) {
+                            this.toastr.success('Bookmark added succesfully.', 'Success!');
+                            this.modelCopyToClose();
+                            this.sendIdEvent.emit(this.addLinkForm.value);
+                            setTimeout(() => {
+                                // ViewComponent.updateBookmarkStatus.next(true); // here
+                                this.router.navigate(['view', this.addLinkForm.value['category_id']]);
+                                this.addLinkForm.reset();
+                            }, 500);
+                        } else {
+                            this.toastr.error('Error while adding bookmark, Try again.', 'Oops!');
+                        }
+                    });
+                }
             }
         });
+
     }
     openCopyToModel() {
         if (this.currentCustomer.ispaid) {
@@ -145,7 +158,6 @@ export class ProfileHeaderComponent implements OnInit {
         } else {
             this.addLinkForm.controls['category_id'].setValue(this.categories[0]['_id']);
             this.addLinkForm.controls['position'].setValue(this.bookmarkposition);
-            console.log(this.addLinkForm.value);
             this.addBoodmark('');
             this.modelBookmarkClose();
         }
@@ -158,8 +170,8 @@ export class ProfileHeaderComponent implements OnInit {
         this.showcaseField = false;
         this.categorySelectedId = true;
         this.addLinkForm.controls['position'].setValue(this.bookmarkposition);
-        //console.log(this.addLinkForm.value);
         this.addLinkForm.controls['category_id'].setValue(id);
+        this.addBoodmark('');
     }
 
     addLink() {
@@ -176,7 +188,7 @@ export class ProfileHeaderComponent implements OnInit {
         const inputURL = encodeURIComponent(url);
         const ur = 'https://www.facebook.com/plugins/post.php?href=' + inputURL + '%26type%3D3&width=600';
         // tslint:disable-next-line:max-line-length
-        const embedHTML = '<iframe id="bookmarkiframe" src="https://www.facebook.com/plugins/post.php?href=' + inputURL + '%26type%3D3&width=600" height="400" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowTransparency="true"></iframe>';
+        const embedHTML = '<iframe id="bookmarkiframe" src="https://www.facebook.com/plugins/post.php?href=' + inputURL + '%26type%3D3&width=600"  style="height:100vh;border:none;overflow:hidden" scrolling="no" frameborder="0" allowTransparency="true"></iframe>';
         const htmlToAdd = this.convertToGridItem(embedHTML);
         this.addLinkForm.controls['title'].setValue(ur);
         this.addLinkForm.controls['body'].setValue(embedHTML);
@@ -195,7 +207,8 @@ export class ProfileHeaderComponent implements OnInit {
                 document.getElementById('bookMark').innerHTML = data.html;
                 instgrm.Embeds.process();
             }, error => {
-                document.getElementById('bookMark').innerHTML = 'Invalid Url';
+                // tslint:disable-next-line:max-line-length
+                document.getElementById('bookMark').innerHTML = '<div class="alert alert-danger"><strong> Alert! </strong> Invalid Url.</div>';
                 this.invalidUrl = true;
                 document.getElementById('loader').style.display = 'none';
             });
@@ -211,7 +224,8 @@ export class ProfileHeaderComponent implements OnInit {
                 document.getElementById('bookMark').innerHTML = data.html;
                 twttr.widgets.load();
             }, error => {
-                document.getElementById('bookMark').innerHTML = 'Invalid Url';
+                // tslint:disable-next-line:max-line-length
+                document.getElementById('bookMark').innerHTML = '<div class="alert alert-danger"><strong> Alert! </strong> Invalid Url.</div>';
                 this.invalidUrl = true;
                 document.getElementById('loader').style.display = 'none';
             });
@@ -264,13 +278,13 @@ export class ProfileHeaderComponent implements OnInit {
                     this.invalidUrl = false;
                     document.getElementById('bookMark').innerHTML = htmlToAdd;
                 } else {
-                    document.getElementById('bookMark').innerHTML = 'Invalid Url';
+                    document.getElementById('bookMark').innerHTML = '<div class="alert alert-danger"><strong> Alert! </strong> Invalid Url.</div>';
                     this.invalidUrl = true;
                     document.getElementById('loader').style.display = 'none';
                 }
             }, err => {
                 document.getElementById('loader').style.display = 'none';
-                document.getElementById('bookMark').innerHTML = 'Invalid Url';
+                document.getElementById('bookMark').innerHTML = '<div class="alert alert-danger"><strong> Alert! </strong> Invalid Url.</div>';
                 this.invalidUrl = true;
             });
     }
@@ -292,6 +306,9 @@ export class ProfileHeaderComponent implements OnInit {
             this.embedPinterest(link);
         } else if (link.match('soundcloud.com')) {
             this.embedSoundCloud(link);
+        } else {
+            document.getElementById('loader').style.display = 'none';
+            document.getElementById('bookMark').innerHTML = '<div class="alert alert-danger"><strong> Alert! </strong> Invalid Url.</div>';
         }
     }
 
@@ -445,7 +462,7 @@ export class MyProfileComponent implements OnInit {
     }
     upload() {
         this.makeFileRequest('https://measuremight.com:3002/upload', [], this.filesToUpload).then((result) => {
-            this.customerProfileForm.controls['image'].setValue( globalVariable.url + '/uploads/' + result['filename']);
+            this.customerProfileForm.controls['image'].setValue(globalVariable.url + '/uploads/' + result['filename']);
             this.profileUpdate();
             this.modelClose();
         }, (error) => {
@@ -522,7 +539,7 @@ export class MyProfileComponent implements OnInit {
         this.userService.getProfile().subscribe((data) => {
             if (data.user) {
                 this.customer = data.user;
-                    this.croppedImage = data.user.image;
+                this.croppedImage = data.user.image;
                 this.customerProfileForm.patchValue(data.user);
             }
         });
@@ -628,6 +645,7 @@ export class SettingComponent implements OnInit {
                     this.bookmarks_ids = [];
                     this.parentMessage = this.id;
                     this.getMyCategories();
+                    this.bookmarks= [];
                     this.getbookmark(this.id);
                 });
             }
@@ -671,9 +689,11 @@ export class SettingComponent implements OnInit {
         this.getMyCategories();
     }
     doDeleteBookmark(id) {
+        $('#item-' + id).remove();
         this.bookmarkService.bookmarkDelete(id).subscribe((data) => {
             if (!data.error) {
                 this.toastr.success('Bookmark deleted succesfully.', 'Success!');
+                this.bookmarks = [];
                 this.getbookmark(this.id);
                 console.log(this.id);
             } else {
@@ -684,7 +704,6 @@ export class SettingComponent implements OnInit {
     getbookmark(id, obj?: any) {
         this.bookmarkService.categoryBookmarks(id, obj).subscribe((data) => {
             if (!data.error) {
-                console.log(data.message.length);
                 for (let index = 0; index < data.message.length; index++) {
                     this.bookmarks.push(data.message[index]);
                 }
@@ -721,6 +740,7 @@ export class SettingComponent implements OnInit {
         };
         this.bookmarkService.changePosition(obj).subscribe((data) => {
             if (!data.error) {
+                this.bookmarks = [];
                 this.toastr.success('Bookmark position changed succesfully.', 'Success!');
                 this.getbookmark(this.id);
             } else {
@@ -1158,7 +1178,7 @@ export class ViewComponent implements AfterViewInit, OnInit, OnDestroy {
             end: 20
         };
 
-        this.bookmarkService.categoryBookmarks(this.parentMessage , obj).subscribe((data) => {
+        this.bookmarkService.categoryBookmarks(this.parentMessage, obj).subscribe((data) => {
             if (!data.error) {
                 if (data.message.length > 0) {
                     let htmlBlocks = '';
@@ -1167,7 +1187,7 @@ export class ViewComponent implements AfterViewInit, OnInit, OnDestroy {
                         this.bookmarks.push(data.message[i]);
                         htmlBlocks = this.convertToGridItem(data.message[i]['body']);
                         const el = $(htmlBlocks);
-                        $('#showcaseSocialBlock').append(el).masonry( 'appended', el);
+                        $('#showcaseSocialBlock').append(el).masonry('appended', el);
                         if (tot === i) {
                             this.loader = false;
                         }
@@ -1176,7 +1196,7 @@ export class ViewComponent implements AfterViewInit, OnInit, OnDestroy {
                         instgrm.Embeds.process();
                         twttr.widgets.load();
                     }, 3000);
-                }else {
+                } else {
                     this.loader = false;
                 }
             }
@@ -1205,25 +1225,25 @@ export class ViewComponent implements AfterViewInit, OnInit, OnDestroy {
     }
 
     manageUI() {
-        $(document).ready(function(){
+        $(document).ready(function () {
             var curColWidth = 400;
             var cols = 4;
-            if($("body").width()>1600){
+            if ($("body").width() > 1600) {
                 cols = 4;
-            }else if($("body").width()>1000){
+            } else if ($("body").width() > 1000) {
                 cols = 3;
-            }else if($("body").width()>600){
+            } else if ($("body").width() > 600) {
                 cols = 2;
-            }else{
+            } else {
                 cols = 1;
             }
             var theW = ($("body").width() - ($("body").width() / 50)) / cols;
             curColWidth = theW;
             $("iframe").css("width", theW - 15);
             $("twitterwidget").css("width", theW - 15);
-            $("twitterwidget").css('margin-top',  '0px !important');
-            $(".grid-item").css("width", (theW + (theW/50) -15 ));
-            $(".grid-item").css('margin' , '0 5px 5px 0 !important');
+            $("twitterwidget").css('margin-top', '0px !important');
+            $(".grid-item").css("width", (theW + (theW / 50) - 15));
+            $(".grid-item").css('margin', '0 5px 5px 0 !important');
             //$('.grid').masonry();
             $('#showcaseSocialBlock').masonry();
         });
@@ -1265,7 +1285,7 @@ export class ViewComponent implements AfterViewInit, OnInit, OnDestroy {
                         $('#showcaseSocialBlock').masonry({
                             itemSelector: '.grid-item'
                         });
-                        $(document).ready(function(){
+                        $(document).ready(function () {
                             $('#showcaseSocialBlock').masonry();
                             //$('.grid').masonry();
                         });

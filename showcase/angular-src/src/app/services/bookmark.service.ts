@@ -61,6 +61,18 @@ export class BookmarkService {
             return user;
         });
     }
+
+    public checkBookmarkExist(data) {
+        const headers = new Headers();
+        this.loadToken();
+        headers.append('Authorization', this.authToken);
+        headers.append('Content-Type', 'application/json');
+        return this.http.post(globalVariable.url + 'bookmark/checkexist', data, {headers: headers})
+        .map((response: Response) => {
+            const bookmark = response.json();
+            return bookmark;
+        });
+    }
     public changePosition(data) {
         let headers = new Headers();
         this.loadToken();
