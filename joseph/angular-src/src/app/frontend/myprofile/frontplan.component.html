@@ -1,0 +1,24 @@
+<section class="profile-header">
+    <div class="container">
+        <div class="row justify-content-md-center" *ngIf="plansType.length >0">
+            
+            <div *ngFor="let customer of plansType" class="col-lg-3 col-md-3 col-sm-12">
+            	<div class="card profile-card">
+            		<div class="card-body">
+                        <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+	                        <p class="card-header text-center text-white">{{customer.name}}</p>
+	                        <p class="card-header borderBottomGray text-center text-white">
+	                        	<span> $ {{customer.amount}} /</span> <sub>Month</sub> 
+	                        </p>
+	                        <p class="card-header text-center text-white">{{customer.planType}} Months</p>
+	                       	<a rel="tooltip" title="Buy" class="btn btn-success btn-simple btn-xs text-white" (click)="purchasePlan(customer)">
+	                        	Purchase  
+	                        </a>
+                        </div>
+                    </div>
+            	</div>
+            </div>
+
+        </div>
+    </div>
+</section>

@@ -8,15 +8,18 @@ import { HoubiService } from './../../services/huobi.service';
 import { FormControl, FormGroup, FormBuilder,Validators, ReactiveFormsModule } from '@angular/forms';
 import { UserService } from '../../services/user.service';
 import { TradeAlertService } from '../../services/tradealert.service';
+import { PurchaseplanService} from '../../services/purchaseplan.service';
 import {Router} from '@angular/router';
 import {FlashMessagesService} from 'angular2-flash-messages';
 declare var $: any;
 declare var TradingView: any;
+declare var Highcharts: any;
 declare var window: { tvWidget };
 declare var Datafeeds: any;
 import * as globalVariable from "../../global";
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/interval';
+import { Chart, StockChart } from 'angular-highcharts';
 
 @Component({
     selector: "app-userdashboard",
@@ -30,6 +33,7 @@ export class UserdashboardComponent implements OnInit {
     currency: any[];
     cuurencies: any[];
     multiple0: boolean = false;
+    isPayment: boolean = false;
     multiple1: boolean = true;
     options0: Array<any> = [];
     options1: Array<any> = [];
@@ -42,9 +46,9 @@ export class UserdashboardComponent implements OnInit {
     high:any;
     low:any;
     vol:any;
-    sellMarketHistory: any;
-    buyMarketHistory: any;
-    allMarketHistory: any;
+    sellMarketHistory: any=[];
+    buyMarketHistory: any=[];
+    allMarketHistory: any=[];
     btcList: any;
     ethList: any;
     usdtList: any;
@@ -70,11 +74,14 @@ export class UserdashboardComponent implements OnInit {
     closeOrders:any = [];
     buyBalanceStats:any = [];
     sellBalanceStats:any = [];
+    planHistory:any = [];
+    stockOptions:any = {};
     balanceStatPercent:any = [1,5,10,25,50,75];
     isActiveTrade : any = 'limit';
     isActiveOrder : any = 'open';
     isActiveAlert : any = 'data';
     isActiveChart : any = 'chart';
+    chart: any ;
 
     constructor(
         private bittrexService: BittrexService,
@@ -86,6 +93,7 @@ export class UserdashboardComponent implements OnInit {
         private fb: FormBuilder,
         public userService:UserService,
         private router:Router,
+        private purchaseplanService: PurchaseplanService,
         private flashMessage:FlashMessagesService
     ) {}
 
@@ -135,7 +143,32 @@ export class UserdashboardComponent implements OnInit {
         document.body.style.paddingTop = "80px";
         this.bittrexService.getMarketName(this.chooseCurrency);
         this.getMarkets();
+        this.accountgetList();
         this.loadAllFun()
+    }
+
+    accountgetList(){
+        let user = JSON.parse(localStorage.getItem('user'));
+        this.purchaseplanService.accountList(user._id).subscribe(
+            (data) => {
+              if (!data.error) {
+                    this.planHistory = data.message;
+                    if (this.planHistory.length > 0) {
+                        let today = new Date();
+                        for (var i = 0; i < this.planHistory.length; ++i) {
+                            let date = new Date(this.planHistory[i]['expireddate']);
+                            if (today.toLocaleDateString() <= date.toLocaleDateString()) {
+                                console.log(date.toLocaleDateString())
+                                this.isPayment = true;
+                            }
+                        }
+                    }
+                }
+            },
+            (err)=>{
+                console.log('kfgbhj')
+            }
+        );
     }
 
     setAlert(){
@@ -155,6 +188,7 @@ export class UserdashboardComponent implements OnInit {
         this.alertForm.controls['userId'].setValue(user['_id']);
         this.tradeAlertService.tradeAlertList(user['_id']).subscribe(data => {
             this.alertList = data['message'];
+            //console.log(this.alertList)
             this.alertListTemp = data['message'];
         });
 
@@ -213,22 +247,24 @@ export class UserdashboardComponent implements OnInit {
             console.log('----Huobi---');
             this.chartUrl = globalVariable.url+'huobi';
             this.binanceService.reConnect();
-            //Observable.interval(5000).subscribe(x => {
+            Observable.interval(5000).subscribe(x => {
                 this.getHoubiMarketHistory();                
-            //});
+                this.getHoubiMarketSummary();
+            });
             this.getHoubiCurrency();
-            this.getHoubiMarketSummary();
+            this.getHoubiTradeBalance();
+            this.houbiOpenOrder();
             //this.chartLoad(this.chooseCurrency,this.chartUrl)
         }
         if (this.chooseMarket == 'Gdax') {
             console.log('----Gdax---');
             this.chartUrl = globalVariable.url+'gdax';
             this.binanceService.reConnect();
-            //Observable.interval(2000).subscribe(x => {
+            Observable.interval(2000).subscribe(x => {
                 this.getGdaxxCurrency();
                 this.getGdaxMarketSummary();
                 this.getGdaxMarketHistory();
-            //});
+            });
             //this.chartLoad(this.chooseCurrency,this.chartUrl)
         }
 
@@ -254,6 +290,7 @@ export class UserdashboardComponent implements OnInit {
             this.getBinanceMarketHistory();
             this.binanceOpenOrder();
             this.binanceTradeBalance();
+            this.depthChart();
             //this.chartLoad(this.chooseCurrency,this.chartUrl)
         }
 
@@ -267,6 +304,160 @@ export class UserdashboardComponent implements OnInit {
             this.getMarketHistory();
             //this.chartLoad(this.chooseCurrency,this.chartUrl)
         }
+    }
+
+    tradeBuyLimit(){
+        if (this.chooseMarket == 'Huobi') {
+            this.houbiService.buyLimit(this.chooseCurrency,this.tradeBuyLimitForm.value).subscribe(data => {
+                if (data.status == 'ok') {
+                    this.flashMessage.show('Trade Buy Sucessfully', {cssClass:'alert-success', timeout: 3000});
+                }else{
+                    this.flashMessage.show(data.msg, {cssClass:'alert-danger', timeout: 3000});
+                }
+                this.tradeBuyLimitForm.reset();
+                this.houbiOpenOrder();
+            });
+        }
+
+        if (this.chooseMarket == 'Binance') {
+            this.binanceService.buyLimit(this.chooseCurrency,this.tradeBuyLimitForm.value).subscribe(data => {
+                if (typeof data.code !== 'undefined') {
+                    this.flashMessage.show('Trade Buy Sucessfully', {cssClass:'alert-success', timeout: 3000});
+                }else{
+                    this.flashMessage.show(data.msg, {cssClass:'alert-danger', timeout: 3000});
+                }
+                this.tradeBuyLimitForm.reset();
+                this.binanceOpenOrder();
+            });
+        }
+    }
+
+    tradeBuy(){
+        if (this.chooseMarket == 'Huobi') {
+            this.houbiService.buy(this.chooseCurrency,this.tradeBuyForm.value).subscribe(data => {
+                if (data.status == 'ok') {
+                    this.flashMessage.show('Trade Buy Sucessfully', {cssClass:'alert-success', timeout: 3000});
+                }else{
+                    this.flashMessage.show(data.msg, {cssClass:'alert-danger', timeout: 3000});
+                }
+                this.tradeBuyForm.reset();
+                this.houbiOpenOrder();
+            });
+        }
+        if (this.chooseMarket == 'Binance') {
+            this.binanceService.buy(this.chooseCurrency,this.tradeBuyForm.value).subscribe(data => {
+                if (typeof data.code !== 'undefined') {
+                    this.flashMessage.show('Trade Buy Sucessfully', {cssClass:'alert-success', timeout: 3000});
+                }else{
+                    this.flashMessage.show(data.msg, {cssClass:'alert-danger', timeout: 3000});
+                }
+                this.tradeBuyForm.reset();
+                this.binanceOpenOrder();
+            });
+        }
+    }
+
+    tradeSellLimit(){
+        if (this.chooseMarket == 'Huobi') {
+            this.binanceService.sellLimit(this.chooseCurrency,this.tradeSellLimitForm.value).subscribe(data => {
+                if (data.status == 'ok') {
+                    this.flashMessage.show('Trade Sell Sucessfully', {cssClass:'alert-success', timeout: 3000});
+                }else{
+                    this.flashMessage.show(data.msg, {cssClass:'alert-danger', timeout: 3000});
+                }
+                this.tradeSellLimitForm.reset();
+                this.houbiOpenOrder();            
+            });
+        }
+        if (this.chooseMarket == 'Binance') {
+            this.binanceService.sellLimit(this.chooseCurrency,this.tradeSellLimitForm.value).subscribe(data => {
+                if (typeof data.code !== 'undefined') {
+                    this.flashMessage.show('Trade Sell Sucessfully', {cssClass:'alert-success', timeout: 3000});
+                }else{
+                    this.flashMessage.show(data.msg, {cssClass:'alert-danger', timeout: 3000});
+                }
+                this.tradeSellLimitForm.reset();
+                this.binanceOpenOrder();            
+            });
+        }
+    }
+
+    tradeSell(){
+        if (this.chooseMarket == 'Huobi') {
+            this.binanceService.sell(this.chooseCurrency,this.tradeSellForm.value).subscribe(data => {
+                if (data.status == 'ok') {
+                    this.flashMessage.show('Trade Sell Sucessfully', {cssClass:'alert-success', timeout: 3000});
+                }else{
+                    this.flashMessage.show(data.msg, {cssClass:'alert-danger', timeout: 3000});
+                }
+                this.tradeSellForm.reset();
+                this.houbiOpenOrder();            
+            });
+        }
+        if (this.chooseMarket == 'Binance') {
+            this.binanceService.sell(this.chooseCurrency,this.tradeSellForm.value).subscribe(data => {
+                if (typeof data.code !== 'undefined') {
+                    this.flashMessage.show('Trade Sell Sucessfully', {cssClass:'alert-success', timeout: 3000});
+                }else{
+                    this.flashMessage.show(data.msg, {cssClass:'alert-danger', timeout: 3000});
+                }
+                this.tradeSellForm.reset();
+                this.binanceOpenOrder();            
+            });
+        }
+    }
+
+    depthChart(){
+       this.binanceService.getDepthChart().subscribe((data)=>{
+           console.log('depth')
+           console.log(data)
+       this.chart = new Chart({
+            chart: {
+                type: 'line'
+            },
+            title: {
+                text: 'Linechart'
+            },
+            credits: {
+                enabled: false
+            },
+            series: [{
+                name: 'Line 1',
+                data: [1, 2, 3]
+            }]
+        });
+           /*this.chart = new StockChart({
+                rangeSelector: {
+                    selected: 2
+                },
+
+                title: {
+                    text: 'AAPL Stock Price'
+                },
+
+                series: [{
+                    name: 'AAPL Stock Price',
+                    data: data,
+                    type: 'areaspline',
+                    threshold: null,
+                    tooltip: {
+                        valueDecimals: 2
+                    },
+                    fillColor: {
+                        linearGradient: {
+                            x1: 0,
+                            y1: 0,
+                            x2: 0,
+                            y2: 1
+                        },
+                        stops: [
+                            [0, Highcharts.getOptions().colors[0]],
+                            [1, Highcharts.Color(Highcharts.getOptions().colors[0]).setOpacity(0).get('rgba')]
+                        ]
+                    }
+                }]
+           })*/
+       })
     }
 
     /* Houbi Function */
@@ -306,6 +497,18 @@ export class UserdashboardComponent implements OnInit {
                 this.vol=data['tick'].vol;
                 this.ask=data['tick'].ask[0];
                 this.bid=data['tick'].bid[0];
+                let objArr = this.alertList.filter((item) => {return (item['exchangeMarket'] == this.chooseMarket) && (item['alertPrice'] == this.ask);});
+                if (objArr.length > 0) {
+                    let user = JSON.parse(localStorage.getItem('user'));
+                    let myAlert = objArr.filter((item)=>{return item['userId'] == user['_id']});
+                    this.alertNotice = myAlert[0];
+                    this.alertNotice['isOpen'] = false;
+                    this.tradeAlertService.tradeAlertUpdate(this.alertNotice).subscribe(data => {
+                        if (!data.error) {
+                            this.myAlertList();
+                        }
+                    });
+                }
                 this.alertForm.controls['alertPrice'].setValue(this.ask);
             }
         });
@@ -336,6 +539,58 @@ export class UserdashboardComponent implements OnInit {
                 this.buyMarketHistory = buymarket;
                 this.sellMarketHistory = sellmarket;
             }
+        })
+    }
+
+    getHoubiTradeBalance(){
+        this.houbiService.getBalance().subscribe((data)=>{
+            console.log(data);
+            let currencyName = this.chooseCurrency;
+            console.log(currencyName)
+            const substring = currencyName.substr(-3);
+            if ( substring == "btc" ){
+                this.buySellCat = substring;
+                this.BuySellCurrency = this.chooseCurrency.replace(this.buySellCat,'')
+            }
+            if ( substring == "eth" ){
+                this.buySellCat = substring;
+                this.BuySellCurrency = this.chooseCurrency.replace(this.buySellCat,'')
+            }
+            if ( currencyName.substr(-4) == "usdt" ){
+                this.buySellCat = currencyName.substr(-4);
+                this.BuySellCurrency = this.chooseCurrency.replace(this.buySellCat,'')
+            }
+            for (var i = 0; i < data['list'].length; ++i) {
+                if (data['list'][i]['type'] == 'trade' ) {
+                    if (data['list'][i]['currency'] == this.buySellCat) {
+                        this.buyBalance = data['list'][i]['balance'];
+                    }
+                    if (data['list'][i]['currency'] == this.BuySellCurrency) {
+                        this.sellBalance = data['list'][i]['balance'];
+                    }
+                }
+            }
+            this.sellBalanceStats = [];
+            this.buyBalanceStats = [];
+            for (var i = 0; i < this.balanceStatPercent.length; ++i) {
+                let amount = (this.buyBalance * this.balanceStatPercent[i])/100
+                this.buyBalanceStats.push({'label':this.balanceStatPercent[i]+'% (' +amount.toFixed(5)+')','amount':amount.toFixed(5)})
+                let amount1 = (this.sellBalance * this.balanceStatPercent[i])/100
+                this.sellBalanceStats.push({'label':this.balanceStatPercent[i]+'% (' +amount1.toFixed(5)+')','amount':amount1.toFixed(5)})
+            }
+        });
+    }
+
+    houbiOpenOrder(){
+        this.houbiService.getOpenOrder(this.chooseCurrency).subscribe((data)=>{
+            this.openOrders = [];
+            this.closeOrders = [];
+            if (data['data'].length > 0) {
+                this.openOrders = data['orders'].filter((item) => { return item['state'] != 'filled';});
+                this.closeOrders = data['orders'].filter((item) => { return item['state'] == 'filled';});
+            }
+        },(err)=>{
+            console.log(err)
         })
     }
 
@@ -556,54 +811,6 @@ export class UserdashboardComponent implements OnInit {
         })
     }
 
-    tradeBuyLimit(){
-        this.binanceService.buyLimit(this.chooseCurrency,this.tradeBuyLimitForm.value).subscribe(data => {
-            if (typeof data.code !== 'undefined') {
-                this.flashMessage.show('Trade Buy Sucessfully', {cssClass:'alert-success', timeout: 3000});
-            }else{
-                this.flashMessage.show(data.msg, {cssClass:'alert-danger', timeout: 3000});
-            }
-            this.tradeBuyLimitForm.reset();
-            this.binanceOpenOrder();
-        });
-    }
-
-    tradeBuy(){
-        this.binanceService.buy(this.chooseCurrency,this.tradeBuyForm.value).subscribe(data => {
-            if (typeof data.code !== 'undefined') {
-                this.flashMessage.show('Trade Buy Sucessfully', {cssClass:'alert-success', timeout: 3000});
-            }else{
-                this.flashMessage.show(data.msg, {cssClass:'alert-danger', timeout: 3000});
-            }
-            this.tradeBuyForm.reset();
-            this.binanceOpenOrder();
-        });
-    }
-
-    tradeSellLimit(){
-        this.binanceService.sellLimit(this.chooseCurrency,this.tradeSellLimitForm.value).subscribe(data => {
-            if (typeof data.code !== 'undefined') {
-                this.flashMessage.show('Trade Sell Sucessfully', {cssClass:'alert-success', timeout: 3000});
-            }else{
-                this.flashMessage.show(data.msg, {cssClass:'alert-danger', timeout: 3000});
-            }
-            this.tradeSellLimitForm.reset();
-            this.binanceOpenOrder();            
-        });
-    }
-
-    tradeSell(){
-        this.binanceService.sell(this.chooseCurrency,this.tradeSellForm.value).subscribe(data => {
-            if (typeof data.code !== 'undefined') {
-                this.flashMessage.show('Trade Sell Sucessfully', {cssClass:'alert-success', timeout: 3000});
-            }else{
-                this.flashMessage.show(data.msg, {cssClass:'alert-danger', timeout: 3000});
-            }
-            this.tradeSellForm.reset();
-            this.binanceOpenOrder();            
-        });
-    }
-
     tradeBuyPriceSet(type, data){
         if (type == 'limit') {
             this.tradeBuyLimitForm.controls['price'].setValue(data);
@@ -682,6 +889,7 @@ export class UserdashboardComponent implements OnInit {
 
     getBinanceCurrency(){
         this.binanceService.getCurrency().subscribe((data) => {
+            //console.log(data)
             var btclist = [];
             var ethlist = []; 
             var usdtlist = []; 
@@ -710,7 +918,6 @@ export class UserdashboardComponent implements OnInit {
             this.btcList = btclist;
             this.ethList = ethlist;
             this.usdtList = usdtlist;
-
         });
     }
 
@@ -730,34 +937,47 @@ export class UserdashboardComponent implements OnInit {
     getBinanceMarketHistory(){
         this.binanceService.getMarketHistory().subscribe((data) => {
             if (data['error'] == false && data['list'] != null) {
-                this.allMarketHistory = [];
+
+                //this.allMarketHistory = [];
                 var sellmarket = [];
                 var buymarket = [];
-                for (var key in data['list']['bids']) {
-                    let total = parseFloat(data['list']['bids'][key]) * parseFloat(key);
-
-                    let obj = {'Price':key,'Quantity':data['list']['bids'][key],'Total':total}
-
-                    let allObj = {'Price':key,'Quantity':data['list']['bids'][key],'TimeStamp':total,'OrderType':'BUY'}
-                        buymarket.push(obj);
+                let bArray = data['list']['b'];
+                let aArray = data['list']['a'];
+                for (var i = 0; i < bArray.length; ++i) {
+                    let total = parseFloat(bArray[i][0]) * parseFloat(bArray[i][1]);
+                    let obj = {'Price':bArray[i][0],'Quantity':bArray[i][1],'Total':total}
+                    let allObj = {'Price':bArray[i][0],'Quantity':bArray[i][1],'TimeStamp':data['list']['E'],'OrderType':'BUY'}
+                    buymarket.push(obj);
+                this.buyMarketHistory.push(obj);
                     if (buymarket.length <= 10 ) {
                         this.allMarketHistory.push(allObj);
                     }
                 }
-                for (var key in data['list']['asks']) {
-                    let total = parseFloat(data['list']['asks'][key]) * parseFloat(key);
 
-                    let obj = {'Price':key,'Quantity':data['list']['asks'][key],'Total':total}
-
-                    let allObj = {'Price':key,'Quantity':data['list']['asks'][key],'TimeStamp':total,'OrderType':'SELL'}
+                for (var i = 0; i < aArray.length; ++i) {
+                    let total = parseFloat(aArray[i][0]) * parseFloat(aArray[i][1]);
+                    let obj = {'Price':aArray[i][0],'Quantity':aArray[i][1],'Total':total}
+                    let allObj = {'Price':aArray[i][0],'Quantity':aArray[i][1],'TimeStamp':data['list']['E'],'OrderType':'SELL'}
                     sellmarket.push(obj);
+                this.sellMarketHistory.push(obj);
                     if (sellmarket.length <= 10 ) {
                         this.allMarketHistory.push(allObj);
                     }
                 }
+                this.allMarketHistory.reverse();
+                if (this.allMarketHistory.length >= 200) {
+                    this.allMarketHistory.splice(100,99)
+                }
 
-                this.buyMarketHistory = buymarket;
-                this.sellMarketHistory = sellmarket;
+                this.buyMarketHistory.reverse();
+                if (this.buyMarketHistory.length >= 200) {
+                    this.buyMarketHistory.splice(100,99)
+                }
+
+                this.sellMarketHistory.reverse();
+                if (this.sellMarketHistory.length >= 200) {
+                    this.sellMarketHistory.splice(100,99)
+                }
             }
         });
     }
@@ -848,7 +1068,7 @@ export class UserdashboardComponent implements OnInit {
         localStorage.setItem('market', this.chooseMarket);
         this.chooseMarket = localStorage.getItem('market');
         this.loadAllFun();
-        //this.chartLoad(this.chooseCurrency,this.chartUrl)
+        ////this.chartLoad(this.chooseCurrency,this.chartUrl)
         /*console.log(currencyName)
         console.log(this.BuySellCurrency)*/
     }
@@ -941,8 +1161,6 @@ export class UserdashboardComponent implements OnInit {
         });
     }
 
-
-
     setActiveTrade(current,my){
         if (current == my) {
               return 'active';
@@ -983,4 +1201,3 @@ export class UserdashboardComponent implements OnInit {
        this.isActiveChart = name;
     }
 }
-

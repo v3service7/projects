@@ -1106,6 +1106,16 @@ ng-select>div>div.single>div.placeholder {
     z-index: 17;
 }
 
+#layer{
+    padding: 8vw 8vh;
+    position: absolute;
+    height: 39%;
+    width: 46%;
+    text-align: center;
+    z-index: 1;
+    background: #0009;
+}
+
 .navbar-dark .navbar-toggler {
     color: rgba(255, 255, 255, .5);
     border-color: transparent;
@@ -1137,12 +1147,21 @@ ng-select>div>div.single>div.placeholder {
 }
 
 /* Small devices (landscape phones, 576px and up)*/
-@media (min-width: 576px) and (max-width: 767px) { }
+@media (min-width: 576px) and (max-width: 767px) { 
+
+#layer{
+    height: 83%;
+}
+}
 
 /*Medium devices (tablets, 768px and up)*/
 @media (min-width: 768px) and (max-width: 991px) { 
 .bidask-area {margin-bottom: 10px;
 
+}
+
+#layer{
+    height: 83%;
 }
  }
 

@@ -9,6 +9,147 @@ import { TradeAlertService } from '../../services/tradealert.service';
 import { PurchaseplanService} from '../../services/purchaseplan.service';
 import { ExchangeapiService} from '../../services/exchangeapi.service';
 import { BinanceService } from '../../services/binance.service';
+declare var Chart: any;
+
+@Component({
+  selector: 'app-frontplan',
+  templateUrl: './frontplan.component.html',
+  styleUrls: ['./myprofile.component.css']
+})
+export class FrontPlanComponent implements OnInit {
+
+	plansType: any=[];
+	accountplansType: any=[];
+	user:any;
+	id:any;
+
+  	constructor(
+	  	private userService:UserService,
+	    private planService: PlanService,
+	    private router:Router,
+	    private purchaseplanService: PurchaseplanService,
+	    private flashMessage:FlashMessagesService
+  	) { }
+
+  	ngOnInit() {
+  		this.getProfile()
+		this.user = JSON.parse(localStorage.getItem('user'));
+    }
+
+    getProfile(){
+	  	this.userService.getProfile().subscribe(profile => {
+			this.id = profile.user._id;   
+			this.plangetList();
+			this.accountgetList();
+	    },
+	    err => {
+	      console.log(err);
+	      return false;
+	    });
+    }
+
+  	plangetList(){
+        this.planService.planList().subscribe(
+            (data) => {
+              if (!data.error) {
+                     this.plansType = data.message
+                }
+            },
+            (err)=>{
+                console.log('kfgbhj')
+            }
+        );
+    }
+
+  	private purchasePlan(data) {
+  		let obj = {};
+  		var x = parseInt(data.planType) ;
+		var current = new Date();
+		var threeMonthsInTheFuture =  new Date(new Date(current).setMonth(current.getMonth() + x));
+	      obj['plan'] = data._id;
+	      obj['expireddate'] = threeMonthsInTheFuture;
+	      obj['user'] = this.id;
+	      obj['month'] = x;
+	  		if(confirm("Are you sure to purchase plan?")) {
+				this.purchaseplanService.paymentplan(data).subscribe(
+		            (data) => {
+		            	if(!data.error){
+		            		window.location.href = data.paymentlink;
+		            		this.purchaseplanService.puchaseplan(obj).subscribe(data => {
+	            			});
+		            	}
+		            },
+		            (err)=>{
+		                console.log('kfgbhj')
+		            }
+		        );
+	        }
+  	}
+
+	accountgetList(){
+        this.purchaseplanService.accountList(this.id).subscribe(
+            (data) => {
+              if (!data.error) {
+                     this.accountplansType = data.message
+                     this.accountplansType.reverse()
+                }
+            },
+            (err)=>{
+                console.log('kfgbhj')
+            }
+        );
+    }
+}
+
+@Component({
+  selector: 'app-frontplan',
+  templateUrl: './fronttradehistory.component.html',
+  styleUrls: ['./myprofile.component.css']
+})
+export class FrontTradeHistoryComponent implements OnInit {
+
+	public lineChartData:Array<any> = [
+		{data: [65, 59, 80, 81, 56, 55, 40], label: 'Made Money'},
+		{data: [28, 48, 40, 19, 86, 27, 90], label: 'Lost Money'},
+	];
+	public lineChartLabels:Array<any> = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
+	public lineChartOptions:any = { responsive: true };
+	public lineChartColors:Array<any> = [
+		{
+			backgroundColor: 'rgba(148,159,177,0.2)',
+			borderColor: 'green',
+			pointBackgroundColor: 'rgba(148,159,177,1)',
+			pointBorderColor: '#fff',
+			pointHoverBackgroundColor: '#fff',
+			pointHoverBorderColor: 'rgba(148,159,177,0.8)'
+		},
+		{
+			backgroundColor: 'rgba(77,83,96,0.2)',
+			borderColor: 'red',
+			pointBackgroundColor: 'rgba(77,83,96,1)',
+			pointBorderColor: '#fff',
+			pointHoverBackgroundColor: '#fff',
+			pointHoverBorderColor: 'rgba(77,83,96,1)'
+		}
+	];
+	public lineChartLegend:boolean = true;
+	public lineChartType:string = 'line';
+
+  	constructor(){}
+
+  	ngOnInit() {
+  		Chart.defaults.global.defaultFontColor = '#fff';
+    }
+
+	// events
+	public chartClicked(e:any):void {
+	console.log(e);
+	}
+
+	public chartHovered(e:any):void {
+	console.log(e);
+	}
+}
 
 @Component({
   selector: 'app-myprofile',
@@ -68,6 +209,7 @@ export class MyprofileComponent implements OnInit {
 
     getProfile(){
 	  	this.userService.getProfile().subscribe(profile => {
+	  		//console.log(profile)
 			this.id = profile.user._id;   
 			this.authfactor = profile.user.authfactor;	  
 			this.user = profile.user;	  

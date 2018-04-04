@@ -87,17 +87,26 @@ module.exports = function (io) {
                     list: obj
                 });
 
-                binance.depth(name,function(depth, data) {
+                /*binance.depth(name,function(depth, data) {
                 	socket.emit("binanceMarketHistory", {
 	                    error: false,
 	                    list: depth
 	                });
-		        });
+		        });*/
 
                 tradeAlertCheck(name,obj['open'],function(data){
                     socket.emit("binanceAlert", {error: false,list: data});
                 });
 	        });
+            binance.websockets.depth([name], (depth) => {
+              //let {e:eventType, E:eventTime, s:symbol, u:updateId, b:bidDepth, a:askDepth} = depth;
+                    /*console.log(" market depth update");
+                    console.log(depth);*/
+                    socket.emit("binanceMarketHistory", {
+                        error: false,
+                        list: depth
+                    });
+            });
         });
         /* END BINANCE WEB SOCKET */
 
@@ -118,6 +127,10 @@ module.exports = function (io) {
                         }
                     });
                     if (data[0]['type'] == 'orderBook') {
+
+                        console.log('----------------------------')
+                        console.log(data[0])
+                        console.log('----------------------------')
                         socket.emit("poloniexMarketHistory", {
                             error: false,
                             list: data[0]['data']

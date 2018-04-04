@@ -34,13 +34,18 @@ module.exports = (function() {
                     "currency": "USD",
                     "total": req.body.amount
                 },
+                /*"cycles": req.body.month,
+                "frequency": "MONTH",
+                "frequency_interval": "1",*/
                 "description": req.body.name
             }]
         };
         paypal.payment.create(JSON.stringify(create_payment_json), function (error, payment) {
           if (error) {
+            console.log(error)
               throw error;
           } else {        
+            console.log(payment)
               for(let i = 0;i < payment.links.length;i++){
                 if(payment.links[i].rel === 'approval_url'){
                   res.json({paymentlink : payment.links[i].href});

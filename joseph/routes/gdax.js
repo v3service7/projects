@@ -7,7 +7,7 @@ module.exports = function (io) {
 	const sandboxURI = 'https://api-public.sandbox.gdax.com';
 	const key = '1d99f63dc74ca341181426ffaf7d6856';
 	const secret = 'vd+iOLCslyi1kern5HmqjlozISlFdTkD4oJtYIajQ18nXd06wmR0O+730VKRB/17CNvX0TeBkPrtXLPl3huMkQ==';
-	const passphrase = '1j4w0dg472b';
+	const passphrase = 'n91f9yximd';
 
 
 	router.get('/balances',(req,res)=>{

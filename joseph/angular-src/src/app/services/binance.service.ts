@@ -1,14 +1,15 @@
 import { Injectable } from '@angular/core';
-import { Http, Response, Headers } from '@angular/http';
+import { Http, Response, Headers, Jsonp } from '@angular/http';
 import 'rxjs/add/operator/map';
 import { Observable } from 'rxjs/Observable';
 import { Socket } from 'ng-socket-io';
 import * as globalVariable from "../global";
 
+
 @Injectable()
 export class BinanceService  {
 	authToken: any;
-  	constructor(private http: Http, private socket: Socket) {
+  	constructor(private http: Http,private _jsonp: Jsonp, private socket: Socket) {
     	const token = localStorage.getItem('id_token_admin');
     	this.authToken = token;
   	}
@@ -124,4 +125,11 @@ export class BinanceService  {
 		});
 		return observable;
 	}
+  getDepthChart(){  
+      return this._jsonp.get('https://www.highcharts.com/samples/data/jsonp.php?filename=aapl-c.json&callback=JSONP_CALLBACK')
+          .map((response: Response) => {
+          let data = response.json();
+          return data;
+        });
+  }
 }

@@ -1,12 +1,13 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule,ReactiveFormsModule } from '@angular/forms';
-import { HttpModule } from '@angular/http';
+import { HttpModule, JsonpModule } from '@angular/http';
 import {RouterModule, Routes} from '@angular/router';
 import { AppComponent } from './app.component';
 import { TinymceModule } from 'angular2-tinymce';
 import { SelectModule } from 'angular2-select';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
+import { ChartModule } from 'angular-highcharts';
 
 // Admin Component
 import { AdminComponent } from './admin/admin.component';
@@ -30,7 +31,7 @@ import { SignupComponent } from './frontend/signup/signup.component';
 import { UserloginComponent } from './frontend/userlogin/userlogin.component';
 import { FrontheaderComponent } from './frontend/frontheader/frontheader.component';
 import { FrontfooterComponent } from './frontend/frontfooter/frontfooter.component';
-import { MyprofileComponent } from './frontend/myprofile/myprofile.component';
+import { MyprofileComponent,FrontPlanComponent, FrontTradeHistoryComponent } from './frontend/myprofile/myprofile.component';
 import { ForgotComponent, ResetComponent } from './frontend/forgot/forgot.component';
 import { UserdashboardComponent } from './frontend/userdashboard/userdashboard.component';
 import { SuccessComponent } from './frontend/success/success.component';
@@ -105,6 +106,8 @@ const appRoutes: Routes =  [
         { path: 'dashboard', component: UserdashboardComponent, canActivate: [UserGuard] },
         { path: 'forgotpassword', component: ForgotComponent },
         { path: 'profile', component: MyprofileComponent, canActivate: [UserGuard] },
+        { path: 'plan', component: FrontPlanComponent, canActivate: [UserGuard] },
+        { path: 'trade-history', component: FrontTradeHistoryComponent, canActivate: [UserGuard] },
         { path: 'resetpassword/:id', component: ResetComponent },  
         { path: 'success', component: SuccessComponent, canActivate: [UserGuard]},
         { path: 'cancel', component: CancelComponent, canActivate: [UserGuard]},     
@@ -132,21 +135,23 @@ const appRoutes: Routes =  [
     HomeComponent,  
     SignupComponent, 
     ResetComponent,
-    UserloginComponent, FrontfooterComponent, MyprofileComponent, ForgotComponent, SuccessComponent, CancelComponent,
+    UserloginComponent, FrontfooterComponent, MyprofileComponent, FrontPlanComponent, FrontTradeHistoryComponent, ForgotComponent, SuccessComponent, CancelComponent,
     UserdashboardComponent
   ],
   imports: [
     BrowserModule,
+    ChartModule ,
     FormsModule,
     TinymceModule.withConfig({}),
     ReactiveFormsModule,
     HttpModule,
+    JsonpModule,
     RouterModule.forRoot(appRoutes),
     FlashMessagesModule, 
     SelectModule,
     Ng2OrderModule,
     SocketIoModule.forRoot(config),
-    Ng2SearchPipeModule
+    Ng2SearchPipeModule,
   ],
   providers: [BittrexService, BinanceService, PoloniexService, GdaxService, HoubiService, TradeAlertService, ValidateService, AdminService, AuthGuard, UserGuard, UserService, PlanService, PagesService, ExchangeService,ExchangeapiService,PurchaseplanService],
   bootstrap: [AppComponent]

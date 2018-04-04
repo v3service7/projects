@@ -132,7 +132,8 @@ var HUOBI_PRO = {
         var payload = sign_sha('GET', URL_HUOBI_PRO, path, body);
         return call_api('GET', path, payload, body);
     },
-    buy_limit: function(symbol, amount, price) {
+    buy_limit: function(symbol, amount, price,id) {
+        config.huobi.account_id_pro = id;
         var path = '/v1/order/orders/place';
         var body = get_body();
         var payload = sign_sha('POST', URL_HUOBI_PRO, path, body);
@@ -145,7 +146,8 @@ var HUOBI_PRO = {
 
         return call_api('POST', path, payload, body);
     },
-    sell_limit: function(symbol, amount, price) {
+    sell_limit: function(symbol, amount, price, id) {
+        config.huobi.account_id_pro = id;
         var path = '/v1/order/orders/place';
         var body = get_body();
         var payload = sign_sha('POST', URL_HUOBI_PRO, path, body);

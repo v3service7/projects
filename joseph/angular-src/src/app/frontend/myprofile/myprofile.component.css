@@ -4,3 +4,13 @@
 }
 
 .activeClass{background-color: #4CAF50;}
+
+
+
+.borderBottomGray{
+	border-bottom: 1px solid #909090;
+}
+
+.borderBottomGray span{
+	font-size: 2rem;
+}

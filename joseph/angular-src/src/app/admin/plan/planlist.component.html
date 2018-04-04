@@ -25,7 +25,7 @@
             <tbody>
                 <tr *ngFor="let customer of plans">
                     <td class="padding0">{{customer.name}}</td>
-                    <td class="padding0">{{customer.amount}}</td>
+                    <td class="padding0">$ {{customer.amount}}</td>
                      <td class="padding0">{{customer.planType}} Months</td>
                     <td class="padding0 td-actions text-right">
                         <a [routerLink]="['/admin/plan/',customer._id]" rel="tooltip" title="Edit Task" class="btn btn-success btn-simple btn-xs">

@@ -132,12 +132,12 @@ module.exports = function (io) {
         binance.candlesticks(symbol, periods, function(ticks, symbol) {
             let last_tick = ticks[ticks.length - 1];
             let [time, open, high, low, close, volume, closeTime, assetVolume, trades, buyBaseVolume, buyAssetVolume, ignored] = last_tick;
-            res.json({'MarketName':symbol,'High':high,'Low':low,'Volume':volume,'Open':open,'Close':close});
+            res.json({'MarketName':symbol,'High':high,'Low':low,'Volume':volume,'Open':open,'Close':close,'minmov':1,'minmov2':0,'pricescale':100,'session':'0930-1630'});
             
         });
     });
 
-    function arrayModify(history,cb){
+    function arrayModify(history,dt,cb){
         var cusObj = {}
         if (history && history.length > 0){
             cusObj['s'] = 'ok';
@@ -148,7 +148,7 @@ module.exports = function (io) {
             cusObj['v'] = [];
             cusObj['o'] = [];
             for (var i = 0; i < history.length; i++) {
-                if (cusObj['t'].length <= 200) {
+                if (dt['start'] <= history[i][0] && dt['end'] >= history[i][0] ) {
                     cusObj['t'].push(history[i][0]);
                     cusObj['c'].push(history[i][4]);
                     cusObj['h'].push(history[i][2]);
@@ -173,11 +173,16 @@ module.exports = function (io) {
         let symbol = req.query.symbol;
         let from = req.query.from;
     	let to = req.query.to;
-        //console.log(from,to,symbol);
+       /* var d1 = new Date(parseInt(to)*1000);
+        var d2 = new Date(parseInt(from)*1000);*/
+        let dt = {'start':parseInt(from)*1000,'end': parseInt(to)*1000}
+        console.log(from,to,symbol);
+        /*
+        console.log(d2.getTime(),d1.getTime(),symbol);*/
 
     	// Periods: 1m,3m,5m,15m,30m,1h,2h,4h,6h,8h,12h,1d,3d,1w,1M
         let periods = req.query.periods;
-    	periods = '1m';
+    	periods = '1d';
         binance.candlesticks(symbol, periods, function(ticks, symbol) {
             if (ticks.length > 0) {
                 let last_tick = ticks[ticks.length - 1];
@@ -186,7 +191,7 @@ module.exports = function (io) {
                 //console.log(time,last_tick)
                 //res.json(last_tick);
                 //res.json({'high':high,'low':low,'volume':volume,'open':open,'close':close});
-            	arrayModify(ticks,(status,data)=>{
+            	arrayModify(ticks,dt,(status,data)=>{
                     if (status) {
                         res.json(data);
                     }else{

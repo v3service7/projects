@@ -54,7 +54,7 @@ module.exports = function (io) {
         let symbol = req.query.symbol;
         poloniex.returnTicker( function(err,data) {
             let obj = data[symbol]
-            res.json({'MarketName':symbol,'High':obj.high24hr,'Low':obj.low24hr,'Volume':obj.baseVolume,'Open':obj.lowestAsk,'Close':obj.highestBid});
+            res.json({'MarketName':symbol,'High':obj.high24hr,'Low':obj.low24hr,'Volume':obj.baseVolume,'Open':obj.lowestAsk,'Close':obj.highestBid,'minmov':1,'minmov2':0,'pricescale':100,'session':'0930-1630'});
         });
     });
 
@@ -123,14 +123,14 @@ module.exports = function (io) {
             cusObj['v'] = [];
             cusObj['o'] = [];
             for (var i = 0; i < history.length; i++) {
-                if (cusObj['t'].length <= 200) {
+                //if (cusObj['t'].length <= 200) {
                     cusObj['t'].push(history[i]['date']);
                     cusObj['c'].push(history[i]['close']);
                     cusObj['h'].push(history[i]['high']);
                     cusObj['l'].push(history[i]['low']);
                     cusObj['v'].push(history[i]['volume']);
                     cusObj['o'].push(history[i]['open']);
-                }
+                //}
             }
             cb(true,cusObj)
         }else{

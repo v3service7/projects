@@ -24,17 +24,84 @@ module.exports = function (io) {
         hsdk.get_account().then((data1)=>{
             if (data1.length >= 0) {
                 let obj = data1[0]
-                console.log('----------------')
-                console.log(obj)
                 hsdk.get_balance(obj.id).then((data)=>{
                     res.json(data);
                 });                
             }
         });
     });
-router.get('/history', (req,res)=>{
+
+    router.get('/trade-buy-limit', (req,res)=>{
+        let symbol = req.query.symbol;
+        let quantity = req.query.quantity;
+        let price = parseFloat(req.query.price);
+        hsdk.get_account().then((data1)=>{
+            if (data1.length >= 0) {
+                let obj = data1[0]
+                hsdk.buy_limit(symbol, price,quantity ,obj.id).then((data)=>{
+                    res.json(data);
+                });                
+            }
+        });
+    });
+
+    router.get('/trade-sell-limit', (req,res)=>{
+        let symbol = req.query.symbol;
+        let quantity = req.query.quantity;
+        let price = parseFloat(req.query.price);
+        hsdk.get_account().then((data1)=>{
+            if (data1.length >= 0) {
+                let obj = data1[0]
+                hsdk.sell_limit(symbol, price,quantity ,obj.id).then((data)=>{
+                    res.json(data);
+                });                
+            }
+        });
+    });
+
+    router.get('/trade-buy', (req,res)=>{
+        let symbol = req.query.symbol;
+        let quantity = req.query.quantity;
+        let price = parseFloat(req.query.price);
+        hsdk.get_account().then((data1)=>{
+            if (data1.length >= 0) {
+                let obj = data1[0]
+                hsdk.buy_limit(symbol, price,quantity ,obj.id).then((data)=>{
+                    res.json(data);
+                });                
+            }
+        });
+    });
+
+    router.get('/trade-sell', (req,res)=>{
+        let symbol = req.query.symbol;
+        let quantity = req.query.quantity;
+        let price = parseFloat(req.query.price);
+        hsdk.get_account().then((data1)=>{
+            if (data1.length >= 0) {
+                let obj = data1[0]
+                hsdk.sell_limit(symbol, price,quantity ,obj.id).then((data)=>{
+                    res.json(data);
+                });                
+            }
+        });
+    });
+    
+    router.get('/trade-all-order', (req,res)=>{
+        let symbol = req.query.symbol
+        hsdk.get_account().then((data1)=>{
+            if (data1.length >= 0) {
+                let obj = data1[0]
+                hsdk.get_open_orders(symbol).then((data)=>{
+                    res.json(data);
+                });                
+            }
+        });
+    });
+
+    router.get('/history', (req,res)=>{
     	let symbol = req.query.symbol;
-        let url = 'https://api.huobi.pro/market/history/kline?period=60min&size=1000&symbol='+symbol.toLowerCase();
+        let url = 'https://api.huobi.pro/market/history/kline?period=1day&size=1000&symbol='+symbol.toLowerCase();
         options.url = url;
         request(options, function (error, response, body) {
         	if (response.body.status == 'ok' && response.statusCode == 200) {
@@ -55,12 +122,12 @@ router.get('/history', (req,res)=>{
 
     router.get('/symbols', (req,res)=>{
     	let symbol = req.query.symbol;
-        let url = 'https://api.huobi.pro/market/history/kline?size=1&symbol='+symbol.toLowerCase();
+        let url = 'https://api.huobi.pro/market/history/kline?period=1day&size=1000&symbol='+symbol.toLowerCase();
         options.url = url;
         request(options, function (error, response, body) {
         	if (response.body.data) {
 	        	let obj = response.body.data[0];
-	        	res.json({'MarketName':symbol.toUpperCase(),'High':obj.high,'Low':obj.low,'Volume':obj.vol,'Open':obj.open,'Close':obj.close});
+	        	res.json({'MarketName':symbol.toUpperCase(),'High':obj.high,'Low':obj.low,'Volume':obj.vol,'Open':obj.open,'Close':obj.close,'minmov':1,'minmov2':0,'pricescale':100,'session':'0930-1630'});
         	}
         });
     });
@@ -76,7 +143,7 @@ router.get('/history', (req,res)=>{
             cusObj['v'] = [];
             cusObj['o'] = [];
             for (var i = 0; i < history['data'].length; i++) {
-                if (cusObj['t'].length <= 200) {
+                if (cusObj['t'].length <= 500) {
                     cusObj['t'].push(history['data'][i]['id']);
                     cusObj['c'].push(history['data'][i]['close']);
                     cusObj['h'].push(history['data'][i]['high']);
