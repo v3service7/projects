@@ -7,7 +7,9 @@ import { AppComponent } from './app.component';
 import { TinymceModule } from 'angular2-tinymce';
 import { SelectModule } from 'angular2-select';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
-import { ChartModule } from 'angular-highcharts';
+import { ChartModule, HIGHCHARTS_MODULES } from 'angular-highcharts';
+import stock from 'highcharts/modules/stock.src';
+import more from 'highcharts/highcharts-more.src';
 
 // Admin Component
 import { AdminComponent } from './admin/admin.component';
@@ -52,7 +54,7 @@ import { GdaxService } from './services/gdax.service';
 import { HoubiService } from './services/huobi.service';
 import { TradeAlertService } from './services/tradealert.service';
 
-import {FlashMessagesModule} from 'angular2-flash-messages';
+import {FlashMessagesModule, FlashMessagesService} from 'angular2-flash-messages';
 import {AuthGuard} from './guards/admin.guard';
 import {UserGuard} from './guards/user.guard';
 import { Ng2OrderModule } from 'ng2-order-pipe';
@@ -114,6 +116,11 @@ const appRoutes: Routes =  [
     ]}
 ]
 
+export function highchartsModules() {
+  // apply Highcharts Modules to this array
+  return [stock, more];
+}
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -153,7 +160,7 @@ const appRoutes: Routes =  [
     SocketIoModule.forRoot(config),
     Ng2SearchPipeModule,
   ],
-  providers: [BittrexService, BinanceService, PoloniexService, GdaxService, HoubiService, TradeAlertService, ValidateService, AdminService, AuthGuard, UserGuard, UserService, PlanService, PagesService, ExchangeService,ExchangeapiService,PurchaseplanService],
+  providers: [{ provide: HIGHCHARTS_MODULES, useFactory: highchartsModules }, FlashMessagesService, BittrexService, BinanceService, PoloniexService, GdaxService, HoubiService, TradeAlertService, ValidateService, AdminService, AuthGuard, UserGuard, UserService, PlanService, PagesService, ExchangeService,ExchangeapiService,PurchaseplanService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

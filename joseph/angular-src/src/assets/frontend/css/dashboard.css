@@ -192,7 +192,7 @@ label {
     padding: 0px;
     margin-top: 4px ;
 }
-@import url(https://fonts.googleapis.com/css?family=Unica+One);
+/*@import url(https://fonts.googleapis.com/css?family=Unica+One);*/
 $colors: #2b908f, #90ee7e, #f45b5b, #7798BF, #aaeeee, #ff0066, #eeaaee, #55BF3B, #DF5353, #7798BF, #aaeeee;
 
 .highcharts-container {

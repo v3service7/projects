@@ -19,7 +19,7 @@ declare var Datafeeds: any;
 import * as globalVariable from "../../global";
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/interval';
-import { Chart, StockChart } from 'angular-highcharts';
+import { StockChart } from 'angular-highcharts';
 
 @Component({
     selector: "app-userdashboard",
@@ -81,7 +81,7 @@ export class UserdashboardComponent implements OnInit {
     isActiveOrder : any = 'open';
     isActiveAlert : any = 'data';
     isActiveChart : any = 'chart';
-    chart: any ;
+    stock: StockChart;
 
     constructor(
         private bittrexService: BittrexService,
@@ -411,22 +411,7 @@ export class UserdashboardComponent implements OnInit {
        this.binanceService.getDepthChart().subscribe((data)=>{
            console.log('depth')
            console.log(data)
-       this.chart = new Chart({
-            chart: {
-                type: 'line'
-            },
-            title: {
-                text: 'Linechart'
-            },
-            credits: {
-                enabled: false
-            },
-            series: [{
-                name: 'Line 1',
-                data: [1, 2, 3]
-            }]
-        });
-           /*this.chart = new StockChart({
+           this.stock = new StockChart({
                 rangeSelector: {
                     selected: 2
                 },
@@ -438,25 +423,8 @@ export class UserdashboardComponent implements OnInit {
                 series: [{
                     name: 'AAPL Stock Price',
                     data: data,
-                    type: 'areaspline',
-                    threshold: null,
-                    tooltip: {
-                        valueDecimals: 2
-                    },
-                    fillColor: {
-                        linearGradient: {
-                            x1: 0,
-                            y1: 0,
-                            x2: 0,
-                            y2: 1
-                        },
-                        stops: [
-                            [0, Highcharts.getOptions().colors[0]],
-                            [1, Highcharts.Color(Highcharts.getOptions().colors[0]).setOpacity(0).get('rgba')]
-                        ]
-                    }
                 }]
-           })*/
+           })
        })
     }
 

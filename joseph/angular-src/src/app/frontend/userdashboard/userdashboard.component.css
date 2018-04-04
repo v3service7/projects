@@ -195,7 +195,7 @@ body {
     color: #fff;
 }
 
-@import url(https://fonts.googleapis.com/css?family=Unica+One);
+/*@import 'https://fonts.googleapis.com/css?family=Unica+One';*/
 .highcharts-container {
     position: relative;
     overflow: hidden;
