@@ -49,3 +49,13 @@ select-dropdown>div .filter input {
 .text-cap{
       text-transform: capitalize;
 }
+.navbar-dark .navbar-nav .active>.nav-link {
+    color: #fff;
+    background: #3b507b !important;
+}
+.navbar-expand-md .navbar-nav .nav-link {
+    padding: 13px !important;
+}
+nav{
+  padding: 0 !important;
+}

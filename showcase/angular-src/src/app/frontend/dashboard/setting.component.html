@@ -90,7 +90,7 @@
 
                 </div>
                 <div class="form-group" *ngIf="currentCustomer && currentCustomer.ispaid">
-                    <label for="exampleFormControlSelect1">Position in menu</label>
+                    <label for="exampleFormControlSelect1">Position in menu </label>
                     <select class="form-control" formControlName="position">
                         <option [ngValue]="1">Top</option>
                         <ng-container *ngFor="let category of categories; let i = index">

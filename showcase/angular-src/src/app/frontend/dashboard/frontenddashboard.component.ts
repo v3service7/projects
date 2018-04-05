@@ -1,5 +1,5 @@
 // tslint:disable-next-line:max-line-length
-import { Component, Input, OnInit, NgZone, OnDestroy, ViewChild, AfterViewInit, ElementRef, ViewEncapsulation, ViewContainerRef, EventEmitter, Output } from '@angular/core';
+import { Component, Input, AfterViewInit, OnInit, NgZone, OnDestroy, ViewChild, ElementRef, ViewEncapsulation, ViewContainerRef, EventEmitter, Output } from '@angular/core';
 import { Router, ActivatedRoute, Params, NavigationEnd } from '@angular/router';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
@@ -17,6 +17,7 @@ declare var Masonry;
 declare var $;
 declare var twttr;
 declare var jQuery;
+declare var FB;
 declare var instgrm;
 import * as globalVariable from '../../global';
 // import { AngularMasonry, MasonryOptions, AngularMasonryBrick } from 'angular2-masonry';
@@ -39,7 +40,7 @@ export class FrontendDashboardComponent implements OnInit {
     templateUrl: './profileheader.component.html',
     styleUrls: ['./frontenddashboard.component.css']
 })
-export class ProfileHeaderComponent implements OnInit {
+export class ProfileHeaderComponent implements OnInit, AfterViewInit {
     public static updateUserStatus: Subject<boolean> = new Subject();
     customer: any;
     bookmarkposition: any = 'top';
@@ -48,12 +49,14 @@ export class ProfileHeaderComponent implements OnInit {
     currentCustomer: any;
     currentCustomerImage: any;
     addCategoryForm: FormGroup;
+    updateCategoryForm: FormGroup;
     addLinkForm: FormGroup;
     categories: any;
     isHere = false;
     liCount: any;
     category_id: any;
     category: any;
+    moveCategory: any;
     socialShareUrl: any;
     shareUrl: any;
     textToCopy: any;
@@ -80,10 +83,24 @@ export class ProfileHeaderComponent implements OnInit {
         this.getMyCategories();
         this.toastr.setRootViewContainerRef(vRef);
     }
-
+    ngAfterViewInit() {
+        setTimeout(() => {
+            FB.init({
+                autoLogAppEvents: true,
+                xFBml: true,
+                version: 'v2.12'
+            });
+        }, 3000);
+    }
     ngOnInit() {
+
         this.shareUrl = window.location.href;
         this.addCategoryForm = this.lf.group({
+            name: ['', Validators.required],
+            position: ['', Validators.required]
+        });
+        this.updateCategoryForm = this.lf.group({
+            _id: [''],
             name: ['', Validators.required],
             position: ['', Validators.required]
         });
@@ -98,6 +115,81 @@ export class ProfileHeaderComponent implements OnInit {
 
         this.category_id = this.childMessage;
         this.checkCustomer();
+        // this.manageUI();
+    }
+    gotoLayout(id) {
+        this.modelManageClose();
+        this.router.navigate(['setting', id]);
+    }
+    openManage(catagory) {
+        this.moveCategory = catagory;
+        this.updateCategoryForm.controls['name'].setValue(catagory.name);
+        this.updateCategoryForm.controls['position'].setValue(catagory.position);
+        this.updateCategoryForm.controls['_id'].setValue(catagory._id);
+        this.modelManageOpen();
+    }
+    updateCategoryData() {
+        $('#navlink-' + this.updateCategoryForm.value['_id']).text(this.updateCategoryForm.value['name']);
+        const position = this.updateCategoryForm.value['position'];
+        if (position) {
+            this.categoryService.categoryPositionUpdate(position).subscribe((data) => {
+                if (!data.error) {
+                    this.categoryService.categoryUpdate(this.updateCategoryForm.value).subscribe((data2) => {
+                        if (!data2.error) {
+                            this.toastr.success('Category updated succesfully.', 'Success!');
+                            ProfileHeaderComponent.updateUserStatus.next(true); // here
+                            this.getMyCategories();
+                            this.modelManageClose();
+                            this.updateCategoryForm.reset();
+                        } else {
+                            this.toastr.error('Error while updating category. Try again.', 'Oops!');
+                            this.getMyCategories();
+                        }
+                    });
+                }
+            });
+        } else {
+            this.categoryService.categoryUpdate(this.updateCategoryForm.value).subscribe((data2) => {
+                if (!data2.error) {
+                    this.toastr.success('Category updated succesfully.', 'Success!');
+                    ProfileHeaderComponent.updateUserStatus.next(true); // here
+                    this.getMyCategories();
+                    this.modelManageClose();
+                } else {
+                    this.toastr.error('Error while updating category. Try again.', 'Oops!');
+                    this.getMyCategories();
+                }
+            });
+        }
+    }
+    doDeleteBoard(id) {
+        this.categoryService.categoryDelete(id).subscribe((data) => {
+            if (!data.error) {
+                this.toastr.success('Board deleted succesfully.', 'Success!');
+                setTimeout(() => {
+                    this.router.navigate(['/dashboard']);
+                }, 1000);
+            } else {
+                this.toastr.error('Error while deleting board, Try again', 'Oops!');
+            }
+        });
+    }
+    manageUI() {
+        $(document).ready(function () {
+            var curColWidth = 400;
+            var cols = 4;
+            if ($("body").width() > 1600) {
+                cols = 4;
+            } else if ($("body").width() > 1000) {
+                cols = 3;
+            } else if ($("body").width() > 600) {
+                cols = 2;
+            } else {
+                cols = 1;
+            }
+            var theW = ($("body").width() - ($("body").width() / 50)) / cols;
+            curColWidth = theW;
+        });
     }
     copyToClipboard() {
         // tslint:disable-next-line:max-line-length
@@ -183,18 +275,39 @@ export class ProfileHeaderComponent implements OnInit {
         this.modelBookmarkClose();
     }
     embedFacebook(url) {
+
+        var curColWidth = 400;
+        var cols = 4;
+        if ($("body").width() > 1600) {
+            cols = 4;
+        } else if ($("body").width() > 1000) {
+            cols = 3;
+        } else if ($("body").width() > 600) {
+            cols = 2;
+        } else {
+            cols = 1;
+        }
+        var theW = ($("body").width() - ($("body").width() / 50)) / cols;
+        curColWidth = Math.round(theW - 15);
+        //curColWidth = 446;
         // public => https://www.facebook.com/notes/facebook/public-search-listings-on-facebook/2963412130/
         // private => https://www.facebook.com/bob.brello
         const inputURL = encodeURIComponent(url);
-        const ur = 'https://www.facebook.com/plugins/post.php?href=' + inputURL + '%26type%3D3&width=600';
+        const ur = 'https://www.facebook.com/plugins/post.php?href=' + inputURL + '%26type%3D3';
         // tslint:disable-next-line:max-line-length
-        const embedHTML = '<iframe id="bookmarkiframe" src="https://www.facebook.com/plugins/post.php?href=' + inputURL + '%26type%3D3&width=600"  style="height:100vh;border:none;overflow:hidden" scrolling="no" frameborder="0" allowTransparency="true"></iframe>';
-        const htmlToAdd = this.convertToGridItem(embedHTML);
+        // const embedHTML = '<iframe id="bookmarkiframe" src="https://www.facebook.com/plugins/post.php?href=' + inputURL + '%26type%3D3"  style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowTransparency="true"></iframe>';
+        // const htmlToAdd = this.convertToGridItem(embedHTML);
+        // tslint:disable-next-line:max-line-length
+        console.log(curColWidth)
+        const htmlToAdd = '<div class="fb-post"   data-width="' + curColWidth + '" data-href="' + url + '/"></div>';
+        console.log(htmlToAdd)
         this.addLinkForm.controls['title'].setValue(ur);
-        this.addLinkForm.controls['body'].setValue(embedHTML);
+        this.addLinkForm.controls['body'].setValue(htmlToAdd);
         this.addLinkForm.controls['type'].setValue('facebook');
         document.getElementById('loader').style.display = 'none';
         document.getElementById('bookMark').innerHTML = htmlToAdd;
+        this.invalidUrl = false;
+        FB.XFBML.parse();
     }
 
     embedInsta(url) {
@@ -206,6 +319,7 @@ export class ProfileHeaderComponent implements OnInit {
                 document.getElementById('loader').style.display = 'none';
                 document.getElementById('bookMark').innerHTML = data.html;
                 instgrm.Embeds.process();
+                this.invalidUrl = false;
             }, error => {
                 // tslint:disable-next-line:max-line-length
                 document.getElementById('bookMark').innerHTML = '<div class="alert alert-danger"><strong> Alert! </strong> Invalid Url.</div>';
@@ -222,7 +336,12 @@ export class ProfileHeaderComponent implements OnInit {
                 this.addLinkForm.controls['type'].setValue('twitter');
                 document.getElementById('loader').style.display = 'none';
                 document.getElementById('bookMark').innerHTML = data.html;
+                this.invalidUrl = false;
+               // document.querySelector('#bookMark > twitterwidget')['style']['margin'] = 'auto';
                 twttr.widgets.load();
+                setTimeout(() => {
+                    $('.twitter-tweet').css('margin', 'auto');
+                }, 100);
             }, error => {
                 // tslint:disable-next-line:max-line-length
                 document.getElementById('bookMark').innerHTML = '<div class="alert alert-danger"><strong> Alert! </strong> Invalid Url.</div>';
@@ -301,7 +420,6 @@ export class ProfileHeaderComponent implements OnInit {
 
         } else if (link.match('twitter.com')) {
             this.embedTwitter(link);
-
         } else if (link.match('pinterest.co')) {
             this.embedPinterest(link);
         } else if (link.match('soundcloud.com')) {
@@ -368,6 +486,13 @@ export class ProfileHeaderComponent implements OnInit {
 
     modelClose() {
         document.getElementById('categoryModal').style.display = 'none';
+    }
+    modelManageOpen() {
+        document.getElementById('manageModal').style.display = 'block';
+    }
+
+    modelManageClose() {
+        document.getElementById('manageModal').style.display = 'none';
     }
 
     modelBookmarkClose() {
@@ -645,7 +770,7 @@ export class SettingComponent implements OnInit {
                     this.bookmarks_ids = [];
                     this.parentMessage = this.id;
                     this.getMyCategories();
-                    this.bookmarks= [];
+                    this.bookmarks = [];
                     this.getbookmark(this.id);
                 });
             }
@@ -655,7 +780,7 @@ export class SettingComponent implements OnInit {
     getProfile() {
         this.userService.getProfile().subscribe((data) => {
             if (data.user) {
-                this.currentCustomer = data;
+                this.currentCustomer = data.user;
             }
         });
     }
@@ -687,6 +812,7 @@ export class SettingComponent implements OnInit {
             this.id = params['id'];
         });
         this.getMyCategories();
+        this.getProfile();
     }
     doDeleteBookmark(id) {
         $('#item-' + id).remove();
@@ -979,9 +1105,16 @@ export class ViewPublicComponent implements AfterViewInit, OnInit, OnDestroy {
     printMsg(msg) {
         let el1 = this.convertToGridItem(msg['body']);
         var el = $(el1);
-        $("#showcaseSocialBlock").prepend(el).masonry('prepended', el);
+        console.log(msg)
+        if (msg['position'] === 'top') {
+            $("#showcaseSocialBlock").prepend(el).masonry('prepended', el);
+        }
+        if (msg['position'] === 'bottom') {
+            $('#showcaseSocialBlock').append(el).masonry('appended', el);
+        }
         instgrm.Embeds.process();
         twttr.widgets.load();
+        FB.XFBML.parse();
         //console.log(instgrm.Embeds)
     }
     onScroll() {
@@ -1095,7 +1228,7 @@ export class ViewPublicComponent implements AfterViewInit, OnInit, OnDestroy {
                     setTimeout(() => {
                         instgrm.Embeds.process();
                         twttr.widgets.load();
-
+                        FB.XFBML.parse();
                         $('#showcaseSocialBlock').masonry({
                             itemSelector: '.grid-item'
                         });
@@ -1136,7 +1269,10 @@ export class ViewComponent implements AfterViewInit, OnInit, OnDestroy {
             this.route.params.subscribe((params: Params) => {
                 const id = params['id'];
                 this.parentMessage = id;
+
+                this.bookmarks = [];
                 this.getbookmark(id);
+                $('#showcaseSocialBlock').masonry('reloadItems');
             });
         });
         this.router.events.subscribe((val) => {
@@ -1145,6 +1281,7 @@ export class ViewComponent implements AfterViewInit, OnInit, OnDestroy {
                 this.route.params.subscribe((params: Params) => {
                     const id = params['id'];
                     this.parentMessage = id;
+                    this.bookmarks = [];
                     this.getbookmark(id);
                 });
             }
@@ -1162,13 +1299,18 @@ export class ViewComponent implements AfterViewInit, OnInit, OnDestroy {
         });
     }
     printMsg(msg) {
+        this.bookmarks.push(msg);
         const el1 = this.convertToGridItem(msg['body']);
         const el = $(el1);
         if (msg['position'] === 'top') {
-            $('#showcaseSocialBlock').prepend(el).masonry('prepended', el);
+            $("#showcaseSocialBlock").prepend(el).masonry('prepended', el);
+        }
+        if (msg['position'] === 'bottom') {
+            $('#showcaseSocialBlock').append(el).masonry('appended', el);
         }
         instgrm.Embeds.process();
         twttr.widgets.load();
+        FB.XFBML.parse();
     }
     onScroll() {
         this.loader = true;
@@ -1207,6 +1349,13 @@ export class ViewComponent implements AfterViewInit, OnInit, OnDestroy {
         this.obTime.unsubscribe();
     }
     ngAfterViewInit() {
+        setTimeout(() => {
+            FB.init({
+                autoLogAppEvents: true,
+                xFBml: true,
+                version: 'v2.12'
+            });
+        }, 3000);
         this.obTime = Observable.interval(1000).subscribe(x => {
             this.manageUI();
         });
@@ -1239,7 +1388,8 @@ export class ViewComponent implements AfterViewInit, OnInit, OnDestroy {
             }
             var theW = ($("body").width() - ($("body").width() / 50)) / cols;
             curColWidth = theW;
-            $("iframe").css("width", theW - 15);
+            $("iframe#bookmarkiframe").css("width", theW - 15);
+            $("#showcaseSocialBlock > .fb-post > span > iframe").css("width", theW - 15);
             $("twitterwidget").css("width", theW - 15);
             $("twitterwidget").css('margin-top', '0px !important');
             $(".grid-item").css("width", (theW + (theW / 50) - 15));
@@ -1281,13 +1431,14 @@ export class ViewComponent implements AfterViewInit, OnInit, OnDestroy {
                     setTimeout(() => {
                         instgrm.Embeds.process();
                         twttr.widgets.load();
-
+                        FB.XFBML.parse();
                         $('#showcaseSocialBlock').masonry({
                             itemSelector: '.grid-item'
                         });
                         $(document).ready(function () {
                             $('#showcaseSocialBlock').masonry();
-                            //$('.grid').masonry();
+
+                            $('#showcaseSocialBlock').masonry('reloadItems');
                         });
                     }, 3000);
                 }

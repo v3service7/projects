@@ -21,6 +21,6 @@
             -webkit-overflow-scrolling: touch;
         }
 
-        ._5pcb _5tmf _50f3 {
-            width: unset !important;
-        }
+ .twitter-tweet.twitter-tweet-rendered {
+    margin: auto !important;
+}
