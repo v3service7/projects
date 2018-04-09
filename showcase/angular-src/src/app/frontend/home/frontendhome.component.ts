@@ -220,8 +220,12 @@ export class FrontendHomeComponent implements OnInit {
                                 this.userService.mycategory().subscribe((category) => {
                                     if (!category.error) {
                                         this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || 'view/' + category.message[0]._id;
+                                        setTimeout(() => {
+                                            this.zone.run(() => {
+                                                this.router.navigate([this.returnUrl]);
+                                            });
+                                        }, 500);
                                     }
-                                    this.zone.run(() => this.returnUrl);
                                 });
                             });
                         });
@@ -235,8 +239,12 @@ export class FrontendHomeComponent implements OnInit {
                         this.userService.mycategory().subscribe((category) => {
                             if (!category.error) {
                                 this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || 'view/' + category.message[0]._id;
+                                setTimeout(() => {
+                                    this.zone.run(() => {
+                                        this.router.navigate([this.returnUrl]);
+                                    });
+                                }, 500);
                             }
-                            this.router.navigate([this.returnUrl]);
                         });
                     }
                 });
