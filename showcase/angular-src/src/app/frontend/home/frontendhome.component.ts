@@ -255,7 +255,7 @@ export class FrontendHomeComponent implements OnInit {
     onLoginWithTwitter() {
         this.userService.twitterService().subscribe(
             (data) => {
-                localStorage.setItem('requestSecret', data.requestSecret)
+                localStorage.setItem('requestSecret', data.requestSecret);
                 window.location.href = data.url;
             }
         );

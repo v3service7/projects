@@ -86,6 +86,7 @@ export class ProfileHeaderComponent implements OnInit, AfterViewInit {
     ngAfterViewInit() {
         setTimeout(() => {
             FB.init({
+                appId: globalVariable.FbAppId,
                 autoLogAppEvents: true,
                 xFBml: true,
                 version: 'v2.12'
@@ -172,23 +173,6 @@ export class ProfileHeaderComponent implements OnInit, AfterViewInit {
             } else {
                 this.toastr.error('Error while deleting board, Try again', 'Oops!');
             }
-        });
-    }
-    manageUI() {
-        $(document).ready(function () {
-            var curColWidth = 400;
-            var cols = 4;
-            if ($("body").width() > 1600) {
-                cols = 4;
-            } else if ($("body").width() > 1000) {
-                cols = 3;
-            } else if ($("body").width() > 600) {
-                cols = 2;
-            } else {
-                cols = 1;
-            }
-            var theW = ($("body").width() - ($("body").width() / 50)) / cols;
-            curColWidth = theW;
         });
     }
     copyToClipboard() {
@@ -289,7 +273,7 @@ export class ProfileHeaderComponent implements OnInit, AfterViewInit {
         }
         var theW = ($("body").width() - ($("body").width() / 50)) / cols;
         curColWidth = Math.round(theW - 15);
-        //curColWidth = 446;
+        // curColWidth = 446;
         // public => https://www.facebook.com/notes/facebook/public-search-listings-on-facebook/2963412130/
         // private => https://www.facebook.com/bob.brello
         const inputURL = encodeURIComponent(url);
@@ -298,9 +282,7 @@ export class ProfileHeaderComponent implements OnInit, AfterViewInit {
         // const embedHTML = '<iframe id="bookmarkiframe" src="https://www.facebook.com/plugins/post.php?href=' + inputURL + '%26type%3D3"  style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowTransparency="true"></iframe>';
         // const htmlToAdd = this.convertToGridItem(embedHTML);
         // tslint:disable-next-line:max-line-length
-        console.log(curColWidth)
-        const htmlToAdd = '<div class="fb-post"   data-width="' + curColWidth + '" data-href="' + url + '/"></div>';
-        console.log(htmlToAdd)
+        const htmlToAdd = '<div class="fb-post" style="margin-bottom:10px"  data-width="' + curColWidth + '" data-href="' + url + '/"></div>';
         this.addLinkForm.controls['title'].setValue(ur);
         this.addLinkForm.controls['body'].setValue(htmlToAdd);
         this.addLinkForm.controls['type'].setValue('facebook');
@@ -311,6 +293,19 @@ export class ProfileHeaderComponent implements OnInit, AfterViewInit {
     }
 
     embedInsta(url) {
+        var curColWidth = 400;
+        var cols = 4;
+        if ($("body").width() > 1600) {
+            cols = 4;
+        } else if ($("body").width() > 1000) {
+            cols = 3;
+        } else if ($("body").width() > 600) {
+            cols = 2;
+        } else {
+            cols = 1;
+        }
+        var theW = ($("body").width() - ($("body").width() / 50)) / cols;
+        curColWidth = Math.round(theW - 15);
         this.validateService.getInsta(url)
             .subscribe(data => {
                 this.addLinkForm.controls['title'].setValue(url);
@@ -320,6 +315,9 @@ export class ProfileHeaderComponent implements OnInit, AfterViewInit {
                 document.getElementById('bookMark').innerHTML = data.html;
                 instgrm.Embeds.process();
                 this.invalidUrl = false;
+                setTimeout(() => {
+                    $('#bookMark > iframe.instagram-media.instagram-media-rendered').css('width', theW - 30);
+                }, 1000);
             }, error => {
                 // tslint:disable-next-line:max-line-length
                 document.getElementById('bookMark').innerHTML = '<div class="alert alert-danger"><strong> Alert! </strong> Invalid Url.</div>';
@@ -329,6 +327,19 @@ export class ProfileHeaderComponent implements OnInit, AfterViewInit {
     }
 
     embedTwitter(url) {
+        var curColWidth = 400;
+        var cols = 4;
+        if ($("body").width() > 1600) {
+            cols = 4;
+        } else if ($("body").width() > 1000) {
+            cols = 3;
+        } else if ($("body").width() > 600) {
+            cols = 2;
+        } else {
+            cols = 1;
+        }
+        var theW = ($("body").width() - ($("body").width() / 50)) / cols;
+        curColWidth = Math.round(theW - 15);
         this.validateService.getTwitter(url)
             .subscribe(data => {
                 this.addLinkForm.controls['title'].setValue(url);
@@ -340,7 +351,9 @@ export class ProfileHeaderComponent implements OnInit, AfterViewInit {
                // document.querySelector('#bookMark > twitterwidget')['style']['margin'] = 'auto';
                 twttr.widgets.load();
                 setTimeout(() => {
-                    $('.twitter-tweet').css('margin', 'auto');
+                    $('.twitter-tweet').css('margin-left', 'auto');
+                    $('.twitter-tweet').css('margin-right', 'auto');
+                    $('twitterwidget').css('width', theW - 15);
                 }, 100);
             }, error => {
                 // tslint:disable-next-line:max-line-length
@@ -1393,7 +1406,8 @@ export class ViewComponent implements AfterViewInit, OnInit, OnDestroy {
             $("twitterwidget").css("width", theW - 15);
             $("twitterwidget").css('margin-top', '0px !important');
             $(".grid-item").css("width", (theW + (theW / 50) - 15));
-            $(".grid-item").css('margin', '0 5px 5px 0 !important');
+            $(".grid-item").css('margin', '0 5px 5px 5px; !important');
+            $('iframe.instagram-media.instagram-media-rendered').css('width', theW - 15);
             //$('.grid').masonry();
             $('#showcaseSocialBlock').masonry();
         });

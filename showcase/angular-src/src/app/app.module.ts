@@ -60,11 +60,7 @@ import { SafeHtmlPipe } from './safe-html.pipe';
 import { LoadingModule, ANIMATION_TYPES  } from 'ngx-loading';
 let providers = {
     'google': {
-      'clientId': '214874028334-4t3q11rlobifpmspvrac9dl6i6k6usq2.apps.googleusercontent.com'
-    },
-    'facebook': {
-      'clientId': '943878335767480',
-      'apiVersion': 'v2.4'
+      'clientId': globalVariable.GoogleClientId
     }
 };
 
