@@ -67,12 +67,12 @@ module.exports = {
     forgetEmailShoot: function(user) {
         if(user.role=='Admin')
         {
-            user['resetPassLink'] = 'https://measuremight.com:3002/admin/resetpassword/'+user._id;
+            user['resetPassLink'] = siteUrl + 'admin/resetpassword/'+user._id;
             //user['resetPassLink'] = 'https://localhost:4200/admin/resetpassword/'+user._id;
         }
         else
         {
-            user['resetPassLink'] = 'https://measuremight.com:3002/resetpassword/'+user._id;
+            user['resetPassLink'] = siteUrl + 'resetpassword/'+user._id;
             //user['resetPassLink'] = 'https://localhost:4200/resetpassword/'+user._id;
         }
     

@@ -16,6 +16,7 @@ const purchaseplans = require('./routes/purchaseplans');
 const http = require('http');
 var https = require('https');
 var fs = require('fs');
+global.siteUrl = 'https://measuremight.com:3002/';
 //var options;
 var options = {
   key: fs.readFileSync('/etc/letsencrypt/live/measuremight.com/privkey.pem'),

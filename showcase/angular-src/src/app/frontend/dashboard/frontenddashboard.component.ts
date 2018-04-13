@@ -62,6 +62,7 @@ export class ProfileHeaderComponent implements OnInit, AfterViewInit {
     textToCopy: any;
     showcaseField: any = false;
     categorySelectedId: any = false;
+    siteUrl: any = globalVariable.url;
     @Input() childMessage: string;
     @Output() sendIdEvent = new EventEmitter<object>();
     // tslint:disable-next-line:max-line-length
@@ -187,7 +188,7 @@ export class ProfileHeaderComponent implements OnInit, AfterViewInit {
     doEmbed(category) {
         this.category = category;
         // tslint:disable-next-line:max-line-length
-        this.textToCopy = '<div id="showcaseSocialBlock" data-showcaseID=' + this.category._id + '></div><script src="https://measuremight.com:3002/embed.min.js"></script>';
+        this.textToCopy = '<div id="showcaseSocialBlock" data-showcaseID=' + this.category._id + '></div><script src="' + globalVariable.url + 'embed.min.js"></script>';
         this.modelEmbedOpen();
     }
     bookmarkPosition(position) {
@@ -317,6 +318,7 @@ export class ProfileHeaderComponent implements OnInit, AfterViewInit {
                 this.invalidUrl = false;
                 setTimeout(() => {
                     $('#bookMark > iframe.instagram-media.instagram-media-rendered').css('width', theW - 30);
+                    $('#bookMark > iframe.instagram-media.instagram-media-rendered').css('margin', 'auto');
                 }, 1000);
             }, error => {
                 // tslint:disable-next-line:max-line-length
@@ -599,7 +601,7 @@ export class MyProfileComponent implements OnInit {
 
     }
     upload() {
-        this.makeFileRequest('https://measuremight.com:3002/upload', [], this.filesToUpload).then((result) => {
+        this.makeFileRequest( globalVariable.url + 'upload', [], this.filesToUpload).then((result) => {
             this.customerProfileForm.controls['image'].setValue(globalVariable.url + '/uploads/' + result['filename']);
             this.profileUpdate();
             this.modelClose();
@@ -1118,9 +1120,9 @@ export class ViewPublicComponent implements AfterViewInit, OnInit, OnDestroy {
     printMsg(msg) {
         let el1 = this.convertToGridItem(msg['body']);
         var el = $(el1);
-        console.log(msg)
+        this.bookmarks = msg;
         if (msg['position'] === 'top') {
-            $("#showcaseSocialBlock").prepend(el).masonry('prepended', el);
+            $('#showcaseSocialBlock').prepend(el).masonry('prepended', el);
         }
         if (msg['position'] === 'bottom') {
             $('#showcaseSocialBlock').append(el).masonry('appended', el);
@@ -1128,7 +1130,6 @@ export class ViewPublicComponent implements AfterViewInit, OnInit, OnDestroy {
         instgrm.Embeds.process();
         twttr.widgets.load();
         FB.XFBML.parse();
-        //console.log(instgrm.Embeds)
     }
     onScroll() {
         this.loader = true;
@@ -1272,7 +1273,7 @@ export class ViewComponent implements AfterViewInit, OnInit, OnDestroy {
     curColWidth = 0;
     gridColWidth = '';
     loader: any = false;
-
+    siteUrl: any = globalVariable.url;
     constructor(private router: Router,
         private route: ActivatedRoute,
         private bookmarkService: BookmarkService,

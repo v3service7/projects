@@ -3,7 +3,7 @@
 	<div  [ngClass]="(bookmarks?.length)?'search-results':''" infiniteScroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="50" (scrolled)="onScroll()"
 	[scrollWindow]="false">
 		<div id="showcaseSocialBlock" class="grid" style="padding-left:10px;"></div>
-		<img src="https://measuremight.com:3002/assets/loader.svg" alt="loading" id="viewloader" *ngIf="loader" style="bottom: 0;
+		<img src= "{{siteUrl}}/assets/loader.svg" alt="loading" id="viewloader" *ngIf="loader" style="bottom: 0;
 		position: absolute; left: 0px; right: 0px; margin: auto;">
 	</div>
 	<h1 *ngIf="bookmarks.length == 0" class="text-center text-muted pt-5">No bookmarks available.</h1>

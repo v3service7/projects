@@ -291,7 +291,7 @@
                             <div class="form-group">
                                 <label for="exampleFormControlTextarea1" class="pb-2">You can embed this showcase on your blog by copying and pasting the following:</label>
                                 <p class="box">&lt;div id=&quot;showcaseSocialBlock&quot; data-showcaseID='{{category._id}}'&gt;&lt;/div&gt;&lt;script
-                                    src=&quot;https://measuremight.com:3002/embed.min.js&quot;&gt;&lt;/script&gt;
+                                    src=&quot;{{siteUrl}}embed.min.js&quot;&gt;&lt;/script&gt;
                                 </p>
                                 <button type="button" class="btn btn-primary px-5 rounded-1 float-right" ngxClipboard [cbContent]="textToCopy" (click)="copyToClipboard()">Copy to clipboard</button>
                             </div>

@@ -4,7 +4,7 @@ import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angula
 import { FlashMessagesService } from 'angular2-flash-messages';
 import { UserService } from '../../services/user.service';
 import { AuthService } from 'angular2-social-login';
-
+import * as globalVariable from '../../global';
 @Component({
     selector: 'app-frontendhome',
     templateUrl: './frontendhome.component.html',
@@ -263,7 +263,7 @@ export class FrontendHomeComponent implements OnInit {
 
     onLoginWithInstagram() {
         // tslint:disable-next-line:max-line-length
-        window.location.href = `https://api.instagram.com/oauth/authorize/?client_id=98349c5779404c6ea9c9aa59e0e3aeeb&redirect_uri=https://measuremight.com:3002/&response_type=code`;
+        window.location.href = 'https://api.instagram.com/oauth/authorize/?client_id=98349c5779404c6ea9c9aa59e0e3aeeb&redirect_uri=' + globalVariable.url + '&response_type=code';
     }
 
     signup() {
