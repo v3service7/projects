@@ -37,8 +37,10 @@
                             </div>
                         </div>
                         <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 pl-0  col-6 ">
-                            <div *ngIf="bookmark.type == 'instagram' || bookmark.type == 'twitter' || bookmark.type == 'facebook' " [innerHtml]="bookmark.body | safeHtml"></div>
-                            <iframe *ngIf="bookmark.type != 'instagram' && bookmark.type != 'twitter' && bookmark.type != 'facebook'" [src]="videoUrl(bookmark.title)" width="100%"></iframe>
+                            <div *ngIf="bookmark.type == 'youtube' || bookmark.type == 'instagram' || bookmark.type == 'twitter' || bookmark.type == 'facebook' "
+                                [innerHtml]="bookmark.body | safeHtml"></div>
+                            <iframe *ngIf="bookmark.type != 'youtube' && bookmark.type != 'instagram' && bookmark.type != 'twitter' && bookmark.type != 'facebook'"
+                                [src]="videoUrl(bookmark.title)" width="100%" frameborder="0" allowfullscreen></iframe>
                         </div>
                         <div class="col-xl-2 col-lg-7 col-md-7 col-sm-7 col-8 mt-4 ">
                             <ul>
