@@ -87,7 +87,6 @@ export class ProfileHeaderComponent implements OnInit, AfterViewInit {
     ngAfterViewInit() {
         setTimeout(() => {
             FB.init({
-                appId: globalVariable.FbAppId,
                 autoLogAppEvents: true,
                 xFBml: true,
                 version: 'v2.12'
@@ -350,7 +349,7 @@ export class ProfileHeaderComponent implements OnInit, AfterViewInit {
                 document.getElementById('loader').style.display = 'none';
                 document.getElementById('bookMark').innerHTML = data.html;
                 this.invalidUrl = false;
-               // document.querySelector('#bookMark > twitterwidget')['style']['margin'] = 'auto';
+                // document.querySelector('#bookMark > twitterwidget')['style']['margin'] = 'auto';
                 twttr.widgets.load();
                 setTimeout(() => {
                     $('.twitter-tweet').css('margin-left', 'auto');
@@ -601,7 +600,7 @@ export class MyProfileComponent implements OnInit {
 
     }
     upload() {
-        this.makeFileRequest( globalVariable.url + 'upload', [], this.filesToUpload).then((result) => {
+        this.makeFileRequest(globalVariable.url + 'upload', [], this.filesToUpload).then((result) => {
             this.customerProfileForm.controls['image'].setValue(globalVariable.url + '/uploads/' + result['filename']);
             this.profileUpdate();
             this.modelClose();
@@ -849,9 +848,22 @@ export class SettingComponent implements OnInit {
                     this.bookmarks.push(data.message[index]);
                 }
                 setTimeout(() => {
+                    console.log(this.bookmarks);
                     instgrm.Embeds.process();
                     twttr.widgets.load();
-                }, 3000);
+                    if ($('ul.bookmark-ul > li').is(':first-child')) {
+                        $('ul.bookmark-ul > li:first-child > .row > div.move-botton > ul > li.move-up ').hide();
+                    }
+                    if ($('ul.bookmark-ul > li').is(':last-child')) {
+                        $('ul.bookmark-ul > li:last-child > .row > div.move-botton > ul > li.move-down ').hide();
+                    }
+                    if (!$('ul.bookmark-ul > li').is(':first-child')) {
+                        $('ul.bookmark-ul > li > .row > div.move-botton > ul > li.move-up ').show();
+                    }
+                    if (!$('ul.bookmark-ul > li').is(':last-child')) {
+                        $('ul.bookmark-ul > li > .row > div.move-botton > ul > li.move-down ').show();
+                    }
+                }, 500);
             }
         });
     }
@@ -873,6 +885,28 @@ export class SettingComponent implements OnInit {
         });
     }
     changePosition(type, bookmark_id, position) {
+        if (type === 'down') {
+            const next = $('#item-' + bookmark_id).next();
+            $('#item-' + bookmark_id).insertAfter('#' + next[0]['id']);
+            if ($('#item-' + bookmark_id).is(':last-child')) {
+                $('#item-' + bookmark_id + '> .row > div.move-botton > ul > li.move-down ').hide();
+            }
+        } if (type === 'up') {
+            const prev = $('#item-' + bookmark_id).prev();
+            $('#item-' + bookmark_id).insertBefore('#' + prev[0]['id']);
+        }
+        if ($('ul.bookmark-ul > li').is(':first-child')) {
+            $('ul.bookmark-ul > li:first-child > .row > div.move-botton > ul > li.move-up ').hide();
+        }
+        if ($('ul.bookmark-ul > li').is(':last-child')) {
+            $('ul.bookmark-ul > li:last-child > .row > div.move-botton > ul > li.move-down ').hide();
+        }
+        $('ul.bookmark-ul > li:not(:first-child) > .row > div.move-botton > ul > li.move-up ').show();
+        $('ul.bookmark-ul > li:not(:last-child) > .row > div.move-botton > ul > li.move-down ').show();
+        const bookmakrItem = $('ul.list-group.bookmark-ul li.bookmark-item');
+        for (let index = 1; index <= bookmakrItem.length; index++) {
+            $('ul.list-group.bookmark-ul > li:nth-child(' + index + ') > div.row > div > .count-circle').text(index);
+        }
         const obj = {
             type: type,
             bookmark_id: bookmark_id,
@@ -881,9 +915,7 @@ export class SettingComponent implements OnInit {
         };
         this.bookmarkService.changePosition(obj).subscribe((data) => {
             if (!data.error) {
-                this.bookmarks = [];
                 this.toastr.success('Bookmark position changed succesfully.', 'Success!');
-                this.getbookmark(this.id);
             } else {
                 this.toastr.error('Erro while chaning bookmark position, Try again.', 'Oops!');
             }
@@ -900,12 +932,16 @@ export class SettingComponent implements OnInit {
         }
     }
     doDelete() {
+        const ids = this.bookmarks_ids.map((data) => {
+            return data._id;
+        });
         const obj = {
-            ids: this.bookmarks_ids
+            ids: ids
         };
         this.bookmarkService.bookmarkDeleteSelected(obj).subscribe((data) => {
             if (!data.error) {
                 this.toastr.success('Bookmarks deleted succesfully.', 'Success!');
+                this.bookmarks = [];
                 this.getbookmark(this.id);
             } else {
                 this.toastr.error('Error while deleting bookmarks, Try again', 'Oops!');

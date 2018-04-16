@@ -7,7 +7,7 @@ import { AppComponent } from './app.component';
 import { TinymceModule } from 'angular2-tinymce';
 import { SelectModule } from 'angular2-select';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
-import { FileUploadModule , FileDropDirective } from 'ng2-file-upload';
+import { FileUploadModule, FileDropDirective } from 'ng2-file-upload';
 import { Angular2SocialLoginModule, AuthService } from 'angular2-social-login';
 import { ImageCropperModule } from 'ngx-image-cropper';
 //import { MasonryModule } from 'angular2-masonry';
@@ -25,7 +25,7 @@ import { ForgotPasswordComponent, AdminResetPasswordComponent } from './admin/fo
 // tslint:disable-next-line:max-line-length
 import { AdminCustomerComponent, CustomerListComponent, CustomerAddComponent, CustomerEditComponent, AdminUserBoardsComponent, AdminUserBoardsBookmarkComponent } from './admin/customer/customer.component';
 import { AdminPlanComponent, PlanListComponent, PlanAddComponent, PlanEditComponent } from './admin/plan/plan.component';
-import { AdminPagesComponent, PagesListComponent , PagesAddComponent, PagesEditComponent } from './admin/pages/pages.component';
+import { AdminPagesComponent, PagesListComponent, PagesAddComponent, PagesEditComponent } from './admin/pages/pages.component';
 
 // Frontend Component
 import { FrontendComponent } from './frontend/frontend.component';
@@ -34,18 +34,18 @@ import { FrontendHomeComponent, ResetComponent, AccountActiveComponent } from '.
 // tslint:disable-next-line:max-line-length
 import { FrontendDashboardComponent, ViewPublicComponent, MyProfileComponent, SettingComponent, ProfileHeaderComponent, ViewComponent } from './frontend/dashboard/frontenddashboard.component'
 
-import {ValidateService} from './services/validate.service';
-import {AdminService} from './services/admin.service';
-import {UserService} from './services/user.service';
-import {PlanService} from './services/plan.service';
-import {CategoryService} from './services/category.service';
-import {BookmarkService} from './services/bookmark.service';
-import { PagesService} from './services/pages.service';
+import { ValidateService } from './services/validate.service';
+import { AdminService } from './services/admin.service';
+import { UserService } from './services/user.service';
+import { PlanService } from './services/plan.service';
+import { CategoryService } from './services/category.service';
+import { BookmarkService } from './services/bookmark.service';
+import { PagesService } from './services/pages.service';
 import { PurchaseplanService } from './services/purchaseplan.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import {FlashMessagesModule} from 'angular2-flash-messages';
-import {AuthGuard} from './guards/admin.guard';
-import {UserGuard} from './guards/user.guard';
+import { FlashMessagesModule } from 'angular2-flash-messages';
+import { AuthGuard } from './guards/admin.guard';
+import { UserGuard } from './guards/user.guard';
 import { Ng2OrderModule } from 'ng2-order-pipe';
 import * as globalVariable from './global';
 import { ToastModule } from 'ng2-toastr/ng2-toastr';
@@ -57,11 +57,14 @@ import { ClipboardModule } from 'ngx-clipboard';
 import { UiSwitchModule } from 'ngx-ui-switch';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { SafeHtmlPipe } from './safe-html.pipe';
-import { LoadingModule, ANIMATION_TYPES  } from 'ngx-loading';
+import { LoadingModule, ANIMATION_TYPES } from 'ngx-loading';
 let providers = {
-    'google': {
-      'clientId': globalVariable.GoogleClientId
-    }
+  'google': {
+    'clientId': globalVariable.GoogleClientId
+  }, 'facebook': {
+    'clientId': globalVariable.FbAppId,
+    'apiVersion': 'v2.4' // like v2.4
+  }
 };
 
 @NgModule({
@@ -76,7 +79,7 @@ let providers = {
     ForgotPasswordComponent, AdminResetPasswordComponent,
     SidebarComponent,
     AdminPlanComponent, PlanListComponent, PlanAddComponent, PlanEditComponent,
-    AdminPagesComponent, PagesListComponent , PagesAddComponent, PagesEditComponent,
+    AdminPagesComponent, PagesListComponent, PagesAddComponent, PagesEditComponent,
     FrontendComponent,
     FrontendHeaderComponent,
     FrontendHomeComponent, ResetComponent,
