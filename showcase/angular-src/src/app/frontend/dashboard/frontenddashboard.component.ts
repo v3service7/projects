@@ -884,14 +884,69 @@ export class SettingComponent implements OnInit {
             }
         });
     }
-    changePosition(type, bookmark_id, position) {
+    changePosition(type, bookmark_id) {
+        const eleIndex = $('#item-' + bookmark_id).index();
+        let nextBookmarkPosition, prevBookmarkPosition;
+        var obj;
         if (type === 'down') {
+            let position;
+            let index = $('#item-' + bookmark_id).index();
+            position = $('#bookmarkDownBotton-' + this.bookmarks[index]['_id']).attr('data-position');
+            nextBookmarkPosition = $('#bookmarkDownBotton-' + this.bookmarks[index + 1]['_id']).attr('data-position');
+            $('#bookmarkDownBotton-' + this.bookmarks[index]['_id']).attr('data-position', nextBookmarkPosition);
+            $('#bookmarkDownBotton-' + this.bookmarks[index + 1]['_id']).attr('data-position', position);
+            $('#bookmarkUpBotton-' + this.bookmarks[index]['_id']).attr('data-position', nextBookmarkPosition);
+            $('#bookmarkUpBotton-' + this.bookmarks[index + 1]['_id']).attr('data-position', position);
+            obj = {
+                type: type,
+                bookmark_id: bookmark_id,
+                category_id: this.id,
+                // tslint:disable-next-line:radix
+                position: parseInt(position)
+            };
+            for (let index = 0; index < this.bookmarks.length; index++) {
+                if (this.bookmarks[index]['position'] == position) {
+                    const temp = this.bookmarks[index + 1];
+                    this.bookmarks[index + 1] = this.bookmarks[index];
+                    this.bookmarks[index] = temp;
+                    break;
+                }
+            }
+            // tslint:disable-next-line:radix
+            this.bookmarks[index]['position'] = parseInt(position);
+            // tslint:disable-next-line:radix
+            this.bookmarks[index + 1]['position'] = parseInt(nextBookmarkPosition);
             const next = $('#item-' + bookmark_id).next();
             $('#item-' + bookmark_id).insertAfter('#' + next[0]['id']);
-            if ($('#item-' + bookmark_id).is(':last-child')) {
-                $('#item-' + bookmark_id + '> .row > div.move-botton > ul > li.move-down ').hide();
+        }
+        if (type === 'up') {
+            let position;
+            let index = $('#item-' + bookmark_id).index();
+            position = $('#bookmarkUpBotton-' + this.bookmarks[index]['_id']).attr('data-position');
+            prevBookmarkPosition = $('#bookmarkUpBotton-' + this.bookmarks[index - 1]['_id']).attr('data-position');
+            $('#bookmarkUpBotton-' + this.bookmarks[index]['_id']).attr('data-position', prevBookmarkPosition);
+            $('#bookmarkUpBotton-' + this.bookmarks[index - 1]['_id']).attr('data-position', position);
+            $('#bookmarkDownBotton-' + this.bookmarks[index]['_id']).attr('data-position', prevBookmarkPosition);
+            $('#bookmarkDownBotton-' + this.bookmarks[index - 1]['_id']).attr('data-position', position);
+            obj = {
+                type: type,
+                bookmark_id: bookmark_id,
+                category_id: this.id,
+                // tslint:disable-next-line:radix
+                position: parseInt(position)
+            };
+            for (let index = 0; index < this.bookmarks.length; index++) {
+                if (this.bookmarks[index]['position'] == position) {
+                    const temp = this.bookmarks[index - 1];
+                    this.bookmarks[index - 1] = this.bookmarks[index];
+                    this.bookmarks[index] = temp;
+                    break;
+                }
             }
-        } if (type === 'up') {
+            // tslint:disable-next-line:radix
+            this.bookmarks[index]['position'] = parseInt(position);
+            // tslint:disable-next-line:radix
+            this.bookmarks[index - 1]['position'] = parseInt(prevBookmarkPosition);
             const prev = $('#item-' + bookmark_id).prev();
             $('#item-' + bookmark_id).insertBefore('#' + prev[0]['id']);
         }
@@ -907,12 +962,6 @@ export class SettingComponent implements OnInit {
         for (let index = 1; index <= bookmakrItem.length; index++) {
             $('ul.list-group.bookmark-ul > li:nth-child(' + index + ') > div.row > div > .count-circle').text(index);
         }
-        const obj = {
-            type: type,
-            bookmark_id: bookmark_id,
-            category_id: this.id,
-            position: position
-        };
         this.bookmarkService.changePosition(obj).subscribe((data) => {
             if (!data.error) {
                 this.toastr.success('Bookmark position changed succesfully.', 'Success!');
@@ -1471,14 +1520,14 @@ export class ViewComponent implements AfterViewInit, OnInit, OnDestroy {
         this.bookmarkService.categoryBookmarks(id, obj).subscribe((data) => {
             if (!data.error) {
                 if (data.message.length > 0) {
-                    var htmlBlocks = "";
+                    let htmlBlocks = '';
                     for (let i = 0; i < data.message.length; i++) {
                         this.bookmarks.push(data.message[i]);
                         htmlBlocks += this.convertToGridItem(this.bookmarks[i]['body']);
                         // tslint:disable-next-line:max-line-length
-                        //(<HTMLInputElement>document.getElementById('showcaseSocialBlock')).innerHTML += this.convertToGridItem(this.bookmarks[i]['body']);
+                        // (<HTMLInputElement>document.getElementById('showcaseSocialBlock')).innerHTML += this.convertToGridItem(this.bookmarks[i]['body']);
                     }
-                    $("#showcaseSocialBlock").html(htmlBlocks);
+                    $('#showcaseSocialBlock').html(htmlBlocks);
                     setTimeout(() => {
                         instgrm.Embeds.process();
                         twttr.widgets.load();

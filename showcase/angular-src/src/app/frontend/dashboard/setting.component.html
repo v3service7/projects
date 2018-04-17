@@ -28,7 +28,7 @@
                 [scrollWindow]="false">
             <ul class="list-group bookmark-ul">
                     
-                <li class="bookmark-item list-group-item custom-list-group-item" *ngFor="let bookmark of bookmarks; let i = index; let last = last;" id="item-{{bookmark._id}}">
+                <li  class="bookmark-item list-group-item custom-list-group-item" *ngFor="let bookmark of bookmarks; let i = index; let last = last;" id="item-{{bookmark._id}}">
                     <div class="row">
                         <div class="col-xl-2 col-lg-6 col-md-6 col-sm-6 col-6 text-center">
                             <div class="count-circle" id="count-{{bookmark._id}}">{{i+1}}</div>
@@ -63,13 +63,13 @@
                         <div class="col-xl-2 col-lg-5 col-md-5 col-sm-5 col-4 px-0 mt-4 move-botton">
                             <ul>
                                 <li class="pb-2 float-right pointer move-up" >
-                                    <a (click)="changePosition('up',bookmark._id, bookmark.position)" >
+                                    <a [attr.data-position]="bookmark.position" id="bookmarkUpBotton-{{bookmark._id}}" (click)="changePosition('up',bookmark._id)" >
                                         <span class="fs-13">Move up</span>
                                         <i class="fa fa-caret-up icon-opt icon-circle"></i>
                                     </a>
                                 </li>
                                 <li class="pb-2 float-right pointer move-down"  >
-                                    <a (click)="changePosition('down',bookmark._id, bookmark.position)">
+                                    <a [attr.data-position]="bookmark.position" id="bookmarkDownBotton-{{bookmark._id}}" (click)="changePosition('down',bookmark._id)">
                                         <span class="fs-13">Move down</span>
                                         <i class="fa fa-caret-down icon-opt icon-circle"></i>
                                     </a>
