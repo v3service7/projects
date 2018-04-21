@@ -12,6 +12,7 @@ declare var twttr;
 declare var $;
 declare var instgrm;
 import { AngularMasonry, MasonryOptions, AngularMasonryBrick } from 'angular2-masonry';
+
 @Component({
     selector: 'app-admin-customer',
     templateUrl: './customer.component.html',
@@ -57,6 +58,7 @@ export class CustomerListComponent implements OnInit {
     ngOnInit() {
         this.getList();
     }
+
     paidStatusChange(user_id, value) {
         const obj = {
             _id: user_id,
@@ -67,8 +69,9 @@ export class CustomerListComponent implements OnInit {
             }
         });
     }
+
     setUsername(fname, lname, id) {
-        var username;
+        let username;
         if (typeof fname === 'undefined' && typeof lname === 'undefined') {
             username = 'User';
         } else {
@@ -77,6 +80,7 @@ export class CustomerListComponent implements OnInit {
         localStorage.setItem('boardusername', username);
         localStorage.setItem('boarduserid', id);
     }
+
     getList() {
         this.customerService.userList().subscribe(
             (data) => {
@@ -134,7 +138,7 @@ export class CustomerAddComponent implements OnInit {
             'required': 'Phone Number is required.',
             'minlength': 'Enter 10 digit mobile number or phone number (with operator code) along with country code.',
             'maxlength': 'Enter 10 digit mobile number or phone number (with operator code) along with country code.',
-            'pattern': "eg : (971)-055-1234567 including or excluding '(', ')' or '-'. "
+            'pattern': 'eg : (971)-055-1234567 including or excluding "(", ")" or "-". '
         },
         'email': {
             'required': 'Email is required.',
@@ -176,12 +180,12 @@ export class CustomerAddComponent implements OnInit {
     }
 
     matchpasswordreg() {
-        if (this.customerAddForm.value.newpassword != "") {
-            if (this.customerAddForm.value.password == this.customerAddForm.value.newpassword) {
-                this.customerAddForm.controls["matchpass"].setValue(true);
+        if (this.customerAddForm.value.newpassword !== '') {
+            if (this.customerAddForm.value.password === this.customerAddForm.value.newpassword) {
+                this.customerAddForm.controls['matchpass'].setValue(true);
                 this.MutchPassword = false;
             } else {
-                this.customerAddForm.controls["matchpass"].setValue("");
+                this.customerAddForm.controls['matchpass'].setValue('');
                 this.MutchPassword = true;
             }
         } else {
@@ -198,7 +202,6 @@ export class CustomerAddComponent implements OnInit {
                     this.router.navigate(['admin/user']);
                 } else {
                     this._flashMessagesService.show('Email/Username already in use', { cssClass: 'danger-alert', timeout: 3000 });
-                    //this.customerAddForm.reset();
                 }
             },
             (err) => {

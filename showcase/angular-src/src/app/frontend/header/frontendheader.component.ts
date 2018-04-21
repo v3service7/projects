@@ -9,17 +9,13 @@ import { UserService } from '../../services/user.service';
 })
 export class FrontendHeaderComponent implements OnInit {
 
-    customer:any;
-    currentCustomer:any;
-	isHere = false;
+    customer: any;
+    currentCustomer: any;
+    isHere = false;
 
-  	constructor(public userService : UserService,private router:Router) { }
+    constructor(public userService: UserService, private router: Router) { }
 
-  	ngOnInit() {
-  		this.customer = JSON.parse(localStorage.getItem('customer'));
-  	}
-
-
-
-
+    ngOnInit() {
+        this.customer = JSON.parse(localStorage.getItem('customer'));
+    }
 }

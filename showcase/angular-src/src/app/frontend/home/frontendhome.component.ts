@@ -22,9 +22,7 @@ export class FrontendHomeComponent implements OnInit {
         'email': '',
         'password': '',
     };
-
     sub: any;
-
     validationMessages = {
         'email': {
             'required': 'Email is required.',
@@ -154,11 +152,14 @@ export class FrontendHomeComponent implements OnInit {
             obj['oauth_token'] = oauth_token;
             obj['requestSecret'] = requestSecret;
             this.userService.twitterFetchService(obj).subscribe((twitterResponse) => {
+                console.log('------twitter-------');
+                console.log(twitterResponse);
+                console.log('------twitter-------');
                 localStorage.removeItem('requestSecret');
-                let obj = {};
+                const obj = {};
                 obj['role'] = 'User';
                 obj['status'] = true;
-                obj['email'] = twitterResponse['name'];
+                obj['email'] = twitterResponse['email'];
                 obj['password'] = twitterResponse['id'];
                 obj['id'] = twitterResponse['id'];
                 obj['provider'] = 'twitter';
@@ -406,7 +407,6 @@ export class ResetComponent implements OnInit {
     }
 
     resetPassword() {
-
         if (this.password === this.cpassword) {
             const usrObj = {};
             usrObj['_id'] = this.id;
@@ -439,21 +439,18 @@ export class AccountActiveComponent implements OnInit {
     err = '';
     emailForm: FormGroup;
 
-
     constructor(
         private userService: UserService,
         private router: Router,
         private route: ActivatedRoute,
         private lf: FormBuilder,
-        private _flashMessagesService: FlashMessagesService) { }
+        private _flashMessagesService: FlashMessagesService) {
+    }
 
     ngOnInit() {
-
         this.emailForm = this.lf.group({
             email: ['', Validators.required]
         });
-
-
         // subscribe to router event
         this.route.params.subscribe((params: Params) => {
             this.token = params['token'];

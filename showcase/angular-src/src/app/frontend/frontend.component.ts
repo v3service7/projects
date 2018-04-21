@@ -7,7 +7,7 @@ import {Router} from '@angular/router';
   templateUrl: './frontend.component.html',
   styleUrls: ['./frontend.component.css']
 })
-export class FrontendComponent implements OnInit {	
-  	constructor(private userService : UserService) {}
-  	ngOnInit() {}
+export class FrontendComponent implements OnInit {
+    constructor(private userService: UserService) {}
+    ngOnInit() {}
 }

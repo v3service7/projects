@@ -21,6 +21,7 @@
             -webkit-overflow-scrolling: touch;
         }
 
- .twitter-tweet.twitter-tweet-rendered {
-    margin: auto !important;
+ blockquote.twitter-tweet.twitter-tweet-rendered {
+    margin-left: auto !important;
+    margin-right: auto !important;
 }

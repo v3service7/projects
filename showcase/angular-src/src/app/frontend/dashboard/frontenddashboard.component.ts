@@ -62,7 +62,7 @@ export class ProfileHeaderComponent implements OnInit, AfterViewInit {
     textToCopy: any;
     showcaseField: any = false;
     categorySelectedId: any = false;
-    siteUrl: any = globalVariable.url;
+    siteUrl: any = globalVariable.domain;
     @Input() childMessage: string;
     @Output() sendIdEvent = new EventEmitter<object>();
     // tslint:disable-next-line:max-line-length
@@ -84,6 +84,7 @@ export class ProfileHeaderComponent implements OnInit, AfterViewInit {
         this.getMyCategories();
         this.toastr.setRootViewContainerRef(vRef);
     }
+
     ngAfterViewInit() {
         setTimeout(() => {
             FB.init({
@@ -93,8 +94,8 @@ export class ProfileHeaderComponent implements OnInit, AfterViewInit {
             });
         }, 3000);
     }
-    ngOnInit() {
 
+    ngOnInit() {
         this.shareUrl = window.location.href;
         this.addCategoryForm = this.lf.group({
             name: ['', Validators.required],
@@ -105,7 +106,6 @@ export class ProfileHeaderComponent implements OnInit, AfterViewInit {
             name: ['', Validators.required],
             position: ['', Validators.required]
         });
-
         this.addLinkForm = this.lf.group({
             title: ['', Validators.required],
             type: [''],
@@ -113,15 +113,16 @@ export class ProfileHeaderComponent implements OnInit, AfterViewInit {
             position: [''],
             category_id: ['']
         });
-
         this.category_id = this.childMessage;
         this.checkCustomer();
         // this.manageUI();
     }
+
     gotoLayout(id) {
         this.modelManageClose();
         this.router.navigate(['setting', id]);
     }
+
     openManage(catagory) {
         this.moveCategory = catagory;
         this.updateCategoryForm.controls['name'].setValue(catagory.name);
@@ -129,6 +130,7 @@ export class ProfileHeaderComponent implements OnInit, AfterViewInit {
         this.updateCategoryForm.controls['_id'].setValue(catagory._id);
         this.modelManageOpen();
     }
+
     updateCategoryData() {
         $('#navlink-' + this.updateCategoryForm.value['_id']).text(this.updateCategoryForm.value['name']);
         const position = this.updateCategoryForm.value['position'];
@@ -163,6 +165,7 @@ export class ProfileHeaderComponent implements OnInit, AfterViewInit {
             });
         }
     }
+
     doDeleteBoard(id) {
         this.categoryService.categoryDelete(id).subscribe((data) => {
             if (!data.error) {
@@ -175,25 +178,30 @@ export class ProfileHeaderComponent implements OnInit, AfterViewInit {
             }
         });
     }
+
     copyToClipboard() {
         // tslint:disable-next-line:max-line-length
         this.toastr.info('Copied to Clipboard');
     }
+
     doShare(category) {
         this.category = category;
-        this.socialShareUrl = globalVariable.url + 'public/' + category._id;
+        this.socialShareUrl = globalVariable.domain + 'public/' + category._id;
         this.modelShareOpen();
     }
+
     doEmbed(category) {
         this.category = category;
         // tslint:disable-next-line:max-line-length
         this.textToCopy = '<div id="showcaseSocialBlock" data-showcaseID=' + this.category._id + '></div><script src="' + globalVariable.url + 'embed.min.js"></script>';
         this.modelEmbedOpen();
     }
+
     bookmarkPosition(position) {
         this.bookmarkposition = position;
         this.addLinkForm.controls['position'].setValue(this.bookmarkposition);
     }
+
     addBoodmark(id) {
         if (id) {
             this.addLinkForm.controls['category_id'].setValue(id);
@@ -226,6 +234,7 @@ export class ProfileHeaderComponent implements OnInit, AfterViewInit {
         });
 
     }
+
     openCopyToModel() {
         if (this.currentCustomer.ispaid) {
             this.modelBookmarkClose();
@@ -238,10 +247,12 @@ export class ProfileHeaderComponent implements OnInit, AfterViewInit {
             this.modelBookmarkClose();
         }
     }
+
     openNewShowcase() {
         this.showcaseField = true;
         this.categorySelectedId = false;
     }
+
     categorySelected(id) {
         this.showcaseField = false;
         this.categorySelectedId = true;
@@ -254,36 +265,33 @@ export class ProfileHeaderComponent implements OnInit, AfterViewInit {
         this.embedLink(this.addLinkForm.value['title']);
         this.modelBookmarkOpen();
     }
+
     modelBookmarkCloseEmptyForm() {
         this.addLinkForm.reset();
         this.modelBookmarkClose();
     }
-    embedFacebook(url) {
 
-        var curColWidth = 400;
-        var cols = 4;
-        if ($("body").width() > 1600) {
+    embedFacebook(url) {
+        let curColWidth = 400;
+        let cols = 4;
+        if ($('body').width() > 1600) {
             cols = 4;
-        } else if ($("body").width() > 1000) {
+        } else if ($('body').width() > 1000) {
             cols = 3;
-        } else if ($("body").width() > 600) {
+        } else if ($('body').width() > 600) {
             cols = 2;
         } else {
             cols = 1;
         }
-        var theW = ($("body").width() - ($("body").width() / 50)) / cols;
+        const theW = ($('body').width() - ($('body').width() / 50)) / cols;
         curColWidth = Math.round(theW - 15);
         // curColWidth = 446;
         // public => https://www.facebook.com/notes/facebook/public-search-listings-on-facebook/2963412130/
         // private => https://www.facebook.com/bob.brello
-        const inputURL = encodeURIComponent(url);
-        const ur = 'https://www.facebook.com/plugins/post.php?href=' + inputURL + '%26type%3D3';
-        // tslint:disable-next-line:max-line-length
-        // const embedHTML = '<iframe id="bookmarkiframe" src="https://www.facebook.com/plugins/post.php?href=' + inputURL + '%26type%3D3"  style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowTransparency="true"></iframe>';
-        // const htmlToAdd = this.convertToGridItem(embedHTML);
-        // tslint:disable-next-line:max-line-length
-        const htmlToAdd = '<div class="fb-post" style="margin-bottom:10px"  data-width="' + curColWidth + '" data-href="' + url + '/"></div>';
-        this.addLinkForm.controls['title'].setValue(ur);
+        const htmlToAdd =
+        '<div class="fb-post" style="margin-bottom:10px" data-width="auto" data-href="' + url + '/"></div>';
+        const htmlToAdd1 = '<div class="fb-post" style="margin-bottom:10px" data-width="" data-href="' + url + '/"></div>';
+        this.addLinkForm.controls['title'].setValue(url);
         this.addLinkForm.controls['body'].setValue(htmlToAdd);
         this.addLinkForm.controls['type'].setValue('facebook');
         document.getElementById('loader').style.display = 'none';
@@ -293,18 +301,18 @@ export class ProfileHeaderComponent implements OnInit, AfterViewInit {
     }
 
     embedInsta(url) {
-        var curColWidth = 400;
-        var cols = 4;
-        if ($("body").width() > 1600) {
+        let curColWidth = 400;
+        let cols = 4;
+        if ($('body').width() > 1600) {
             cols = 4;
-        } else if ($("body").width() > 1000) {
+        } else if ($('body').width() > 1000) {
             cols = 3;
-        } else if ($("body").width() > 600) {
+        } else if ($('body').width() > 600) {
             cols = 2;
         } else {
             cols = 1;
         }
-        var theW = ($("body").width() - ($("body").width() / 50)) / cols;
+        const theW = ($('body').width() - ($('body').width() / 50)) / cols;
         curColWidth = Math.round(theW - 15);
         this.validateService.getInsta(url)
             .subscribe(data => {
@@ -328,18 +336,18 @@ export class ProfileHeaderComponent implements OnInit, AfterViewInit {
     }
 
     embedTwitter(url) {
-        var curColWidth = 400;
-        var cols = 4;
-        if ($("body").width() > 1600) {
+        let curColWidth = 400;
+        let cols = 4;
+        if ($('body').width() > 1600) {
             cols = 4;
-        } else if ($("body").width() > 1000) {
+        } else if ($('body').width() > 1000) {
             cols = 3;
-        } else if ($("body").width() > 600) {
+        } else if ($('body').width() > 600) {
             cols = 2;
         } else {
             cols = 1;
         }
-        var theW = ($("body").width() - ($("body").width() / 50)) / cols;
+        const theW = ($('body').width() - ($('body').width() / 50)) / cols;
         curColWidth = Math.round(theW - 15);
         this.validateService.getTwitter(url)
             .subscribe(data => {
@@ -352,6 +360,8 @@ export class ProfileHeaderComponent implements OnInit, AfterViewInit {
                 // document.querySelector('#bookMark > twitterwidget')['style']['margin'] = 'auto';
                 twttr.widgets.load();
                 setTimeout(() => {
+                    $('#bookMark > .twitter-tweet').css('margin-left', 'auto');
+                    $('#bookMark > .twitter-tweet').css('margin-right', 'auto');
                     $('.twitter-tweet').css('margin-left', 'auto');
                     $('.twitter-tweet').css('margin-right', 'auto');
                     $('twitterwidget').css('width', theW - 15);
@@ -411,19 +421,22 @@ export class ProfileHeaderComponent implements OnInit, AfterViewInit {
                     this.invalidUrl = false;
                     document.getElementById('bookMark').innerHTML = htmlToAdd;
                 } else {
-                    document.getElementById('bookMark').innerHTML = '<div class="alert alert-danger"><strong> Alert! </strong> Invalid Url.</div>';
+                    document.getElementById('bookMark').innerHTML =
+                    '<div class="alert alert-danger"><strong> Alert! </strong> Invalid Url.</div>';
                     this.invalidUrl = true;
                     document.getElementById('loader').style.display = 'none';
                 }
             }, err => {
                 document.getElementById('loader').style.display = 'none';
-                document.getElementById('bookMark').innerHTML = '<div class="alert alert-danger"><strong> Alert! </strong> Invalid Url.</div>';
+                document.getElementById('bookMark').innerHTML =
+                '<div class="alert alert-danger"><strong> Alert! </strong> Invalid Url.</div>';
                 this.invalidUrl = true;
             });
     }
 
     embedLink(link) {
         document.getElementById('loader').style.display = 'block';
+        document.getElementById('bookMark').innerHTML = '';
         if (link.match('instagram.com')) {
             this.embedInsta(link);
         } else if (link.match('youtube.com')) {
@@ -501,6 +514,7 @@ export class ProfileHeaderComponent implements OnInit, AfterViewInit {
     modelClose() {
         document.getElementById('categoryModal').style.display = 'none';
     }
+
     modelManageOpen() {
         document.getElementById('manageModal').style.display = 'block';
     }
@@ -516,6 +530,7 @@ export class ProfileHeaderComponent implements OnInit, AfterViewInit {
     modelBookmarkOpen() {
         document.getElementById('bookmarkModal').style.display = 'block';
     }
+
     modelEmbedClose() {
         document.getElementById('embedModal').style.display = 'none';
     }
@@ -523,9 +538,11 @@ export class ProfileHeaderComponent implements OnInit, AfterViewInit {
     modelEmbedOpen() {
         document.getElementById('embedModal').style.display = 'block';
     }
+
     modelCopyToOpen() {
         document.getElementById('copytokModal').style.display = 'block';
     }
+
     modelCopyToClose() {
         document.getElementById('copytokModal').style.display = 'none';
     }
@@ -533,6 +550,7 @@ export class ProfileHeaderComponent implements OnInit, AfterViewInit {
     modelShareOpen() {
         document.getElementById('shareModal').style.display = 'block';
     }
+
     modelShareClose() {
         document.getElementById('shareModal').style.display = 'none';
     }
@@ -590,7 +608,6 @@ export class MyProfileComponent implements OnInit {
             image: ['', Validators.required],
             email: ['', Validators.required],
         });
-
         this.customerPasswordUpdateForm = this.lf.group({
             _id: [''],
             oldpassword: ['', Validators.required],
@@ -599,6 +616,7 @@ export class MyProfileComponent implements OnInit {
         });
 
     }
+
     upload() {
         this.makeFileRequest(globalVariable.url + 'upload', [], this.filesToUpload).then((result) => {
             this.customerProfileForm.controls['image'].setValue(globalVariable.url + '/uploads/' + result['filename']);
@@ -608,6 +626,7 @@ export class MyProfileComponent implements OnInit {
             console.error(error);
         });
     }
+
     fileChangeEvent(fileInput: any) {
         this.modelOpen();
         this.imageChangedEvent = event;
@@ -645,16 +664,18 @@ export class MyProfileComponent implements OnInit {
         });
     }
 
-
     public modelOpen() {
         document.getElementById('imageuploadModal').style.display = 'block';
     }
+
     public modelClose() {
         document.getElementById('imageuploadModal').style.display = 'none';
     }
+
     public imageCropped(image: string) {
         this.croppedImage = image;
     }
+
     public b64toBlob(b64Data, contentType, sliceSize) {
         contentType = contentType || '';
         sliceSize = sliceSize || 512;
@@ -674,6 +695,7 @@ export class MyProfileComponent implements OnInit {
         const blob = new Blob(byteArrays, { type: contentType });
         return blob;
     }
+
     getProfile() {
         this.userService.getProfile().subscribe((data) => {
             if (data.user) {
@@ -703,7 +725,7 @@ export class MyProfileComponent implements OnInit {
         this.userService.checkPassword(obj).subscribe((data) => {
             if (!data.error) {
                 if (this.customerPasswordUpdateForm.value['newpassword'] === this.customerPasswordUpdateForm.value['confirmpassword']) {
-                    var obj = {};
+                    const obj = {};
                     obj['_id'] = this.customer['_id'];
                     obj['password'] = this.customerPasswordUpdateForm.value['newpassword'];
                     // tslint:disable-next-line:no-shadowed-variable
@@ -798,6 +820,7 @@ export class SettingComponent implements OnInit {
             }
         });
     }
+
     onScroll() {
         this.scrollCount = 20 * this.pageNumber;
         const obj = {
@@ -807,6 +830,7 @@ export class SettingComponent implements OnInit {
         this.getbookmark(this.parentMessage, obj);
         this.pageNumber++;
     }
+
     videoUrl(url) {
         return this.sanitizer.bypassSecurityTrustResourceUrl(url);
     }
@@ -828,6 +852,7 @@ export class SettingComponent implements OnInit {
         this.getMyCategories();
         this.getProfile();
     }
+
     doDeleteBookmark(id) {
         $('#item-' + id).remove();
         this.bookmarkService.bookmarkDelete(id).subscribe((data) => {
@@ -841,6 +866,7 @@ export class SettingComponent implements OnInit {
             }
         });
     }
+
     getbookmark(id, obj?: any) {
         this.bookmarkService.categoryBookmarks(id, obj).subscribe((data) => {
             if (!data.error) {
@@ -867,6 +893,7 @@ export class SettingComponent implements OnInit {
             }
         });
     }
+
     getMyCategories() {
         this.userService.mycategory().subscribe((data) => {
             if (!data.err) {
@@ -877,6 +904,7 @@ export class SettingComponent implements OnInit {
             }
         });
     }
+
     myCategories() {
         this.userService.mycategory().subscribe((data) => {
             if (!data.err) {
@@ -884,13 +912,14 @@ export class SettingComponent implements OnInit {
             }
         });
     }
+
     changePosition(type, bookmark_id) {
         const eleIndex = $('#item-' + bookmark_id).index();
         let nextBookmarkPosition, prevBookmarkPosition;
-        var obj;
+        let obj;
         if (type === 'down') {
             let position;
-            let index = $('#item-' + bookmark_id).index();
+            const index = $('#item-' + bookmark_id).index();
             position = $('#bookmarkDownBotton-' + this.bookmarks[index]['_id']).attr('data-position');
             nextBookmarkPosition = $('#bookmarkDownBotton-' + this.bookmarks[index + 1]['_id']).attr('data-position');
             $('#bookmarkDownBotton-' + this.bookmarks[index]['_id']).attr('data-position', nextBookmarkPosition);
@@ -905,7 +934,7 @@ export class SettingComponent implements OnInit {
                 position: parseInt(position)
             };
             for (let index = 0; index < this.bookmarks.length; index++) {
-                if (this.bookmarks[index]['position'] == position) {
+                if (this.bookmarks[index]['position'] === position) {
                     const temp = this.bookmarks[index + 1];
                     this.bookmarks[index + 1] = this.bookmarks[index];
                     this.bookmarks[index] = temp;
@@ -921,7 +950,7 @@ export class SettingComponent implements OnInit {
         }
         if (type === 'up') {
             let position;
-            let index = $('#item-' + bookmark_id).index();
+            const index = $('#item-' + bookmark_id).index();
             position = $('#bookmarkUpBotton-' + this.bookmarks[index]['_id']).attr('data-position');
             prevBookmarkPosition = $('#bookmarkUpBotton-' + this.bookmarks[index - 1]['_id']).attr('data-position');
             $('#bookmarkUpBotton-' + this.bookmarks[index]['_id']).attr('data-position', prevBookmarkPosition);
@@ -936,7 +965,7 @@ export class SettingComponent implements OnInit {
                 position: parseInt(position)
             };
             for (let index = 0; index < this.bookmarks.length; index++) {
-                if (this.bookmarks[index]['position'] == position) {
+                if (this.bookmarks[index]['position'] === position) {
                     const temp = this.bookmarks[index - 1];
                     this.bookmarks[index - 1] = this.bookmarks[index];
                     this.bookmarks[index] = temp;
@@ -970,6 +999,7 @@ export class SettingComponent implements OnInit {
             }
         });
     }
+
     doSelect(obj) {
         const index = this.bookmarks_ids.findIndex((item) => {
             return item._id === obj._id;
@@ -980,6 +1010,7 @@ export class SettingComponent implements OnInit {
             this.bookmarks_ids.push(obj);
         }
     }
+
     doDelete() {
         const ids = this.bookmarks_ids.map((data) => {
             return data._id;
@@ -997,6 +1028,7 @@ export class SettingComponent implements OnInit {
             }
         });
     }
+
     doSelectedCopy() {
         const obj = {
             ids: this.bookmarks_ids
@@ -1004,17 +1036,21 @@ export class SettingComponent implements OnInit {
         this.copyShowcaseBookmarks = this.bookmarks_ids;
         this.modelCopy2Open();
     }
+
     doCopy(bookmark) {
         this.myCategories();
         this.copyShowcaseBookmark = bookmark;
         this.modelCopy2Open();
     }
+
     modelCopy2Open() {
         document.getElementById('copy2Modal').style.display = 'block';
     }
+
     modelCopy2Close() {
         document.getElementById('copy2Modal').style.display = 'none';
     }
+
     categorySelected(bookmark, category_id, copyShowcaseBookmarks) {
         this.showcaseField = false;
         this.categorySelectedId = true;
@@ -1030,6 +1066,7 @@ export class SettingComponent implements OnInit {
             this.bookmarkData = bookmark;
         }
     }
+
     openNewShowcase(bookmark, bookmarks) {
         this.showcaseField = true;
         this.categorySelectedId = false;
@@ -1043,6 +1080,7 @@ export class SettingComponent implements OnInit {
             this.bookmarkData = bookmark;
         }
     }
+
     updateCatIdINBookmark(id) {
         if (this.bookmarkData.length > 0) {
             this.bookmarkData = this.bookmarkData.filter((data) => {
@@ -1055,6 +1093,7 @@ export class SettingComponent implements OnInit {
         }
         this.addBoodmark();
     }
+
     addCategoryData() {
         const position = this.addCategoryForm.value['position'];
         const obj = this.addCategoryForm.value;
@@ -1079,6 +1118,7 @@ export class SettingComponent implements OnInit {
             }
         });
     }
+
     addBoodmark() {
         if (this.bookmarkData.length > 0) {
             this.modelCopy2Close();
@@ -1103,6 +1143,7 @@ export class SettingComponent implements OnInit {
             });
         }
     }
+
     doDeleteBoard(id) {
         this.categoryService.categoryDelete(id).subscribe((data) => {
             if (!data.error) {
@@ -1115,6 +1156,7 @@ export class SettingComponent implements OnInit {
             }
         });
     }
+
     updateCategoryData() {
         $('#navlink-' + this.updateCategoryForm.value['_id']).text(this.updateCategoryForm.value['name']);
         const position = this.updateCategoryForm.value['position'];
@@ -1191,6 +1233,7 @@ export class ViewPublicComponent implements AfterViewInit, OnInit, OnDestroy {
             }
         });
     }
+
     ngOnInit() {
         this.router.events.subscribe((val) => {
             if (this.flag) {
@@ -1202,9 +1245,10 @@ export class ViewPublicComponent implements AfterViewInit, OnInit, OnDestroy {
             }
         });
     }
+
     printMsg(msg) {
-        let el1 = this.convertToGridItem(msg['body']);
-        var el = $(el1);
+        const el1 = this.convertToGridItem(msg['body']);
+        const el = $(el1);
         this.bookmarks = msg;
         if (msg['position'] === 'top') {
             $('#showcaseSocialBlock').prepend(el).masonry('prepended', el);
@@ -1216,6 +1260,7 @@ export class ViewPublicComponent implements AfterViewInit, OnInit, OnDestroy {
         twttr.widgets.load();
         FB.XFBML.parse();
     }
+
     onScroll() {
         this.loader = true;
         this.scrollCount = 20 * this.pageNumber;
@@ -1249,9 +1294,11 @@ export class ViewPublicComponent implements AfterViewInit, OnInit, OnDestroy {
         });
         this.pageNumber++;
     }
+
     ngOnDestroy() {
         this.obTime.unsubscribe();
     }
+
     ngAfterViewInit() {
         this.obTime = Observable.interval(1000).subscribe(x => {
             this.manageUI();
@@ -1272,25 +1319,25 @@ export class ViewPublicComponent implements AfterViewInit, OnInit, OnDestroy {
 
     manageUI() {
         $(document).ready(function () {
-            var curColWidth = 400;
-            var cols = 4;
-            if ($("body").width() > 1600) {
+            let curColWidth = 400;
+            let cols = 4;
+            if ($('body').width() > 1600) {
                 cols = 4;
-            } else if ($("body").width() > 1000) {
+            } else if ($('body').width() > 1000) {
                 cols = 3;
-            } else if ($("body").width() > 600) {
+            } else if ($('body').width() > 600) {
                 cols = 2;
             } else {
                 cols = 1;
             }
-            var theW = ($("body").width() - ($("body").width() / 50)) / cols;
+            const theW = ($('body').width() - ($('body').width() / 50)) / cols;
             curColWidth = theW;
-            $("iframe").css("width", theW - 15);
-            $("twitterwidget").css("width", theW);
-            $("twitterwidget").css('margin-top', '0px !important');
-            $(".grid-item").css("width", (theW + (theW / 50) - 15));
-            $(".grid-item").css('margin', '0 5px 5px 0 !important');
-            //$('.grid').masonry();
+            $('iframe').css('width', theW - 15);
+            $('twitterwidget').css('width', theW);
+            $('twitterwidget').css('margin-top', '0px !important');
+            $('.grid-item').css('width', (theW + (theW / 50) - 15));
+            $('.grid-item').css('margin', '0 5px 5px 0 !important');
+            // $('.grid').masonry();
             $('#showcaseSocialBlock').masonry();
         });
     }
@@ -1316,14 +1363,14 @@ export class ViewPublicComponent implements AfterViewInit, OnInit, OnDestroy {
         this.bookmarkService.categoryBookmarksPublic(id, obj).subscribe((data) => {
             if (!data.error) {
                 if (data.message.length > 0) {
-                    var htmlBlocks = "";
+                    let htmlBlocks = '';
                     for (let i = 0; i < data.message.length; i++) {
                         this.bookmarks.push(data.message[i]);
                         htmlBlocks += this.convertToGridItem(this.bookmarks[i]['body']);
                         // tslint:disable-next-line:max-line-length
-                        //(<HTMLInputElement>document.getElementById('showcaseSocialBlock')).innerHTML += this.convertToGridItem(this.bookmarks[i]['body']);
+                        // (<HTMLInputElement>document.getElementById('showcaseSocialBlock')).innerHTML += this.convertToGridItem(this.bookmarks[i]['body']);
                     }
-                    $("#showcaseSocialBlock").html(htmlBlocks);
+                    $('#showcaseSocialBlock').html(htmlBlocks);
                     setTimeout(() => {
                         instgrm.Embeds.process();
                         twttr.widgets.load();
@@ -1333,7 +1380,7 @@ export class ViewPublicComponent implements AfterViewInit, OnInit, OnDestroy {
                         });
                         $(document).ready(function () {
                             $('#showcaseSocialBlock').masonry();
-                            //$('.grid').masonry();
+                            // $('.grid').masonry();
                         });
                     }, 3000);
                 }
@@ -1341,6 +1388,7 @@ export class ViewPublicComponent implements AfterViewInit, OnInit, OnDestroy {
         });
     }
 }
+
 @Component({
     selector: 'app-view',
     templateUrl: './view.component.html',
@@ -1386,6 +1434,7 @@ export class ViewComponent implements AfterViewInit, OnInit, OnDestroy {
             }
         });
     }
+
     ngOnInit() {
         this.router.events.subscribe((val) => {
             if (this.flag) {
@@ -1397,12 +1446,13 @@ export class ViewComponent implements AfterViewInit, OnInit, OnDestroy {
             }
         });
     }
+
     printMsg(msg) {
         this.bookmarks.push(msg);
         const el1 = this.convertToGridItem(msg['body']);
         const el = $(el1);
         if (msg['position'] === 'top') {
-            $("#showcaseSocialBlock").prepend(el).masonry('prepended', el);
+            $('#showcaseSocialBlock').prepend(el).masonry('prepended', el);
         }
         if (msg['position'] === 'bottom') {
             $('#showcaseSocialBlock').append(el).masonry('appended', el);
@@ -1411,6 +1461,7 @@ export class ViewComponent implements AfterViewInit, OnInit, OnDestroy {
         twttr.widgets.load();
         FB.XFBML.parse();
     }
+
     onScroll() {
         this.loader = true;
         this.scrollCount = 20 * this.pageNumber;
@@ -1444,9 +1495,11 @@ export class ViewComponent implements AfterViewInit, OnInit, OnDestroy {
         });
         this.pageNumber++;
     }
+
     ngOnDestroy() {
         this.obTime.unsubscribe();
     }
+
     ngAfterViewInit() {
         setTimeout(() => {
             FB.init({
@@ -1474,27 +1527,27 @@ export class ViewComponent implements AfterViewInit, OnInit, OnDestroy {
 
     manageUI() {
         $(document).ready(function () {
-            var curColWidth = 400;
-            var cols = 4;
-            if ($("body").width() > 1600) {
+            let curColWidth = 400;
+            let cols = 4;
+            if ($('body').width() > 1600) {
                 cols = 4;
-            } else if ($("body").width() > 1000) {
+            } else if ($('body').width() > 1000) {
                 cols = 3;
-            } else if ($("body").width() > 600) {
+            } else if ($('body').width() > 600) {
                 cols = 2;
             } else {
                 cols = 1;
             }
-            var theW = ($("body").width() - ($("body").width() / 50)) / cols;
+            const theW = ($('body').width() - ($('body').width() / 50)) / cols;
             curColWidth = theW;
-            $("iframe#bookmarkiframe").css("width", theW - 15);
-            $("#showcaseSocialBlock > .fb-post > span > iframe").css("width", theW - 15);
-            $("twitterwidget").css("width", theW - 15);
-            $("twitterwidget").css('margin-top', '0px !important');
-            $(".grid-item").css("width", (theW + (theW / 50) - 15));
-            $(".grid-item").css('margin', '0 5px 5px 5px; !important');
+            $('iframe#bookmarkiframe').css('width', theW - 15);
+            $('#showcaseSocialBlock > .fb-post > span > iframe').css('width', theW - 15);
+            $('twitterwidget').css('width', theW - 15);
+            $('twitterwidget').css('margin-top', '0px !important');
+            $('.grid-item').css('width', (theW + (theW / 50) - 15));
+            $('.grid-item').css('margin', '0 5px 5px 5px; !important');
             $('iframe.instagram-media.instagram-media-rendered').css('width', theW - 15);
-            //$('.grid').masonry();
+            // $('.grid').masonry();
             $('#showcaseSocialBlock').masonry();
         });
     }
