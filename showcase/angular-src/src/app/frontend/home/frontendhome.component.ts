@@ -290,7 +290,13 @@ export class FrontendHomeComponent implements OnInit {
             (data) => {
                 this.modelClose('login');
                 if (!data.success) {
-                    this._flashMessagesService.show(data.msg, { cssClass: 'alert-danger', timeout: 5000 });
+                    if (data['msg'] === 'Your account is not active.') {
+                        this.resendActivationLink(data['data']['email']);
+                        const msg = 'Your account is not activated yet, we have resent the activation link.Kindly check your Email!';
+                        this._flashMessagesService.show(msg, { cssClass: 'alert-danger', timeout: 5000 });
+                    }else {
+                        this._flashMessagesService.show(data.msg, { cssClass: 'alert-danger', timeout: 5000 });
+                    }
                 } else {
                     this.userService.storeUserData(data.token, data.user);
                     this._flashMessagesService.show('Login  Successfully', { cssClass: 'alert-success', timeout: 5000 });
@@ -306,6 +312,19 @@ export class FrontendHomeComponent implements OnInit {
                 this._flashMessagesService.show(err.msg, { cssClass: 'alert-danger', timeout: 5000 });
             }
         );
+    }
+
+    public resendActivationLink(email) {
+        this.userService.resendActivationLink({'email': email}).subscribe((data) => {
+            if (!data.error) {
+                this._flashMessagesService.show(data.message, { cssClass: 'alert-success', timeout: 5000 });
+                setTimeout(() => {
+                    this.router.navigate(['/']);
+                }, 1000);
+            } else {
+                this._flashMessagesService.show(data.message, { cssClass: 'danger-alert', timeout: 5000 });
+            }
+        });
     }
 
     forgetPass() {
@@ -455,15 +474,12 @@ export class AccountActiveComponent implements OnInit {
         this.route.params.subscribe((params: Params) => {
             this.token = params['token'];
         });
-        this.userService.customerVerify(this.token).subscribe(
+        /* this.userService.customerVerify(this.token).subscribe(
             (data) => {
                 if (!data.error) {
-                    // localStorage.setItem('currentCustomer', JSON.stringify(data.message));
                     this._flashMessagesService.show(data.message, { cssClass: 'alert-success', timeout: 5000 });
                     document.getElementById('login').style.display = 'block';
-                    /* this.router.navigate(['/']); */
                 } else {
-                    /* this.router.navigate(['/']); */
                     this._flashMessagesService.show(data.message, { cssClass: 'danger-alert', timeout: 5000 });
                     if (data.error && data.message === 'Email Activation Link Expire.') {
                         document.getElementById('resendLink').style.display = 'block';
@@ -474,9 +490,8 @@ export class AccountActiveComponent implements OnInit {
                 console.log('err at activation time');
                 console.log(err);
                 this._flashMessagesService.show(err.message, { cssClass: 'danger-alert', timeout: 5000 });
-                // this.router.navigate(['customer/login']);
             }
-        );
+        ); */
     }
 
     public resendActivationLink() {

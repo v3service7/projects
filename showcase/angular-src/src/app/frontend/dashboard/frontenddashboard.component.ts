@@ -96,6 +96,7 @@ export class ProfileHeaderComponent implements OnInit, AfterViewInit {
     }
 
     ngOnInit() {
+        console.log(this.router.url);
         this.shareUrl = window.location.href;
         this.addCategoryForm = this.lf.group({
             name: ['', Validators.required],
@@ -237,9 +238,16 @@ export class ProfileHeaderComponent implements OnInit, AfterViewInit {
 
     openCopyToModel() {
         if (this.currentCustomer.ispaid) {
-            this.modelBookmarkClose();
-            this.modelCopyToOpen();
-            this.addLinkForm.controls['position'].setValue(this.bookmarkposition);
+            if (typeof this.category_id === 'undefined') {
+                this.modelBookmarkClose();
+                this.modelCopyToOpen();
+                this.addLinkForm.controls['position'].setValue(this.bookmarkposition);
+            } else {
+                this.addLinkForm.controls['category_id'].setValue(this.category_id);
+                this.addLinkForm.controls['position'].setValue(this.bookmarkposition);
+                this.addBoodmark('');
+                this.modelBookmarkClose();
+            }
         } else {
             this.addLinkForm.controls['category_id'].setValue(this.categories[0]['_id']);
             this.addLinkForm.controls['position'].setValue(this.bookmarkposition);
@@ -406,32 +414,43 @@ export class ProfileHeaderComponent implements OnInit, AfterViewInit {
         return html;
     }
 
+    YouTubeGetID(url) {
+        let ID = '';
+        url = url.replace(/(>|<)/gi, '').split(/(vi\/|v=|\/v\/|youtu\.be\/|\/embed\/)/);
+        if (url[2] !== undefined) {
+            ID = url[2].split(/[^0-9a-z_\-]/i);
+            ID = ID[0];
+        } else {
+            ID = url;
+        }
+        return ID;
+    }
+
     embedYoutube(url) {
-        const youtubeID = url.split('v=')[1];
-        this.validateService.getYoutube(youtubeID)
-            .subscribe(data => {
-                if (data.items.length > 0) {
-                    // tslint:disable-next-line:max-line-length
-                    const embedHTML = '<iframe width="100%" id="bookmarkiframe" height="337" src="https://www.youtube.com/embed/' + youtubeID + '" frameborder="0" allowfullscreen></iframe>';
-                    this.addLinkForm.controls['title'].setValue('https://www.youtube.com/embed/' + youtubeID);
-                    this.addLinkForm.controls['body'].setValue(embedHTML);
-                    this.addLinkForm.controls['type'].setValue('youtube');
-                    const htmlToAdd = this.convertToGridItem(embedHTML);
-                    document.getElementById('loader').style.display = 'none';
-                    this.invalidUrl = false;
-                    document.getElementById('bookMark').innerHTML = htmlToAdd;
-                } else {
-                    document.getElementById('bookMark').innerHTML =
-                    '<div class="alert alert-danger"><strong> Alert! </strong> Invalid Url.</div>';
-                    this.invalidUrl = true;
-                    document.getElementById('loader').style.display = 'none';
-                }
-            }, err => {
+        const youtubeID = this.YouTubeGetID(url);
+        this.validateService.getYoutube(youtubeID).subscribe(data => {
+            if (data.items.length > 0) {
+                // tslint:disable-next-line:max-line-length
+                const embedHTML = '<iframe width="100%" id="bookmarkiframe" height="337" src="https://www.youtube.com/embed/' + youtubeID + '" frameborder="0" allowfullscreen></iframe>';
+                this.addLinkForm.controls['title'].setValue('https://www.youtube.com/embed/' + youtubeID);
+                this.addLinkForm.controls['body'].setValue(embedHTML);
+                this.addLinkForm.controls['type'].setValue('youtube');
+                const htmlToAdd = this.convertToGridItem(embedHTML);
                 document.getElementById('loader').style.display = 'none';
+                this.invalidUrl = false;
+                document.getElementById('bookMark').innerHTML = htmlToAdd;
+            } else {
                 document.getElementById('bookMark').innerHTML =
                 '<div class="alert alert-danger"><strong> Alert! </strong> Invalid Url.</div>';
                 this.invalidUrl = true;
-            });
+                document.getElementById('loader').style.display = 'none';
+            }
+        }, err => {
+            document.getElementById('loader').style.display = 'none';
+            document.getElementById('bookMark').innerHTML =
+            '<div class="alert alert-danger"><strong> Alert! </strong> Invalid Url.</div>';
+            this.invalidUrl = true;
+        });
     }
 
     embedLink(link) {
@@ -439,7 +458,7 @@ export class ProfileHeaderComponent implements OnInit, AfterViewInit {
         document.getElementById('bookMark').innerHTML = '';
         if (link.match('instagram.com')) {
             this.embedInsta(link);
-        } else if (link.match('youtube.com')) {
+        } else if (link.match('youtube.com') || link.match('youtu.be')) {
             this.embedYoutube(link);
 
         } else if (link.match('facebook.com')) {
@@ -787,7 +806,7 @@ export class MyProfileComponent implements OnInit {
     templateUrl: './setting.component.html',
     styleUrls: ['./setting.component.css']
 })
-export class SettingComponent implements OnInit {
+export class SettingComponent implements OnInit, OnDestroy {
     parentMessage: any;
     id: any;
     customer: any;
@@ -799,6 +818,7 @@ export class SettingComponent implements OnInit {
     bookmarks = [];
     bookmarkData: any;
     bookmarks_ids = [];
+    positions = [];
     categorySelectedId: any = false;
     showcaseField: any = false;
     copyShowcaseBookmark: any;
@@ -831,6 +851,14 @@ export class SettingComponent implements OnInit {
                 });
             }
         });
+    }
+
+    ngOnDestroy() {
+        if (this.bookmarks_ids.length > 0) {
+            if (confirm('You need to save')) {
+                this.updateCategoryData();
+            }
+        }
     }
 
     getProfile() {
@@ -874,8 +902,9 @@ export class SettingComponent implements OnInit {
     }
 
     doDeleteBookmark(id) {
-        $('#item-' + id).remove();
-        this.bookmarkService.bookmarkDelete(id).subscribe((data) => {
+        $('#item-' + id._id).remove();
+        this.bookmarks_ids.push(id);
+        /* this.bookmarkService.bookmarkDelete(id).subscribe((data) => {
             if (!data.error) {
                 this.toastr.success('Bookmark deleted succesfully.', 'Success!');
                 this.bookmarks = [];
@@ -884,7 +913,7 @@ export class SettingComponent implements OnInit {
             } else {
                 this.toastr.error('Error while deleting bookmark, Try again', 'Oops!');
             }
-        });
+        }); */
     }
 
     getbookmark(id, obj?: any) {
@@ -1011,13 +1040,23 @@ export class SettingComponent implements OnInit {
         for (let index = 1; index <= bookmakrItem.length; index++) {
             $('ul.list-group.bookmark-ul > li:nth-child(' + index + ') > div.row > div > .count-circle').text(index);
         }
-        this.bookmarkService.changePosition(obj).subscribe((data) => {
+        console.log(obj);
+
+        const index = this.positions.findIndex((item) => {
+            return item._id === obj._id;
+        });
+        if (index > -1) {
+            this.positions.splice(index, 1);
+        } else {
+            this.positions.push(obj);
+        }
+        /* this.bookmarkService.changePosition(obj).subscribe((data) => {
             if (!data.error) {
                 this.toastr.success('Bookmark position changed succesfully.', 'Success!');
             } else {
                 this.toastr.error('Erro while chaning bookmark position, Try again.', 'Oops!');
             }
-        });
+        }); */
     }
 
     doSelect(obj) {
@@ -1050,9 +1089,7 @@ export class SettingComponent implements OnInit {
     }
 
     doSelectedCopy() {
-        const obj = {
-            ids: this.bookmarks_ids
-        };
+        const obj = { ids: this.bookmarks_ids };
         this.copyShowcaseBookmarks = this.bookmarks_ids;
         this.modelCopy2Open();
     }
@@ -1177,7 +1214,26 @@ export class SettingComponent implements OnInit {
         });
     }
 
+    positionUpdate() {
+        for (let index = 0; index < this.positions.length; index++) {
+            const element = this.positions[index];
+            this.bookmarkService.changePosition(element).subscribe((data) => {
+                if (!data.error) {
+                    // this.toastr.success('Bookmark position changed succesfully.', 'Success!');
+                } else {
+                    // this.toastr.error('Erro while chaning bookmark position, Try again.', 'Oops!');
+                }
+            });
+        }
+    }
+
     updateCategoryData() {
+        if (this.bookmarks_ids.length > 0) {
+            this.doDelete();
+        }
+        if (this.positions.length > 0) {
+            this.positionUpdate();
+        }
         $('#navlink-' + this.updateCategoryForm.value['_id']).text(this.updateCategoryForm.value['name']);
         const position = this.updateCategoryForm.value['position'];
         const obj = this.updateCategoryForm.value;

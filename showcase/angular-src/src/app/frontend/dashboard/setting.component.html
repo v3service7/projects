@@ -46,7 +46,7 @@
                         <div class="col-xl-2 col-lg-7 col-md-7 col-sm-7 col-8 mt-4 ">
                             <ul>
                                 <li class="pb-2">
-                                    <a (click)="doDeleteBookmark(bookmark._id)" class="pointer">
+                                    <a (click)="doDeleteBookmark(bookmark)" class="pointer">
                                         <i class="fa fa-trash icon-circle icon-opt"></i>
                                         <span class="fs-13">Delete</span>
                                     </a>
@@ -102,7 +102,7 @@
                         </ng-container>
                     </select>
                 </div>
-                <a class="btn btn-danger float-left px-5 rounded-1 " href="javascript:void(0)" (click)="doDeleteBoard(parentMessage)">Delete</a>
+                <a  *ngIf="currentCustomer && currentCustomer.ispaid" class="btn btn-danger float-left px-5 rounded-1 " href="javascript:void(0)" (click)="doDeleteBoard(parentMessage)">Delete</a>
                 <button type="submit" class="btn btn-warning float-right px-5 rounded-1" [disabled]="!updateCategoryForm.valid">Save</button>
             </form>
         </div>

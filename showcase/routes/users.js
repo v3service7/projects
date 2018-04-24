@@ -14,7 +14,7 @@ const Twitter = require("node-twitter-api");
 const twitter = new Twitter({
     consumerKey: 'nDNVhhX7f8LOjUvo0TRkBakzD',
     consumerSecret: 'Yh3lYhukSMtwTdscpsmG5L6Lv5a8nhReq8gpokY5pNxFPLlVaw',
-    callback: siteUrl
+    callback: 'https://measuremight.com:3002/'
 });
 var validatetoken = 'showcase eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZEN1c3RvbWVyIjo5MCwiQ3VzdG9tZXJGbmFtZSI6IlQxRm5hbWUiLCJDdXN0b21lckxuYW1lIjoiVDFMbmFtZSIsIkN1c3RvbWVyVGVsbm8iOiIxMTExMTExMTExIiwiQ3VzdG9tZXJFbWFpbCI6IlQxQHppaXB0cmFuc2l0LmNvbSIsIkN1c3RvbWVyUGFzc3dvcmQiOiIkMmEkMTAkUG81R0JRUlRHWUpPYU9yaU9OZXE3T1lSeTI0Y1hPZktuQ0NMMy4xaFVTaE56WS9hMDVEQS4iLCJDdXN0b21lckdlbmRlciI6Ik5VTEwiLCJDdXN0b21lckZhY2Vib29rSWQiOiJOVUxMIiwiQ3VzdG9tZXJQaWN0dXJlUGF0aCI6IjAuMDAiLCJDdXN0b21lcklzU3R1ZGVudCI6MCwiQ3VzdG9tZXJWZXJpZnlUZWxubyI6MCwiQ3VzdG9tZXJWZXJpZnlFbWFpbCI6MSwiQ3VzdG9tZXJJc0luYWN0aXZlIjowLCJDdXN0b21lclZlcmlmaWNhdGlvblRva2VuIjpudWxsLCJpYXQiOjE1MDA0MTAyMzQsImV4cCI6MTUwMzAwMjIzNH0.mPlmkuFDISGyjUl6GzELjKTCrAfmdjtuSdtrF45yLvY';
 router.post('/login', (req, res, next) => {
@@ -34,7 +34,7 @@ router.post('/login', (req, res, next) => {
             if (err) throw err;
             if (isMatch) {
                 const token = jwt.sign({ data: user }, config.secret, {
-                    expiresIn: 3600 // 1 hour
+                    expiresIn: '1d' // 1 day
                 });
 
                 res.json({
@@ -102,15 +102,16 @@ router.post("/access-token", function (req, res) {
         requestSecret = req.body.requestSecret;
 
     twitter.getAccessToken(requestToken, requestSecret, verifier, function (err, accessToken, accessSecret) {
-        if (err)
+        if (err){
             res.status(500).send(err);
-        else
-            twitter.verifyCredentials(accessToken, accessSecret, function (err, user) {
+        }else{
+            const obj = { 'include_email': true, 'skip_status': true, 'include_entities': true};
+            twitter.verifyCredentials(accessToken, accessSecret, obj, function (err, user) {
                 if (err)
                     res.status(500).json(err);
                 else
                     res.json(user);
-            });
+            });}
     });
 });
 
@@ -120,7 +121,7 @@ router.post('/social-insta', (req, res, next) => {
     postObj['code'] = req.body.code;
     postObj['client_id'] = '98349c5779404c6ea9c9aa59e0e3aeeb';
     postObj['client_secret'] = '7d373b3a6f754a8e8086705ad4738c2b';
-    postObj['redirect_uri'] = siteUrl;
+    postObj['redirect_uri'] = 'https://measuremight.com:3002/';
     postObj['grant_type'] = 'authorization_code';
     request.post({
         uri: 'https://api.instagram.com/oauth/access_token',
@@ -144,7 +145,7 @@ router.post('/social-login', (req, res, next) => {
         if (err) throw err;
         if (user) {
             const token = jwt.sign({ data: user }, config.secret, {
-                expiresIn: 3600 // 1 hour
+                expiresIn: '1d' // 1 day
             });
             res.json({
                 success: true,
@@ -176,13 +177,13 @@ router.post('/userlogin', (req, res, next) => {
             return res.json({ success: false, msg: 'User not found' });
         }
         if (user.status === false ) {
-            return res.json({ success: false, msg: 'Your account is not active.' });
+            return res.json({ success: false, msg: 'Your account is not active.', data: user });
         }
         User.comparePassword(password, user.password, (err, isMatch) => {
             if (err) throw err;
             if (isMatch) {
                 const token = jwt.sign({ data: user }, config.secret, {
-                    expiresIn: 3600 // 1 hour
+                    expiresIn: '1d' // 1 day
                 });
 
                 res.json({
@@ -220,6 +221,46 @@ router.get('/', passport.authenticate('jwt', { session: false }), (req, res, nex
             response = { "error": false, "message": data };
         };
         res.json(response);
+    });
+});
+
+
+router.post('/resend-activation-link', function (req, res) {
+    var response = {};
+    User.find({ email: req.body.email }, null, function (err, cstmr) {
+
+        if (err) {
+            response = { "error": true, "message": err };
+            return res.json(response);
+        }
+
+        if (cstmr && cstmr.length == 0) {
+            response = { "error": true, "message": 'Incorrect Email' };
+            return res.json(response);
+        }
+
+        if (cstmr && cstmr.length > 0) {
+            if (cstmr[0].status == false) {
+                var token = randomstring.generate()
+                cstmr[0].email_token = token;
+                /*response = { "error": false, "message": cstmr[0] };*/
+                User.findByIdAndUpdate(cstmr[0]._id, cstmr[0], function (err, customer) {
+                    User.findById(customer._id, function (err, customer1) {
+                        if (err) {
+                            response = { "error": true, "message": 'Connection Timeout!' };
+                            return res.json(response);
+                        } else {
+                            response = { "error": false, "message": 'Email Sent! Please access your Email ID to Activate your Account' };
+                            emails.emailShoot(cstmr[0].email, cstmr[0].email, token);
+                            return res.json(response);
+                        }
+                    });
+                });
+            } else {
+                response = { "error": false, "message": 'Account is already Activated' };
+                return res.json(response);
+            }
+        }
     });
 });
 

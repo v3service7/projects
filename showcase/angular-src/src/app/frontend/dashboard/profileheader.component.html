@@ -36,7 +36,8 @@
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                         <span *ngFor="let category of categories; let i = index">
                             <li class="dropdown-submenu" *ngIf=" i >= 3 ">
-                                <a class="dropdown-item dropdown-toggle text-cap" href="javascript:void(0)"> {{ (category.name.length >= 20) ? (category.name | slice:0:20)+'..':(category.name) }}</a>
+                                <a class="dropdown-item text-cap"  id="navlink-{{category._id}}" [routerLink]="['/view/',category._id]"> {{ (category.name.length >= 20) ? (category.name | slice:0:20)+'..':(category.name) }}</a>
+                                <a class="dropdown-item dropdown-toggle text-cap" href="javascript:void(0)"></a>
                                 <ul class="dropdown-menu">
                                     <li>
                                         <a class="dropdown-item" href="javascript:void(0)" (click)="doShare(category)">
@@ -351,7 +352,7 @@
                                             </ng-container>
                                         </select>
                                     </div>
-                                    <a class="btn btn-danger float-left px-5 rounded-1 " href="javascript:void(0)" (click)="doDeleteBoard(moveCategory._id)">Delete</a>
+                                    <a *ngIf="currentCustomer && currentCustomer.ispaid" class="btn btn-danger float-left px-5 rounded-1 " href="javascript:void(0)" (click)="doDeleteBoard(moveCategory._id)">Delete</a>
                                     <button type="submit" class="btn btn-warning float-right px-5 rounded-1" [disabled]="!updateCategoryForm.valid">Save</button>
                                 </form>
                             </div>
