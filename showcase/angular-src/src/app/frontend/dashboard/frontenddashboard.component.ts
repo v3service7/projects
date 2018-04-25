@@ -192,10 +192,15 @@ export class ProfileHeaderComponent implements OnInit, AfterViewInit {
     }
 
     doEmbed(category) {
-        this.category = category;
-        // tslint:disable-next-line:max-line-length
-        this.textToCopy = '<div id="showcaseSocialBlock" data-showcaseID=' + this.category._id + '></div><script src="' + globalVariable.url + 'embed.min.js"></script>';
-        this.modelEmbedOpen();
+
+        if (this.currentCustomer && this.currentCustomer.ispaid) {
+            this.category = category;
+            // tslint:disable-next-line:max-line-length
+            this.textToCopy = '<div id="showcaseSocialBlock" data-showcaseID=' + this.category._id + '></div><script src="' + globalVariable.url + 'embed.min.js"></script>';
+            this.modelEmbedOpen();
+        } else {
+            this.modelWarningOpen();
+        }
     }
 
     bookmarkPosition(position) {
@@ -514,7 +519,11 @@ export class ProfileHeaderComponent implements OnInit, AfterViewInit {
     }
 
     addCategory() {
-        this.modelOpen();
+        if (this.currentCustomer && this.currentCustomer.ispaid) {
+            this.modelOpen();
+        }else {
+            this.modelWarningOpen();
+        }
     }
 
     addCategoryData(action) {
@@ -553,6 +562,15 @@ export class ProfileHeaderComponent implements OnInit, AfterViewInit {
     modelClose() {
         document.getElementById('categoryModal').style.display = 'none';
     }
+
+    modelWarningOpen() {
+        document.getElementById('warningModal').style.display = 'block';
+    }
+
+    modelWarningClose() {
+        document.getElementById('warningModal').style.display = 'none';
+    }
+
 
     modelManageOpen() {
         document.getElementById('manageModal').style.display = 'block';
