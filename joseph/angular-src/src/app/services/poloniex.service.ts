@@ -7,27 +7,27 @@ import * as globalVariable from "../global";
 
 @Injectable()
 export class PoloniexService  {
-	authToken: any;
-  	constructor(private http: Http, private socket: Socket) {
-    	const token = localStorage.getItem('id_token_admin');
-    	this.authToken = token;
-  	}
+    authToken: any;
+      constructor(private http: Http, private socket: Socket) {
+        const token = localStorage.getItem('id_token_admin');
+        this.authToken = token;
+      }
 
-  	reConnect(){
-  		this.socket.disconnect();
-  		setTimeout(()=>{
-  			this.socket.connect();
-  		},3000)
+      reConnect(){
+          this.socket.disconnect();
+          setTimeout(()=>{
+              this.socket.connect();
+          },3000)
 
-  	}
+      }
 
-  	getAuthenticate(data){
-  		return this.http.post(globalVariable.url + 'binance/authenticate',data)
-      		.map((response: Response) => {
-        	let data = response.json();
-        	return data;
-      	});
-  	}
+      getAuthenticate(data){
+          return this.http.post(globalVariable.url + 'binance/authenticate',data)
+              .map((response: Response) => {
+            let data = response.json();
+            return data;
+          });
+      }
 
     getBalance(){
       return this.http.get(globalVariable.url + 'poloniex/coin-balances')
@@ -37,13 +37,13 @@ export class PoloniexService  {
         });
     }
 
-  	getCurrency(){
-  		return this.http.get(globalVariable.url + 'poloniex/coins')
-      		.map((response: Response) => {
-        	let data = response.json();
-        	return data;
-      	});
-  	}
+      getCurrency(){
+          return this.http.get(globalVariable.url + 'poloniex/coins')
+              .map((response: Response) => {
+            let data = response.json();
+            return data;
+          });
+      }
 
     buyLimit(coin,form){
       return this.http.get(globalVariable.url + 'binance/trade-buy-limit?symbol='+coin+'&quantity='+form.buy+'&price='+form.price)
@@ -77,29 +77,29 @@ export class PoloniexService  {
         });
     }
 
-  	getOpenOrder(coin){
-  		return this.http.get(globalVariable.url + 'binance/trade-all-order?symbol='+coin)
-      		.map((response: Response) => {
-        	let data = response.json();
-        	return data;
-      	});
-  	}
-	
-	getMarketName(data){
-		this.socket.emit('poloniexMarketName', data);
-	}
+      getOpenOrder(coin){
+          return this.http.get(globalVariable.url + 'binance/trade-all-order?symbol='+coin)
+              .map((response: Response) => {
+            let data = response.json();
+            return data;
+          });
+      }
+    
+    getMarketName(data){
+        this.socket.emit('poloniexMarketName', data);
+    }
 
-	getMarketSummary() {
-		let observable = new Observable(observer => {      
-			this.socket.on('poloniexMarketSummary', (data) => {       
-				observer.next(data);
-			});
-			return () => {
-				this.socket.disconnect();
-			};
-		});
-		return observable;
-	}
+    getMarketSummary() {
+        let observable = new Observable(observer => {      
+            this.socket.on('poloniexMarketSummary', (data) => {       
+                observer.next(data);
+            });
+            return () => {
+                this.socket.disconnect();
+            };
+        });
+        return observable;
+    }
 
     getAlertNotify() {
         let observable = new Observable(observer => {      
@@ -113,15 +113,15 @@ export class PoloniexService  {
         return observable;
     }
 
-	getMarketHistory() {
-		let observable = new Observable(observer => {      
-			this.socket.on('poloniexMarketHistory', (data) => {
-        		observer.next(data);
-			});
-			return () => {
-				this.socket.disconnect();
-			};
-		});
-		return observable;
-	}
+    getMarketHistory() {
+        let observable = new Observable(observer => {      
+            this.socket.on('poloniexMarketHistory', (data) => {
+                observer.next(data);
+            });
+            return () => {
+                this.socket.disconnect();
+            };
+        });
+        return observable;
+    }
 }

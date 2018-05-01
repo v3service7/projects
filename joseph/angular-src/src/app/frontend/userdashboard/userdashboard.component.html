@@ -182,10 +182,10 @@
         <div class="left">
             <ul class="nav nav-tabs graph-side-tabs" role="tablist">
                 <li class="nav-item">
-                    <a [ngClass]="setActiveChart(isActiveChart,'chart')" (click)="setActiveClassChart('chart')" class="nav-link" href="#home" id="home-tab" role="tab" data-toggle="tab" aria-controls="home" aria-expanded="true"><i class="fa fa-line-chart" aria-hidden="true"></i> BITS</a>
+                    <a [ngClass]="setActiveChart(isActiveChart,'chart')" (click)="setActiveClassChart('chart')" class="nav-link" data-target="#home" id="home-tab" role="tab" data-toggle="tab" aria-controls="home" aria-expanded="true"><i class="fa fa-line-chart" aria-hidden="true"></i> BITS</a>
                 </li>
                 <li class="nav-item">
-                    <a [ngClass]="setActiveChart(isActiveChart,'depth')" (click)="setActiveClassChart('depth')" class="nav-link " href="#hats" role="tab" id="hats-tab" data-toggle="tab" aria-controls="hats"><i class="fa fa-line-chart" aria-hidden="true"></i> DEPTH</a>
+                    <a [ngClass]="setActiveChart(isActiveChart,'depth')" (click)="setActiveClassChart('depth')" class="nav-link " data-target="#hats" role="tab" id="hats-tab" data-toggle="tab" aria-controls="hats"><i class="fa fa-line-chart" aria-hidden="true"></i> DEPTH</a>
                 </li>
                <!--  <li class="ml-auto">
                     <div class="dropdown ">
@@ -202,134 +202,10 @@
             <div id="clothing-nav-content" class="tab-content">
                 <div role="tabpanel" class="tab-pane fade show active" id="home" aria-labelledby="home-tab">
                     <div id="tv_chart_container"></div>
-                    <div class="card dashboard-card mt-2 mb-2">
-                        <div class="card-body">
-                            <div class="">
-                                <div class="row">
-                                    <div class="col-lg-6 bidask-area">
-                                        <h5 class="bg-dark text-white mb-0 px-3">ASK</h5>
-                                        <table class="table table-striped custom-table text-center" *ngIf="buyMarketHistory">
-                                            <thead class="bg-dark">
-                                                <tr>
-                                                    <th>Price ({{chooseCurrency}})</th>
-                                                    <th>Quantity</th>
-                                                    <th>Total</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr class="bg-dark" *ngFor="let buymarket of buyMarketHistory | orderBy: 'buyMarketHistory.Price'">
-                                                    <td class="text-danger">{{buymarket.Price}}</td>
-                                                    <td class="text-danger">{{buymarket.Quantity}}</td>
-                                                    <td class="text-danger">{{buymarket.Total}}</td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                    <div class="col-lg-6 bidask-area">
-                                        <h5 class="bg-dark text-white mb-0 px-3">BIDS</h5>
-                                        <table class="table table-striped custom-table text-center" *ngIf="sellMarketHistory">
-                                            <thead class="bg-dark">
-                                                <tr>
-                                                    <th>Price ({{chooseCurrency}})</th>
-                                                    <th>Quantity</th>
-                                                    <th>Total</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr class="bg-dark  " *ngFor="let sellmarket of sellMarketHistory   | orderBy: 'sellMarketHistory.Price'">
-                                                    <td class="text-success">{{sellmarket.Price}}</td>
-                                                    <td class="text-success">{{sellmarket.Quantity}}</td>
-                                                    <td class="text-success">{{sellmarket.Total}}</td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card dashboard-card mt-2 mb-2">
-                        <div class="card-body">
-                            <!-- Nav tabs -->
-                            <ul class="nav nav-tabs open-order-tabs" role="tablist">
-                                <li class="nav-item ">
-                                    <a [ngClass]="setActiveOrder(isActiveOrder,'open')" (click)="setActiveClassOrder('open')" class="nav-link text-white" data-toggle="tab" href="#openOrder">Open Order</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a [ngClass]="setActiveOrder(isActiveOrder,'close')" (click)="setActiveClassOrder('close')" class="nav-link text-white" data-toggle="tab" href="#closeOrder">Close Order</a>
-                                </li>
-                            </ul>
-                            <!-- Tab panes -->
-                            <div class="tab-content mt-2">
-                                <div class="tab-pane active  openCloseArea p-0" id="openOrder">
-                                    <table class="table text-white custom-table">
-                                        <thead class="bg-dark">
-                                            <tr>
-                                                <th>Pair</th>
-                                                <th>Type</th>
-                                                <th>Amount</th>
-                                                <th>Buy/Sell</th>
-                                                <th>Original Qty</th>
-                                                <th>Executed Qty</th>
-                                                <th>Date</th>
-                                                <th>Faild %</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody *ngIf="openOrders.length == 0">
-                                            <tr>No Open Order</tr>
-                                        </tbody>
-                                        <tbody *ngIf="openOrders.length > 0">
-                                            <tr  *ngFor="let openOrder of openOrders">
-                                                <td>{{openOrder.symbol}}</td>
-                                                <td>{{openOrder.type}}</td>
-                                                <td>{{openOrder.price}}</td>
-                                                <td>{{openOrder.side}}</td>
-                                                <td>{{openOrder.origQty}}</td>
-                                                <td>{{openOrder.executedQty}}</td>
-                                                <td>{{openOrder.time|date}}</td>
-                                                <td>{{openOrder.status}}</td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                                <div class="tab-pane  openCloseArea  p-0" id="closeOrder">
-                                    <table class="table text-white custom-table">
-                                        <thead class="bg-dark">
-                                            <tr>
-                                                <th>Pair</th>
-                                                <th>Type</th>
-                                                <th>Amount</th>
-                                                <th>Buy/Sell</th>
-                                                <th>Orignal Qty</th>
-                                                <th>Executed Qty</th>
-                                                <th>Date</th>
-                                                <th>Faild %</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody *ngIf="closeOrders.length == 0">
-                                            <tr>No Close Order</tr>
-                                        </tbody>
-                                        <tbody *ngIf="closeOrders.length > 0">
-                                            <tr  *ngFor="let closeOrder of closeOrders ">
-                                                <td>{{closeOrder.symbol}}</td>
-                                                <td>{{closeOrder.type}}</td>
-                                                <td>{{closeOrder.price}}</td>
-                                                <td>{{closeOrder.side}}</td>
-                                                <td>{{closeOrder.origQty}}</td>
-                                                <td>{{closeOrder.executedQty}}</td>
-                                                <td>{{closeOrder.time| date:'medium'}}</td>
-                                                <td>{{closeOrder.status}}</td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                 </div>
                 <div role="tabpanel" class="tab-pane" id="hats" aria-labelledby="hats-tab">
-                    <div id="container2" style="width:100%; height:546px;"  [chart]="stock">
-                    </div>
+                    <!-- <div id="container2" style="width:100%; height:546px;" ></div> -->
+                    <div id="chartdiv" style="width:100%; height:546px;  background-color: #30303d; color: #fff;"></div>
                 </div>
                 <div role="tabpanel" class="tab-pane fade" id="chart" aria-labelledby="dropdown-shoes-tab">
                     <div id="container3" style="width:100%; height:300px;"></div>
@@ -398,6 +274,130 @@
                                         </table>
                                     </div>
                                 </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card dashboard-card mt-2 mb-2">
+                    <div class="card-body">
+                        <div class="">
+                            <div class="row">
+                                <div class="col-lg-6 bidask-area">
+                                    <h5 class="bg-dark text-white mb-0 px-3">ASK</h5>
+                                    <table class="table table-striped custom-table text-center" *ngIf="buyMarketHistory">
+                                        <thead class="bg-dark">
+                                            <tr>
+                                                <th>Price ({{chooseCurrency}})</th>
+                                                <th>Quantity</th>
+                                                <th>Total</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr class="bg-dark" *ngFor="let buymarket of buyMarketHistory | orderBy: 'buyMarketHistory.Price'">
+                                                <td class="text-danger">{{buymarket.Price}}</td>
+                                                <td class="text-danger">{{buymarket.Quantity}}</td>
+                                                <td class="text-danger">{{buymarket.Total}}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="col-lg-6 bidask-area">
+                                    <h5 class="bg-dark text-white mb-0 px-3">BIDS</h5>
+                                    <table class="table table-striped custom-table text-center" *ngIf="sellMarketHistory">
+                                        <thead class="bg-dark">
+                                            <tr>
+                                                <th>Price ({{chooseCurrency}})</th>
+                                                <th>Quantity</th>
+                                                <th>Total</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr class="bg-dark  " *ngFor="let sellmarket of sellMarketHistory   | orderBy: 'sellMarketHistory.Price'">
+                                                <td class="text-success">{{sellmarket.Price}}</td>
+                                                <td class="text-success">{{sellmarket.Quantity}}</td>
+                                                <td class="text-success">{{sellmarket.Total}}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card dashboard-card mt-2 mb-2">
+                    <div class="card-body">
+                        <!-- Nav tabs -->
+                        <ul class="nav nav-tabs open-order-tabs" role="tablist">
+                            <li class="nav-item ">
+                                <a [ngClass]="setActiveOrder(isActiveOrder,'open')" (click)="setActiveClassOrder('open')" class="nav-link text-white" data-toggle="tab" data-target="#openOrder">Open Order</a>
+                            </li>
+                            <li class="nav-item">
+                                <a [ngClass]="setActiveOrder(isActiveOrder,'close')" (click)="setActiveClassOrder('close')" class="nav-link text-white" data-toggle="tab" data-target="#closeOrder">Close Order</a>
+                            </li>
+                        </ul>
+                        <!-- Tab panes -->
+                        <div class="tab-content mt-2">
+                            <div class="tab-pane active  openCloseArea p-0" id="openOrder">
+                                <table class="table text-white custom-table">
+                                    <thead class="bg-dark">
+                                        <tr>
+                                            <th>Pair</th>
+                                            <th>Type</th>
+                                            <th>Amount</th>
+                                            <th>Buy/Sell</th>
+                                            <th>Original Qty</th>
+                                            <th>Executed Qty</th>
+                                            <th>Date</th>
+                                            <th>Faild %</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody *ngIf="openOrders.length == 0">
+                                        <tr>No Open Order</tr>
+                                    </tbody>
+                                    <tbody *ngIf="openOrders.length > 0">
+                                        <tr  *ngFor="let openOrder of openOrders">
+                                            <td>{{openOrder.symbol}}</td>
+                                            <td>{{openOrder.type}}</td>
+                                            <td>{{openOrder.price}}</td>
+                                            <td>{{openOrder.side}}</td>
+                                            <td>{{openOrder.origQty}}</td>
+                                            <td>{{openOrder.executedQty}}</td>
+                                            <td>{{openOrder.time|date}}</td>
+                                            <td>{{openOrder.status}}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="tab-pane  openCloseArea  p-0" id="closeOrder">
+                                <table class="table text-white custom-table">
+                                    <thead class="bg-dark">
+                                        <tr>
+                                            <th>Pair</th>
+                                            <th>Type</th>
+                                            <th>Amount</th>
+                                            <th>Buy/Sell</th>
+                                            <th>Orignal Qty</th>
+                                            <th>Executed Qty</th>
+                                            <th>Date</th>
+                                            <th>Faild %</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody *ngIf="closeOrders.length == 0">
+                                        <tr>No Close Order</tr>
+                                    </tbody>
+                                    <tbody *ngIf="closeOrders.length > 0">
+                                        <tr  *ngFor="let closeOrder of closeOrders ">
+                                            <td>{{closeOrder.symbol}}</td>
+                                            <td>{{closeOrder.type}}</td>
+                                            <td>{{closeOrder.price}}</td>
+                                            <td>{{closeOrder.side}}</td>
+                                            <td>{{closeOrder.origQty}}</td>
+                                            <td>{{closeOrder.executedQty}}</td>
+                                            <td>{{closeOrder.time| date:'medium'}}</td>
+                                            <td>{{closeOrder.status}}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
                     </div>

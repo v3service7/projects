@@ -1,5 +1,5 @@
 {
-  "name": "front",
+  "name": "app5",
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
@@ -15,18 +15,16 @@
     "@angular/animations": "^5.2.0",
     "@angular/common": "^5.2.0",
     "@angular/compiler": "^5.2.0",
-    "@angular/core": "^5.2.0",
+    "@angular/core": "^5.2.3",
     "@angular/forms": "^5.2.0",
     "@angular/http": "^5.2.0",
     "@angular/platform-browser": "^5.2.0",
     "@angular/platform-browser-dynamic": "^5.2.0",
     "@angular/router": "^5.2.0",
-    "angular-highcharts": "^5.2.10",
     "angular2-flash-messages": "^2.0.5",
     "angular2-jwt": "^0.2.3",
     "angular2-select": "^1.0.0-beta.3",
     "angular2-tinymce": "^2.1.2",
-    "chart.js": "^2.7.2",
     "core-js": "^2.4.1",
     "highcharts": "^6.0.7",
     "ng-socket-io": "^0.2.4",
@@ -37,7 +35,7 @@
     "zone.js": "^0.8.19"
   },
   "devDependencies": {
-    "@angular/cli": "~1.7.1",
+    "@angular/cli": "^1.6.1",
     "@angular/compiler-cli": "^5.2.0",
     "@angular/language-service": "^5.2.0",
     "@types/highcharts": "^5.0.21",

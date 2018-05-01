@@ -11,9 +11,15 @@
 	                        	<span> $ {{customer.amount}} /</span> <sub>Month</sub> 
 	                        </p>
 	                        <p class="card-header text-center text-white">{{customer.planType}} Months</p>
-	                       	<a rel="tooltip" title="Buy" class="btn btn-success btn-simple btn-xs text-white" (click)="purchasePlan(customer)">
-	                        	Purchase  
+	                       	<a rel="tooltip" title="Buy" style="margin-bottom: 10px;" class="btn btn-success btn-simple btn-xs text-white" (click)="purchasePlan(customer)">
+	                        	Purchase  via Paypal
 	                        </a>
+	                       	<a rel="tooltip" title="Buy" style="margin-bottom: 10px;" class="btn btn-success btn-simple btn-xs text-white" (click)="purchasePlan(customer)">
+	                        	Purchase  via ETH
+	                        </a>
+	                       	<a rel="tooltip" title="Buy" style="margin-bottom: 10px;" class="btn btn-success btn-simple btn-xs text-white" (click)="purchasePlan(customer)">
+	                        	Purchase  via LTC
+							</a>
                         </div>
                     </div>
             	</div>

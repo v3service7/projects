@@ -66,7 +66,12 @@ export class BittrexService {
       });
   }
   getCurrency() {
-    let observable = new Observable(observer => {
+      return this.http.get(globalVariable.url + 'bittrexApi/currency')
+          .map((response: Response) => {
+          let data = response.json();
+          return data;
+        });
+    /*let observable = new Observable(observer => {
       this.socket.on('allCurrency', (data) => {
         observer.next(data);
       });
@@ -74,7 +79,7 @@ export class BittrexService {
         this.socket.disconnect();
       };
     });
-    return observable;
+    return observable;*/
   }
 
     getOpenOrder(coin){

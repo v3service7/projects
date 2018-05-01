@@ -3,32 +3,31 @@ import { Http, Response, Headers, Jsonp } from '@angular/http';
 import 'rxjs/add/operator/map';
 import { Observable } from 'rxjs/Observable';
 import { Socket } from 'ng-socket-io';
-import * as globalVariable from "../global";
-
+import * as globalVariable from '../global';
 
 @Injectable()
 export class BinanceService  {
-	authToken: any;
-  	constructor(private http: Http,private _jsonp: Jsonp, private socket: Socket) {
-    	const token = localStorage.getItem('id_token_admin');
-    	this.authToken = token;
-  	}
+    authToken: any;
+      constructor(private http: Http,private _jsonp: Jsonp, private socket: Socket) {
+        const token = localStorage.getItem('id_token_admin');
+        this.authToken = token;
+      }
 
-  	reConnect(){
-  		this.socket.disconnect();
-  		setTimeout(()=>{
-  			this.socket.connect();
-  		},3000)
+      reConnect(){
+          this.socket.disconnect();
+          setTimeout(()=>{
+              this.socket.connect();
+          },3000)
 
-  	}
+      }
 
-  	getAuthenticate(data){
-  		return this.http.post(globalVariable.url + 'binance/authenticate',data)
-      		.map((response: Response) => {
-        	let data = response.json();
-        	return data;
-      	});
-  	}
+      getAuthenticate(data){
+          return this.http.post(globalVariable.url + 'binance/authenticate',data)
+              .map((response: Response) => {
+            let data = response.json();
+            return data;
+          });
+      }
 
     getBalance(){
       return this.http.get(globalVariable.url + 'binance/balances')
@@ -38,13 +37,13 @@ export class BinanceService  {
         });
     }
 
-  	getCurrency(){
-  		return this.http.get(globalVariable.url + 'binance/prices')
-      		.map((response: Response) => {
-        	let data = response.json();
-        	return data;
-      	});
-  	}
+      getCurrency() {
+          return this.http.get(globalVariable.url + 'binance/prices')
+              .map((response: Response) => {
+            let data = response.json();
+            return data;
+          });
+      }
 
     buyLimit(coin,form){
       return this.http.get(globalVariable.url + 'binance/trade-buy-limit?symbol='+coin+'&quantity='+form.buy+'&price='+form.price)
@@ -78,32 +77,32 @@ export class BinanceService  {
         });
     }
 
-  	getOpenOrder(coin){
-  		return this.http.get(globalVariable.url + 'binance/trade-all-order?symbol='+coin)
-      		.map((response: Response) => {
-        	let data = response.json();
-        	return data;
-      	});
-  	}
-	
-	getMarketName(data){
-		this.socket.emit('binanceMarketName', data);
-	}
+      getOpenOrder(coin){
+          return this.http.get(globalVariable.url + 'binance/trade-all-order?symbol='+coin)
+              .map((response: Response) => {
+            let data = response.json();
+            return data;
+          });
+      }
 
-	getMarketSummary() {
-		let observable = new Observable(observer => {      
-			this.socket.on('binanceMarketSummary', (data) => {       
-				observer.next(data);
-			});
-			return () => {
-				this.socket.disconnect();
-			};
-		});
-		return observable;
-	}
+    getMarketName(data){
+        this.socket.emit('binanceMarketName', data);
+    }
+
+    getMarketSummary() {
+        let observable = new Observable(observer => {
+            this.socket.on('binanceMarketSummary', (data) => {
+                observer.next(data);
+            });
+            return () => {
+                this.socket.disconnect();
+            };
+        });
+        return observable;
+    }
 
     getAlertNotify() {
-        let observable = new Observable(observer => {      
+        let observable = new Observable(observer => {
             this.socket.on('binanceAlert', (data) => {
                 observer.next(data);
             });
@@ -114,22 +113,23 @@ export class BinanceService  {
         return observable;
     }
 
-	getMarketHistory() {
-		let observable = new Observable(observer => {      
-			this.socket.on('binanceMarketHistory', (data) => {
-        		observer.next(data);
-			});
-			return () => {
-				this.socket.disconnect();
-			};
-		});
-		return observable;
-	}
-  getDepthChart(){  
-      return this._jsonp.get('https://www.highcharts.com/samples/data/jsonp.php?filename=aapl-c.json&callback=JSONP_CALLBACK')
-          .map((response: Response) => {
-          let data = response.json();
-          return data;
+    getMarketHistory() {
+        let observable = new Observable(observer => {
+            this.socket.on('binanceMarketHistory', (data) => {
+                observer.next(data);
+            });
+            return () => {
+                this.socket.disconnect();
+            };
         });
-  }
+        return observable;
+    }
+
+    getTradeHistory(coin) {
+        return this.http.get(globalVariable.url + 'binance/trade-history?symbol=' + coin )
+            .map((response: Response) => {
+                const data = response.json();
+                return data;
+            });
+    }
 }
