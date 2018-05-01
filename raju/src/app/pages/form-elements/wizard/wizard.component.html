@@ -1,0 +1,577 @@
+
+<div class="row">
+    <div class="col-12">
+        <div widget class="card">
+            <div class="card-header">
+                <span>Form Wizard</span>
+                <div class="widget-controls"> 
+                    <a data-widgster="expand" href="#" class="transition"><i class="fa fa-chevron-down"></i></a>
+                    <a data-widgster="collapse" href="#" class="transition"><i class="fa fa-chevron-up"></i></a>
+                    <a data-widgster="fullscreen" href="#" class="transition"><i class="fa fa-expand"></i></a>
+                    <a data-widgster="restore" href="#" class="transition"><i class="fa fa-compress"></i></a>                          
+                    <a data-widgster="close" href="#" class="transition"><i class="fa fa-times"></i></a>
+                </div>        
+            </div>
+            <div class="card-body widget-body">
+                <div class="row">
+                    <div *ngFor="let step of steps; let last = last" class="col-md-2 col-sm-6 col-12 step" [class.active]="step.active" [class.valid]="step.valid" [ngClass]="{'last' : last }">
+                        <div class="step-icon">
+                            <i class="fa {{ step.icon }}" aria-hidden="true"></i>
+                        </div> 
+                        <span class="step-name" [class.active]="step.active" [class.valid]="step.valid">{{step.name}}</span>    
+                    </div> 
+                </div>               
+             
+                <div *ngFor="let step of steps" [hidden]="!step.active" class="col form-wizard">
+
+                    <div class="row form-title">
+                        <h4><i class="fa {{ step.icon }}"></i> {{step.name}}</h4>
+                    </div>
+
+                    <div *ngIf="step.name=='Categories'" class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label class="form-control-label">Categories</label>
+                            <input type="text" class="form-control" id="categories" [(ngModel)]="searchCategories" placeholder="Search">
+                            <ul class="list-group main1">
+                            <li class="list-group-item" [ngClass]="sector.active ? 'active' : ''" *ngFor="let sector of sectors | SearchPipe : searchCategories; index as i" (click)="selectSector(sector.Code)" >{{sector.Name}}</li>
+                            <li *ngIf="sectors.length == 0" class="text-center">No record found. </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label class="form-control-label">Industries</label>
+                            <input type="text" class="form-control" id="categories" [(ngModel)]="searchIndustries" placeholder="Search">
+                            <ul class="list-group main1">
+                            <li class="list-group-item" [ngClass]="industry.active ? 'active' : ''" *ngFor="let industry of industries | SearchPipe : searchIndustries ; index as i" (click)="selectIndustry(industry.Code)">{{industry.Name}}</li>
+                            <li *ngIf="industries.length == 0" class="text-center">No record found.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    </div>
+
+    <form *ngIf="step.name=='Product Details'" [formGroup]="productForm" class="row">      
+    <div class="col-sm-6">
+
+            <div class="form-group" [ngClass]="{'has-danger' : step.hasError && productForm.get('ProductName').hasError('required'), 'has-success' : !productForm.get('ProductName').hasError('required') }">
+                <label class="form-control-label">Name</label>
+                <input formControlName="ProductName"  [ngClass]="{'form-control-danger' :  productForm.get('ProductName').hasError('required'), 'form-control-success' :  !productForm.get('ProductName').hasError('required') }" type="text" class="form-control"> 
+                <span class="help-block help-block-custom text-danger" *ngIf="step.hasError && productForm.get('ProductName').hasError('required')">Name is required</span>
+                                            
+            </div>
+
+            <div class="form-group" [ngClass]="{'has-danger' : step.hasError && productForm.get('ProductDescription').hasError('required'), 'has-success' : !productForm.get('ProductDescription').hasError('required') }">
+                <label class="form-control-label">Description</label>
+                <textarea formControlName="ProductDescription" class="form-control" [ngClass]="{'form-control-danger' :  productForm.get('ProductDescription').hasError('required'), 'form-control-success' :  !productForm.get('ProductDescription').hasError('required') }" type="text"></textarea> 
+                <span class="help-block help-block-custom text-danger" *ngIf="step.hasError && productForm.get('ProductDescription').hasError('required')">Description is required</span>                             
+            </div> 
+
+
+            <div class="form-group" [ngClass]="{'has-danger' : step.hasError && productForm.get('UniversalProductCode').hasError('required'), 'has-success' : !productForm.get('UniversalProductCode').hasError('required') }">
+                <label class="form-label">Universal Product Code</label>
+                <input formControlName="UniversalProductCode" [ngClass]="{'form-control-danger' :  productForm.get('UniversalProductCode').hasError('required'), 'form-control-success' :  !productForm.get('UniversalProductCode').hasError('required') }" type="text" class="form-control"> 
+                <span class="help-block help-block-custom text-danger" *ngIf="step.hasError && productForm.get('UniversalProductCode').hasError('required')">Universal Product Code is required</span>                             
+            </div> 
+            
+            <div class="form-group" [ngClass]="{'has-danger' : step.hasError && productForm.get('EuropeanArticleNumber').hasError('required'), 'has-success' : !productForm.get('EuropeanArticleNumber').hasError('required') }">
+                <label class="form-control-label">European Article No</label>
+                <input formControlName="EuropeanArticleNumber" [ngClass]="{'form-control-danger' :  productForm.get('EuropeanArticleNumber').hasError('required'), 'form-control-success' :  !productForm.get('EuropeanArticleNumber').hasError('required') }" type="text"class="form-control"> 
+                <span class="help-block help-block-custom text-danger" *ngIf="step.hasError && productForm.get('EuropeanArticleNumber').hasError('required')">European Article  Number code is required</span>
+            </div>
+
+            <div class="form-group" [ngClass]="{'has-danger' : step.hasError && productForm.get('CompanyProductId').hasError('required'), 'has-success' : !productForm.get('CompanyProductId').hasError('required') }">
+                <label class="form-control-label">Company Product Code </label>
+                <input formControlName="CompanyProductId" [ngClass]="{'form-control-danger' :  productForm.get('CompanyProductId').hasError('required'), 'form-control-success' :  !productForm.get('CompanyProductId').hasError('required') }" type="text" class="form-control"> 
+                <span class="help-block help-block-custom text-danger" *ngIf="step.hasError && productForm.get('CompanyProductId').hasError('required')">Company product code  is required</span>            
+            </div>
+
+            <div class="form-group" [ngClass]="{'has-danger' : step.hasError && productForm.get('ProductionCapacity').hasError('required'), 'has-success' : !productForm.get('ProductionCapacity').hasError('required') }">
+                <label class="form-control-label">Production Capacity</label>
+                <input formControlName="ProductionCapacity" [ngClass]="{'form-control-danger' :  productForm.get('ProductionCapacity').hasError('required'), 'form-control-success' :  !productForm.get('ProductionCapacity').hasError('required') }" type="text" class="form-control"> 
+                <span class="help-block help-block-custom text-danger" *ngIf="step.hasError && productForm.get('ProductionCapacity').hasError('required')">Production Capacity is required</span>            
+            </div>
+
+            <div class="form-group" [ngClass]="{'has-danger' : step.hasError && productForm.get('SampleAvailability').hasError('required'), 'has-success' : !productForm.get('SampleAvailability').hasError('required') }">
+                <label class="form-control-label">Is Sample Available ?</label>
+                <label class="switch">
+                <input type="checkbox" (click)="updateSampleAvailability()">
+                <span class="slider round"></span>
+                </label>
+                <span class="help-block help-block-custom text-danger" *ngIf="step.hasError && productForm.get('SampleAvailability').hasError('required')">Sample Availability is required</span>            
+            </div>
+
+            <div class="form-group" [ngClass]="{'has-danger' : step.hasError && productForm.get('SampleFree').hasError('required'), 'has-success' : !productForm.get('SampleFree').hasError('required') }">
+
+                <label class="form-control-label">Is Sample Free ?</label>                
+                <label class="switch">
+                <input type="checkbox" (click)="updateSampleFree()">
+                <span class="slider round"></span>
+                </label>
+                <span class="help-block help-block-custom text-danger" *ngIf="step.hasError && productForm.get('SampleFree').hasError('required')">Sample Free is required</span>
+            </div>
+                               
+
+    </div>
+
+        <div class="col-sm-6">
+
+        <h5> Specifications </h5>
+
+        <table class="table table-bordered table-sm">
+        <thead>
+        <tr>
+        <th>Specifications</th>
+        <th>Value</th>
+        <th>Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr formArrayName="items"
+        *ngFor="let item of productForm.get('items').controls; let i = index; ">
+        <ng-container [formGroupName]="i">
+        <td><input formControlName="Name" class="form-control" placeholder="Name"></td>
+        <td><input formControlName="Value" class="form-control" placeholder="Value"></td>
+        <td>
+        <i class="fa fa-window-close-o fa-2x fa-icon-color-danger" aria-hidden="true" (click)="removeItem(i)"></i></td>
+        </ng-container>
+        </tr>
+        </tbody>
+        </table>
+        <div class="text-center"><i class="fa fa-plus-square-o fa-2x fa-icon-color-success " aria-hidden="true" (click)="addItem()"></i></div>
+        </div>
+
+
+</form>
+
+                   
+
+
+                    <div *ngIf="step.name=='Media'" class="row">
+                        <div class="col-sm-6">
+                            <div class="panel">
+                                <div class="panel panel-default">
+                                Images
+                                </div>
+                            </div>
+                            <div class="col-sm-6 offset-sm-3">
+                                <az-image-uploader (valueChange)="imageChange($event)"></az-image-uploader>
+                            </div>
+                            <div class="col-sm-6 offset-sm-3 text-center">
+                                
+                             <form [formGroup]="imageUploadForm" (ngSubmit)="uploadProductImage()">
+                                <div class="form-group" *ngIf="!imageUploadForm.get('Image').hasError('required')">
+                                <input type="text" formControlName="Name" class="form-control" id="image1" aria-describedby="ImageName" placeholder="Name">
+                                </div>
+                                <button type="submit" [disabled]="!imageUploadForm.valid" class="btn btn-success btn-sm">Save</button>
+                             </form> 
+<!-- 
+                             <form [formGroup]="imageUploadForm" (ngSubmit)="uploadProductImage()" >
+                             <input type="file" formControlName="file" >    
+                             <input type="submit" name="abc" value="abc">
+                             </form> -->
+
+                         </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="panel">
+                                <div class="panel panel-default">
+                                Videos
+                                </div>
+                            </div>
+                            <div>
+                            <form [formGroup]="videoUrlsForm">
+                            <table class="table table-bordered table-sm">
+                            <tbody>
+                            <tr formArrayName="VideoUrls"
+                            *ngFor="let item of videoUrlsForm.get('VideoUrls').controls; let i = index; ">
+                            <ng-container [formGroupName]="i">
+                            <td><input formControlName="Name" class="form-control" placeholder="Name"></td>
+                            <td><input formControlName="Url" class="form-control" placeholder="Url"></td>
+                            <td>
+                            <i *ngIf="videoUrlsForm.controls.VideoUrls.controls.length > 1" class="fa fa-window-close-o fa-2x fa-icon-color-danger" aria-hidden="true" (click)="removeVideoUrl(i)"></i></td>
+                            </ng-container>
+                            </tr>
+                            </tbody>
+                            </table>
+                            
+                            <div class="text-center">
+                                <button type="button" class="btn btn-info btn-sm" (click)="addVideoUrl()"> + Add </button>
+                                <button type="submit" [disabled]="!videoUrlsForm.valid" class="btn btn-success btn-sm">Save</button>
+                            </div>
+                            </form>
+                            </div>
+                        </div>
+                    </div>
+                   
+                    <form *ngIf="step.name=='Sample Detail'" [formGroup]="sampleDetail" class="row">
+                        <div class="col-sm-6">
+                        <div class="form-group" [ngClass]="{'has-danger' : step.hasError && sampleDetail.get('SampleCost').hasError('required'), 'has-success' : !sampleDetail.get('SampleCost').hasError('required') }">
+                        <label class="form-control-label">Sample Cost</label>
+                        <input formControlName="SampleCost"  [ngClass]="{'form-control-danger' :  sampleDetail.get('SampleCost').hasError('required'), 'form-control-success' :  !sampleDetail.get('SampleCost').hasError('required') }" type="number" class="form-control" placeholder="Cost"> 
+                        <span class="help-block help-block-custom text-danger" *ngIf="step.hasError && sampleDetail.get('SampleCost').hasError('required')">Sample Cost is required</span>                        
+                        </div>
+
+
+                         <div class="form-group" [ngClass]="{'has-danger' : step.hasError && sampleDetail.get('SampleQuantity').hasError('required'), 'has-success' : !sampleDetail.get('SampleQuantity').hasError('required') }">
+                        <label class="form-control-label">Sample Quantity</label>
+                        <input type="number" formControlName="SampleQuantity"  [ngClass]="{'form-control-danger' :  sampleDetail.get('SampleQuantity').hasError('required'), 'form-control-success' :  !sampleDetail.get('SampleQuantity').hasError('required') }" class="form-control" placeholder="Quantity"> 
+                        <span class="help-block help-block-custom text-danger" *ngIf="step.hasError && sampleDetail.get('SampleQuantity').hasError('required')">Sample Quantity is required</span>                        
+                        </div> 
+
+                        <div class="form-group" [ngClass]="{'has-danger' : step.hasError && sampleDetail.get('SampleUnit').hasError('required'), 'has-success' : !sampleDetail.get('SampleUnit').hasError('required') }">
+                        <label class="form-control-label">Sample Unit</label>
+                        <select formControlName="SampleUnit"  [ngClass]="{'form-control-danger' :  sampleDetail.get('SampleUnit').hasError('required'), 'form-control-success' :  !sampleDetail.get('SampleUnit').hasError('required') }" type="text" class="form-control" placeholder="Unit"> 
+
+                         <option *ngFor="let item of UnitS" value="{{item.UnitSid}}">{{item.UnitName}}</option>
+                         <!-- <option value="2">40' Container</option>
+                         <option value="3">40' HQ Container</option> -->
+
+                        </select>
+                        <span class="help-block help-block-custom text-danger" *ngIf="step.hasError && sampleDetail.get('SampleUnit').hasError('required')">Sample Unit is required</span>                        
+                        </div>
+
+                        <div class="form-group" [ngClass]="{'has-danger' : step.hasError && sampleDetail.get('SampleIncoTerm').hasError('required'), 'has-success' : !sampleDetail.get('SampleIncoTerm').hasError('required') }">
+                        <label class="form-control-label">Sample IncoTerm</label>
+                        <select formControlName="SampleIncoTerm"  [ngClass]="{'form-control-danger' :  sampleDetail.get('SampleIncoTerm').hasError('required'), 'form-control-success' :  !sampleDetail.get('SampleIncoTerm').hasError('required') }" type="text" class="form-control" placeholder="Detail">
+                         <option value="{{t}}" *ngFor="let t of masterIncoTerms">{{t}}</option>
+                        </select>
+                        <span class="help-block help-block-custom text-danger" *ngIf="step.hasError && sampleDetail.get('SampleIncoTerm').hasError('required')">Sample IncoTerm is required</span>                        
+                        </div>
+
+                        <div class="form-group" [ngClass]="{'has-danger' : step.hasError && sampleDetail.get('SampleCostValidity').hasError('required'), 'has-success' : !sampleDetail.get('SampleCostValidity').hasError('required') }">
+                        <label class="form-control-label">Cost Validity</label>
+                        <input formControlName="SampleCostValidity"  [ngClass]="{'form-control-danger' :  sampleDetail.get('SampleCostValidity').hasError('required'), 'form-control-success' :  !sampleDetail.get('SampleCostValidity').hasError('required') }" type="" class="form-control" [readonly]="true"> 
+                        <span class="help-block help-block-custom text-danger" *ngIf="step.hasError && sampleDetail.get('SampleCostValidity').hasError('required')">Sample Cost Validity is required</span>
+                        </div>
+
+
+                        <div class="form-group" [ngClass]="{'has-danger' : step.hasError && sampleDetail.get('SampleNotes').hasError('required'), 'has-success' : !sampleDetail.get('SampleNotes').hasError('required') }">
+                        <label class="form-control-label">Note</label>
+                        <textarea formControlName="SampleNotes"  [ngClass]="{'form-control-danger' :  sampleDetail.get('SampleNotes').hasError('required'), 'form-control-success' :  !sampleDetail.get('SampleNotes').hasError('required') }" type="text" class="form-control" placeholder="Note"></textarea> 
+                        <span class="help-block help-block-custom text-danger" *ngIf="step.hasError && sampleDetail.get('SampleNotes').hasError('required')">Sample Notes Validity is required</span>
+                        </div>
+                        </div>
+
+                        <div class="col-sm-6">
+                            <h6>Payment ways</h6>
+                            <div class="row">
+                            <div class="col-sm-6 mb-10">
+                                <div class="card" [ngClass]="paytype == 'paypal' ? 'paytypeactive' : ''" (click)="paymentType('paypal')">
+                                    <div class="card card-body">
+                                <img src="https://emspay.nl/sites/emspay.nl/files/images/paypal-logo1.png" width="100%" height="100px">        
+                                    </div>
+                                </div>
+                                
+                            </div>
+                            <div class="col-sm-6 mb-10">
+                                <div class="card" [ngClass]="paytype == 'wu' ? 'paytypeactive' : ''" (click)="paymentType('wu')">
+                                    <div class="card card-body">
+                                <img src="http://pluspng.com/img-png/logo-western-union-png-https-www-westernunion-com-blog-wp-content-uploads-2016-06-cropped-wu-sec-cmyk-wu-logo-png-512.png" width="100%" height="100px">        
+                                    </div>
+                                </div>
+                                
+                            </div><div class="col-sm-6 mb-10">
+                                <div class="card" [ngClass]="paytype == 'moneygaram' ? 'paytypeactive' : ''" (click)="paymentType('moneygaram')">
+                                    <div class="card card-body">
+                                <img src="https://pbs.twimg.com/profile_images/884805632825507842/whxOBZmD_400x400.jpg" width="100%" height="100px">        
+                                    </div>
+                                </div>
+                                
+                            </div><div class="col-sm-6 mb-10">
+                                <div class="card" [ngClass]="paytype == 'creditcard' ? 'paytypeactive' : ''" (click)="paymentType('creditcard')">
+                                    <div class="card card-body">
+                                <img src="https://cdn1.iconfinder.com/data/icons/credit-card-icons/512/cards.png" width="100%" height="100px">        
+                                    </div>
+                                </div>
+                                
+                            </div>
+                        </div>
+                        </div>
+                     
+                    </form>
+                    <!-- step.name=='For Buyers' -->
+                    <div *ngIf="step.name=='For Buyers'" class="row">
+                        <div class="col-sm-6" style="padding-right: 0;">
+                            <div class="form-group">
+                            <input [(ngModel)]="tag" type="text" class="form-control" placeholder="Keyword" (keyup.enter)="addTag()" />
+
+                            <span class="help-block help-block-custom text-danger" *ngIf="step.hasError && ProductKeywordsForm.get('Word').hasError('required')">Key Words is required</span> 
+
+                            <div class="chip" *ngFor="let tag of tags; index as i">
+                              {{tag}}
+                              <span class="closebtn" (click)="removeTag(i)">&times;</span>
+                            </div>
+
+
+                            </div>
+                        </div>
+                        <div class="col-sm-1" style="padding-left: 0;">
+                            <div class="form-group">
+                            <button (click)="addTag()" type="button" class="btn btn-success"> Add New </button> 
+                        </div>
+                        </div>
+                        
+                     
+                    </div>
+
+           <!-- step.name=='Trade Detail' -->
+                    <div *ngIf="step.name=='Trade Detail'">
+                        <div id="accordion">
+  <div class="card">
+    <div class="card-header" id="headingOne">
+      <h5 class="mb-0">
+        <button class="btn btn-link trade-accod-custom-color" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+          <i class="fa fa-university" aria-hidden="true"></i>  We can export product under following INCOTERMS
+        </button>
+      </h5>
+    </div>
+
+    <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+      <div class="card-body">
+        <div class="row">
+            <div class="col-sm-6">
+                <button class="btn btn-sm btn-success" data-toggle="modal" data-target="#Incoterm"> Add Incoterm cost details</button>
+            </div>
+            <div class="col-sm-6">
+                <table class="table table-bordered table-sm" *ngIf="incoTerm">
+                    <thead>
+                    <tr>                    
+                    <th scope="col">IncoTerm</th>
+                    <th scope="col">Action</th>
+                    <!-- <th scope="col"></th> -->
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                    <td>
+                        {{incoTerm.TermName}}
+                    </td>
+                    <td>
+                        <i class="fa fa-pencil-square-o" aria-hidden="true" (click)="updateTradeDetailForm()"></i>
+                        <i class="fa fa-times" aria-hidden="true" ></i>
+                    </td>
+                    <!-- <td>
+                        <input class="form-control" [disabled]="true" placeholder="Other">
+                    </td> -->
+                    </tr>
+                    </tbody>
+                    </table>
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-header" id="headingTwo">
+      <h5 class="mb-0">
+        <button class="btn btn-link collapsed trade-accod-custom-color" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+          <i class="fa fa-file-text" aria-hidden="true"></i>  Product export Payment Terms
+        </button>
+      </h5>
+    </div>
+    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
+      <div class="card-body">
+        <div class="col-sm-12">
+            
+                  <button class="btn btn-sm" [ngClass]="this.tradeDetailOption.PaymentTerms.Selected.indexOf('LC') > -1 ? 'btn-info' : 'btn-default'" (click)="selectPaymentTerms('LC')">LC</button>
+               
+                
+                  <button class="btn btn-sm" [ngClass]="this.tradeDetailOption.PaymentTerms.Selected.indexOf('DC') > -1 ? 'btn-info' : 'btn-default'" (click)="selectPaymentTerms('DC')">DC</button>
+                
+                
+                  <button class="btn btn-sm" [ngClass]="this.tradeDetailOption.PaymentTerms.Selected.indexOf('DDP') > -1 ? 'btn-info' : 'btn-default'" (click)="selectPaymentTerms('DDP')">DDP</button>
+                
+               
+                  <button class="btn btn-sm" [ngClass]="this.tradeDetailOption.PaymentTerms.Selected.indexOf('CIP') > -1 ? 'btn-info' : 'btn-default'" (click)="selectPaymentTerms('CIP')">CIP</button>
+             
+                
+                  <button class="btn btn-sm" [ngClass]="this.tradeDetailOption.PaymentTerms.Selected.indexOf('TT') > -1 ? 'btn-info' : 'btn-default'" (click)="selectPaymentTerms('TT')">TT</button>
+                
+
+          </div>
+      </div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-header" id="headingThree">
+      <h5 class="mb-0">
+        <button class="btn btn-link collapsed trade-accod-custom-color" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+          <i class="fa fa-money" aria-hidden="true"></i>  Product export Payment Ways
+        </button>
+      </h5>
+    </div>
+    <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
+      <div class="card-body">
+        <div class="col-sm-12">
+
+                <div class="row">
+                <div class="col-sm-3 mb-10">
+                    <div class="card" [ngClass]="this.tradeDetailOption.PaymentWays.Selected.indexOf('paypal') > -1 ? 'paytypeactive' : ''"  (click)="selectedPaymentWays('paypal')">
+                        <div class="card card-body">
+                    <img src="https://emspay.nl/sites/emspay.nl/files/images/paypal-logo1.png" width="100%" height="50px">        
+                        </div>
+                    </div>
+                    
+                </div>
+                <div class="col-sm-3 mb-10">
+                    <div class="card" [ngClass]="this.tradeDetailOption.PaymentWays.Selected.indexOf('wu') > -1 ? 'paytypeactive' : ''"   (click)="selectedPaymentWays('wu')">
+                        <div class="card card-body">
+                    <img src="http://pluspng.com/img-png/logo-western-union-png-https-www-westernunion-com-blog-wp-content-uploads-2016-06-cropped-wu-sec-cmyk-wu-logo-png-512.png" width="100%" height="50px">        
+                        </div>
+                    </div>
+                    
+                </div><div class="col-sm-3 mb-10">
+                    <div class="card" [ngClass]="this.tradeDetailOption.PaymentWays.Selected.indexOf('moneygaram') > -1 ? 'paytypeactive' : ''" (click)="selectedPaymentWays('moneygaram')">
+                        <div class="card card-body">
+                    <img src="https://pbs.twimg.com/profile_images/884805632825507842/whxOBZmD_400x400.jpg" width="100%" height="50px">        
+                        </div>
+                    </div>
+                    
+                </div><div class="col-sm-3 mb-10">
+                    <div class="card" [ngClass]="this.tradeDetailOption.PaymentWays.Selected.indexOf('creditcard') > -1 ? 'paytypeactive' : ''" (click)="selectedPaymentWays('creditcard')">
+                        <div class="card card-body">
+                    <img src="https://cdn1.iconfinder.com/data/icons/credit-card-icons/512/cards.png" width="100%" height="50px">        
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+        </div>
+        </div>
+        </div>
+        </div>
+
+        </div>
+<!-- step.name=='Confirm' -->
+
+        <div *ngIf="step.name=='Confirm'">
+            <h5>Confirm</h5>
+            <div class="card">
+            <div class="card-header">Categories</div>
+            <div class="card-body">
+                    <div class="form-group row">
+                    <label for="staticEmail" class="col-sm-2 col-form-label">Email </label>
+                    <div class="col-sm-10">
+                    sadfaafafd
+                    </div>
+                    </div>
+                    <div class="form-group row">
+                    <label for="inputPassword" class="col-sm-2 col-form-label"> Password </label>
+                    <div class="col-sm-10">
+                    dfdsfsd
+                    </div>
+                    </div>
+            </div>
+            </div>
+        </div>
+
+
+                </div> 
+
+                <div class="row"> 
+                    <div class="col-12">
+                        <button class="btn btn-primary pull-left" (click)="prev()"><i class="fa fa-chevron-left arrow"></i>&nbsp; Prev Step</button>
+                        <button *ngIf="!steps[steps.length-1].active" class="btn btn-primary pull-right" (click)="next()">Next Step &nbsp;<i class="fa fa-chevron-right arrow"></i></button>
+                        <button *ngIf="steps[steps.length-1].active" class="btn btn-primary pull-right" (click)="confirm()">Confirm &nbsp;<i class="fa fa-check arrow"></i></button>
+                    </div> 
+                </div>         
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="modal fade bd-example-modal-lg" id="Incoterm" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+        <form [formGroup]="tradeDetailForm" (ngSubmit)="saveIncoTermCostDetail()">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle"> Incoterm </h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+      
+      <div class="row">
+          <div class="col-sm-3">
+            <ul class="list-group">
+            <li class="list-group-item" *ngFor="let t of masterIncoTerms" (click)="selectIncoTermInTrade(t)" [ngClass]="this.tradeDetailForm.get('TermName').value == t ? 'active' : ''">{{t}}</li>
+            </ul>
+          </div>
+          <div class="col-sm-9">
+                <h6>Cost Info</h6>
+                <table class="table table-bordered table-sm">
+                <thead>
+                <tr>
+                <th>Cost</th>
+                <th>Quantity</th>
+                <th>Unit</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr formArrayName="CostDetail"
+                *ngFor="let item of tradeDetailForm.get('CostDetail').controls; let i = index; ">
+                <ng-container [formGroupName]="i">
+                <td><input type="number" formControlName="Cost" class="form-control" placeholder="Cost"></td>
+                <td><input type="number" formControlName="Quantity" class="form-control" placeholder="Quantity"></td>
+                <td><select formControlName="Unit" class="form-control" placeholder="Unit">
+                    <option *ngFor="let item of UnitS" value="{{item.UnitSid}}">{{item.UnitName}}</option>
+                </select></td>
+                <!-- <td><input formControlName="CostDetail" class="form-control" placeholder="Value"></td> -->
+                <td>
+                <i class="fa fa-window-close-o fa-2x fa-icon-color-danger" aria-hidden="true" (click)="removeItemCostTrade(i)"></i></td>
+                </ng-container>
+                </tr>
+                </tbody>
+                </table>
+                <div class="text-center">
+                     <i aria-hidden="true" class="fa fa-plus-square-o fa-2x fa-icon-color-success" (click)="addItemCostTrade(i)"></i>
+                </div>
+
+                    <h6>Negotiable Price</h6>
+                    <table class="table table-bordered table-sm">
+                    <thead>
+                    <tr>
+                    <th scope="col">Quantity</th>
+                    <th scope="col">Unit</th>
+                    <!-- <th scope="col"></th> -->
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                    <td>
+                        <input type="number" formControlName="NegotiableQuantity" class="form-control" placeholder="Negotiable Quantity">
+                    </td>
+                    <td>
+                    <input type="number" formControlName="NegotiableUnits" class="form-control" placeholder="Negotiable Units">
+                    </td>
+                    <!-- <td>
+                        <input class="form-control" [disabled]="true" placeholder="Other">
+                    </td> -->
+                    </tr>
+                    </tbody>
+                    </table>
+
+              <h6>Terms</h6>
+              <textarea rows="4" style="width:100%" formControlName="Terms" placeholder="Terms"></textarea>
+              <h6> Upload Document </h6>
+              <az-file-uploader></az-file-uploader>
+          </div>
+      </div>
+        
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-success" [disabled]="!tradeDetailForm.valid">Save</button>
+      </div>
+        </form>
+    </div>
+  </div>
+</div>
