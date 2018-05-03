@@ -824,7 +824,7 @@ export class MyProfileComponent implements OnInit {
     templateUrl: './setting.component.html',
     styleUrls: ['./setting.component.css']
 })
-export class SettingComponent implements OnInit, OnDestroy {
+export class SettingComponent implements AfterViewInit, OnInit, OnDestroy {
     parentMessage: any;
     id: any;
     customer: any;
@@ -877,6 +877,17 @@ export class SettingComponent implements OnInit, OnDestroy {
                 this.updateCategoryData();
             }
         }
+    }
+
+    ngAfterViewInit() {
+        setTimeout(() => {
+            FB.init({
+                autoLogAppEvents: true,
+                xFBml: true,
+                version: 'v2.12'
+            });
+            FB.XFBML.parse();
+        }, 3000);
     }
 
     getProfile() {
@@ -993,6 +1004,26 @@ export class SettingComponent implements OnInit, OnDestroy {
             $('#bookmarkDownBotton-' + this.bookmarks[index + 1]['_id']).attr('data-position', position);
             $('#bookmarkUpBotton-' + this.bookmarks[index]['_id']).attr('data-position', nextBookmarkPosition);
             $('#bookmarkUpBotton-' + this.bookmarks[index + 1]['_id']).attr('data-position', position);
+
+            const indexC = this.positions.findIndex((item) => {
+                return item._id === this.bookmarks[index]['_id'];
+            });
+            if (indexC > -1) {
+                this.positions[indexC]['position'] = nextBookmarkPosition;
+            } else {
+                this.positions.push({ '_id': this.bookmarks[index]['_id'], 'position': nextBookmarkPosition});
+            }
+
+            const indexN = this.positions.findIndex((item) => {
+                return item._id === this.bookmarks[index + 1]['_id'];
+            });
+            if (indexN > -1) {
+                this.positions[indexN]['position'] = position;
+            } else {
+                this.positions.push({ '_id': this.bookmarks[index + 1]['_id'], 'position': position });
+            }
+            /* console.log(nextBookmarkPosition, this.bookmarks[ + 1]['_id']);
+            console.log(position, this.bookmarks[index + 1]['_id']); */
             obj = {
                 type: type,
                 bookmark_id: bookmark_id,
@@ -1024,6 +1055,24 @@ export class SettingComponent implements OnInit, OnDestroy {
             $('#bookmarkUpBotton-' + this.bookmarks[index - 1]['_id']).attr('data-position', position);
             $('#bookmarkDownBotton-' + this.bookmarks[index]['_id']).attr('data-position', prevBookmarkPosition);
             $('#bookmarkDownBotton-' + this.bookmarks[index - 1]['_id']).attr('data-position', position);
+            const indexC = this.positions.findIndex((item) => {
+                return item._id === this.bookmarks[index]['_id'];
+            });
+            if (indexC > -1) {
+                this.positions[indexC]['position'] = prevBookmarkPosition;
+            } else {
+                this.positions.push({ '_id': this.bookmarks[index]['_id'], 'position': prevBookmarkPosition});
+            }
+
+            const indexN = this.positions.findIndex((item) => {
+                return item._id === this.bookmarks[index - 1]['_id'];
+            });
+            if (indexN > -1) {
+                this.positions[indexN]['position'] = position;
+            } else {
+                this.positions.push({ '_id': this.bookmarks[index - 1]['_id'], 'position': position });
+            }
+
             obj = {
                 type: type,
                 bookmark_id: bookmark_id,
@@ -1058,16 +1107,17 @@ export class SettingComponent implements OnInit, OnDestroy {
         for (let index = 1; index <= bookmakrItem.length; index++) {
             $('ul.list-group.bookmark-ul > li:nth-child(' + index + ') > div.row > div > .count-circle').text(index);
         }
-        console.log(obj);
+        // console.log(obj);
 
-        const index = this.positions.findIndex((item) => {
+        /* const index = this.positions.findIndex((item) => {
             return item._id === obj._id;
         });
         if (index > -1) {
             this.positions.splice(index, 1);
         } else {
             this.positions.push(obj);
-        }
+        } */
+        console.log(this.positions);
         /* this.bookmarkService.changePosition(obj).subscribe((data) => {
             if (!data.error) {
                 this.toastr.success('Bookmark position changed succesfully.', 'Success!');
@@ -1233,9 +1283,10 @@ export class SettingComponent implements OnInit, OnDestroy {
     }
 
     positionUpdate() {
+        console.log(this.positions);
         for (let index = 0; index < this.positions.length; index++) {
             const element = this.positions[index];
-            this.bookmarkService.changePosition(element).subscribe((data) => {
+            this.bookmarkService.bookmarkUpdate(element).subscribe((data) => {
                 if (!data.error) {
                     // this.toastr.success('Bookmark position changed succesfully.', 'Success!');
                 } else {
@@ -1635,6 +1686,8 @@ export class ViewComponent implements AfterViewInit, OnInit, OnDestroy {
             const theW = ($('body').width() - ($('body').width() / 50)) / cols;
             curColWidth = theW;
             $('iframe#bookmarkiframe').css('width', theW - 15);
+            $('.fb_iframe_widget').css('width', theW - 15);
+            $('.grid-item > .fb_iframe_widget').css('display', 'block');
             $('#showcaseSocialBlock > .fb-post > span > iframe').css('width', theW - 15);
             $('twitterwidget').css('width', theW - 15);
             $('twitterwidget').css('margin-top', '0px !important');
