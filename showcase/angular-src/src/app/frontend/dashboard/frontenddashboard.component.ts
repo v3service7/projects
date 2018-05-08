@@ -991,60 +991,185 @@ export class SettingComponent implements AfterViewInit, OnInit, OnDestroy {
         });
     }
 
+    array_move(arr, old_index, new_index) {
+        if (new_index >= arr.length) {
+            var k = new_index - arr.length + 1;
+            while (k--) {
+                arr.push(undefined);
+            }
+        }
+        arr.splice(new_index, 0, arr.splice(old_index, 1)[0]);
+        console.log(arr)
+        return arr; // for testing
+    };
+
+
+    moveUp(id) {
+            let _that = this;
+        $( document ).ready(function() {
+            let item =  $('#item-' + id);
+            var prev = item.prev();
+            if (prev.length == 0)
+                return;
+
+            let currentPos = item.attr('data-position');
+            let currentId = item.attr('data-id');
+            let prevPos = prev.attr('data-position');
+            let prevId = prev.attr('data-id');
+            item.attr('data-position',prevPos);
+            prev.attr('data-position',currentPos);
+            item.insertBefore(prev);
+            const indexC = _that.positions.findIndex((item) => {
+                return item._id === currentId;
+            });
+            if (indexC > -1) {
+                _that.positions[indexC]['position'] = prevPos;
+            } else {
+                _that.positions.push({ '_id': currentId, 'position': prevPos});
+            }
+
+            const indexN = _that.positions.findIndex((item) => {
+                return item._id === prevId;
+            });
+            if (indexN > -1) {
+                _that.positions[indexN]['position'] = currentPos;
+            } else {
+                _that.positions.push({ '_id': prevId, 'position': currentPos });
+            }
+
+            if ($('ul.bookmark-ul > li').is(':first-child')) {
+                $('ul.bookmark-ul > li:first-child > .row > div.move-botton > ul > li.move-up ').hide();
+            }
+            if ($('ul.bookmark-ul > li').is(':last-child')) {
+                $('ul.bookmark-ul > li:last-child > .row > div.move-botton > ul > li.move-down ').hide();
+            }
+            $('ul.bookmark-ul > li:not(:first-child) > .row > div.move-botton > ul > li.move-up ').show();
+            $('ul.bookmark-ul > li:not(:last-child) > .row > div.move-botton > ul > li.move-down ').show();
+            const bookmakrItem = $('ul.list-group.bookmark-ul li.bookmark-item');
+            for (let index = 1; index <= bookmakrItem.length; index++) {
+                $('ul.list-group.bookmark-ul > li:nth-child(' + index + ') > div.row > div > .count-circle').text(index);
+            }
+        });
+    }
+
+    moveDown(id) {
+            let _that = this;
+        $( document ).ready(function() {
+            let item =  $('#item-' + id);
+            console.log(item)
+            var next = item.next();
+            if (next.length == 0)
+                return;
+
+            let currentPos = item.attr('data-position');
+            let currentId = item.attr('data-id');
+            let nextPos = next.attr('data-position');
+            let nextId = next.attr('data-id');
+            item.attr('data-position',nextPos);
+            next.attr('data-position',currentPos);
+            item.insertAfter(next);
+
+            const indexC = _that.positions.findIndex((item) => {
+                return item._id === currentId;
+            });
+            if (indexC > -1) {
+                _that.positions[indexC]['position'] = nextPos;
+            } else {
+                _that.positions.push({ '_id': currentId, 'position': nextPos});
+            }
+
+            const indexN = _that.positions.findIndex((item) => {
+                return item._id === nextId;
+            });
+            if (indexN > -1) {
+                _that.positions[indexN]['position'] = currentPos;
+            } else {
+                _that.positions.push({ '_id': nextId, 'position': currentPos });
+            }
+
+            if ($('ul.bookmark-ul > li').is(':first-child')) {
+                $('ul.bookmark-ul > li:first-child > .row > div.move-botton > ul > li.move-up ').hide();
+            }
+            if ($('ul.bookmark-ul > li').is(':last-child')) {
+                $('ul.bookmark-ul > li:last-child > .row > div.move-botton > ul > li.move-down ').hide();
+            }
+            $('ul.bookmark-ul > li:not(:first-child) > .row > div.move-botton > ul > li.move-up ').show();
+            $('ul.bookmark-ul > li:not(:last-child) > .row > div.move-botton > ul > li.move-down ').show();
+            const bookmakrItem = $('ul.list-group.bookmark-ul li.bookmark-item');
+            for (let index = 1; index <= bookmakrItem.length; index++) {
+                $('ul.list-group.bookmark-ul > li:nth-child(' + index + ') > div.row > div > .count-circle').text(index);
+            }
+        });
+    }
+
     changePosition(type, bookmark_id) {
         const eleIndex = $('#item-' + bookmark_id).index();
         let nextBookmarkPosition, prevBookmarkPosition;
         let obj;
         if (type === 'down') {
             let position;
-            const index = $('#item-' + bookmark_id).index();
-            position = $('#bookmarkDownBotton-' + this.bookmarks[index]['_id']).attr('data-position');
-            nextBookmarkPosition = $('#bookmarkDownBotton-' + this.bookmarks[index + 1]['_id']).attr('data-position');
-            $('#bookmarkDownBotton-' + this.bookmarks[index]['_id']).attr('data-position', nextBookmarkPosition);
-            $('#bookmarkDownBotton-' + this.bookmarks[index + 1]['_id']).attr('data-position', position);
-            $('#bookmarkUpBotton-' + this.bookmarks[index]['_id']).attr('data-position', nextBookmarkPosition);
-            $('#bookmarkUpBotton-' + this.bookmarks[index + 1]['_id']).attr('data-position', position);
-
-            const indexC = this.positions.findIndex((item) => {
-                return item._id === this.bookmarks[index]['_id'];
-            });
-            if (indexC > -1) {
-                this.positions[indexC]['position'] = nextBookmarkPosition;
-            } else {
-                this.positions.push({ '_id': this.bookmarks[index]['_id'], 'position': nextBookmarkPosition});
-            }
-
-            const indexN = this.positions.findIndex((item) => {
-                return item._id === this.bookmarks[index + 1]['_id'];
-            });
-            if (indexN > -1) {
-                this.positions[indexN]['position'] = position;
-            } else {
-                this.positions.push({ '_id': this.bookmarks[index + 1]['_id'], 'position': position });
-            }
-            /* console.log(nextBookmarkPosition, this.bookmarks[ + 1]['_id']);
-            console.log(position, this.bookmarks[index + 1]['_id']); */
-            obj = {
-                type: type,
-                bookmark_id: bookmark_id,
-                category_id: this.id,
-                // tslint:disable-next-line:radix
-                position: parseInt(position)
-            };
-            for (let index = 0; index < this.bookmarks.length; index++) {
-                if (this.bookmarks[index]['position'] === position) {
-                    const temp = this.bookmarks[index + 1];
-                    this.bookmarks[index + 1] = this.bookmarks[index];
-                    this.bookmarks[index] = temp;
-                    break;
+            let _that = this;
+           /* let itemIndex = this.bookmarks.findIndex((item) => { return item._id === bookmark_id; });
+            this.array_move(this.bookmarks, itemIndex, itemIndex+1)
+            this.array_move(this.bookmarks, itemIndex+1, itemIndex)*/
+            //console.log(this.bookmarks)
+            $( document ).ready(function() {
+                let bookId = $('#item-' + bookmark_id);
+                let index = $('ul.list-group > li').index(bookId)
+                let nextIndex = index + 1;
+                console.log($('ul.list-group > li').index(bookId))
+                /*console.log(upIndex,'curerwent',bookmark_id)
+                console.log(upIndex+1 ,'next')*/
+                // let index = $('#item-' + bookmark_id).index();
+               /* console.log(index)
+                console.log(index + 1)*/
+                position = $('#bookmarkDownBotton-' + _that.bookmarks[index]['_id']).attr('data-position');
+                nextBookmarkPosition = $('#bookmarkDownBotton-' + _that.bookmarks[nextIndex]['_id']).attr('data-position');
+                $('#bookmarkDownBotton-' + _that.bookmarks[index]['_id']).attr('data-position', nextBookmarkPosition);
+                $('#bookmarkUpBotton-' + _that.bookmarks[index]['_id']).attr('data-position', nextBookmarkPosition);
+                $('#bookmarkDownBotton-' + _that.bookmarks[nextIndex]['_id']).attr('data-position', position);
+                $('#bookmarkUpBotton-' + _that.bookmarks[nextIndex]['_id']).attr('data-position', position);
+                //alert('current ' + $('#bookmarkDownBotton-' + _that.bookmarks[index]['_id']).attr('data-position') );
+                console.log('current',bookmark_id, _that.bookmarks[index]['_id'], index,  nextBookmarkPosition);
+                console.log('next', bookmark_id, _that.bookmarks[nextIndex]['_id'] , nextIndex , position);
+                //alert('next ' +  $('#bookmarkDownBotton-' + _that.bookmarks[index + 1]['_id']).attr('data-position'));
+                const indexC = _that.positions.findIndex((item) => {
+                    return item._id === _that.bookmarks[index]['_id'];
+                });
+                if (indexC > -1) {
+                    _that.positions[indexC]['position'] = nextBookmarkPosition;
+                } else {
+                    _that.positions.push({ '_id': _that.bookmarks[index]['_id'], 'position': nextBookmarkPosition});
                 }
-            }
-            // tslint:disable-next-line:radix
-            this.bookmarks[index]['position'] = parseInt(position);
-            // tslint:disable-next-line:radix
-            this.bookmarks[index + 1]['position'] = parseInt(nextBookmarkPosition);
-            const next = $('#item-' + bookmark_id).next();
-            $('#item-' + bookmark_id).insertAfter('#' + next[0]['id']);
+
+                const indexN = _that.positions.findIndex((item) => {
+                    return item._id === _that.bookmarks[index + 1]['_id'];
+                });
+                if (indexN > -1) {
+                    _that.positions[indexN]['position'] = position;
+                } else {
+                    _that.positions.push({ '_id': _that.bookmarks[index + 1]['_id'], 'position': position });
+                }
+                obj = {
+                    type: type,
+                    bookmark_id: bookmark_id,
+                    category_id: _that.id,
+                    position: parseInt(position)
+                };
+                for (let index = 0; index < _that.bookmarks.length; index++) {
+                    if (_that.bookmarks[index]['position'] === position) {
+                        const temp = _that.bookmarks[index + 1];
+                        _that.bookmarks[index + 1] = _that.bookmarks[index];
+                        _that.bookmarks[index] = temp;
+                        break;
+                    }
+                }
+                _that.bookmarks[index]['position'] = parseInt(position);
+                _that.bookmarks[index + 1]['position'] = parseInt(nextBookmarkPosition);
+                const next = $('#item-' + bookmark_id).next();
+                $('#item-' + bookmark_id).insertAfter('#' + next[0]['id']);
+                console.log($('ul.list-group > li').index(bookId))
+            });
         }
         if (type === 'up') {
             let position;
@@ -1055,6 +1180,8 @@ export class SettingComponent implements AfterViewInit, OnInit, OnDestroy {
             $('#bookmarkUpBotton-' + this.bookmarks[index - 1]['_id']).attr('data-position', position);
             $('#bookmarkDownBotton-' + this.bookmarks[index]['_id']).attr('data-position', prevBookmarkPosition);
             $('#bookmarkDownBotton-' + this.bookmarks[index - 1]['_id']).attr('data-position', position);
+            alert('current ' + $('#bookmarkUpBotton-' + this.bookmarks[index]['_id']).attr('data-position'));
+            alert('prev ' + $('#bookmarkUpBotton-' + this.bookmarks[index - 1]['_id']).attr('data-position'));
             const indexC = this.positions.findIndex((item) => {
                 return item._id === this.bookmarks[index]['_id'];
             });
@@ -1095,18 +1222,20 @@ export class SettingComponent implements AfterViewInit, OnInit, OnDestroy {
             const prev = $('#item-' + bookmark_id).prev();
             $('#item-' + bookmark_id).insertBefore('#' + prev[0]['id']);
         }
-        if ($('ul.bookmark-ul > li').is(':first-child')) {
-            $('ul.bookmark-ul > li:first-child > .row > div.move-botton > ul > li.move-up ').hide();
-        }
-        if ($('ul.bookmark-ul > li').is(':last-child')) {
-            $('ul.bookmark-ul > li:last-child > .row > div.move-botton > ul > li.move-down ').hide();
-        }
-        $('ul.bookmark-ul > li:not(:first-child) > .row > div.move-botton > ul > li.move-up ').show();
-        $('ul.bookmark-ul > li:not(:last-child) > .row > div.move-botton > ul > li.move-down ').show();
-        const bookmakrItem = $('ul.list-group.bookmark-ul li.bookmark-item');
-        for (let index = 1; index <= bookmakrItem.length; index++) {
-            $('ul.list-group.bookmark-ul > li:nth-child(' + index + ') > div.row > div > .count-circle').text(index);
-        }
+        $( document ).ready(function() {
+            if ($('ul.bookmark-ul > li').is(':first-child')) {
+                $('ul.bookmark-ul > li:first-child > .row > div.move-botton > ul > li.move-up ').hide();
+            }
+            if ($('ul.bookmark-ul > li').is(':last-child')) {
+                $('ul.bookmark-ul > li:last-child > .row > div.move-botton > ul > li.move-down ').hide();
+            }
+            $('ul.bookmark-ul > li:not(:first-child) > .row > div.move-botton > ul > li.move-up ').show();
+            $('ul.bookmark-ul > li:not(:last-child) > .row > div.move-botton > ul > li.move-down ').show();
+            const bookmakrItem = $('ul.list-group.bookmark-ul li.bookmark-item');
+            for (let index = 1; index <= bookmakrItem.length; index++) {
+                $('ul.list-group.bookmark-ul > li:nth-child(' + index + ') > div.row > div > .count-circle').text(index);
+            }
+        });
         // console.log(obj);
 
         /* const index = this.positions.findIndex((item) => {
@@ -1117,7 +1246,7 @@ export class SettingComponent implements AfterViewInit, OnInit, OnDestroy {
         } else {
             this.positions.push(obj);
         } */
-        console.log(this.positions);
+        //console.log(this.positions);
         /* this.bookmarkService.changePosition(obj).subscribe((data) => {
             if (!data.error) {
                 this.toastr.success('Bookmark position changed succesfully.', 'Success!');
