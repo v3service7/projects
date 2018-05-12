@@ -1,0 +1,90 @@
+.width25percent{
+	width: 25%;
+}
+
+.topHeader{
+	padding: 1rem 6rem;
+    text-align: right;
+    font-size: 2rem;
+    background: yellowgreen;
+    color: white;
+    border-bottom: 3px solid black;
+}
+
+.leftMenuUl{
+	border-right: 3px solid black;
+}
+
+.option-menu{
+	padding-left: 0;
+}
+
+.list-group-item{
+	border-top: 1px solid rgba(0,0,0,.125) !important;
+}
+
+.mainPage{
+	padding: 0;
+    display: inline-flex;
+}
+
+
+
+#tabs {
+	margin:0;
+	padding:0;
+	list-style:none;
+	display: flex;
+}
+
+ul#tabs li {
+	padding: 0.5rem 1rem !important;
+    width: 12% !important;
+}
+
+#tabs li a {
+	color:#fff;
+	text-decoration:none;
+}
+
+#tabs li.current {
+	background-color:#e1e1e1;
+}
+
+#tabs li.current a {
+	color:#000;
+	text-decoration:none;
+}
+
+#tabs li a.remove {
+	color:#f00;
+	margin-left:10px;
+}
+
+#content {
+	background-color:#e1e1e1;
+}
+
+#content p {
+	margin: 0;
+	padding:20px 20px 100px 20px;
+}
+
+#main {
+	width:900px;
+	margin:0px auto;
+	overflow:hidden;
+	background-color:#F6F6F6;
+	margin-top:20px;
+    -moz-border-radius:10px;
+    -webkit-border-radius:10px;
+    padding:30px;
+}
+
+.sideMenu{
+	padding: 0;
+}
+    
+#header{ background-color:#F6F6F6; width:900px; margin:0px auto; margin-top:20px;
+     -moz-border-radius:10px;  -webkit-border-radius:10px; padding:30px; position:relative;}
+#header h2 {font-size:16px; font-weight:normal; margin:0px; padding:0px;}
