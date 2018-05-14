@@ -12,6 +12,11 @@ import { ReferenceComponent } from '../reference/reference.component'
 
 
 
+import { PeriodConfigComponent } from '../period-config/period-config.component';
+import { TransactionConfigComponent } from '../transaction-config/transaction-config.component';
+import { TerritoryConfigComponent } from '../territory-config/territory-config.component'
+
+
 @Injectable()
 export class Service {
 
@@ -25,9 +30,6 @@ export class Service {
 
   setRootViewContainerRef(viewContainerRef) {
     this.rootViewContainer = viewContainerRef
-
-    console.log("this.rootViewContainer");
-    console.log(this.rootViewContainer);
   }
 
   addDynamicComponent(type) {
@@ -42,6 +44,12 @@ export class Service {
       factory = this.factoryResolver.resolveComponentFactory(Transaction2Component)
     }else if(type == 'Sub_Trans_3'){
       factory = this.factoryResolver.resolveComponentFactory(Transaction3Component)
+    }else if(type == 'Period_Config'){
+      factory = this.factoryResolver.resolveComponentFactory(PeriodConfigComponent)
+    }else if(type == 'Transaction_Config'){
+      factory = this.factoryResolver.resolveComponentFactory(TransactionConfigComponent)
+    }else if(type == 'Territory_Config'){
+      factory = this.factoryResolver.resolveComponentFactory(TerritoryConfigComponent)
     }else{
       factory = this.factoryResolver.resolveComponentFactory(ReferenceComponent)
     }

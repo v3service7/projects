@@ -1,0 +1,29 @@
+<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 topHeader">
+	Setting Content
+	<span (click) = "homePage()" style="cursor: pointer;"><i class="fa fa-home" aria-hidden="true"></i></span>	
+</div>
+
+
+<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 mainPage">
+	<div class="sideMenu col-lg-3 col-md-3 col-sm-3 col-xs-3">
+		<ul class="list-group list-group-flush leftMenuUl">
+			
+			<li class="list-group-item" id="prd" #period (click)="addAnotherTab(period)" rel="Period_Config"><strong>Period Config</strong>
+			</li>
+			<li class="list-group-item" id="trans" #trans (click)="addAnotherTab(trans)" rel="Transaction_Config"><strong>Transaction Config</strong>
+			</li>
+			<li class="list-group-item" id="terr" #terr (click)="addAnotherTab(terr)" rel="Territory_Config"><strong>Territory Config</strong>
+			</li>
+		</ul>
+	</div>
+
+
+	<div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 " id="wrapper">
+	    <ul class="col-lg-12 col-md-12 col-sm-12 col-xs-12 no-padding"  id="topTabs">
+	        <!-- Tabs go here -->
+	    </ul>
+	    <div id="content">
+	        <!-- Tab content goes here -->
+	    </div>
+	</div>
+</div>

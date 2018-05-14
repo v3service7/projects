@@ -6,11 +6,11 @@ import { Service } from '../service/service';
 declare var $ : any;
 
 @Component({
-	selector: 'app-header',
-	templateUrl: './header.component.html',
-	styleUrls: ['./header.component.css']
+  selector: 'app-setting-header',
+  templateUrl: './setting-header.component.html',
+  styleUrls: ['./setting-header.component.css']
 })
-export class HeaderComponent implements OnInit {
+export class SettingHeaderComponent implements OnInit {
 
 	openTabs = [];
 
@@ -24,20 +24,8 @@ export class HeaderComponent implements OnInit {
 		this.callJquery();
 	}
 
-	settingPage(){
-		this.router.navigate(['/setting-page']);
-	}
-
-	changeClass(divLi){
-		let iTag = divLi.getElementsByTagName('i');
-
-		let iClass = iTag[0].getAttribute('class');
-
-		if (iClass == 'fa fa-chevron-circle-down') {
-			iTag[0].setAttribute('class','fa fa-chevron-circle-up')
-		}else{
-			iTag[0].setAttribute('class','fa fa-chevron-circle-down')
-		}
+	homePage(){
+		this.router.navigate(['/']);
 	}
 
 	callJquery(){
@@ -58,14 +46,15 @@ export class HeaderComponent implements OnInit {
 
 	        $('#topTabs').on('click', ' a.remove',  function() {
 	            var tabid = $(this).parent().find(".tabAnchor").attr("id");
+
+	            $("[rel="+tabid+"]").removeClass('selected');
+	            
 	            _that.openTabs = _that.openTabs.filter((obj) => {
 		            return (obj.atr != tabid);
 		        });
 
-		        $("[rel="+tabid+"]").removeClass('selected');
-
-		        localStorage.removeItem('openTabs');
-		        localStorage.setItem('openTabs', JSON.stringify(_that.openTabs));
+		        localStorage.removeItem('settingOpenTabs');
+		        localStorage.setItem('settingOpenTabs', JSON.stringify(_that.openTabs));
 
 
 	            var contentname = tabid + "_content";
@@ -76,8 +65,8 @@ export class HeaderComponent implements OnInit {
 	                firsttab.addClass("current");
 	                var firsttabid = $(firsttab).find("div.tabAnchor").attr("id");
 
-	                $("[rel="+firsttabid+"]").addClass('selected')
-	                
+	                $("[rel="+firsttabid+"]").addClass('selected');
+
 	                $("#" + firsttabid + "_content").show();
 	            }
 	        });
@@ -85,8 +74,8 @@ export class HeaderComponent implements OnInit {
 	}
 
 	ngOnInit() {
-		if (localStorage.getItem('openTabs')) {
-			this.openTabs = JSON.parse(localStorage.getItem('openTabs'));
+		if (localStorage.getItem('settingOpenTabs')) {
+			this.openTabs = JSON.parse(localStorage.getItem('settingOpenTabs'));
 
 			if (this.openTabs.length > 0) {
 				this.openTabs.forEach((item)=>{
@@ -103,18 +92,12 @@ export class HeaderComponent implements OnInit {
 	}
 
 	getTabName(type){
-		if (type == 'Agent') {
-			return 'Agent'
-	    }else if(type == 'Payee_Hirarchy'){
-	    	return 'Payee Hirarchy'
-	    }else if(type == 'Sub_Trans_1'){
-	    	return 'Sub Transaction 1'
-	    }else if(type == 'Sub_Trans_2'){
-	    	return 'Sub Transaction 2'
-	    }else if(type == 'Sub_Trans_3'){
-	    	return 'Sub Transaction 3'
+		if (type == 'Period_Config') {
+			return 'Period Config'
+	    }else if(type == 'Transaction_Config'){
+	    	return 'Transaction Config'
 	    }else{
-	    	return 'Reference'
+	    	return 'Territory Config'
 	    }
 	}
 
@@ -142,11 +125,11 @@ export class HeaderComponent implements OnInit {
     			this.openTabs.push(obj);
     		}
 
-    		localStorage.setItem('openTabs', JSON.stringify(this.openTabs));
+    		localStorage.setItem('settingOpenTabs', JSON.stringify(this.openTabs));
 
     		$("#topTabs li").removeClass("current");
             $("#content p").hide();
-            $("#topTabs").append("<li class='current tabHeading'><div class='tabAnchor' id='" +
+            $("#topTabs").append("<li class='current tabHeading maxWidth12'><div class='tabAnchor' id='" +
                 atr + "'>" + tabName + 
                 "</div><a href='javascript:void(0)' class='remove'>x</a></li>");
 

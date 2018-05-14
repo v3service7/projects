@@ -4,10 +4,11 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { HeaderComponent } from './header/header.component';
 
-
+import { SettingHeaderComponent } from './setting-header/setting-header.component'
 
 const appRoutes: Routes =   [
-	{ path: '', component: HeaderComponent }
+	{ path: '', component: HeaderComponent },
+	{ path: 'setting-page', component: SettingHeaderComponent }
 	];
 
 

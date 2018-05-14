@@ -1,5 +1,6 @@
 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 topHeader">
-	<span><i class="fa fa-gear"></i></span>	
+	Home Component
+	<span (click) = "settingPage()" style="cursor: pointer;"><i class="fa fa-gear"></i></span>	
 </div>
 
 
@@ -7,54 +8,42 @@
 	<div class="sideMenu col-lg-3 col-md-3 col-sm-3 col-xs-3">
 		<ul class="list-group list-group-flush leftMenuUl">
 			
-			<li class="list-group-item" data-toggle="collapse" data-target="#basic-option">
-				<i class="fa fa-cutlery" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;&nbsp;Payee
+			<li class="list-group-item" data-toggle="collapse" data-target="#basic-option" #payeeLi (click) = "changeClass(payeeLi)"><strong>Payee</strong><i class = "fa fa-chevron-circle-down"></i>
 			</li>
-			<div id="basic-option" class="collapse" [routerLinkActive]="['in']">
+			<div id="basic-option" class="collapse">
 				<ul class="option-menu">
-					<li class="list-group-item" [routerLinkActive]="['selected']">
-						<a href="javascript:void(0)" #agent (click)="addAnotherTab(agent)" rel="Agent">&#x27A5;&nbsp;&nbsp;&nbsp;&nbsp;Agent</a>
-						<i class="fa fa-check" aria-hidden="true"></i>
+					<li class="list-group-item" id="agnt" #agent rel="Agent" (click)="addAnotherTab(agent)">&nbsp;&nbsp;&nbsp;&nbsp;&#x27A5;&nbsp;&nbsp;&nbsp;&nbsp;Agent
 					</li>
-					<li class="list-group-item" [routerLinkActive]="['selected']">
-						<a href="javascript:void(0)" #payee (click)="addAnotherTab(payee)" rel="Payee_Hirarchy">&#x27A5;&nbsp;&nbsp;&nbsp;&nbsp;Payee Hierarchy</a>
-						<i class="fa fa-check" aria-hidden="true"></i>
+					<li class="list-group-item" id="paye" #payee rel="Payee_Hirarchy" (click)="addAnotherTab(payee)">&nbsp;&nbsp;&nbsp;&nbsp;&#x27A5;&nbsp;&nbsp;&nbsp;&nbsp;Payee Hierarchy
 					</li>
 				</ul>
 			</div>
 			
 
-			<li class="list-group-item" data-toggle="collapse" data-target="#service">
-				<span class="fa fa-fw fa-clock-o"></span>&nbsp;&nbsp;&nbsp;&nbsp;Transaction
+			<li class="list-group-item" data-toggle="collapse" data-target="#service" #transactionLi (click) = "changeClass(transactionLi)">
+				<strong>Transaction</strong><i class = "fa fa-chevron-circle-down"></i>
 			</li>
-			<div id="service" class="collapse" [routerLinkActive]="['in']">
+			<div id="service" class="collapse">
 				<ul class="option-menu">
-					<li class="list-group-item" data-toggle="collapse" data-target="#sub-service1">
-						<a>&#x27A5;&nbsp;&nbsp;&nbsp;&nbsp;Transaction 1</a>
-						<i class="fa fa-check" aria-hidden="true"></i>
+					<li class="list-group-item" data-toggle="collapse" data-target="#sub-service1" #trans1Li (click) = "changeClass(trans1Li)">
+						&nbsp;&nbsp;&nbsp;&nbsp;&#x27A5;&nbsp;&nbsp;&nbsp;&nbsp;<strong>Transaction 1</strong><i class = "fa fa-chevron-circle-down"></i>
 					</li>
-					<div id="sub-service1" class="collapse" [routerLinkActive]="['in']">
+					<div id="sub-service1" class="collapse">
 						<ul class="option-menu">
-							<li class="list-group-item" [routerLinkActive]="['selected']">
-								<a href="javascript:void(0)" #subTrans1 (click)="addAnotherTab(subTrans1)" rel="Sub_Trans_1">&#x27A5;&nbsp;&nbsp;&nbsp;&nbsp;Sub Trans 1</a>
-								<i class="fa fa-check" aria-hidden="true"></i>
+							<li class="list-group-item" id="sub1" #subTrans1 rel="Sub_Trans_1" (click)="addAnotherTab(subTrans1)">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&#x27A5;&nbsp;&nbsp;&nbsp;&nbsp;Sub Trans 1
 							</li>
-							<li class="list-group-item" [routerLinkActive]="['selected']">
-								<a href="javascript:void(0)" #sunTrans2 (click)="addAnotherTab(sunTrans2)" rel="Sub_Trans_2">&#x27A5;&nbsp;&nbsp;&nbsp;&nbsp;Sub Trans 2</a>
-								<i class="fa fa-check" aria-hidden="true"></i>
+							<li class="list-group-item" id="sub2" #sunTrans2 rel="Sub_Trans_2" (click)="addAnotherTab(sunTrans2)">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&#x27A5;&nbsp;&nbsp;&nbsp;&nbsp;Sub Trans 2
 							</li>
 						</ul>
 					</div>
 
-					<li class="list-group-item" data-toggle="collapse" data-target="#sub-service2">
-						<a>&#x27A5;&nbsp;&nbsp;&nbsp;&nbsp;Transaction 2</a>
-						<i class="fa fa-check" aria-hidden="true"></i>
+					<li class="list-group-item" data-toggle="collapse" data-target="#sub-service2" #trans2Li (click) = "changeClass(trans2Li)">
+						&nbsp;&nbsp;&nbsp;&nbsp;&#x27A5;&nbsp;&nbsp;&nbsp;&nbsp;<strong>Transaction 2</strong><i class = "fa fa-chevron-circle-down"></i>
 					</li>
-					<div id="sub-service2" class="collapse" [routerLinkActive]="['in']">
+					<div id="sub-service2" class="collapse">
 						<ul class="option-menu">
-							<li class="list-group-item" [routerLinkActive]="['selected']">
-								<a href="javascript:void(0)" #sunTrans3 (click)="addAnotherTab(sunTrans3)" rel="Sub_Trans_3">&#x27A5;&nbsp;&nbsp;&nbsp;&nbsp;Sub Trans 3</a>
-								<i class="fa fa-check" aria-hidden="true"></i>
+							<li class="list-group-item" id="sub3" #sunTrans3 rel="Sub_Trans_3" (click)="addAnotherTab(sunTrans3)">
+								&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&#x27A5;&nbsp;&nbsp;&nbsp;&nbsp;Sub Trans 3
 							</li>
 						</ul>
 					</div>
@@ -62,15 +51,15 @@
 			</div>
 			
 
-			<li class="list-group-item">
-				<a href="javascript:void(0)" #review (click)="addAnotherTab(review)" rel="Reference"><b >%</b>&nbsp;&nbsp;&nbsp;&nbsp;Reference</a>
+			<li class="list-group-item" id="ref" #review (click)="addAnotherTab(review)" rel="Reference">
+				<strong>Reference</strong>
 			</li>
 		</ul>
 	</div>
 
 
 	<div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 " id="wrapper">
-	    <ul id="tabs">
+	    <ul class="col-lg-12 col-md-12 col-sm-12 col-xs-12 no-padding"  id="topTabs">
 	        <!-- Tabs go here -->
 	    </ul>
 	    <div id="content">
