@@ -49,7 +49,8 @@ export class HeaderComponent implements OnInit {
 
 	        $('#topTabs').on('click', 'div.tabAnchor' , function() {
 	            var contentname = $(this).attr("id") + "_content";
-	            console.log(contentname)
+	            $('.list-group-item').removeClass('selected');
+	            $("[rel="+$(this).attr("id")+"]").addClass('selected')
 	            $("#content p").hide();
 	            $("#topTabs li").removeClass("current");
 	            $("#" + contentname).show();
@@ -66,7 +67,6 @@ export class HeaderComponent implements OnInit {
 
 		        localStorage.removeItem('openTabs');
 		        localStorage.setItem('openTabs', JSON.stringify(_that.openTabs));
-
 
 	            var contentname = tabid + "_content";
 	            $("#" + contentname).remove();
@@ -108,11 +108,11 @@ export class HeaderComponent implements OnInit {
 	    }else if(type == 'Payee_Hirarchy'){
 	    	return 'Payee Hirarchy'
 	    }else if(type == 'Sub_Trans_1'){
-	    	return 'Sub Transaction 1'
+	    	return 'Sub Trans 1'
 	    }else if(type == 'Sub_Trans_2'){
-	    	return 'Sub Transaction 2'
+	    	return 'Sub Trans 2'
 	    }else if(type == 'Sub_Trans_3'){
-	    	return 'Sub Transaction 3'
+	    	return 'Sub Trans 3'
 	    }else{
 	    	return 'Reference'
 	    }
@@ -123,7 +123,6 @@ export class HeaderComponent implements OnInit {
 		$('#' + atrId).addClass('selected');
 
 		let tabName = this.getTabName(atr);
-
 
     	if ($("#" + atr).length != 0){
     		var contentname = atr + "_content";
@@ -146,10 +145,7 @@ export class HeaderComponent implements OnInit {
 
     		$("#topTabs li").removeClass("current");
             $("#content p").hide();
-            $("#topTabs").append("<li class='current tabHeading'><div class='tabAnchor' id='" +
-                atr + "'>" + tabName + 
-                "</div><a href='javascript:void(0)' class='remove'>x</a></li>");
-
+            $("#topTabs").append("<li class='current tabHeading'><div class='tabAnchor' id='" + atr + "'>" + tabName + "</div><a href='javascript:void(0)' class='remove'>x</a></li>");
 
             let content = this.services.addDynamicComponent(atr);
 

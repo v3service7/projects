@@ -37,7 +37,8 @@ export class SettingHeaderComponent implements OnInit {
 
 	        $('#topTabs').on('click', 'div.tabAnchor' , function() {
 	            var contentname = $(this).attr("id") + "_content";
-	            console.log(contentname)
+	            $('.list-group-item').removeClass('selected');
+	            $("[rel="+$(this).attr("id")+"]").addClass('selected')
 	            $("#content p").hide();
 	            $("#topTabs li").removeClass("current");
 	            $("#" + contentname).show();

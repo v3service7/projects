@@ -7,8 +7,9 @@
     margin-right: 0.5rem;
 	display: flex;
 	background-color: #f9f9f9;
-	border: 1px solid #eaeaea;
+	border: 1px solid #9d9e99;
 	border-bottom: 0;
+
 }
 
 li.tabHeading:last-child {
