@@ -113,6 +113,10 @@ export class HeaderComponent implements OnInit {
 	    	return 'Sub Trans 2'
 	    }else if(type == 'Sub_Trans_3'){
 	    	return 'Sub Trans 3'
+	    }else if(type == 'Trans1_Li'){
+	    	return 'Transaction 1'
+	    }else if(type == 'Trans2_Li'){
+	    	return 'Transaction 2'
 	    }else{
 	    	return 'Reference'
 	    }

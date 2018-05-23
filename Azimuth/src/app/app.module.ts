@@ -18,7 +18,9 @@ import { ReferenceComponent } from './reference/reference.component';
 import { SettingHeaderComponent } from './setting-header/setting-header.component';
 import { PeriodConfigComponent } from './period-config/period-config.component';
 import { TransactionConfigComponent } from './transaction-config/transaction-config.component';
-import { TerritoryConfigComponent } from './territory-config/territory-config.component'
+import { TerritoryConfigComponent } from './territory-config/territory-config.component';
+import { MainTrans1Component } from './main-trans1/main-trans1.component';
+import { MainTrans2Component } from './main-trans2/main-trans2.component'
 
 @NgModule({
   declarations: [
@@ -33,11 +35,15 @@ import { TerritoryConfigComponent } from './territory-config/territory-config.co
     SettingHeaderComponent,
     PeriodConfigComponent,
     TransactionConfigComponent,
-    TerritoryConfigComponent
+    TerritoryConfigComponent,
+    MainTrans1Component,
+    MainTrans2Component
   ],
   entryComponents: [
     AgentComponent,
     PayeehirarchyComponent,
+    MainTrans1Component,
+    MainTrans2Component,
     Transaction1Component,
     Transaction2Component,
     Transaction3Component,

@@ -25,8 +25,8 @@
 			</li>
 			<div id="service" class="collapse">
 				<ul class="option-menu">
-					<li class="list-group-item" data-toggle="collapse" data-target="#sub-service1" #trans1Li (click) = "changeClass(trans1Li)">
-						&nbsp;&nbsp;&nbsp;&nbsp;&#x27A5;&nbsp;&nbsp;&nbsp;&nbsp;<strong>Transaction 1</strong><i class = "fa fa-chevron-circle-down"></i>
+					<li class="list-group-item" #trans1Li rel="Trans1_Li" (click)="addAnotherTab(trans1Li)">
+						&nbsp;&nbsp;&nbsp;&nbsp;&#x27A5;&nbsp;&nbsp;&nbsp;&nbsp;<strong>Transaction 1</strong><span #transaction1LiI (click) = "changeClass(transaction1LiI)"><i class = "fa fa-chevron-circle-down" data-toggle="collapse" data-target="#sub-service1"></i></span>
 					</li>
 					<div id="sub-service1" class="collapse">
 						<ul class="option-menu">
@@ -37,8 +37,8 @@
 						</ul>
 					</div>
 
-					<li class="list-group-item" data-toggle="collapse" data-target="#sub-service2" #trans2Li (click) = "changeClass(trans2Li)">
-						&nbsp;&nbsp;&nbsp;&nbsp;&#x27A5;&nbsp;&nbsp;&nbsp;&nbsp;<strong>Transaction 2</strong><i class = "fa fa-chevron-circle-down"></i>
+					<li class="list-group-item" #trans2Li rel="Trans2_Li" (click)="addAnotherTab(trans2Li)">
+						&nbsp;&nbsp;&nbsp;&nbsp;&#x27A5;&nbsp;&nbsp;&nbsp;&nbsp;<strong>Transaction 2</strong><span #transaction2LiI (click) = "changeClass(transaction2LiI)"><i class = "fa fa-chevron-circle-down" data-toggle="collapse" data-target="#sub-service2"></i></span>
 					</li>
 					<div id="sub-service2" class="collapse">
 						<ul class="option-menu">

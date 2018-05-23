@@ -5,6 +5,8 @@ import { ComponentFactoryResolver,Injectable, Inject, ReflectiveInjector } from 
 import { AgentComponent } from '../agent/agent.component';
 
 import { PayeehirarchyComponent } from '../payeehirarchy/payeehirarchy.component';
+import { MainTrans1Component } from '../main-trans1/main-trans1.component';
+import { MainTrans2Component } from '../main-trans2/main-trans2.component';
 import { Transaction1Component } from '../transaction1/transaction1.component';
 import { Transaction2Component } from '../transaction2/transaction2.component';
 import { Transaction3Component } from '../transaction3/transaction3.component';
@@ -38,10 +40,14 @@ export class Service {
       factory = this.factoryResolver.resolveComponentFactory(AgentComponent)
     }else if(type == 'Payee_Hirarchy'){
       factory = this.factoryResolver.resolveComponentFactory(PayeehirarchyComponent)
+    }else if(type == 'Trans1_Li'){
+      factory = this.factoryResolver.resolveComponentFactory(MainTrans1Component)
     }else if(type == 'Sub_Trans_1'){
       factory = this.factoryResolver.resolveComponentFactory(Transaction1Component)
     }else if(type == 'Sub_Trans_2'){
       factory = this.factoryResolver.resolveComponentFactory(Transaction2Component)
+    }else if(type == 'Trans2_Li'){
+      factory = this.factoryResolver.resolveComponentFactory(MainTrans2Component)
     }else if(type == 'Sub_Trans_3'){
       factory = this.factoryResolver.resolveComponentFactory(Transaction3Component)
     }else if(type == 'Period_Config'){
