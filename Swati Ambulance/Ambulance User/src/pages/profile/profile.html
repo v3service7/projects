@@ -1,0 +1,63 @@
+<!--
+  Generated template for the SignupPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<style type="text/css">
+::-webkit-input-placeholder {
+  color: white !important; 
+}
+:-moz-placeholder {
+  color: white !important; 
+}
+:-ms-input-placeholder {
+  /* IE10+ */
+  color: white !important; 
+}
+</style>
+
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>My Profile</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding class="customBackground">
+
+<ion-list>
+	<form [formGroup]="userProfileForm" (ngSubmit)="profileUpdate()">
+		<ion-item class="customItem">
+	    <ion-input type="text" class="customInput" formControlName="firstname"></ion-input>
+	  	</ion-item>
+    	<ion-row *ngIf="formErrors.firstname" class="alert alert-danger">
+			{{ formErrors.firstname }}
+		</ion-row>
+	  	<ion-item class="customItem">
+	    <ion-input type="text" class="customInput" formControlName="lastname"></ion-input>
+	  	</ion-item>
+    	<ion-row *ngIf="formErrors.lastname" class="alert alert-danger">
+    	{{ formErrors.lastname }}</ion-row>
+	  	<ion-item class="customItem">
+	    <ion-input type="email" class="customInput" formControlName="email"></ion-input>
+	  	</ion-item>
+    	<ion-row *ngIf="formErrors.email" class="alert alert-danger">
+			{{ formErrors.email }}
+		</ion-row>
+	  	<ion-item class="customItem">
+	    <ion-input type="text" class="customInput" formControlName="phonenumber"></ion-input>
+	  	</ion-item>
+    	<ion-row *ngIf="formErrors.phonenumber" class="alert alert-danger">
+			{{ formErrors.phonenumber }}
+		</ion-row>
+
+		<button [disabled]="!userProfileForm.valid" block ion-button class="customButton">Save</button>	
+	</form>
+<!-- 	<button ion-button style="background-color: transparent;color:white;border-color:white;border:1px solid white;margin-top:20px;height: 35px;font-size: 14px;"  block  (click)="cancelProfile()">Cancel</button> -->
+</ion-list>
+
+
+</ion-content>

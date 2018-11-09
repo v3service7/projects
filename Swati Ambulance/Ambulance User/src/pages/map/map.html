@@ -1,0 +1,31 @@
+<!--
+  Generated template for the MapPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Ambulance Map</ion-title>
+  </ion-navbar>
+</ion-header>
+
+
+
+<ion-content>
+	<ion-row *ngIf = "myPanic">
+	<ion-col col-12>
+    <ion-card>  
+    <ion-card-content text-left>
+        <p *ngIf = "myPanic.driver && myPanic.driver.firstname"><strong>Driver Name:</strong> {{ myPanic.driver.firstname }} </p>
+        <p *ngIf = "myPanic.driverLocation && myPanic.driverLocation.address"><strong>Driver Location:</strong> {{ myPanic.driverLocation.address }} </p>
+        <p *ngIf = "myPanic.driver && myPanic.driver.phonenumber"><strong>Driver Number:</strong> {{ myPanic.driver.phonenumber }} </p>
+    </ion-card-content>  
+    </ion-card>
+    </ion-col>
+    <div id="map"></div>
+	</ion-row>
+</ion-content>

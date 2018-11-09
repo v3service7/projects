@@ -1,0 +1,70 @@
+// http://ionicframework.com/docs/theming/
+
+
+// App Global Sass
+// --------------------------------------------------
+// Put style rules here that you want to apply globally. These
+// styles are for the entire app and not just one component.
+// Additionally, this file can be also used as an entry point
+// to import other Sass files to be included in the output CSS.
+//
+// Shared Sass variables, which can be used to adjust Ionic's
+// default Sass variables, belong in "theme/variables.scss".
+//
+// To declare rules for a specific mode, create a child rule
+// for the .md, .ios, or .wp mode classes. The mode class is
+// automatically applied to the <body> element in the app.
+
+
+.alert-danger{
+	background: #f36d6d;
+    color: white;
+    padding: 1rem;
+    margin: 1rem 0;
+    border-radius: 4px;
+}
+
+.customItem{
+	padding:0px !important; 
+	border-bottom:none !important;
+	border-top:none;
+	font-size: 14px;
+	margin-top:10px;
+	background:none;
+	border-bottom:1px solid white;
+	box-shadow:none;
+}
+
+.customInput {
+	color:white;
+	border-bottom-color:white;
+	box-shadow:none;
+}
+
+.customButton{
+	margin-top: 15px;
+	height: 35px;
+	font-size: 14px;
+	background: #10ABF4;
+}
+
+.customBackground {
+	background-image:url('../assets/imgs/bg.jpg');
+	background-repeat: no-repeat;
+	background-size: 100% 100%;
+
+	&:before {
+	    content: '';
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        background-image: linear-gradient(to top, #000000, #000000);
+	    opacity: 0.7;
+	}
+}
+
+.toolbar-title, button.bar-buttons{
+	color : red;
+}

@@ -1,0 +1,73 @@
+{
+  "project_info": {
+    "project_number": "525296035743",
+    "firebase_url": "https://ambulance-64e45.firebaseio.com",
+    "project_id": "ambulance-64e45",
+    "storage_bucket": "ambulance-64e45.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:525296035743:android:e656b36f7b16977f",
+        "android_client_info": {
+          "package_name": "com.ambulance.driver"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "525296035743-vl9v87fulofmtdp6hacivg3sqv5m6i0e.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA5zVmsayxBHerSfeEXGc-QWZIWYv0c5BU"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:525296035743:android:a4338b8e62f6b54e",
+        "android_client_info": {
+          "package_name": "com.myproject.testPush"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "525296035743-vl9v87fulofmtdp6hacivg3sqv5m6i0e.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA5zVmsayxBHerSfeEXGc-QWZIWYv0c5BU"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
