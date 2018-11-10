@@ -1,0 +1,70 @@
+<div class="card card-nav-tabs">
+    <div class="card-header" data-background-color="green">
+        <div class="nav-tabs-navigation">
+            <div class="nav-tabs-wrapper">
+                <span class="nav-tabs-title">Panics</span>
+                <ul class="nav nav-tabs" data-tabs="tabs">
+                    <li class="active pull-right">
+                       
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+<!--     <div>
+        <div class="col-md-6">
+            <input class="form-control" type="text" name="search" [(ngModel)]="txtfilter" placeholder="Search Panic">
+        </div>     
+          
+        <div class="col-md-2">
+            <select id="PerPage" class="form-control" [(ngModel)]="pageSize">
+            <option [ngValue]="10">10</option>
+            <option [ngValue]="25">25</option>
+            <option [ngValue]="50">50</option>
+            </select>
+        </div> 
+    </div> -->
+    <div class="card-content table-responsive">
+        <table class="table" *ngIf="panics.length >0">
+            <thead class="text-success">
+                <th class="pointer" (click)="sort('user.firstname')">User <i class="fa" [ngClass]="{'fa-sort': key != 'user.firstname', 
+                    'fa-sort-asc': (key == 'user.firstname' && reverse), 
+                    'fa-sort-desc': (key == 'user.firstname' && !reverse) }"
+                    aria-hidden="true"> </i>
+                </th>            
+                <th class="pointer" (click)="sort('panic_at')">Panic Date <i class="fa" [ngClass]="{'fa-sort': key != 'panic_at', 
+                    'fa-sort-asc': (key == 'panic_at' && reverse), 
+                    'fa-sort-desc': (key == 'panic_at' && !reverse) }"
+                    aria-hidden="true"> </i>
+                </th>
+                <th class="pointer">Driver </th>
+                <th class="pointer">Driver Rchd.</th>
+                <th class="pointer">Status</th>
+                <th>Action</th>                
+            </thead>
+            <tbody>
+                <tr *ngFor="let panic of panics | filter: txtfilter | orderBy: key : reverse | paginate: { itemsPerPage: pageSize, currentPage: p[i], id: id }">
+                    <td class="padding0" >{{panic.user.firstname}} {{panic.user.lastname}}<br>{{panic.userLocation.address}}</td>
+                    <td class="padding0">{{panic.panic_at | date:'medium'}}</td>  
+                    <td class="padding0"  *ngIf="panic.driver">{{panic.driver.firstname}} {{panic.driver.lastname}}<br>{{panic.driverLocation.address}}</td>
+                    <td class="padding0"  *ngIf="!panic.driver"> </td>
+                    <td class="padding0" *ngIf="panic.driverReached_at">{{panic.driverReached_at | date:'medium' }}</td>
+                    <td class="padding0" *ngIf="!panic.driverReached_at"> </td>
+                    <td class="padding0"  *ngIf="panic.status==0">Pending</td>
+                    <td class="padding0"  *ngIf="panic.status==1">Driver Accepted</td>
+                    <td class="padding0"  *ngIf="panic.status==2">Completed</td>
+                    <td class="padding0 td-actions text-right">
+                        <a rel="tooltip" title="Remove" class="btn btn-danger btn-simple btn-xs" (click)="deletePanic(panic._id)">
+                            <i class="material-icons">close</i>
+                        </a>
+                    </td>
+                </tr>
+            </tbody>
+            <pagination-controls (pageChange)="p[i] = $event" [id]="id"></pagination-controls>
+        </table>
+        <div class="alert alert-warning" *ngIf="panics.length == 0">
+            <button type="button" aria-hidden="true" class="close">×</button>
+            <span> <b> No Data - </b> Panic Empty Kindly create One</span>
+        </div>
+    </div>
+</div>

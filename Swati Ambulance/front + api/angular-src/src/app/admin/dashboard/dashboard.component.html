@@ -1,0 +1,94 @@
+<div class="wrapper">
+	<app-sidebar></app-sidebar>
+	<div class="main-panel">
+		<app-header></app-header>
+        <div class="content">
+            <div class="container-fluid">
+            	<div class="row">
+                    <div class="col-lg-3 col-md-6 col-sm-6">
+                        <div class="card card-stats">
+                            <div class="card-header" data-background-color="green">
+                                <i class="material-icons">group</i>
+                            </div>
+                            <div class="card-content">
+                                <p class="category">Users</p><br>
+                                <h3 class="title">{{userCount}}</h3>
+                            </div>
+                            <div class="card-footer">
+                                <div class="stats">
+                                    <a [routerLink]="['/admin/user/']">Get More...</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 col-sm-6">
+                        <div class="card card-stats">
+                            <div class="card-header" data-background-color="green">
+                                <i class="material-icons">group</i>
+                            </div>
+                            <div class="card-content">
+                                <p class="category">Providers</p><br>
+                                <h3 class="title">{{providerCount}}</h3>
+                            </div>
+                            <div class="card-footer">
+                                <div class="stats">
+                                    <a [routerLink]="['/admin/provider/']">Get More...</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 col-sm-6">
+                            <div class="card card-stats">
+                                <div class="card-header" data-background-color="green">
+                                    <i class="material-icons">group</i>
+                                </div>
+                                <div class="card-content">
+                                    <p class="category">Drivers</p><br>
+                                    <h3 class="title">{{driverCount}}</h3>
+                                </div>
+                                <div class="card-footer">
+                                    <div class="stats">
+                                        <a [routerLink]="['/admin/driver/']">Get More...</a>
+                                    </div>
+                                </div>
+                            </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 col-sm-6">
+                        <div class="card card-stats">
+                            <div class="card-header" data-background-color="green">
+                                <i class="material-icons">local_car_wash</i>
+                            </div>
+                            <div class="card-content">
+                                <p class="category">Ambulances</p><br>
+                                <h3 class="title">{{ambulanceCount}}</h3>
+                            </div>
+                            <div class="card-footer">
+                                <div class="stats">
+                                    <a [routerLink]="['/admin/ambulance/']">Get More...</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-3 col-md-6 col-sm-6">
+                        <div class="card card-stats">
+                            <div class="card-header" data-background-color="green">
+                                <i class="material-icons">local_car_wash</i>
+                            </div>
+                            <div class="card-content">
+                                <p class="category">Panics</p><br>
+                                <h3 class="title">{{panicCount}}</h3>
+                            </div>
+                            <div class="card-footer">
+                                <div class="stats">
+                                    <a [routerLink]="['/admin/panic/']">Get More...</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+	</div>
+</div>

@@ -1,0 +1,80 @@
+<div class="card card-nav-tabs">
+    <div class="card-header" data-background-color="green">
+        <div class="nav-tabs-navigation">
+            <div class="nav-tabs-wrapper">
+                <span class="nav-tabs-title">Users</span>
+                <ul class="nav nav-tabs" data-tabs="tabs">
+                    <li class="active pull-right">
+                        <a [routerLink]="['/admin/user/add/']">
+                            <i class="material-icons">exposure_plus_1</i> Add User
+                            <div class="ripple-container"></div>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div>
+        <div class="col-md-4">
+            <input class="form-control" type="text" name="search" [(ngModel)]="txtfilter" placeholder="Search User">
+        </div>            
+        <div class="col-md-2">
+            <select id="PerPage" class="form-control" [(ngModel)]="pageSize">
+            <option [ngValue]="10">10</option>
+            <option [ngValue]="25">25</option>
+            <option [ngValue]="50">50</option>
+            </select>
+        </div> 
+    </div>
+    <div class="card-content table-responsive">
+        <table class="table" *ngIf="users.length >0">
+            <thead class="text-success">
+                <th class="pointer" (click)="sort('firstname')">Name <i class="fa" [ngClass]="{'fa-sort': key != 'firstname', 
+                    'fa-sort-asc': (key == 'firstname' && reverse), 
+                    'fa-sort-desc': (key == 'firstname' && !reverse) }"
+                    aria-hidden="true"> </i>
+                </th>
+                <th class="pointer" (click)="sort('username')">Username <i class="fa" [ngClass]="{'fa-sort': key != 'username', 
+                    'fa-sort-asc': (key == 'username' && reverse), 
+                    'fa-sort-desc': (key == 'username' && !reverse) }"
+                    aria-hidden="true"> </i>
+                </th>   
+                <th class="pointer" (click)="sort('email')">Email <i class="fa" [ngClass]="{'fa-sort': key != 'email', 
+                    'fa-sort-asc': (key == 'email' && reverse), 
+                    'fa-sort-desc': (key == 'email' && !reverse) }"
+                    aria-hidden="true"> </i>
+                </th>
+                <th class="pointer" (click)="sort('phonenumber')">Phone Number <i class="fa" [ngClass]="{'fa-sort': key != 'phonenumber', 
+                    'fa-sort-asc': (key == 'phonenumber' && reverse), 
+                    'fa-sort-desc': (key == 'phonenumber' && !reverse) }"
+                    aria-hidden="true"> </i>
+                </th>               
+                <th>Action</th>
+            </thead>
+            <tbody>
+                <tr *ngFor="let user of users | filter: txtfilter | orderBy: key : reverse | paginate: { itemsPerPage: pageSize, currentPage: p[i], id: id }">
+                    <td class="padding0">{{user.firstname}} {{user.lastname}}</td>   
+                    <td class="padding0">{{user.username}}</td>                 
+                    <td class="padding0">{{user.email}}</td>
+                    <td class="padding0">{{user.phonenumber}}</td>
+                    <td class="padding0 td-actions text-right">
+                        <a [routerLink]="['/admin/user/',user._id]" rel="tooltip" title="Edit" class="btn btn-primary btn-simple btn-xs">
+                            <i class="material-icons">edit</i>
+                        </a>
+                        <a rel="tooltip" title="Remove" class="btn btn-danger btn-simple btn-xs" (click)="deleteUser(user._id)">
+                            <i class="material-icons">close</i>
+                        </a>
+                        <a [routerLink]="['/admin/user/changepassword/',user._id,user.username]" rel="tooltip" title="Change Password" class="btn btn-danger btn-simple btn-xs" >
+                            <i class="material-icons">lock</i>
+                        </a>
+                    </td>
+                </tr>
+            </tbody>
+            <pagination-controls (pageChange)="p[i] = $event" [id]="id"></pagination-controls>
+        </table>
+        <div class="alert alert-warning" *ngIf="users.length == 0">
+            <button type="button" aria-hidden="true" class="close">×</button>
+            <span> <b> No Data - </b> User Empty Kindly create One</span>
+        </div>
+    </div>
+</div>

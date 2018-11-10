@@ -1,0 +1,49 @@
+<div class="row">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header" data-background-color="green">
+                <h4 class="title">Update Password</h4>
+                <p class="category">Change the password for user {{username}}</p>
+            </div>
+            <div class="card-content">
+                <form [formGroup]="userAddForm" (ngSubmit)="UserChangePassword()">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group label-floating">
+                                <label class="control-label">Admin Password <span>*</span></label>
+                                <input formControlName="password" type="password" class="form-control" autofocus>
+                            </div>
+                            <div *ngIf="formErrors.password" class="alert alert-danger">
+                                {{ formErrors.password }}
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group label-floating">
+                                <label class="control-label">New Password<span>*</span></label>
+                                <input formControlName="newpassword" type="password" class="form-control" autofocus>
+                            </div>
+                            <div *ngIf="formErrors.newpassword" class="alert alert-danger">
+                                {{ formErrors.newpassword }}
+                            </div>
+                        </div>
+                    </div> 
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group label-floating">
+                                <label class="control-label">Confirm New Password <span>*</span></label>
+                                <input formControlName="cnewpassword" type="password" class="form-control" (keyup)="matchnewpasswordreg()">
+                            </div>
+                            <div *ngIf="formErrors.cnewpassword" class="alert alert-danger">
+                                {{ formErrors.cnewpassword }}
+                            </div>
+                            <div style="padding: 3px;" class="alert alert-danger" *ngIf="MutchPassword">New Password does not match</div>
+                        </div>
+                    </div>                   
+                    <button type="submit" class="btn btn-success pull-right" [disabled]="!userAddForm.valid">Update Password</button>
+                    <button type="button" onclick="window.history.back();" class="btn btn-secondary pull-right">Cancel</button>
+                    <div class="clearfix"></div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
