@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { Nav, Platform } from 'ionic-angular';
+import { Events, Nav, Platform, AlertController } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
@@ -8,6 +8,10 @@ import { MainPage } from '../pages/main/main';
 import { HomePage } from '../pages/home/home';
 import { ProfilePage } from '../pages/profile/profile';
 import { PasswordPage } from '../pages/password/password';
+
+
+declare var FCMPlugin : any;
+
 
 @Component({
   templateUrl: 'app.html'
@@ -22,11 +26,12 @@ export class MyApp {
   constructor( 
     public platform: Platform, 
     public statusBar: StatusBar, 
-    public splashScreen: SplashScreen, 
+    public splashScreen: SplashScreen,
+    private alertCtrl: AlertController,
+    public events: Events,
     private userService: UserService) {
     this.initializeApp();
 
-    // used for an example of ngFor and navigation
     this.pages = [
       { title: 'Home', component: MainPage },
       { title: 'My Profile', component: ProfilePage },
@@ -37,8 +42,6 @@ export class MyApp {
 
   initializeApp() {
     this.platform.ready().then(() => {
-      // Okay, so the platform is ready and our plugins are available.
-      // Here you can do any higher level native things you might need.
 
       const token = localStorage.getItem('id_token');
       if(token)
@@ -47,6 +50,53 @@ export class MyApp {
         this.rootPage = HomePage;
       this.statusBar.styleDefault();
       this.splashScreen.hide();
+
+
+
+
+      var that = this;
+
+      if (typeof FCMPlugin != 'undefined') {
+        FCMPlugin.onNotification(function(data){
+          if(data.wasTapped){
+            that.nav.setRoot(MainPage);
+          }else{
+            console.log("data");
+            console.log(data);
+            that.events.publish('notiTapped:false', data , Date.now());
+
+            /*let confirmAlert = that.alertCtrl.create({
+              title: 'Patient Notification',
+              message: data.message,
+              buttons: [{
+                text: 'Cancel',
+                role: 'cancel'
+              }, {
+                text: 'Accept',
+                handler: () => {
+                  that.nav.setRoot(MainPage);
+                }
+              }]
+            });
+            confirmAlert.present();*/
+          }
+        },(msg)=>{
+          console.log('onNotification callback successfully registered: ' + msg);
+        },(err)=>{
+          console.log('Error registering onNotification callback: ' + err);
+        });
+        
+        FCMPlugin.onTokenRefresh(function(token){
+            console.log("token => ", token)
+        });
+      }
+
+
+
+
+
+
+
     });
   }
 
@@ -57,7 +107,26 @@ export class MyApp {
   }
 
   logout(){
-    this.userService.logout();
-    this.nav.setRoot(HomePage);
+    let alert = this.alertCtrl.create({
+      title: 'Logout?',
+      message: 'Do you really want to logout?',
+      buttons: [
+        {
+          text: 'No',
+          role: 'cancel',
+          handler: () => {
+            console.log('Cancel clicked');
+          }
+        },
+        {
+          text: 'Yes',
+          handler: () => {
+            this.userService.logout();
+            this.nav.setRoot(HomePage);
+          }
+        }
+      ]
+    });
+    alert.present();
   }
 }

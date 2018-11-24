@@ -20,29 +20,29 @@
 	<ion-col col-12 text-center class = "colorWhite">Hi {{ name }} </ion-col>
     <ion-col col-12 *ngIf="isAccept == 0">
       <ion-card *ngFor="let panic of panics">
-      <ion-card-header text-left>
-        Customer: {{ panic.user.firstname }}
-      </ion-card-header>
-      <ion-card-content text-left>
-        <p><strong>Location:</strong> {{ panic.userLocation.address }} </p>
-        <p><strong>Panic At:</strong> {{ panic.panic_at | date : 'medium' }} </p>
-        <p><button ion-button (click)="chkRequestAccept(panic._id)">Accept</button></p>
-      </ion-card-content>
+        <ion-card-header text-left>
+          Customer: {{ panic.user.firstname }}
+        </ion-card-header>
+        <ion-card-content text-left>
+          <p><strong>Location:</strong> {{ panic.userLocation.address }} </p>
+          <p><strong>Panic At:</strong> {{ panic.panic_at | date : 'medium' }} </p>
+          <p><button ion-button (click)="chkRequestAccept(panic._id)">Accept</button></p>
+        </ion-card-content>
       </ion-card>
     </ion-col>
 
     <ion-col col-12 *ngIf="isAccept == 1">
-    <ion-card>  
-    <ion-card-content text-left>
-        <p><strong>Customer:</strong> {{ myPanic.user.firstname }} </p>
-        <p><strong>Location:</strong> {{ myPanic.userLocation.address }} </p>
-        <p><strong>Contact Number:</strong> {{ myPanic.user.phonenumber }} </p>
-        <p>
-          <button ion-button (click)="requestCancel(panicID)">Cancel</button>
-          <button ion-button (click)="requestComplete(panicID)">Complete</button>
-        </p>
-    </ion-card-content>  
-    </ion-card>
+      <ion-card>  
+        <ion-card-content text-left>
+            <p><strong>Customer:</strong> {{ myPanic.user.firstname }} </p>
+            <p><strong>Location:</strong> {{ myPanic.userLocation.address }} </p>
+            <p><strong>Contact Number:</strong> {{ myPanic.user.phonenumber }} </p>
+            <p>
+              <button ion-button (click)="requestCancel(panicID)">Cancel</button>
+              <button ion-button (click)="requestComplete(panicID)">Complete</button>
+            </p>
+        </ion-card-content>  
+      </ion-card>
     </ion-col>
     <div id="map"></div>
 </ion-row>

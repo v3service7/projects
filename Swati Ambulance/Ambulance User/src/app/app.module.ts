@@ -22,14 +22,24 @@ import { UserService } from './services/user.service';
 import { PanicService } from './services/panic.service';
 
 // Initialize Firebase
-export const firebaseConfig = {
+/*export const firebaseConfig = {
   apiKey: "AIzaSyBj0cN1BNqUhcIn3As1kmTwcF2sxr1lzms",
   authDomain: "ambulance-64e45.firebaseapp.com",
   databaseURL: "https://ambulance-64e45.firebaseio.com",
   projectId: "ambulance-64e45",
   storageBucket: "ambulance-64e45.appspot.com",
   messagingSenderId: "525296035743"
+};*/
+
+export const firebaseConfig = {
+  apiKey: "AIzaSyDv7GeMyA39zHoLsZt395fZjPfvd-d784U",
+  authDomain: "swati-ambulance.firebaseapp.com",
+  databaseURL: "https://swati-ambulance.firebaseio.com",
+  projectId: "swati-ambulance",
+  storageBucket: "swati-ambulance.appspot.com",
+  messagingSenderId: "281595050197"
 };
+/*firebase.initializeApp(config);*/
 
 @NgModule({
   declarations: [

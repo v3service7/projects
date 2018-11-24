@@ -16,19 +16,19 @@ exports.Pushtrigger = functions.database.ref('/panic/{panicId}').onWrite((event)
                 tokens.push(token.devtoken);
             }
         
-        var payload = {
-            
-            "notification":{
-                "title":"Patient Notification",
-                "body":"Please attend Patient at " + wrotedata.userLocation.address,
-                "sound":"default",
-                },
-            "data":{
-                "sendername":"Patient Notification",
-                "message":"Please attend Patient at " + wrotedata.userLocation.address,
-                "panicID":wrotedata._id
+            var payload = {
+                
+                "notification":{
+                    "title":"Patient Notification",
+                    "body":"Please attend Patient at " + wrotedata.userLocation.address,
+                    "sound":"default",
+                    },
+                "data":{
+                    "sendername":"Patient Notification",
+                    "message":"Please attend Patient at " + wrotedata.userLocation.address,
+                    "panicID":wrotedata._id
+                }
             }
-        }   
 
             return admin.messaging().sendToDevice(tokens, payload).then((response) => {
                 console.log('Pushed notifications');
@@ -43,10 +43,10 @@ exports.Pushtrigger = functions.database.ref('/panic/{panicId}').onWrite((event)
 function processtokens(rawtokens) {
     var promise = new Promise((resolve, reject) => {
          var processedtokens = []
-    for (var token in rawtokens) {
-        processedtokens.push(rawtokens[token]);
-    }
-    resolve(processedtokens);
+        for (var token in rawtokens) {
+            processedtokens.push(rawtokens[token]);
+        }
+        resolve(processedtokens);
     })
     return promise;    
     

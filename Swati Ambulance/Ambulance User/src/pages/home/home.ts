@@ -31,7 +31,7 @@ export class HomePage {
     this.userService.validateUser(user).subscribe(data => {
       if (!data.error) {
         this.userService.storeUser(data.token, data.user);
-        this.getToast('You are logged-in Successfully  !');
+        this.getToast('You are logged-in Successfully!');
         this.nav.setRoot(MainPage);
       } else {
         this.getToast('Invalid User !')

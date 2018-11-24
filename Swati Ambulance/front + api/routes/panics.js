@@ -78,6 +78,18 @@ router.get('/mypanic/:id', function(req, res) {
     });
 });
 
+router.get('/my-current-panic/:id', function(req, res) {
+    var response = {};
+    panicModel.find({"user._id":req.params.id, status:1}).exec(function(err, panic) {
+        if (err) {
+            response = { "error": true, "message": err };
+        } else {
+            response = { "error": false, "message": panic };
+        };
+        res.json(response);
+    });
+});
+
 router.get('/:id', function(req, res) {
     var response = {};
     panicModel.findById(req.params.id, function(err, panic) {

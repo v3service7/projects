@@ -1,8 +1,7 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, Nav } from 'ionic-angular';
+import { NavController, NavParams, Nav, LoadingController, ToastController } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UserService } from '../../app/services/user.service';
-import { ToastController } from 'ionic-angular';
 import { HomePage } from '../home/home';
 
 
@@ -26,7 +25,8 @@ export class ForgotPage {
   	private userService: UserService,
   	public nav: Nav,
   	private lf: FormBuilder,
-  	public toastCtrl: ToastController
+    public toastCtrl: ToastController,
+  	public loadingCtrl: LoadingController
   	) { 
   	this.loginForm = this.lf.group({
 			email: ['', Validators.required]
@@ -37,27 +37,26 @@ export class ForgotPage {
     this.navCtrl.pop();
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad ForgotPage');
-  }
-
-  login() {
-  	this.navCtrl.push(HomePage);
-  }
-
 	forgotPassword() {
+    let loading = this.loadingCtrl.create({
+      content: 'Please wait...'
+    });
+    loading.present();
     this.userService.forgotPassword(this.loginForm.value).subscribe(
-        (data) => {
-            if (!data.error) {
-            	this.getToast('Please check your email to reset the password !');
-                this.nav.setRoot(HomePage);
-            }else {
-                this.getToast('Email id does not exist !');
-            }
-        },
-        (err) => {
-        	this.getToast('Email id does not exist !');
+      (data) => {
+        if (!data.error) {
+          loading.dismiss();
+        	this.getToast('Please check your email to reset the password !');
+          this.nav.setRoot(HomePage);
+        }else {
+          loading.dismiss();
+          this.getToast('Email id does not exist !');
         }
+      },
+      (err) => {
+        loading.dismiss();
+      	this.getToast('Email id does not exist !');
+      }
     );
   }
 

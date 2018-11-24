@@ -53,6 +53,18 @@ export class PanicService {
         });
     }
 
+    public pendingPanicList(id) {
+        const headers = new Headers();
+        this.loadToken();
+        headers.append('Authorization', this.authToken);
+        headers.append('Content-Type', 'application/json');
+        return this.http.get(globalVariable.url + 'panics/my-current-panic/' + id, {headers: headers})
+        .map((response: Response) => {
+            const user = response.json();
+            return user;
+        });
+    }
+
     public panicList() {
         const headers = new Headers();
         this.loadToken();
@@ -94,7 +106,7 @@ export class PanicService {
         this.loadToken();
         headers.append('Authorization', this.authToken);
         headers.append('Content-Type', 'application/json');
-        return this.http.put(globalVariable.url + 'panics/' + data._id, data, {headers: headers})
+        return this.http.patch(globalVariable.url + 'panics/' + data._id, data, {headers: headers})
         .map((response: Response) => {
             const user = response.json();
             return user;

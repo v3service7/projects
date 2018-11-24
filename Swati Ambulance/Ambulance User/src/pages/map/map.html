@@ -17,6 +17,9 @@
 
 <ion-content>
 	<ion-row *ngIf = "myPanic">
+  <ion-col col-12>
+    <button style="height: 2.2em;" ion-button float-right (click)="cancePanic()">Cancel Panic</button>
+  </ion-col>
 	<ion-col col-12>
     <ion-card>  
     <ion-card-content text-left>

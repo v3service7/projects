@@ -1,6 +1,15 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, ToastController, MenuController } from 'ionic-angular';
+import { NavController, NavParams, Nav, ToastController, MenuController, AlertController } from 'ionic-angular';
 import { PanicService } from '../../app/services/panic.service';
+
+
+import { MainPage } from '../main/main';
+
+
+
+
+import { AngularFireDatabase } from 'angularfire2/database';
+import firebase from 'firebase';
 
 declare var google: any;
 
@@ -17,12 +26,16 @@ declare var google: any;
 })
 export class MapPage {
   myPanic:any;
+  firestore = firebase.database().ref('/panic');
 
   constructor(
-  	public navCtrl: NavController, 
+    public navCtrl: NavController, 
+  	public nav: Nav, 
   	public navParams: NavParams,
   	public menu: MenuController,
   	private panicService: PanicService,
+    public afd: AngularFireDatabase,
+    public alertCtrl: AlertController,
   	public toastCtrl: ToastController) {
 
     let id = navParams.get('panicID');
@@ -53,8 +66,21 @@ export class MapPage {
   }
 
   initMap(userLocation, driverLocation) {
-    console.log("map display");
-    var myLatLng = {lat: parseFloat(userLocation.lat), lng: parseFloat(userLocation.lng)};
+    var myLatLng = new google.maps.LatLng(parseFloat(userLocation.lat), parseFloat(userLocation.lng));
+    let marker = new google.maps.Marker({
+      position: myLatLng,
+      map: map,
+      title: userLocation.address
+    });
+    
+    var myLatLng2 = new google.maps.LatLng(parseFloat(driverLocation.lat), parseFloat(driverLocation.lng));
+    let marker2 = new google.maps.Marker({
+      position: myLatLng2,
+      map: map,
+      title: driverLocation.address
+    });
+
+
     var directionsService = new google.maps.DirectionsService;
     var directionsDisplay = new google.maps.DirectionsRenderer;
     var map = new google.maps.Map(document.getElementById('map'), {
@@ -64,9 +90,9 @@ export class MapPage {
     directionsDisplay.setMap(map);
 
     directionsService.route({
-        origin: userLocation.address,
-        destination: driverLocation.address,
-        travelMode: 'DRIVING'
+        origin: new google.maps.LatLng(parseFloat(driverLocation.lat), parseFloat(driverLocation.lng)),
+        destination: new google.maps.LatLng(parseFloat(userLocation.lat), parseFloat(userLocation.lng)),
+        travelMode: google.maps.DirectionsTravelMode.DRIVING
       }, function(response, status) {
         if (status === 'OK') {
           directionsDisplay.setDirections(response);
@@ -83,5 +109,59 @@ export class MapPage {
     });
     toast.present();
   }
+
+
+
+  cancePanic(){
+
+    let confirmAlert = this.alertCtrl.create({
+      title: 'Cancel Panic Request?',
+      message: 'Are your sure you want to cancel your panic request?',
+      buttons: [{
+        text: 'Cancel',
+        role: 'cancel'
+      }, {
+        text: 'Yes',
+        handler: () => {
+          var panic = {};
+          panic['_id'] = this.myPanic['_id'];
+          panic['status'] = 0;
+          this.panicService.panicUpdate(panic).subscribe((data) => {
+            if (!data.error) {
+              /*this.updateFirebase(this.myPanic['_id']);*/
+              this.nav.setRoot(MainPage);
+            }
+          })
+        }
+      }]
+    });
+    confirmAlert.present();
+  }
+
+  /*updateFirebase(id) {
+    let itemRef = this.afd.object('panic');
+    var d = Math.floor(Date.now() / 1000);
+    var key;
+    itemRef.snapshotChanges().subscribe(action => {
+      let arr = action.payload.val();
+      for (var k in arr){
+        if (arr.hasOwnProperty(k)) {
+          if(arr[k].panic._id == id)
+          {
+            console.log("match done", k);  
+            key = k;
+            break;
+          }
+        }
+      }
+    });
+    setTimeout(()=>{
+      if (typeof key != 'undefined' && key != null) {
+        this.afd.list(this.firestore).remove(key).then(() => {
+          console.log("Firebase Panic Deleted by user himself => ", key)
+        }); 
+      }
+    })
+  }*/
 
 }

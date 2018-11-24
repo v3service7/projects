@@ -1,14 +1,13 @@
 import { Component } from '@angular/core';
-import { NavController, Nav } from 'ionic-angular';
-import { ToastController } from 'ionic-angular';
+import { NavController, Nav, ToastController, LoadingController } from 'ionic-angular';
 import { UserService } from '../../app/services/user.service';
 import { SignupPage } from '../signup/signup';
 import { ForgotPage } from '../forgot/forgot';
 import { MainPage } from '../main/main';
-import { AngularFireDatabase } from 'angularfire2/database';
-import firebase from 'firebase';
 
-declare var FCMPlugin : any;
+/*import { AngularFireDatabase } from 'angularfire2/database';*/
+/*import firebase from 'firebase';*/
+/*declare var FCMPlugin : any;*/
 
 
 @Component({
@@ -18,17 +17,22 @@ declare var FCMPlugin : any;
 export class HomePage {
   username: String;
   password: String;
-  firestore = firebase.database().ref('/drivers');
 
   constructor(
     public navCtrl: NavController,
     private userService: UserService,
     public toastCtrl: ToastController,
-    public nav: Nav,
-    public afd: AngularFireDatabase) {}
+    public loadCtrl: LoadingController,
+    public nav: Nav
+    /*,public afd: AngularFireDatabase*/
+    ) {}
 
   onLoginSubmit() {
-
+    let loading = this.loadCtrl.create({
+      content: 'Please wait...'
+    });
+    loading.present();
+    
     const user = {
       username: this.username,
       password: this.password
@@ -37,14 +41,17 @@ export class HomePage {
     this.userService.validateUser(user).subscribe(data => {
       if (!data.error) {
         this.userService.storeUser(data.token, data.user);
-        this.tokensetup().then((token) => {
-          this.storetoken(token);
-        })
-        this.getToast('You are logged-in Successfully  !');
-        this.nav.setRoot(MainPage);       
+        /*this.storeDriverToken(data.user);*/
+        loading.dismiss();
+        this.getToast('You are logged-in Successfully!');
+        this.nav.setRoot(MainPage);
       } else {
+        loading.dismiss();
         this.getToast(data.msg);
       }
+    },(err)=>{
+      loading.dismiss();
+      this.getToast('Something went wrong. Please check your Internet Connection');
     });
   }
 
@@ -62,28 +69,6 @@ export class HomePage {
       duration: 3000
     });
     toast.present();
-  }
-
-  tokensetup() {
-    var promise = new Promise((resolve, reject) => {
-      FCMPlugin.getToken(function(token){
-        resolve(token);
-      }, (err) => {
-        reject(err);
-      });
-    })
-    return promise;
-  }
-
-  storetoken(token) {
-    this.afd.list(this.firestore).push({
-      user: JSON.parse(localStorage.getItem('user')),
-      devtoken: token      
-      }).then(() => {
-        //alert('Token stored');
-        })/*.catch(() => {
-          alert('Token not stored');
-        })*/
   }
 
 }

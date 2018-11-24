@@ -1,27 +1,27 @@
 {
   "project_info": {
-    "project_number": "525296035743",
-    "firebase_url": "https://ambulance-64e45.firebaseio.com",
-    "project_id": "ambulance-64e45",
-    "storage_bucket": "ambulance-64e45.appspot.com"
+    "project_number": "281595050197",
+    "firebase_url": "https://swati-ambulance.firebaseio.com",
+    "project_id": "swati-ambulance",
+    "storage_bucket": "swati-ambulance.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:525296035743:android:e656b36f7b16977f",
+        "mobilesdk_app_id": "1:281595050197:android:d11caa05a1df9a69",
         "android_client_info": {
-          "package_name": "com.ambulance.driver"
+          "package_name": "io.ionic.ambulancedriver"
         }
       },
       "oauth_client": [
         {
-          "client_id": "525296035743-vl9v87fulofmtdp6hacivg3sqv5m6i0e.apps.googleusercontent.com",
+          "client_id": "281595050197-jo3up2lcha0qpeu912cgn068ru12tm7v.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyA5zVmsayxBHerSfeEXGc-QWZIWYv0c5BU"
+          "current_key": "AIzaSyDFAa6GwabDOoDA-CYEKljs55gwzgl-FsQ"
         }
       ],
       "services": {
@@ -39,20 +39,20 @@
     },
     {
       "client_info": {
-        "mobilesdk_app_id": "1:525296035743:android:a4338b8e62f6b54e",
+        "mobilesdk_app_id": "1:281595050197:android:86131c8a5de2e062",
         "android_client_info": {
-          "package_name": "com.myproject.testPush"
+          "package_name": "io.ionic.ambulanceuser"
         }
       },
       "oauth_client": [
         {
-          "client_id": "525296035743-vl9v87fulofmtdp6hacivg3sqv5m6i0e.apps.googleusercontent.com",
+          "client_id": "281595050197-jo3up2lcha0qpeu912cgn068ru12tm7v.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyA5zVmsayxBHerSfeEXGc-QWZIWYv0c5BU"
+          "current_key": "AIzaSyDFAa6GwabDOoDA-CYEKljs55gwzgl-FsQ"
         }
       ],
       "services": {

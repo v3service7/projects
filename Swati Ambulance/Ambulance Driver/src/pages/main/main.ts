@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, Nav, MenuController, AlertController, ToastController } from 'ionic-angular';
+import { Events, NavController, NavParams, Nav, MenuController, AlertController, ToastController } from 'ionic-angular';
 import { PanicService } from '../../app/services/panic.service';
 import { Geolocation } from '@ionic-native/geolocation';
 import { LoadingController } from 'ionic-angular';
@@ -30,6 +30,8 @@ export class MainPage {
   myPanic:any;
   firestore = firebase.database().ref('/panic');
 
+  firestore2 = firebase.database().ref('/drivers');
+
   constructor(
     public navCtrl: NavController, 
     public navParams: NavParams, 
@@ -37,6 +39,7 @@ export class MainPage {
     private panicService: PanicService,
     public menu: MenuController,
     public toastCtrl: ToastController,
+    public events: Events,
     public alertCtrl: AlertController,
     private geolocation: Geolocation,
     public loadingCtrl: LoadingController,
@@ -44,54 +47,66 @@ export class MainPage {
 
       menu.enable(true);
     	var user = JSON.parse(localStorage.getItem('user'));
+      this.storeDriverToken(user);
     	this.name = user.firstname; 
 
       this.getPanics();
       this.getMyPanics();
+
+      this.events.subscribe('notiTapped:false', (data, time) => {
+        if (this.isAccept == '0') {
+          let confirmAlert = this.alertCtrl.create({
+            title: 'Patient Notification',
+            message: data.message,
+            buttons: [{
+              text: 'Cancel',
+              role: 'cancel'
+            }, {
+              text: 'Accept',
+              handler: () => {
+                this.chkRequestAccept(data['panicID']);
+                /*that.nav.setRoot(MainPage);*/
+              }
+            }]
+          });
+          confirmAlert.present();
+        }
+      });
   }
 
   ionViewDidLoad() {
-    var that = this;
-    console.log('ionViewDidLoad MainPage');
-    FCMPlugin.onNotification(function(data){
-      console.log(data);
-      if(data.wasTapped){
-        alert(JSON.stringify(data));
-      }else{
-        // App is Running
-        //alert(JSON.stringify(data));
-        let confirmAlert = that.alertCtrl.create({
-          title: 'Patient Notification',
-          message: data.message,
-          buttons: [{
+    /*var that = this;
+
+    if (typeof FCMPlugin != 'undefined') {
+      FCMPlugin.onNotification(function(data){
+        if(data.wasTapped){
+          that.chkRequestAccept(data.panicID);
+        }else{
+          let confirmAlert = that.alertCtrl.create({
+            title: 'Patient Notification',
+            message: data.message,
+            buttons: [{
               text: 'Cancel',
               role: 'cancel'
-              /*handler: () => {
-                this.getPanics();
-                this.getMyPanics();
-                confirmAlert.dismiss();
-              }*/
-          }, {
+            }, {
               text: 'Accept',
               handler: () => {
                 that.chkRequestAccept(data.panicID);
               }
-          }]
-        });
-        confirmAlert.present();
-      }
-      },
-      function(msg){
+            }]
+          });
+          confirmAlert.present();
+        }
+      },(msg)=>{
         console.log('onNotification callback successfully registered: ' + msg);
-      },
-      function(err){
+      },(err)=>{
         console.log('Error registering onNotification callback: ' + err);
-    });
-    
-    FCMPlugin.onTokenRefresh(function(token){
-        alert( "onTokenRefresh" );
-    });  
-
+      });
+      
+      FCMPlugin.onTokenRefresh(function(token){
+          console.log("token => ", token)
+      });
+    }*/
   }
 
   chkRequestAccept(id) {
@@ -106,7 +121,7 @@ export class MainPage {
             this.requestAccept(id);
           }
           else
-            this.getToast("Request already accepted by other user!");
+            this.getToast("Request already accepted by another driver!");
         }else {
           this.getToast("Unable to process request, please check your connection !");
         }
@@ -116,7 +131,6 @@ export class MainPage {
   }
 
   requestAccept(id)  {
-
     this.geolocation.getCurrentPosition().then((resp) => {
       let latlng = {lat: resp.coords.latitude, lng: resp.coords.longitude};
       let geocoder = new google.maps.Geocoder;
@@ -148,18 +162,20 @@ export class MainPage {
               this.myPanic = data.message;
               this.initMap(data.message.userLocation, locationData);
             }else {
+              this.loader.dismiss();
               this.getToast("Unable to process request, please check your connection !");
             }
           },(err) => {
+            this.loader.dismiss();
             this.getToast('Unable to process request, please check your connection !');
         });
 
       }); // Get Location based on Lat/Lng Ends     
 
     }).catch((error) => {
+      this.loader.dismiss();
       this.getToast('Unable to process request, please check your connection !');
     });  // Get Lat/Lng Ends
-
   }
 
   getPanics() {
@@ -193,6 +209,11 @@ export class MainPage {
   }
 
   requestCancel(id) {
+    let loader = this.loadingCtrl.create({
+      content: "Please wait..."
+    });
+    loader.present();
+
     var panic = {};
     panic['_id'] = id;
     panic['status'] = 0;
@@ -201,22 +222,23 @@ export class MainPage {
         if (!data.error) {
           this.isAccept = '0';
           this.getPanics();
-          console.log("Cancelled");
           let mpDiv = document.getElementById('map');
           if (mpDiv != null) {
             mpDiv.style.height = '0px';
           }
           this.updateFirebase(id);
+          loader.dismiss();
         }else {
+          loader.dismiss();
           this.getToast("Unable to process request, please check your connection !");
         }
       },(err) => {
+        loader.dismiss();
         this.getToast('Unable to process request, please check your connection !');
     });
   }
 
   updateFirebase(id) {  
-    console.log("Updating Firebase");    
     let itemRef = this.afd.object('panic');
     var d = Math.floor(Date.now() / 1000);
     var key;
@@ -232,7 +254,6 @@ export class MainPage {
           }
         }
       }
-
     });
     setTimeout(()=>{
       this.afd.list(this.firestore).update(key, { timevalue: d }).then(() => {
@@ -242,6 +263,10 @@ export class MainPage {
   }
 
   requestComplete(id) {
+    let loader = this.loadingCtrl.create({
+      content: "Please wait..."
+    });
+    loader.present();
     var panic = {};
     panic['_id'] = id;
     panic['status'] = 2;
@@ -250,27 +275,43 @@ export class MainPage {
         if (!data.error) {
           this.isAccept = '0';
           this.getPanics();
-          console.log("Completed");
           let mpDiv = document.getElementById('map');
           if (mpDiv != null) {
             mpDiv.style.height = '0px';
           }
+          loader.dismiss();
         }else {
+          loader.dismiss();
           this.getToast("Unable to process request, please check your connection !");
         }
       },(err) => {
+        loader.dismiss();
         this.getToast('Unable to process request, please check your connection !');
     });
   }
 
-
   initMap(userLocation, driverLocation) {
-    console.log("map display");
+
+    var myLatLng = new google.maps.LatLng(parseFloat(userLocation.lat), parseFloat(userLocation.lng));
+    let marker = new google.maps.Marker({
+      position: myLatLng,
+      map: map,
+      title: userLocation.address
+    });
+    
+    var myLatLng2 = new google.maps.LatLng(parseFloat(driverLocation.lat), parseFloat(driverLocation.lng));
+    let marker2 = new google.maps.Marker({
+      position: myLatLng2,
+      map: map,
+      title: driverLocation.address,
+      icon: 'assets/imgs/driver.png'
+    });
+
+
     let mpDiv = document.getElementById('map');
     if (mpDiv != null) {
       mpDiv.style.height = '300px';
     }
-    var myLatLng = {lat: parseFloat(userLocation.lat), lng: parseFloat(userLocation.lng)};
 
     var directionsService = new google.maps.DirectionsService;
     var directionsDisplay = new google.maps.DirectionsRenderer;
@@ -281,9 +322,9 @@ export class MainPage {
     directionsDisplay.setMap(map);
 
     directionsService.route({
-        origin: driverLocation.address,
-        destination: userLocation.address,
-        travelMode: 'DRIVING'
+        origin: new google.maps.LatLng(parseFloat(driverLocation.lat), parseFloat(driverLocation.lng)),
+        destination: new google.maps.LatLng(parseFloat(userLocation.lat), parseFloat(userLocation.lng)),
+        travelMode: google.maps.DirectionsTravelMode.DRIVING
       }, function(response, status) {
         if (status === 'OK') {
           directionsDisplay.setDirections(response);
@@ -291,21 +332,6 @@ export class MainPage {
           window.alert('Directions request failed due to ' + status);
         }
       });
-
-    /*let marker = new google.maps.Marker({
-      position: myLatLng,
-      map: map,
-      title: userLocation.address
-    });
-    
-    var myLatLng2 = {lat: parseFloat(driverLocation.lat), lng: parseFloat(driverLocation.lng)};
-    let marker2 = new google.maps.Marker({
-      position: myLatLng2,
-      map: map,
-      title: driverLocation.address,
-      icon: 'assets/imgs/driver.png'
-    });*/
-
   }
   
   getToast(msg){
@@ -314,6 +340,100 @@ export class MainPage {
       duration: 3000
     });
     toast.present();
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  storeDriverToken(data){
+    let itemRef = this.afd.object('drivers');
+    let pushtokens = [];
+    let count = 0;
+    itemRef.snapshotChanges().subscribe(action => {
+
+      let arr = action.payload.val();
+      let pushArr = [];
+
+      for (var k in arr){
+        if (arr.hasOwnProperty(k)) {
+          pushArr.push({'key':k,'userID':arr[k].user['_id']})
+        }
+      }
+      pushtokens = pushArr;
+    });
+
+    setTimeout(()=>{
+      this.tokensetup().then((token) => {
+        if (count < 1) {
+          count++;
+          if (pushtokens && pushtokens.length > 0) {
+            let indx = pushtokens.findIndex((mn)=> mn.userID == data._id)
+            if (indx > -1) {
+              this.updateToken(pushtokens[indx]['key'],token);
+            }else{
+              this.storetoken(token, data)
+            }
+          }else{
+            this.storetoken(token, data)
+          }
+        }
+      })
+    },7000)
+  }
+
+  tokensetup() {
+    var promise = new Promise((resolve, reject) => {
+      FCMPlugin.getToken(function(token){
+        resolve(token);
+      }, (err) => {
+        reject(err);
+      });
+    })
+    return promise;
+  }
+
+  storetoken(token, data) {
+    this.afd.list(this.firestore2).push({
+      user: data,
+      devtoken: token      
+    }).then(() => {
+      console.log('Token stored');
+    })
+  }
+
+  updateToken(key,t){
+    this.afd.list(this.firestore2).update(key, { devtoken: t }).then(() => {
+      console.log('Token Updated');
+    });
   }
 
 }

@@ -43,19 +43,15 @@ export class MainPage {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad MainPage');
-
     if (typeof this.animationDiv != 'undefined') {
       this.animationDiv.nativeElement.style.display = 'none';
     }
-
   }
 
   helpButton() {
-
-    this.msg = "HELP IS ON THE WAY .....";
-
     this.geolocation.getCurrentPosition().then((resp) => {
+      this.msg = "SEARCHING FOR NEARBY HELP. PLEASE HAVE PATIENCE....";
+      
       let latlng = {lat: resp.coords.latitude, lng: resp.coords.longitude};
       let geocoder = new google.maps.Geocoder;
       geocoder.geocode({'location': latlng}, (results, status) => {
@@ -75,8 +71,6 @@ export class MainPage {
         this.panicService.panicAdd(panic).subscribe(
           (data) => {
             if (!data.error) {
-
-
               if (typeof this.animationDiv != 'undefined') {
                 this.animationDiv.nativeElement.style.display = 'block';
               }
@@ -96,25 +90,30 @@ export class MainPage {
                         clearInterval(checkPanicStatus);
                         this.nav.setRoot(MapPage, {panicID:data.message._id});                      
                       }
-                      if(count>10)
-                      {
-                        clearInterval(checkPanicStatus);
+                      if(count>10){
                         this.msg = "No Driver Found...";
+                        if (typeof this.animationDiv != 'undefined') {
+                          this.animationDiv.nativeElement.style.display = 'none';
+                        }
+                        clearInterval(checkPanicStatus);
                       }
                     }
                   });
               }, 20000);
 
             }else {
-              this.getToast("Unable to process request, please check your connection !");
+              this.msg = "";
+              this.getToast("Unable to handle your request. Please try again!");
             }
           },(err) => {
+            this.msg = "";
             this.getToast('Unable to process request, please check your connection !');
           });
 
       });     
 
     }).catch((error) => {
+      this.msg = "";
       this.getToast('Unable to process request, please check your connection !');
     });    
 

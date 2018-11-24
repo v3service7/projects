@@ -1,8 +1,7 @@
 import { Component } from '@angular/core';
-import { NavController, Nav, NavParams } from 'ionic-angular';
+import { NavController, Nav, NavParams, ToastController, LoadingController } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UserService } from '../../app/services/user.service';
-import { ToastController } from 'ionic-angular';
 import { HomePage } from '../home/home';
 
 /**
@@ -79,7 +78,9 @@ export class SignupPage {
   	private userService: UserService,
   	public nav: Nav,
   	private lf: FormBuilder,
-  	public toastCtrl: ToastController) {
+    public toastCtrl: ToastController,
+  	public loadCtrl: LoadingController
+    ) {
   	this.userAddForm = this.lf.group({
       firstname: ['', Validators.required],
       lastname: ['', Validators.required],
@@ -97,10 +98,6 @@ export class SignupPage {
     this.navCtrl.pop();
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad SignupPage');
-  }
-
   checkValidity(){
   	if (this.userAddForm.valid) {
   		return false;
@@ -109,19 +106,15 @@ export class SignupPage {
   	}
   }
 
-
   onValueChanged(data?: any) {
     if (!this.userAddForm) {return;  }
     const form = this.userAddForm;
 
-    // tslint:disable-next-line:forin
     for (const field in this.formErrors) {
-      // clear previous error message (if any)
       this.formErrors[field] = '';
       const control = form.get(field);
       if (control && control.dirty && !control.valid) {
         const messages = this.validationMessages[field];
-        // tslint:disable-next-line:forin
         for (const key in control.errors) {
           this.formErrors[field] += messages[key] + ' ';
         }
@@ -130,21 +123,30 @@ export class SignupPage {
   }
 
   signUp() {
+    let loading = this.loadCtrl.create({
+      content: 'Please wait...'
+    });
+    loading.present();
+
     this.userAddForm.value.role = "Driver";
     this.userAddForm.value.status = false;
   	if (this.userAddForm.value['password'] == this.userAddForm.value['newpassword']) {
 	  	this.userService.registerUser(this.userAddForm.value).subscribe(
 	    (data) => {
 	      if (!data.error) {
+          loading.dismiss();
 	      	this.getToast('Driver Registered Successfully ! Please wait for approval.');
 	        this.nav.setRoot(HomePage);
 	      }else {
+          loading.dismiss();
 	        this.getToast("Email/Username already in use");
 	      }
 	    },(err) => {
+        loading.dismiss();
 	      this.getToast('Something went wrong');
 	    });
   	}else{
+      loading.dismiss();
   		this.getToast('Passwords did not match !');
   	}
   }
