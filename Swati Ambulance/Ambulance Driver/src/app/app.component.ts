@@ -58,6 +58,7 @@ export class MyApp {
 
       if (typeof FCMPlugin != 'undefined') {
         FCMPlugin.onNotification(function(data){
+          /*alert(JSON.stringify(data));*/
           if(data.wasTapped){
             that.nav.setRoot(MainPage);
           }else{

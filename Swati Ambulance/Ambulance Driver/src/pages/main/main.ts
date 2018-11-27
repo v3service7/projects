@@ -54,13 +54,21 @@ export class MainPage {
       this.getMyPanics();
 
       this.events.subscribe('notiTapped:false', (data, time) => {
-        if (this.isAccept == '0') {
+        let count = 0;
+        if (this.isAccept === '0' && count < 1) {
+          count++;
+
+          /*alert(count);*/
           let confirmAlert = this.alertCtrl.create({
             title: 'Patient Notification',
             message: data.message,
             buttons: [{
               text: 'Cancel',
-              role: 'cancel'
+              role: 'cancel',
+              handler: () => {
+                this.getPanics();
+                /*that.nav.setRoot(MainPage);*/
+              }
             }, {
               text: 'Accept',
               handler: () => {
@@ -110,6 +118,7 @@ export class MainPage {
   }
 
   chkRequestAccept(id) {
+    this.events.unsubscribe('notiTapped:false', null);
     this.panicService.panic(id).subscribe(
       (data) => {
         if (!data.error) {
@@ -179,6 +188,7 @@ export class MainPage {
   }
 
   getPanics() {
+    this.events.unsubscribe('notiTapped:false', null);
     this.panicService.panicPendingList().subscribe(
       (data) => {
         if (!data.error) {
