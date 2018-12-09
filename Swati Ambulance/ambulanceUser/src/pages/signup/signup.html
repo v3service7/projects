@@ -1,0 +1,91 @@
+<!--
+  Generated template for the SignupPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<style type="text/css">
+::-webkit-input-placeholder {
+  color: white !important; 
+}
+:-moz-placeholder {
+  color: white !important; 
+}
+:-ms-input-placeholder {
+  /* IE10+ */
+  color: white !important; 
+}
+</style>
+
+<!-- <ion-header>
+
+  <ion-navbar>
+    <ion-title>Sign Up</ion-title>
+  </ion-navbar>
+
+</ion-header> -->
+
+<ion-content padding class="customBackground">
+
+	<ion-row class = "width100 headingRow">
+		<ion-col col-12 text-center>
+			<span style="padding: 0rem 1.5rem;position: absolute;left: 0;" float-left (click)="goBack()"><ion-icon name="arrow-back" ios="ios-arrow-back" md="md-arrow-back"></ion-icon></span>
+			Sign Up
+		</ion-col>
+	</ion-row>
+
+	<ion-list>
+		<form [formGroup]="userAddForm" (ngSubmit)="signUp()">
+			<ion-item class="customItem">
+		    <ion-input type="text" class="customInput" placeholder="First Name" formControlName="firstname"></ion-input>
+		  	</ion-item>
+	    	<ion-row *ngIf="formErrors.firstname" class="alert alert-danger">
+				{{ formErrors.firstname }}
+			</ion-row>
+		  	<ion-item class="customItem">
+		    <ion-input type="text" class="customInput" placeholder="Last Name" formControlName="lastname"></ion-input>
+		  	</ion-item>
+	    	<ion-row *ngIf="formErrors.lastname" class="alert alert-danger">
+	    	{{ formErrors.lastname }}</ion-row>
+		  	<ion-item class="customItem">
+		    <ion-input type="email" class="customInput" placeholder="Email" formControlName="email"></ion-input>
+		  	</ion-item>
+	    	<ion-row *ngIf="formErrors.email" class="alert alert-danger">
+				{{ formErrors.email }}
+			</ion-row>
+		  	<ion-item class="customItem">
+		    <ion-input type="text" class="customInput" placeholder="Mobile Number" formControlName="phonenumber"></ion-input>
+		  	</ion-item>
+	    	<ion-row *ngIf="formErrors.phonenumber" class="alert alert-danger">
+				{{ formErrors.phonenumber }}
+			</ion-row>
+			<!-- <ion-item style="padding:0px !important; border-bottom:none !important;border-top:none;font-size: 14px;margin-top:10px;background:none;border-bottom:1px solid white;box-shadow:none;">
+			<ion-label floating>Emergency Number</ion-label>
+			<ion-input type="text" #emergencynumber></ion-input>
+			</ion-item> -->
+		  	<ion-item class="customItem">
+		    <ion-input type="text" class="customInput" placeholder="Username" formControlName="username"></ion-input>
+		  	</ion-item>
+	    	<ion-row *ngIf="formErrors.username" class="alert alert-danger">
+				{{ formErrors.username }}
+			</ion-row>
+		  	<ion-item class="customItem">
+		    <ion-input type="password" class="customInput" placeholder="Password" formControlName="password"></ion-input>
+		  	</ion-item>
+	    	<ion-row *ngIf="formErrors.password" class="alert alert-danger">
+				{{ formErrors.password }}
+			</ion-row>
+		  	<ion-item class="customItem">
+		    <ion-input type="password" class="customInput" placeholder="Confirm Password" formControlName="newpassword"></ion-input>
+		  	</ion-item>
+	    	<ion-row *ngIf="formErrors.newpassword" class="alert alert-danger">
+				{{ formErrors.newpassword }}
+			</ion-row>
+
+			<button [disabled] = "checkValidity()" block ion-button class="customButton">Register</button>
+		
+		</form>
+	</ion-list>
+
+
+</ion-content>

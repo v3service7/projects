@@ -1,0 +1,83 @@
+<div class="card card-nav-tabs">
+    <div class="card-header" data-background-color="green">
+        <div class="nav-tabs-navigation">
+            <div class="nav-tabs-wrapper">
+                <span class="nav-tabs-title">Ambulances</span>
+                <ul class="nav nav-tabs" data-tabs="tabs">
+                    <li class="active pull-right">
+                        <a  [routerLink]="['/admin/ambulance/add/']">
+                            <i class="material-icons">exposure_plus_1</i> Add Ambulance
+                            <div class="ripple-container"></div>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div>
+        <div class="col-md-6">
+            <input class="form-control" type="text" name="search" [(ngModel)]="txtfilter" placeholder="Search Ambulance">
+        </div>     
+        <div class="col-md-4">
+            <select class="form-control" [(ngModel)]="providerFilter" (change)="getSelectValue();">
+                <option [ngValue]="" selected="selected">All Providers</option>
+                <option *ngFor="let provider of providers" [ngValue]="provider.firstname">{{provider.firstname}}</option>
+            </select>
+        </div>       
+        <div class="col-md-2">
+            <select id="PerPage" class="form-control" [(ngModel)]="pageSize">
+            <option [ngValue]="10">10</option>
+            <option [ngValue]="25">25</option>
+            <option [ngValue]="50">50</option>
+            </select>
+        </div> 
+    </div>
+    <div class="card-content table-responsive">
+        <table class="table" *ngIf="ambulances.length >0">
+            <thead class="text-success">
+                <th class="pointer" (click)="sort('provider.firstname')">Provider <i class="fa" [ngClass]="{'fa-sort': key != 'provider.firstname', 
+                    'fa-sort-asc': (key == 'provider.firstname' && reverse), 
+                    'fa-sort-desc': (key == 'provider.firstname' && !reverse) }"
+                    aria-hidden="true"> </i>
+                </th>
+                <th class="pointer" (click)="sort('driver.firstname')">Driver <i class="fa" [ngClass]="{'fa-sort': key != 'driver.firstname', 
+                    'fa-sort-asc': (key == 'driver.firstname' && reverse), 
+                    'fa-sort-desc': (key == 'driver.firstname' && !reverse) }"
+                    aria-hidden="true"> </i>
+                </th>
+                <th class="pointer" (click)="sort('ambulanceNumber')">Ambulance Number <i class="fa" [ngClass]="{'fa-sort': key != 'ambulanceNumber', 
+                    'fa-sort-asc': (key == 'ambulanceNumber' && reverse), 
+                    'fa-sort-desc': (key == 'ambulanceNumber' && !reverse) }"
+                    aria-hidden="true"> </i>
+                </th>
+                <th class="pointer" (click)="sort('ambulanceDesc')">Ambulance Description <i class="fa" [ngClass]="{'fa-sort': key != 'ambulanceDesc', 
+                    'fa-sort-asc': (key == 'ambulanceDesc' && reverse), 
+                    'fa-sort-desc': (key == 'ambulanceDesc' && !reverse) }"
+                    aria-hidden="true"> </i>
+                </th>
+                <th>Action</th>                
+            </thead>
+            <tbody>
+                <tr *ngFor="let ambulance of ambulances | filter: txtfilter | orderBy: key : reverse | paginate: { itemsPerPage: pageSize, currentPage: p[i], id: id }">
+                    <td class="padding0">{{ambulance.provider.firstname}} {{ambulance.provider.lastname}}</td>
+                    <td class="padding0">{{ambulance.driver.firstname}} {{ambulance.driver.lastname}}</td>
+                    <td class="padding0">{{ambulance.ambulanceNumber}}</td>                    
+                    <td class="padding0">{{ambulance.ambulanceDesc}}</td>
+                    <td class="padding0 td-actions text-right">
+                        <a [routerLink]="['/admin/ambulance/',ambulance._id]" rel="tooltip" title="Edit" class="btn btn-primary btn-simple btn-xs">
+                            <i class="material-icons">edit</i>
+                        </a>
+                        <a rel="tooltip" title="Remove" class="btn btn-danger btn-simple btn-xs" (click)="deleteAmbulance(ambulance._id)">
+                            <i class="material-icons">close</i>
+                        </a>
+                    </td>
+                </tr>
+            </tbody>
+            <pagination-controls (pageChange)="p[i] = $event" [id]="id"></pagination-controls>
+        </table>
+        <div class="alert alert-warning" *ngIf="ambulances.length == 0">
+            <button type="button" aria-hidden="true" class="close">×</button>
+            <span> <b> No Data - </b> Ambulance Empty Kindly create One</span>
+        </div>
+    </div>
+</div>

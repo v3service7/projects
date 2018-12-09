@@ -1,0 +1,84 @@
+import { BrowserModule } from '@angular/platform-browser';
+import { ErrorHandler, NgModule } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
+import { SplashScreen } from '@ionic-native/splash-screen';
+import { StatusBar } from '@ionic-native/status-bar';
+import { HttpModule } from '@angular/http';
+
+import { AngularFireModule } from 'angularfire2';
+import { AngularFireDatabaseModule } from 'angularfire2/database';
+import { Geolocation } from '@ionic-native/geolocation';
+
+import { MyApp } from './app.component';
+import { ForgotPage } from '../pages/forgot/forgot';
+import { HomePage } from '../pages/home/home';
+import { SignupPage } from '../pages/signup/signup';
+import { MainPage } from '../pages/main/main';
+import { MapPage } from '../pages/map/map';
+import { ProfilePage } from '../pages/profile/profile';
+import { PasswordPage } from '../pages/password/password';
+import { UserService } from './services/user.service';
+import { PanicService } from './services/panic.service';
+
+// Initialize Firebase
+/*export const firebaseConfig = {
+  apiKey: "AIzaSyBj0cN1BNqUhcIn3As1kmTwcF2sxr1lzms",
+  authDomain: "ambulance-64e45.firebaseapp.com",
+  databaseURL: "https://ambulance-64e45.firebaseio.com",
+  projectId: "ambulance-64e45",
+  storageBucket: "ambulance-64e45.appspot.com",
+  messagingSenderId: "525296035743"
+};*/
+
+export const firebaseConfig = {
+  apiKey: "AIzaSyDv7GeMyA39zHoLsZt395fZjPfvd-d784U",
+  authDomain: "swati-ambulance.firebaseapp.com",
+  databaseURL: "https://swati-ambulance.firebaseio.com",
+  projectId: "swati-ambulance",
+  storageBucket: "swati-ambulance.appspot.com",
+  messagingSenderId: "281595050197"
+};
+/*firebase.initializeApp(config);*/
+
+@NgModule({
+  declarations: [
+    MyApp,
+    ForgotPage,
+    HomePage,
+    SignupPage,
+    MainPage,
+    MapPage,
+    ProfilePage,
+    PasswordPage
+  ],
+  imports: [
+    BrowserModule,
+    FormsModule,
+    HttpModule,
+    ReactiveFormsModule,
+    IonicModule.forRoot(MyApp),
+    AngularFireModule.initializeApp(firebaseConfig),
+    AngularFireDatabaseModule
+  ],
+  bootstrap: [IonicApp],
+  entryComponents: [
+    MyApp,
+    ForgotPage,
+    HomePage,
+    SignupPage,
+    MainPage,
+    MapPage,
+    ProfilePage,
+    PasswordPage
+  ],
+  providers: [
+    StatusBar,
+    SplashScreen,
+    PanicService,
+    UserService,
+    Geolocation,
+    {provide: ErrorHandler, useClass: IonicErrorHandler}
+  ]
+})
+export class AppModule {}

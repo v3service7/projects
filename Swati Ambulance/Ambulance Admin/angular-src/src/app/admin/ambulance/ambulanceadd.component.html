@@ -1,0 +1,63 @@
+<div class="row">
+	<div class="">
+        <div class="card">
+            <div class="card-header" data-background-color="green">
+                <h4 class="title">Add Ambulance</h4>
+                <p class="category">Create Ambulance for Provider</p>
+            </div>
+            <div class="card-content">
+                <form [formGroup]="ambulanceAddForm" (ngSubmit)="ambulanceAdd()">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group label-floating">
+                                <label class="control-label">Select Provider <span>*</span></label>
+                                <select  formControlName="provider" class="form-control">
+                                    <option *ngFor="let provider of providers" [value]="provider._id">{{provider.firstname}}</option>
+                                </select>
+                            </div>
+                            <div *ngIf="formErrors.provider" class="alert alert-danger">
+                                {{ formErrors.provider }}
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group label-floating">
+                                <label class="control-label">Select Driver <span>*</span></label>
+                                <select  formControlName="driver" class="form-control">
+                                    <option *ngFor="let driver of drivers" [value]="driver._id">{{driver.firstname}}</option>
+                                </select>
+                            </div>
+                            <div *ngIf="formErrors.driver" class="alert alert-danger">
+                                {{ formErrors.driver }}
+                            </div>
+                        </div>
+                    </div>
+                   
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group label-floating">
+                                <label class="control-label">Ambulance Number <span>*</span></label>
+                                <input formControlName="ambulanceNumber" type="text" class="form-control">
+                            </div>
+                            <div *ngIf="formErrors.ambulanceNumber" class="alert alert-danger">
+                                {{ formErrors.ambulanceNumber }}
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group label-floating">
+                                <label class="control-label">Ambulance Description <span>*</span></label>
+                                <input formControlName="ambulanceDesc" type="text" class="form-control">
+                            </div>
+                            <div *ngIf="formErrors.ambulanceDesc" class="alert alert-danger">
+                                {{ formErrors.ambulanceDesc }}
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-success pull-right" [disabled]="!ambulanceAddForm.valid">Save Ambulance</button>
+                    <button type="button" onclick="window.history.back();" class="btn btn-secondary pull-right">Cancel</button>
+                    <div class="clearfix"></div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

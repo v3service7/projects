@@ -1,0 +1,109 @@
+page-main {
+	div.panicButton, div.animateDiv, div.animateDiv2{
+	    position: absolute;
+	    top: 50%;
+	    left: 50%;
+	    transform: translate(-50%,-50%);
+	    background: red;
+	    color: white;
+	    border-radius: 50%;
+	    height: 100px;
+	    width: 100px;
+	}
+
+	.animateDiv{
+		animation: mymove 1s ease-out infinite;
+		background : transparent !important;
+	}
+
+	.animateDiv2{
+		animation: mymove2 1s ease-out infinite;
+		background : transparent !important;
+	}
+
+	@keyframes mymove {
+		0% {
+			border : 2px solid red;
+			height : 100px;
+			width : 100px;
+		}
+		25% {
+			border : 2px solid red;
+			height : 125px;
+			width : 125px;
+		}
+		50% {
+			border : 2px solid red;
+			height : 150px;
+			width : 150px;
+		}
+		75% {
+			border : 2px solid red;
+			height : 125px;
+			width : 125px;
+		}
+		100% {
+			border : 2px solid red;
+			height : 100px;
+			width : 100px;
+		}
+	}
+
+
+	@keyframes mymove2 {
+		0% {
+			border : 2px solid red;
+			height : 125px;
+			width : 125px;
+		}
+		20% {
+			border : 2px solid red;
+			height : 150px;
+			width : 150px;
+		}
+		40% {
+			border : 2px solid red;
+			height : 175px;
+			width : 175px;
+		}
+		60% {
+			border : 2px solid red;
+			height : 200px;
+			width : 200px;
+		}
+		80% {
+			border : 2px solid red;
+			height : 175px;
+			width : 175px;
+		}
+		100% {
+			border : 2px solid red;
+			height : 150px;
+			width : 150px;
+		}
+	}
+
+
+
+	div.panicButton span{
+		position: absolute;
+	    top: 50%;
+	    left: 50%;
+	    -webkit-transform: translate(-50%, -50%);
+	    transform: translate(-50%, -50%);
+	    font-size: 2rem;
+	}
+
+	.panicMessage{
+		position: absolute;
+	    bottom: 10rem;
+	    left: 50%;
+	    transform: translateX(-50%);
+	    width: 100%;
+	}
+
+	.colorWhite{
+		color : white !important;
+		font-size : 2rem;
+	}
+}

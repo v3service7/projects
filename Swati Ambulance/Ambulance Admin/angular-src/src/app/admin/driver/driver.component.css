@@ -1,0 +1,19 @@
+.padding0{text-align: left;padding-left: 0;}
+
+
+.addProviderClass{
+	height: 100%;
+}
+
+.pointer{
+    cursor: pointer;
+}
+
+.radioAppoved{
+	display: flex;
+}
+
+.radioAppoved input{
+	width: inherit;
+    height: inherit;
+}
